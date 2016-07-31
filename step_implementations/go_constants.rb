@@ -1,0 +1,56 @@
+##########################################################################
+# Copyright 2016 ThoughtWorks, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+##########################################################################
+
+require 'socket'
+
+class GoConstants
+  HOSTNAME = Socket.gethostname
+  SERVER_PORT = ENV['GO_SERVER_PORT'] || '8153'
+  SERVER_SSL_PORT = ENV['GO_SERVER_SSL_PORT'] || '8154'
+  SERVER_DIR = Dir['target/go-server-*'].find { |f| File.directory?(f) }
+  AGENT_DIR = Dir['target/go-agent-*'].find { |f| File.directory?(f) }
+  SERVER_MEM = ENV['GAUGE_GO_SERVER_MEM'] || '256m'
+  SERVER_MAX_MEM = ENV['GAUGE_GO_SERVER_MAX_MEM'] || '512m'
+  GO_VERSION = ENV['GO_VERSION'] || '16.6.0'
+  TEMP_DIR = 'target/temp'
+
+  GO_SERVER_BASE_URL = "http://#{HOSTNAME}:#{SERVER_PORT}/go".freeze
+  GO_SERVER_BASE_SSL_URL = "https://#{HOSTNAME}:#{SERVER_SSL_PORT}/go".freeze
+  GO_CONFIG_SCHEMA_VERSION = '84'.freeze
+  GO_AGENT_SYSTEM_PROPERTIES = " -Dagent.get.work.delay=500 \
+                                -Dagent.get.work.interval=500 \
+                                -Dagent.ping.delay=500 \
+                                -Dagent.ping.interval=500 \
+                                -Dgo.gauge.agent=true".freeze
+
+  GO_SERVER_SYSTEM_PROPERTIES = "-Dalways.reload.config.file=true \
+                          -Dcruise.buildCause.producer.interval=1000 \
+                          -Dcruise.material.update.interval=3000 \
+                          -Dcruise.material.update.delay=1000 \
+                          -Dcruise.produce.build.cause.interval=1000 \
+                          -Dcruise.produce.build.cause.delay=1000 \
+                          -Dmaterial.update.idle.interval=1000 \
+                          -Dcruise.xmpp.port=61221 \
+                          -Dcruise.agent.service.refresh.interval=5000 \
+                          -Dcruise.shine.sparql.url=http://localhost:8253/go/shine/sparql.xml \
+                          -Dcruise.shine.stage.feed=http://localhost:8253/go/api/feeds/stages.xml \
+                          -Dagent.connection.timeout=50 \
+                          -Dcruise.unresponsive.job.warning=1 \
+                          -Dcruise.pipelineStatus.cache.interval=800 \
+                          -Dcommand.repo.warning.timeout=30000 \
+                          -Dnew.plugins.framework.enabled=Y \
+                          -DDB_DEBUG_MODE=true".freeze
+end

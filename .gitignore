@@ -1,0 +1,9 @@
+target/
+logs/
+.idea/
+*.out
+reports/
+*.log
+out/
+vendor/bundle/
+.bundle/config

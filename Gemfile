@@ -1,0 +1,12 @@
+source 'https://rubygems.org'
+
+gem 'gauge-ruby'
+gem 'capypage'
+gem 'test-unit'
+gem 'selenium-webdriver'
+gem 'childprocess'
+gem 'rest-client'
+gem 'os'
+gem 'rake'
+gem 'sys-proctable'
+gem 'pry'

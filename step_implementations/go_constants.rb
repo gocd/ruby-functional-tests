@@ -25,7 +25,14 @@ class GoConstants
   SERVER_MEM = ENV['GAUGE_GO_SERVER_MEM'] || '256m'
   SERVER_MAX_MEM = ENV['GAUGE_GO_SERVER_MAX_MEM'] || '512m'
   GO_VERSION = ENV['GO_VERSION'] || '16.6.0'
-  TEMP_DIR = 'target/temp'
+
+  TEMP_DIR = '/tmp/materials'
+  GAUGE_AGENT_DIR = 'target/gauge_agents'
+  CONFIG_PATH = 'resources/config'
+
+  OWASP_ZAP_PATH = '/opt/homebrew-cask/Caskroom/owasp-zap/2.5.0/OWASP-ZAP.app/Contents/MacOS/OWASP-ZAP.sh'
+  ZAP_PROXY_HOST = HOSTNAME
+  ZAP_PROXY_PORT = 8081
 
   GO_SERVER_BASE_URL = "http://#{HOSTNAME}:#{SERVER_PORT}/go".freeze
   GO_SERVER_BASE_SSL_URL = "https://#{HOSTNAME}:#{SERVER_SSL_PORT}/go".freeze
@@ -52,5 +59,6 @@ class GoConstants
                           -Dcruise.pipelineStatus.cache.interval=800 \
                           -Dcommand.repo.warning.timeout=30000 \
                           -Dnew.plugins.framework.enabled=Y \
+                          -Dgo.gauge.server=true \
                           -DDB_DEBUG_MODE=true".freeze
 end

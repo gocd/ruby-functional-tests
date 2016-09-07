@@ -3,6 +3,7 @@ SmokeTest
 
 SmokeTest
 -------------------
+tags: smoke
 
 Setup of contexts
 * SmokeConfiguration - setup
@@ -16,4 +17,5 @@ Setup of contexts
 * Verify stage "1" is "Passed" on pipeline with label "1"
 
 teardown
+_______________
 * With "1" live agents - teardown

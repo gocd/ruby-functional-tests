@@ -20,9 +20,6 @@ module Context
     START_COMMAND = OS.windows? ? %w(cmd /c start-agent.bat) : './agent.sh'
     STOP_COMMAND = OS.windows? ? %w(cmd /c stop-agent.bat) : './stop-agent.sh'
 
-    def initialize
-      @gauge_agent_dir = 'target/gauge_agents'
-    end
 
     def start_an_agent_in(dir)
       raise "Agent already running in the directory #{dir}" if File.exist?("#{dir}/.agent-bootstrapper.running")
@@ -40,7 +37,6 @@ module Context
         process.environment['PRODUCTION_MODE'] = 'N'
         process.environment['GO_SERVER_PORT'] = GoConstants::SERVER_PORT
         process.environment['GO_SERVER_SSH_PORT'] = GoConstants::SERVER_SSL_PORT
-        # process.environment['PID_FILE'] = 'process.pid'
         process.environment['MANUAL_SETTING'] = 'Y'
         process.environment['DAEMON'] = 'Y'
         process.cwd = dir
@@ -50,7 +46,7 @@ module Context
 
     def create_agents(count)
       (1..count.to_i).each do |n|
-        start_an_agent_in "#{@gauge_agent_dir}/agent-#{n}"
+        start_an_agent_in "#{GoConstants::GAUGE_AGENT_DIR}/agent-#{n}"
       end
     end
 
@@ -58,12 +54,17 @@ module Context
       (1..count.to_i).each do |n|
         Bundler.with_clean_env do
           process = ChildProcess.build(STOP_COMMAND)
-          # process.environment['PID_FILE'] = 'process.pid'
-          process.cwd = "#{@gauge_agent_dir}/agent-#{n}"
+          process.detach = true
+          process.cwd = "#{GoConstants::GAUGE_AGENT_DIR}/agent-#{n}"
           process.start
+          begin
+            process.poll_for_exit(10)
+          rescue ChildProcess::TimeoutError
+            process.stop
+          end
         end
       end
-      rm_rf(@gauge_agent_dir)
+      rm_rf(GoConstants::GAUGE_AGENT_DIR)
     end
   end
 end

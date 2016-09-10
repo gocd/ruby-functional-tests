@@ -10,6 +10,7 @@ Setup of contexts
 * Login as "admin" - setup
 * Using pipeline "basic-pipeline-with-git-material" - setup
 * With "1" live agents - setup
+* Capture go state "SmokeTest" - setup
 
 
 * Trigger "basic-pipeline-with-git-material"
@@ -18,4 +19,5 @@ Setup of contexts
 
 teardown
 _______________
+* Capture go state "SmokeTest" - teardown
 * With "1" live agents - teardown

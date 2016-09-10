@@ -72,8 +72,6 @@ module Context
       load_dom(config_dom)
     end
 
-    private
-
     def auth_header
       return unless scenario_state.current_user
       basic_auth = Base64.encode64([scenario_state.current_user, 'badger'].join(':'))

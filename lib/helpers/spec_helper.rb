@@ -18,6 +18,7 @@ require 'helpers/go_url_helper'
 require 'helpers/page_helper'
 require 'helpers/spec_helper'
 require 'helpers/wait_helper'
+require 'context/go_state'
 require 'context/agents'
 require 'context/basic_configuration'
 require 'context/materials'
@@ -73,6 +74,10 @@ module Helpers
 
     def git_materials
       Context::GitMaterials.new
+    end
+
+    def go_state
+      Context::GoState.new
     end
   end
 end

@@ -46,9 +46,9 @@ Capybara.register_driver :selenium do |app|
   end
   cap = case browser
         when :firefox
-          {browser: browser, profile: profile}
+          { browser: browser, profile: profile }
         else
-          {browser: browser}
+          { browser: browser }
         end
   Capybara::Selenium::Driver.new(app, cap)
 end
@@ -63,9 +63,8 @@ module GoCDInitialize
       $zap = Zap.new(target: "http://#{GoConstants::GO_SERVER_BASE_URL}", zap: GoConstants::OWASP_ZAP_PATH.to_s, base: 'http://localhost:8081')
       unless $zap.running?
         $zap.start(daemon: true)
-        until $zap.running?
-          STDERR.puts 'waiting for security proxy...'
-          sleep 1
+        wait_till_event_occurs_or_bomb 60, 'Expected ZAP Proxy to be listening by now' do
+          break if $zap.running?
         end
       end
     end

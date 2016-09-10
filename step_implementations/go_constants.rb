@@ -18,21 +18,19 @@ require 'socket'
 
 class GoConstants
   HOSTNAME = Socket.gethostname
-  SERVER_PORT = ENV['GO_SERVER_PORT'] || '8153'
-  SERVER_SSL_PORT = ENV['GO_SERVER_SSL_PORT'] || '8154'
+  SERVER_PORT = ENV['GO_SERVER_PORT'] || '8253'
+  SERVER_SSL_PORT = ENV['GO_SERVER_SSL_PORT'] || '8254'
   SERVER_DIR = Dir['target/go-server-*'].find { |f| File.directory?(f) }
   AGENT_DIR = Dir['target/go-agent-*'].find { |f| File.directory?(f) }
-  SERVER_MEM = ENV['GAUGE_GO_SERVER_MEM'] || '256m'
-  SERVER_MAX_MEM = ENV['GAUGE_GO_SERVER_MAX_MEM'] || '512m'
-  GO_VERSION = ENV['GO_VERSION'] || '16.6.0'
+  SERVER_MEM = ENV['GAUGE_GO_SERVER_MEM'] || '512m'
+  SERVER_MAX_MEM = ENV['GAUGE_GO_SERVER_MAX_MEM'] || '1024m'
+  GO_VERSION = ENV['GO_VERSION'] || '16.10.0'
 
   TEMP_DIR = '/tmp/materials'
   GAUGE_AGENT_DIR = 'target/gauge_agents'
   CONFIG_PATH = 'resources/config'
 
   OWASP_ZAP_PATH = '/opt/homebrew-cask/Caskroom/owasp-zap/2.5.0/OWASP-ZAP.app/Contents/MacOS/OWASP-ZAP.sh'
-  ZAP_PROXY_HOST = HOSTNAME
-  ZAP_PROXY_PORT = 8081
 
   GO_SERVER_BASE_URL = "http://#{HOSTNAME}:#{SERVER_PORT}/go".freeze
   GO_SERVER_BASE_SSL_URL = "https://#{HOSTNAME}:#{SERVER_SSL_PORT}/go".freeze

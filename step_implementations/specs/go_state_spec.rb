@@ -14,23 +14,10 @@
 # limitations under the License.
 ##########################################################################
 
-module Helpers
-  module GoUrlHelper
+step 'Capture go state <identifier> - setup' do |identifier|
+  go_state.capture_all("target/go_state/#{identifier}/SETUP")
+end
 
-    def http_url(url)
-      "#{GoConstants::GO_SERVER_BASE_URL}#{url}"
-    end
-
-    def https_url(url)
-      "#{GoConstants::GO_SERVER_BASE_SSL_URL}#{url}"
-    end
-
-    def admin_config_url
-      http_url('/api/admin/config.xml')
-    end
-
-    def health_message_url
-      http_url('/server/messages.json')
-    end
-  end
+step 'Capture go state <identifier> - teardown' do |identifier|
+  go_state.capture_all("target/go_state/#{identifier}/TEARDOWN")
 end

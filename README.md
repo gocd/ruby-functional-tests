@@ -26,7 +26,7 @@ Badge](https://cdn.rawgit.com/getgauge/getgauge.github.io/master/Gauge_Badge.svg
 
 ## Running tests
 
-* ```bundle exec gauge specs```
+* ```bundle exec rake```
 
 
 ## License

@@ -16,6 +16,7 @@
 
 require 'rubygems'
 require 'bundler'
+require 'owasp_zap'
 Bundler.setup(:default)
 Bundler.require
 
@@ -23,6 +24,9 @@ require 'fileutils'
 
 $LOAD_PATH << File.expand_path('../../lib', __FILE__)
 require 'helpers/spec_helper'
+include OwaspZap
+
+ZAP_PROXY = ENV['ZAP_PROXY'].to_s || nil
 
 Gauge.configure do |config|
   config.include Helpers::SpecHelper
@@ -31,8 +35,22 @@ Gauge.configure do |config|
 end
 
 Capybara.register_driver :selenium do |app|
-  browser = (ENV['browser'] || 'chrome').to_sym
-  Capybara::Selenium::Driver.new(app, browser: browser)
+  browser = (ENV['browser'] || 'firefox').to_sym
+  if ZAP_PROXY
+    profile = Selenium::WebDriver::Firefox::Profile.new
+    profile['network.proxy.type'] = 1
+    profile['network.proxy.http'] = ZAP_PROXY
+    profile['network.proxy.http_port'] = 8081
+    profile['network.proxy.ssl'] = ZAP_PROXY
+    profile['network.proxy.ssl_port'] = 8081
+  end
+  cap = case browser
+        when :firefox
+          { browser: browser, profile: profile }
+        else
+          { browser: browser }
+        end
+  Capybara::Selenium::Driver.new(app, cap)
 end
 
 Capybara.default_driver = :selenium
@@ -41,10 +59,24 @@ module GoCDInitialize
   before_suite do
     go_server.start
     go_server.wait_to_start
+    if ZAP_PROXY && ['localhost', '127.0.0.1'].include?(ZAP_PROXY)
+      $zap = Zap.new(target: "http://#{GoConstants::GO_SERVER_BASE_URL}", zap: GoConstants::OWASP_ZAP_PATH.to_s, base: 'http://localhost:8081')
+      unless $zap.running?
+        $zap.start(daemon: true)
+        wait_till_event_occurs_or_bomb 60, 'Expected ZAP Proxy to be listening by now' do
+          break if $zap.running?
+        end
+      end
+    end
   end
 
   after_suite do
     go_server.stop
+    if $zap
+      response = RestClient.get 'http://localhost:8081/OTHER/core/other/htmlreport'
+      File.open('target/zap_report.html', 'w') { |file| file.write(response.body) }
+      $zap.shutdown
+    end
   end
 
   after_scenario do

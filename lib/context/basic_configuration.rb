@@ -18,11 +18,6 @@ module Context
   class BasicConfiguration
 
     attr_accessor :config_dom
-    attr_accessor :config_path
-
-    def initialize
-      self.config_path = 'resources/config'
-    end
 
     def load_dom(xml)
       RestClient.post admin_config_url, { xmlFile: xml.to_s, md5: @md5 }, auth_header
@@ -32,7 +27,7 @@ module Context
 
     def get_dom(file)
       get_current_config
-      self.config_dom = Nokogiri::XML(File.read("#{config_path}/#{file}"))
+      self.config_dom = Nokogiri::XML(File.read("#{GoConstants::CONFIG_PATH}/#{file}"))
       config_dom.xpath('//server').first['serverId'] = @serverId
     end
 
@@ -76,8 +71,6 @@ module Context
       scenario_state.set_current_user 'admin'
       load_dom(config_dom)
     end
-
-    private
 
     def auth_header
       return unless scenario_state.current_user

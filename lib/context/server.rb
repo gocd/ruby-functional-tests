@@ -21,7 +21,7 @@ module Context
     DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
 
     def start
-      return if DEVELOPMENT_MODE && server_is_running
+      return if DEVELOPMENT_MODE && server_running?
       Bundler.with_clean_env do
         process = ChildProcess.build(START_COMMAND)
         process.detach = true
@@ -49,14 +49,19 @@ module Context
           process.cwd = GoConstants::SERVER_DIR
           process.start
         end
+        begin
+          process.poll_for_exit(10)
+        rescue ChildProcess::TimeoutError
+          process.stop
+        end
       end
     end
 
-    def server_is_running
-      true if ping_server.code == 200
-    rescue => e
-      puts "Server is not running. Ping to server returned #{e.message}"
-      false
+    def server_running?
+        sleep 5
+        ping_server.code == 200
+      rescue => e
+        false
     end
 
     def ping_server
@@ -67,7 +72,7 @@ module Context
       Timeout.timeout(120) do
         loop do
           begin
-            break if ping_server.code == 200
+            break if server_running?
           rescue Errno::ECONNREFUSED
             sleep 5
           end

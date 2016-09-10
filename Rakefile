@@ -34,7 +34,6 @@ desc 'cleans all directories'
 task :clean do
   rm_rf 'target'
   rm_rf 'reports'
-  mkdir_p 'target/temp'
 end
 
 zips = %w(server agent).each_with_object({}) do |package, accumulator|
@@ -65,7 +64,7 @@ identifiers.each do |package, process_argument|
         $stderr.puts "PID(#{process.pid}) exists after 2 seconds, force killing"
         if ProcTable.ps.find { |each_process| each_process.pid == process.pid }
           if OS.windows?
-            sh("TASKKILL /PID /F #{process/pid}")
+            sh("TASKKILL /PID /F #{process.pid}")
           else
             sh("kill -9 #{process.pid}")
           end

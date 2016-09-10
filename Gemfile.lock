@@ -6,6 +6,7 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.4.0)
     ast (2.3.0)
     capybara (2.3.0)
       mime-types (>= 1.16)
@@ -42,6 +43,9 @@ GEM
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
     os (0.9.6)
+    owasp_zap (0.0.95)
+      addressable
+      rest-client
     parser (2.3.1.2)
       ast (~> 2.2)
     pkg-config (1.1.7)
@@ -86,6 +90,7 @@ DEPENDENCIES
   childprocess
   gauge-ruby
   os
+  owasp_zap
   pry
   rake
   rest-client

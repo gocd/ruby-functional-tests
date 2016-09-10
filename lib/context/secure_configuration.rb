@@ -19,11 +19,11 @@ module Context
     include FileUtils
 
     def copy_password_file(file)
-      cp_r("#{config_path}/#{file}", "#{GoConstants::SERVER_DIR}/config/")
+      cp_r("#{GoConstants::CONFIG_PATH}/#{file}", "#{GoConstants::SERVER_DIR}/config/")
     end
 
     def replace_password_file_path(file)
-      config_dom.xpath('//passwordFile').first['path'] = File.expand_path("#{config_path}/#{file}")
+      config_dom.xpath('//passwordFile').first['path'] = File.expand_path("#{GoConstants::CONFIG_PATH}/#{file}")
     end
 
     def setup(config_file, pwd_file)

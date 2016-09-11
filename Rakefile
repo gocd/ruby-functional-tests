@@ -40,7 +40,7 @@ zips = %w(server agent).each_with_object({}) do |package, accumulator|
   accumulator[package] = if DEVELOPMENT_MODE
                            Dir[File.join('..', GO_TRUNK_DIRNAME, 'installers', 'target', 'distributions', 'zip', "go-#{package}*.zip")].first
                          else
-                           Dir[File.join('target', "go-#{package}*.zip")].first
+                           Dir[File.join('target', 'zip', "go-#{package}*.zip")].first
                          end
 
   accumulator

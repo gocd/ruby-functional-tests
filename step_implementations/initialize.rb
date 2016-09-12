@@ -21,6 +21,7 @@ Bundler.setup(:default)
 Bundler.require
 
 require 'fileutils'
+require_relative 'go_constants'
 
 $LOAD_PATH << File.expand_path('../../lib', __FILE__)
 require 'helpers/spec_helper'

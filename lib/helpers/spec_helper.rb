@@ -24,11 +24,11 @@ require 'context/basic_configuration'
 require 'context/materials'
 require 'context/scenario_state'
 require 'context/secure_configuration'
-require 'context/Server'
+require 'context/server'
 require 'pages/base'
 require 'pages/login'
 require 'pages/agents'
-require 'pages/PipelineDashboard'
+require 'pages/pipelinedashboard'
 
 module Helpers
   module SpecHelper

@@ -14,7 +14,7 @@
 # limitations under the License.
 ##########################################################################
 
-require 'Open3'
+require 'open3'
 module Context
 
   class Materials

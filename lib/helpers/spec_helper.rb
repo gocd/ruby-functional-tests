@@ -28,7 +28,7 @@ require 'context/server'
 require 'pages/base'
 require 'pages/login'
 require 'pages/agents'
-require 'pages/pipelineDashboard'
+require 'pages/pipelinedashboard'
 
 module Helpers
   module SpecHelper

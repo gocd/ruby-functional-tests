@@ -48,11 +48,11 @@ module Context
           process.detach = true
           process.cwd = GoConstants::SERVER_DIR
           process.start
-        end
-        begin
-          process.poll_for_exit(10)
-        rescue ChildProcess::TimeoutError
-          process.stop
+          begin
+            process.poll_for_exit(10)
+          rescue ChildProcess::TimeoutError
+            process.stop
+          end
         end
       end
     end

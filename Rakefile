@@ -34,6 +34,7 @@ desc 'cleans all directories'
 task :clean do
   rm_rf 'target'
   rm_rf 'reports'
+  mkdir_p 'target'
 end
 
 zips = %w(server agent).each_with_object({}) do |package, accumulator|

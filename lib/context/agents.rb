@@ -29,14 +29,12 @@ module Context
       cp_r "#{GoConstants::AGENT_DIR}/.", "#{dir}/"
       Bundler.with_clean_env do
         process = ChildProcess.build(START_COMMAND)
+        process.detach = true
         process.environment['GO_AGENT_SYSTEM_PROPERTIES'] = GoConstants::GO_AGENT_SYSTEM_PROPERTIES
-        process.environment['GO_SERVER'] = '127.0.0.1'
         process.environment['GO_SERVER_URL'] = "https://127.0.0.1:#{GoConstants::SERVER_SSL_PORT}/go"
         process.environment['VNC'] = 'N'
         process.environment['STOP_BEFORE_STARTUP'] = 'N'
         process.environment['PRODUCTION_MODE'] = 'N'
-        process.environment['GO_SERVER_PORT'] = GoConstants::SERVER_PORT
-        process.environment['GO_SERVER_SSH_PORT'] = GoConstants::SERVER_SSL_PORT
         process.environment['MANUAL_SETTING'] = 'Y'
         process.environment['DAEMON'] = 'Y'
         process.cwd = dir
@@ -55,6 +53,9 @@ module Context
         Bundler.with_clean_env do
           process = ChildProcess.build(STOP_COMMAND)
           process.detach = true
+          process.environment['PID_FILE'] = "go-agent.pid"
+          process.environment['MANUAL_SETTING'] = 'Y'
+          process.environment['DAEMON'] = 'Y'
           process.cwd = "#{GoConstants::GAUGE_AGENT_DIR}/agent-#{n}"
           process.start
           begin

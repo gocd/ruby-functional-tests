@@ -14,28 +14,19 @@
 # limitations under the License.
 ##########################################################################
 
-module Helpers
-  module GoUrlHelper
+require 'site_prism'
+require 'test/unit'
+require 'capybara'
 
-    def http_url(url)
-      "#{GoConstants::GO_SERVER_BASE_URL}#{url}"
+
+module Pages
+  class AppBase < SitePrism::Page
+    include Test::Unit::Assertions
+    include Helpers::Wait
+
+    def reload_page
+      sleep 5
+      page.driver.browser.navigate.refresh
     end
-
-    def https_url(url)
-      "#{GoConstants::GO_SERVER_BASE_SSL_URL}#{url}"
-    end
-
-    def admin_config_url
-      http_url('/api/admin/config.xml')
-    end
-
-    def health_message_url
-      http_url('/server/messages.json')
-    end
-
-    def agents_spa_url
-      http_url('/admin/agents')
-    end
-
   end
 end

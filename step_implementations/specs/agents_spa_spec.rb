@@ -14,28 +14,13 @@
 # limitations under the License.
 ##########################################################################
 
-module Helpers
-  module GoUrlHelper
+step "On Agents page" do |count|
+  agents_spa_page.load
+  p 'Agents page loaded' if agents_spa_page.loaded?
+end
 
-    def http_url(url)
-      "#{GoConstants::GO_SERVER_BASE_URL}#{url}"
-    end
-
-    def https_url(url)
-      "#{GoConstants::GO_SERVER_BASE_SSL_URL}#{url}"
-    end
-
-    def admin_config_url
-      http_url('/api/admin/config.xml')
-    end
-
-    def health_message_url
-      http_url('/server/messages.json')
-    end
-
-    def agents_spa_url
-      http_url('/admin/agents')
-    end
-
-  end
+step "Select All agents" do |count|
+  agents_spa_page.select_agent_at(2)
+  agents_spa_page.set_resource('build', false)
+  binding.pry
 end

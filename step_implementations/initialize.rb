@@ -18,6 +18,7 @@ require 'rubygems'
 require 'bundler'
 require 'owasp_zap'
 require 'pry'
+require 'test/unit'
 Bundler.setup(:default)
 Bundler.require
 
@@ -27,6 +28,8 @@ require_relative 'go_constants'
 $LOAD_PATH << File.expand_path('../../lib', __FILE__)
 require 'helpers/spec_helper'
 include OwaspZap
+include Test::Unit::Assertions
+
 
 ZAP_PROXY = ENV['ZAP_PROXY'].to_s || nil
 

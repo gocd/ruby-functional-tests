@@ -61,14 +61,12 @@ module Context
       current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get_pipeline(pipeline)}']/materials/git").each do |material|
         material['url'] = material_path
       end
-      scenario_state.set_current_user 'admin'
       load_dom(current_config)
     end
 
     def reset_config
       self.config_dom = get_current_config
       config_dom.search('//pipelines', '//environments', '//agents', '//security', '//scms', '//security', '//templates').each(&:remove)
-      scenario_state.set_current_user 'admin'
       load_dom(config_dom)
     end
 
@@ -77,5 +75,12 @@ module Context
       basic_auth = Base64.encode64([scenario_state.current_user, 'badger'].join(':'))
       { Authorization: "Basic #{basic_auth}" }
     end
+
+    def setup(config_file)
+      get_dom(config_file)
+      replace_pipeline_names
+      load_dom(config_dom)
+    end
+
   end
 end

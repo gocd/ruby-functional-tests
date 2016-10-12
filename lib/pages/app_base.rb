@@ -15,13 +15,11 @@
 ##########################################################################
 
 require 'site_prism'
-require 'test/unit'
 require 'capybara'
 
 
 module Pages
   class AppBase < SitePrism::Page
-    include Test::Unit::Assertions
     include Helpers::Wait
 
     def reload_page

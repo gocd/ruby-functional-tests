@@ -17,3 +17,11 @@
 step "SmokeConfiguration - setup" do
   secure_configuration.setup 'secure-cruise-config.xml', 'password.properties'
 end
+
+step "Basic Configuration - setup" do
+  basic_configuration.setup 'basic-cruise-config.xml'
+end
+
+step "Multiple agents Configuration - setup" do
+  basic_configuration.setup 'multiple-agents-cruise-config.xml'
+end

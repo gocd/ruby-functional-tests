@@ -17,24 +17,56 @@
 
 <cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="87">
     <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="gauge" />
-    <pipelines group="basic">
-        <pipeline name="basic-pipeline-with-git-material">
-            <materials>
-                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                            <exec command="sleep">
-                                <arg>5</arg>
-                                <runif status="passed"/>
-                            </exec>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
-    </pipelines>
+    <environments>
+	<environment name="Prod">
+	      <agents>
+	              <physical uuid="uuid-random1" />
+	              <physical uuid="uuid-random3" />
+			</agents>
+	</environment>
+	<environment name="Production">
+	      <agents>
+	              <physical uuid="uuid-random4" />
+		  </agents>
+	</environment>
+		<environment name="Prod-new">
+	      <agents>
+	              <physical uuid="uuid-random" />
+      </agents>
+     </environment>
+	<environment name="Uat">
+	      <agents>
+	              <physical uuid="uuid-random2" />
+	              <physical uuid="uuid-random1" />
+      </agents>
+      </environment>
+</environments>
+<agents>
+	<agent hostname="random1" ipaddress="10.232.3.1" uuid="uuid-random1">
+	      <resources>
+	              <resource>win</resource>
+			        <resource>windows</resource>
+              </resources>
+    </agent>
+    <agent hostname="random2" ipaddress="10.232.3.2" uuid="uuid-random2">
+          <resources>
+                  <resource>windows</resource>
+          </resources>
+    </agent>
+    <agent hostname="random3" ipaddress="10.232.3.3" uuid="uuid-random3">
+          <resources>
+                  <resource>Linux</resource>
+        </resources>
+     </agent>
+    <agent hostname="random4" ipaddress="10.1.1.1" uuid="uuid-random4">
+          <resources>
+                  <resource>Linux centos</resource>
+        </resources>
+    </agent>
+        <agent hostname="random" ipaddress="10.1.2.2" uuid="uuid-random">
+          <resources>
+                  <resource>Linux-fedora</resource>
+        </resources>
+    </agent>
+</agents>
 </cruise>

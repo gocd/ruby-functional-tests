@@ -14,19 +14,6 @@
 # limitations under the License.
 ##########################################################################
 
-step "Trigger <pipeline>" do |pipeline|
-  pipeline_dashboard_page.trigger_pipeline pipeline
-  pipeline_dashboard_page.wait_till_pipeline_start_building pipeline,1
-end
-
-step "Looking at pipeline <pipeline>" do |pipeline|
-  Pages::PipelineDashboard.visit
-  scenario_state.set_current_pipeline pipeline
-end
-
-step "Verify stage <stage> is <state> on pipeline with label <label>" do |stage, state, label|
-  pipeline = scenario_state.current_pipeline
-  pipeline_dashboard_page.wait_till_pipeline_complete pipeline, stage
-  pipeline_dashboard_page.verify_pipeline_stage_state pipeline, stage, state
-  pipeline_dashboard_page.verify_pipeline_is_at_label pipeline, label
+step "Reload page" do |count|
+  app_base_page.reload_page
 end

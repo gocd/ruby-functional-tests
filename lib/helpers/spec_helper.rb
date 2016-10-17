@@ -46,6 +46,10 @@ module Helpers
       Pages::AgentsSPA.new
     end
 
+    def app_base_page
+      Pages::AppBase.new
+    end
+
     def pipeline_dashboard_page
       Pages::PipelineDashboard.new
     end

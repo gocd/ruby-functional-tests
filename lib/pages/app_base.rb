@@ -23,8 +23,8 @@ module Pages
     include Helpers::Wait
 
     def reload_page
-      sleep 5
       page.driver.browser.navigate.refresh
+      sleep 5
     end
   end
 end

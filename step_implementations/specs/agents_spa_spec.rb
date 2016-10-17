@@ -27,34 +27,87 @@ step "Select agent <rows>" do |rows|
   rows.split(',').map(&:strip).each { |row| agents_spa_page.select_agent_at row.to_i-1}
 end
 
-step "Add resource <resources>" do |resources|
+step "Add resources <resources>" do |resources|
   agents_spa_page.click_on('Resources')
   resources.split(',').map(&:strip).each { |resource| agents_spa_page.add_resource resource }
   agents_spa_page.apply_changes
 end
 
-step "Remove resource <resources>" do |resources|
+step "Remove resources <resources>" do |resources|
   agents_spa_page.click_on('Resources')
   resources.split(',').map(&:strip).each { |resource| agents_spa_page.set_resource resource, false}
   agents_spa_page.apply_changes
 end
 
-step "Set resource <resources>" do |resources|
+step "Set resources <resources>" do |resources|
   agents_spa_page.click_on('Resources')
   resources.split(',').map(&:strip).each { |resource| agents_spa_page.set_resource resource, true}
   agents_spa_page.apply_changes
 end
 
 step "Verify agent <row> assigned resources <resources>" do |row, resources|
-  assert agents_spa_page.get_listed_agents('Resources')[row.to_i-1].split(',').map(&:strip).eql?resources.split(',').map(&:strip).sort
+  assert_equal resources.split(',').map(&:strip).sort, agents_spa_page.get_listed_agents('Resources')[row.to_i-1].split(',').map(&:strip), "Mismatch in agent assigned resources"
 end
 
-step "Verify agents <hostnames> are displayed" do |hostnames|
-  assert agents_spa_page.get_listed_agents('Agent Name').sort.eql?(hostnames.split(',').map!(&:strip).sort)
+step "Remove environments <envs>" do |envs|
+  agents_spa_page.click_on('Environments')
+  envs.split(',').map(&:strip).each { |env| agents_spa_page.set_environment env, false}
+  agents_spa_page.apply_changes
+end
+
+step "Set environments <envs>" do |envs|
+  agents_spa_page.click_on('Environments')
+  envs.split(',').map(&:strip).each { |env| agents_spa_page.set_environment env, true}
+  agents_spa_page.apply_changes
+end
+
+step "Verify agent <row> assigned environments <envs>" do |row, envs|
+  assert_equal envs.split(',').map(&:strip).sort, agents_spa_page.get_listed_agents('Environments')[row.to_i-1].split(',').map(&:strip), "Mismathc in agent assigned environments"
+end
+
+step "Verify message <message>" do |message|
+  assert_equal message, agents_spa_page.get_message, "Agent modified message mismatch"
+end
+
+step "Verify agents <hostnames> show up in results" do |hostnames|
+  assert_equal (hostnames.split(',').map!(&:strip).sort), agents_spa_page.get_listed_agents('Agent Name').map!(&:strip).sort, "Listed agents not as expected"
 end
 
 step "Sort by <column>" do |column|
-  agents_spa_page.get_listed_agents(column)
+  agents_spa_page.sort_by column
+end
+
+step "Verify agents <column> has values in order as <values>" do |col, val|
+  assert_equal val.split(',').map!(&:strip), agents_spa_page.get_listed_agents(col), "Sort order on #{col} mismatch"
+end
+
+step "<action> agent" do |action|
+  agents_spa_page.click_on action
+end
+
+step "Verify agent <row> status is <status>" do |row, status|
+  assert_equal status, agents_spa_page.get_listed_agents('Status')[row.to_i-1], "Agent at #{row} is not at expected state #{status}"
+end
+
+step "Verify listed agents count is <count>" do |count|
+  assert_equal count.to_i, agents_spa_page.listed_agents_count, "Listed agents count expected to be #{count}"
+end
+
+step "Enter filter value <search>" do |search|
+  agents_spa_page.filter_by(search)
+end
+
+step "Verify total agent count is <count>" do |count|
+  assert_equal count, agents_spa_page.summary_count("Total"), "Total agent count not as expected"
+end
+
+step "Verify agents at state <state> is <count>" do |state, count|
+  assert_equal count.to_i, agents_spa_page.get_agents_count(state), "Expected #{count} agents at state #{state}"
+end
+
+
+step "Wait till agent <row> status is <status>" do |row, status|
+  agents_spa_page.wait_till_agent_status_is status, row
 end
 
 step "With <count> live agents - setup" do |count|

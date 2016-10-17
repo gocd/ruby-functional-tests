@@ -21,6 +21,7 @@ module Pages
     def trigger_pipeline(pipeline)
       Capypage::Page.element :trigger_button, "#deploy-#{scenario_state.get_pipeline(pipeline)}"
       trigger_button.click
+      reload_page
     end
 
     def get_pipeline_stage_state(pipeline, _stage)

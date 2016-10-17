@@ -23,7 +23,7 @@ module Pages
     elements :agents_column, '#agents > div > div.row.expanded > div > table > tbody > tr > td'
     elements :agents_menu, '#agents div header div div.columns.medium-7.large-7 ul'
     element :agent_menu, '#agents div header div div.columns.medium-7.large-7 ul'
-    element :filter, '#filter-agent'
+    element :filter_agent, '#filter-agent'
     elements :agents_summary, '#agents > div > div.search-panel > div > div.columns.medium-6.large-8 > ul > li'
 
     load_validation { has_agents_check_box? }
@@ -36,8 +36,14 @@ module Pages
       agents_row.each_with_index { |val, index| val.find('input[type="checkbox"]').set(true) if index == row }
     end
 
-    def get_idle_agents_count
-      (agents_column text: 'Idle').size
+    def listed_agents_count
+      reload_page
+      wait_for_agents_menu(5)
+      agents_row.size
+    end
+
+    def get_agents_count(state)
+      (agents_column text: state).size
     end
 
     def add_resource(resource)
@@ -50,21 +56,17 @@ module Pages
     end
 
     def set_environment(environment, value)
-      agents_menu[0].all('li.has-dropdown.is-open > div > ul > li').each { |res| res.find('input[type="checkbox"]').set(value) if res.text == environment }
+      agents_menu[0].all('li.has-dropdown.is-open > div > ul > li').each { |env| env.find('input[type="checkbox"]').set(value) if env.text == environment }
     end
 
     def apply_changes()
       agents_menu[0].find('li.has-dropdown.is-open').find('button', text: 'Apply').click
+      wait_for_agents_row(10)
     end
 
     def click_on(action)
       agents_menu[0].find('button', text: action).click
       wait_for_agents_menu(5)
-    end
-
-    def filter(value)
-      filter.set(value)
-      wait_for_agents_summary(3)
     end
 
     def summary_count(label)
@@ -85,11 +87,24 @@ module Pages
       agents_head.find('label', text: column).click
     end
 
+    def filter_by(search_string)
+      filter_agent.set(search_string)
+      wait_for_agents_summary(5)
+    end
+
+    def wait_till_agent_status_is(status, row)
+      wait_till_event_occurs_or_bomb 60, "Expected agent at #{row} to move to status #{status} by now" do
+        reload_page
+        wait_for_agents_menu(5)
+        break if agents_spa_page.get_listed_agents('Status')[row.to_i-1] == status
+      end
+    end
+
     def wait_till_agents_are_idle(count)
       wait_till_event_occurs_or_bomb 60, "Expected #{count} agents be regsitered by now" do
         reload_page
         wait_for_agents_menu(5)
-        break if get_idle_agents_count == count.to_i
+        break if get_agents_count('Idle') == count.to_i
       end
     end
   end

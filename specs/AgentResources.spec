@@ -15,10 +15,11 @@ Setup of contexts
 * Trigger "basic-pipeline-with-job-resources"
 * Verify stage "1" is "Building" on pipeline with label "1"
 
+* On Agents page
 * Verify agents at state "Building" is "0"
-* Select all agents
-* Add resources "test_resource"
-* Wait for agent to show status "Building"
+* Select All agents
+* Set resources "test_resource"
+* Wait till agent "1" status is "Building"
 
 
 teardown

@@ -31,6 +31,7 @@ step "Add resources <resources>" do |resources|
   agents_spa_page.click_on('Resources')
   resources.split(',').map(&:strip).each { |resource| agents_spa_page.add_resource resource }
   agents_spa_page.apply_changes
+  binding.pry
 end
 
 step "Remove resources <resources>" do |resources|

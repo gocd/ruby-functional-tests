@@ -24,9 +24,10 @@ step "Looking at pipeline <pipeline>" do |pipeline|
   scenario_state.set_current_pipeline pipeline
 end
 
+step "Wait till pipeline completed stage <stage>" do |stage|
+  pipeline_dashboard_page.wait_till_pipeline_complete scenario_state.current_pipeline, stage
+end
+
 step "Verify stage <stage> is <state> on pipeline with label <label>" do |stage, state, label|
-  pipeline = scenario_state.current_pipeline
-  pipeline_dashboard_page.wait_till_pipeline_complete pipeline, stage
-  pipeline_dashboard_page.verify_pipeline_stage_state pipeline, stage, state
-  pipeline_dashboard_page.verify_pipeline_is_at_label pipeline, label
+  pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.current_pipeline, stage, state
 end

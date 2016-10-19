@@ -18,12 +18,13 @@ Setup of contexts
 * Trigger "basic-pipeline-fast"
 * Verify stage "1" is "Building" on pipeline with label "1"
 
-* On Agents Page
+* On Agents page
 * Verify agents at state "Building" is "0"
 * Select agent "1"
 * Remove environments "uat"
 
 * Looking at pipeline "basic-pipeline-fast"
+* Wait till pipeline completed stage "1"
 * Verify stage "1" is "Passed" on pipeline with label "1"
 
 teardown

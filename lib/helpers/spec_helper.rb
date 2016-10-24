@@ -26,8 +26,10 @@ require 'context/scenario_state'
 require 'context/secure_configuration'
 require 'context/server'
 require 'pages/base'
+require 'pages/app_base'
 require 'pages/login'
 require 'pages/agents'
+require 'pages/agents_spa'
 require 'pages/pipelinedashboard'
 
 module Helpers
@@ -38,6 +40,14 @@ module Helpers
 
     def agents_page
       Pages::Agents.new
+    end
+
+    def agents_spa_page
+      Pages::AgentsSPA.new
+    end
+
+    def app_base_page
+      Pages::AppBase.new
     end
 
     def pipeline_dashboard_page

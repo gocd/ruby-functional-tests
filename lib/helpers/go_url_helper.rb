@@ -32,5 +32,10 @@ module Helpers
     def health_message_url
       http_url('/server/messages.json')
     end
+
+    def agents_spa_url
+      http_url('/admin/agents')
+    end
+
   end
 end

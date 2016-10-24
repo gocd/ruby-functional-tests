@@ -24,7 +24,7 @@ class GoConstants
   AGENT_DIR = Dir['target/go-agent-*'].find { |f| File.directory?(f) }
   SERVER_MEM = ENV['GAUGE_GO_SERVER_MEM'] || '512m'
   SERVER_MAX_MEM = ENV['GAUGE_GO_SERVER_MAX_MEM'] || '1024m'
-  GO_VERSION = ENV['GO_VERSION'] || '16.10.0'
+  GO_VERSION = ENV['GO_VERSION'] || '16.11.0'
 
   TEMP_DIR = '/tmp/materials'
   GAUGE_AGENT_DIR = 'target/gauge_agents'

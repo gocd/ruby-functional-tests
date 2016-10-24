@@ -17,5 +17,6 @@
 step "Using pipeline <pipeline> - setup" do |pipelines|
   pipelines.split('/s*,/s*').each {|pipeline|
     git_materials.setup_material_for pipeline
+    basic_configuration.remove_pipelines_except pipeline
   }
 end

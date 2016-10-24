@@ -22,7 +22,7 @@ module Helpers
       Timeout.timeout(wait_time) do
         loop do
           yield if block_given?
-          sleep 0.1
+          sleep 1
         end
       end
     rescue Timeout::Error

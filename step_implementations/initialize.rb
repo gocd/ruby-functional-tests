@@ -17,6 +17,8 @@
 require 'rubygems'
 require 'bundler'
 require 'owasp_zap'
+require 'pry'
+require 'test/unit'
 Bundler.setup(:default)
 Bundler.require
 
@@ -26,6 +28,8 @@ require_relative 'go_constants'
 $LOAD_PATH << File.expand_path('../../lib', __FILE__)
 require 'helpers/spec_helper'
 include OwaspZap
+include Test::Unit::Assertions
+
 
 ZAP_PROXY = ENV['ZAP_PROXY'].to_s || nil
 
@@ -36,7 +40,7 @@ Gauge.configure do |config|
 end
 
 Capybara.register_driver :selenium do |app|
-  browser = (ENV['browser'] || 'firefox').to_sym
+  browser = (ENV['browser'] || 'chrome').to_sym
   if ZAP_PROXY
     profile = Selenium::WebDriver::Firefox::Profile.new
     profile['network.proxy.type'] = 1

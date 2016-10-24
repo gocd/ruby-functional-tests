@@ -14,13 +14,17 @@
 # limitations under the License.
 ##########################################################################
 
-step "With <count> live agents - setup" do |count|
-  go_agents.create_agents count
-  Pages::Agents.visit
-  agents_page.wait_till_agents_are_idle count
-end
+require 'site_prism'
+require 'capybara'
 
 
-step "With <count> live agents - teardown" do |count|
-  go_agents.destroy_agents count
+module Pages
+  class AppBase < SitePrism::Page
+    include Helpers::Wait
+
+    def reload_page
+      page.driver.browser.navigate.refresh
+      sleep 5
+    end
+  end
 end

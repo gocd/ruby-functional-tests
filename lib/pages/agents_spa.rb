@@ -18,13 +18,14 @@ module Pages
   class AgentsSPA < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/agents"
 
-    element :agents_head, '#agents > div > div.row.expanded > div > table > thead > tr'
-    elements :agents_row, '#agents > div > div.row.expanded > div > table > tbody > tr'
-    elements :agents_column, '#agents > div > div.row.expanded > div > table > tbody > tr > td'
+    element :agents_head, '#agents > div > div.agent-header-panel > div.row.expanded > div > table > thead > tr' #'#agents > div > div.row.expanded > div > table > thead > tr'
+    elements :agents_row, '#agents > div > div.row.expanded.agents-table-body > div > table > tbody > tr' #'#agents > div > div.row.expanded > div > table > tbody > tr'
+    elements :agents_column, '#agents > div > div.row.expanded.agents-table-body > div > table > tbody > tr > td'
     elements :agents_menu, '#agents div header div div.columns.medium-7.large-7 ul'
     element :agent_menu, '#agents div header div div.columns.medium-7.large-7 ul'
     element :filter_agent, '#filter-agent'
-    elements :agents_summary, '#agents > div > div.search-panel > div > div.columns.medium-6.large-8 > ul > li'
+    elements :agents_summary, '#agents > div > div.agent-header-panel > div.search-panel > div > div.columns.medium-6.large-8 > ul > li' #'#agents > div > div.search-panel > div > div.columns.medium-6.large-8 > ul > li'
+
 
     load_validation { has_agents_check_box? }
 
@@ -61,7 +62,6 @@ module Pages
 
     def apply_changes()
       agents_menu[0].find('li.has-dropdown.is-open').find('button', text: 'Apply').click
-      wait_for_agents_row(10)
     end
 
     def click_on(action)
@@ -80,7 +80,7 @@ module Pages
     end
 
     def get_message
-      find('#agents > div > div:nth-child(3) > div').text
+      find('#agents > div > div.agent-header-panel > div.row.expanded.message > div').text
     end
 
     def sort_by(column)

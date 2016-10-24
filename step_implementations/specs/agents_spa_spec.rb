@@ -31,7 +31,6 @@ step "Add resources <resources>" do |resources|
   agents_spa_page.click_on('Resources')
   resources.split(',').map(&:strip).each { |resource| agents_spa_page.add_resource resource }
   agents_spa_page.apply_changes
-  binding.pry
 end
 
 step "Remove resources <resources>" do |resources|
@@ -63,7 +62,7 @@ step "Set environments <envs>" do |envs|
 end
 
 step "Verify agent <row> assigned environments <envs>" do |row, envs|
-  assert_equal envs.split(',').map(&:strip).sort, agents_spa_page.get_listed_agents('Environments')[row.to_i-1].split(',').map(&:strip), "Mismathc in agent assigned environments"
+  assert_equal envs.split(',').map(&:strip).sort, agents_spa_page.get_listed_agents('Environments')[row.to_i-1].split(',').map(&:strip), "Mismatch in agent assigned environments"
 end
 
 step "Verify message <message>" do |message|

@@ -9,7 +9,7 @@ Setup of contexts
 * Basic Configuration - setup
 * Using pipeline "basic-pipeline-fast" - setup
 * With "1" live agents - setup
- Capture go state "AgentInEnvironmentShouldNotSchedule" - setup
+* Capture go state "AgentInEnvironmentShouldNotSchedule" - setup
 
 * Select agent "1"
 * Set environments "uat"
@@ -29,5 +29,5 @@ Setup of contexts
 
 teardown
 _______________
-Capture go state "AgentInEnvironmentShouldNotSchedule" - teardown
+* Capture go state "AgentInEnvironmentShouldNotSchedule" - teardown
 * With "1" live agents - teardown

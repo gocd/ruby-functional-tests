@@ -9,7 +9,7 @@ Setup of contexts
 * Basic Configuration - setup
 * Using pipeline "basic-pipeline-with-long-running-job" - setup
 * With "4" live agents - setup
- Capture go state "AgentsUIScreen" - setup
+* Capture go state "AgentsUIScreen" - setup
 
 Resource Assignment
 
@@ -112,9 +112,7 @@ Delete agent
 * Verify listed agents count is "3"
 
 
-
-
 teardown
 _______________
-Capture go state "AgentsUIScreen" - teardown
+* Capture go state "AgentsUIScreen" - teardown
 * With "4" live agents - teardown

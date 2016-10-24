@@ -8,7 +8,7 @@ tags: agentsfilter, agentsUI
 Setup of contexts
 * Multiple agents Configuration - setup
 * With "1" live agents - setup
- Capture go state "AgentsFilter" - setup
+* Capture go state "AgentsFilter" - setup
 
 Hostnames as search string
  * Enter filter value "random"
@@ -63,5 +63,5 @@ Hostnames as search string
 
 teardown
 _______________
-Capture go state "AgentsFilter" - teardown
+* Capture go state "AgentsFilter" - teardown
 * With "1" live agents - teardown

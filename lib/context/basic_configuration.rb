@@ -70,6 +70,17 @@ module Context
       load_dom(config_dom)
     end
 
+    def remove_pipelines_except(except_pipeline)
+      self.config_dom = get_current_config
+      config_dom.xpath('//cruise/pipelines/pipeline').each do |pipeline|
+        pipeline.remove unless pipeline['name'].eql?(scenario_state.get_pipeline(except_pipeline))
+      end
+      config_dom.xpath('//environments/environment/pipelines/pipeline').each do |env|
+        env.remove unless env['name'].eql?(scenario_state.get_pipeline(except_pipeline))
+      end
+      load_dom(config_dom)
+    end
+
     def auth_header
       return unless scenario_state.current_user
       basic_auth = Base64.encode64([scenario_state.current_user, 'badger'].join(':'))

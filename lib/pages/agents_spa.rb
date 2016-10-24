@@ -27,7 +27,7 @@ module Pages
     elements :agents_summary, '#agents > div > div.agent-header-panel > div.search-panel > div > div.columns.medium-6.large-8 > ul > li' #'#agents > div > div.search-panel > div > div.columns.medium-6.large-8 > ul > li'
 
 
-    load_validation { has_agents_check_box? }
+    load_validation { has_agents_head? }
 
     def select_all_agents
       agents_head.find('input[type="checkbox"]').set(true)

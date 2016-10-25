@@ -93,7 +93,7 @@ module Pages
     end
 
     def wait_till_agent_status_is(status, row)
-      wait_till_event_occurs_or_bomb 60, "Expected agent at #{row} to move to status #{status} by now" do
+      wait_till_event_occurs_or_bomb 120, "Expected agent at #{row} to move to status #{status} by now" do
         reload_page
         wait_for_agents_menu(5)
         break if agents_spa_page.get_listed_agents('Status')[row.to_i-1] == status
@@ -101,7 +101,7 @@ module Pages
     end
 
     def wait_till_agents_are_idle(count)
-      wait_till_event_occurs_or_bomb 60, "Expected #{count} agents be regsitered by now" do
+      wait_till_event_occurs_or_bomb 120, "Expected #{count} agents be regsitered by now" do
         reload_page
         wait_for_agents_menu(5)
         break if get_agents_count('Idle') == count.to_i

@@ -15,12 +15,15 @@
 ##########################################################################
 
 require 'site_prism'
-require 'capybara'
-
+require 'Capybara/dsl'
 
 module Pages
   class AppBase < SitePrism::Page
     include Helpers::Wait
+
+    def resize()
+      page.driver.browser.manage.window.resize_to(1240, 1024)
+    end
 
     def reload_page
       page.driver.browser.navigate.refresh

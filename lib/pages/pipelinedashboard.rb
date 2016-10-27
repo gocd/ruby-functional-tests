@@ -15,22 +15,22 @@
 ##########################################################################
 
 module Pages
-  class PipelineDashboard < Base
+  class PipelineDashboard < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/pipelines"
 
     def trigger_pipeline(pipeline)
-      Capypage::Page.element :trigger_button, "#deploy-#{scenario_state.get_pipeline(pipeline)}"
+      SitePrism::Page.element :trigger_button, "#deploy-#{scenario_state.get_pipeline(pipeline)}"
       trigger_button.click
       reload_page
     end
 
     def get_pipeline_stage_state(pipeline, _stage)
-      Capypage::Page.element :latest_stage, "#pipeline_#{scenario_state.get_pipeline(pipeline)}_panel > div.pipeline_instance > div.status.details > div.pipeline_instance_details > div.stages > div"
+      SitePrism::Page.element :latest_stage, "#pipeline_#{scenario_state.get_pipeline(pipeline)}_panel > div.pipeline_instance > div.status.details > div.pipeline_instance_details > div.stages > div"
       latest_stage.text
     end
 
     def verify_pipeline_is_at_label(pipeline, label)
-      Capypage::Page.element :label_text, "#pipeline_#{scenario_state.get_pipeline(pipeline)}_panel > div.pipeline_instance > div.status.details > div.label > a"
+      SitePrism::Page.element :label_text, "#pipeline_#{scenario_state.get_pipeline(pipeline)}_panel > div.pipeline_instance > div.status.details > div.label > a"
       assert_equal label_text.text, label
     end
 

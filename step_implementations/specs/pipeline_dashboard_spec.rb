@@ -20,7 +20,7 @@ step "Trigger <pipeline>" do |pipeline|
 end
 
 step "Looking at pipeline <pipeline>" do |pipeline|
-  Pages::PipelineDashboard.visit
+  pipeline_dashboard_page.load
   scenario_state.set_current_pipeline pipeline
 end
 

@@ -114,6 +114,7 @@ step "With <count> live agents - setup" do |count|
   go_agents.create_agents count
   agents_spa_page.load
   p 'Agents page loaded' if agents_spa_page.loaded?
+  agents_spa_page.resize
   agents_spa_page.wait_till_agents_are_idle count
 end
 

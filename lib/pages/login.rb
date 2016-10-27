@@ -15,7 +15,7 @@
 ##########################################################################
 
 module Pages
-  class Login < Base
+  class Login < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/auth/login"
 
     element :username, '#user_login'

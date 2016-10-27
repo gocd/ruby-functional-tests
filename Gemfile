@@ -1,9 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'gauge-ruby'
-gem 'capypage'
 gem 'test-unit'
-gem 'selenium-webdriver'
+gem 'selenium-webdriver', '~> 2.53'
 gem 'childprocess'
 gem 'rest-client'
 gem 'os'

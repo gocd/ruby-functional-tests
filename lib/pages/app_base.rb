@@ -15,7 +15,7 @@
 ##########################################################################
 
 require 'site_prism'
-require 'Capybara/dsl'
+require 'capybara/dsl'
 
 module Pages
   class AppBase < SitePrism::Page

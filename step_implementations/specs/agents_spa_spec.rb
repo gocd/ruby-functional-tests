@@ -57,6 +57,7 @@ end
 
 step "Set environments <envs>" do |envs|
   agents_spa_page.click_on('ENVIRONMENTS')
+  sleep 2 # added it to avoid the flakiness in selcting the environment name from the environments box. Need to find better way to handle the flakiness
   envs.split(',').map(&:strip).each { |env| agents_spa_page.set_environment env, true}
   agents_spa_page.apply_changes
 end

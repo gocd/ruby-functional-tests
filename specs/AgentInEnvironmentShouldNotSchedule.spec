@@ -3,7 +3,7 @@ AgentInEnvironmentShouldNotSchedule
 
 AgentInEnvironmentShouldNotSchedule
 -------------------
-tags: agents management, agents_spa
+tags: agents management, agents_spa, test
 
 Setup of contexts
 * Basic Configuration - setup
@@ -13,6 +13,7 @@ Setup of contexts
 
 * Select agent "1"
 * Set environments "uat"
+* Verify agent "1" assigned environments "uat"
 
 * Looking at pipeline "basic-pipeline-fast"
 * Trigger "basic-pipeline-fast"

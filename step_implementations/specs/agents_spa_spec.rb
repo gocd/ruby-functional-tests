@@ -41,6 +41,7 @@ end
 
 step "Set resources <resources>" do |resources|
   agents_spa_page.click_on('RESOURCES')
+  sleep 2 # added it to avoid the flakiness in selcting the resource name from the resources box. Need to find better way to handle the flakiness
   resources.split(',').map(&:strip).each { |resource| agents_spa_page.set_resource resource, true}
   agents_spa_page.apply_changes
 end

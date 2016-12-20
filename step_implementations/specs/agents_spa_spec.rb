@@ -28,19 +28,19 @@ step "Select agent <rows>" do |rows|
 end
 
 step "Add resources <resources>" do |resources|
-  agents_spa_page.click_on('Resources')
+  agents_spa_page.click_on('RESOURCES')
   resources.split(',').map(&:strip).each { |resource| agents_spa_page.add_resource resource }
   agents_spa_page.apply_changes
 end
 
 step "Remove resources <resources>" do |resources|
-  agents_spa_page.click_on('Resources')
+  agents_spa_page.click_on('RESOURCES')
   resources.split(',').map(&:strip).each { |resource| agents_spa_page.set_resource resource, false}
   agents_spa_page.apply_changes
 end
 
 step "Set resources <resources>" do |resources|
-  agents_spa_page.click_on('Resources')
+  agents_spa_page.click_on('RESOURCES')
   resources.split(',').map(&:strip).each { |resource| agents_spa_page.set_resource resource, true}
   agents_spa_page.apply_changes
 end
@@ -50,13 +50,13 @@ step "Verify agent <row> assigned resources <resources>" do |row, resources|
 end
 
 step "Remove environments <envs>" do |envs|
-  agents_spa_page.click_on('Environments')
+  agents_spa_page.click_on('ENVIRONMENTS')
   envs.split(',').map(&:strip).each { |env| agents_spa_page.set_environment env, false}
   agents_spa_page.apply_changes
 end
 
 step "Set environments <envs>" do |envs|
-  agents_spa_page.click_on('Environments')
+  agents_spa_page.click_on('ENVIRONMENTS')
   envs.split(',').map(&:strip).each { |env| agents_spa_page.set_environment env, true}
   agents_spa_page.apply_changes
 end
@@ -82,7 +82,7 @@ step "Verify agents <column> has values in order as <values>" do |col, val|
 end
 
 step "<action> agent" do |action|
-  agents_spa_page.click_on action
+  agents_spa_page.click_on action.upcase
 end
 
 step "Verify agent <row> status is <status>" do |row, status|

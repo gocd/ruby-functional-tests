@@ -16,16 +16,15 @@
 
 module Pages
   class AgentsSPA < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/agents"
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/agents"
 
-    element :agents_head, '#agents > div > div.agent-header-panel > div.row.expanded > div > table > thead > tr' #'#agents > div > div.row.expanded > div > table > thead > tr'
-    elements :agents_row, '#agents > div > div.row.expanded.agents-table-body > div > table > tbody > tr' #'#agents > div > div.row.expanded > div > table > tbody > tr'
+    element :agents_head, '#agents > div > div.header-panel > div.row.expanded > div > table > thead > tr'
+    elements :agents_row, '#agents > div > div.row.expanded.agents-table-body > div > table > tbody > tr'
     elements :agents_column, '#agents > div > div.row.expanded.agents-table-body > div > table > tbody > tr > td'
-    elements :agents_menu, '#agents div header div div.columns.medium-7.large-7 ul'
+    elements :agents_menu, '#agents div div.header-panel header div div.columns.medium-7.large-7 ul'
     element :agent_menu, '#agents div header div div.columns.medium-7.large-7 ul'
     element :filter_agent, '#filter-agent'
-    elements :agents_summary, '#agents > div > div.agent-header-panel > div.search-panel > div > div.columns.medium-6.large-8 > ul > li' #'#agents > div > div.search-panel > div > div.columns.medium-6.large-8 > ul > li'
-
+    elements :agents_summary, '#agents > div > div.header-panel > div.search-panel > div > div.columns.medium-6.large-8 > ul > li'
 
     load_validation { has_agents_head? }
 
@@ -35,6 +34,7 @@ module Pages
 
     def select_agent_at(row)
       agents_row.each_with_index { |val, index| val.find('input[type="checkbox"]').set(true) if index == row }
+      agents_row[row].find('input[type="checkbox"]').set(true)
     end
 
     def listed_agents_count
@@ -49,7 +49,7 @@ module Pages
 
     def add_resource(resource)
       agents_menu[0].find('li.has-dropdown.is-open').find('input[type="text"]').set resource
-      agents_menu[0].find('li.has-dropdown.is-open').find('button', text: 'Add').click
+      agents_menu[0].find('li.has-dropdown.is-open').find('button', text: 'ADD').click
     end
 
     def set_resource(resource, value)
@@ -60,8 +60,8 @@ module Pages
       agents_menu[0].all('li.has-dropdown.is-open > div > ul > li').each { |env| env.find('input[type="checkbox"]').set(value) if env.text == environment }
     end
 
-    def apply_changes()
-      agents_menu[0].find('li.has-dropdown.is-open').find('button', text: 'Apply').click
+    def apply_changes
+      agents_menu[0].find('li.has-dropdown.is-open').find('button', text: 'APPLY').click
     end
 
     def click_on(action)
@@ -80,7 +80,7 @@ module Pages
     end
 
     def get_message
-      find('#agents > div > div.agent-header-panel > div.row.expanded.message > div').text
+      find('#agents > div > div.header-panel > div.row.expanded.message > div').text
     end
 
     def sort_by(column)

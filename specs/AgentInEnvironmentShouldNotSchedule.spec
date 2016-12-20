@@ -3,7 +3,7 @@ AgentInEnvironmentShouldNotSchedule
 
 AgentInEnvironmentShouldNotSchedule
 -------------------
-tags: agents management, agents
+tags: agents management, agents_spa
 
 Setup of contexts
 * Basic Configuration - setup

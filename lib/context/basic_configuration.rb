@@ -64,6 +64,14 @@ module Context
       load_dom(current_config)
     end
 
+    def set_config_repo(config_repo_path,idx)
+      current_config = get_current_config
+      current_config.xpath("//cruise/config-repos/config-repo[#{idx}]/git").each do |config_repo|
+        config_repo['url'] = config_repo_path
+      end
+      load_dom(current_config)
+    end
+
     def reset_config
       self.config_dom = get_current_config
       config_dom.search('//pipelines', '//environments', '//agents', '//security', '//scms', '//security', '//templates').each(&:remove)

@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2016 ThoughtWorks, Inc.
+# Copyright 2017 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,22 +14,7 @@
 # limitations under the License.
 ##########################################################################
 
-step "SmokeConfiguration - setup" do
-  secure_configuration.setup 'secure-cruise-config.xml', 'password.properties'
-end
 
-step "Basic Configuration - setup" do
-  basic_configuration.setup 'basic-cruise-config.xml'
-end
-
-step "Multiple agents Configuration - setup" do
-  basic_configuration.setup 'multiple-agents-cruise-config.xml'
-end
-
-step "Config repos Configuration - setup" do
-  basic_configuration.setup 'with-config-repo-cruise-config.xml'
-end
-
-step "Config repo git repository - setup" do
-  basic_configuration.setup 'with-config-repo-cruise-config.xml'
+step "Create a new config repo pipeline with name <pipeline> on repo <repo> as downstream of <upstream>" do |pipeline, repo, upstream|
+  Context::ConfigRepoMaterial.new.setup(pipeline, repo.to_i, upstream)
 end

@@ -97,6 +97,8 @@ namespace :plugins do
     else
       cp_r 'target/go-plugins-dist/.', "target/go-server-#{VERSION_NUMBER}/plugins/external"
     end
+    cp_r 'plugins/.', "target/go-server-#{VERSION_NUMBER}/plugins/external"
+    #sh "wget https://github.com/tomzo/gocd-json-config-plugin/releases/download/0.2.0/json-config-plugin-0.2.jar -O target/go-server-#{VERSION_NUMBER}/plugins/external/json-config-plugin-0.2.jar"
     rm "target/go-server-#{VERSION_NUMBER}/plugins/external/yum-repo-exec-poller.jar"
   end
 end

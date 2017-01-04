@@ -40,7 +40,7 @@ Gauge.configure do |config|
 end
 
 Capybara.register_driver :selenium do |app|
-  browser = (ENV['browser'] || 'chrome').to_sym
+  browser = (ENV['browser'] || 'firefox').to_sym
   if ZAP_PROXY
     profile = Selenium::WebDriver::Firefox::Profile.new
     profile['network.proxy.type'] = 1

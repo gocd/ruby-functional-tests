@@ -25,3 +25,11 @@ end
 step "Multiple agents Configuration - setup" do
   basic_configuration.setup 'multiple-agents-cruise-config.xml'
 end
+
+step "Config repos Configuration - setup" do
+  basic_configuration.setup 'with-config-repo-cruise-config.xml'
+end
+
+step "Config repo git repository - setup" do
+  basic_configuration.setup 'with-config-repo-cruise-config.xml'
+end

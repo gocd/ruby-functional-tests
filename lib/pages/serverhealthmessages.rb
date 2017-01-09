@@ -14,21 +14,27 @@
 # limitations under the License.
 ##########################################################################
 
-require 'site_prism'
-require 'capybara/dsl'
-
 module Pages
-  class AppBase < SitePrism::Page
-    include Helpers::Wait
-    include Helpers::GeneralHelper
+  class ServerHealthMessage < AppBase
 
-    def resize()
-      page.driver.browser.manage.window.resize_to(1240, 1024)
+    element :message_notifier, '#cruise_message_counts > a > span > span'
+    element :health_messages, '#cruise_message_body'
+
+    def wait_for_server_health_message
+      wait_till_event_occurs_or_bomb 30, "Server Health Message not shown" do
+        reload_page
+        break if page.has_css?('#cruise_message_counts > a')
+      end
     end
 
-    def reload_page
-      page.driver.browser.navigate.refresh
-      sleep 5
+    def verify_message_notifier_showsup
+      assert message_notifier.visible?
     end
+
+    def verify_message_displayed(msg)
+      message_notifier.click
+      assert health_messages.all('div > div.description').map{|available_msg| available_msg.text.include?(sanitize_message msg)}.include?(true)
+    end
+
   end
 end

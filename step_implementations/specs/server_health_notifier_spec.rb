@@ -14,21 +14,14 @@
 # limitations under the License.
 ##########################################################################
 
-require 'site_prism'
-require 'capybara/dsl'
+step "Verify server health message is shown" do |pipeline|
+  server_health_message.verify_message_notifier_showsup
+end
 
-module Pages
-  class AppBase < SitePrism::Page
-    include Helpers::Wait
-    include Helpers::GeneralHelper
+step "Verify server health message <message> is shown" do |msg|
+  server_health_message.verify_message_displayed(msg)
+end
 
-    def resize()
-      page.driver.browser.manage.window.resize_to(1240, 1024)
-    end
-
-    def reload_page
-      page.driver.browser.navigate.refresh
-      sleep 5
-    end
-  end
+step "Wait for server health message" do
+  server_health_message.wait_for_server_health_message
 end

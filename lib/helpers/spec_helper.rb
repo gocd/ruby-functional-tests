@@ -18,6 +18,7 @@ require 'helpers/go_url_helper'
 require 'helpers/page_helper'
 require 'helpers/spec_helper'
 require 'helpers/wait_helper'
+require 'helpers/general_helper'
 require 'context/go_state'
 require 'context/agents'
 require 'context/basic_configuration'
@@ -25,10 +26,13 @@ require 'context/materials'
 require 'context/scenario_state'
 require 'context/secure_configuration'
 require 'context/server'
+require 'context/pipeline'
 require 'pages/app_base'
 require 'pages/login'
 require 'pages/agents_spa'
 require 'pages/pipelinedashboard'
+require 'pages/serverhealthmessages'
+
 
 module Helpers
   module SpecHelper
@@ -48,6 +52,10 @@ module Helpers
       Pages::PipelineDashboard.new
     end
 
+    def server_health_message
+      Pages::ServerHealthMessage.new
+    end
+
     def basic_configuration
       Context::BasicConfiguration.new
     end
@@ -62,10 +70,6 @@ module Helpers
 
     def config_helper
       Helpers::ConfigHelper.new
-    end
-
-    def go_urls
-      Helpers::GoUrlHelper.new
     end
 
     def go_agents

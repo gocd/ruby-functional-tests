@@ -35,6 +35,7 @@ module Pages
     end
 
     def verify_pipeline_stage_state(pipeline, stage, state)
+      reload_page
       assert get_pipeline_stage_state(pipeline, stage).include?(state)
     end
 
@@ -49,6 +50,13 @@ module Pages
       wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.get_pipeline(pipeline)} failed to complete with in timeout" do
         reload_page
         break unless get_pipeline_stage_state(pipeline, stage).include?('Building')
+      end
+    end
+
+    def wait_till_pipeline_showsup(pipeline)
+      wait_till_event_occurs_or_bomb 30, "Config repo Pipeline #{scenario_state.get_pipeline(pipeline)} failed to showup on dashboard" do
+        reload_page
+        break if page.has_css?("#deploy-#{scenario_state.get_pipeline(pipeline)}")
       end
     end
   end

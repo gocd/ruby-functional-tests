@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2016 ThoughtWorks, Inc.
+# Copyright 2017 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,21 +14,11 @@
 # limitations under the License.
 ##########################################################################
 
-require 'site_prism'
-require 'capybara/dsl'
 
-module Pages
-  class AppBase < SitePrism::Page
-    include Helpers::Wait
-    include Helpers::GeneralHelper
+step "Create a new config repo pipeline with name <pipeline> on repo <repo> as downstream of <upstream>" do |pipeline, repo, upstream|
+  Context::ConfigRepoMaterial.new.setup(pipeline, repo.to_i, upstream)
+end
 
-    def resize()
-      page.driver.browser.manage.window.resize_to(1240, 1024)
-    end
-
-    def reload_page
-      page.driver.browser.navigate.refresh
-      sleep 5
-    end
-  end
+step "Update config repo pipeline with name <pipeline> as downstream of <upstream>" do |pipeline, upstream|
+  scenario_state.configrepo(pipeline).update_pipeline(upstream)
 end

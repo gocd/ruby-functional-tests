@@ -14,21 +14,13 @@
 # limitations under the License.
 ##########################################################################
 
-require 'site_prism'
-require 'capybara/dsl'
+module Helpers
+  module GeneralHelper
 
-module Pages
-  class AppBase < SitePrism::Page
-    include Helpers::Wait
-    include Helpers::GeneralHelper
-
-    def resize()
-      page.driver.browser.manage.window.resize_to(1240, 1024)
+    def sanitize_message(msg)
+      msg.gsub(/\$(.*?)\$/) {|name| scenario_state.get_pipeline(name.delete! '$') }
     end
 
-    def reload_page
-      page.driver.browser.navigate.refresh
-      sleep 5
-    end
+
   end
 end

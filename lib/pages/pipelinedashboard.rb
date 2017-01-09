@@ -35,6 +35,7 @@ module Pages
     end
 
     def verify_pipeline_stage_state(pipeline, stage, state)
+      reload_page
       assert get_pipeline_stage_state(pipeline, stage).include?(state)
     end
 

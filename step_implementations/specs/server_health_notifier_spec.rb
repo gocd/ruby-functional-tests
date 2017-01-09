@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2017 ThoughtWorks, Inc.
+# Copyright 2016 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,11 +14,14 @@
 # limitations under the License.
 ##########################################################################
 
-
-step "Create a new config repo pipeline with name <pipeline> on repo <repo> as downstream of <upstream>" do |pipeline, repo, upstream|
-  Context::ConfigRepoMaterial.new.setup(pipeline, repo.to_i, upstream)
+step "Verify server health message is shown" do |pipeline|
+  server_health_message.verify_message_notifier_showsup
 end
 
-step "Update config repo pipeline with name <pipeline> as downstream of <upstream>" do |pipeline, upstream|
-  scenario_state.configrepo(pipeline).update_pipeline(upstream)
+step "Verify server health message <message> is shown" do |msg|
+  server_health_message.verify_message_displayed(msg)
+end
+
+step "Wait for server health message" do
+  server_health_message.wait_for_server_health_message
 end

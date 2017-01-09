@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2017 ThoughtWorks, Inc.
+# Copyright 2016 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,11 +14,13 @@
 # limitations under the License.
 ##########################################################################
 
+module Helpers
+  module GeneralHelper
 
-step "Create a new config repo pipeline with name <pipeline> on repo <repo> as downstream of <upstream>" do |pipeline, repo, upstream|
-  Context::ConfigRepoMaterial.new.setup(pipeline, repo.to_i, upstream)
-end
+    def sanitize_message(msg)
+      msg.gsub(/\$(.*?)\$/) {|name| scenario_state.get_pipeline(name.delete! '$') }
+    end
 
-step "Update config repo pipeline with name <pipeline> as downstream of <upstream>" do |pipeline, upstream|
-  scenario_state.configrepo(pipeline).update_pipeline(upstream)
+
+  end
 end

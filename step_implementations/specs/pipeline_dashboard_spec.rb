@@ -36,3 +36,10 @@ step "Verify pipeline <pipeline> shows up on the dashboard" do |pipeline|
   pipeline_dashboard_page.load
   pipeline_dashboard_page.wait_till_pipeline_showsup pipeline
 end
+
+step "Verify pipeline <pipeline> do not show up on the dashboard" do |pipeline|
+  pipeline_dashboard_page.load
+  assert_raise RuntimeError do
+    pipeline_dashboard_page.wait_till_pipeline_showsup pipeline
+  end
+end

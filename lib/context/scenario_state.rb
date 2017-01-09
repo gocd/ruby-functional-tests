@@ -18,6 +18,7 @@ module Context
   class ScenarioState
     def initialize
       @scenario_store = Gauge::DataStoreFactory.scenario_datastore
+      @scenario_store.put 'non-existing-pipeline', 'ghost-pipeline'
     end
 
     def add_pipeline(initial_name, replaced_name)
@@ -42,6 +43,14 @@ module Context
 
     def current_pipeline
       @scenario_store.get 'current_pipeline'
+    end
+
+    def add_configrepo(pipeline, repo)
+      @scenario_store.put "#{pipeline}-configrepo", repo
+    end
+
+    def configrepo(pipeline)
+      @scenario_store.get "#{pipeline}-configrepo"
     end
   end
 end

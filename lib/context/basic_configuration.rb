@@ -74,7 +74,7 @@ module Context
 
     def reset_config
       self.config_dom = get_current_config
-      config_dom.search('//pipelines', '//environments', '//agents', '//security', '//scms', '//security', '//templates').each(&:remove)
+      config_dom.search('//pipelines', '//environments', '//agents', '//security', '//scms', '//security', '//templates', '//config-repos').each(&:remove)
       load_dom(config_dom)
     end
 

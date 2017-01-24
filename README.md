@@ -12,21 +12,15 @@ Badge](https://cdn.rawgit.com/getgauge/getgauge.github.io/master/Gauge_Badge.svg
 
 ## Setup
 * ``` git clone``` as a sibling directory to
-  [go.cd](https://github.com/gocd/gocd)
+  [go.cd](https://github.com/gocd/gocd) and [go-plugins](https://github.com/gocd/go-plugins)
 * ```$ cd ruby-functional-tests```
 * ```$ gauge --install-all```
 
-## Prepare
-* cd to ```gocd-plugins``` codebase, run : ```$ mvn clean install -DskipTests```
-* cd to ```gocd``` codebase, run : 
-* ```$ ./gradlew clean installers:agentGenericZip installers:serverGenericZip```
-* ```./gradlew test-addon:assemble```
+## Prepare and run specs
+
 * cd to ```ruby-functional-tests``` and run : ```$ bundle install --path=vendor/bundle```
- 
-
-## Running tests
-
-* ```bundle exec rake```
+* To clean, build, prepare and run specs, execute this command ```bundle exec rake GO_VERSION='X.x.x' GAUGE_TAGS='<spec tags to run>'```
+* To just prepare and run specs, execute this command ```bundle exec rake prepare test GO_VERSION='X.x.x' GAUGE_TAGS='<spec tags to run>'```
 
 
 ## License

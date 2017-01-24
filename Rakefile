@@ -15,9 +15,11 @@
 # #########################GO-LICENSE-END##################################
 
 require 'bundler/setup'
+require 'childprocess'
 require 'fileutils'
 require 'sys-proctable'
 require 'os'
+require 'json'
 include Sys
 
 GO_TRUNK_DIRNAME = ENV['GO_TRUNK_DIR'] || 'gocd'
@@ -35,6 +37,14 @@ task :clean do
   rm_rf 'target'
   rm_rf 'reports'
   mkdir_p 'target'
+  if DEVELOPMENT_MODE
+    cd "../#{GO_TRUNK_DIRNAME}" do
+      sh "./gradlew -q clean"
+    end
+    cd "../#{GO_PLUGINS_DIRNAME}" do
+      sh "mvn clean -q"
+    end
+  end
 end
 
 zips = %w(server agent).each_with_object({}) do |package, accumulator|
@@ -84,6 +94,16 @@ zips.each do |package, file|
     task :prepare do
       sh("unzip -q -o #{file} -d target")
     end
+
+    desc "Build go #{package}"
+    task :build do
+      Bundler.with_clean_env do
+        cd "../#{GO_TRUNK_DIRNAME}" do
+          sh "./gradlew -q #{package}GenericZip"
+        end
+      end
+
+    end
   end
   task prepare: "#{package}:prepare"
 end
@@ -98,8 +118,27 @@ namespace :plugins do
       cp_r 'target/go-plugins-dist/.', "target/go-server-#{VERSION_NUMBER}/plugins/external"
     end
     cp_r 'plugins/.', "target/go-server-#{VERSION_NUMBER}/plugins/external"
-    #sh "wget https://github.com/tomzo/gocd-json-config-plugin/releases/download/0.2.0/json-config-plugin-0.2.jar -O target/go-server-#{VERSION_NUMBER}/plugins/external/json-config-plugin-0.2.jar"
     rm "target/go-server-#{VERSION_NUMBER}/plugins/external/yum-repo-exec-poller.jar"
+  end
+
+  desc 'gradle build go plugins'
+  task :build => [:version, :api] do
+    cd "../#{GO_PLUGINS_DIRNAME}" do
+      go_full_version = JSON.parse(File.read("../#{GO_TRUNK_DIRNAME}/installers/target/distributions/meta/version.json"))['go_full_version']
+      sh "mvn --quiet --batch-mode package -Dgo.version=#{go_full_version} -DskipTests"
+    end
+  end
+
+  task :version do
+    cd "../#{GO_TRUNK_DIRNAME}" do
+      sh './gradlew -q installers:versionFile'
+    end
+  end
+
+  task :api do
+    cd "../#{GO_TRUNK_DIRNAME}" do
+      sh "./gradlew -q go-plugin-api:install go-plugin-api-internal:install"
+    end
   end
 end
 
@@ -111,6 +150,22 @@ namespace :addons do
       cp_r "../#{GO_TRUNK_DIRNAME}/test-addon/target/libs/.", "target/go-server-#{VERSION_NUMBER}/addons"
     else
       cp_r 'target/test-addon/.', "target/go-server-#{VERSION_NUMBER}/addons"
+    end
+  end
+
+  desc 'gradle build test addons'
+  task :build do
+    cd "../#{GO_TRUNK_DIRNAME}" do
+      sh "./gradlew -q test-addon:assemble"
+    end
+  end
+end
+
+desc 'Builds server, agent, plugins and test-addons if running in developement mode'
+task :build_all do
+  if DEVELOPMENT_MODE
+    ['server:build', 'agent:build', 'plugins:build', 'addons:build'].each do |t|
+      Rake::Task[t].invoke
     end
   end
 end
@@ -125,4 +180,4 @@ task :test do
     sh "bundle exec gauge --tags='#{GAUGE_TAGS}' specs"
   end
 end
-task default: %w(kill clean prepare test)
+task default: %w(kill clean build_all prepare test)

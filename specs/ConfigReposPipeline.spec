@@ -1,15 +1,15 @@
-ConfigReposPlugin
+ConfigReposPipeline
 =================
 
-ConfigReposPlugin
+ConfigReposPipeline
 -------------------
-tags: config_repo_plugin
+tags: config_repo_pipeline
 
 Setup of contexts
 * Config repos Configuration - setup
 * Using pipeline "simple-upstream" - setup
 * With "1" live agents - setup
-* Capture go state "ConfigReposPlugin" - setup
+* Capture go state "ConfigReposPipeline" - setup
 
 * Looking at pipeline "simple-upstream"
 * Trigger "simple-upstream"
@@ -47,5 +47,5 @@ Setup of contexts
 
 teardown
 _______________
-* Capture go state "ConfigReposPlugin" - teardown
+* Capture go state "ConfigReposPipeline" - teardown
 * With "1" live agents - teardown

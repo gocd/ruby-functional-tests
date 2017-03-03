@@ -53,6 +53,10 @@ module Pages
       end
     end
 
+    def is_editable?(pipeline)
+      page.has_css?("#pipeline_#{pipeline}_panel > div.pipeline_header > div.pipeline_actions > a")
+    end
+
     def wait_till_pipeline_showsup(pipeline)
       wait_till_event_occurs_or_bomb 30, "Config repo Pipeline #{scenario_state.get_pipeline(pipeline)} failed to showup on dashboard" do
         reload_page

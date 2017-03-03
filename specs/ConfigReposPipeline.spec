@@ -18,6 +18,7 @@ Setup of contexts
 
 * Create a new config repo pipeline with name "first-pipeline" on repo "1" as downstream of "simple-upstream"
 * Verify pipeline "first-pipeline" shows up on the dashboard
+* Verify pipeline "first-pipeline" is not editable
 
 * Looking at pipeline "first-pipeline"
 * Trigger "first-pipeline"

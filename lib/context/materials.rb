@@ -70,16 +70,16 @@ module Context
         end
       end
       create_pipeline("#{@path}/config_repo.git", upstream)
-      basic_configuration.set_config_repo("#{@path}/config_repo.git",repo)
+      basic_configuration.set_config_repo("#{@path}/config_repo.git", repo)
       scenario_state.add_pipeline pipeline, @pipeline_name
       scenario_state.add_configrepo pipeline, self
     end
 
     def create_pipeline(material, upstream)
       pipeline = Pipeline.new(group: 'configrepo', name: "#{@pipeline_name}") do |p|
-        p << GitMaterial.new(url: "#{material}", name:"gitmaterial")
-        p << DependencyMaterial.new(pipeline: "#{scenario_state.get_pipeline(upstream)}")
-        p <<  Stage.new(name: 'defaultStage') do |s|
+        p << GitMaterial.new(url: "#{material}", name: "gitmaterial")
+        p << DependencyMaterial.new(pipeline: "#{scenario_state.get_pipeline(upstream)}") unless upstream.empty?
+        p << Stage.new(name: 'defaultStage') do |s|
           s << Job.new(name: 'defaultJob') do |j|
             j << ExecTask.new(command: 'ls')
           end
@@ -97,9 +97,9 @@ module Context
 
     def update_pipeline(upstream)
       pipeline = Pipeline.new(group: 'configrepo', name: "#{@pipeline_name}") do |p|
-        p << GitMaterial.new(url: "#{@path}/config_repo.git", name:"gitmaterial")
+        p << GitMaterial.new(url: "#{@path}/config_repo.git", name: "gitmaterial")
         p << DependencyMaterial.new(pipeline: "#{scenario_state.get_pipeline(upstream)}")
-        p <<  Stage.new(name: 'defaultStage') do |s|
+        p << Stage.new(name: 'defaultStage') do |s|
           s << Job.new(name: 'defaultJob') do |j|
             j << ExecTask.new(command: 'ls')
           end
@@ -113,6 +113,54 @@ module Context
         end
       end
 
+    end
+
+  end
+
+  class ConfigRepoEnvironment < Materials
+
+    attr_reader :path
+    attr_reader :environment_name
+
+    def initialize(*_args)
+      @pipelines = Array.new
+    end
+
+    def setup(environment, repo)
+      @path = "#{GoConstants::TEMP_DIR}/gitconfig-#{Time.now.to_i}"
+      @environment_name = "#{environment}-#{SecureRandom.hex(4)}"
+      rm_rf(@path)
+      mkdir_p(@path)
+      cd(@path) do
+        Open3.popen3('git init config_repo.git') do |_stdin, _stdout, stderr, wait_thr|
+          raise "Initialization of git Config repository material Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
+        end
+      end
+      create_environment("#{@path}/config_repo.git")
+      basic_configuration.set_config_repo("#{@path}/config_repo.git", repo)
+      scenario_state.add_environment environment, @environment_name
+      scenario_state.add_configrepo environment, self
+    end
+
+    def create_environment(material)
+      environment = Environment.new(@environment_name, @pipelines)
+      add_environment_to_config_repo(environment, material)
+    end
+
+    def add_pipeline(pipeline)
+      @pipelines.push(pipeline)
+      environment = Environment.new(@environment_name, @pipelines)
+      add_environment_to_config_repo(environment, "#{@path}/config_repo.git")
+    end
+
+    private
+    def add_environment_to_config_repo(environment, material)
+      cd(material) do
+        File.open("#{@environment_name}.goenvironment.json", 'w') { |file| file.write(environment.to_json) }
+        Open3.popen3(%(git add . && git commit -m "created a new environment")) do |_stdin, _stdout, stderr, wait_thr|
+          raise "Failed to commit to git config repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
+        end
+      end
     end
 
   end

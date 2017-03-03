@@ -46,5 +46,22 @@
                 </jobs>
             </stage>
         </pipeline>
+        <pipeline name="main-config-pipeline">
+            <materials>
+                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="sleep" >
+                                <arg>30</arg>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
     </pipelines>
 </cruise>

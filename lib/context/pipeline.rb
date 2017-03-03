@@ -45,17 +45,32 @@ module Context
     end
   end
 
+  class Environment < Configuration
+    def initialize(name, pipelines)
+      @name = name
+      @pipelines = pipelines
+    end
+
+    def to_json
+      json = {
+          name: @name,
+          pipelines: @pipelines
+      }
+      json.to_json
+    end
+  end
+
   class Pipeline < Configuration
     def default
       {
-        group: nil,
-        enable_pipeline_locking: false,
-        environment_variables: [],
-        label_template: '${COUNT}',
-        materials: [],
-        stages: [],
-        timer: nil,
-        tracking_tool: nil
+          group: nil,
+          enable_pipeline_locking: false,
+          environment_variables: [],
+          label_template: '${COUNT}',
+          materials: [],
+          stages: [],
+          timer: nil,
+          tracking_tool: nil
       }
     end
 
@@ -78,16 +93,17 @@ module Context
     end
   end
 
-  class Material < Configuration; end
+  class Material < Configuration;
+  end
   class GitMaterial < Material
     def default
       {
-        type: 'git',
-        auto_update: true,
-        destination: nil,
-        filter: nil,
-        name: nil,
-        url: ''
+          type: 'git',
+          auto_update: true,
+          destination: nil,
+          filter: nil,
+          name: nil,
+          url: ''
       }
     end
 
@@ -99,15 +115,15 @@ module Context
   class TfsMaterial < Material
     def default
       {
-        type: 'tfs',
-        url: '',
-        project_path: '',
-        domain: '',
-        username: '',
-        password: '',
-        destination: nil,
-        auto_update: true,
-        filter: nil
+          type: 'tfs',
+          url: '',
+          project_path: '',
+          domain: '',
+          username: '',
+          password: '',
+          destination: nil,
+          auto_update: true,
+          filter: nil
       }
     end
 
@@ -119,11 +135,11 @@ module Context
   class DependencyMaterial < Material
     def default
       {
-        type: 'dependency',
-        name: 'dependency',
-        pipeline: '',
-        stage: 'defaultStage',
-        auto_update: true
+          type: 'dependency',
+          name: 'dependency',
+          pipeline: '',
+          stage: 'defaultStage',
+          auto_update: true
 
       }
     end
@@ -135,28 +151,29 @@ module Context
 
   class EnvironmentVariable < Configuration
     def default
-      { secure: false }
+      {secure: false}
     end
   end
 
-  class Parameter < Configuration; end
+  class Parameter < Configuration;
+  end
 
   class Stage < Configuration
     def default
       {
-        name: '',
-        approval: {
-          type: 'manual',
-          authorization: {
-            roles: [],
-            users: []
-          }
-        },
-        clean_working_directory: false,
-        environment_variables: [],
-        fetch_materials: true,
-        jobs: [],
-        never_cleanup_artifacts: false
+          name: '',
+          approval: {
+              type: 'manual',
+              authorization: {
+                  roles: [],
+                  users: []
+              }
+          },
+          clean_working_directory: false,
+          environment_variables: [],
+          fetch_materials: true,
+          jobs: [],
+          never_cleanup_artifacts: false
       }
     end
 
@@ -169,16 +186,16 @@ module Context
   class Job < Configuration
     def default
       {
-        name: '',
-        artifacts: [],
-        environment_variables: [],
-        properties: nil,
-        resources: [],
-        run_count_instance: nil,
-        tabs: [],
-        tasks: [],
-        timeout: 0
-        }
+          name: '',
+          artifacts: [],
+          environment_variables: [],
+          properties: nil,
+          resources: [],
+          run_count_instance: nil,
+          tabs: [],
+          tasks: [],
+          timeout: 0
+      }
     end
 
     def <<(instance)
@@ -187,11 +204,12 @@ module Context
     end
   end
 
-  class Task < Configuration; end
+  class Task < Configuration;
+  end
   class ExecTask < Task
     def default
       {
-        type: 'exec',
+          type: 'exec',
       }
     end
 

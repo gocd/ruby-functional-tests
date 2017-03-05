@@ -19,6 +19,14 @@ step "Create a new config repo pipeline with name <pipeline> on repo <repo> as d
   Context::ConfigRepoMaterial.new.setup(pipeline, repo.to_i, upstream)
 end
 
+step "Create a new config repo environment with name <environment> on repo <repo>" do |environment, repo|
+  Context::ConfigRepoEnvironment.new.setup(environment, repo.to_i)
+end
+
+step "Add pipelines <pipelines> to config repo environment <environment>" do |pipelines, environment|
+  pipelines.split(',').each { |p| scenario_state.configrepo(environment).add_pipeline(scenario_state.get_pipeline(p.strip)) }
+end
+
 step "Update config repo pipeline with name <pipeline> as downstream of <upstream>" do |pipeline, upstream|
   scenario_state.configrepo(pipeline).update_pipeline(upstream)
 end

@@ -25,7 +25,23 @@ module Context
       @scenario_store.put initial_name, replaced_name
     end
 
+    def current_environment(env)
+      @scenario_store.put 'current_env', env
+    end
+
+    def get_current_environment
+      @scenario_store.get(@scenario_store.get 'current_env')
+    end
+
+    def add_environment(initial_name, replaced_name)
+      @scenario_store.put initial_name, replaced_name
+    end
+
     def get_pipeline(original_name)
+      @scenario_store.get original_name
+    end
+
+    def get_environment(original_name)
       @scenario_store.get original_name
     end
 
@@ -45,8 +61,8 @@ module Context
       @scenario_store.get 'current_pipeline'
     end
 
-    def add_configrepo(pipeline, repo)
-      @scenario_store.put "#{pipeline}-configrepo", repo
+    def add_configrepo(entity, repo)
+      @scenario_store.put "#{entity}-configrepo", repo
     end
 
     def configrepo(pipeline)

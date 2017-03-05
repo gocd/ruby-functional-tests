@@ -20,7 +20,7 @@ module Context
     attr_accessor :config_dom
 
     def load_dom(xml)
-      RestClient.post admin_config_url, { xmlFile: xml.to_s, md5: @md5 }, auth_header
+      RestClient.post admin_config_url, {xmlFile: xml.to_s, md5: @md5}, auth_header
     rescue => e
       raise "Update config xml api call failed. Error message #{e.message}"
     end
@@ -64,7 +64,7 @@ module Context
       load_dom(current_config)
     end
 
-    def set_config_repo(config_repo_path,idx)
+    def set_config_repo(config_repo_path, idx)
       current_config = get_current_config
       current_config.xpath("//cruise/config-repos/config-repo[#{idx}]/git").each do |config_repo|
         config_repo['url'] = config_repo_path
@@ -78,21 +78,27 @@ module Context
       load_dom(config_dom)
     end
 
-    def remove_pipelines_except(except_pipeline)
+    def remove_pipelines_except(except_pipelines)
       self.config_dom = get_current_config
+
+      except_pipelines_names = except_pipelines.map { |except_pipeline|
+        scenario_state.get_pipeline(except_pipeline)
+      }
+
       config_dom.xpath('//cruise/pipelines/pipeline').each do |pipeline|
-        pipeline.remove unless pipeline['name'].eql?(scenario_state.get_pipeline(except_pipeline))
+        pipeline.remove unless except_pipelines_names.include?(pipeline['name'])
       end
       config_dom.xpath('//environments/environment/pipelines/pipeline').each do |env|
-        env.remove unless env['name'].eql?(scenario_state.get_pipeline(except_pipeline))
+        env.remove unless except_pipelines_names.include?(env['name'])
       end
+
       load_dom(config_dom)
     end
 
     def auth_header
       return unless scenario_state.current_user
       basic_auth = Base64.encode64([scenario_state.current_user, 'badger'].join(':'))
-      { Authorization: "Basic #{basic_auth}" }
+      {Authorization: "Basic #{basic_auth}"}
     end
 
     def setup(config_file)

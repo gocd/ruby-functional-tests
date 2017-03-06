@@ -126,20 +126,13 @@ module Context
       @pipelines = Array.new
     end
 
+
+    def setupExisting(environment, repo)
+      create_repo(environment, repo)
+    end
+
     def setup(environment, repo)
-      @path = "#{GoConstants::TEMP_DIR}/gitconfig-#{Time.now.to_i}"
-      @environment_name = "#{environment}-#{SecureRandom.hex(4)}"
-      rm_rf(@path)
-      mkdir_p(@path)
-      cd(@path) do
-        Open3.popen3('git init config_repo.git') do |_stdin, _stdout, stderr, wait_thr|
-          raise "Initialization of git Config repository material Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
-        end
-      end
-      create_environment("#{@path}/config_repo.git")
-      basic_configuration.set_config_repo("#{@path}/config_repo.git", repo)
-      scenario_state.add_environment environment, @environment_name
-      scenario_state.add_configrepo environment, self
+      create_repo("#{environment}-#{SecureRandom.hex(4)}", repo)
     end
 
     def create_environment(material)
@@ -161,6 +154,22 @@ module Context
           raise "Failed to commit to git config repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
         end
       end
+    end
+
+    def create_repo(environment, repo)
+      @path = "#{GoConstants::TEMP_DIR}/gitconfig-#{Time.now.to_i}"
+      @environment_name = environment
+      rm_rf(@path)
+      mkdir_p(@path)
+      cd(@path) do
+        Open3.popen3('git init config_repo.git') do |_stdin, _stdout, stderr, wait_thr|
+          raise "Initialization of git Config repository material Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
+        end
+      end
+      create_environment("#{@path}/config_repo.git")
+      basic_configuration.set_config_repo("#{@path}/config_repo.git", repo)
+      scenario_state.add_environment environment, @environment_name
+      scenario_state.add_configrepo environment, self
     end
 
   end

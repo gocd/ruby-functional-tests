@@ -78,6 +78,20 @@ module Context
       load_dom(config_dom)
     end
 
+    def remove_environments_except(except_environments)
+      self.config_dom = get_current_config
+
+      except_environments_names = except_environments.map { |except_env|
+        scenario_state.get_environment(except_env)
+      }
+
+      config_dom.xpath('//cruise/environments/environment').each do |env|
+        env.remove unless except_environments_names.include?(env['name'])
+      end
+
+      load_dom(config_dom)
+    end
+
     def remove_pipelines_except(except_pipelines)
       self.config_dom = get_current_config
 

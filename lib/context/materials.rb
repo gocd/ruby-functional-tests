@@ -128,11 +128,11 @@ module Context
 
 
     def setupExisting(environment, repo)
-      create_repo(environment, repo)
+      create_repo(environment, environment, repo)
     end
 
     def setup(environment, repo)
-      create_repo("#{environment}-#{SecureRandom.hex(4)}", repo)
+      create_repo(environment, "#{environment}-#{SecureRandom.hex(4)}", repo)
     end
 
     def create_environment(material)
@@ -156,9 +156,9 @@ module Context
       end
     end
 
-    def create_repo(environment, repo)
+    def create_repo(environment, environment_unique_name, repo)
       @path = "#{GoConstants::TEMP_DIR}/gitconfig-#{Time.now.to_i}"
-      @environment_name = environment
+      @environment_name = environment_unique_name
       rm_rf(@path)
       mkdir_p(@path)
       cd(@path) do

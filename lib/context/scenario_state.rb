@@ -65,8 +65,8 @@ module Context
       @scenario_store.put "#{entity}-configrepo", repo
     end
 
-    def configrepo(pipeline)
-      @scenario_store.get "#{pipeline}-configrepo"
+    def configrepo(entity)
+      @scenario_store.get "#{entity}-configrepo"
     end
   end
 end

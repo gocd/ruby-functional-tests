@@ -23,6 +23,14 @@ step "Create a new config repo environment with name <environment> on repo <repo
   Context::ConfigRepoEnvironment.new.setup(environment, repo.to_i)
 end
 
+step "Create a partial config repo environment with name <environment> on repo <repo>" do |environment, repo|
+  Context::ConfigRepoEnvironment.new.setupExisting(environment, repo.to_i)
+end
+
+step "Wait for config repo changes to sync" do
+  sleep 30
+end
+
 step "Add pipelines <pipelines> to config repo environment <environment>" do |pipelines, environment|
   pipelines.split(',').each { |p| scenario_state.configrepo(environment).add_pipeline(scenario_state.get_pipeline(p.strip)) }
 end

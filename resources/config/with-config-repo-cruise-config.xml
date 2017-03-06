@@ -64,4 +64,15 @@
             </stage>
         </pipeline>
     </pipelines>
+    <environments>
+        <environment name="test-environment">
+            <environmentvariables>
+                <variable name="foo">
+                    <value>bar</value>
+                </variable>
+            </environmentvariables>
+            <agents></agents>
+            <pipelines></pipelines>
+        </environment>
+    </environments>
 </cruise>

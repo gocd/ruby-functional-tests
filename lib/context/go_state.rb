@@ -20,7 +20,7 @@ module Context
 
     def capture_logs(path)
       cp_r "#{GoConstants::SERVER_DIR}/go-server.out.log" , path
-      cp_r "#{GoConstants::SERVER_DIR}/go-server.log" , path
+      cp_r "#{GoConstants::SERVER_DIR}/logs/go-server.log" , path
     end
 
     def capture_agents(path)

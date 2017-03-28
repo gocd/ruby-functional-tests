@@ -8,3 +8,4 @@ out/
 vendor/bundle/
 .bundle/config
 .gauge/
+*.lock

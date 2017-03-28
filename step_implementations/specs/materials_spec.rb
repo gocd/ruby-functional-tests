@@ -15,8 +15,19 @@
 ##########################################################################
 
 step "Using pipeline <pipeline> - setup" do |pipelines|
-  pipelines.split('/s*,/s*').each {|pipeline|
-    git_materials.setup_material_for pipeline
-    basic_configuration.remove_pipelines_except pipeline
-  }
+  pipelines.split(',').each { |pipeline| git_materials.setup_material_for pipeline.strip }
+  basic_configuration.remove_pipelines_except pipelines.split(',').map { |p| p.strip }
+end
+
+step "Using environment <environment> - setup" do |environments|
+  environments.split(',').each { |env| scenario_state.add_environment(env, env) }
+  basic_configuration.remove_environments_except environments.split(',').map { |e| e.strip }
+end
+
+step "Using environment <environment> - teardown" do |environments|
+  basic_configuration.reset_config
+end
+
+step "Using pipeline <pipeline> - teardown" do |pipelines|
+  basic_configuration.reset_config
 end

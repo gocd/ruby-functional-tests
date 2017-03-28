@@ -31,6 +31,8 @@ require 'pages/app_base'
 require 'pages/login'
 require 'pages/agents_spa'
 require 'pages/pipelinedashboard'
+require 'pages/environments_page'
+require 'pages/environments_edit_page'
 require 'pages/serverhealthmessages'
 
 
@@ -50,6 +52,14 @@ module Helpers
 
     def pipeline_dashboard_page
       Pages::PipelineDashboard.new
+    end
+
+    def environments_dashboard_page
+      Pages::EnvironmentsPage.new
+    end
+
+    def environments_edit_page(environment)
+      Pages::EnvironmentsEditPage.new(environment)
     end
 
     def server_health_message

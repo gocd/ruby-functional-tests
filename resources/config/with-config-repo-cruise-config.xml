@@ -15,7 +15,7 @@
  * limitations under the License.
  *************************GO-LICENSE-END******************************* -->
 
-<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="89">
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="90">
     <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="gauge" />
     <config-repos>
        <config-repo plugin="json.config.plugin">
@@ -46,5 +46,33 @@
                 </jobs>
             </stage>
         </pipeline>
+        <pipeline name="main-config-pipeline">
+            <materials>
+                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="sleep" >
+                                <arg>30</arg>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
     </pipelines>
+    <environments>
+        <environment name="test-environment">
+            <environmentvariables>
+                <variable name="foo">
+                    <value>bar</value>
+                </variable>
+            </environmentvariables>
+            <agents></agents>
+            <pipelines></pipelines>
+        </environment>
+    </environments>
 </cruise>

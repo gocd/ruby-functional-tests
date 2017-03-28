@@ -20,13 +20,17 @@ Badge](https://cdn.rawgit.com/getgauge/getgauge.github.io/master/Gauge_Badge.svg
 
 * cd to ```ruby-functional-tests``` and run : ```$ bundle install --path=vendor/bundle```
 * To clean, build, prepare and run specs, execute this command ```bundle exec rake GO_VERSION='X.x.x' GAUGE_TAGS='<spec tags to run>'```
-* To just prepare and run specs, execute this command ```bundle exec rake prepare test GO_VERSION='X.x.x' GAUGE_TAGS='<spec tags to run>'```
-
+* To run specific task(s), execute this command ```bundle exec rake [kill/clean/build_all/prepare/test] GO_VERSION='X.x.x' GAUGE_TAGS='<spec tags to run>'```
+    * `kill` - Kills all running processes spun by the tests.
+    * `clean` - Cleans all directories (`ruby-functional-tests/target`, `ruby-functional-tests/reports`, `gocd`, `go-plugins`).
+    * `build_all` - Builds server, agent, plugins and test-addons if running in development mode.
+    * `prepare` - Initializes the filesystem to run tests.
+    * `test` - Runs the gauge tests with specified tags. 
 
 ## License
 
 ```plain
-Copyright 2016 ThoughtWorks, Inc.
+Copyright 2017 ThoughtWorks, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

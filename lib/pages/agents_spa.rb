@@ -18,7 +18,7 @@ module Pages
   class AgentsSPA < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/agents"
 
-    element :agents_head, '#agents > div > div.header-panel > div.row.expanded > div > table > thead > tr'
+    element :agents_head, '#agents > div > div.row.expanded.agents-table-body > div > table > thead > tr'
     elements :agents_row, '#agents > div > div.row.expanded.agents-table-body > div > table > tbody > tr'
     elements :agents_column, '#agents > div > div.row.expanded.agents-table-body > div > table > tbody > tr > td'
     elements :agents_menu, '#agents div div.header-panel header div div.columns.medium-7.large-7 ul'
@@ -33,7 +33,6 @@ module Pages
     end
 
     def select_agent_at(row)
-      agents_row.each_with_index { |val, index| val.find('input[type="checkbox"]').set(true) if index == row }
       agents_row[row].find('input[type="checkbox"]').set(true)
     end
 

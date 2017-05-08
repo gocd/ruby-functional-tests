@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2016 ThoughtWorks, Inc.
+# Copyright 2017 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,21 +15,14 @@
 ##########################################################################
 
 module Pages
-  class Login < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/auth/login"
+  class Preferences < AppBase
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/preferences/notifications"
 
-    element :username, '#user_login'
-    element :password, '#user_password'
-    element :submit, '#signin2'
-    element :current_user, '#header > div > div > div.application_nav > ul.user > li.current_user.icon > a'
+    element :page_title , "#preferences-page > div > main > header > h1"
 
-
-    def signin(user)
-      username.set user
-      password.set 'badger'
-      submit.click
-      assert_equal current_user.text, user
-      scenario_state.set_current_user user
+    def verify_title(title)
+      assert_equal page_title.text, title
     end
+
   end
 end

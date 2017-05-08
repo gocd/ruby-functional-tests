@@ -34,6 +34,7 @@ require 'pages/pipelinedashboard'
 require 'pages/environments_page'
 require 'pages/environments_edit_page'
 require 'pages/serverhealthmessages'
+require 'pages/preferences_page'
 
 
 module Helpers
@@ -56,6 +57,10 @@ module Helpers
 
     def environments_dashboard_page
       Pages::EnvironmentsPage.new
+    end
+
+    def preferences_page
+      Pages::Preferences.new
     end
 
     def environments_edit_page(environment)

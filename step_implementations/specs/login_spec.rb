@@ -15,6 +15,6 @@
 ##########################################################################
 
 step "Login as <user> - setup" do |user|
-  Pages::Login.visit
+  login_page.load
   login_page.signin user
 end

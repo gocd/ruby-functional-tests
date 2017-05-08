@@ -12,10 +12,15 @@ Setup of contexts
 * With "1" live agents - setup
 * Capture go state "SmokeTest" - setup
 
-
-* Trigger "basic-pipeline-with-git-material"
 * Looking at pipeline "basic-pipeline-with-git-material"
+* Trigger "basic-pipeline-with-git-material"
+* Wait till pipeline completed stage "1"
 * Verify stage "1" is "Passed" on pipeline with label "1"
+
+* On Preferences page
+* Verify page title is "Preferences"
+
+* Verify cruise footer - On preferences page
 
 teardown
 _______________

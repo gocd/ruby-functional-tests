@@ -33,7 +33,7 @@ LOAD_BALANCED = GO_JOB_RUN_COUNT && GO_JOB_RUN_INDEX
 DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
 
 desc 'cleans all directories'
-task :clean do
+task :clean_all do
   rm_rf 'target'
   rm_rf 'reports'
   mkdir_p 'target'
@@ -45,6 +45,13 @@ task :clean do
       sh "mvn clean -q"
     end
   end
+end
+
+desc 'cleans only test directories'
+task :clean_test do
+  rm_rf 'target'
+  rm_rf 'reports'
+  mkdir_p 'target'
 end
 
 zips = %w(server agent).each_with_object({}) do |package, accumulator|
@@ -180,4 +187,4 @@ task :test do
     sh "bundle exec gauge --tags='#{GAUGE_TAGS}' specs"
   end
 end
-task default: %w(kill clean build_all prepare test)
+task default: %w(kill clean_all build_all prepare test)

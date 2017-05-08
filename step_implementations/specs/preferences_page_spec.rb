@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2016 ThoughtWorks, Inc.
+# Copyright 2017 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,22 +14,14 @@
 # limitations under the License.
 ##########################################################################
 
-module Pages
-  class Login < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/auth/login"
+step "On Preferences page" do
+  preferences_page.load
+end
 
-    element :username, '#user_login'
-    element :password, '#user_password'
-    element :submit, '#signin2'
-    element :current_user, '#header > div > div > div.application_nav > ul.user > li.current_user.icon > a'
+step "Verify page title is <title>" do |title|
+  preferences_page.verify_title(title)
+end
 
-
-    def signin(user)
-      username.set user
-      password.set 'badger'
-      submit.click
-      assert_equal current_user.text, user
-      scenario_state.set_current_user user
-    end
-  end
+step "Verify cruise footer - On preferences page" do
+  preferences_page.verify_footer()
 end

@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2016 ThoughtWorks, Inc.
+# Copyright 2017 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,21 +15,27 @@
 ##########################################################################
 
 module Pages
-  class Login < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/auth/login"
+  class RoleConfigSPA < AppBase
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/security/roles"
 
-    element :username, '#user_login'
-    element :password, '#user_password'
-    element :submit, '#signin2'
-    element :current_user, "a[class='current_user_name dropdown-arrow-icon']"#'#header > div > div > div.application_nav > ul.user > li.current_user.icon > a'
+    element :add,               "button[class='button add-role']"
+    element :gocd_role,         "input[class='core-role']"
+    element :role_name,         "input[data-model-type='role']"
+    element :role_users,        "input[placeholder='username']"
+    element :add_role,          "button[class='button add-role-user-button']"
+    element :save,              "button[class='button save primary']"
 
-
-    def signin(user)
-      username.set user
-      password.set 'badger'
-      submit.click
-      assert_equal current_user.text, user
-      scenario_state.set_current_user user
+    def click_add
+      add.click
     end
+
+    def gocd_role=(value)
+      gocd_role.set(value)
+    end
+
+    def save_role
+      save.click
+    end
+
   end
 end

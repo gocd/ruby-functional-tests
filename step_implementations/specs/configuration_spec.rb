@@ -33,3 +33,11 @@ end
 step "Config repo git repository - setup" do
   basic_configuration.setup 'with-config-repo-cruise-config.xml'
 end
+
+step "Config repo git repository - setup" do
+  basic_configuration.setup 'with-config-repo-cruise-config.xml'
+end
+
+step "AuthPluginsConfiguration - setup" do
+  basic_configuration.setup 'auth-plugins-config.xml'
+end

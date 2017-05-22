@@ -17,3 +17,7 @@
 step "Reload page" do |count|
   app_base_page.reload_page
 end
+
+step "Logout - from any page" do |count|
+  app_base_page.logout
+end

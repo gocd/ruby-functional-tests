@@ -31,6 +31,10 @@ module Pages
       sleep 5
     end
 
+    def logout
+      page.find('a[href="/go/auth/logout"]').click
+    end
+
     def verify_footer()
       footer = page.find('p[class="copyright"]')
       assert_true footer.text.include?("Copyright © #{Time.now.strftime('%Y')} ThoughtWorks, Inc. Licensed under Apache License, Version 2.0. Go includes third-party software. Go Version: #{ENV['GO_VERSION']}")

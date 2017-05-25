@@ -23,3 +23,8 @@ step "Login as <user>" do |user|
   login_page.load
   login_page.signin user
 end
+
+step "Login as <user> with password as <pwd>" do |user, pwd|
+  login_page.load
+  login_page.signin user, pwd
+end

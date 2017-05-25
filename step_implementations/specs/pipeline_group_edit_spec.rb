@@ -30,5 +30,4 @@ end
 
 step "Save pipeline group permissions" do |i|
   pipeline_group_edit_page.save.click
-  binding.pry
 end

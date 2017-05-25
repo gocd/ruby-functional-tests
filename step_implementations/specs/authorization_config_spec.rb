@@ -22,7 +22,7 @@ step "Start to add a new authorization config with id as <id> for plugin <plugin
 end
 
 step "Set password file path as <file>" do |file|
-  authorization_config_page.pwd_file_path.set File.expand_path("#{GoConstants::CONFIG_PATH}/#{file}")
+  authorization_config_page.pwd_file_path.set file == 'non_existent_file' ? file : File.expand_path("#{GoConstants::CONFIG_PATH}/#{file}")
 end
 
 step "Save authorization config" do |i|
@@ -30,7 +30,7 @@ step "Save authorization config" do |i|
 end
 
 step "Set LDAP Url" do |i|
-  authorization_config_page.ldap_url.set "ldap://#{GoConstants::LDAP_SERVER_IP}:10389"
+  authorization_config_page.ldap_url.set "ldap://#{GoConstants::LDAP_SERVER_IP}"
 end
 
 step "Set Manager DN as <manager_dn>" do |dn|

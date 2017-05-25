@@ -25,7 +25,7 @@ class GoConstants
   SERVER_MEM = ENV['GAUGE_GO_SERVER_MEM'] || '512m'
   SERVER_MAX_MEM = ENV['GAUGE_GO_SERVER_MAX_MEM'] || '1024m'
   GO_VERSION = ENV['GO_VERSION'] || '16.11.0'
-  LDAP_SERVER_IP = ENV['LDAP_SERVER_IP'] || 'localhost'
+  LDAP_SERVER_IP = ENV['LDAP_SERVER_IP'] || 'localhost:10389'
 
   TEMP_DIR = '/tmp/materials'
   GAUGE_AGENT_DIR = 'target/gauge_agents'

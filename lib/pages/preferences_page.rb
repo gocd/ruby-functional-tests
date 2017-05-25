@@ -18,7 +18,7 @@ module Pages
   class Preferences < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/preferences/notifications"
 
-    element :page_title , "#preferences-page > div > main > header > h1"
+    element :page_title , "#page-title"
 
     def verify_title(title)
       assert_equal page_title.text, title

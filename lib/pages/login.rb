@@ -21,12 +21,12 @@ module Pages
     element :username, '#user_login'
     element :password, '#user_password'
     element :submit, '#signin2'
-    element :current_user, '#header > div > div > div.application_nav > ul.user > li.current_user.icon > a'
+    element :current_user, "a[class='current_user_name dropdown-arrow-icon']"
 
 
-    def signin(user)
+    def signin(user, pwd = 'badger')
       username.set user
-      password.set 'badger'
+      password.set pwd
       submit.click
       assert_equal current_user.text, user
       scenario_state.set_current_user user

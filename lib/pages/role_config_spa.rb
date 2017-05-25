@@ -15,13 +15,26 @@
 ##########################################################################
 
 module Pages
-  class Preferences < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/preferences/notifications"
+  class RoleConfigSPA < AppBase
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/security/roles"
 
-    element :page_title , "#page-title"
+    element :add,               "button[class='button add-role']"
+    element :gocd_role,         "input[class='core-role']"
+    element :role_name,         "input[data-model-type='role']"
+    element :role_users,        "input[placeholder='username']"
+    element :add_role,          "button[class='button add-role-user-button']"
+    element :save,              "button[class='button save primary']"
 
-    def verify_title(title)
-      assert_equal page_title.text, title
+    def click_add
+      add.click
+    end
+
+    def gocd_role=(value)
+      gocd_role.set(value)
+    end
+
+    def save_role
+      save.click
     end
 
   end

@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2016 ThoughtWorks, Inc.
+# Copyright 2017 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -35,6 +35,9 @@ require 'pages/environments_page'
 require 'pages/environments_edit_page'
 require 'pages/serverhealthmessages'
 require 'pages/preferences_page'
+require 'pages/authorization_config_spa'
+require 'pages/role_config_spa'
+require 'pages/pipeline_group_edit_page'
 
 
 module Helpers
@@ -59,12 +62,24 @@ module Helpers
       Pages::EnvironmentsPage.new
     end
 
+    def authorization_config_page
+      Pages::AuthConfigSPA.new
+    end
+
+    def role_config_page
+      Pages::RoleConfigSPA.new
+    end
+
     def preferences_page
       Pages::Preferences.new
     end
 
     def environments_edit_page(environment)
       Pages::EnvironmentsEditPage.new(environment)
+    end
+
+    def pipeline_group_edit_page
+      Pages::PipelineGroupEditPage.new
     end
 
     def server_health_message

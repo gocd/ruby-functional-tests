@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2016 ThoughtWorks, Inc.
+# Copyright 2017 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,17 +14,20 @@
 # limitations under the License.
 ##########################################################################
 
-step "Login as <user> - setup" do |user|
-  login_page.load
-  login_page.signin user
+step "Start to add a GoCD config role <name>" do |name|
+  role_config_page.load
+  role_config_page.click_add
+  role_config_page.gocd_role=(true)
+  role_config_page.role_name.set name
 end
 
-step "Login as <user>" do |user|
-  login_page.load
-  login_page.signin user
+step "Add user <names> to the role" do |names|
+  names.split(',').each{|name|
+    role_config_page.role_users.set name.strip
+    role_config_page.add_role.click
+  }
 end
 
-step "Login as <user> with password as <pwd>" do |user, pwd|
-  login_page.load
-  login_page.signin user, pwd
+step "Save role config" do |i|
+  role_config_page.save_role
 end

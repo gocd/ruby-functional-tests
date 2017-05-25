@@ -15,14 +15,19 @@
 ##########################################################################
 
 module Pages
-  class Preferences < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/preferences/notifications"
+  class PipelineGroupEditPage < AppBase
 
-    element :page_title , "#page-title"
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipeline_group{/group}/edit"
 
-    def verify_title(title)
-      assert_equal page_title.text, title
-    end
+    element :add_user_permission, "#USER_add_users_and_roles"
+    element :add_role_permission, "#ROLE_add_users_and_roles"
+    element :save, "button[type='submit']"
+    element :user_name, "input[class='form_input permissions_USER_name ac_input']"
+    element :role_name, "input[class='form_input permissions_ROLE_name ac_input']"
+    element :role_view_privilege, "#viewPrivilege_ROLE_name"
+    element :user_view_privilege, "#viewPrivilege_USER_name"
+    element :role_admin_privilege, "#adminPrivilege_ROLE_name"
+    element :user_admin_privilege, "#adminPrivilege_USER_name"
 
   end
 end

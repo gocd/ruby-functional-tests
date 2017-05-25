@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2016 ThoughtWorks, Inc.
+# Copyright 2017 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,17 +14,20 @@
 # limitations under the License.
 ##########################################################################
 
-step "Login as <user> - setup" do |user|
-  login_page.load
-  login_page.signin user
+step "Edit pipeline group <group>" do |grp|
+  pipeline_group_edit_page.load(group: grp)
 end
 
-step "Login as <user>" do |user|
-  login_page.load
-  login_page.signin user
+step "Add role <role> as view user" do |role|
+  pipeline_group_edit_page.role_name.set role
+  pipeline_group_edit_page.role_view_privilege.set true
 end
 
-step "Login as <user> with password as <pwd>" do |user, pwd|
-  login_page.load
-  login_page.signin user, pwd
+step "Add user <name> as admin user" do |name|
+  pipeline_group_edit_page.user_name.set name
+  pipeline_group_edit_page.user_admin_privilege.set true
+end
+
+step "Save pipeline group permissions" do |i|
+  pipeline_group_edit_page.save.click
 end

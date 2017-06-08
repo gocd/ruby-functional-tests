@@ -46,6 +46,7 @@ Setup of contexts
 * Set password file path as "non_existent_file"
 * Save authorization config
 
+
 * Login as "user1" with password as "pass_user1"
 * Verify pipeline "basic-pipeline" is editable
 
@@ -54,6 +55,15 @@ Setup of contexts
 
 * Login as "admin"
 * Verify pipeline "basic-pipeline" is editable
+
+Steps to verify login with different case
+
+* Login as "USER1" with password as "pass_user1"
+* Verify pipeline "basic-pipeline" is editable
+
+* Login as "group1view"
+* Verify pipeline "basic-pipeline" is not editable
+
 
 teardown
 _______________

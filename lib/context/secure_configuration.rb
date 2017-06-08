@@ -23,7 +23,7 @@ module Context
     end
 
     def replace_password_file_path(file)
-      config_dom.xpath('//passwordFile').first['path'] = File.expand_path("#{GoConstants::CONFIG_PATH}/#{file}")
+      config_dom.at_xpath("//authConfigs/authConfig[@pluginId='#{GoConstants::FILE_BASED_PLUGIN_ID}']/property/value").content = File.expand_path("#{GoConstants::CONFIG_PATH}/#{file}")
     end
 
     def setup(config_file, pwd_file)

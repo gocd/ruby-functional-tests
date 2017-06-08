@@ -30,6 +30,7 @@ class GoConstants
   TEMP_DIR = '/tmp/materials'
   GAUGE_AGENT_DIR = 'target/gauge_agents'
   CONFIG_PATH = 'resources/config'
+  FILE_BASED_PLUGIN_ID = 'cd.go.authentication.passwordfile'
 
   OWASP_ZAP_PATH = '/opt/homebrew-cask/Caskroom/owasp-zap/2.5.0/OWASP-ZAP.app/Contents/MacOS/OWASP-ZAP.sh'
 

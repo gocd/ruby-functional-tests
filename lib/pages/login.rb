@@ -28,7 +28,7 @@ module Pages
       username.set user
       password.set pwd
       submit.click
-      assert_equal current_user.text, user
+      assert_equal current_user.text.downcase, user.downcase
       scenario_state.set_current_user user
     end
   end

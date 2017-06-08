@@ -47,9 +47,9 @@ module Pages
       assert_true social.has_link?(nil, href: "https://twitter.com/goforcd")
       assert_true social.has_link?(nil, href: "https://github.com/gocd/gocd")
       assert_true social.has_link?(nil, href: "https://groups.google.com/d/forum/go-cd")
-      assert_true social.has_link?(nil, href: "https://docs.gocd.io/current")
-      assert_true social.has_link?(nil, href: "https://www.gocd.io/plugins/")
-      assert_true social.has_link?(nil, href: "https://api.gocd.io/")
+      assert_true social.has_link?(nil, href: "https://docs.gocd.org/current")
+      assert_true social.has_link?(nil, href: "https://www.gocd.org/plugins/")
+      assert_true social.has_link?(nil, href: "https://api.gocd.org/")
       assert_true social.has_link?(nil, href: "/go/about")
       assert_true social.has_link?(nil, href: "/go/cctray.xml")
 

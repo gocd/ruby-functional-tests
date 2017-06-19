@@ -20,7 +20,7 @@ module Context
     attr_accessor :config_dom
 
     def load_dom(xml)
-      RestClient.post admin_config_url, {xmlFile: xml.to_s, md5: @md5}, auth_header
+      RestClient.post admin_config_url, {xmlFile: xml.to_s, md5: @md5}, header
     rescue => e
       raise "Update config xml api call failed. Error message #{e.message}"
     end
@@ -32,7 +32,7 @@ module Context
     end
 
     def get_current_config
-      response = RestClient.get admin_config_url, auth_header
+      response = RestClient.get admin_config_url, header
       current_config = Nokogiri::XML(response.body)
       @md5 = response.headers[:x_cruise_config_md5]
       @serverId = current_config.xpath('//server').first['serverId']
@@ -109,10 +109,10 @@ module Context
       load_dom(config_dom)
     end
 
-    def auth_header
-      return unless scenario_state.current_user
+    def header
+      return {Confirm: true} unless scenario_state.current_user
       basic_auth = Base64.encode64([scenario_state.current_user, 'badger'].join(':'))
-      {Authorization: "Basic #{basic_auth}"}
+      {Authorization: "Basic #{basic_auth}", Confirm: true}
     end
 
     def setup(config_file)

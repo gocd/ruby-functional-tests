@@ -29,7 +29,7 @@ module Context
 
     def capture_healthstate(path)
       begin
-        response = RestClient.get health_message_url, basic_configuration.auth_header
+        response = RestClient.get health_message_url, basic_configuration.header
         File.open("#{path}/health_message.json", 'w') { |file| file.write(response.body) }
       rescue => e
         File.open("#{path}/health_message.json", 'w') { |file| file.write(e.message) }

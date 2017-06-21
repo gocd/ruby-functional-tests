@@ -15,7 +15,7 @@
  * limitations under the License.
  *************************GO-LICENSE-END******************************* -->
 
-<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="92">
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="93">
     <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="gauge" />
     <pipelines group="basic">
         <pipeline name="basic-pipeline-with-long-running-job">

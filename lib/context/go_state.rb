@@ -24,7 +24,7 @@ module Context
     end
 
     def capture_agents(path)
-      cp_r "#{GoConstants::GAUGE_AGENT_DIR}/." , path
+      cp_r "#{GoConstants::GAUGE_AGENT_DIR}/." , path if Dir.exist?("#{GoConstants::GAUGE_AGENT_DIR}")
     end
 
     def capture_healthstate(path)

@@ -19,6 +19,7 @@ require 'bundler'
 require 'owasp_zap'
 require 'pry'
 require 'test/unit'
+require 'ostruct'
 Bundler.setup(:default)
 Bundler.require
 

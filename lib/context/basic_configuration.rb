@@ -21,8 +21,8 @@ module Context
 
     def load_dom(xml)
       RestClient.post admin_config_url, {xmlFile: xml.to_s, md5: @md5}, header
-    rescue => e
-      raise "Update config xml api call failed. Error message #{e.message}"
+    rescue RestClient::ExceptionWithResponse => err
+      raise "Update config xml api call failed. Error message #{err.response.body}"
     end
 
     def get_dom(file)

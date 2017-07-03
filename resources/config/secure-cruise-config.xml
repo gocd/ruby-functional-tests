@@ -39,6 +39,11 @@
         </security>
     </server>
     <pipelines group="basic">
+      <authorization>
+        <admins>
+          <user>group1Admin</user>
+        </admins>
+      </authorization>
         <pipeline name="basic-pipeline-with-git-material">
             <materials>
                 <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
@@ -58,4 +63,24 @@
             </stage>
         </pipeline>
     </pipelines>
+    <!-- Add this template creation and adding template admin to the spec ones API supports updating authoriztion -->
+    <templates>
+      <pipeline name="Template-With-Admin">
+        <authorization>
+          <admins>
+            <user>templateadmin</user>
+          </admins>
+        </authorization>
+        <stage name="defaultStage">
+            <approval type="manual"/>
+            <jobs>
+                <job name="defaultJob">
+                    <tasks>
+                        <exec command="ls" />
+                    </tasks>
+                </job>
+            </jobs>
+        </stage>
+    </pipeline>
+  </templates>
 </cruise>

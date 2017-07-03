@@ -28,3 +28,7 @@ step "Login as <user> with password as <pwd>" do |user, pwd|
   login_page.load
   login_page.signin user, pwd
 end
+
+step "As user <user>" do |user|
+  scenario_state.set_current_user user
+end

@@ -68,5 +68,13 @@ module Context
     def configrepo(entity)
       @scenario_store.get "#{entity}-configrepo"
     end
+
+    def add_api_response(response)
+      @scenario_store.put "api_response", response
+    end
+
+    def api_response
+      @scenario_store.get "api_response"
+    end
   end
 end

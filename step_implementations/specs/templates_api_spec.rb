@@ -15,7 +15,6 @@
 ##########################################################################
 
 require 'representers/template'
-require 'representers/pipeline'
 include Representers
 include Helpers::GoUrlHelper
 

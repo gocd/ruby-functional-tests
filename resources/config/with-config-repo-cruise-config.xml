@@ -18,13 +18,13 @@
 <cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="94">
     <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="gauge" />
     <config-repos>
-       <config-repo plugin="json.config.plugin">
+       <config-repo id="config-repo" plugin="json.config.plugin">
          <git url="$git-config-repo" />
        </config-repo>
-       <config-repo plugin="json.config.plugin">
+       <config-repo id="config-repo1" plugin="json.config.plugin">
          <git url="$git-config-repo1" />
        </config-repo>
-       <config-repo plugin="json.config.plugin">
+       <config-repo id="config-repo2" plugin="json.config.plugin">
          <git url="$git-config-repo2" />
        </config-repo>
     </config-repos>

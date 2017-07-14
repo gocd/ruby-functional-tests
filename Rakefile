@@ -64,13 +64,13 @@ zips = %w(server agent).each_with_object({}) do |package, accumulator|
   accumulator
 end
 
-identifiers = { server: '-Dgo.gauge.server', agent: '-Dgo.gauge.agent', gauge: 'go_gauge' }
+identifiers = {server: '-Dgo.gauge.server', agent: '-Dgo.gauge.agent', gauge: 'go_gauge'}
 
 identifiers.each do |package, process_argument|
   namespace package do
     desc "Kill the #{package} identified using #{process_argument}"
     task :kill do
-      if process = ProcTable.ps.find { |each_process| each_process.environ[process_argument] }
+      if process = ProcTable.ps.find {|each_process| each_process.environ[process_argument]}
         $stderr.puts "Found PID(#{process.pid}) matching #{process_argument}"
         if OS.windows?
           sh("TASKKILL /PID #{process.pid}")
@@ -80,7 +80,7 @@ identifiers.each do |package, process_argument|
 
         sleep 2
         $stderr.puts "PID(#{process.pid}) exists after 2 seconds, force killing"
-        if ProcTable.ps.find { |each_process| each_process.pid == process.pid }
+        if ProcTable.ps.find {|each_process| each_process.pid == process.pid}
           if OS.windows?
             sh("TASKKILL /PID /F #{process.pid}")
           else
@@ -173,6 +173,22 @@ task :build_all do
   if DEVELOPMENT_MODE
     ['server:build', 'agent:build', 'plugins:build', 'addons:build'].each do |t|
       Rake::Task[t].invoke
+    end
+  end
+end
+
+
+desc 'Bump up schemaVersion'
+task 'bump-schema' do
+  version = ENV['VERSION'].to_s
+
+  raise "Please provide VERSION" if version.empty?
+  Dir["./resources/config/*.xml"].each do |path|
+    content = File.read(path)
+    if content =~ /xsi:noNamespaceSchemaLocation="cruise-config.xsd"/
+      puts "Replacing content in #{path}"
+      content = content.gsub(/schemaVersion="\d+"/, %Q{schemaVersion="#{version}"})
+      open(path, 'w') {|f| f.write(content)}
     end
   end
 end

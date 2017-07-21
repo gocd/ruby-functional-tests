@@ -125,7 +125,6 @@ namespace :plugins do
       cp_r 'target/go-plugins-dist/.', "target/go-server-#{VERSION_NUMBER}/plugins/external"
     end
     cp_r 'plugins/.', "target/go-server-#{VERSION_NUMBER}/plugins/external"
-    rm "target/go-server-#{VERSION_NUMBER}/plugins/external/yum-repo-exec-poller.jar"
   end
 
   desc 'gradle build go plugins'

@@ -30,7 +30,7 @@ module Context
     end
 
     def get_current_environment
-      @scenario_store.get(@scenario_store.get 'current_env')
+      @scenario_store.get 'current_env'
     end
 
     def add_environment(initial_name, replaced_name)

@@ -90,7 +90,6 @@ module Pages
     end
 
     def all_agents_checked
-      binding.pry
       list_of_agents.all? {|agent| agent.find("input[type='checkbox']").checked?}
     end
 

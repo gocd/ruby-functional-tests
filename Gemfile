@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem 'gauge-ruby', '~> 0.3.1'
+gem 'gauge-ruby'
 gem 'test-unit'
 gem 'selenium-webdriver', '~> 2.53'
 gem 'childprocess'

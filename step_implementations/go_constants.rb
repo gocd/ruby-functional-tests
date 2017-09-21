@@ -60,6 +60,5 @@ class GoConstants
                           -Dcommand.repo.warning.timeout=30000 \
                           -Dnew.plugins.framework.enabled=Y \
                           -Dgo.gauge.server=true \
-                          -Dredirect.stdout.to.file=./logs/go-server.out.log \
                           -DDB_DEBUG_MODE=true".freeze
 end

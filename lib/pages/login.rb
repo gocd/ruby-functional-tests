@@ -28,6 +28,7 @@ module Pages
       username.set user
       password.set pwd
       submit.click
+      wait_until_current_user_visible 10, text: user
       assert_equal current_user.text.downcase, user.downcase
       scenario_state.set_current_user user
     end

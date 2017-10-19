@@ -7,6 +7,7 @@ tags: bundled-auth-plugins
 
 Setup of contexts
 * AuthPluginsConfiguration - setup
+* Login as "admin" - setup
 * Using pipeline "basic-pipeline" - setup
 * With "1" live agents - setup
 * Capture go state "BundledAuthPlugins" - setup
@@ -15,7 +16,7 @@ Setup of contexts
 * Set password file path as "password_plugin.properties"
 * Save authorization config
 
-* Login as "admin"
+* Login as "pwdadmin"
 
 * Start to add a new authorization config with id as "ldap_auth" for plugin "LDAP Authentication Plugin for GoCD"
 * Set LDAP Url
@@ -69,3 +70,5 @@ teardown
 _______________
 * Capture go state "BundledAuthPlugins" - teardown
 * With "1" live agents - teardown
+* As user "admin" for teardown
+* Configuration - teardown

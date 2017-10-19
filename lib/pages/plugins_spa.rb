@@ -23,13 +23,11 @@ module Pages
     load_validation { has_plugin_settings? }
 
     def invalid_plugin_message_exists?(id, message)
-      plugin_settings.find('.plugin-id', :text => id)
-                      .find(:xpath, "../../..").find('.plugin-config-read-only').has_selector?('dd', :text => message)
+      plugin_config_element_of(id).has_selector?('dd', :text => message)
     end
 
     def plugin_by_id_is_invalid?(id)
-      plugin_settings.find('.plugin-id', :text => id)
-                      .find(:xpath, "../../..").find('.plugin-config-read-only').has_selector?('dt', :text => "There were errors loading the plugin")
+      plugin_config_element_of(id).has_selector?('dt', :text => "There were errors loading the plugin")
     end
 
     def plugin_by_id_is_valid?(id)
@@ -55,38 +53,36 @@ module Pages
     end
 
     def is_expected_description?(id, desc)
-      plugin_settings.find('.plugin-id', :text => id)
-                      .find(:xpath, "../../..").find('.plugin-config-read-only').has_selector?('dd', :text => desc)
+      plugin_config_element_of(id).has_selector?('dd', :text => desc)
     end
 
     def is_expected_author?(id, author)
-      plugin_settings.find('.plugin-id', :text => id)
-                      .find(:xpath, "../../..").find('.plugin-config-read-only').has_selector?('dd', :text => author)
+      plugin_config_element_of(id).has_selector?('dd', :text => author)
     end
 
     def is_expected_author_link?(id, author, link)
-      plugin_settings.find('.plugin-id', :text => id)
-                      .find(:xpath, "../../..").find('.plugin-config-read-only').find('a', :text => author)[:href] == link
+      plugin_config_element_of(id).find('a', :text => author)[:href] == link
     end
 
     def is_expected_installed_path?(id, path)
-      plugin_settings.find('.plugin-id', :text => id)
-                      .find(:xpath, "../../..").find('.plugin-config-read-only').has_selector?('dd', :text => path)
+      plugin_config_element_of(id).has_selector?('dd', :text => path)
     end
 
     def is_expected_supported_os?(id, os)
-      plugin_settings.find('.plugin-id', :text => id)
-                      .find(:xpath, "../../..").find('.plugin-config-read-only').has_selector?('dd', :text => os)
+      plugin_config_element_of(id).has_selector?('dd', :text => os)
     end
 
     def is_expected_go_version?(id, version)
-      plugin_settings.find('.plugin-id', :text => id)
-                      .find(:xpath, "../../..").find('.plugin-config-read-only').has_selector?('dd', :text => version)
+      plugin_config_element_of(id).has_selector?('dd', :text => version)
     end
 
     def is_expected_bundled?(id, bundled)
+      plugin_config_element_of(id).has_selector?('dd', :text => bundled)
+    end
+
+    def plugin_config_element_of(id)
       plugin_settings.find('.plugin-id', :text => id)
-                      .find(:xpath, "../../..").find('.plugin-config-read-only').has_selector?('dd', :text => bundled)
+                      .find(:xpath, "../../..").find('.plugin-config-read-only')
     end
 
   end

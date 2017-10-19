@@ -71,4 +71,3 @@ _______________
 * Capture go state "BundledAuthPlugins" - teardown
 * With "1" live agents - teardown
 * As user "admin" for teardown
-* Configuration - teardown

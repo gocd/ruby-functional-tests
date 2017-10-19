@@ -38,6 +38,7 @@ require 'pages/preferences_page'
 require 'pages/authorization_config_spa'
 require 'pages/role_config_spa'
 require 'pages/pipeline_group_edit_page'
+require 'pages/plugins_spa'
 
 
 module Helpers
@@ -80,6 +81,10 @@ module Helpers
 
     def pipeline_group_edit_page
       Pages::PipelineGroupEditPage.new
+    end
+
+    def plugins_spa_page
+      Pages::PluginsSPA.new
     end
 
     def server_health_message

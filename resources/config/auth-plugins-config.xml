@@ -18,10 +18,19 @@
 <cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="97">
     <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="gauge">
         <security>
+          <authConfigs>
+              <authConfig id="61f10215-9fba-4962-a2f4-d6c8944ade32" pluginId="cd.go.authentication.passwordfile">
+                  <property>
+                      <key>PasswordFilePath</key>
+                      <value>$password_properties</value>
+                  </property>
+              </authConfig>
+          </authConfigs>
             <roles>
                 <role name="admins">
                     <users>
                         <user>admin</user>
+                        <user>pwdadmin</user>
                     </users>
                 </role>
             </roles>

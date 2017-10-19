@@ -39,5 +39,9 @@ step "Config repo git repository - setup" do
 end
 
 step "AuthPluginsConfiguration - setup" do
-  basic_configuration.setup 'auth-plugins-config.xml'
+  secure_configuration.setup 'auth-plugins-config.xml', 'password.properties'
+end
+
+step "Configuration - teardown" do
+  basic_configuration.reset_config
 end

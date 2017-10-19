@@ -32,3 +32,7 @@ end
 step "As user <user>" do |user|
   scenario_state.set_current_user user
 end
+
+step "As user <user> for teardown" do |user|
+  scenario_state.set_current_user user
+end

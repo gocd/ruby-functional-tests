@@ -25,9 +25,9 @@ step "Using environment <environment> - setup" do |environments|
 end
 
 step "Using environment <environment> - teardown" do |environments|
-  basic_configuration.reset_config
+  basic_configuration.reset_config_environment
 end
 
 step "Using pipeline <pipeline> - teardown" do |pipelines|
-  basic_configuration.reset_config
+  basic_configuration.reset_config_pipeline
 end

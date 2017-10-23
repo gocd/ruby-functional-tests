@@ -41,7 +41,3 @@ end
 step "AuthPluginsConfiguration - setup" do
   secure_configuration.setup 'auth-plugins-config.xml', 'password.properties'
 end
-
-step "Configuration - teardown" do
-  basic_configuration.reset_config
-end

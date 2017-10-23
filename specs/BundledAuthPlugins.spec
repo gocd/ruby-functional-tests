@@ -68,6 +68,7 @@ Steps to verify login with different case
 
 teardown
 _______________
+* As user "admin" for teardown
 * Capture go state "BundledAuthPlugins" - teardown
 * With "1" live agents - teardown
-* As user "admin" for teardown
+* Logout - from any page

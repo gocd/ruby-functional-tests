@@ -46,3 +46,4 @@ Setup of contexts
 teardown
 _______________
 * Capture go state "TemplatesAPI" - teardown
+* Logout - from any page

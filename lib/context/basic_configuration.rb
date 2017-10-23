@@ -78,6 +78,18 @@ module Context
       load_dom(config_dom)
     end
 
+    def reset_config_environment
+      self.config_dom = get_current_config
+      config_dom.search('//environments').each(&:remove)
+      load_dom(config_dom)
+    end
+
+    def reset_config_pipeline
+      self.config_dom = get_current_config
+      config_dom.search('//pipelines').each(&:remove)
+      load_dom(config_dom)
+    end
+
     def remove_environments_except(except_environments)
       self.config_dom = get_current_config
 

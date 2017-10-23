@@ -38,5 +38,4 @@ Setup of contexts
 teardown
 _______________
 * Capture go state "ConfigReposEnvironment" - teardown
-* Using pipeline "simple-upstream, main-config-pipeline" - teardown
 * With "1" live agents - teardown

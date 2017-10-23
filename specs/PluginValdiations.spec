@@ -2,6 +2,7 @@ PluginValidations
 =================
 
 Setup of contexts
+* Basic Configuration - setup
 * Capture go state "PluginValidations" - setup
 
 PluginValidations

@@ -26,6 +26,4 @@ Setup of contexts
 teardown
 _______________
 * Capture go state "ConfigReposEnvironmentMerge" - teardown
-* Using pipeline "simple-upstream, main-config-pipeline" - teardown
-* Using environment "test-environment" - teardown
 * With "1" live agents - teardown

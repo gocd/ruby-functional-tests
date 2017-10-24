@@ -6,7 +6,7 @@ EditExistingEnvironments
 tags: edit_environments
 
 Setup of contexts
-* SmokeConfiguration - setup
+* Secure Configuration - setup
 * Login as "admin" - setup
 * Using pipeline "environment-pipeline, environment-pipeline-locked, environment-failing-pipeline,pipeline-with-environment-variables" - setup
 * With "1" live agents - setup

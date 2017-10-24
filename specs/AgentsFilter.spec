@@ -16,7 +16,7 @@ Hostnames as search string
  * Enter filter value "random1"
  * Verify agents "random1" show up in results
  * Enter filter value "random "
- * Verify total agent count is "0"
+ * Verify agent summary shows "Total" agent count as "0"
 
  IP as search string
  * Enter filter value "10.232.3"
@@ -31,7 +31,7 @@ Hostnames as search string
  * Enter filter value "Production"
  * Verify agents "random4" show up in results
  * Enter filter value "Prod-n"
- * Verify total agent count is "1"
+ * Verify agent summary shows "Total" agent count as "1"
  * Enter filter value "Prod-new"
  * Verify agents "random" show up in results
 
@@ -42,9 +42,9 @@ Hostnames as search string
  * Enter filter value "missing"
  * Verify agents "random, random1, random2, random3, random4" show up in results
  * Enter filter value "idle"
- * Verify total agent count is "1"
+ * Verify agent summary shows "Total" agent count as "1"
  * Enter filter value "idle "
- * Verify total agent count is "0"
+ * Verify agent summary shows "Total" agent count as "0"
 
  Resource as search string
  * Enter filter value "win"
@@ -52,14 +52,14 @@ Hostnames as search string
  * Enter filter value "windows"
  * Verify agents "random1, random2" show up in results
  * Enter filter value "lin"
- * Verify total agent count is "3"
+ * Verify agent summary shows "Total" agent count as "3"
  * Enter filter value "linux"
  * Verify agents "random, random3, random4" show up in results
 
 
  OS as search string
  * Enter filter value "CentOS"
- * Verify total agent count is "2"
+ * Verify agent summary shows "Total" agent count as "2"
 
 teardown
 _______________

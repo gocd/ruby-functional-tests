@@ -98,8 +98,8 @@ step "Enter filter value <search>" do |search|
   agents_spa_page.filter_by(search)
 end
 
-step "Verify total agent count is <count>" do |count|
-  assert_equal count, agents_spa_page.summary_count("Total"), "Total agent count not as expected"
+step "Verify agent summary shows <state> agent count as <count>" do |state, count|
+  assert_equal count, agents_spa_page.summary_count(state), "#{state} agent count not as expected"
 end
 
 step "Verify agents at state <state> is <count>" do |state, count|
@@ -111,13 +111,7 @@ step "Wait till agent <row> status is <status>" do |row, status|
   agents_spa_page.wait_till_agent_status_is status, row
 end
 
-step "With <count> live agents - setup" do |count|
-  go_agents.create_agents count
-  agents_spa_page.load
-  agents_spa_page.resize
-  agents_spa_page.wait_till_agents_are_idle count
-end
-
-step "With <count> live agents - teardown" do |count|
-  go_agents.destroy_agents count
+step "Approve a pending agent" do |count|
+  agents_spa_page.select_agent_with_status('pending')
+  agents_spa_page.click_on 'ENABLE'
 end

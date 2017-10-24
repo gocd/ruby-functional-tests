@@ -21,3 +21,21 @@ end
 step "Logout - from any page" do |count|
   app_base_page.logout
 end
+
+step "With <count> pending agents - setup" do |count|
+  go_agents.create_agents count
+  agents_spa_page.load
+  agents_spa_page.resize
+  agents_spa_page.wait_till_agents_are_pending count
+end
+
+step "With <count> live agents - setup" do |count|
+  go_agents.create_agents count
+  agents_spa_page.load
+  agents_spa_page.resize
+  agents_spa_page.wait_till_agents_are_idle count
+end
+
+step "With <count> live agents - teardown" do |count|
+  go_agents.destroy_agents count
+end

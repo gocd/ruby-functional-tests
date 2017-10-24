@@ -60,5 +60,6 @@ class GoConstants
                           -Dcommand.repo.warning.timeout=30000 \
                           -Dnew.plugins.framework.enabled=Y \
                           -Dgo.gauge.server=true \
-                          -DDB_DEBUG_MODE=true".freeze
+                          -DDB_DEBUG_MODE=true \
+                          #{ENV['ADDITIONAL_SERVER_SYSTEM_PROPERITES']}".freeze
 end

@@ -19,6 +19,7 @@ module Pages
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/agents"
 
     element :agents_head, '#agents > div > div.row.expanded.agents-table-body > div > table > thead > tr'
+    element :agents_table, '.agents-table.stack'
     elements :agents_row, '#agents > div > div.row.expanded.agents-table-body > div > table > tbody > tr'
     elements :agents_column, '#agents > div > div.row.expanded.agents-table-body > div > table > tbody > tr > td'
     elements :agents_menu, '#agents div div.header-panel header div div.columns.medium-7.large-7 ul'
@@ -34,6 +35,10 @@ module Pages
 
     def select_agent_at(row)
       agents_row[row].find('input[type="checkbox"]').set(true)
+    end
+
+    def select_agent_with_status(status)
+      agents_table.all(".#{status}").first.find('input[type="checkbox"]').set(true)
     end
 
     def listed_agents_count
@@ -96,6 +101,14 @@ module Pages
         reload_page
         wait_for_agents_menu(5)
         break if agents_spa_page.get_listed_agents('Status')[row.to_i-1] == status
+      end
+    end
+
+    def wait_till_agents_are_pending(count)
+      wait_till_event_occurs_or_bomb 120, "Expected #{count} agents be regsitered by now" do
+        reload_page
+        wait_for_agents_menu(5)
+        break if get_agents_count('Pending') == count.to_i
       end
     end
 

@@ -39,6 +39,5 @@ Setup of contexts
 teardown
 _______________
 * Capture go state "EditExistingEnvironments" - teardown
-* Using pipeline "environment-pipeline, environment-pipeline-locked, environment-failing-pipeline,pipeline-with-environment-variables" - teardown
 * With "1" live agents - teardown
 * Logout - from any page

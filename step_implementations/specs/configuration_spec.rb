@@ -23,7 +23,7 @@ step "Basic Configuration - setup" do
 end
 
 step "Secure Configuration - setup" do
-  basic_configuration.setup 'secure-cruise-config.xml'
+  secure_configuration.setup 'secure-cruise-config.xml', 'password.properties'
 end
 
 step "Multiple agents Configuration - setup" do

@@ -6,7 +6,7 @@ TemplatesAPI
 tags: templates, api
 
 Setup of contexts
-* SmokeConfiguration - setup
+* Secure Configuration - setup
 * Login as "admin" - setup
 * Capture go state "TemplatesAPI" - setup
 

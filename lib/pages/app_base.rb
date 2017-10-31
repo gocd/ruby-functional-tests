@@ -32,7 +32,7 @@ module Pages
     end
 
     def logout
-      page.find('a[class="current_user_name dropdown-arrow-icon"]').click
+      page.find("[class^='current_user_name']").click
       page.find('a[href="/go/auth/logout"]').click
     end
 

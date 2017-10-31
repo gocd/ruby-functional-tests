@@ -62,7 +62,7 @@
                 </jobs>
             </stage>
         </pipeline>
-        <pipeline name="environment-pipeline-locked" isLocked="true">
+        <pipeline name="environment-pipeline-locked" lockBehavior="lockOnFailure">
          <materials>
            <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
              </materials>
@@ -131,7 +131,7 @@
            </jobs>
      </stage>
    </pipeline>
-   <pipeline name="environment-failing-pipeline" isLocked="true">
+   <pipeline name="environment-failing-pipeline" lockBehavior="lockOnFailure">
 		<materials>
 			<git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
         </materials>

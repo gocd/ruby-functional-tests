@@ -20,12 +20,21 @@ step "Login as <user> - setup" do |user|
 end
 
 step "Login as <user>" do |user|
-  login_page.load
+  pipeline_dashboard_page.load
+  app_base_page.logout
   login_page.signin user
 end
 
+step "Logout and login as <user>" do |user|
+  pipeline_dashboard_page.load
+  app_base_page.logout
+  login_page.signin user
+end
+
+
 step "Login as <user> with password as <pwd>" do |user, pwd|
-  login_page.load
+  pipeline_dashboard_page.load
+  app_base_page.logout
   login_page.signin user, pwd
 end
 

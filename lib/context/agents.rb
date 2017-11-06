@@ -14,16 +14,19 @@
 # limitations under the License.
 ##########################################################################
 
+require 'singleton'
+
 module Context
   class Agents
     include FileUtils
+    include Singleton
+
     START_COMMAND = OS.windows? ? %w(cmd /c start-agent.bat) : './agent.sh'
     STOP_COMMAND = OS.windows? ? %w(cmd /c stop-agent.bat) : './stop-agent.sh'
 
     def initialize()
       @agent_wrk_dirs = []
     end
-
 
     def start_an_agent_in(dir)
       raise "Agent already running in the directory #{dir}" if File.exist?("#{dir}/.agent-bootstrapper.running")

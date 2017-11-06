@@ -64,7 +64,7 @@
         </pipeline>
         <pipeline name="pipeline-unlock-onComplete" lockBehavior="unlockWhenFinished">
          <materials>
-           <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+           <git url="$git-on-git-pipeline" dest="tasks" materialName="git" autoUpdate="false"/>
              </materials>
              <stage name="firstStage">
                <approval type="manual"/>
@@ -80,7 +80,7 @@
                <jobs>
                    <job name="long">
                          <tasks>
-                             <exec command="rake" args="wait_for_stopjob_file"/>
+                             <exec command="rake" args="wait_for_stopjob_file" workingdir="tasks"/>
                          </tasks>
                       </job>
                  </jobs>

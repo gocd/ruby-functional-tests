@@ -31,7 +31,6 @@ module Pages
 
     def get_pipeline_stage_state(pipeline, stagename)
       SitePrism::Page.element :pipeline_panel, "#pipeline_#{scenario_state.get_pipeline(pipeline)}_panel"
-      binding.pry
       target_stage = pipeline_panel.all('.stage').select{|stage| stage.has_selector?("div[data-stage=#{stagename}]")}
       target_stage.first.find("div[data-stage=#{stagename}]")['title']
     end

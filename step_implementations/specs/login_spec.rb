@@ -31,6 +31,9 @@ step "Logout and login as <user>" do |user|
   login_page.signin user
 end
 
+step "Logout - from any page" do |count|
+  app_base_page.logout
+end
 
 step "Login as <user> with password as <pwd>" do |user, pwd|
   pipeline_dashboard_page.load

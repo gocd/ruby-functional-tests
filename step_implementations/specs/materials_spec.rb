@@ -23,3 +23,7 @@ step "Using environment <environment> - setup" do |environments|
   environments.split(',').each { |env| scenario_state.add_environment(env, env) }
   basic_configuration.remove_environments_except environments.split(',').map { |e| e.strip }
 end
+
+step "Create a <file> file" do |file|
+   git_materials.create_stopjob(file)
+end

@@ -64,6 +64,10 @@ module Pages
       plugin_config_element_of(id).find('a', :text => author)[:href] == link
     end
 
+    def is_author_link_disabled?(id, author, link)
+      !plugin_config_element_of(id).has_selector?('a', :text => author)
+    end
+
     def is_expected_installed_path?(id, path)
       plugin_config_element_of(id).has_selector?('dd', :text => path)
     end
@@ -83,6 +87,23 @@ module Pages
     def plugin_config_element_of(id)
       plugin_settings.find('.plugin-id', :text => id)
                       .find(:xpath, "../../..").find('.plugin-config-read-only')
+    end
+
+    def plugin_actions_of(id)
+      plugin_settings.find('.plugin-id', :text => id)
+                      .find(:xpath, "../../..").find('.plugin-actions')
+    end
+
+    def is_plugins_settings_enabled?(id)
+      plugin_actions_of(id).has_selector?('.edit-plugin')
+    end
+
+    def is_plugins_settings_disabled?(id)
+      plugin_actions_of(id).has_selector?('.edit-plugin.disabled')
+    end
+
+    def is_plugins_settings_displayed?(id)
+      plugin_settings.find('.plugin-id', :text => id).find(:xpath, "../../..").has_selector?('.plugin-actions', visible: true)
     end
 
   end

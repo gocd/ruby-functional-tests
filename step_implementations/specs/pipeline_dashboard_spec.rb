@@ -16,7 +16,7 @@
 
 step "Trigger <pipeline>" do |pipeline|
   pipeline_dashboard_page.trigger_pipeline pipeline
-  #pipeline_dashboard_page.wait_till_pipeline_start_building pipeline,1
+  pipeline_dashboard_page.wait_till_pipeline_start_building pipeline,1
 end
 
 step "Looking at pipeline <pipeline>" do |pipeline|
@@ -24,11 +24,19 @@ step "Looking at pipeline <pipeline>" do |pipeline|
   scenario_state.set_current_pipeline pipeline
 end
 
-step "Wait till pipeline completed stage <stage>" do |stage|
-  pipeline_dashboard_page.wait_till_pipeline_complete scenario_state.current_pipeline, stage
+step "Wait till stage <stage> completed" do |stage|
+    pipeline_dashboard_page.wait_till_stage_complete scenario_state.current_pipeline, stage
 end
 
-step "Verify stage <stage> is <state> on pipeline with label <label>" do |stage, state, label|
+step "Wait till pipeline completed" do |stage|
+    pipeline_dashboard_page.wait_till_pipeline_complete scenario_state.current_pipeline
+end
+
+step "Verify stage at <stage> is <state> on pipeline with label <label>" do |stage, state, label|
+  pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.current_pipeline, stage, state
+end
+
+step "Verify stage <stage> is <state>" do |stage, state|
   pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.current_pipeline, stage, state
 end
 

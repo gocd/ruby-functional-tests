@@ -20,6 +20,10 @@ module Context
     START_COMMAND = OS.windows? ? %w(cmd /c start-agent.bat) : './agent.sh'
     STOP_COMMAND = OS.windows? ? %w(cmd /c stop-agent.bat) : './stop-agent.sh'
 
+    def initialize()
+      @agent_wrk_dirs = []
+    end
+
 
     def start_an_agent_in(dir)
       raise "Agent already running in the directory #{dir}" if File.exist?("#{dir}/.agent-bootstrapper.running")
@@ -45,7 +49,12 @@ module Context
     def create_agents(count)
       (1..count.to_i).each do |n|
         start_an_agent_in "#{GoConstants::GAUGE_AGENT_DIR}/agent-#{n}"
+        @agent_wrk_dirs << "#{GoConstants::GAUGE_AGENT_DIR}/agent-#{n}"
       end
+    end
+
+    def get_working_dirs
+      @agent_wrk_dirs
     end
 
     def destroy_agents(count)
@@ -66,6 +75,7 @@ module Context
         end
       end
       rm_rf(GoConstants::GAUGE_AGENT_DIR)
+      @agent_wrk_dirs.clear
     end
   end
 end

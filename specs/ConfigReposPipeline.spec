@@ -13,7 +13,7 @@ Setup of contexts
 
 * Looking at pipeline "simple-upstream"
 * Trigger "simple-upstream"
-* Wait till pipeline completed stage "1"
+* Wait till pipeline completed
 * Verify stage at "1" is "Passed" on pipeline with label "1"
 
 * Create a new config repo pipeline with name "first-pipeline" on repo "1" as downstream of "simple-upstream"
@@ -22,7 +22,7 @@ Setup of contexts
 
 * Looking at pipeline "first-pipeline"
 * Trigger "first-pipeline"
-* Wait till pipeline completed stage "1"
+* Wait till pipeline completed
 * Verify stage at "1" is "Passed" on pipeline with label "1"
 
 * Create a new config repo pipeline with name "second-pipeline" on repo "2" as downstream of "first-pipeline"
@@ -30,7 +30,7 @@ Setup of contexts
 
 * Looking at pipeline "second-pipeline"
 * Trigger "second-pipeline"
-* Wait till pipeline completed stage "1"
+* Wait till pipeline completed
 * Verify stage at "1" is "Passed" on pipeline with label "1"
 
 * Create a new config repo pipeline with name "third-pipeline" on repo "3" as downstream of "non-existing-pipeline"

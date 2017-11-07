@@ -25,7 +25,7 @@ module Pages
     end
 
     def get_latest_stage_state(pipeline)
-      SitePrism::Page.element :pipeline_panel, "#pipeline_#{scenario_state.get_pipeline(pipeline)}_panel" # > div.pipeline_instance > div.status.details > div.pipeline_instance_details > div.stages > div"
+      SitePrism::Page.element :pipeline_panel, "#pipeline_#{scenario_state.get_pipeline(pipeline)}_panel"
       pipeline_panel.find('.latest_stage').text
     end
 

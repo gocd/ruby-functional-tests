@@ -13,7 +13,7 @@ Setup of contexts
 
 * Looking at pipeline "basic-pipeline-with-job-resources"
 * Trigger "basic-pipeline-with-job-resources"
-* Verify stage at "1" is "Building" on pipeline with label "1"
+* Verify stage "defaultStage" is "Building"
 
 * On Agents page
 * Verify agents at state "Building" is "0"

@@ -18,10 +18,6 @@ step "Reload page" do |count|
   app_base_page.reload_page
 end
 
-step "Logout - from any page" do |count|
-  app_base_page.logout
-end
-
 step "With <count> pending agents - setup" do |count|
   go_agents.create_agents count
   agents_spa_page.load

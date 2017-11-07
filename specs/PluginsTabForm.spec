@@ -40,9 +40,9 @@ Below steps fail becuase new plugins page do not show values as "Unknown" if the
 
 * On Plugins page
 
-* Verify plugin named "Yum Plugin" with id "yum" is valid
+* Verify plugin with id "yum" is valid
 * Verify plugin with id "yum" has version "2.0.3" name "Yum Plugin" description "Plugin that polls a yum repository" author "ThoughtWorks Go Team" with enabled link to "https://www.thoughtworks.com/"
-* Verify more information for plugin with id "yum" has path "/plugins/bundled/gocd-yum-repository-poller-plugin.jar" target os "Linux" target go version "15.2.0" and bundled status as "Yes"
+* Verify plugin with id "yum" has path "/plugins/bundled/gocd-yum-repository-poller-plugin.jar" supported OS "Linux" target go version "15.2.0" and bundled status as "Yes"
 
 * Verify plugin with id "cd.go.authentication.passwordfile" is valid
 * Verify plugin with id "cd.go.authentication.passwordfile" has version "1.0.1-48" name "Password File Authentication Plugin for GoCD" description "GoCD Authorization plugin for file based password authentication" author "GoCD Contributors" with enabled link to "https://github.com/gocd/filebased-authentication-plugin"

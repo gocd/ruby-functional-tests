@@ -24,9 +24,15 @@ module Pages
       reload_page
     end
 
-    def get_pipeline_stage_state(pipeline, _stage)
-      SitePrism::Page.element :latest_stage, "#pipeline_#{scenario_state.get_pipeline(pipeline)}_panel > div.pipeline_instance > div.status.details > div.pipeline_instance_details > div.stages > div"
-      latest_stage.text
+    def get_latest_stage_state(pipeline)
+      SitePrism::Page.element :pipeline_panel, "#pipeline_#{scenario_state.get_pipeline(pipeline)}_panel" # > div.pipeline_instance > div.status.details > div.pipeline_instance_details > div.stages > div"
+      pipeline_panel.find('.latest_stage').text
+    end
+
+    def get_pipeline_stage_state(pipeline, stagename)
+      SitePrism::Page.element :pipeline_panel, "#pipeline_#{scenario_state.get_pipeline(pipeline)}_panel"
+      target_stage = pipeline_panel.all('.stage').select{|stage| stage.has_selector?("div[data-stage=#{stagename}]")}
+      target_stage.first.find("div[data-stage=#{stagename}]")['title']
     end
 
     def verify_pipeline_is_at_label(pipeline, label)
@@ -42,19 +48,31 @@ module Pages
     def wait_till_pipeline_start_building(pipeline, stage)
       wait_till_event_occurs_or_bomb 10, "Pipeline #{scenario_state.get_pipeline(pipeline)} failed to start building" do
         reload_page
-        break if get_pipeline_stage_state(pipeline, stage).include?('Building')
+        break if get_latest_stage_state(pipeline).include?('Building')
       end
     end
 
-    def wait_till_pipeline_complete(pipeline, stage)
+    def wait_till_pipeline_complete(pipeline)
       wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.get_pipeline(pipeline)} failed to complete with in timeout" do
+        reload_page
+        break unless get_latest_stage_state(pipeline).include?('Building')
+      end
+    end
+
+    def wait_till_stage_complete(pipeline, stage)
+      wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.get_pipeline(pipeline)} Stage #{stage} failed to complete with in timeout" do
         reload_page
         break unless get_pipeline_stage_state(pipeline, stage).include?('Building')
       end
     end
 
     def is_editable?(pipeline)
-      page.has_css?("#pipeline_#{pipeline}_panel > div.pipeline_header > div.pipeline_actions > a")
+      page.has_css?("#pipeline_#{scenario_state.get_pipeline(pipeline)}_panel > div.pipeline_header > div.pipeline_actions > a")
+    end
+
+    def is_locked?(pipeline)
+      SitePrism::Page.element :pipeline_panel, "#pipeline_#{scenario_state.get_pipeline(pipeline)}_panel"
+      pipeline_panel.has_selector?(".locked_instance.locked") || pipeline_panel.has_selector?("#unlock")
     end
 
     def wait_till_pipeline_showsup(pipeline)

@@ -108,7 +108,7 @@ module Helpers
     end
 
     def go_agents
-      Context::Agents.new
+      Context::Agents.instance
     end
 
     def go_server

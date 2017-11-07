@@ -25,7 +25,7 @@ Setup of contexts
 * Remove environments "uat"
 
 * Looking at pipeline "basic-pipeline-fast"
-* Wait till pipeline completed stage "1"
+* Wait till pipeline completed
 * Verify stage at "1" is "Passed" on pipeline with label "1"
 
 teardown

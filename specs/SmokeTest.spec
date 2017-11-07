@@ -14,7 +14,7 @@ Setup of contexts
 
 * Looking at pipeline "basic-pipeline-with-git-material"
 * Trigger "basic-pipeline-with-git-material"
-* Wait till pipeline completed stage "1"
+* Wait till pipeline completed
 * Verify stage at "1" is "Passed" on pipeline with label "1"
 
 * On Preferences page

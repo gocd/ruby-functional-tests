@@ -46,7 +46,7 @@ module Pages
     end
 
     def wait_till_pipeline_start_building(pipeline, stage)
-      wait_till_event_occurs_or_bomb 10, "Pipeline #{scenario_state.get_pipeline(pipeline)} failed to start building" do
+      wait_till_event_occurs_or_bomb 30, "Pipeline #{scenario_state.get_pipeline(pipeline)} failed to start building" do
         reload_page
         break if get_latest_stage_state(pipeline).include?('Building')
       end

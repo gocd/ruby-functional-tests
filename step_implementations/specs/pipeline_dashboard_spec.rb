@@ -16,7 +16,6 @@
 
 step "Trigger <pipeline>" do |pipeline|
   pipeline_dashboard_page.trigger_pipeline pipeline
-  pipeline_dashboard_page.wait_till_pipeline_start_building pipeline,1
 end
 
 step "Looking at pipeline <pipeline>" do |pipeline|

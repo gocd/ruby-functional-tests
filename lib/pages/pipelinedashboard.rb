@@ -67,7 +67,12 @@ module Pages
     end
 
     def is_editable?(pipeline)
-      page.has_css?("#pipeline_#{pipeline}_panel > div.pipeline_header > div.pipeline_actions > a")
+      page.has_css?("#pipeline_#{scenario_state.get_pipeline(pipeline)}_panel > div.pipeline_header > div.pipeline_actions > a")
+    end
+
+    def is_locked?(pipeline)
+      SitePrism::Page.element :pipeline_panel, "#pipeline_#{scenario_state.get_pipeline(pipeline)}_panel"
+      pipeline_panel.has_selector?(".locked_instance.locked") || pipeline_panel.has_selector?("#unlock")
     end
 
     def wait_till_pipeline_showsup(pipeline)

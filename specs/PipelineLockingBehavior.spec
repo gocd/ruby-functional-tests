@@ -17,9 +17,13 @@ Setup of contexts
 * Wait till stage "firstStage" completed
 * Verify stage "firstStage" is "Passed"
 * Verify stage "secondStage" is "Building"
+* Verify pipeline "pipeline-unlock-onComplete" is locked and not schedulable - Using api
+* Verify pipeline "pipeline-unlock-onComplete" is locked - On dashboard page
 * Create a "stopjob" file
 * Wait till stage "secondStage" completed
 * Verify stage "secondStage" is "Passed"
+* Verify pipeline "pipeline-unlock-onComplete" is not locked and is schedulable - Using api
+* Verify pipeline "pipeline-unlock-onComplete" is not locked - On dashboard page
 
 teardown
 _______________

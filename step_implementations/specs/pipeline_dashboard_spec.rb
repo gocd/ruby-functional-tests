@@ -53,9 +53,17 @@ step "Verify pipeline <pipeline> do not show up on the dashboard" do |pipeline|
 end
 
 step "Verify pipeline <pipeline> is editable" do |pipeline|
-  assert_true pipeline_dashboard_page.is_editable?(scenario_state.get_pipeline(pipeline))
+  assert_true pipeline_dashboard_page.is_editable?(pipeline)
 end
 
 step "Verify pipeline <pipeline> is not editable" do |pipeline|
-  assert_false pipeline_dashboard_page.is_editable?(scenario_state.get_pipeline(pipeline))
+  assert_false pipeline_dashboard_page.is_editable?(pipeline)
+end
+
+step "Verify pipeline <pipeline> is locked - On dashboard page" do |pipeline|
+  assert_true pipeline_dashboard_page.is_locked?(pipeline)
+end
+
+step "Verify pipeline <pipeline> is not locked - On dashboard page" do |pipeline|
+  assert_false pipeline_dashboard_page.is_locked?(pipeline)
 end

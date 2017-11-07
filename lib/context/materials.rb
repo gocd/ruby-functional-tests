@@ -41,15 +41,6 @@ module Context
       basic_configuration.set_material_path_for_pipeline(pipeline, "#{@path}/sample.git")
     end
 
-    # def initial_commit
-    #   cd("#{@path}/sample.git") do
-    #     File.open('file.txt', 'w') { |file| file.write('first commit') }
-    #     Open3.popen3(%(git add . && git commit -m "first commit")) do |_stdin, _stdout, stderr, wait_thr|
-    #       raise "Failed to commit to git repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
-    #     end
-    #   end
-    # end
-
     def initial_commit
       cp_r "resources/Rakefile", "#{@path}/sample.git/"
       cd("#{@path}/sample.git") do

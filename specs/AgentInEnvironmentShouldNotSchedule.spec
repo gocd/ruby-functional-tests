@@ -17,7 +17,7 @@ Setup of contexts
 
 * Looking at pipeline "basic-pipeline-fast"
 * Trigger "basic-pipeline-fast"
-* Verify stage at "1" is "Building" on pipeline with label "1"
+* Verify stage "defaultStage" is "Building"
 
 * On Agents page
 * Verify agents at state "Building" is "0"
@@ -26,7 +26,7 @@ Setup of contexts
 
 * Looking at pipeline "basic-pipeline-fast"
 * Wait till pipeline completed
-* Verify stage at "1" is "Passed" on pipeline with label "1"
+* Verify stage "defaultStage" is "Passed"
 
 teardown
 _______________

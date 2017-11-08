@@ -3,7 +3,7 @@ AgentsFilter
 
 AgentsFilter
 -------------------
-tags: agentsfilter, agentsUI, agents_spa
+tags: agentsfilter, agentsUI, agents_spa, SPA
 
 Setup of contexts
 * Multiple agents Configuration - setup

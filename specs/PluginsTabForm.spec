@@ -9,7 +9,7 @@ Setup of contexts
 PluginsTabForm
 --------------
 
-tags: plugins-tests, plugins_spa
+tags: plugins-tests, plugins_spa, SPA
 
 * On Plugins page
 

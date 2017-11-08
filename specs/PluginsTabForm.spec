@@ -48,7 +48,7 @@ Below steps fail becuase new plugins page do not show values as "Unknown" if the
 * Verify plugin with id "cd.go.authentication.passwordfile" has version "1.0.1-48" name "Password File Authentication Plugin for GoCD" description "GoCD Authorization plugin for file based password authentication" author "GoCD Contributors" with enabled link to "https://github.com/gocd/filebased-authentication-plugin"
 * Verify plugin with id "cd.go.authentication.passwordfile" has path "/plugins/bundled/gocd-filebased-authentication-plugin.jar" supported OS "No restrictions" target go version "17.5.0" and bundled status as "Yes"
 
-* Verify plugin with id "test-plugin-xml" is marked as invalid with message "Plugin with ID (test-plugin-xml) is not valid: Incompatible with current operating system 'Mac OS X'. Valid operating systems are: [Windows]."
+* Verify plugin with id "test-plugin-xml" is marked as invalid with message "Plugin with ID (test-plugin-xml) is not valid: Incompatible with current operating system 'Linux'. Valid operating systems are: [Windows]."
 
 Below steps fail becuase new plugins page do not show values as "Unknown" if they dont exists
 

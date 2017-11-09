@@ -21,7 +21,7 @@ tags: plugins-tests, plugins_spa, SPA
 * Verify plugin with id "yum" has version "2.0.3" name "Yum Plugin" description "Plugin that polls a yum repository" author "ThoughtWorks Go Team" with enabled link to "https://www.thoughtworks.com/"
 * Verify plugin with id "yum" has path "/plugins/bundled/gocd-yum-repository-poller-plugin.jar" supported OS "Linux" target go version "15.2.0" and bundled status as "Yes"
 
-* Verify plugin with id "test-plugin-xml" is marked as invalid with message "Plugin with ID (test-plugin-xml) is not valid: Incompatible with current operating system 'Mac OS X'. Valid operating systems are: [Windows]."
+* Verify plugin with id "test-plugin-xml" is marked as invalid with message "Plugin with ID (test-plugin-xml) is not valid: Incompatible with current operating system 'Linux'. Valid operating systems are: [Windows]."
 
 Below steps fail becuase new plugins page do not show values as "Unknown" if they dont exists, need to check where fix is needed
 

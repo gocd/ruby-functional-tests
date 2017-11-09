@@ -14,13 +14,19 @@
 # limitations under the License.
 ##########################################################################
 
+@AutoRefresh = true
+
 step "Trigger <pipeline>" do |pipeline|
   pipeline_dashboard_page.trigger_pipeline pipeline
 end
 
 step "Looking at pipeline <pipeline>" do |pipeline|
-  pipeline_dashboard_page.load
+  pipeline_dashboard_page.load(autoRefresh: @AutoRefresh)
   scenario_state.set_current_pipeline pipeline
+end
+
+step "Turn off AutoRefresh - Dashboard page" do |pipeline|
+  @AutoRefresh = false
 end
 
 step "Wait till stage <stage> completed" do |stage|
@@ -36,12 +42,12 @@ step "Verify stage <stage> is <state>" do |stage, state|
 end
 
 step "Verify pipeline <pipeline> shows up on the dashboard" do |pipeline|
-  pipeline_dashboard_page.load
+  pipeline_dashboard_page.load(autoRefresh: @AutoRefresh)
   pipeline_dashboard_page.wait_till_pipeline_showsup pipeline
 end
 
 step "Verify pipeline <pipeline> do not show up on the dashboard" do |pipeline|
-  pipeline_dashboard_page.load
+  pipeline_dashboard_page.load(autoRefresh: @AutoRefresh)
   assert_raise RuntimeError do
     pipeline_dashboard_page.wait_till_pipeline_showsup pipeline
   end

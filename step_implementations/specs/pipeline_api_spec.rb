@@ -35,3 +35,23 @@ step "Verify pipeline <pipeline> is not locked and is schedulable - Using api" d
     p "Pipeline Status call failed with response code #{err.response.code} and the response body - #{err.response.body}"
   end
 end
+
+
+step "Trigger stage <stage> run <run>" do |stage, run|
+  begin
+    response = RestClient.post http_url("/run/#{scenario_state.get_pipeline(scenario_state.current_pipeline)}/#{run}/#{stage}"), "",basic_configuration.header
+    assert_true response.code == 200
+  rescue RestClient::ExceptionWithResponse => err
+    p "Trigger stage call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+  end
+  pipeline_dashboard_page.wait_till_pipeline_start_building(scenario_state.current_pipeline)
+end
+
+step "Cancel stage <stage> of pipeline <pipeline>" do |stage, pipeline|
+  begin
+    response = RestClient.post http_url("/api/stages/#{scenario_state.get_pipeline(pipeline)}/#{stage}/cancel"),"", basic_configuration.header
+    assert_true response.code == 200
+  rescue RestClient::ExceptionWithResponse => err
+    p "Cancel stage call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+  end
+end

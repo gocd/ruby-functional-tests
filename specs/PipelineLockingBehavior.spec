@@ -11,6 +11,8 @@ Setup of contexts
 * With "1" live agents - setup
 * Capture go state "PipelineLockingBehavior" - setup
 
+* Turn off AutoRefresh - Dashboard page
+
 * Looking at pipeline "pipeline-unlock-onComplete"
 * Trigger "pipeline-unlock-onComplete"
 * Verify stage "firstStage" is "Building"

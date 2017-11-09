@@ -22,3 +22,16 @@ task :wait_for_stopjob_file do
   end
   p "Exiting waiting loop as the stop job file created"
 end
+
+task :wait_and_fail do
+  until File.exist?("../../../failjob")
+    sleep 1
+  end
+  fail("Intentionally fail the job")
+end
+
+task :wait_forever do
+  until File.exist?("../../../neverexists")
+    sleep 1
+  end
+end

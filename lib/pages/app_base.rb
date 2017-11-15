@@ -32,8 +32,8 @@ module Pages
     end
 
     def logout
-      page.find("[class^='current_user_name']").click
-      page.find('a[href="/go/auth/logout"]').click
+      page.find("[class^='current_user_name']").hover
+      page.find('.logout').click
     end
 
     def verify_footer()

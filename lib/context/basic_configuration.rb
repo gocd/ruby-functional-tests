@@ -29,6 +29,7 @@ module Context
       get_current_config
       self.config_dom = Nokogiri::XML(File.read("#{GoConstants::CONFIG_PATH}/#{file}"))
       config_dom.xpath('//server').first['serverId'] = @serverId
+      config_dom.xpath('//server').first['tokenGenerationKey'] = @tokenGenerationKey
     end
 
     def get_current_config
@@ -36,6 +37,7 @@ module Context
       current_config = Nokogiri::XML(response.body)
       @md5 = response.headers[:x_cruise_config_md5]
       @serverId = current_config.xpath('//server').first['serverId']
+      @tokenGenerationKey = current_config.xpath('//server').first['tokenGenerationKey']
       current_config
     end
 

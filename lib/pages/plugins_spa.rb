@@ -16,7 +16,7 @@
 
 module Pages
   class PluginsSPA < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/new_plugins"
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/plugins"
 
     element :plugin_settings, '.plugins-settings'
 

@@ -38,6 +38,7 @@ Gauge.configure do |config|
   config.include Helpers::SpecHelper
   config.include Helpers::GoUrlHelper
   config.include Helpers::Wait
+  config.screengrabber
 end
 
 Capybara.register_driver :selenium do |app|

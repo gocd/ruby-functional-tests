@@ -20,6 +20,7 @@ require 'fileutils'
 require 'sys-proctable'
 require 'os'
 require 'json'
+require 'open-uri'
 include Sys
 
 GO_TRUNK_DIRNAME = ENV['GO_TRUNK_DIR'] || 'gocd'

@@ -204,9 +204,9 @@ task prepare: %w(plugins:prepare addons:prepare)
 
 task :test do
   if LOAD_BALANCED
-    sh "bundle exec gauge --tags='#{GAUGE_TAGS}' -n=#{GO_JOB_RUN_COUNT} -g=#{GO_JOB_RUN_INDEX} specs"
+    sh "bundle exec gauge --tags '#{GAUGE_TAGS}' -n #{GO_JOB_RUN_COUNT} -g #{GO_JOB_RUN_INDEX} run specs"
   else
-    sh "bundle exec gauge --tags='#{GAUGE_TAGS}' specs"
+    sh "bundle exec gauge --tags '#{GAUGE_TAGS}' run specs"
   end
 end
 task default: %w(kill clean_all build_all prepare test)

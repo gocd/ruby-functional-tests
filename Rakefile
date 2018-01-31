@@ -123,10 +123,13 @@ namespace :plugins do
   desc 'copy the plugins in the go server'
   task :prepare do
     mkdir_p "target/go-server-#{VERSION_NUMBER}/plugins/external"
+    mkdir_p "target/go-server-#{VERSION_NUMBER}/addons"
     if DEVELOPMENT_MODE
       cp_r "../#{GO_PLUGINS_DIRNAME}/target/go-plugins-dist/.", "target/go-server-#{VERSION_NUMBER}/plugins/external"
+      cp_r "../#{GO_PLUGINS_DIRNAME}/target/test-addon/.", "target/go-server-#{VERSION_NUMBER}/addons"
     else
       cp_r 'target/go-plugins-dist/.', "target/go-server-#{VERSION_NUMBER}/plugins/external"
+      cp_r "target/test-addon/.", "target/go-server-#{VERSION_NUMBER}/addons"
     end
     url = JSON.parse(open(ELASTICAGENTS_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
     sh "wget #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/elastic-agent-skeleton-plugin.jar"

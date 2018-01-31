@@ -22,15 +22,24 @@ module Pages
     element :password, '#user_password'
     element :submit, '#signin2'
     element :current_user, "a[class='current_user_name dropdown-arrow-icon']"
+    element :login_error, "#error-box"
 
 
     def signin(user, pwd = 'badger')
       username.set user
       password.set pwd
       submit.click
+    end
+
+    def signin_success(user)
       wait_until_current_user_visible 10, text: user
       assert_equal current_user.text.downcase, user.downcase
       scenario_state.set_current_user user
+    end
+
+    def signin_failure(message)
+      wait_until_login_error_visible 10
+      assert_equal login_error.text, message
     end
   end
 end

@@ -38,7 +38,7 @@ Setup of contexts
 
 * Verify pipeline "basic-pipeline" is not editable
 
-* Login as "user1" with password as "pass_user1"
+* Logout and Login as "user1" with password as "pass_user1"
 * Verify pipeline "basic-pipeline" is editable
 
 * Logout and login as "admin"
@@ -48,7 +48,7 @@ Setup of contexts
 * Save authorization config
 
 
-* Login as "user1" with password as "pass_user1"
+* Logout and Login as "user1" with password as "pass_user1"
 * Verify pipeline "basic-pipeline" is editable
 
 * Logout and login as "view_user"
@@ -59,7 +59,7 @@ Setup of contexts
 
 Steps to verify login with different case
 
-* Login as "USER1" with password as "pass_user1"
+* Logout and Login as "USER1" with password as "pass_user1"
 * Verify pipeline "basic-pipeline" is editable
 
 * Logout and login as "group1view"

@@ -9,6 +9,7 @@ tags: Security
 
 Setup of contexts
 
+* With no users - setup
 * Secure Configuration - setup
 * Login as "admin" - setup
 * Capture go state "EnableDisableUsers" - setup

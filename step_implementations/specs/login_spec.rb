@@ -20,26 +20,24 @@ step "Login as <user> - setup" do |user|
 end
 
 step "Login as <user>" do |user|
-  pipeline_dashboard_page.load
-  app_base_page.logout
   login_page.signin user
+  login_page.signin_success user
 end
 
 step "Logout and login as <user>" do |user|
-  pipeline_dashboard_page.load
-  app_base_page.logout
+  logout
   login_page.signin user
+  login_page.signin_success user
 end
 
 step "Logout - from any page" do |count|
-  pipeline_dashboard_page.load
-  app_base_page.logout
+  logout
 end
 
-step "Login as <user> with password as <pwd>" do |user, pwd|
-  pipeline_dashboard_page.load
-  app_base_page.logout
+step "Logout and Login as <user> with password as <pwd>" do |user, pwd|
+  logout
   login_page.signin user, pwd
+  login_page.signin_success user
 end
 
 step "As user <user>" do |user|
@@ -48,4 +46,15 @@ end
 
 step "As user <user> for teardown" do |user|
   scenario_state.set_current_user user
+end
+
+def logout
+  pipeline_dashboard_page.load
+  app_base_page.logout
+end
+
+step "Logout and Login as <user> should fail with message <message>" do |user, message|
+  logout
+  login_page.signin user
+  login_page.signin_failure message
 end

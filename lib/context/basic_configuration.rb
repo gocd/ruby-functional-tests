@@ -123,5 +123,9 @@ module Context
       load_dom(config_dom)
     end
 
+    def remove_all_users
+      RestClient.post delete_all_users_url, header
+    end
+
   end
 end

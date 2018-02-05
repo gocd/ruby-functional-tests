@@ -60,6 +60,10 @@ module Helpers
       Pages::PipelineDashboard.new
     end
 
+    def new_pipeline_dashboard_page
+      Pages::NewPipelineDashboard.new
+    end
+
     def environments_dashboard_page
       Pages::EnvironmentsPage.new
     end

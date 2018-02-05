@@ -33,8 +33,8 @@ GAUGE_TAGS = ENV['GAUGE_TAGS'] || 'smoke'
 LOAD_BALANCED = GO_JOB_RUN_COUNT && GO_JOB_RUN_INDEX
 DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
 
-ELASTICAGENTS_PLUGIN_RELEASE_URL = ENV['ELASTICAGENTS_PLUGIN_RELEASE_URL'] || "https://api.github.com/repos/gocd-contrib/elastic-agent-skeleton-plugin/releases/latest"
-JSON_CONFIG_PLUGIN_RELEASE_URL = ENV['JSON_CONFIG_PLUGIN_RELEASE_URL'] || "https://api.github.com/repos/tomzo/gocd-json-config-plugin/releases/latest"
+ELASTICAGENTS_PLUGIN_RELEASE_URL = ENV['ELASTICAGENTS_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/elastic-agent-skeleton-plugin/releases/latest'
+JSON_CONFIG_PLUGIN_RELEASE_URL = ENV['JSON_CONFIG_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/tomzo/gocd-json-config-plugin/releases/latest'
 
 desc 'cleans all directories'
 task :clean_all do
@@ -43,10 +43,10 @@ task :clean_all do
   mkdir_p 'target'
   if DEVELOPMENT_MODE
     cd "../#{GO_TRUNK_DIRNAME}" do
-      sh "./gradlew -q clean"
+      sh './gradlew -q clean'
     end
     cd "../#{GO_PLUGINS_DIRNAME}" do
-      sh "mvn clean -q"
+      sh 'mvn clean -q'
     end
   end
 end
@@ -58,7 +58,7 @@ task :clean_test do
   mkdir_p 'target'
 end
 
-zips = %w(server agent).each_with_object({}) do |package, accumulator|
+zips = %w[server agent].each_with_object({}) do |package, accumulator|
   accumulator[package] = if DEVELOPMENT_MODE
                            Dir[File.join('..', GO_TRUNK_DIRNAME, 'installers', 'target', 'distributions', 'zip', "go-#{package}*.zip")].first
                          else
@@ -68,13 +68,13 @@ zips = %w(server agent).each_with_object({}) do |package, accumulator|
   accumulator
 end
 
-identifiers = {server: '-Dgo.gauge.server', agent: '-Dgo.gauge.agent', gauge: 'go_gauge'}
+identifiers = { server: '-Dgo.gauge.server', agent: '-Dgo.gauge.agent', gauge: 'go_gauge' }
 
 identifiers.each do |package, process_argument|
   namespace package do
     desc "Kill the #{package} identified using #{process_argument}"
     task :kill do
-      if process = ProcTable.ps.find {|each_process| each_process.environ[process_argument]}
+      if process = ProcTable.ps.find { |each_process| each_process.environ[process_argument] }
         $stderr.puts "Found PID(#{process.pid}) matching #{process_argument}"
         if OS.windows?
           sh("TASKKILL /PID #{process.pid}")
@@ -84,7 +84,7 @@ identifiers.each do |package, process_argument|
 
         sleep 2
         $stderr.puts "PID(#{process.pid}) exists after 2 seconds, force killing"
-        if ProcTable.ps.find {|each_process| each_process.pid == process.pid}
+        if ProcTable.ps.find { |each_process| each_process.pid == process.pid }
           if OS.windows?
             sh("TASKKILL /PID /F #{process.pid}")
           else
@@ -113,7 +113,6 @@ zips.each do |package, file|
           sh "./gradlew -q #{package}GenericZip"
         end
       end
-
     end
   end
   task prepare: "#{package}:prepare"
@@ -126,10 +125,10 @@ namespace :plugins do
     mkdir_p "target/go-server-#{VERSION_NUMBER}/addons"
     if DEVELOPMENT_MODE
       cp_r "../#{GO_PLUGINS_DIRNAME}/target/go-plugins-dist/.", "target/go-server-#{VERSION_NUMBER}/plugins/external"
-      cp_r "../#{GO_PLUGINS_DIRNAME}/target/test-addon/.", "target/go-server-#{VERSION_NUMBER}/addons"
+      cp_r "../#{GO_TRUNK_DIRNAME}/test-addon/target/libs/.", "target/go-server-#{VERSION_NUMBER}/addons"
     else
       cp_r 'target/go-plugins-dist/.', "target/go-server-#{VERSION_NUMBER}/plugins/external"
-      cp_r "target/test-addon/.", "target/go-server-#{VERSION_NUMBER}/addons"
+      cp_r 'target/test-addon/.', "target/go-server-#{VERSION_NUMBER}/addons"
     end
     url = JSON.parse(open(ELASTICAGENTS_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
     sh "wget #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/elastic-agent-skeleton-plugin.jar"
@@ -138,7 +137,7 @@ namespace :plugins do
   end
 
   desc 'gradle build go plugins'
-  task :build => [:version, :api] do
+  task build: %i[version api] do
     cd "../#{GO_PLUGINS_DIRNAME}" do
       go_full_version = JSON.parse(File.read("../#{GO_TRUNK_DIRNAME}/installers/target/distributions/meta/version.json"))['go_full_version']
       sh "mvn --quiet --batch-mode package -Dgo.version=#{go_full_version} -DskipTests"
@@ -153,7 +152,7 @@ namespace :plugins do
 
   task :api do
     cd "../#{GO_TRUNK_DIRNAME}" do
-      sh "./gradlew -q go-plugin-api:install go-plugin-api-internal:install"
+      sh './gradlew -q go-plugin-api:install go-plugin-api-internal:install'
     end
   end
 end
@@ -172,7 +171,7 @@ namespace :addons do
   desc 'gradle build test addons'
   task :build do
     cd "../#{GO_TRUNK_DIRNAME}" do
-      sh "./gradlew -q test-addon:assemble"
+      sh './gradlew -q test-addon:assemble'
     end
   end
 end
@@ -186,24 +185,22 @@ task :build_all do
   end
 end
 
-
 desc 'Bump up schemaVersion'
 task 'bump-schema' do
   version = ENV['VERSION'].to_s
 
-  raise "Please provide VERSION" if version.empty?
-  Dir["./resources/config/*.xml"].each do |path|
+  raise 'Please provide VERSION' if version.empty?
+  Dir['./resources/config/*.xml'].each do |path|
     content = File.read(path)
-    if content =~ /xsi:noNamespaceSchemaLocation="cruise-config.xsd"/
-      puts "Replacing content in #{path}"
-      content = content.gsub(/schemaVersion="\d+"/, %Q{schemaVersion="#{version}"})
-      open(path, 'w') {|f| f.write(content)}
-    end
+    next unless content =~ /xsi:noNamespaceSchemaLocation="cruise-config.xsd"/
+    puts "Replacing content in #{path}"
+    content = content.gsub(/schemaVersion="\d+"/, %(schemaVersion="#{version}"))
+    open(path, 'w') { |f| f.write(content) }
   end
 end
 
 desc 'initializes the filesystem to run tests'
-task prepare: %w(plugins:prepare addons:prepare)
+task prepare: %w[plugins:prepare addons:prepare]
 
 task :test do
   if LOAD_BALANCED
@@ -212,4 +209,4 @@ task :test do
     sh "bundle exec gauge --tags '#{GAUGE_TAGS}' run specs"
   end
 end
-task default: %w(kill clean_all build_all prepare test)
+task default: %w[kill clean_all build_all prepare test]

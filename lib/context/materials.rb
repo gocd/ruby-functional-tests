@@ -22,8 +22,10 @@ module Context
   end
 
   class GitMaterials < Materials
-    def initialize(*_args)
-      @path = "#{GoConstants::TEMP_DIR}/gitmaterial-#{Time.now.to_i}"
+    attr_reader :path
+
+    def initialize(path = "#{GoConstants::TEMP_DIR}/gitmaterial-#{Time.now.to_i}")
+      @path = path
     end
 
     def setup_material_for(pipeline)
@@ -44,6 +46,22 @@ module Context
         Open3.popen3(%(git add . && git commit -m "Commit the test rakefile")) do |_stdin, _stdout, stderr, wait_thr|
           raise "Failed to commit to git repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
         end
+      end
+    end
+
+    def new_commit(filename, commit, author = 'gouser')
+      cd("#{@path}/sample.git") do
+        sh "touch #{filename}"
+        Open3.popen3(%(git add . && git commit --author="#{author}" -m "#{commit}")) do |_stdin, _stdout, stderr, wait_thr|
+          raise "Failed to commit to git repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
+        end
+      end
+    end
+
+    def latest_revision
+      cd("#{@path}/sample.git") do
+        stdout, _stdeerr, _status = Open3.capture3(%(git rev-parse HEAD))
+        stdout
       end
     end
 

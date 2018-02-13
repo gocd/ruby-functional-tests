@@ -40,6 +40,7 @@ require 'pages/role_config_spa'
 require 'pages/pipeline_group_edit_page'
 require 'pages/plugins_spa'
 require 'pages/user_summary'
+require 'pages/newpipelinedashboard'
 
 
 module Helpers

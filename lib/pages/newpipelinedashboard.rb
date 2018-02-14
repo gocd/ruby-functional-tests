@@ -24,36 +24,43 @@ module Pages
 
     load_validation { has_pipeline_group? }
 
-    def trigger_pipeline(pipeline)
-      (pipeline_name text: scenario_state.get_pipeline(pipeline)).find(:xpath, '../..').find('.btn.play').click
+    def trigger_pipeline
+      (pipeline_name text: scenario_state.self_pipeline)
+        .find(:xpath, '../..').find('.btn.play').click
       reload_page
     end
 
-    def pause_pipeline(pipeline, reason)
-      (pipeline_name text: scenario_state.get_pipeline(pipeline)).find(:xpath, '../..').find('.btn.pause').click
+    def pause_pipeline(reason)
+      (pipeline_name text: scenario_state.self_pipeline)
+        .find(:xpath, '../..').find('.btn.pause').click
       page.find('.modal-body').find('input').set(reason)
       page.find('.modal-buttons').find('button', text: 'OK').click
     end
 
     def pause_message?(message)
-      (pipeline_name text: scenario_state.get_pipeline(pipeline)).find(:xpath, '../..').has_selector?('.pipeline_pause-message', text: message)
+      (pipeline_name text: scenario_state.self_pipeline)
+        .find(:xpath, '../..').has_selector?('.pipeline_pause-message', text: message)
     end
 
-    def unpause_pipeline(pipeline)
-      (pipeline_name text: scenario_state.get_pipeline(pipeline)).find(:xpath, '../..').find('.btn.unpause').click
+    def unpause_pipeline
+      (pipeline_name text: scenario_state.self_pipeline)
+        .find(:xpath, '../..').find('.btn.unpause').click
     end
 
     def get_all_stages(pipeline) # This one needs to be relooked - the way the view is modelled do not make it easy to get latest stage state
-      (pipeline_name text: scenario_state.get_pipeline(pipeline)).find(:xpath, '../..').find('.pipeline_stages').all('a')
+      (pipeline_name text: pipeline)
+        .find(:xpath, '../..').find('.pipeline_stages').all('a')
     end
 
     def get_pipeline_stage_state(pipeline, stagename) # This need relook too
-      target_stage = (pipeline_name text: scenario_state.get_pipeline(pipeline)).find(:xpath, '../..').find('.pipeline_stages').all('a').select { |stage| stage['href'].include?(stagename) }
+      target_stage = (pipeline_name text: pipeline)
+                     .find(:xpath, '../..').find('.pipeline_stages').all('a').select { |stage| stage['href'].include?(stagename) }
       target_stage.first['class']
     end
 
     def verify_pipeline_is_at_label(pipeline, label)
-      assert_true (pipeline_name text: pipeline).find('.pipeline_instance-label').text.include?(label)
+      assert_true (pipeline_name text: pipeline)
+        .find('.pipeline_instance-label').text.include?(label)
     end
 
     def verify_pipeline_stage_state(pipeline, stage, state)
@@ -61,33 +68,35 @@ module Pages
       assert get_pipeline_stage_state(pipeline, stage).include?(state)
     end
 
-    def wait_till_pipeline_start_building(pipeline)
-      wait_till_event_occurs_or_bomb 30, "Pipeline #{scenario_state.get_pipeline(pipeline)} failed to start building" do
+    def wait_till_pipeline_start_building
+      wait_till_event_occurs_or_bomb 30, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
         reload_page
-        break if get_all_stages(pipeline).first['class'].include?('building')
+        break if get_all_stages(scenario_state.self_pipeline).first['class'].include?('building')
       end
     end
 
-    def wait_till_pipeline_complete(pipeline)
-      wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.get_pipeline(pipeline)} failed to complete with in timeout" do
+    def wait_till_pipeline_complete
+      wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.self_pipeline} failed to complete with in timeout" do
         reload_page
-        break unless get_all_stages(pipeline).last['class'].include?('building')
+        break unless get_all_stages(scenario_state.self_pipeline).last['class'].include?('building')
       end
     end
 
-    def wait_till_stage_complete(pipeline, stage)
-      wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.get_pipeline(pipeline)} Stage #{stage} failed to complete with in timeout" do
+    def wait_till_stage_complete(stage)
+      wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.self_pipeline} Stage #{stage} failed to complete with in timeout" do
         reload_page
-        break unless get_pipeline_stage_state(pipeline, stage).include?('building')
+        break unless get_pipeline_stage_state(scenario_state.self_pipeline, stage).include?('building')
       end
     end
 
-    def editable?(pipeline)
-      (pipeline_name text: scenario_state.get_pipeline(pipeline)).find(:xpath, '..').has_css?('.pipeline_edit')
+    def editable?
+      (pipeline_name text: scenario_state.self_pipeline)
+        .find(:xpath, '..').has_css?('.pipeline_edit')
     end
 
-    def locked?(pipeline)
-      (pipeline_name text: scenario_state.get_pipeline(pipeline)).find(:xpath, '..').has_css?('.pipeline_locked')
+    def locked?
+      (pipeline_name text: scenario_state.self_pipeline)
+        .find(:xpath, '..').has_css?('.pipeline_locked')
     end
 
     def visible?(pipeline)
@@ -98,16 +107,16 @@ module Pages
       pipeline_group_title.all.select { |grp| grp.find('strong').text == group }.any?
     end
 
-    def pipeline_in_group(name, group)
+    def pipeline_in_group(group)
       pipelines = pipeline_group.all.select { |grp| 
           grp.find('.pipeline-group_title')
              .find('strong').text == group 
           }.all('.pipeline_name')
-      pipelines.select { |pipeline| pipeline.text == name }.any?
+      pipelines.select { |pipeline| pipeline.text == scenario_state.self_pipeline }.any?
     end
 
-    def pipeline_history_exists?(pipeline)
-      (pipeline_name text: scenario_state.get_pipeline(pipeline))
+    def pipeline_history_exists?
+      (pipeline_name text: scenario_state.self_pipeline)
         .find(:xpath, '../..').has_selector?('.pipeline_instances', visible: true)
     end
 
@@ -118,24 +127,38 @@ module Pages
       end
     end
 
-    def click_history(pipeline)
-      (pipeline_name text: scenario_state.get_pipeline(pipeline)).find(:xpath, '../..').find('.pipeline_history').click
+    def click_history
+      (pipeline_name text: scenario_state.self_pipeline)
+        .find(:xpath, '../..').find('.pipeline_history').click
     end
 
-    def open_build_cause(pipeline)
-      (pipeline_name text: scenario_state.get_pipeline(pipeline)).find(:xpath, '../..').find('.changes').click
+    def open_build_cause
+      (pipeline_name text: scenario_state.self_pipeline)
+        .find(:xpath, '../..').find('.changes').click
     end
 
-    def revisions(pipeline)
-      (pipeline_name text: scenario_state.get_pipeline(pipeline)).find(:xpath, '../..').find('.material_changes.show').all('div')
-    end
-
-    def revision_of_material(pipeline, type, name)
-      revisions(pipeline).select { |material| material.find('.rev-head').text.include? "#{type} - #{name}" }.first
+    def revision_of_material(type, name)
+      revisions(scenario_state.self_pipeline).select { |material| material.find('.rev-head').text.include? "#{type} - #{name}" }.first
     end
 
     def shows_revision?(revision_element, revision_id)
       revision_element.has_css?('.revision_id', text: revision_id)
     end
+
+    def triggered_by?(user)
+      (pipeline_name text: scenario_state.self_pipeline)
+        .find(:xpath, '../..')
+        .find('.pipeline_instance-details')
+        .all('div').fist.text.eql? "Triggered by #{user}"
+    end
+
+    private
+
+    def revisions(pipeline)
+      (pipeline_name text: pipeline)
+        .find(:xpath, '../..')
+        .find('.material_changes.show').all('div')
+    end
+
   end
 end

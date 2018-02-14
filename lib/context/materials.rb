@@ -50,7 +50,7 @@ module Context
     end
 
     def new_commit(filename, commit, author = 'gouser')
-      cd("#{@path}/sample.git") do
+      cd("#{@path}") do
         sh "touch #{filename}"
         Open3.popen3(%(git add . && git commit --author="#{author}" -m "#{commit}")) do |_stdin, _stdout, stderr, wait_thr|
           raise "Failed to commit to git repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
@@ -59,7 +59,7 @@ module Context
     end
 
     def latest_revision
-      cd("#{@path}/sample.git") do
+      cd("#{@path}") do
         stdout, _stdeerr, _status = Open3.capture3(%(git rev-parse HEAD))
         stdout
       end

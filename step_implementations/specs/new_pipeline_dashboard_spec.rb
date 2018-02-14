@@ -53,18 +53,68 @@ step 'Verify pipeline <pipeline> do not show up - On Swift Dashboard page' do |p
   end
 end
 
-step 'Verify pipeline <pipeline> is editable - On Swift Dashboard page' do |pipeline|
-  assert_true new_pipeline_dashboard_page.editable?(pipeline)
+step 'Verify pipeline is editable - On Swift Dashboard page' do |pipeline|
+  assert_true new_pipeline_dashboard_page.editable?
 end
 
-step 'Verify pipeline <pipeline> is not editable - On Swift Dashboard page' do |pipeline|
-  assert_false new_pipeline_dashboard_page.editable?(pipeline)
+step 'Verify pipeline is not editable - On Swift Dashboard page' do |pipeline|
+  assert_false new_pipeline_dashboard_page.editable?
 end
 
-step 'Verify pipeline <pipeline> is locked - On Swift Dashboard page' do |pipeline|
-  assert_true new_pipeline_dashboard_page.locked?(pipeline)
+step 'Verify pipeline is locked - On Swift Dashboard page' do |pipeline|
+  assert_true new_pipeline_dashboard_page.locked?
 end
 
-step 'Verify pipeline <pipeline> is not locked - On Swift Dashboard page' do |pipeline|
-  assert_false new_pipeline_dashboard_page.locked?(pipeline)
+step 'Verify pipeline is not locked - On Swift Dashboard page' do |pipeline|
+  assert_false new_pipeline_dashboard_page.locked?
+end
+
+step 'Verify pipeline <pipeline> is not visible' do |pipeline|
+  assert_false new_pipeline_dashboard_page.visible?(pipeline)
+end
+
+step 'Verify group <group> is not visible' do |group|
+  assert_false new_pipeline_dashboard_page.group_visible?(group)
+end
+
+step 'Verify pipeline is in group <group>' do |group|
+  assert_true new_pipeline_dashboard_page.pipeline_in_group?(group)
+end
+
+step 'Verify pipeline has no history' do |_tmp|
+  assert_true new_pipeline_dashboard_page.pipeline_history_exists?
+end
+
+step 'Verify pipeline is triggered by <user>' do |user|
+  assert_true new_pipeline_dashboard_page.triggered_by? user
+end
+
+step 'Pause pipeline with reason <message>' do |message|
+  new_pipeline_dashboard_page.pause_pipeline(reason)
+end
+
+step 'Verify pipeline is paused with reason <reason> by <user>' do |reason, user|
+  new_pipeline_dashboard_page.pause_message?("Paused by #{user} (#{reason})")
+end
+
+step 'Unpause pipeline' do |tmp|
+  new_pipeline_dashboard_page.unpause_pipeline
+end
+
+step 'Click on history' do |tmp|
+  new_pipeline_dashboard_page.click_history
+end
+
+step 'Open changes section' do |tmp|
+  new_pipeline_dashboard_page.open_build_cause
+end
+
+step 'Looking at material of type <material_type> named <name>' do |type, name|
+  latest_revision = Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).latest_revision
+  revision = new_pipeline_dashboard_page.revision_of_material(type, name)
+  new_pipeline_dashboard_page.shows_revision?(revision, latest_revision)
+end
+
+step 'Checkin file <filename> as user <user> with message <message>' do |filename, user, message|
+  Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).new_commit(filename, user, message)
 end

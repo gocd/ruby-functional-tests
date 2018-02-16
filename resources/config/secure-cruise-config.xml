@@ -15,7 +15,7 @@
  * limitations under the License.
  *************************GO-LICENSE-END******************************* -->
 
-<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="104">
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="105">
     <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="gauge" tokenGenerationKey="token">
         <security>
           <authConfigs>
@@ -38,6 +38,70 @@
             </admins>
         </security>
     </server>
+    <pipelines group="admin-only">
+    <authorization>
+        <admins>
+          <user>admin</user>
+        </admins>
+      </authorization>
+        <pipeline name="admin-pipeline" lockBehavior="lockOnFailure">
+            <materials>
+                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                <job name="defaultJob">
+                    <tasks>
+                    <exec command="rake" args="wait_for_stopjob_file"/>
+                    </tasks>
+                </job>
+                </jobs>
+            </stage>
+            <stage name="secondStage">
+                <approval type="manual"/>
+                <jobs>
+                <job name="defaultJob">
+                    <tasks>
+                    <exec command="rake" args="wait_for_stopjob_file"/>
+                    </tasks>
+                </job>
+                </jobs>
+            </stage>
+            </pipeline>
+    </pipelines>
+    <pipelines group="open-to-all">
+    <authorization>
+        <admins>
+          <user>view</user>
+        </admins>
+      </authorization>
+        <pipeline name="manual-stages-that-run-till-file-exists" lockBehavior="lockOnFailure">
+            <materials>
+                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                <job name="defaultJob">
+                    <tasks>
+                    <exec command="rake" args="wait_for_stopjob_file"/>
+                    </tasks>
+                </job>
+                </jobs>
+            </stage>
+            <stage name="secondStage">
+                <approval type="manual"/>
+                <jobs>
+                <job name="defaultJob">
+                    <tasks>
+                    <exec command="rake" args="wait_for_stopjob_file"/>
+                    </tasks>
+                </job>
+                </jobs>
+            </stage>
+            </pipeline>
+    </pipelines>
     <pipelines group="basic">
       <authorization>
         <admins>
@@ -218,31 +282,7 @@
             </jobs>
 	  	</stage>
 	  </pipeline>
-      <pipeline name="manual-stages-that-run-till-file-exists" lockBehavior="lockOnFailure">
-      <materials>
-        <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
-      </materials>
-      <stage name="defaultStage">
-        <approval type="manual"/>
-        <jobs>
-          <job name="defaultJob">
-            <tasks>
-              <exec command="rake" args="wait_for_stopjob_file" workingdir="tasks"/>
-            </tasks>
-          </job>
-        </jobs>
-      </stage>
-      <stage name="secondStage">
-        <approval type="manual"/>
-        <jobs>
-          <job name="defaultJob">
-            <tasks>
-              <exec command="rake" args="wait_for_stopjob_file" workingdir="tasks"/>
-            </tasks>
-          </job>
-        </jobs>
-      </stage>
-    </pipeline>
+      
     </pipelines>
     <!-- Add this template creation and adding template admin to the spec ones API supports updating authoriztion -->
     <templates>

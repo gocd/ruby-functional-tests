@@ -21,10 +21,11 @@ module Context
     include FileUtils
     include Singleton
 
-    START_COMMAND = OS.windows? ? %w(cmd /c start-agent.bat) : './agent.sh'
-    STOP_COMMAND = OS.windows? ? %w(cmd /c stop-agent.bat) : './stop-agent.sh'
+    START_COMMAND = OS.windows? ? %w[cmd /c start-agent.bat] : './agent.sh'
+    STOP_COMMAND = OS.windows? ? %w[cmd /c stop-agent.bat] : './stop-agent.sh'
+    attr_accessor :agent_wrk_dirs
 
-    def initialize()
+    def initialize
       @agent_wrk_dirs = []
     end
 
@@ -56,16 +57,12 @@ module Context
       end
     end
 
-    def get_working_dirs
-      @agent_wrk_dirs
-    end
-
     def destroy_agents(count)
       (1..count.to_i).each do |n|
         Bundler.with_clean_env do
           process = ChildProcess.build(STOP_COMMAND)
           process.detach = true
-          process.environment['PID_FILE'] = "go-agent.pid"
+          process.environment['PID_FILE'] = 'go-agent.pid'
           process.environment['MANUAL_SETTING'] = 'Y'
           process.environment['DAEMON'] = 'Y'
           process.cwd = "#{GoConstants::GAUGE_AGENT_DIR}/agent-#{n}"

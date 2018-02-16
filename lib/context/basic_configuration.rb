@@ -16,11 +16,10 @@
 
 module Context
   class BasicConfiguration
-
     attr_accessor :config_dom
 
     def load_dom(xml)
-      RestClient.post admin_config_url, {xmlFile: xml.to_s, md5: @md5}, header
+      RestClient.post admin_config_url, { xmlFile: xml.to_s, md5: @md5 }, header
     rescue RestClient::ExceptionWithResponse => err
       raise "Update config xml api call failed. Error message #{err.response.body}"
     end
@@ -83,9 +82,9 @@ module Context
     def remove_environments_except(except_environments)
       self.config_dom = get_current_config
 
-      except_environments_names = except_environments.map { |except_env|
+      except_environments_names = except_environments.map do |except_env|
         scenario_state.get_environment(except_env)
-      }
+      end
 
       config_dom.xpath('//cruise/environments/environment').each do |env|
         env.remove unless except_environments_names.include?(env['name'])
@@ -97,9 +96,9 @@ module Context
     def remove_pipelines_except(except_pipelines)
       self.config_dom = get_current_config
 
-      except_pipelines_names = except_pipelines.map { |except_pipeline|
+      except_pipelines_names = except_pipelines.map do |except_pipeline|
         scenario_state.get_pipeline(except_pipeline)
-      }
+      end
 
       config_dom.xpath('//cruise/pipelines/pipeline').each do |pipeline|
         pipeline.remove unless except_pipelines_names.include?(pipeline['name'])
@@ -112,9 +111,9 @@ module Context
     end
 
     def header
-      return {Confirm: true} unless scenario_state.current_user
+      return { Confirm: true } unless scenario_state.current_user
       basic_auth = Base64.encode64([scenario_state.current_user, 'badger'].join(':'))
-      {Authorization: "Basic #{basic_auth}", Confirm: true}
+      { Authorization: "Basic #{basic_auth}", Confirm: true }
     end
 
     def setup(config_file)
@@ -125,6 +124,19 @@ module Context
 
     def remove_all_users
       RestClient.post delete_all_users_url, header
+    end
+
+    def enable_toggle(toggle)
+      RestClient.post http_url("/api/admin/feature_toggles/#{toggle}"),
+                       '{"toggle_value": "on"}',
+                       { content_type: :json }.merge(basic_configuration.header)
+    end
+
+    def material_url_for(pipeline)
+      current_config = get_current_config
+      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get_pipeline(pipeline)}']/materials/git").each do |material|
+        material['url']
+      end
     end
 
   end

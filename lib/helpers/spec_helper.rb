@@ -40,6 +40,7 @@ require 'pages/role_config_spa'
 require 'pages/pipeline_group_edit_page'
 require 'pages/plugins_spa'
 require 'pages/user_summary'
+require 'pages/newpipelinedashboard'
 
 
 module Helpers
@@ -58,6 +59,10 @@ module Helpers
 
     def pipeline_dashboard_page
       Pages::PipelineDashboard.new
+    end
+
+    def new_pipeline_dashboard_page
+      Pages::NewPipelineDashboard.new
     end
 
     def environments_dashboard_page

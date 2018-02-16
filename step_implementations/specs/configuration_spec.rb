@@ -14,34 +14,38 @@
 # limitations under the License.
 ##########################################################################
 
-step "SmokeConfiguration - setup" do
+step 'SmokeConfiguration - setup' do
   secure_configuration.setup 'basic-secure-cruise-config.xml', 'password.properties'
 end
 
-step "Basic Configuration - setup" do
+step 'Basic Configuration - setup' do
   basic_configuration.setup 'basic-cruise-config.xml'
 end
 
-step "Secure Configuration - setup" do
+step 'Secure Configuration - setup' do
   secure_configuration.setup 'secure-cruise-config.xml', 'password.properties'
 end
 
-step "Multiple agents Configuration - setup" do
+step 'Multiple agents Configuration - setup' do
   basic_configuration.setup 'multiple-agents-cruise-config.xml'
 end
 
-step "Config repos Configuration - setup" do
+step 'Config repos Configuration - setup' do
   basic_configuration.setup 'with-config-repo-cruise-config.xml'
 end
 
-step "Config repo git repository - setup" do
+step 'Config repo git repository - setup' do
   basic_configuration.setup 'with-config-repo-cruise-config.xml'
 end
 
-step "AuthPluginsConfiguration - setup" do
+step 'AuthPluginsConfiguration - setup' do
   secure_configuration.setup 'auth-plugins-config.xml', 'password.properties'
 end
 
-step "With no users - setup" do
+step 'With no users - setup' do
   basic_configuration.remove_all_users
+end
+
+step 'Enable new dashboard toggles' do
+  basic_configuration.enable_toggle('quicker_dashboard_key')
 end

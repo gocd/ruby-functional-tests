@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2016 ThoughtWorks, Inc.
+# Copyright 2018 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,57 +14,57 @@
 # limitations under the License.
 ##########################################################################
 
-@AutoRefresh = true
+@auto_refresh = true
 
-step "Trigger <pipeline>" do |pipeline|
+step 'Trigger <pipeline>' do |pipeline|
   pipeline_dashboard_page.trigger_pipeline pipeline
 end
 
-step "Looking at pipeline <pipeline>" do |pipeline|
-  pipeline_dashboard_page.load(autoRefresh: @AutoRefresh)
+step 'Looking at pipeline <pipeline>' do |pipeline|
+  pipeline_dashboard_page.load(autoRefresh: @auto_refresh)
   scenario_state.set_current_pipeline pipeline
 end
 
-step "Turn off AutoRefresh - Dashboard page" do |pipeline|
-  @AutoRefresh = false
+step 'Turn off AutoRefresh - Dashboard page' do |_pipeline|
+  @auto_refresh = false
 end
 
-step "Wait till stage <stage> completed" do |stage|
-    pipeline_dashboard_page.wait_till_stage_complete scenario_state.current_pipeline, stage
+step 'Wait till stage <stage> completed' do |stage|
+  pipeline_dashboard_page.wait_till_stage_complete scenario_state.current_pipeline, stage
 end
 
-step "Wait till pipeline completed" do |stage|
-    pipeline_dashboard_page.wait_till_pipeline_complete scenario_state.current_pipeline
+step 'Wait till pipeline completed' do |_stage|
+  pipeline_dashboard_page.wait_till_pipeline_complete scenario_state.current_pipeline
 end
 
-step "Verify stage <stage> is <state>" do |stage, state|
+step 'Verify stage <stage> is <state>' do |stage, state|
   pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.current_pipeline, stage, state
 end
 
-step "Verify pipeline <pipeline> shows up on the dashboard" do |pipeline|
-  pipeline_dashboard_page.load(autoRefresh: @AutoRefresh)
+step 'Verify pipeline <pipeline> shows up on the dashboard' do |pipeline|
+  pipeline_dashboard_page.load(autoRefresh: @auto_refresh)
   pipeline_dashboard_page.wait_till_pipeline_showsup pipeline
 end
 
-step "Verify pipeline <pipeline> do not show up on the dashboard" do |pipeline|
-  pipeline_dashboard_page.load(autoRefresh: @AutoRefresh)
+step 'Verify pipeline <pipeline> do not show up on the dashboard' do |pipeline|
+  pipeline_dashboard_page.load(autoRefresh: @auto_refresh)
   assert_raise RuntimeError do
     pipeline_dashboard_page.wait_till_pipeline_showsup pipeline
   end
 end
 
-step "Verify pipeline <pipeline> is editable" do |pipeline|
+step 'Verify pipeline <pipeline> is editable' do |pipeline|
   assert_true pipeline_dashboard_page.is_editable?(pipeline)
 end
 
-step "Verify pipeline <pipeline> is not editable" do |pipeline|
+step 'Verify pipeline <pipeline> is not editable' do |pipeline|
   assert_false pipeline_dashboard_page.is_editable?(pipeline)
 end
 
-step "Verify pipeline <pipeline> is locked - On dashboard page" do |pipeline|
+step 'Verify pipeline <pipeline> is locked - On dashboard page' do |pipeline|
   assert_true pipeline_dashboard_page.is_locked?(pipeline)
 end
 
-step "Verify pipeline <pipeline> is not locked - On dashboard page" do |pipeline|
+step 'Verify pipeline <pipeline> is not locked - On dashboard page' do |pipeline|
   assert_false pipeline_dashboard_page.is_locked?(pipeline)
 end

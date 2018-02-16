@@ -14,104 +14,103 @@
 # limitations under the License.
 ##########################################################################
 
-step "On Agents page" do |count|
+step 'On Agents page' do |_count|
   agents_spa_page.load
 end
 
-step "Select All agents" do |agents|
+step 'Select All agents' do |_agents|
   agents_spa_page.select_all_agents
 end
 
-step "Select agent <rows>" do |rows|
-  rows.split(',').map(&:strip).each { |row| agents_spa_page.select_agent_at row.to_i-1}
+step 'Select agent <rows>' do |rows|
+  rows.split(',').map(&:strip).each { |row| agents_spa_page.select_agent_at row.to_i - 1 }
 end
 
-step "Add resources <resources>" do |resources|
+step 'Add resources <resources>' do |resources|
   agents_spa_page.click_on('RESOURCES')
   resources.split(',').map(&:strip).each { |resource| agents_spa_page.add_resource resource }
   agents_spa_page.apply_changes
 end
 
-step "Remove resources <resources>" do |resources|
+step 'Remove resources <resources>' do |resources|
   agents_spa_page.click_on('RESOURCES')
-  resources.split(',').map(&:strip).each { |resource| agents_spa_page.set_resource resource, false}
+  resources.split(',').map(&:strip).each { |resource| agents_spa_page.set_resource resource, false }
   agents_spa_page.apply_changes
 end
 
-step "Set resources <resources>" do |resources|
+step 'Set resources <resources>' do |resources|
   agents_spa_page.click_on('RESOURCES')
   sleep 2 # added it to avoid the flakiness in selcting the resource name from the resources box. Need to find better way to handle the flakiness
-  resources.split(',').map(&:strip).each { |resource| agents_spa_page.set_resource resource, true}
+  resources.split(',').map(&:strip).each { |resource| agents_spa_page.set_resource resource, true }
   agents_spa_page.apply_changes
 end
 
-step "Verify agent <row> assigned resources <resources>" do |row, resources|
-  assert_equal resources.split(',').map(&:strip).sort, agents_spa_page.get_listed_agents('Resources')[row.to_i-1].split(',').map(&:strip), "Mismatch in agent assigned resources"
+step 'Verify agent <row> assigned resources <resources>' do |row, resources|
+  assert_equal resources.split(',').map(&:strip).sort, agents_spa_page.get_listed_agents('Resources')[row.to_i - 1].split(',').map(&:strip), 'Mismatch in agent assigned resources'
 end
 
-step "Remove environments <envs>" do |envs|
+step 'Remove environments <envs>' do |envs|
   agents_spa_page.click_on('ENVIRONMENTS')
-  envs.split(',').map(&:strip).each { |env| agents_spa_page.set_environment env, false}
+  envs.split(',').map(&:strip).each { |env| agents_spa_page.set_environment env, false }
   agents_spa_page.apply_changes
 end
 
-step "Set environments <envs>" do |envs|
+step 'Set environments <envs>' do |envs|
   agents_spa_page.click_on('ENVIRONMENTS')
   sleep 2 # added it to avoid the flakiness in selcting the environment name from the environments box. Need to find better way to handle the flakiness
-  envs.split(',').map(&:strip).each { |env| agents_spa_page.set_environment env, true}
+  envs.split(',').map(&:strip).each { |env| agents_spa_page.set_environment env, true }
   agents_spa_page.apply_changes
 end
 
-step "Verify agent <row> assigned environments <envs>" do |row, envs|
-  assert_equal envs.split(',').map(&:strip).sort, agents_spa_page.get_listed_agents('Environments')[row.to_i-1].split(',').map(&:strip), "Mismatch in agent assigned environments"
+step 'Verify agent <row> assigned environments <envs>' do |row, envs|
+  assert_equal envs.split(',').map(&:strip).sort, agents_spa_page.get_listed_agents('Environments')[row.to_i - 1].split(',').map(&:strip), 'Mismatch in agent assigned environments'
 end
 
-step "Verify message <message>" do |message|
-  assert_equal message, agents_spa_page.get_message, "Agent modified message mismatch"
+step 'Verify message <message>' do |message|
+  assert_equal message, agents_spa_page.get_message, 'Agent modified message mismatch'
 end
 
-step "Verify agents <hostnames> show up in results" do |hostnames|
+step 'Verify agents <hostnames> show up in results' do |hostnames|
   assert_true (agents_spa_page.get_listed_agents('Agent Name').map!(&:strip) & hostnames.split(',').map!(&:strip)) == hostnames.split(',').map!(&:strip)
 end
 
-step "Sort by <column>" do |column|
+step 'Sort by <column>' do |column|
   agents_spa_page.sort_by column
 end
 
-step "Verify agents <column> has values in order as <values>" do |col, val|
+step 'Verify agents <column> has values in order as <values>' do |col, val|
   assert_equal val.split(',').map!(&:strip), agents_spa_page.get_listed_agents(col), "Sort order on #{col} mismatch"
 end
 
-step "<action> agent" do |action|
+step '<action> agent' do |action|
   agents_spa_page.click_on action.upcase
 end
 
-step "Verify agent <row> status is <status>" do |row, status|
-  assert_equal status, agents_spa_page.get_listed_agents('Status')[row.to_i-1], "Agent at #{row} is not at expected state #{status}"
+step 'Verify agent <row> status is <status>' do |row, status|
+  assert_equal status, agents_spa_page.get_listed_agents('Status')[row.to_i - 1], "Agent at #{row} is not at expected state #{status}"
 end
 
-step "Verify listed agents count is <count>" do |count|
+step 'Verify listed agents count is <count>' do |count|
   assert_equal count.to_i, agents_spa_page.listed_agents_count, "Listed agents count expected to be #{count}"
 end
 
-step "Enter filter value <search>" do |search|
+step 'Enter filter value <search>' do |search|
   agents_spa_page.filter_by(search)
 end
 
-step "Verify agent summary shows <state> agent count as <count>" do |state, count|
+step 'Verify agent summary shows <state> agent count as <count>' do |state, count|
   assert_equal count, agents_spa_page.summary_count(state), "#{state} agent count not as expected"
 end
 
-step "Verify agents at state <state> is <count>" do |state, count|
+step 'Verify agents at state <state> is <count>' do |state, count|
   assert_equal count.to_i, agents_spa_page.get_agents_count(state), "Expected #{count} agents at state #{state}"
 end
 
-
-step "Wait till agent <row> status is <status>" do |row, status|
+step 'Wait till agent <row> status is <status>' do |row, status|
   agents_spa_page.wait_till_agent_status_is status, row
 end
 
-step "Approve a pending agent" do |count|
+step 'Approve a pending agent' do |_count|
   agents_spa_page.select_agent_with_status('pending')
   agents_spa_page.click_on 'ENABLE'
 end

@@ -53,6 +53,10 @@ module Context
       @scenario_store.get 'current_user'
     end
 
+    def self_pipeline
+      get_pipeline(current_pipeline)
+    end
+
     def set_current_pipeline(pipeline)
       @scenario_store.put 'current_pipeline', pipeline
     end
@@ -75,6 +79,14 @@ module Context
 
     def api_response
       @scenario_store.get "api_response"
+    end
+
+    def remember_material_revision(id, revision)
+      @scenario_store.put id, revision
+    end
+
+    def material_revision(id)
+      @scenario_store.get id
     end
   end
 end

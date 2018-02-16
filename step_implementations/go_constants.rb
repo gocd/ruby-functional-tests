@@ -27,12 +27,13 @@ class GoConstants
   GO_VERSION = ENV['GO_VERSION'] || '16.11.0'
   LDAP_SERVER_IP = ENV['LDAP_SERVER_IP'] || 'localhost:10389'
 
-  TEMP_DIR = '/tmp/materials'
-  GAUGE_AGENT_DIR = 'target/gauge_agents'
-  CONFIG_PATH = 'resources/config'
-  FILE_BASED_PLUGIN_ID = 'cd.go.authentication.passwordfile'
+  TEMP_DIR = '/tmp/materials'.freeze
+  GAUGE_AGENT_DIR = 'target/gauge_agents'.freeze
+  CONFIG_PATH = 'resources/config'.freeze
+  FILE_BASED_PLUGIN_ID = 'cd.go.authentication.passwordfile'.freeze
+  AGENTS_API_VERSION = 'application/vnd.go.cd.v4+json'.freeze
 
-  OWASP_ZAP_PATH = '/opt/homebrew-cask/Caskroom/owasp-zap/2.5.0/OWASP-ZAP.app/Contents/MacOS/OWASP-ZAP.sh'
+  OWASP_ZAP_PATH = '/opt/homebrew-cask/Caskroom/owasp-zap/2.5.0/OWASP-ZAP.app/Contents/MacOS/OWASP-ZAP.sh'.freeze
 
   GO_SERVER_BASE_URL = "http://#{HOSTNAME}:#{SERVER_PORT}/go".freeze
   GO_SERVER_BASE_SSL_URL = "https://#{HOSTNAME}:#{SERVER_SSL_PORT}/go".freeze

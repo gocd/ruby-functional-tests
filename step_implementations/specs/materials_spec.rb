@@ -14,16 +14,23 @@
 # limitations under the License.
 ##########################################################################
 
-step "Using pipeline <pipeline> - setup" do |pipelines|
+step 'Using pipeline <pipeline> - setup' do |pipelines|
   pipelines.split(',').each { |pipeline| git_materials.setup_material_for pipeline.strip }
-  basic_configuration.remove_pipelines_except pipelines.split(',').map { |p| p.strip }
+  basic_configuration.remove_pipelines_except pipelines.split(',').map(&:strip)
 end
 
-step "Using environment <environment> - setup" do |environments|
+step 'Using environment <environment> - setup' do |environments|
   environments.split(',').each { |env| scenario_state.add_environment(env, env) }
-  basic_configuration.remove_environments_except environments.split(',').map { |e| e.strip }
+  basic_configuration.remove_environments_except environments.split(',').map(&:strip)
 end
 
-step "Create a <file> file" do |file|
-   git_materials.create_stopjob(file)
+step 'Create a <file> file' do |file|
+  git_materials.create_stopjob(file)
 end
+
+step 'Remember current version as <identifier>' do |id|
+  latest_revision = Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).latest_revision
+  scenario_state.remember_material_revision id, latest_revision
+end
+
+

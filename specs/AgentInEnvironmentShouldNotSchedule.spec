@@ -1,8 +1,9 @@
 AgentInEnvironmentShouldNotSchedule
-=========
+===================================
 
 AgentInEnvironmentShouldNotSchedule
--------------------
+-----------------------------------
+
 tags: agents management, agents_spa, SPA
 
 Setup of contexts

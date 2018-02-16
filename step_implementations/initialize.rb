@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2016 ThoughtWorks, Inc.
+# Copyright 2018 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -31,24 +31,23 @@ require 'helpers/spec_helper'
 include OwaspZap
 include Test::Unit::Assertions
 
-
 ZAP_PROXY = ENV['ZAP_PROXY'].to_s || nil
 
 Gauge.configure do |config|
   config.include Helpers::SpecHelper
   config.include Helpers::GoUrlHelper
   config.include Helpers::Wait
-  config.screengrabber= -> {
+  config.screengrabber = -> {
     Capybara.page.save_screenshot
-    file = File.open(Dir.glob('screenshots/*.png').first, "rb")
+    file = File.open(Dir.glob('screenshots/*.png').first, 'rb')
     file_content = File.binread(file.path)
-    FileUtils.rm_r 'screenshots', :force => true
+    FileUtils.rm_r 'screenshots', force: true
     return file_content
   }
 end
 
 Capybara.configure do |config|
-  config.save_path = "screenshots"
+  config.save_path = 'screenshots'
 end
 
 Capybara.register_driver :selenium do |app|

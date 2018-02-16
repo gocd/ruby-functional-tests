@@ -14,37 +14,37 @@
 # limitations under the License.
 ##########################################################################
 
-step "Login as <user> - setup" do |user|
+step 'Login as <user> - setup' do |user|
   login_page.load
   login_page.signin user
 end
 
-step "Login as <user>" do |user|
+step 'Login as <user>' do |user|
   login_page.signin user
   login_page.signin_success user
 end
 
-step "Logout and login as <user>" do |user|
+step 'Logout and login as <user>' do |user|
   logout
   login_page.signin user
   login_page.signin_success user
 end
 
-step "Logout - from any page" do |count|
+step 'Logout - from any page' do |_count|
   logout
 end
 
-step "Logout and Login as <user> with password as <pwd>" do |user, pwd|
+step 'Logout and Login as <user> with password as <pwd>' do |user, pwd|
   logout
   login_page.signin user, pwd
   login_page.signin_success user
 end
 
-step "As user <user>" do |user|
+step 'As user <user>' do |user|
   scenario_state.set_current_user user
 end
 
-step "As user <user> for teardown" do |user|
+step 'As user <user> for teardown' do |user|
   scenario_state.set_current_user user
 end
 
@@ -53,7 +53,7 @@ def logout
   app_base_page.logout
 end
 
-step "Logout and Login as <user> should fail with message <message>" do |user, message|
+step 'Logout and Login as <user> should fail with message <message>' do |user, message|
   logout
   login_page.signin user
   login_page.signin_failure message

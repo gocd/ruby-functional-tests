@@ -16,17 +16,16 @@
 
 require 'open3'
 
-
 module Context
-
   class Materials
     include FileUtils
   end
 
   class GitMaterials < Materials
+    attr_reader :path
 
-    def initialize(*_args)
-      @path = "#{GoConstants::TEMP_DIR}/gitmaterial-#{Time.now.to_i}"
+    def initialize(path = "#{GoConstants::TEMP_DIR}/gitmaterial-#{Time.now.to_i}")
+      @path = path
     end
 
     def setup_material_for(pipeline)
@@ -42,7 +41,7 @@ module Context
     end
 
     def initial_commit
-      cp_r "resources/Rakefile", "#{@path}/sample.git/"
+      cp_r 'resources/Rakefile', "#{@path}/sample.git/"
       cd("#{@path}/sample.git") do
         Open3.popen3(%(git add . && git commit -m "Commit the test rakefile")) do |_stdin, _stdout, stderr, wait_thr|
           raise "Failed to commit to git repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
@@ -50,18 +49,32 @@ module Context
       end
     end
 
+    def new_commit(filename, commit, author = 'gouser')
+      cd("#{@path}") do
+        sh "touch #{filename}"
+        Open3.popen3(%(git add . && git commit --author="#{author}" -m "#{commit}")) do |_stdin, _stdout, stderr, wait_thr|
+          raise "Failed to commit to git repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
+        end
+      end
+    end
+
+    def latest_revision
+      cd("#{@path}") do
+        stdout, _stdeerr, _status = Open3.capture3(%(git rev-parse HEAD))
+        stdout
+      end
+    end
+
     def create_stopjob(filename)
-      go_agents.get_working_dirs.each{|agent_dir| sh("touch #{agent_dir}/#{filename}")}
+      go_agents.agent_wrk_dirs.each { |agent_dir| sh("touch #{agent_dir}/#{filename}") }
     end
   end
 
   class ConfigRepoMaterial < Materials
-
     attr_reader :path
     attr_reader :pipeline_name
 
-    def initialize(*_args)
-    end
+    def initialize(*_args); end
 
     def setup(pipeline, repo, upstream)
       @path = "#{GoConstants::TEMP_DIR}/gitconfig-#{Time.now.to_i}"
@@ -80,9 +93,9 @@ module Context
     end
 
     def create_pipeline(material, upstream)
-      pipeline = Pipeline.new(group: 'configrepo', name: "#{@pipeline_name}") do |p|
-        p << GitMaterial.new(url: "#{material}", name: "gitmaterial")
-        p << DependencyMaterial.new(pipeline: "#{scenario_state.get_pipeline(upstream)}") unless upstream.empty?
+      pipeline = Pipeline.new(group: 'configrepo', name: @pipeline_name.to_s) do |p|
+        p << GitMaterial.new(url: material.to_s, name: 'gitmaterial')
+        p << DependencyMaterial.new(pipeline: scenario_state.get_pipeline(upstream).to_s) unless upstream.empty?
         p << Stage.new(name: 'defaultStage') do |s|
           s << Job.new(name: 'defaultJob') do |j|
             j << ExecTask.new(command: 'ls')
@@ -96,13 +109,12 @@ module Context
           raise "Failed to commit to git config repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
         end
       end
-
     end
 
     def update_pipeline(upstream)
-      pipeline = Pipeline.new(group: 'configrepo', name: "#{@pipeline_name}") do |p|
-        p << GitMaterial.new(url: "#{@path}/config_repo.git", name: "gitmaterial")
-        p << DependencyMaterial.new(pipeline: "#{scenario_state.get_pipeline(upstream)}")
+      pipeline = Pipeline.new(group: 'configrepo', name: @pipeline_name.to_s) do |p|
+        p << GitMaterial.new(url: "#{@path}/config_repo.git", name: 'gitmaterial')
+        p << DependencyMaterial.new(pipeline: scenario_state.get_pipeline(upstream).to_s)
         p << Stage.new(name: 'defaultStage') do |s|
           s << Job.new(name: 'defaultJob') do |j|
             j << ExecTask.new(command: 'ls')
@@ -116,22 +128,18 @@ module Context
           raise "Failed to commit to git config repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
         end
       end
-
     end
-
   end
 
   class ConfigRepoEnvironment < Materials
-
     attr_reader :path
     attr_reader :environment_name
 
     def initialize(*_args)
-      @pipelines = Array.new
+      @pipelines = []
     end
 
-
-    def setupExisting(environment, repo)
+    def setup_existing(environment, repo)
       create_repo(environment, environment, repo)
     end
 
@@ -151,6 +159,7 @@ module Context
     end
 
     private
+
     def add_environment_to_config_repo(environment, material)
       cd(material) do
         File.open("#{@environment_name}.goenvironment.json", 'w') { |file| file.write(environment.to_json) }
@@ -175,6 +184,5 @@ module Context
       scenario_state.add_environment environment, @environment_name
       scenario_state.add_configrepo environment, self
     end
-
   end
 end

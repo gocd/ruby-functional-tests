@@ -48,5 +48,4 @@ end
 
 step 'Enable new dashboard toggles' do
   basic_configuration.enable_toggle('quicker_dashboard_key')
-  basic_configuration.enable_toggle('spark_router_enabled_key')
 end

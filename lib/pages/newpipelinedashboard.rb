@@ -20,7 +20,8 @@ module Pages
 
     element :pipeline_name, '.pipeline_name'
     elements :pipeline_group, '.pipeline-group'
-    elements :pipeline_group_title, '.pipeline-group_title'
+    elements :pipeline_group_title, ".pipeline-group_title"
+    element :material_for_trigger, '.material-for-trigger'
 
     load_validation { has_pipeline_group? }
 
@@ -28,6 +29,12 @@ module Pages
       (pipeline_name text: scenario_state.self_pipeline)
         .find(:xpath, '../..').find('.btn.play').click
       reload_page
+      binding.pry
+    end
+
+    def trigger_pipeline_with_options
+      (pipeline_name text: scenario_state.self_pipeline)
+        .find(:xpath, '../..').find('btn.play_with_options').click
     end
 
     def pause_pipeline(reason)
@@ -104,14 +111,11 @@ module Pages
     end
 
     def group_visible?(group)
-      pipeline_group_title.all.select { |grp| grp.find('strong').text == group }.any?
+      pipeline_group_title.select { |grp| grp.find('strong').text == group }.any?
     end
 
-    def pipeline_in_group(group)
-      pipelines = pipeline_group.all.select { |grp| 
-          grp.find('.pipeline-group_title')
-             .find('strong').text == group 
-          }.all('.pipeline_name')
+    def pipeline_in_group?(group)
+      pipelines = pipeline_group.select { |grp| grp.find('strong').text == group }.first.all('.pipeline_name')
       pipelines.select { |pipeline| pipeline.text == scenario_state.self_pipeline }.any?
     end
 
@@ -151,6 +155,19 @@ module Pages
         .find('.pipeline_instance-details')
         .all('div').fist.text.eql? "Triggered by #{user}"
     end
+
+    def last_run_revision
+      material_for_trigger.find('.last-run-revision').find('span').text
+    end
+
+    def close_trigger_with_options
+      page.find('.modal-buttons').find('button', text: 'CLOSE').click
+    end
+
+    def trigger_with_options
+      page.find('.modal-buttons').find('button', text: 'Trigger Pipeline').click
+    end
+
 
     private
 

@@ -80,5 +80,13 @@ module Context
     def api_response
       @scenario_store.get "api_response"
     end
+
+    def remember_material_revision(id, revision)
+      @scenario_store.put id, revision
+    end
+
+    def material_revision(id)
+      @scenario_store.get id
+    end
   end
 end

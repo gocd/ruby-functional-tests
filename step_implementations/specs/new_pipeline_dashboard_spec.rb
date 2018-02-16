@@ -14,10 +14,18 @@
 # limitations under the License.
 ##########################################################################
 
-@auto_refresh = true
+@auto_refresh = false
 
-step 'Trigger <pipeline> - On Swift Dashboard page' do |pipeline|
-  new_new_pipeline_dashboard_page.trigger_pipeline pipeline
+step 'On Swift Dashboard Page' do |_tmp|
+  new_pipeline_dashboard_page.load(autoRefresh: @auto_refresh)
+end
+
+step 'Turn on AutoRefresh - On Swift Dashboard page' do |_pipeline|
+  @auto_refresh = true
+end
+
+step 'Trigger pipeline - On Swift Dashboard page' do |_tmp|
+  new_pipeline_dashboard_page.trigger_pipeline
 end
 
 step 'Looking at pipeline <pipeline> - On Swift Dashboard page' do |pipeline|
@@ -69,52 +77,73 @@ step 'Verify pipeline is not locked - On Swift Dashboard page' do |pipeline|
   assert_false new_pipeline_dashboard_page.locked?
 end
 
-step 'Verify pipeline <pipeline> is not visible' do |pipeline|
+step 'Verify pipeline <pipeline> is not visible - On Swift Dashboard page' do |pipeline|
   assert_false new_pipeline_dashboard_page.visible?(pipeline)
 end
 
-step 'Verify group <group> is not visible' do |group|
+step 'Verify group <group> is not visible - On Swift Dashboard page' do |group|
   assert_false new_pipeline_dashboard_page.group_visible?(group)
 end
 
-step 'Verify pipeline is in group <group>' do |group|
+step 'Verify pipeline is in group <group> - On Swift Dashboard page' do |group|
   assert_true new_pipeline_dashboard_page.pipeline_in_group?(group)
 end
 
-step 'Verify pipeline has no history' do |_tmp|
+step 'Verify pipeline has no history - On Swift Dashboard page' do |_tmp|
   assert_true new_pipeline_dashboard_page.pipeline_history_exists?
 end
 
-step 'Verify pipeline is triggered by <user>' do |user|
+step 'Verify pipeline is triggered by <user> - On Swift Dashboard page' do |user|
   assert_true new_pipeline_dashboard_page.triggered_by? user
 end
 
-step 'Pause pipeline with reason <message>' do |message|
+step 'Pause pipeline with reason <message> - On Swift Dashboard page' do |message|
   new_pipeline_dashboard_page.pause_pipeline(reason)
 end
 
-step 'Verify pipeline is paused with reason <reason> by <user>' do |reason, user|
+step 'Verify pipeline is paused with reason <reason> by <user> - On Swift Dashboard page' do |reason, user|
   new_pipeline_dashboard_page.pause_message?("Paused by #{user} (#{reason})")
 end
 
-step 'Unpause pipeline' do |tmp|
+step 'Unpause pipeline - On Swift Dashboard page' do |tmp|
   new_pipeline_dashboard_page.unpause_pipeline
 end
 
-step 'Click on history' do |tmp|
+step 'Click on history - On Swift Dashboard page' do |tmp|
   new_pipeline_dashboard_page.click_history
 end
 
-step 'Open changes section' do |tmp|
+step 'Open changes section - On Swift Dashboard page' do |tmp|
   new_pipeline_dashboard_page.open_build_cause
 end
 
-step 'Looking at material of type <material_type> named <name>' do |type, name|
+step 'Looking at material of type <material_type> named <name> verify shows latest revision - On Swift Dashboard page' do |type, name|
   latest_revision = Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).latest_revision
   revision = new_pipeline_dashboard_page.revision_of_material(type, name)
   new_pipeline_dashboard_page.shows_revision?(revision, latest_revision)
 end
 
-step 'Checkin file <filename> as user <user> with message <message>' do |filename, user, message|
+step 'Checkin file <filename> as user <user> with message <message> - On Swift Dashboard page' do |filename, user, message|
   Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).new_commit(filename, user, message)
+end
+
+step 'Open trigger with options - On Swift Dashboard page' do |_tmp|
+  new_pipeline_dashboard_page.trigger_pipeline_with_options
+end
+
+step 'Verify last run revision is <identifier> - On Swift Dashboard page' do |revision_id|
+  assert_true new_pipeline_dashboard_page.last_run_revision.eql? sceanrio_state.material_revision revision_id
+end
+
+step 'Close - Trigger with options - On Swift Dashboard page' do |_tmp|
+  new_pipeline_dashboard_page.close_trigger_with_options
+end
+
+step 'Trigger pipeline with options - On Swift Dashboard page' do |_tmp|
+  new_pipeline_dashboard_page.trigger_with_options
+end
+
+step 'Using material <material_name> set revision to trigger with as <identifier> - On Swift Dashboard page' do |material_name, identifier|
+  page.find('div', text: material_name).click
+  page.find('.material-revision-search').set scenario_state.material_revision identifier
 end

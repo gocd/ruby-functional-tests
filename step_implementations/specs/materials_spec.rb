@@ -27,3 +27,10 @@ end
 step 'Create a <file> file' do |file|
   git_materials.create_stopjob(file)
 end
+
+step 'Remember current version as <identifier>' do |id|
+  latest_revision = Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).latest_revision
+  scenario_state.remember_material_revision id, latest_revision
+end
+
+

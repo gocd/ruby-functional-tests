@@ -66,7 +66,7 @@ module Context
     end
 
     def create_stopjob(filename)
-      go_agents.get_agent_wrk_dirs.each { |agent_dir| sh("touch #{agent_dir}/#{filename}") }
+      go_agents.agent_wrk_dirs.each { |agent_dir| sh("touch #{agent_dir}/#{filename}") }
     end
   end
 

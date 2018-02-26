@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2017 ThoughtWorks, Inc.
+# Copyright 2018 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,19 +28,21 @@ require 'context/secure_configuration'
 require 'context/server'
 require 'context/pipeline'
 require 'pages/app_base'
-require 'pages/login'
+require 'pages/login_page'
 require 'pages/agents_spa'
-require 'pages/pipelinedashboard'
+require 'pages/pipeline_dashboard_page'
 require 'pages/environments_page'
 require 'pages/environments_edit_page'
-require 'pages/serverhealthmessages'
+require 'pages/server_health_messages'
 require 'pages/preferences_page'
 require 'pages/authorization_config_spa'
 require 'pages/role_config_spa'
 require 'pages/pipeline_group_edit_page'
 require 'pages/plugins_spa'
 require 'pages/user_summary'
-require 'pages/newpipelinedashboard'
+require 'pages/new_pipeline_dashboard_page'
+require 'pages/pipeline_history_page'
+
 
 
 module Helpers
@@ -95,6 +97,10 @@ module Helpers
 
     def user_summary_page
       Pages::UserSummary.new
+    end
+
+    def pipeline_history_page
+      Pages::PipelineHistoryPage.new
     end
 
     def server_health_message

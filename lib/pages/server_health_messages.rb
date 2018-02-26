@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2016 ThoughtWorks, Inc.
+# Copyright 2018 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 module Pages
   class ServerHealthMessage < AppBase
 
-    element :message_notifier, '#cruise_message_counts > a > span > span'
+    element :message_notifier, '.messages'
     element :health_messages, '#cruise_message_body'
 
     def wait_for_server_health_message

@@ -20,21 +20,30 @@ module Pages
 
     element :pipeline_name, '.pipeline_name'
     elements :pipeline_group, '.pipeline-group'
-    elements :pipeline_group_title, ".pipeline-group_title"
+    elements :pipeline_group_title, '.pipeline-group_title'
     element :material_for_trigger, '.material-for-trigger'
 
     load_validation { has_pipeline_group? }
 
     def trigger_pipeline
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../..').find('.btn.play').click
+        .find(:xpath, '../..').find('.pipeline_btn.play').click
       reload_page
-      binding.pry
+    end
+
+    def trigger_pipeline_disabled?
+      (pipeline_name text: scenario_state.self_pipeline)
+        .find(:xpath, '../..').has_css?('.pipeline_btn.play.disabled')
     end
 
     def trigger_pipeline_with_options
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../..').find('btn.play_with_options').click
+        .find(:xpath, '../..').find('.pipeline_btn.play_with_options').click
+    end
+
+    def trigger_pipeline_with_options_disabled?
+      (pipeline_name text: scenario_state.self_pipeline)
+        .find(:xpath, '../..').has_css?('.pipeline_btn.play_with_options.disabled')
     end
 
     def pause_pipeline(reason)

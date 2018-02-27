@@ -1,14 +1,16 @@
 [![Gauge
 Badge](https://cdn.rawgit.com/getgauge/getgauge.github.io/master/Gauge_Badge.svg)](http://getgauge.io)
 
-## Pre-Requisites
-* Java
-* Maven
-* Ruby
-* Rake
-* Bundler
-* [Node](https://nodejs.org/en/) 
-* [Gauge](http://getgauge.io)
+## Pre-Requisites(with versions tested on)
+* Java 8
+* Ruby >= 2.3.3
+* Rake 12.0.0
+* Bundler 1.14.6
+* [Node](https://nodejs.org/en/) v6.10.1
+* [Gauge](http://getgauge.io) 0.9.6
+* Gauge-ruby plugin 0.4.2
+* Firefox >= 45.0
+* geckodriver 0.19.1
 
 ## Setup
 * ``` git clone``` as a sibling directory to
@@ -31,7 +33,7 @@ Badge](https://cdn.rawgit.com/getgauge/getgauge.github.io/master/Gauge_Badge.svg
 ## License
 
 ```plain
-Copyright 2017 ThoughtWorks, Inc.
+Copyright 2018 ThoughtWorks, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

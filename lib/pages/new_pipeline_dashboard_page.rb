@@ -16,7 +16,7 @@
 
 module Pages
   class NewPipelineDashboard < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/dashboard{?autoRefresh*}"
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/pipelines{?autoRefresh*}"
 
     element :pipeline_name, '.pipeline_name'
     elements :pipeline_group, '.pipeline-group'
@@ -76,12 +76,15 @@ module Pages
 
     def verify_pipeline_is_at_label(pipeline, label)
       assert_true (pipeline_name text: pipeline)
-        .find('.pipeline_instance-label').text.include?(label)
+                      .find('.pipeline_instance-label').text.include?(label)
     end
 
     def verify_pipeline_stage_state(pipeline, stage, state)
-      reload_page
-      assert get_pipeline_stage_state(pipeline, stage).include?(state)
+      wait_till_event_occurs_or_bomb 10, "Pipeline #{pipeline} stage #{stage} is not in #{state} state" do
+        if get_pipeline_stage_state(pipeline, stage).include?(state)
+          return true
+        end
+      end
     end
 
     def wait_till_pipeline_start_building
@@ -124,8 +127,13 @@ module Pages
     end
 
     def pipeline_in_group?(group)
-      pipelines = pipeline_group.select { |grp| grp.find('strong').text == group }.first.all('.pipeline_name')
-      pipelines.select { |pipeline| pipeline.text == scenario_state.self_pipeline }.any?
+      wait_till_event_occurs_or_bomb 10, "Pipeline not in group #{group}" do
+        selected_pipeline_group = pipeline_group.select {|grp| grp.find('strong').text == group}.first
+        unless selected_pipeline_group.nil?
+          pipelines = selected_pipeline_group.all('.pipeline_name')
+          return pipelines.select {|pipeline| pipeline.text == scenario_state.self_pipeline}.any?
+        end
+      end
     end
 
     def pipeline_history_exists?

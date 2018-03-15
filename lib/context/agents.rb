@@ -30,7 +30,6 @@ module Context
     end
 
     def start_an_agent_in(dir)
-      raise "Agent already running in the directory #{dir}" if File.exist?("#{dir}/.agent-bootstrapper.running")
       rm_rf(dir)
 
       mkdir_p dir
@@ -52,30 +51,43 @@ module Context
 
     def create_agents(count)
       (1..count.to_i).each do |n|
-        start_an_agent_in "#{GoConstants::GAUGE_AGENT_DIR}/agent-#{n}"
-        @agent_wrk_dirs << "#{GoConstants::GAUGE_AGENT_DIR}/agent-#{n}"
+        create_agent(n)
       end
     end
 
     def destroy_agents(count)
       (1..count.to_i).each do |n|
-        Bundler.with_clean_env do
-          process = ChildProcess.build(STOP_COMMAND)
-          process.detach = true
-          process.environment['PID_FILE'] = 'go-agent.pid'
-          process.environment['MANUAL_SETTING'] = 'Y'
-          process.environment['DAEMON'] = 'Y'
-          process.cwd = "#{GoConstants::GAUGE_AGENT_DIR}/agent-#{n}"
-          process.start
-          begin
-            process.poll_for_exit(10)
-          rescue ChildProcess::TimeoutError
-            process.stop
-          end
-        end
+        destroy_agent(n)
       end
       rm_rf(GoConstants::GAUGE_AGENT_DIR)
       @agent_wrk_dirs.clear
+    end
+
+    private
+    def create_agent(n)
+      agent_directory = "#{GoConstants::GAUGE_AGENT_DIR}/agent-#{n}"
+      if File.exist?("#{agent_directory}/.agent-bootstrapper.running")
+        destroy_agent(n)
+      end
+      start_an_agent_in agent_directory
+      @agent_wrk_dirs << agent_directory
+    end
+
+    def destroy_agent(n)
+      Bundler.with_clean_env do
+        process = ChildProcess.build(STOP_COMMAND)
+        process.detach = true
+        process.environment['PID_FILE'] = 'go-agent.pid'
+        process.environment['MANUAL_SETTING'] = 'Y'
+        process.environment['DAEMON'] = 'Y'
+        process.cwd = "#{GoConstants::GAUGE_AGENT_DIR}/agent-#{n}"
+        process.start
+        begin
+          process.poll_for_exit(10)
+        rescue ChildProcess::TimeoutError
+          process.stop
+        end
+      end
     end
   end
 end

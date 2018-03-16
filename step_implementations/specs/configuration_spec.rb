@@ -48,4 +48,5 @@ end
 
 step 'Enable new dashboard toggles' do
   basic_configuration.enable_toggle('quicker_dashboard_key')
+  basic_configuration.enable_toggle('new_dashboard_page_default')
 end

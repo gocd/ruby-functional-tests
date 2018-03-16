@@ -46,7 +46,7 @@ step 'Wait till pipeline completed - On Swift Dashboard page' do |_stage|
 end
 
 step 'Verify stage <stage> is <state> - On Swift Dashboard page' do |stage, state|
-  new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.current_pipeline, stage, state
+  new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.current_pipeline, stage, state.downcase
 end
 
 step 'Verify pipeline <pipeline> shows up - On Swift Dashboard page' do |pipeline|
@@ -115,6 +115,14 @@ end
 
 step 'Open changes section - On Swift Dashboard page' do |tmp|
   new_pipeline_dashboard_page.open_build_cause
+end
+
+step 'Verify cannot trigger pipeline' do |tmp|
+  assert_true new_pipeline_dashboard_page.trigger_pipeline_disabled?
+end
+
+step 'Verify can trigger pipeline' do |tmp|
+  assert_false new_pipeline_dashboard_page.trigger_pipeline_disabled?
 end
 
 step 'Looking at material of type <material_type> named <name> verify shows latest revision - On Swift Dashboard page' do |type, name|

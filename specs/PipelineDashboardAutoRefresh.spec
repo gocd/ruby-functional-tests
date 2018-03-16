@@ -29,4 +29,4 @@ Teardown of contexts
 ____________________
 * Capture go state "PipelineDashboardAutoRefresh" - teardown
 * With "1" live agents - teardown
-
+* Disable new dashboard toggles

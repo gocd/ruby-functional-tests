@@ -23,54 +23,58 @@ module Pages
     elements :pipeline_group_title, '.pipeline-group_title'
     element :material_for_trigger, '.material-for-trigger'
 
-    load_validation { has_pipeline_group? }
+    load_validation {has_pipeline_group?}
 
     def trigger_pipeline
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../..').find('.pipeline_btn.play').click
+          .find(:xpath, '../..').find('.pipeline_btn.play').click
       reload_page
     end
 
     def trigger_pipeline_disabled?
-      (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../..').has_css?('.pipeline_btn.play.disabled')
+      begin
+        (pipeline_name text: scenario_state.self_pipeline)
+          .find(:xpath, '../..').find('.pipeline_btn.play.disabled', {wait: 5})
+      rescue
+        return false
+      end
+      return true
     end
 
     def trigger_pipeline_with_options
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../..').find('.pipeline_btn.play_with_options').click
+          .find(:xpath, '../..').find('.pipeline_btn.play_with_options').click
     end
 
     def trigger_pipeline_with_options_disabled?
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../..').has_css?('.pipeline_btn.play_with_options.disabled')
+          .find(:xpath, '../..').has_css?('.pipeline_btn.play_with_options.disabled')
     end
 
     def pause_pipeline(reason)
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../..').find('.btn.pause').click
+          .find(:xpath, '../..').find('.btn.pause').click
       page.find('.modal-body').find('input').set(reason)
       page.find('.modal-buttons').find('button', text: 'OK').click
     end
 
     def pause_message?(message)
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../..').has_selector?('.pipeline_pause-message', text: message)
+          .find(:xpath, '../..').has_selector?('.pipeline_pause-message', text: message)
     end
 
     def unpause_pipeline
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../..').find('.btn.unpause').click
+          .find(:xpath, '../..').find('.btn.unpause').click
     end
 
     def get_all_stages(pipeline) # This one needs to be relooked - the way the view is modelled do not make it easy to get latest stage state
       (pipeline_name text: pipeline)
-        .find(:xpath, '../..').find('.pipeline_stages').all('a')
+          .find(:xpath, '../..').find('.pipeline_stages', {wait: 10}).all('a')
     end
 
     def get_pipeline_stage_state(pipeline, stagename) # This need relook too
-      target_stage = (pipeline_name text: pipeline)
-                     .find(:xpath, '../..').find('.pipeline_stages').all('a').select { |stage| stage['href'].include?(stagename) }
+      target_stage = get_all_stages(pipeline).select {|stage| stage['href'].include?(stagename)}
       target_stage.first['class']
     end
 
@@ -80,10 +84,8 @@ module Pages
     end
 
     def verify_pipeline_stage_state(pipeline, stage, state)
-      wait_till_event_occurs_or_bomb 10, "Pipeline #{pipeline} stage #{stage} is not in #{state} state" do
-        if get_pipeline_stage_state(pipeline, stage).include?(state)
-          return true
-        end
+      wait_till_event_occurs_or_bomb 20, "Pipeline #{pipeline} stage #{stage} is not in #{state} state" do
+        break if get_pipeline_stage_state(pipeline, stage).include?(state)
       end
     end
 
@@ -110,12 +112,12 @@ module Pages
 
     def editable?
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '..').has_css?('.pipeline_edit')
+          .find(:xpath, '..').has_css?('.pipeline_edit')
     end
 
     def locked?
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '..').has_css?('.pipeline_locked')
+          .find(:xpath, '..').has_css?('.pipeline_locked')
     end
 
     def visible?(pipeline)
@@ -123,7 +125,7 @@ module Pages
     end
 
     def group_visible?(group)
-      pipeline_group_title.select { |grp| grp.find('strong').text == group }.any?
+      pipeline_group_title.select {|grp| grp.find('strong').text == group}.any?
     end
 
     def pipeline_in_group?(group)
@@ -138,7 +140,7 @@ module Pages
 
     def pipeline_history_exists?
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../..').has_selector?('.pipeline_instances', visible: true)
+          .find(:xpath, '../..').has_selector?('.pipeline_instances', visible: true)
     end
 
     def wait_till_pipeline_showsup(pipeline)
@@ -150,16 +152,16 @@ module Pages
 
     def click_history
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../..').find('.pipeline_history').click
+          .find(:xpath, '../..').find('.pipeline_history').click
     end
 
     def open_build_cause
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../..').find('.changes').click
+          .find(:xpath, '../..').find('.changes').click
     end
 
     def revision_of_material(type, name)
-      revisions(scenario_state.self_pipeline).select { |material| material.find('.rev-head').text.include? "#{type} - #{name}" }.first
+      revisions(scenario_state.self_pipeline).select {|material| material.find('.rev-head').text.include? "#{type} - #{name}"}.first
     end
 
     def shows_revision?(revision_element, revision_id)
@@ -168,9 +170,9 @@ module Pages
 
     def triggered_by?(user)
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../..')
-        .find('.pipeline_instance-details')
-        .all('div').fist.text.eql? "Triggered by #{user}"
+          .find(:xpath, '../..')
+          .find('.pipeline_instance-details')
+          .all('div').fist.text.eql? "Triggered by #{user}"
     end
 
     def last_run_revision
@@ -190,8 +192,8 @@ module Pages
 
     def revisions(pipeline)
       (pipeline_name text: pipeline)
-        .find(:xpath, '../..')
-        .find('.material_changes.show').all('div')
+          .find(:xpath, '../..')
+          .find('.material_changes.show').all('div')
     end
 
   end

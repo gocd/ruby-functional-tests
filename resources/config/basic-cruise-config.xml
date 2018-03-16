@@ -42,9 +42,9 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="sleep" >
-                            <arg>30</arg>
-                          </exec>
+                            <exec command="sleep">
+                                <arg>30</arg>
+                            </exec>
                         </tasks>
                     </job>
                 </jobs>
@@ -59,8 +59,8 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="ls" >
-                          </exec>
+                            <exec command="ls">
+                            </exec>
                         </tasks>
                     </job>
                 </jobs>
@@ -75,9 +75,9 @@
                 <jobs>
                     <job name="job-basic-pipeline-with-job-resources">
                         <tasks>
-                          <exec command="sleep" >
-                          <arg>30</arg>
-                        </exec>
+                            <exec command="sleep">
+                                <arg>30</arg>
+                            </exec>
                         </tasks>
                         <resources>
                             <resource>test_resource</resource>
@@ -87,48 +87,100 @@
             </stage>
         </pipeline>
         <pipeline name="pipeline-unlock-onComplete" lockBehavior="unlockWhenFinished">
-         <materials>
-           <git url="$git-on-git-pipeline" dest="tasks" materialName="git" autoUpdate="false"/>
-             </materials>
-             <stage name="firstStage">
-               <jobs>
-                   <job name="long">
-                         <tasks>
-                             <exec command="rake" args="wait_for_stopjob_file" workingdir="tasks"/>
-                         </tasks>
-                      </job>
-                 </jobs>
-           </stage>
-           <stage name="secondStage">
-            <approval type="manual"/>
-             <jobs>
-                 <job name="long-fail">
-                       <tasks>
-                           <exec command="rake" args="wait_and_fail" workingdir="tasks"/>
-                       </tasks>
+            <materials>
+                <git url="$git-on-git-pipeline" dest="tasks" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="firstStage">
+                <jobs>
+                    <job name="long">
+                        <tasks>
+                            <exec command="rake" args="wait_for_stopjob_file" workingdir="tasks"/>
+                        </tasks>
                     </job>
-               </jobs>
-         </stage>
-           <stage name="lastStage">
-               <jobs>
-                   <job name="forever">
-                         <tasks>
-                             <exec command="rake" args="wait_forever" workingdir="tasks"/>
-                         </tasks>
-                      </job>
-                 </jobs>
-           </stage>
-         </pipeline>
+                </jobs>
+            </stage>
+            <stage name="secondStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="long-fail">
+                        <tasks>
+                            <exec command="rake" args="wait_and_fail" workingdir="tasks"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+            <stage name="lastStage">
+                <jobs>
+                    <job name="forever">
+                        <tasks>
+                            <exec command="rake" args="wait_forever" workingdir="tasks"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+    </pipelines>
+    <pipelines group="dependency-group">
+        <pipeline name="dependency-group-pipeline-1">
+            <materials>
+                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="ls">
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+    </pipelines>
+    <pipelines group="artifact_md5_verification">
+        <pipeline name="artifact_md5_verification-pipeline-1">
+            <materials>
+                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="ls">
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+        <pipeline name="artifact_md5_verification-pipeline-2">
+            <materials>
+                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="ls">
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
     </pipelines>
     <environments>
-    <environment name="prod">
-      <pipelines>
-        <pipeline name="basic-pipeline-with-long-running-job" />
-      </pipelines>
-    </environment>
-    <environment name="uat">
-    </environment>
-    <environment name="internal">
-    </environment>
-  </environments>
+        <environment name="prod">
+            <pipelines>
+                <pipeline name="basic-pipeline-with-long-running-job"/>
+            </pipelines>
+        </environment>
+        <environment name="uat">
+        </environment>
+        <environment name="internal">
+        </environment>
+    </environments>
 </cruise>

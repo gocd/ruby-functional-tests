@@ -24,6 +24,11 @@ step 'Login as <user>' do |user|
   login_page.signin_success user
 end
 
+step 'Login as <user> - Swift Dashboard' do |user|
+  login_page.signin user
+  login_page.signin_success user
+end
+
 step 'Logout and login as <user>' do |user|
   logout
   login_page.signin user
@@ -56,4 +61,8 @@ step 'Logout and Login as <user> should fail with message <message>' do |user, m
   logout
   login_page.signin user
   login_page.signin_failure message
+end
+
+step 'Load login page' do |_tmp|
+  login_page.load
 end

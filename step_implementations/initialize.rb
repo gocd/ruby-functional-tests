@@ -88,6 +88,7 @@ module GoCDInitialize
 
   after_suite do
     go_server.stop
+    %x(rm -rf target/go_state)
     if $zap
       response = RestClient.get 'http://localhost:8081/OTHER/core/other/htmlreport'
       File.open('target/zap_report.html', 'w') { |file| file.write(response.body) }

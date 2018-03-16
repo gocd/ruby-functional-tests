@@ -68,7 +68,7 @@ zips = %w[server agent].each_with_object({}) do |package, accumulator|
   accumulator
 end
 
-identifiers = { server: '-Dgo.gauge.server', agent: '-Dgo.gauge.agent', gauge: 'go_gauge' }
+identifiers = { server: '-Dgo.gauge.server=true', agent: '-Dgo.gauge.agent=true', gauge: 'go_gauge' }
 
 identifiers.each do |package, process_argument|
   namespace package do

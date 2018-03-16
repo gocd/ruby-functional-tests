@@ -132,6 +132,12 @@ module Context
                        { content_type: :json }.merge(basic_configuration.header)
     end
 
+    def disable_toggle(toggle)
+      RestClient.post http_url("/api/admin/feature_toggles/#{toggle}"),
+                      '{"toggle_value": "off"}',
+                      { content_type: :json }.merge(basic_configuration.header)
+    end
+
     def material_url_for(pipeline)
       current_config = get_current_config
       current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get_pipeline(pipeline)}']/materials/git").each do |material|

@@ -49,6 +49,11 @@ step 'Verify stage <stage> is <state> - On Swift Dashboard page' do |stage, stat
   new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.current_pipeline, stage, state.downcase
 end
 
+step 'Verify stage <stage> is <state> on pipeline with label <label> - On Swift Dashboard page' do |stage, state, label|
+  new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.current_pipeline, stage, state
+  new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.current_pipeline, label
+end
+
 step 'Verify pipeline <pipeline> shows up - On Swift Dashboard page' do |pipeline|
   new_pipeline_dashboard_page.load(autoRefresh: @auto_refresh)
   new_pipeline_dashboard_page.wait_till_pipeline_showsup pipeline
@@ -98,7 +103,7 @@ step 'Verify pipeline is triggered by <user> - On Swift Dashboard page' do |user
 end
 
 step 'Pause pipeline with reason <message> - On Swift Dashboard page' do |message|
-  new_pipeline_dashboard_page.pause_pipeline(reason)
+  new_pipeline_dashboard_page.pause_pipeline(message)
 end
 
 step 'Verify pipeline is paused with reason <reason> by <user> - On Swift Dashboard page' do |reason, user|
@@ -117,10 +122,6 @@ step 'Open changes section - On Swift Dashboard page' do |tmp|
   new_pipeline_dashboard_page.open_build_cause
 end
 
-step 'Verify cannot trigger pipeline' do |tmp|
-  assert_true new_pipeline_dashboard_page.trigger_pipeline_disabled?
-end
-
 step 'Verify can trigger pipeline' do |tmp|
   assert_false new_pipeline_dashboard_page.trigger_pipeline_disabled?
 end
@@ -132,7 +133,7 @@ step 'Looking at material of type <material_type> named <name> verify shows late
 end
 
 step 'Checkin file <filename> as user <user> with message <message> - On Swift Dashboard page' do |filename, user, message|
-  Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).new_commit(filename, user, message)
+  Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).new_commit(filename, message, user)
 end
 
 step 'Open trigger with options - On Swift Dashboard page' do |_tmp|
@@ -152,6 +153,16 @@ step 'Trigger pipeline with options - On Swift Dashboard page' do |_tmp|
 end
 
 step 'Using material <material_name> set revision to trigger with as <identifier> - On Swift Dashboard page' do |material_name, identifier|
-  page.find('div', text: material_name).click
-  page.find('.material-revision-search').set scenario_state.material_revision identifier
+  new_pipeline_dashboard_page.set_revision_to_trigger_with(material_name, identifier)
 end
+
+step 'Verify cannot trigger pipeline' do |_tmp|
+  assert_true new_pipeline_dashboard_page.trigger_pipeline_disabled?
+end
+
+step 'Verify trigger with option is disabled' do |_tmp|
+  assert_true new_pipeline_dashboard_page.trigger_pipeline_with_options_disabled?
+end
+
+
+

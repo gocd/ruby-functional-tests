@@ -14,24 +14,30 @@
 # limitations under the License.
 ##########################################################################
 
-step "Reload page" do |count|
+step 'Reload page' do |_count|
   app_base_page.reload_page
 end
 
-step "With <count> pending agents - setup" do |count|
+step 'With <count> pending agents - setup' do |count|
   go_agents.create_agents count
   agents_spa_page.load
   agents_spa_page.resize
   agents_spa_page.wait_till_agents_are_pending count
 end
 
-step "With <count> live agents - setup" do |count|
+step 'With <count> live agents - setup' do |count|
   go_agents.create_agents count
   agents_spa_page.load
   agents_spa_page.resize
   agents_spa_page.wait_till_agents_are_idle count
 end
 
-step "With <count> live agents - teardown" do |count|
+step 'With <count> live agents - teardown' do |count|
   go_agents.destroy_agents count
+end
+
+step 'Create a <file> file' do |file|
+  go_agents.create_stopjob(file)
+  new_pipeline_dashboard_page.wait_till_pipeline_complete
+  go_agents.delete_stopjobs
 end

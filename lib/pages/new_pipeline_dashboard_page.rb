@@ -29,6 +29,7 @@ module Pages
       (pipeline_name text: scenario_state.self_pipeline)
           .find(:xpath, '../..').find('.pipeline_btn.play').click
       reload_page
+      wait_till_pipeline_start_building
     end
 
     def trigger_pipeline_disabled?
@@ -53,7 +54,7 @@ module Pages
 
     def pause_pipeline(reason)
       (pipeline_name text: scenario_state.self_pipeline)
-          .find(:xpath, '../..').find('.btn.pause').click
+        .find(:xpath, '../..').find('.pipeline_btn.pause').click
       page.find('.modal-body').find('input').set(reason)
       page.find('.modal-buttons').find('button', text: 'OK').click
     end
@@ -65,7 +66,7 @@ module Pages
 
     def unpause_pipeline
       (pipeline_name text: scenario_state.self_pipeline)
-          .find(:xpath, '../..').find('.btn.unpause').click
+        .find(:xpath, '../..').find('.pipeline_btn.unpause').click
     end
 
     def get_all_stages(pipeline) # This one needs to be relooked - the way the view is modelled do not make it easy to get latest stage state
@@ -104,6 +105,7 @@ module Pages
     end
 
     def wait_till_stage_complete(stage)
+
       wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.self_pipeline} Stage #{stage} failed to complete with in timeout" do
         reload_page
         break unless get_pipeline_stage_state(scenario_state.self_pipeline, stage).include?('building')
@@ -161,7 +163,8 @@ module Pages
     end
 
     def revision_of_material(type, name)
-      revisions(scenario_state.self_pipeline).select {|material| material.find('.rev-head').text.include? "#{type} - #{name}"}.first
+      revisions(scenario_state.self_pipeline).select {|material| 
+        material.find('.rev-head').text.include? "#{type} - #{name}"}.first
     end
 
     def shows_revision?(revision_element, revision_id)
@@ -170,9 +173,9 @@ module Pages
 
     def triggered_by?(user)
       (pipeline_name text: scenario_state.self_pipeline)
-          .find(:xpath, '../..')
-          .find('.pipeline_instance-details')
-          .all('div').fist.text.eql? "Triggered by #{user}"
+        .find(:xpath, '../..')
+        .find('.pipeline_instance-details')
+        .all('div').first.text.eql? "Triggered by #{user}"
     end
 
     def last_run_revision
@@ -187,13 +190,18 @@ module Pages
       page.find('.modal-buttons').find('button', text: 'Trigger Pipeline').click
     end
 
+    def set_revision_to_trigger_with(material_name, identifier)
+      page.find('.material-name', text: material_name).click
+      page.find('.material-revision-search').set scenario_state.material_revision identifier
+    end
+
 
     private
 
     def revisions(pipeline)
       (pipeline_name text: pipeline)
           .find(:xpath, '../..')
-          .find('.material_changes.show').all('div')
+          .find('.material_changes').all('.revisions')
     end
 
   end

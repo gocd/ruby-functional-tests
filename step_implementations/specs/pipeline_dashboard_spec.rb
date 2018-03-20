@@ -14,7 +14,7 @@
 # limitations under the License.
 ##########################################################################
 
-@auto_refresh = true
+@auto_refresh = false
 
 step 'Trigger <pipeline>' do |pipeline|
   pipeline_dashboard_page.trigger_pipeline pipeline

@@ -139,10 +139,7 @@ module Context
     end
 
     def material_url_for(pipeline)
-      current_config = get_current_config
-      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get_pipeline(pipeline)}']/materials/git").each do |material|
-        material['url']
-      end
+      get_current_config.xpath("//cruise/pipelines/pipeline[@name='#{pipeline}']/materials/git").attribute('url').value
     end
 
   end

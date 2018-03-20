@@ -32,8 +32,9 @@ module Pages
     end
 
     def logout
-      page.find("[class^='current_user_name']").hover
-      page.find('.logout').click
+      new_pipeline_dashboard_page.load
+      page.find(".current-user.opens-left").hover
+      page.find('a', text: 'Sign out').click
     end
 
     def verify_footer()

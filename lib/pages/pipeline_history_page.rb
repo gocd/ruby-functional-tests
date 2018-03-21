@@ -18,7 +18,7 @@ module Pages
   class PipelineHistoryPage < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/tab/pipeline/history{/pipelinename}"
 
-    element :pipeline_history, '.pipeline-history'
+    element :pipeline_history, '#pipeline-history'
 
   end
 end

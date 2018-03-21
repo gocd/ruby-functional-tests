@@ -141,7 +141,7 @@ step 'Open trigger with options - On Swift Dashboard page' do |_tmp|
 end
 
 step 'Verify last run revision is <identifier> - On Swift Dashboard page' do |revision_id|
-  assert_true new_pipeline_dashboard_page.last_run_revision.eql? sceanrio_state.material_revision revision_id
+  assert_true new_pipeline_dashboard_page.last_run_revision.eql? scenario_state.material_revision revision_id
 end
 
 step 'Close - Trigger with options - On Swift Dashboard page' do |_tmp|

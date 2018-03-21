@@ -61,7 +61,7 @@ module Context
     def latest_revision
       cd("#{@path}") do
         stdout, _stdeerr, _status = Open3.capture3(%(git rev-parse HEAD))
-        stdout
+        return stdout
       end
     end
 

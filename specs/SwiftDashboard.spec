@@ -39,13 +39,13 @@ Setup of contexts
 * Verify stage "firstStage" is "passed" - On Swift Dashboard page
 * Verify pipeline is triggered by "admin" - On Swift Dashboard page
 * Pause pipeline with reason "twist testing it" - On Swift Dashboard page
-* Verify pipeline is paused with reason "twist testing it" by "admin" - On Swift Dashboard page
+* Verify pipeline is paused with reason "gauge testing it" by "admin" - On Swift Dashboard page
 * Verify cannot trigger pipeline
 * Unpause pipeline - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Verify stage "firstStage" is "building" - On Swift Dashboard page
 * Click on history - On Swift Dashboard page
- Verify pipeline activity page is shown
+* Verify pipeline activity page is shown
 
 * On Swift Dashboard Page
 * Verify stage "firstStage" is "building" - On Swift Dashboard page
@@ -77,8 +77,8 @@ Setup of contexts
 
 * On Swift Dashboard Page
 * Looking at pipeline "manual-stages-that-run-till-file-exists" - On Swift Dashboard page
-* Verify trigger with option is disabled
 * Verify stage "firstStage" is "Building" - On Swift Dashboard page
+* Verify trigger with option is disabled
 * Create a "stopjob" file
 * Verify stage "firstStage" is "Passed" - On Swift Dashboard page
 * Open trigger with options - On Swift Dashboard page

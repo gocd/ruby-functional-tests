@@ -65,7 +65,8 @@ module Context
     end
 
     def ping_server
-      RestClient.get("#{GoConstants::GO_SERVER_BASE_URL}/admin/agent")
+      RestClient.get("#{GoConstants::GO_SERVER_BASE_URL}/about")
+
     end
 
     def wait_to_start

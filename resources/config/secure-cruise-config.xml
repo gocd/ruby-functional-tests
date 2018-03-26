@@ -53,7 +53,7 @@
                 <jobs>
                 <job name="defaultJob">
                     <tasks>
-                    <exec command="rake" args="wait_for_stopjob_file"/>
+                    <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
                     </tasks>
                 </job>
                 </jobs>
@@ -63,7 +63,7 @@
                 <jobs>
                 <job name="defaultJob">
                     <tasks>
-                    <exec command="rake" args="wait_for_stopjob_file"/>
+                    <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
                     </tasks>
                 </job>
                 </jobs>
@@ -76,16 +76,16 @@
           <user>view</user>
         </admins>
       </authorization>
-        <pipeline name="manual-stages-that-run-till-file-exists" lockBehavior="lockOnFailure">
+        <pipeline name="manual-stages-that-run-till-file-exists">
             <materials>
-                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="$git-on-git-pipeline" dest="git" materialName="gitMaterial" autoUpdate="false"/>
             </materials>
-            <stage name="defaultStage">
+            <stage name="firstStage">
                 <approval type="manual"/>
                 <jobs>
                 <job name="defaultJob">
                     <tasks>
-                    <exec command="rake" args="wait_for_stopjob_file"/>
+                    <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
                     </tasks>
                 </job>
                 </jobs>
@@ -95,7 +95,7 @@
                 <jobs>
                 <job name="defaultJob">
                     <tasks>
-                    <exec command="rake" args="wait_for_stopjob_file"/>
+                    <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
                     </tasks>
                 </job>
                 </jobs>

@@ -14,11 +14,6 @@
 # limitations under the License.
 ##########################################################################
 
-module Pages
-  class PipelineHistoryPage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/tab/pipeline/history{/pipelinename}"
-
-    element :pipeline_history, '#pipeline-history'
-
-  end
+step 'Verify pipeline activity page is shown' do |_tmp|
+  assert_true pipeline_history_page.has_pipeline_history?
 end

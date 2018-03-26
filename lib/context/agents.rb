@@ -55,6 +55,19 @@ module Context
       end
     end
 
+    def create_stopjob(filename)
+      agent_wrk_dirs.each { |agent_dir| sh("touch #{agent_dir}/#{filename}") }
+    end
+
+    def delete_stopjob(filename)
+      agent_wrk_dirs.each { |agent_dir| File.delete("#{agent_dir}/#{filename}") if File.exist?("#{agent_dir}/#{filename}") }
+    end
+
+    def delete_stopjobs
+      delete_stopjob("stopjob")
+      delete_stopjob("failjob")
+    end
+
     def destroy_agents(count)
       (1..count.to_i).each do |n|
         destroy_agent(n)

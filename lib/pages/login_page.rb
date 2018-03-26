@@ -21,9 +21,8 @@ module Pages
     element :username, '#user_login'
     element :password, '#user_password'
     element :submit, '#signin2'
-    element :current_user, "a[class='current_user_name dropdown-arrow-icon']"
-    element :login_error, "#error-box"
-
+    element :current_user, '.current-user.opens-left > a'
+    element :login_error, '#error-box'
 
     def signin(user, pwd = 'badger')
       username.set user

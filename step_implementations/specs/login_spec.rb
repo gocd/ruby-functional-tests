@@ -49,7 +49,6 @@ step 'As user <user> for teardown' do |user|
 end
 
 def logout
-  pipeline_dashboard_page.load
   app_base_page.logout
 end
 

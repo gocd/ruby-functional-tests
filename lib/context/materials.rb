@@ -52,7 +52,7 @@ module Context
     def new_commit(filename, commit, author = 'gouser')
       cd("#{@path}") do
         sh "touch #{filename}"
-        Open3.popen3(%(git add . && git commit --author="#{author}" -m "#{commit}")) do |_stdin, _stdout, stderr, wait_thr|
+        Open3.popen3(%(git add . && git commit --author="#{author} <user@go>'" -m "#{commit}")) do |_stdin, _stdout, stderr, wait_thr|
           raise "Failed to commit to git repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
         end
       end
@@ -61,13 +61,11 @@ module Context
     def latest_revision
       cd("#{@path}") do
         stdout, _stdeerr, _status = Open3.capture3(%(git rev-parse HEAD))
-        stdout
+        return stdout
       end
     end
 
-    def create_stopjob(filename)
-      go_agents.agent_wrk_dirs.each { |agent_dir| sh("touch #{agent_dir}/#{filename}") }
-    end
+
   end
 
   class ConfigRepoMaterial < Materials

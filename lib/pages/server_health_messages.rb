@@ -21,7 +21,7 @@ module Pages
     element :health_messages, '#cruise_message_body'
 
     def wait_for_server_health_message
-      wait_till_event_occurs_or_bomb 30, "Server Health Message not shown" do
+      wait_till_event_occurs_or_bomb 45, "Server Health Message not shown" do
         reload_page
         break if page.has_css?('#cruise_message_counts > a')
       end

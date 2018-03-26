@@ -82,8 +82,9 @@ Setup of contexts
 * Create a "stopjob" file
 * Verify stage "firstStage" is "Passed" - On Swift Dashboard page
 * Open trigger with options - On Swift Dashboard page
-
-* Verify last run revision is "git-commit1" - On Swift Dashboard page
+ 
+Enable  below step once PR https://github.com/gocd/gocd/pull/4525 is merged
+Verify last run revision is "git-commit1" - On Swift Dashboard page
 
 * Close - Trigger with options - On Swift Dashboard page
 

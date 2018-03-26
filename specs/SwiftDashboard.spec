@@ -92,4 +92,5 @@ Teardown of contexts
 ____________________
 * Capture go state "SwiftDashboard" - teardown
 * With "2" live agents - teardown
+* Disable new dashboard toggles
 

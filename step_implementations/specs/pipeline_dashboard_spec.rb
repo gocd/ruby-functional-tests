@@ -20,6 +20,10 @@ step 'Trigger <pipeline>' do |pipeline|
   pipeline_dashboard_page.trigger_pipeline pipeline
 end
 
+step 'On Pipeline Dashboard page' do |pipeline|
+  pipeline_dashboard_page.load
+end
+
 step 'Looking at pipeline <pipeline>' do |pipeline|
   pipeline_dashboard_page.load(autoRefresh: @auto_refresh)
   scenario_state.set_current_pipeline pipeline

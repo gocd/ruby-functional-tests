@@ -35,7 +35,7 @@ Setup of contexts
 * Verify pipeline has no history - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Verify stage "firstStage" is "building" - On Swift Dashboard page
-* Create a "stopjob" file
+* Create a "stopjob" file and validate pipeline completed
 * Verify stage "firstStage" is "passed" - On Swift Dashboard page
 * Verify pipeline is triggered by "admin" - On Swift Dashboard page
 * Pause pipeline with reason "twist testing it" - On Swift Dashboard page
@@ -51,7 +51,7 @@ Setup of contexts
 * Verify stage "firstStage" is "building" - On Swift Dashboard page
  Verify stage "secondStage" is "building" - On Swift Dashboard page
 
-* Create a "stopjob" file
+* Create a "stopjob" file and validate pipeline completed
 * Verify stage "firstStage" is "passed" - On Swift Dashboard page
 * Open changes section - On Swift Dashboard page
 
@@ -67,7 +67,7 @@ Setup of contexts
 * Looking at pipeline "manual-stages-that-run-till-file-exists" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Verify stage "firstStage" is "Building" - On Swift Dashboard page
-* Create a "stopjob" file
+* Create a "stopjob" file and validate pipeline completed
 * Verify stage "firstStage" is "Passed" - On Swift Dashboard page
 
 * Open trigger with options - On Swift Dashboard page
@@ -79,7 +79,7 @@ Setup of contexts
 * Looking at pipeline "manual-stages-that-run-till-file-exists" - On Swift Dashboard page
 * Verify stage "firstStage" is "Building" - On Swift Dashboard page
 * Verify trigger with option is disabled
-* Create a "stopjob" file
+* Create a "stopjob" file and validate pipeline completed
 * Verify stage "firstStage" is "Passed" - On Swift Dashboard page
 * Open trigger with options - On Swift Dashboard page
  

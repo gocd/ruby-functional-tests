@@ -32,12 +32,12 @@ module Pages
     end
 
     def logout
-      if page.has_css? ("[class^='current_user_name']")
-        page.find("[class^='current_user_name']").hover
+      if page.has_css? ('.current_user_name')
+        page.find('.current_user_name').hover
         page.find('.logout').click
       else
         new_pipeline_dashboard_page.load
-        page.find(".current-user.opens-left").hover
+        page.find('.current-user.opens-left').hover
         page.find('a', text: 'Sign out').click
       end
     end

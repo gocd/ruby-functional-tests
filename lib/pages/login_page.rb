@@ -34,7 +34,7 @@ module Pages
 
     def signin_success(user)
       begin
-        wait_until_current_user_old_dashboard_visible 10, text: user
+        wait_until_current_user_old_dashboard_visible 10
         assert_equal current_user_old_dashboard.text.downcase, user.downcase
       rescue => e
         assert_equal current_user_new_dashboard.text.downcase, user.downcase

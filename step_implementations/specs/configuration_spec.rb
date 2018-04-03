@@ -42,6 +42,10 @@ step 'AuthPluginsConfiguration - setup' do
   secure_configuration.setup 'auth-plugins-config.xml', 'password.properties'
 end
 
+step 'Enable security and add <users> as admins' do |adminUsers|
+  basic_configuration.enable_security_with_admin_rights 'password.properties', adminUsers
+end
+
 step 'With no users - setup' do
   basic_configuration.remove_all_users
 end

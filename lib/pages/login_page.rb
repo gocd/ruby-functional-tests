@@ -21,8 +21,9 @@ module Pages
     element :username, '#user_login'
     element :password, '#user_password'
     element :submit, '#signin2'
-    element :current_user_new_page, '.current-user.opens-left > a'
-    element :current_user_old_page, '.current_user_name'
+
+    element :current_user_new_dashboard, '.current-user.opens-left > a'
+    element :current_user_old_dashboard, '.current_user_name'
     element :login_error, '#error-box'
 
     def signin(user, pwd = 'badger')
@@ -33,10 +34,10 @@ module Pages
 
     def signin_success(user)
       begin
-        wait_until_current_user_old_page_visible 10, text: user
-        assert_equal current_user_old_page.text.downcase, user.downcase
+        wait_until_current_user_old_dashboard_visible 10, text: user
+        assert_equal current_user_old_dashboard.text.downcase, user.downcase
       rescue => e
-        assert_equal current_user_new_page.text.downcase, user.downcase
+        assert_equal current_user_new_dashboard.text.downcase, user.downcase
       end
       scenario_state.set_current_user user
     end

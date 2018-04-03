@@ -42,6 +42,7 @@ require 'pages/plugins_spa'
 require 'pages/user_summary'
 require 'pages/new_pipeline_dashboard_page'
 require 'pages/pipeline_history_page'
+require 'pages/admin_pipeline_page'
 
 
 
@@ -105,6 +106,10 @@ module Helpers
 
     def server_health_message
       Pages::ServerHealthMessage.new
+    end
+
+    def admin_pipeline_page
+      Pages::AdminPipelinePage.new
     end
 
     def basic_configuration

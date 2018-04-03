@@ -142,5 +142,36 @@ module Context
       get_current_config.xpath("//cruise/pipelines/pipeline[@name='#{pipeline}']/materials/git").attribute('url').value
     end
 
+    def enable_security_with_admin_rights(pwd_file, adminUsers)
+      current_config = get_current_config
+      password_file_path = File.expand_path("#{GoConstants::CONFIG_PATH}/#{pwd_file}")
+      admin_users = adminUsers.split(',')
+      admin_user_tag = ''
+      admin_users.each {|admin| admin_user_tag+= "<user>#{admin}</user>"}
+
+      password_authentication_config = "<security>
+          <authConfigs>
+              <authConfig id=\"61f10215-9fba-4962-a2f4-d6c8944ade32\" pluginId=\"cd.go.authentication.passwordfile\">
+                  <property>
+                      <key>PasswordFilePath</key>
+                      <value>#{password_file_path}</value>
+                  </property>
+              </authConfig>
+          </authConfigs>
+            <roles>
+                <role name=\"admins\">
+                    <users>
+                        #{admin_user_tag}
+                    </users>
+                </role>
+            </roles>
+            <admins>
+                <role>admins</role>
+            </admins>
+        </security>"
+      current_config.xpath('//server').first.add_child password_authentication_config
+      load_dom(current_config)
+    end
+
   end
 end

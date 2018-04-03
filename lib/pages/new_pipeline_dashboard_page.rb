@@ -22,6 +22,7 @@ module Pages
     elements :pipeline_group, '.pipeline-group'
     elements :pipeline_group_title, '.pipeline-group_title'
     element :material_for_trigger, '.material-for-trigger'
+    element :pipeline_selector_dropdown, '.filter_options'
 
     load_validation {has_pipeline_group?}
 
@@ -123,12 +124,8 @@ module Pages
           .find(:xpath, '..').has_css?('.pipeline_locked')
     end
 
-    def visible?(pipeline)
-      has_pipeline_name? text: scenario_state.get_pipeline(pipeline)
-    end
-
     def group_visible?(group)
-      pipeline_group_title.select {|grp| grp.find('strong').text == group}.any?
+      pipeline_group_title.select {|grp| grp.find('strong', {wait: 5}).text == group}.any?
     end
 
     def pipeline_in_group?(group)
@@ -146,10 +143,14 @@ module Pages
           .find(:xpath, '../..').has_selector?('.pipeline_instances', visible: true)
     end
 
+    def visible?(pipeline)
+      has_pipeline_name? text: (scenario_state.get_pipeline(pipeline) || pipeline)
+    end
+
     def wait_till_pipeline_showsup(pipeline)
-      wait_till_event_occurs_or_bomb 30, "Config repo Pipeline #{scenario_state.get_pipeline(pipeline)} failed to showup on dashboard" do
+      wait_till_event_occurs_or_bomb 30, "Pipeline #{scenario_state.get_pipeline(pipeline)} failed to showup on dashboard" do
         reload_page
-        break if has_pipeline_name? text: scenario_state.get_pipeline(pipeline)
+        break if visible?(pipeline)
       end
     end
 
@@ -196,8 +197,71 @@ module Pages
       page.find('.material-revision-search').set scenario_state.material_revision identifier
     end
 
+    def open_pipeline_selector_dropdown
+      page.find('.filter_btn').click
+    end
+
+    def group_name_visible_in_selection_dropdown(group_name)
+      pipeline_selector_dropdown.find("#pgroup_#{group_name}", {wait: 10})
+          .find(:xpath, ".//..")
+          .find('label', {text: group_name})
+          .visible?
+    end
+
+    def deselect_all_pipelines
+      pipeline_selector_dropdown.find('.select-none').click
+    end
+
+    def select_pipeline_group(pipeline_group_name)
+      pipeline_group_checkbox_for(pipeline_group_name).click
+    end
+
+    def expand_pipeline_group(pipeline_group_name)
+      pipeline_group_checkbox_for(pipeline_group_name).first(:xpath, ".//..").find('.arrow-right').click
+    end
+
+    def are_all_pipelines_selected_for?(pipeline_group_name)
+      expanded_section = pipeline_group_checkbox_for(pipeline_group_name).first(:xpath, "../..")
+      expanded_pipelines_section = expanded_section.all('.filter_pipeline-list')
+      pipeline_checkboxes_for_pgroup = expanded_pipelines_section.first.all('.pipeline-cb')
+      pipeline_checkboxes_for_pgroup.each { |checkbox|
+        unless is_checked?("##{checkbox[:id]}")
+          return false
+        end
+      }
+      return true
+    end
+
+    def deselect_pipeline(pipeline_name)
+      pipeline_selector_dropdown.find("input#pipeline_#{scenario_state.get_pipeline(pipeline_name)}").click
+    end
+
+    def apply_selection
+      pipeline_selector_dropdown.find_button('Apply').click
+    end
+
+    def is_checked?(selector)
+      pipeline_selector_dropdown.find(selector).checked?
+    end
+
+    def set_newly_created_pipeline_status(status)
+      unless status == checked_status_for_newly_created_pipelines
+        pipeline_selector_dropdown.find("#show-newly-created-pipelines").click
+      end
+    end
 
     private
+    def checked_status_for_newly_created_pipelines
+      checked_status = is_checked?("#show-newly-created-pipelines")
+      if checked_status
+        return "checked"
+      end
+      return "unchecked"
+    end
+
+    def pipeline_group_checkbox_for(pipeline_group_name)
+      pipeline_selector_dropdown.find("input#pgroup_#{pipeline_group_name}")
+    end
 
     def revisions(pipeline)
       (pipeline_name text: pipeline)

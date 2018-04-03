@@ -42,7 +42,7 @@ step 'Wait till stage <stage> completed - On Swift Dashboard page' do |stage|
 end
 
 step 'Wait till pipeline completed - On Swift Dashboard page' do |_stage|
-  new_pipeline_dashboard_page.wait_till_pipeline_complete scenario_state.current_pipeline
+  new_pipeline_dashboard_page.wait_till_pipeline_complete
 end
 
 step 'Verify stage <stage> is <state> - On Swift Dashboard page' do |stage, state|

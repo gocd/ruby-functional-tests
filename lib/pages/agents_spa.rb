@@ -66,6 +66,7 @@ module Pages
 
     def apply_changes
       agents_menu[0].find('li.has-dropdown.is-open').find('button', text: 'APPLY').click
+      reload_page
     end
 
     def click_on(action)

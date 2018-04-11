@@ -36,7 +36,7 @@ module Pages
     def trigger_pipeline_disabled?
       begin
         (pipeline_name text: scenario_state.self_pipeline)
-          .find(:xpath, '../..').find('.pipeline_btn.play.disabled', {wait: 5})
+            .find(:xpath, '../..').find('.pipeline_btn.play.disabled', {wait: 5})
       rescue
         return false
       end
@@ -55,7 +55,7 @@ module Pages
 
     def pause_pipeline(reason)
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../..').find('.pipeline_btn.pause').click
+          .find(:xpath, '../..').find('.pipeline_btn.pause').click
       page.find('.modal-body').find('input').set(reason)
       page.find('.modal-buttons').find('button', text: 'OK').click
     end
@@ -67,7 +67,7 @@ module Pages
 
     def unpause_pipeline
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../..').find('.pipeline_btn.unpause').click
+          .find(:xpath, '../..').find('.pipeline_btn.unpause').click
     end
 
     def get_all_stages(pipeline) # This one needs to be relooked - the way the view is modelled do not make it easy to get latest stage state
@@ -165,7 +165,7 @@ module Pages
     end
 
     def revision_of_material(type, name)
-      revisions(scenario_state.self_pipeline).select {|material| 
+      revisions(scenario_state.self_pipeline).select {|material|
         material.find('.rev-head').text.include? "#{type} - #{name}"}.first
     end
 
@@ -175,9 +175,9 @@ module Pages
 
     def triggered_by?(user)
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../..')
-        .find('.pipeline_instance-details')
-        .all('div').first.text.eql? "Triggered by #{user}"
+          .find(:xpath, '../..')
+          .find('.pipeline_instance-details')
+          .all('div').first.text.eql? "Triggered by #{user}"
     end
 
     def last_run_revision
@@ -212,19 +212,38 @@ module Pages
       pipeline_selector_dropdown.find('.select-none').click
     end
 
+    def select_all_pipelines
+      pipeline_selector_dropdown.find('.select-all').click
+    end
+
+    def all_pipelines_selected?
+      pipeline_selector_dropdown.find('.select-all')[:class].include?('selected')
+    end
+
+    def no_pipelines_selected?
+      pipeline_selector_dropdown.find('.select-none')[:class].include?('selected')
+    end
+
     def select_pipeline_group(pipeline_group_name)
-      pipeline_group_checkbox_for(pipeline_group_name).click
+      unless pipeline_group_checkbox_for(pipeline_group_name).checked?
+        pipeline_group_checkbox_for(pipeline_group_name).click
+      end
+    end
+
+    def deselect_pipeline_group(pipeline_group_name)
+      if pipeline_group_checkbox_for(pipeline_group_name).checked?
+        pipeline_group_checkbox_for(pipeline_group_name).click
+      end
     end
 
     def expand_pipeline_group(pipeline_group_name)
-      pipeline_group_checkbox_for(pipeline_group_name).first(:xpath, ".//..").find('.arrow-right').click
+      dropdown_arrow = pipeline_group_checkbox_for(pipeline_group_name).first(:xpath, ".//..").find('.arrow-right')
+      dropdown_arrow.click
     end
 
     def are_all_pipelines_selected_for?(pipeline_group_name)
-      expanded_section = pipeline_group_checkbox_for(pipeline_group_name).first(:xpath, "../..")
-      expanded_pipelines_section = expanded_section.all('.filter_pipeline-list')
-      pipeline_checkboxes_for_pgroup = expanded_pipelines_section.first.all('.pipeline-cb')
-      pipeline_checkboxes_for_pgroup.each { |checkbox|
+      pipeline_checkboxes_for_pgroup = get_pipeline_checkboxes_for(pipeline_group_name)
+      pipeline_checkboxes_for_pgroup.each {|checkbox|
         unless is_checked?("##{checkbox[:id]}")
           return false
         end
@@ -232,8 +251,28 @@ module Pages
       return true
     end
 
+    def are_all_pipelines_deselected_for?(pipeline_group_name)
+      pipeline_checkboxes_for_pgroup = get_pipeline_checkboxes_for(pipeline_group_name)
+      pipeline_checkboxes_for_pgroup.each {|checkbox|
+        if is_checked?("##{checkbox[:id]}")
+          return false
+        end
+      }
+      return true
+    end
+
+    def select_pipeline(pipeline_name)
+      pipeline_checkbox = pipeline_checkbox_for(pipeline_name)
+      unless pipeline_checkbox.checked?
+        pipeline_checkbox.click
+      end
+    end
+
     def deselect_pipeline(pipeline_name)
-      pipeline_selector_dropdown.find("input#pipeline_#{scenario_state.get_pipeline(pipeline_name)}").click
+      pipeline_checkbox = pipeline_checkbox_for(pipeline_name)
+      if pipeline_checkbox.checked?
+        pipeline_checkbox.click
+      end
     end
 
     def apply_selection
@@ -251,6 +290,21 @@ module Pages
     end
 
     private
+    def pipeline_checkbox_for(pipeline_name)
+      pipeline_selector_dropdown.find("input#pipeline_#{scenario_state.get_pipeline(pipeline_name)}")
+    end
+
+    def get_pipeline_checkboxes_for(pipeline_group_name)
+      begin
+        expand_pipeline_group(pipeline_group_name)
+      rescue
+        #do nothing the group is already expanded.
+      end
+      expanded_section = pipeline_group_checkbox_for(pipeline_group_name).first(:xpath, "../..")
+      expanded_pipelines_section = expanded_section.all('.filter_pipeline-list')
+      expanded_pipelines_section.first.all('.pipeline-cb')
+    end
+
     def checked_status_for_newly_created_pipelines
       checked_status = is_checked?("#show-newly-created-pipelines")
       if checked_status

@@ -32,6 +32,17 @@
                         <user>admin</user>
                     </users>
                 </role>
+                <role name="operator">
+                    <users>
+                        <user>operatorUser</user>
+                    </users>
+                </role>
+                <role name="viewer">
+                    <users>
+                        <user>view</user>
+                        <user>operate</user>
+                    </users>
+                </role>
             </roles>
             <admins>
                 <role>admins</role>
@@ -70,12 +81,110 @@
             </stage>
             </pipeline>
     </pipelines>
+    <pipelines group="viewable">
+        <authorization>
+            <view>
+                <role>viewer</role>
+                <role>operator</role>
+            </view>
+            <operate>
+                <user>operate</user>
+                <role>operator</role>
+            </operate>
+        </authorization>
+        <pipeline name="viewable-pipeline">
+            <materials>
+                <hg url="$hgurl-viewable-pipeline" dest="hg" autoUpdate="false" materialName="viewable-pipeline-hg"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="dir"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+
+        <pipeline name="pipeline-with-stage-security">
+            <materials>
+                <hg url="$hgurl-pipeline-with-stage-security" dest="hg" autoUpdate="false"/>
+            </materials>
+            <stage name="first">
+                <approval type="manual">
+                    <authorization>
+                        <user>operate</user>
+                        <role>operator</role>
+                    </authorization>
+                </approval>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <ant target="run.till.file.exists" workingdir="hg/dev"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+
+        <pipeline name="pipeline-with-auto-stage-security">
+            <materials>
+                <hg url="$hgurl-pipeline-with-stage-security" dest="hg" autoUpdate="false"/>
+            </materials>
+            <stage name="first">
+                <approval type="success">
+                    <authorization>
+                        <user>operate</user>
+                        <role>operator</role>
+                    </authorization>
+                </approval>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <ant target="run.till.file.exists" workingdir="hg/dev"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+
+        <pipeline name="2-stage-viewable">
+            <materials>
+                <hg url="$hgurl-viewable-pipeline" dest="hg" autoUpdate="false"/>
+            </materials>
+            <stage name="first">
+                <approval type="manual">
+                    <authorization>
+                        <user>operate</user>
+                    </authorization>
+                </approval>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="ls"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+            <stage name="second">
+                <approval type="manual">
+                    <authorization>
+                        <user>admin</user>
+                    </authorization>
+                </approval>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="ls"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+    </pipelines>
     <pipelines group="open-to-all">
-    <authorization>
-        <admins>
-          <user>view</user>
-        </admins>
-      </authorization>
         <pipeline name="manual-stages-that-run-till-file-exists">
             <materials>
                 <git url="$git-on-git-pipeline" dest="git" materialName="gitMaterial" autoUpdate="false"/>
@@ -107,6 +216,10 @@
         <admins>
           <user>group1Admin</user>
         </admins>
+          <view>
+              <role>viewer</role>
+              <role>operator</role>
+          </view>
       </authorization>
         <pipeline name="basic-pipeline-with-git-material">
             <materials>
@@ -283,6 +396,48 @@
 	  	</stage>
 	  </pipeline>
       
+    </pipelines>
+    <pipelines group="operable">
+        <authorization>
+            <admins>
+                <user>operate</user>
+            </admins>
+            <operate>
+                <role>operator</role>
+            </operate>
+        </authorization>
+        <pipeline name="operable-pipeline">
+            <materials>
+                <hg url="$hgurl-admin-pipeline" dest="hg" autoUpdate="false" materialName="admin-pipeline-hg"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="ls"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+    </pipelines>
+    <pipelines group="group.with.dot">
+        <pipeline name="run.till.file.exists">
+            <materials>
+                <hg url="$hgurl-admin-pipeline" dest="hg" autoUpdate="false" materialName="hg.material"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="ls"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
     </pipelines>
     <!-- Add this template creation and adding template admin to the spec ones API supports updating authoriztion -->
     <templates>

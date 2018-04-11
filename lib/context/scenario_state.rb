@@ -88,5 +88,21 @@ module Context
     def material_revision(id)
       @scenario_store.get id
     end
+
+    def set_current_material_type(material_type)
+      @scenario_store.put "current_material_type", material_type
+    end
+
+    def get_current_material_type
+      @scenario_store.get "current_material_type"
+    end
+
+    def set_current_material_name(material_name)
+      @scenario_store.put "current_material_name", material_name
+    end
+
+    def get_current_material_name
+      @scenario_store.get "current_material_name"
+    end
   end
 end

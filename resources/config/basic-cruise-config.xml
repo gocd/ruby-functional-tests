@@ -33,6 +33,22 @@
                 </jobs>
             </stage>
         </pipeline>
+        <pipeline name="downstream">
+            <materials>
+                <pipeline pipelineName="basic-pipeline-run-till-file-exists" stageName="defaultStage" materialName="basic-pipeline-run-till-file-exists-downstream"/>
+                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
         <pipeline name="basic-pipeline-with-long-running-job">
             <materials>
                 <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>

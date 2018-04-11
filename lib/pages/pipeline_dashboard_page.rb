@@ -16,7 +16,7 @@
 
 module Pages
   class PipelineDashboard < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/pipelines{?autoRefresh*}"
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/old_dashboard{?autoRefresh*}"
 
     def trigger_pipeline(pipeline)
       SitePrism::Page.element :trigger_button, "#deploy-#{scenario_state.get_pipeline(pipeline)}"

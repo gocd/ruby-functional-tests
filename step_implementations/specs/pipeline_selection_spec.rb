@@ -32,7 +32,6 @@ step 'Verify groups <pipeline_group_names> are not visible - Already on pipeline
   pipeline_group_names.split(',').each {|pipeline_group_name|
     assert_raise Capybara::ElementNotFound do
       new_pipeline_dashboard_page.group_name_visible_in_selection_dropdown(pipeline_group_name.strip)
-      binding.pry
     end
   }
 end

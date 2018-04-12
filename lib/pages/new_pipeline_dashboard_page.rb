@@ -45,34 +45,34 @@ module Pages
 
     def trigger_pipeline_with_options
       (pipeline_name text: scenario_state.self_pipeline)
-          .find(:xpath, '../..').find('.pipeline_btn.play_with_options').click
+          .find(:xpath, '../../..').find('.pipeline_btn.play_with_options').click
     end
 
     def trigger_pipeline_with_options_disabled?
       (pipeline_name text: scenario_state.self_pipeline)
-          .find(:xpath, '../..').has_css?('.pipeline_btn.play_with_options.disabled')
+          .find(:xpath, '../../..').has_css?('.pipeline_btn.play_with_options.disabled')
     end
 
     def pause_pipeline(reason)
       (pipeline_name text: scenario_state.self_pipeline)
-          .find(:xpath, '../..').find('.pipeline_btn.pause').click
+          .find(:xpath, '../../..').find('.pipeline_btn.pause').click
       page.find('.modal-body').find('input').set(reason)
       page.find('.modal-buttons').find('button', text: 'OK').click
     end
 
     def pause_message?(message)
       (pipeline_name text: scenario_state.self_pipeline)
-          .find(:xpath, '../..').has_selector?('.pipeline_pause-message', text: message)
+          .find(:xpath, '../../..').has_selector?('.pipeline_pause-message', text: message)
     end
 
     def unpause_pipeline
       (pipeline_name text: scenario_state.self_pipeline)
-          .find(:xpath, '../..').find('.pipeline_btn.unpause').click
+          .find(:xpath, '../../..').find('.pipeline_btn.unpause').click
     end
 
     def get_all_stages(pipeline) # This one needs to be relooked - the way the view is modelled do not make it easy to get latest stage state
       (pipeline_name text: pipeline)
-          .find(:xpath, '../..').find('.pipeline_stages', {wait: 10}).all('a')
+          .find(:xpath, '../../..').find('.pipeline_stages', {wait: 10}).all('a')
     end
 
     def get_pipeline_stage_state(pipeline, stagename) # This need relook too
@@ -140,7 +140,7 @@ module Pages
 
     def pipeline_history_exists?
       (pipeline_name text: scenario_state.self_pipeline)
-          .find(:xpath, '../..').has_selector?('.pipeline_instances', visible: true)
+          .find(:xpath, '../../..').has_selector?('.pipeline_instances', visible: true)
     end
 
     def visible?(pipeline)
@@ -156,12 +156,12 @@ module Pages
 
     def click_history
       (pipeline_name text: scenario_state.self_pipeline)
-          .find(:xpath, '../..').find('.pipeline_history').click
+          .find(:xpath, '../../..').find('.pipeline_history').click
     end
 
     def open_build_cause
       (pipeline_name text: scenario_state.self_pipeline)
-          .find(:xpath, '../..').find('.changes').click
+          .find(:xpath, '../../..').find('.changes').click
     end
 
     def revision_of_material(type, name)
@@ -175,7 +175,7 @@ module Pages
 
     def triggered_by?(user)
       (pipeline_name text: scenario_state.self_pipeline)
-          .find(:xpath, '../..')
+          .find(:xpath, '../../..')
           .find('.pipeline_instance-details')
           .all('div').first.text.eql? "Triggered by #{user}"
     end
@@ -319,7 +319,7 @@ module Pages
 
     def revisions(pipeline)
       (pipeline_name text: pipeline)
-          .find(:xpath, '../..')
+          .find(:xpath, '../../..')
           .find('.material_changes').all('.revisions')
     end
 

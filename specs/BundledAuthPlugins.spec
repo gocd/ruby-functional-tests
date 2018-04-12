@@ -38,10 +38,13 @@ Setup of contexts
 * On Pipeline Dashboard page
 * Logout and login as "view_user"
 
-* Verify pipeline "basic-pipeline" is not editable
+* Looking at pipeline "basic-pipeline" - On Swift Dashboard page
+
+* Verify pipeline is not editable - On Swift Dashboard page
 
 * Logout and Login as "user1" with password as "pass_user1"
-* Verify pipeline "basic-pipeline" is editable
+
+* Verify pipeline is editable - On Swift Dashboard page
 
 * Logout and login as "admin"
 
@@ -51,21 +54,26 @@ Setup of contexts
 
 * On Pipeline Dashboard page
 * Logout and Login as "user1" with password as "pass_user1"
-* Verify pipeline "basic-pipeline" is editable
+
+* Verify pipeline is editable - On Swift Dashboard page
 
 * Logout and login as "view_user"
-* Verify pipeline "basic-pipeline" is not editable
+
+* Verify pipeline is not editable - On Swift Dashboard page
 
 * Logout and login as "admin"
-* Verify pipeline "basic-pipeline" is editable
+
+* Verify pipeline is editable - On Swift Dashboard page
 
 Steps to verify login with different case
 
 * Logout and Login as "USER1" with password as "pass_user1"
-* Verify pipeline "basic-pipeline" is editable
+
+* Verify pipeline is editable - On Swift Dashboard page
 
 * Logout and login as "group1view"
-* Verify pipeline "basic-pipeline" is not editable
+
+* Verify pipeline is not editable - On Swift Dashboard page
 
 
 teardown

@@ -195,6 +195,7 @@ module Pages
     def set_revision_to_trigger_with(material_name, identifier)
       page.find('.material-name', text: material_name).click
       page.find('.material-revision-search').set scenario_state.material_revision identifier
+      sleep 10
     end
 
     def open_pipeline_selector_dropdown

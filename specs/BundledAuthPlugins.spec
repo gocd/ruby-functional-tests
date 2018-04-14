@@ -71,7 +71,7 @@ Steps to verify login with different case
 
 * Verify pipeline is editable - On Swift Dashboard page
 
-* Logout and login as "group1view"
+* Logout and login as "View_User"
 
 * Verify pipeline is not editable - On Swift Dashboard page
 

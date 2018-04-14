@@ -71,8 +71,12 @@ module Pages
     end
 
     def get_all_stages(pipeline) # This one needs to be relooked - the way the view is modelled do not make it easy to get latest stage state
-      (pipeline_name text: pipeline)
-          .find(:xpath, '../../..').find('.pipeline_stages', {wait: 10}).all('a')
+      begin
+        (pipeline_name text: pipeline)
+            .find(:xpath, '../../..').find('.pipeline_stages', {wait: 10}).all('a')
+      rescue => e
+        p "Looks like Pipeline still not started, trying after page reload..."
+      end
     end
 
     def get_pipeline_stage_state(pipeline, stagename) # This need relook too
@@ -93,7 +97,7 @@ module Pages
     end
 
     def wait_till_pipeline_start_building
-      wait_till_event_occurs_or_bomb 30, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
+      wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
         reload_page
         break if get_all_stages(scenario_state.self_pipeline).first['class'].include?('building')
       end
@@ -107,7 +111,6 @@ module Pages
     end
 
     def wait_till_stage_complete(stage)
-
       wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.self_pipeline} Stage #{stage} failed to complete with in timeout" do
         reload_page
         break unless get_pipeline_stage_state(scenario_state.self_pipeline, stage).include?('building')
@@ -115,8 +118,8 @@ module Pages
     end
 
     def editable?
-      (pipeline_name text: scenario_state.self_pipeline)
-          .find(:xpath, '..').has_css?('.pipeline_edit')
+      !(pipeline_name text: scenario_state.self_pipeline)
+          .find(:xpath, '..').has_css?('.edit_config.disabled')
     end
 
     def locked?
@@ -148,7 +151,7 @@ module Pages
     end
 
     def wait_till_pipeline_showsup(pipeline)
-      wait_till_event_occurs_or_bomb 30, "Pipeline #{scenario_state.get_pipeline(pipeline)} failed to showup on dashboard" do
+      wait_till_event_occurs_or_bomb 120, "Pipeline #{scenario_state.get_pipeline(pipeline)} failed to showup on dashboard" do
         reload_page
         break if visible?(pipeline)
       end

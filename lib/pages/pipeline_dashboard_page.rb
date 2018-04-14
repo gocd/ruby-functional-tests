@@ -78,7 +78,7 @@ module Pages
     end
 
     def wait_till_pipeline_showsup(pipeline)
-      wait_till_event_occurs_or_bomb 30, "Config repo Pipeline #{scenario_state.get_pipeline(pipeline)} failed to showup on dashboard" do
+      wait_till_event_occurs_or_bomb 120, "Config repo Pipeline #{scenario_state.get_pipeline(pipeline)} failed to showup on dashboard" do
         reload_page
         break if page.has_css?("#deploy-#{scenario_state.get_pipeline(pipeline)}")
       end

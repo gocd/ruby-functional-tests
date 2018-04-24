@@ -14,7 +14,7 @@ tags: plugins-tests, plugins_spa, SPA
 * On Plugins page
 
 * Verify plugin with id "cd.go.authentication.passwordfile" is valid
-* Verify plugin with id "cd.go.authentication.passwordfile" has version "1.0.1-48" name "Password File Authentication Plugin for GoCD" description "GoCD Authorization plugin for file based password authentication" author "GoCD Contributors" with enabled link to "https://github.com/gocd/filebased-authentication-plugin"
+* Verify plugin with id "cd.go.authentication.passwordfile" has version "1.0.2-52" name "Password File Authentication Plugin for GoCD" description "GoCD Authorization plugin for file based password authentication" author "GoCD Contributors" with enabled link to "https://github.com/gocd/filebased-authentication-plugin"
 * Verify plugin with id "cd.go.authentication.passwordfile" has path "/plugins/bundled/gocd-filebased-authentication-plugin.jar" supported OS "No restrictions" target go version "17.5.0" and bundled status as "Yes"
 
 * Verify plugin with id "yum" is valid

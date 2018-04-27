@@ -36,6 +36,7 @@ DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
 ELASTICAGENTS_PLUGIN_RELEASE_URL = ENV['ELASTICAGENTS_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/elastic-agent-skeleton-plugin/releases/latest'
 JSON_CONFIG_PLUGIN_RELEASE_URL = ENV['JSON_CONFIG_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/tomzo/gocd-json-config-plugin/releases/latest'
 DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL = ENV['DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd/docker-registry-artifact-plugin/releases'
+ANALYTICS_PLUGIN_DOWNLOAD_URL = ENV['ANALYTICS_PLUGIN_DOWNLOAD_URL']
 
 desc 'cleans all directories'
 task :clean_all do
@@ -139,6 +140,29 @@ namespace :plugins do
     sh "wget #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-registry-artifact-plugin.jar"
   end
 
+  desc 'task for preparing anlytics plugin'
+  task :prepare_analytics do
+    mkdir_p "target/go-server-#{VERSION_NUMBER}/plugins/external"
+    sh "curl -L -o target/go-server-#{VERSION_NUMBER}/plugins/external/analytics-plugin.jar --fail -H 'Accept: binary/octet-stream' --user '#{ENV['EXTENSIONS_USER']}:#{ENV['EXTENSIONS_PASSWORD']}' #{ANALYTICS_PLUGIN_DOWNLOAD_URL}"
+    #sh "cp ~/workspace/manual/analytics-plugin.jar target/go-server-#{VERSION_NUMBER}/plugins/external/"
+
+    # preparing the database - drop and recreate analytics database
+    
+    ENV['ANALYTICS_DB_NAME_TO_USE'] = "#{ENV['ANALYTICS_DB_NAME'] || "analytics"}"
+    ENV['POSTGRES_DB_HOST_TO_USE'] = "#{ENV['DB_HOST'] || "localhost"}"
+  
+  
+    puts "Using DB: #{ENV['POSTGRES_DB_NAME_TO_USE']} on host: #{ENV['ANALYTICS_DB_NAME_TO_USE']}"
+  
+    db_user = ENV['DB_USER'] || 'postgres'
+  
+    drop_db_command = "java -jar tools/run_with_postgres.jar #{ENV['POSTGRES_DB_HOST_TO_USE']} 5432 postgres #{db_user} '' 'DROP DATABASE IF EXISTS #{ENV['ANALYTICS_DB_NAME_TO_USE']}'"
+    create_db_command = "java -jar tools/run_with_postgres.jar #{ENV['POSTGRES_DB_HOST_TO_USE']} 5432 postgres #{db_user} '' 'CREATE DATABASE #{ENV['ANALYTICS_DB_NAME_TO_USE']}'"
+    system("#{drop_db_command} && #{create_db_command}") || (puts "Failed to drop and recreate DB. Tried running: #{drop_db_command} && #{create_db_command}"; exit 1)
+  
+    puts "Recreated analytics DB: #{ENV['ANALYTICS_DB_NAME_TO_USE']}"
+  end
+
   desc 'gradle build go plugins'
   task build: %i[version api] do
     cd "../#{GO_PLUGINS_DIRNAME}" do
@@ -155,7 +179,7 @@ namespace :plugins do
 
   task :api do
     cd "../#{GO_TRUNK_DIRNAME}" do
-      sh './gradlew -q go-plugin-api:install go-plugin-api-internal:install'
+      sh './gradlew -q plugin-infra:go-plugin-api:install plugin-infra:go-plugin-api-internal:install'
     end
   end
 end
@@ -165,7 +189,7 @@ namespace :addons do
   task :prepare do
     mkdir_p 'target/test-addon'
     if DEVELOPMENT_MODE
-      cp_r "../#{GO_TRUNK_DIRNAME}/test-addon/target/libs/.", "target/go-server-#{VERSION_NUMBER}/addons"
+      cp_r "../#{GO_TRUNK_DIRNAME}/test/test-addon/target/libs/.", "target/go-server-#{VERSION_NUMBER}/addons"
     else
       cp_r 'target/test-addon/.', "target/go-server-#{VERSION_NUMBER}/addons"
     end
@@ -174,7 +198,7 @@ namespace :addons do
   desc 'gradle build test addons'
   task :build do
     cd "../#{GO_TRUNK_DIRNAME}" do
-      sh './gradlew -q test-addon:assemble'
+      sh './gradlew -q test:test-addon:assemble'
     end
   end
 end

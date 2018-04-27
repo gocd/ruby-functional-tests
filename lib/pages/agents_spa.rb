@@ -27,13 +27,14 @@ module Pages
     element :filter_agent, '#filter-agent'
     elements :agents_summary, '#agents > div > div.header-panel > div.search-panel > div > div.columns.medium-6.large-8 > ul > li'
 
-    load_validation { has_agents_head? }
+    load_validation { has_filter_agent? }
 
     def select_all_agents
       agents_head.find('input[type="checkbox"]').set(true)
     end
 
     def select_agent_at(row)
+      wait_for_agents_row
       agents_row[row].find('input[type="checkbox"]').set(true)
     end
 

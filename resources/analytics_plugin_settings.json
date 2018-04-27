@@ -1,0 +1,57 @@
+{
+    "plugin_id": "com.thoughtworks.gocd.analytics",
+    "configuration": [
+        {
+            "key": "client_cert"
+        },
+        {
+            "key": "use_ssl"
+        },
+        {
+            "key": "client_pkcs8_key"
+        },
+        {
+            "key": "max_connections_active"
+        },
+        {
+            "key": "root_cert"
+        },
+        {
+            "key": "client_key"
+        },
+        {
+            "key": "password"
+        },
+        {
+            "key": "periodic_cleanup_time"
+        },
+        {
+            "key": "port"
+        },
+        {
+            "key": "host",
+            "value": "127.0.0.1"
+        },
+        {
+            "key": "name",
+            "value": "analytics"
+        },
+        {
+            "key": "max_connections_idle"
+        },
+        {
+            "key": "connection"
+        },
+        {
+            "key": "ssl_mode"
+        },
+        {
+            "key": "max_connection_wait_time"
+        },
+        {
+            "key": "username",
+            "value": "postgres"
+        }
+    ]
+  }
+  

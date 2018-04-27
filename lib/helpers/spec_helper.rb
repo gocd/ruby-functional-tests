@@ -44,6 +44,7 @@ require 'pages/new_pipeline_dashboard_page'
 require 'pages/pipeline_history_page'
 require 'pages/admin_pipeline_page'
 require 'pages/stage_details_page'
+require 'pages/global_analytics_page'
 
 
 
@@ -67,6 +68,10 @@ module Helpers
 
     def new_pipeline_dashboard_page
       Pages::NewPipelineDashboard.new
+    end
+
+    def global_analytics_page
+      Pages::GlobalAnalyticsPage.new
     end
 
     def stage_details_page

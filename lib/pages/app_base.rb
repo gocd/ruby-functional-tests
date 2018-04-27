@@ -60,5 +60,9 @@ module Pages
       assert_true social.has_link?(nil, href: "/go/cctray.xml")
 
     end
+
+    def menu_item_visible(item)
+      page.all('ul', :class => 'menu').first.has_css?('a', :text => item.upcase)
+    end
   end
 end

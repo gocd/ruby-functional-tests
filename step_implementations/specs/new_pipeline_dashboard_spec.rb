@@ -172,3 +172,20 @@ step 'Open pipelines selector - On Swift Dashboard page' do |_tmp|
   new_pipeline_dashboard_page.load(autoRefresh: @auto_refresh)
   new_pipeline_dashboard_page.open_pipeline_selector_dropdown
 end
+
+step 'Open pipeline build analytics' do |_tmp|
+  new_pipeline_dashboard_page.open_build_analytics
+  
+end
+
+step 'Verify pipeline build time graph is displayed' do |_tmp|
+	assert_true new_pipeline_dashboard_page.build_time_graph_displayed?
+end
+
+step 'Verify the MTTR value is calculated' do |_tmp|
+	assert_true new_pipeline_dashboard_page.mttr_displayed?
+end
+
+step 'Close pipeline build analytics' do |_tmp|
+	new_pipeline_dashboard_page.close_analytics
+end

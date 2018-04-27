@@ -60,5 +60,11 @@ module Pages
       assert_true social.has_link?(nil, href: "/go/cctray.xml")
 
     end
+
+    def menu_item_visible(item)
+      page.all('li', :role => 'menuitem').each{|menuitem|
+        menuitem.has_css?('a', :text => item)
+      }
+    end
   end
 end

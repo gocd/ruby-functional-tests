@@ -30,6 +30,13 @@ task :wait_and_fail do
   fail("Intentionally fail the job")
 end
 
+task :wait_or_fail do
+  until File.exist?("../../../failjob") || File.exist?("../../../stopjob")
+    sleep 1
+  end
+  fail("Intentionally fail the job") if File.exist?("../../../failjob")
+end
+
 task :wait_forever do
   until File.exist?("../../../neverexists")
     sleep 1

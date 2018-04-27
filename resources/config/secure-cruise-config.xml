@@ -273,7 +273,43 @@
                  </jobs>
            </stage>
          </pipeline>
+        <pipeline name="P1">
+            <materials>
+                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                <job name="defaultJob">
+                    <tasks>
+                        <exec command="rake" args="wait_or_fail" workingdir="git"/>
+                    </tasks>
+                    <resources>
+                        <resource>R1</resource>
+                    </resources>
 
+                </job>
+                </jobs>
+            </stage>
+            </pipeline>
+        <pipeline name="P2">
+            <materials>
+                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                <job name="defaultJob">
+                    <tasks>
+                    <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+                    </tasks>
+                    <resources>
+                        <resource>R2</resource>
+                    </resources>
+                </job>
+                </jobs>
+            </stage>
+            </pipeline>
    <pipeline name="environment-pipeline">
    <materials>
      <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
@@ -476,16 +512,4 @@
     			</pipelines>
   		</environment>
   	</environments>
-    <agents>
-    <agent hostname="missing-agent" ipaddress="10.232.3.1" uuid="missing">
-      <resources>
-        <resource>missing</resource>
-      </resources>
-    </agent>
-    <agent hostname="denied-agent" ipaddress="10.232.3.2" uuid="denied" isDisabled="true">
-      <resources>
-        <resource>denied</resource>
-      </resources>
-    </agent>
-  </agents>
 </cruise>

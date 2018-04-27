@@ -73,6 +73,11 @@ module Context
       load_dom(current_config)
     end
 
+    def create_plugin_settings(settings)
+      RestClient.post http_url('/api/admin/plugin_settings'), settings.to_json,
+                      { content_type: :json, accept: 'application/vnd.go.cd.v1+json' }.merge(basic_configuration.header)
+    end
+
     def reset_config
       self.config_dom = get_current_config
       config_dom.search('//pipelines', '//environments', '//agents', '//security', '//scms', '//security', '//templates', '//config-repos').each(&:remove)

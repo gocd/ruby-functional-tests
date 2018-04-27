@@ -45,3 +45,16 @@ step 'Create a <file> file and validate pipeline completed' do |file|
   new_pipeline_dashboard_page.wait_till_pipeline_complete
   go_agents.delete_stopjobs
 end
+
+
+step 'Wait for <duration> seconds' do |duration|
+  sleep duration.to_i
+end
+
+step 'Analytics menu should not be visible' do |_tmp|
+	assert_false app_base_page.menu_item_visible "Analytics"
+end
+
+step 'Analytics menu should be visible' do |_tmp|
+	assert_true app_base_page.menu_item_visible "Analytics"
+end

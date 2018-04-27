@@ -15,6 +15,10 @@
 ##########################################################################
 
 module Pages
+
+  class PipelineBuildTime < AppBase
+  end
+
   class NewPipelineDashboard < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/pipelines{?autoRefresh*}"
 
@@ -23,6 +27,7 @@ module Pages
     elements :pipeline_group_title, '.pipeline-group_title'
     element :material_for_trigger, '.material-for-trigger'
     element :pipeline_selector_dropdown, '.filter_options'
+    iframe :build_time_chart, PipelineBuildTime, 0
 
     load_validation {has_pipeline_group?}
 
@@ -127,8 +132,31 @@ module Pages
           .find(:xpath, '..').has_css?('.pipeline_locked')
     end
 
+    def open_build_analytics
+      (pipeline_name text: scenario_state.self_pipeline)
+          .find(:xpath, '..').find('.pipeline-analytics').click
+    end
+
+    def build_time_graph_displayed?
+      build_time_chart do |frame|
+        (frame.find('#chart-container').find( '.pipeline-val' ).text == scenario_state.self_pipeline) &&
+          frame.find('#chart-container').has_css?('.highcharts-series-group')
+      end
+    end
+
+    def mttr_displayed?
+      build_time_chart do |frame|
+        frame.find('#chart-container').has_css?('.mttr') && 
+          !frame.find('#chart-container').find('.mttr').text.match(/[1-9][0-9].*s/)[0].nil?
+      end
+    end
+
+    def close_analytics
+      page.find('.analytics-modal').find('.close-button').click
+    end
+
     def group_visible?(group)
-      pipeline_group_title.select {|grp| grp.find('strong', {wait: 5}).text == group}.any?
+      pipeline_group_title.select {|grp| grp.find('strong', { wait: 5 }).text == group }.any?
     end
 
     def pipeline_in_group?(group)

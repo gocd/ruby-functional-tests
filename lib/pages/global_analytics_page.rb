@@ -65,7 +65,7 @@ module Pages
     end
 
     def pipeline_listed(pipeline)
-      pipelines_selector.find('option', :text => pipeline).exists?
+      pipelines_selector.has_css?('option', :text => pipeline)
     end
 
     def pipeline_build_time_visible_on_selection(pipeline)

@@ -62,9 +62,7 @@ module Pages
     end
 
     def menu_item_visible(item)
-      page.all('li', :role => 'menuitem').each{|menuitem|
-        menuitem.has_css?('a', :text => item)
-      }
+      page.all('ul', :class => 'menu').first.has_css?('a', :text => item.upcase)
     end
   end
 end

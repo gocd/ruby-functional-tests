@@ -6,8 +6,7 @@ EditExistingEnvironments
 tags: edit_environments
 
 Setup of contexts
-* Secure Configuration - setup
-* Login as "admin" - setup
+* Basic Configuration - setup
 * Using pipeline "environment-pipeline, environment-pipeline-locked, environment-failing-pipeline,pipeline-with-environment-variables" - setup
 * With "1" live agents - setup
 * Capture go state "EditExistingEnvironments" - setup
@@ -40,4 +39,3 @@ teardown
 _______________
 * Capture go state "EditExistingEnvironments" - teardown
 * With "1" live agents - teardown
-* Logout - from any page

@@ -59,3 +59,7 @@ step 'Disable new dashboard toggles' do
   basic_configuration.disable_toggle('quicker_dashboard_key')
   basic_configuration.disable_toggle('new_dashboard_page_default')
 end
+
+step 'With Environments Configuration - setup' do
+	basic_configuration.setup 'with-environments-cruise-config.xml'
+end

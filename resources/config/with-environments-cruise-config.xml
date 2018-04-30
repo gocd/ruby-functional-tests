@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *************************GO-LICENSE-START******************************
+ * Copyright 2016 ThoughtWorks, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *************************GO-LICENSE-END******************************* -->
+
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="108">
+    <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="gauge" tokenGenerationKey="token"/>
+    <pipelines group="basic">
+        
+    <pipeline name="environment-pipeline">
+    <materials>
+        <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+        </materials>
+        <stage name="defaultStage">
+            <approval type="manual"/>
+            <jobs>
+                <job name="short">
+                    <tasks>
+                        <exec command="sleep" args="12"/>
+                    </tasks>
+                    </job>
+            </jobs>
+        </stage>
+        <stage name="secondStage">
+            <jobs>
+                <job name="long">
+                    <tasks>
+                        <exec command="sleep" args="40"/>
+                    </tasks>
+                    </job>
+            </jobs>
+        </stage>
+        <stage name="lastStage">
+        <approval type="manual"/>
+            <jobs>
+                <job name="long">
+                    <tasks>
+                        <exec command="sleep" args="40"/>
+                    </tasks>
+                    </job>
+            </jobs>
+        </stage>
+    </pipeline>
+    <pipeline name="environment-failing-pipeline" lockBehavior="lockOnFailure">
+            <materials>
+                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="executable-that-will-not-be-found"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+            <stage name="secondStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <ant target="sleep60" workingdir="hg/dev"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+        <pipeline name="pipeline-with-environment-variables">
+            <environmentvariables>
+                <variable name="PIPELINE_LEVEL_VARIABLE"><value>pipeline</value></variable>
+                <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_PIPELINE"><value>pipeline-overrides-env</value></variable>
+                <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE"><value>does-not-matter</value></variable>
+                <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>does-not-matter</value></variable>
+                <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
+                <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
+            </environmentvariables>
+            <materials>
+                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <environmentvariables>
+                    <variable name="STAGE_LEVEL_VARIABLE"><value>stage</value></variable>
+                    <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE"><value>stage-overrides-pipeline</value></variable>
+                    <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE"><value>stage-overrides-env</value></variable>
+                    <variable name="STAGE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>does-not-matter</value></variable>
+                    <variable name="STAGE_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
+                </environmentvariables>
+                <jobs>
+                    <job name="pipeline-with-environment-variables-job">
+                        <environmentvariables>
+                            <variable name="JOB_LEVEL_VARIABLE"><value>pipeline-with-environment-variables-job</value></variable>
+                            <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>job-overrides-pipeline</value></variable>
+                            <variable name="STAGE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>job-overrides-stage</value></variable>
+                            <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>job-overrides-env</value></variable>
+                            <variable name="JOB_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
+                        </environmentvariables>
+                        <tasks>
+                            <ant target="longsleep" workingdir="hg/dev"/>
+                        </tasks>
+                    </job>
+                    <job name="another-job">
+                        <environmentvariables>
+                            <variable name="JOB_LEVEL_VARIABLE"><value>another-job</value></variable>
+                        </environmentvariables>
+                        <tasks>
+                            <exec command="ls"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+            <stage name="secondStage">
+                <environmentvariables>
+                    <variable name="STAGE_LEVEL_VARIABLE"><value>stage</value></variable>
+                </environmentvariables>
+                <jobs>
+                    <job name="foo">
+                        <environmentvariables>
+                            <variable name="JOB_LEVEL_VARIABLE"><value>foo</value></variable>
+                            <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>job-overrides-pipeline</value></variable>
+                            <variable name="JOB_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
+                        </environmentvariables>
+                        <tasks>
+                            <exec command="ls"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+        <pipeline name="environment-pipeline-locked" lockBehavior="lockOnFailure">
+         <materials>
+           <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+             </materials>
+             <stage name="defaultStage">
+               <approval type="manual"/>
+               <jobs>
+                   <job name="short">
+                         <tasks>
+                             <exec command="sleep" args="12"/>
+                         </tasks>
+                      </job>
+                 </jobs>
+           </stage>
+             <stage name="secondStage">
+               <jobs>
+                   <job name="long">
+                         <tasks>
+                             <exec command="sleep" args="40"/>
+                         </tasks>
+                      </job>
+                 </jobs>
+           </stage>
+           <stage name="lastStage">
+             <approval type="manual"/>
+               <jobs>
+                   <job name="long">
+                         <tasks>
+                             <exec command="sleep" args="40"/>
+                         </tasks>
+                      </job>
+                 </jobs>
+           </stage>
+         </pipeline>
+    </pipelines>
+    <environments>
+        <environment name="uat">
+  		    <environmentvariables>
+  		  		<variable name="ENV_LEVEL_VARIABLE"><value>environment</value></variable>
+  		  		<variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_PIPELINE"><value>does-not-matter</value></variable>
+  		  		<variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE"><value>does-not-matter</value></variable>
+  		  		<variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>does-not-matter</value></variable>
+  		  		<variable name="ENVIRONMENT_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
+			    </environmentvariables>
+    			<pipelines>
+    				<pipeline name="environment-pipeline"/>
+    				<pipeline name="environment-pipeline-locked"/>
+    				<pipeline name="environment-failing-pipeline"/>
+    				<pipeline name="pipeline-with-environment-variables"/>
+    			</pipelines>
+  		</environment>
+        <environment name="internal">
+        </environment>
+    </environments>
+      <agents>
+    <agent hostname="missing-agent" ipaddress="10.232.3.1" uuid="missing">
+      <resources>
+        <resource>missing</resource>
+      </resources>
+    </agent>
+  </agents>
+
+</cruise>

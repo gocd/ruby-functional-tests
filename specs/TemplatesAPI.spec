@@ -17,9 +17,9 @@ Setup of contexts
 * Update template "T1"
 * Verify returned "200" response code
 
-* As user "group1admin"
+* As user "group1Admin"
 * Update template "T1"
-* Verify returned "401" response code
+* Verify returned "403" response code
 
 * Create template "T2"
 * Verify returned "200" response code
@@ -34,10 +34,10 @@ Setup of contexts
 * Verify returned "200" response code
 
 * Create template "T3"
-* Verify returned "401" response code
+* Verify returned "403" response code
 
 * Update template "T2"
-* Verify returned "401" response code
+* Verify returned "403" response code
 
 * As user "admin"
 * Get all templates should return templates "T1,T2,Template-With-Admin"
@@ -45,5 +45,6 @@ Setup of contexts
 
 teardown
 _______________
+* As user "admin" for teardown
 * Capture go state "TemplatesAPI" - teardown
 * Logout - from any page

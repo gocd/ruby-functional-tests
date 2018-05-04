@@ -18,13 +18,13 @@ require 'socket'
 
 class GoConstants
   HOSTNAME = Socket.gethostname
+  GO_VERSION = ENV['GO_VERSION'] || '16.11.0'
   SERVER_PORT = ENV['GO_SERVER_PORT'] || '8253'
   SERVER_SSL_PORT = ENV['GO_SERVER_SSL_PORT'] || '8254'
-  SERVER_DIR = Dir['target/go-server-*'].find { |f| File.directory?(f) }
-  AGENT_DIR = Dir['target/go-agent-*'].find { |f| File.directory?(f) }
+  SERVER_DIR = Dir["target/go-server-#{GO_VERSION}"].find {|f| File.directory?(f)}
+  AGENT_DIR = Dir["target/go-agent-#{GO_VERSION}"].find {|f| File.directory?(f)}
   SERVER_MEM = ENV['GAUGE_GO_SERVER_MEM'] || '512m'
   SERVER_MAX_MEM = ENV['GAUGE_GO_SERVER_MAX_MEM'] || '1024m'
-  GO_VERSION = ENV['GO_VERSION'] || '16.11.0'
   LDAP_SERVER_IP = 'localhost:10389'
 
   TEMP_DIR = '/tmp/materials'.freeze
@@ -62,5 +62,5 @@ class GoConstants
                           -Dnew.plugins.framework.enabled=Y \
                           -Dgo.gauge.server=true \
                           -DDB_DEBUG_MODE=true \
-                          #{ENV['ADDITIONAL_SERVER_SYSTEM_PROPERITES']}".freeze
+  #{ENV['ADDITIONAL_SERVER_SYSTEM_PROPERITES']}".freeze
 end

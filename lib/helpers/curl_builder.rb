@@ -47,11 +47,13 @@ module CurlBuilder
   end
 
   def self.toCurlHeader herders
+    nameMapping = {:content_type => 'Content-Type'}
+    valueMappings = {'json' => 'application/json'}
     allHeaders = []
     unless herders.nil?
       herders.each {|name, value|
         unless name == :Authorization
-          allHeaders << "-H '#{name}: #{value}'"
+          allHeaders << "-H '#{ nameMapping[name] || name}: #{valueMappings[value] || value}'"
         end
       }
     end

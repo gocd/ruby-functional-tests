@@ -17,6 +17,7 @@
 require 'helpers/go_url_helper'
 require 'helpers/page_helper'
 require 'helpers/spec_helper'
+require 'helpers/curl_builder'
 require 'helpers/wait_helper'
 require 'helpers/general_helper'
 require 'context/go_state'

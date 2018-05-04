@@ -65,15 +65,23 @@ Capybara.register_driver :selenium do |app|
     profile['network.proxy.ssl_port'] = 8081
   end
   cap = case browser
-        when :firefox
-          { browser: browser, profile: profile }
-        else
-          { browser: browser }
+          when :firefox
+            {browser: browser, profile: profile}
+          else
+            {browser: browser}
         end
   Capybara::Selenium::Driver.new(app, cap)
 end
 
 Capybara.default_driver = :selenium
+
+RestClient::Request.class_eval do
+  def self.execute(args, & block)
+    request_new = RestClient::Request.new(args)
+    CurlBuilder.build(request_new)
+    request_new.execute(& block)
+  end
+end
 
 module GoCDInitialize
   before_suite do
@@ -95,7 +103,7 @@ module GoCDInitialize
     %x(rm -rf target/go_state) unless ENV['GO_PIPELINE_NAME']
     if $zap
       response = RestClient.get 'http://localhost:8081/OTHER/core/other/htmlreport'
-      File.open('target/zap_report.html', 'w') { |file| file.write(response.body) }
+      File.open('target/zap_report.html', 'w') {|file| file.write(response.body)}
       $zap.shutdown
     end
   end

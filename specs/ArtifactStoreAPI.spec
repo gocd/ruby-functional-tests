@@ -43,15 +43,15 @@ Setup of contexts
 
 * As user "view"
 * Try to create artifact store "A3"
-* Verify returned "403" response code
+* Verify returned "401" response code
 * Try to update artifact store "A2"
-* Verify returned "403" response code
+* Verify returned "401" response code
 * Try to get artifact store "A1"
-* Verify returned "403" response code
+* Verify returned "401" response code
 * Try to get all artifact stores
-* Verify returned "403" response code
+* Verify returned "401" response code
 * Try to delete artifact store "A1"
-* Verify returned "403" response code
+* Verify returned "401" response code
 
 * As user "admin"
 * Get all artifact stores should return "A1,A2"
@@ -59,5 +59,6 @@ Setup of contexts
 
 teardown
 _______________
+* As user "admin" for teardown
 * Capture go state "ArtifactStoreAPI" - teardown
 * Logout - from any page

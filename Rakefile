@@ -127,7 +127,7 @@ namespace :plugins do
     mkdir_p "target/go-server-#{VERSION_NUMBER}/addons"
     if DEVELOPMENT_MODE
       cp_r "../#{GO_PLUGINS_DIRNAME}/target/go-plugins-dist/.", "target/go-server-#{VERSION_NUMBER}/plugins/external"
-      cp_r "../#{GO_TRUNK_DIRNAME}/test-addon/target/libs/.", "target/go-server-#{VERSION_NUMBER}/addons"
+      cp_r "../#{GO_TRUNK_DIRNAME}/test/test-addon/target/libs/.", "target/go-server-#{VERSION_NUMBER}/addons"
     else
       cp_r 'target/go-plugins-dist/.', "target/go-server-#{VERSION_NUMBER}/plugins/external"
       cp_r 'target/test-addon/.', "target/go-server-#{VERSION_NUMBER}/addons"

@@ -6,6 +6,7 @@ BundledAuthPlugins
 tags: bundled-auth-plugins
 
 Setup of contexts
+* Ldap server - start
 * AuthPluginsConfiguration - setup
 * Login as "admin" - setup
 * Using pipeline "basic-pipeline" - setup
@@ -82,3 +83,4 @@ _______________
 * Capture go state "BundledAuthPlugins" - teardown
 * With "1" live agents - teardown
 * Logout - from any page
+* Ldap server - stop

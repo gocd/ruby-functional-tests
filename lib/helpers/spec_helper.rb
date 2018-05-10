@@ -27,6 +27,7 @@ require 'context/scenario_state'
 require 'context/secure_configuration'
 require 'context/server'
 require 'context/pipeline'
+require 'context/ldap'
 require 'pages/app_base'
 require 'pages/login_page'
 require 'pages/agents_spa'
@@ -124,6 +125,10 @@ module Helpers
 
     def basic_configuration
       Context::BasicConfiguration.new
+    end
+
+    def ldap_server
+      Context::LdapServer.new
     end
 
     def secure_configuration

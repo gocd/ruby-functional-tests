@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2016 ThoughtWorks, Inc.
+# Copyright 2018 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,21 +18,38 @@ module Context
   class BasicConfiguration
     attr_accessor :config_dom
 
+    def setup(config_file)
+      get_dom(config_file)
+      replace_pipeline_names
+      load_dom(config_dom)
+    end
+
+    def detect_headers_from_loaded_config
+      begin
+        response = RestClient.get admin_config_url
+        return {Confirm: true} unless response.code != 200
+      rescue
+      end
+
+      basic_auth = Base64.encode64(['admin', 'badger'].join(':'))
+      {Authorization: "Basic #{basic_auth}", Confirm: true}
+    end
+
     def load_dom(xml)
-      RestClient.post admin_config_url, { xmlFile: xml.to_s, md5: @md5 }, header
+      RestClient.post admin_config_url, {xmlFile: xml.to_s, md5: @md5}, detect_headers_from_loaded_config
     rescue RestClient::ExceptionWithResponse => err
       raise "Update config xml api call failed. Error message #{err.response.body}"
     end
 
     def get_dom(file)
-      get_current_config
+      get_config_from_server
       self.config_dom = Nokogiri::XML(File.read("#{GoConstants::CONFIG_PATH}/#{file}"))
       config_dom.xpath('//server').first['serverId'] = @serverId
       config_dom.xpath('//server').first['tokenGenerationKey'] = @tokenGenerationKey
     end
 
-    def get_current_config
-      response = RestClient.get admin_config_url, header
+    def get_config_from_server
+      response = RestClient.get admin_config_url, detect_headers_from_loaded_config
       current_config = Nokogiri::XML(response.body)
       @md5 = response.headers[:x_cruise_config_md5]
       @serverId = current_config.xpath('//server').first['serverId']
@@ -58,7 +75,7 @@ module Context
     end
 
     def set_material_path_for_pipeline(pipeline, material_path)
-      current_config = get_current_config
+      current_config = get_config_from_server
       current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get_pipeline(pipeline)}']/materials/git").each do |material|
         material['url'] = material_path
       end
@@ -66,7 +83,7 @@ module Context
     end
 
     def set_config_repo(config_repo_path, idx)
-      current_config = get_current_config
+      current_config = get_config_from_server
       current_config.xpath("//cruise/config-repos/config-repo[#{idx}]/git").each do |config_repo|
         config_repo['url'] = config_repo_path
       end
@@ -75,17 +92,17 @@ module Context
 
     def create_plugin_settings(settings)
       RestClient.post http_url('/api/admin/plugin_settings'), settings.to_json,
-                      { content_type: :json, accept: 'application/vnd.go.cd.v1+json' }.merge(basic_configuration.header)
+                      {content_type: :json, accept: 'application/vnd.go.cd.v1+json'}.merge(basic_configuration.header)
     end
 
     def reset_config
-      self.config_dom = get_current_config
+      self.config_dom = get_config_from_server
       config_dom.search('//pipelines', '//environments', '//agents', '//security', '//scms', '//security', '//templates', '//config-repos').each(&:remove)
       load_dom(config_dom)
     end
 
     def remove_environments_except(except_environments)
-      self.config_dom = get_current_config
+      self.config_dom = get_config_from_server
 
       except_environments_names = except_environments.map do |except_env|
         scenario_state.get_environment(except_env)
@@ -99,7 +116,7 @@ module Context
     end
 
     def remove_pipelines_except(except_pipelines)
-      self.config_dom = get_current_config
+      self.config_dom = get_config_from_server
 
       except_pipelines_names = except_pipelines.map do |except_pipeline|
         scenario_state.get_pipeline(except_pipeline)
@@ -116,15 +133,9 @@ module Context
     end
 
     def header
-      return { Confirm: true } unless scenario_state.current_user
+      return {Confirm: true} unless scenario_state.current_user
       basic_auth = Base64.encode64([scenario_state.current_user, 'badger'].join(':'))
-      { Authorization: "Basic #{basic_auth}", Confirm: true }
-    end
-
-    def setup(config_file)
-      get_dom(config_file)
-      replace_pipeline_names
-      load_dom(config_dom)
+      {Authorization: "Basic #{basic_auth}", Confirm: true}
     end
 
     def remove_all_users
@@ -133,26 +144,26 @@ module Context
 
     def enable_toggle(toggle)
       RestClient.post http_url("/api/admin/feature_toggles/#{toggle}"),
-                       '{"toggle_value": "on"}',
-                       { content_type: :json }.merge(basic_configuration.header)
+                      '{"toggle_value": "on"}',
+                      {content_type: :json}.merge(basic_configuration.header)
     end
 
     def disable_toggle(toggle)
       RestClient.post http_url("/api/admin/feature_toggles/#{toggle}"),
                       '{"toggle_value": "off"}',
-                      { content_type: :json }.merge(basic_configuration.header)
+                      {content_type: :json}.merge(basic_configuration.header)
     end
 
     def material_url_for(pipeline)
-      get_current_config.xpath("//cruise/pipelines/pipeline[@name='#{pipeline}']/materials/git").attribute('url').value
+      get_config_from_server.xpath("//cruise/pipelines/pipeline[@name='#{pipeline}']/materials/git").attribute('url').value
     end
 
     def enable_security_with_admin_rights(pwd_file, adminUsers)
-      current_config = get_current_config
+      current_config = get_config_from_server
       password_file_path = File.expand_path("#{GoConstants::CONFIG_PATH}/#{pwd_file}")
       admin_users = adminUsers.split(',')
       admin_user_tag = ''
-      admin_users.each {|admin| admin_user_tag+= "<user>#{admin}</user>"}
+      admin_users.each {|admin| admin_user_tag += "<user>#{admin}</user>"}
 
       password_authentication_config = "<security>
           <authConfigs>

@@ -1,0 +1,55 @@
+version: 1
+
+dn: ou=People,dc=tests,dc=com
+objectClass: organizationalUnit
+ou: People
+
+dn: ou=Groups,dc=tests,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: Groups
+
+dn: cn=miners,ou=Groups,dc=tests,dc=com
+objectClass: groupOfNames
+objectClass: top
+cn: miners
+member: uid=user1,ou=People,dc=tests,dc=com
+member: uid=user2,ou=People,dc=tests,dc=com
+member: uid=perf_tester,ou=People,dc=tests,dc=com
+
+dn: uid=user1,ou=People,dc=tests,dc=com
+objectClass: top
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+uid: user1
+sn: LastName_user1
+givenName: User_user1
+cn: User_user1 LastName_user1
+displayName: User_user1 LastName_user1
+userPassword: pass_user1
+
+dn: uid=user2,ou=People,dc=tests,dc=com
+objectClass: top
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+uid: user2
+sn: LastName_user2
+givenName: User_user2
+cn: User_user2 LastName_user2
+displayName: User_user2 LastName_user2
+userPassword: pass_user2
+
+dn: uid=perf_tester,ou=People,dc=tests,dc=com
+objectClass: top
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+uid: perf_tester
+sn: LastName_perf_tester
+givenName: User_perf_tester
+cn: User_$user LastName_perf_tester
+displayName: User_perf_tester LastName_perf_tester
+userPassword: (W8{TsJq3frogv
+

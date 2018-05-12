@@ -1,4 +1,5 @@
 before_suite do |execution_info|
+  FileUtils.mkdir_p('reports') unless File.directory?('reports')
   FileUtils.rm Dir.glob('reports/*.sh')
   write_to_file('main.sh', "#!/usr/bin/env bash\nBASEDIR=$(dirname \"$0\")\n\n")
 end

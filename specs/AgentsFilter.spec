@@ -52,14 +52,14 @@ Hostnames as search string
  * Enter filter value "windows"
  * Verify agents "random1, random2" show up in results
  * Enter filter value "lin"
- * Verify agent summary shows "Total" agent count as "4"
+ * Verify agent summary shows "Total" agent count as "3"
  * Enter filter value "linux"
  * Verify agents "random, random3, random4" show up in results
 
 
  OS as search string
  * Enter filter value "CentOS"
- * Verify agent summary shows "Total" agent count as "2"
+ * Verify agent summary shows "Total" agent count as "1"
 
 teardown
 _______________

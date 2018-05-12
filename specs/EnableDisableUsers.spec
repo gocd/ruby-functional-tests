@@ -52,5 +52,6 @@ Setup of contexts
 
 Teardown of contexts
 ____________________
+* As user "admin" for teardown
 * Capture go state "EnableDisableUsers" - teardown
 * Logout - from any page

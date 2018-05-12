@@ -30,7 +30,6 @@ step 'Create template <template>' do |template|
                                { content_type: :json, accept: TEMPLATE_API_VERSION }.merge(basic_configuration.header)
     scenario_state.add_api_response response
   rescue RestClient::ExceptionWithResponse => err
-    p "Create template call failed with response code #{err.response.code} and the response body - #{err.response.body}"
     scenario_state.add_api_response err.response
   end
 end
@@ -64,7 +63,6 @@ step 'Update template <template>' do |template|
                                      { content_type: :json, if_match: response.headers[:etag], accept: TEMPLATE_API_VERSION }.merge(basic_configuration.header)
     scenario_state.add_api_response update_response
   rescue RestClient::ExceptionWithResponse => err
-    p "Update template call failed with response code #{err.response.code} and response body - #{err.response.body}"
     scenario_state.add_api_response err.response
   end
 end

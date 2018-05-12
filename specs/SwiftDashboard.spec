@@ -90,6 +90,7 @@ Enable  below step once PR https://github.com/gocd/gocd/pull/4525 is merged
 
 Teardown of contexts
 ____________________
+* As user "admin" for teardown
 * Capture go state "SwiftDashboard" - teardown
 * With "2" live agents - teardown
 * Logout - from any page

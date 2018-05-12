@@ -31,15 +31,15 @@ Setup of contexts
 
 * As unauthenticated user
 * Try to create artifact store "A3"
-* Verify returned "401" response code
+* Verify returned "403" response code
 * Try to update artifact store "A2"
-* Verify returned "401" response code
+* Verify returned "403" response code
 * Try to get artifact store "A1"
-* Verify returned "401" response code
+* Verify returned "403" response code
 * Try to get all artifact stores
-* Verify returned "401" response code
+* Verify returned "403" response code
 * Try to delete artifact store "A1"
-* Verify returned "401" response code
+* Verify returned "403" response code
 
 * As user "view"
 * Try to create artifact store "A3"
@@ -59,5 +59,6 @@ Setup of contexts
 
 teardown
 _______________
+* As user "admin" for teardown
 * Capture go state "ArtifactStoreAPI" - teardown
 * Logout - from any page

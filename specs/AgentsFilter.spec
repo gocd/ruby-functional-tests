@@ -52,7 +52,7 @@ Hostnames as search string
  * Enter filter value "windows"
  * Verify agents "random1, random2" show up in results
  * Enter filter value "lin"
- * Verify agent summary shows "Total" agent count as "3"
+ * Verify agent summary shows "Total" agent count as "4"
  * Enter filter value "linux"
  * Verify agents "random, random3, random4" show up in results
 

@@ -2,7 +2,6 @@ BuildCause
 ==========
 
 Setup of contexts
-* Enable new dashboard toggles
 * Basic Configuration - setup
 * Using pipeline "basic-pipeline-run-till-file-exists, downstream" - setup
 * With "1" live agents - setup

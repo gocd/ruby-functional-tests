@@ -7,7 +7,6 @@ SwiftDashboard
 tags: dashboard, swift
 
 Setup of contexts
-* Enable new dashboard toggles
 * Secure Configuration - setup
 * Login as "admin" - setup
 * Using pipeline "manual-stages-that-run-till-file-exists, admin-pipeline" - setup
@@ -94,6 +93,5 @@ ____________________
 * Capture go state "SwiftDashboard" - teardown
 * With "2" live agents - teardown
 * Logout - from any page
-* Disable new dashboard toggles
 
 

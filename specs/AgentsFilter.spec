@@ -59,7 +59,7 @@ Hostnames as search string
 
  OS as search string
  * Enter filter value "CentOS"
- * Verify agent summary shows "Total" agent count as "1"
+ * Verify agent summary shows "Total" agent count as "2"
 
 teardown
 _______________

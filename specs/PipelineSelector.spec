@@ -4,7 +4,6 @@ PipelineSelector
 tags: Pipeline_Selection
 
 Setup of contexts
-* Enable new dashboard toggles
 * Basic Configuration - setup
 * Using pipeline "basic-pipeline-run-till-file-exists, basic-pipeline-fast, dependency-group-pipeline-1, artifact_md5_verification-pipeline-1, artifact_md5_verification-pipeline-2" - setup
 * Capture go state "PipelineSelector" - setup

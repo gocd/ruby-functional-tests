@@ -2,7 +2,6 @@ PipelineDashboardAutoRefresh
 ============================
 
 Setup of contexts
-* Enable new dashboard toggles
 * Basic Configuration - setup
 * Using pipeline "basic-pipeline-run-till-file-exists" - setup
 * With "1" live agents - setup
@@ -29,4 +28,3 @@ Teardown of contexts
 ____________________
 * Capture go state "PipelineDashboardAutoRefresh" - teardown
 * With "1" live agents - teardown
-* Disable new dashboard toggles

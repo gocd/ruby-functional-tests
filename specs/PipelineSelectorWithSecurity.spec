@@ -2,7 +2,6 @@ PipelineSelectorWithSecurity
 ============================
 
 Setup of contexts
-* Enable new dashboard toggles
 * Secure Configuration - setup
 * Login as "admin" - setup
 * Using pipeline "basic-pipeline-with-git-material, admin-pipeline, viewable-pipeline, manual-stages-that-run-till-file-exists, operable-pipeline" - setup

@@ -133,17 +133,17 @@ namespace :plugins do
       cp_r 'target/test-addon/.', "target/go-server-#{VERSION_NUMBER}/addons"
     end
     url = JSON.parse(open(ELASTICAGENTS_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
-    sh "wget #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/elastic-agent-skeleton-plugin.jar"
+    sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/elastic-agent-skeleton-plugin.jar"
     url = JSON.parse(open(JSON_CONFIG_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
-    sh "wget #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/json-config-plugin.jar"
+    sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/json-config-plugin.jar"
     url = JSON.parse(open(DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL).read)[0]['assets'][0]['browser_download_url']
-    sh "wget #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-registry-artifact-plugin.jar"
+    sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-registry-artifact-plugin.jar"
   end
 
   desc 'task for preparing anlytics plugin'
   task :prepare_analytics do
     mkdir_p "target/go-server-#{VERSION_NUMBER}/plugins/external"
-    sh "curl -L -o target/go-server-#{VERSION_NUMBER}/plugins/external/analytics-plugin.jar --fail -H 'Accept: binary/octet-stream' --user '#{ENV['EXTENSIONS_USER']}:#{ENV['EXTENSIONS_PASSWORD']}' #{ANALYTICS_PLUGIN_DOWNLOAD_URL}"
+    sh "curl --silent --location -o target/go-server-#{VERSION_NUMBER}/plugins/external/analytics-plugin.jar --fail -H 'Accept: binary/octet-stream' --user '#{ENV['EXTENSIONS_USER']}:#{ENV['EXTENSIONS_PASSWORD']}' #{ANALYTICS_PLUGIN_DOWNLOAD_URL}"
     #sh "cp ~/workspace/manual/analytics-plugin.jar target/go-server-#{VERSION_NUMBER}/plugins/external/"
 
     # preparing the database - drop and recreate analytics database

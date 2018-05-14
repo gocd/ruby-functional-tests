@@ -50,15 +50,6 @@ step 'With no users - setup' do
   basic_configuration.remove_all_users
 end
 
-step 'Enable new dashboard toggles' do
-  basic_configuration.enable_toggle('quicker_dashboard_key')
-  basic_configuration.enable_toggle('new_dashboard_page_default')
-end
-
-step 'Disable new dashboard toggles' do
-  basic_configuration.disable_toggle('quicker_dashboard_key')
-  basic_configuration.disable_toggle('new_dashboard_page_default')
-end
 
 step 'With Environments Configuration - setup' do
 	basic_configuration.setup 'with-environments-cruise-config.xml'

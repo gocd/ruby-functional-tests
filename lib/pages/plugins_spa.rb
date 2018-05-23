@@ -23,75 +23,73 @@ module Pages
     load_validation { has_plugin_settings? }
 
     def invalid_plugin_message_exists?(id, message)
-      plugin_config_element_of(id).has_selector?('dd', :text => message)
+      plugin_config_element_of(id).has_selector?('dd', text: message)
     end
 
     def plugin_by_id_is_invalid?(id)
-      plugin_config_element_of(id).has_selector?('dt', :text => "There were errors loading the plugin")
+      plugin_config_element_of(id).has_selector?('dt', text: 'There were errors loading the plugin')
     end
 
     def plugin_by_id_is_valid?(id)
-      plugin_settings.find('.plugin-id', :text => id).find(:xpath, "../../..")[:class] == "plugin active"
+      plugin_settings.find('.plugin-id', text: id).find(:xpath, '../../..')[:class] == 'plugin active'
     end
 
     def expand_collapse_plugin_config(id)
-      begin
-        plugin_settings.find('.plugin-id', :text => id).click
-      rescue => e
-        p "Not a valid plugin, moving ahead without expanding or collapsing. #{e.message} "
-      end
+      plugin_settings.find('.plugin-id', text: id).click
+    rescue StandardError => e
+      p "Not a valid plugin, moving ahead without expanding or collapsing. #{e.message} "
     end
 
     def is_expected_version?(id, version)
-      plugin_settings.find('.plugin-id', :text => id)
-                      .find(:xpath, "../../..").find('.plugin-version').has_selector?(".value", :text => version)
+      plugin_settings.find('.plugin-id', text: id)
+                     .find(:xpath, '../../..').find('.plugin-version').has_selector?('.value', text: version)
     end
 
     def is_expected_name?(id, name)
-      plugin_settings.find('.plugin-id', :text => id)
-                      .find(:xpath, "../../..").has_selector?('div', :text => name)
+      plugin_settings.find('.plugin-id', text: id)
+                     .find(:xpath, '../../..').has_selector?('div', text: name)
     end
 
     def is_expected_description?(id, desc)
-      plugin_config_element_of(id).has_selector?('dd', :text => desc)
+      plugin_config_element_of(id).has_selector?('dd', text: desc)
     end
 
     def is_expected_author?(id, author)
-      plugin_config_element_of(id).has_selector?('dd', :text => author)
+      plugin_config_element_of(id).has_selector?('dd', text: author)
     end
 
     def is_expected_author_link?(id, author, link)
-      plugin_config_element_of(id).find('a', :text => author)[:href] == link
+      plugin_config_element_of(id).find('a', text: author)[:href] == link
     end
 
-    def is_author_link_disabled?(id, author, link)
-      !plugin_config_element_of(id).has_selector?('a', :text => author)
+    def is_author_link_disabled?(id, author, _link)
+      !plugin_config_element_of(id).has_selector?('a', text: author)
     end
 
     def is_expected_installed_path?(id, path)
-      plugin_config_element_of(id).has_selector?('dd', :text => path)
+      plugin_config_element_of(id).has_selector?('dd', text: path)
     end
 
     def is_expected_supported_os?(id, os)
-      plugin_config_element_of(id).has_selector?('dd', :text => os)
+      plugin_config_element_of(id).has_selector?('dd', text: os)
     end
 
     def is_expected_go_version?(id, version)
-      plugin_config_element_of(id).has_selector?('dd', :text => version)
+      plugin_config_element_of(id).has_selector?('dd', text: version)
     end
 
     def is_expected_bundled?(id, bundled)
-      plugin_config_element_of(id).has_selector?('dd', :text => bundled)
+      plugin_config_element_of(id).has_selector?('dd', text: bundled)
     end
 
     def plugin_config_element_of(id)
-      plugin_settings.find('.plugin-id', :text => id)
-                      .find(:xpath, "../../..").find('.plugin-config-read-only')
+      plugin_settings.find('.plugin-id', text: id)
+                     .find(:xpath, '../../..').find('.plugin-config-read-only')
     end
 
     def plugin_actions_of(id)
-      plugin_settings.find('.plugin-id', :text => id)
-                      .find(:xpath, "../../..").find('.plugin-actions')
+      plugin_settings.find('.plugin-id', text: id)
+                     .find(:xpath, '../../..').find('.plugin-actions')
     end
 
     def is_plugins_settings_enabled?(id)
@@ -103,8 +101,7 @@ module Pages
     end
 
     def is_plugins_settings_displayed?(id)
-      plugin_settings.find('.plugin-id', :text => id).find(:xpath, "../../..").has_selector?('.plugin-actions', visible: true)
+      plugin_settings.find('.plugin-id', text: id).find(:xpath, '../../..').has_selector?('.plugin-actions', visible: true)
     end
-
   end
 end

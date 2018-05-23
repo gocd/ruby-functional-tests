@@ -62,23 +62,23 @@ end
 step 'Verify pipeline <pipeline> do not show up - On Swift Dashboard page' do |pipeline|
   new_pipeline_dashboard_page.load(autoRefresh: @auto_refresh)
   assert_raise RuntimeError do
-    new_pipeline_dashboard_page.wait_till_pipeline_showsup pipeline
+    new_pipeline_dashboard_page.wait_till_pipeline_showsup pipeline, 5
   end
 end
 
-step 'Verify pipeline is editable - On Swift Dashboard page' do |pipeline|
+step 'Verify pipeline is editable - On Swift Dashboard page' do |_pipeline|
   assert_true new_pipeline_dashboard_page.editable?
 end
 
-step 'Verify pipeline is not editable - On Swift Dashboard page' do |pipeline|
+step 'Verify pipeline is not editable - On Swift Dashboard page' do |_pipeline|
   assert_false new_pipeline_dashboard_page.editable?
 end
 
-step 'Verify pipeline is locked - On Swift Dashboard page' do |pipeline|
+step 'Verify pipeline is locked - On Swift Dashboard page' do |_pipeline|
   assert_true new_pipeline_dashboard_page.locked?
 end
 
-step 'Verify pipeline is not locked - On Swift Dashboard page' do |pipeline|
+step 'Verify pipeline is not locked - On Swift Dashboard page' do |_pipeline|
   assert_false new_pipeline_dashboard_page.locked?
 end
 
@@ -114,19 +114,19 @@ step 'Verify pipeline is paused with reason <reason> by <user> - On Swift Dashbo
   new_pipeline_dashboard_page.pause_message?("Paused by #{user} (#{reason})")
 end
 
-step 'Unpause pipeline - On Swift Dashboard page' do |tmp|
+step 'Unpause pipeline - On Swift Dashboard page' do |_tmp|
   new_pipeline_dashboard_page.unpause_pipeline
 end
 
-step 'Click on history - On Swift Dashboard page' do |tmp|
+step 'Click on history - On Swift Dashboard page' do |_tmp|
   new_pipeline_dashboard_page.click_history
 end
 
-step 'Open changes section - On Swift Dashboard page' do |tmp|
+step 'Open changes section - On Swift Dashboard page' do |_tmp|
   new_pipeline_dashboard_page.open_build_cause
 end
 
-step 'Verify can trigger pipeline' do |tmp|
+step 'Verify can trigger pipeline' do |_tmp|
   assert_false new_pipeline_dashboard_page.trigger_pipeline_disabled?
 end
 
@@ -175,17 +175,25 @@ end
 
 step 'Open pipeline build analytics' do |_tmp|
   new_pipeline_dashboard_page.open_build_analytics
-  
 end
 
 step 'Verify pipeline build time graph is displayed' do |_tmp|
-	assert_true new_pipeline_dashboard_page.build_time_graph_displayed?
+  assert_true new_pipeline_dashboard_page.build_time_graph_displayed?
 end
 
 step 'Verify the MTTR value is calculated' do |_tmp|
-	assert_true new_pipeline_dashboard_page.mttr_displayed?
+  assert_true new_pipeline_dashboard_page.mttr_displayed?
 end
 
 step 'Close pipeline build analytics' do |_tmp|
-	new_pipeline_dashboard_page.close_analytics
+  new_pipeline_dashboard_page.close_analytics
+end
+
+step 'Visit pipeline VSM page and verify VSM is rendered' do
+  new_pipeline_dashboard_page.click_vsm scenario_state.self_pipeline
+  assert_true new_pipeline_dashboard_page.current_vsm_rendered_for scenario_state.self_pipeline
+end
+
+step 'Click on material revision <revision> and verify material VSM is rendered' do |revision|
+  assert_true new_pipeline_dashboard_page.material_vsm_rendered_for revision
 end

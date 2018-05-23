@@ -32,6 +32,7 @@ VERSION_NUMBER = ENV['GO_VERSION'] || (raise 'Environment variable GO_VERSION no
 GAUGE_TAGS = ENV['GAUGE_TAGS'] || 'smoke'
 LOAD_BALANCED = GO_JOB_RUN_COUNT && GO_JOB_RUN_INDEX
 DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
+USE_POSTGRESQL = !ENV['USE_POSTGRESQL']
 
 ELASTICAGENTS_PLUGIN_RELEASE_URL = ENV['ELASTICAGENTS_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/elastic-agent-skeleton-plugin/releases/latest'
 JSON_CONFIG_PLUGIN_RELEASE_URL = ENV['JSON_CONFIG_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/tomzo/gocd-json-config-plugin/releases/latest'
@@ -130,7 +131,7 @@ namespace :plugins do
       cp_r "../#{GO_TRUNK_DIRNAME}/test/test-addon/target/libs/.", "target/go-server-#{VERSION_NUMBER}/addons"
     else
       cp_r 'target/go-plugins-dist/.', "target/go-server-#{VERSION_NUMBER}/plugins/external"
-      cp_r 'target/test-addon/.', "target/go-server-#{VERSION_NUMBER}/addons"
+
     end
     url = JSON.parse(open(ELASTICAGENTS_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
     sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/elastic-agent-skeleton-plugin.jar"
@@ -152,7 +153,7 @@ namespace :plugins do
     ENV['POSTGRES_DB_HOST_TO_USE'] = "#{ENV['DB_HOST'] || "localhost"}"
   
   
-    puts "Using DB: #{ENV['POSTGRES_DB_NAME_TO_USE']} on host: #{ENV['ANALYTICS_DB_NAME_TO_USE']}"
+    puts "Using DB: #{ENV['ANALYTICS_DB_NAME_TO_USE']} on host: #{ENV['POSTGRES_DB_HOST_TO_USE']}"
   
     db_user = ENV['DB_USER'] || 'postgres'
   
@@ -193,6 +194,31 @@ namespace :addons do
     else
       cp_r 'target/test-addon/.', "target/go-server-#{VERSION_NUMBER}/addons"
     end
+
+    if USE_POSTGRESQL
+      mv Dir.glob('target/*-addon/*.jar'), "target/go-server-#{VERSION_NUMBER}/addons"
+
+      # Drop and recreate database for the test
+
+      generated_db_name="#{ENV['DB_NAME_PREFIX']}__#{ENV['GO_JOB_NAME']}__#{ENV['GO_STAGE_NAME']}__#{ENV['GO_PIPELINE_NAME']}".gsub(/[^0-9a-zA-Z]/, "_")[0..62]
+      ENV['POSTGRES_DB_NAME_TO_USE'] = "#{ENV['DB_NAME_PREFIX'] ? generated_db_name : "go"}"
+
+      ENV['POSTGRES_DB_HOST_TO_USE'] = "#{ENV['DB_HOST'] || "localhost"}"
+    
+    
+      puts "Using DB: #{ENV['POSTGRES_DB_NAME_TO_USE']} on host: #{ENV['POSTGRES_DB_HOST_TO_USE']}"
+    
+      db_user = ENV['DB_USER'] || 'postgres'
+    
+      drop_db_command = "java -jar tools/run_with_postgres.jar #{ENV['POSTGRES_DB_HOST_TO_USE']} 5432 postgres #{db_user} '' 'DROP DATABASE IF EXISTS #{ENV['POSTGRES_DB_NAME_TO_USE']}'"
+      create_db_command = "java -jar tools/run_with_postgres.jar #{ENV['POSTGRES_DB_HOST_TO_USE']} 5432 postgres #{db_user} '' 'CREATE DATABASE #{ENV['POSTGRES_DB_NAME_TO_USE']}'"
+      system("#{drop_db_command} && #{create_db_command}") || (puts "Failed to drop and recreate DB. Tried running: #{drop_db_command} && #{create_db_command}"; exit 1)
+    
+      puts "Recreated Postgresql DB: #{ENV['POSTGRES_DB_NAME_TO_USE']}"
+    else
+      p 'Not set to run with postgresql addon, proceeding with h2 database...'
+    end
+
   end
 
   desc 'gradle build test addons'

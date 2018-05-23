@@ -32,7 +32,7 @@ VERSION_NUMBER = ENV['GO_VERSION'] || (raise 'Environment variable GO_VERSION no
 GAUGE_TAGS = ENV['GAUGE_TAGS'] || 'smoke'
 LOAD_BALANCED = GO_JOB_RUN_COUNT && GO_JOB_RUN_INDEX
 DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
-USE_POSTGRESQL = !ENV['USE_POSTGRESQL']
+USE_POSTGRESQL = !ENV['USE_POSTGRESQL'].nil?
 
 ELASTICAGENTS_PLUGIN_RELEASE_URL = ENV['ELASTICAGENTS_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/elastic-agent-skeleton-plugin/releases/latest'
 JSON_CONFIG_PLUGIN_RELEASE_URL = ENV['JSON_CONFIG_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/tomzo/gocd-json-config-plugin/releases/latest'
@@ -145,7 +145,6 @@ namespace :plugins do
   task :prepare_analytics do
     mkdir_p "target/go-server-#{VERSION_NUMBER}/plugins/external"
     sh "curl --silent --location -o target/go-server-#{VERSION_NUMBER}/plugins/external/analytics-plugin.jar --fail -H 'Accept: binary/octet-stream' --user '#{ENV['EXTENSIONS_USER']}:#{ENV['EXTENSIONS_PASSWORD']}' #{ANALYTICS_PLUGIN_DOWNLOAD_URL}"
-    #sh "cp ~/workspace/manual/analytics-plugin.jar target/go-server-#{VERSION_NUMBER}/plugins/external/"
 
     # preparing the database - drop and recreate analytics database
     

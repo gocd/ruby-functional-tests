@@ -82,10 +82,13 @@ Setup of contexts
 * Verify stage "firstStage" is "Passed" - On Swift Dashboard page
 * Open trigger with options - On Swift Dashboard page
  
-Enable  below step once PR https://github.com/gocd/gocd/pull/4525 is merged
 * Verify last run revision is "git-commit1" - On Swift Dashboard page
 
 * Close - Trigger with options - On Swift Dashboard page
+
+* Visit pipeline VSM page and verify VSM is rendered
+* Click on material revision "git-commit1" and verify material VSM is rendered
+
 
 Teardown of contexts
 ____________________

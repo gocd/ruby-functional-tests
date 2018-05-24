@@ -39,9 +39,9 @@ Verify visiblility after pipeline selection
 * Verify group "dependency-group" is not visible - On Swift Dashboard page
 
 Enable security
-* Enable security and add "admin,pavan" as admins
+* Enable security and add "admin,pipelineSelectorAdmin,pavan" as admins
 * Load login page
-* Login as "admin" - Swift Dashboard
+* Login as "pipelineSelectorAdmin" - Swift Dashboard
 
 * Turn on AutoRefresh - On Swift Dashboard page
 * Open pipelines selector - On Swift Dashboard page
@@ -94,7 +94,7 @@ Enable security
 
 
 //Verify 'admin' sees his own selections
-* Logout and login as "admin"
+* Logout and login as "pipelineSelectorAdmin"
 
 //Verify 'admin' sees his own selections + newly created pipelines by 'admin' + don't see any pipelines created by pavan
 * Verify group "artifact_md5_verification" is visible - On Swift Dashboard page
@@ -127,7 +127,7 @@ Enable security
 * Move pipeline "artifact_md5_verification-pipeline-1" from group "artifact_md5_verification" to group "basic"
 
 //Verify 'admin' sees his own selections except the deleted pipeline
-* Logout and login as "admin"
+* Logout and login as "pipelineSelectorAdmin"
 * Verify group "artifact_md5_verification" is visible - On Swift Dashboard page
 * Verify pipeline "artifact_md5_verification-pipeline-2" shows up - On Swift Dashboard page
 * Verify group "dependency-group" is visible - On Swift Dashboard page
@@ -163,6 +163,7 @@ Enable security
 
 Teardown of contexts
 ____________________
+* As user "pipelineSelectorAdmin" for teardown
 * Capture go state "PipelineSelector" - teardown
 * Logout - from any page
 

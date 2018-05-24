@@ -3,7 +3,7 @@ PipelineSelectorWithSecurity
 
 Setup of contexts
 * Secure Configuration - setup
-* Login as "admin" - setup
+* Login as "pipelineSelectorAdmin" - setup
 * Using pipeline "basic-pipeline-with-git-material, admin-pipeline, viewable-pipeline, manual-stages-that-run-till-file-exists, operable-pipeline" - setup
 * Capture go state "PipelineSelectorWithSecurity" - setup
 
@@ -14,7 +14,10 @@ tags: pipeline_selector, with_security
 
 * Turn on AutoRefresh - On Swift Dashboard page
 * Open pipelines selector - On Swift Dashboard page
+* Select all pipelines
+* Apply selections
 
+* Open pipelines selector - On Swift Dashboard page
 * Verify groups "basic, admin-only, viewable, open-to-all,operable" are visible - Already on pipelines selector section
 * Verify all pipelines are selected
 * Deselect all pipelines
@@ -61,7 +64,7 @@ tags: pipeline_selector, with_security
 * Verify group "admin-only" is not visible - On Swift Dashboard page
 * Verify group "operable" is not visible - On Swift Dashboard page
 
-* Logout and login as "admin"
+* Logout and login as "pipelineSelectorAdmin"
 
 * Verify group "basic" is not visible - On Swift Dashboard page
 * Verify group "open-to-all" is visible - On Swift Dashboard page
@@ -102,7 +105,8 @@ tags: pipeline_selector, with_security
 
 Teardown of contexts
 ____________________
-* Logout and login as "admin"
+* As user "pipelineSelectorAdmin" for teardown
 * Capture go state "PipelineSelectorWithSecurity" - teardown
+* Logout - from any page
 
 

@@ -30,6 +30,7 @@
                 <role name="admins">
                     <users>
                         <user>admin</user>
+                        <user>pipelineSelectorAdmin</user>
                     </users>
                 </role>
                 <role name="operator">

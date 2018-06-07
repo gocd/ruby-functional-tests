@@ -23,7 +23,7 @@ tags: plugins-tests, plugins_spa, SPA
 
 * Verify plugin with id "com.example.elasticagent.foocloud" is valid
 * Verify plugin with id "com.example.elasticagent.foocloud" has version "0.2-SNAPSHOT" name "Example Elastic Agent Plugin" description "Some longer description of your plugin goes here" author "Acme Corp" with enabled link to "https://github.com/user/repository"
-* Verify plugin with id "com.example.elasticagent.foocloud" has path "/plugins/external/elastic-agent-skeleton-plugin.jar" supported OS "No restrictions" target go version "18.12.0" and bundled status as "No"
+* Verify plugin with id "com.example.elasticagent.foocloud" has path "/plugins/external/elastic-agent-skeleton-plugin.jar" supported OS "No restrictions" target go version "18.2.0" and bundled status as "No"
 
 * Verify plugin with id "test-plugin-xml" is marked as invalid with message "Plugin with ID (test-plugin-xml) is not valid: Incompatible with current operating system 'Linux'. Valid operating systems are: [Windows]."
 
@@ -58,7 +58,7 @@ Below steps fail becuase new plugins page do not show values as "Unknown" if the
 
 * Verify plugin with id "com.example.elasticagent.foocloud" is valid
 * Verify plugin with id "com.example.elasticagent.foocloud" has version "0.2-SNAPSHOT" name "Example Elastic Agent Plugin" description "Some longer description of your plugin goes here" author "Acme Corp" with enabled link to "https://github.com/user/repository"
-* Verify plugin with id "com.example.elasticagent.foocloud" has path "/plugins/external/elastic-agent-skeleton-plugin.jar" supported OS "No restrictions" target go version "18.12.0" and bundled status as "No"
+* Verify plugin with id "com.example.elasticagent.foocloud" has path "/plugins/external/elastic-agent-skeleton-plugin.jar" supported OS "No restrictions" target go version "18.2.0" and bundled status as "No"
 
 Below steps fail becuase new plugins page do not show values as "Unknown" if they dont exists
 

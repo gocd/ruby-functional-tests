@@ -42,25 +42,6 @@ module Pages
       end
     end
 
-    def verify_footer()
-      footer = page.find('p[class="copyright"]')
-      assert_true footer.text.include?("Copyright © #{Time.now.strftime('%Y')} ThoughtWorks, Inc. Licensed under Apache License, Version 2.0. Go includes third-party software. Go Version: #{ENV['GO_VERSION']}")
-      assert_true footer.has_link?(nil, href: "https://www.thoughtworks.com/products")
-      assert_true footer.has_link?(nil, href: "https://www.apache.org/licenses/LICENSE-2.0")
-      assert_true footer.has_link?(nil, href: "/go/NOTICE/cruise_notice_file.pdf")
-
-      social = page.find('span[class="inline-list social"]')
-      assert_true social.has_link?(nil, href: "https://twitter.com/goforcd")
-      assert_true social.has_link?(nil, href: "https://github.com/gocd/gocd")
-      assert_true social.has_link?(nil, href: "https://groups.google.com/d/forum/go-cd")
-      assert_true social.has_link?(nil, href: "https://docs.gocd.org/#{GoConstants::GO_VERSION}")
-      assert_true social.has_link?(nil, href: "https://www.gocd.org/plugins/")
-      assert_true social.has_link?(nil, href: "https://api.gocd.org/#{GoConstants::GO_VERSION}")
-      assert_true social.has_link?(nil, href: "/go/about")
-      assert_true social.has_link?(nil, href: "/go/cctray.xml")
-
-    end
-
     def menu_item_visible(item)
       page.all('ul', :class => 'menu').first.has_css?('a', :text => item.upcase)
     end

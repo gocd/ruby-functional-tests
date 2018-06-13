@@ -21,7 +21,3 @@ end
 step "Verify page title is <title>" do |title|
   preferences_page.verify_title(title)
 end
-
-step "Verify cruise footer - On preferences page" do
-  preferences_page.verify_footer()
-end

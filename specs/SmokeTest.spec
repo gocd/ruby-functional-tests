@@ -20,8 +20,6 @@ Setup of contexts
 * On Preferences page
 * Verify page title is "Preferences"
 
-* Verify cruise footer - On preferences page
-
 teardown
 _______________
 * Capture go state "SmokeTest" - teardown

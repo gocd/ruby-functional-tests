@@ -31,6 +31,7 @@ require 'context/pipeline'
 require 'context/ldap'
 require 'pages/app_base'
 require 'pages/login_page'
+require 'pages/data_sharing_spa'
 require 'pages/agents_spa'
 require 'pages/pipeline_dashboard_page'
 require 'pages/environments_page'
@@ -58,6 +59,10 @@ module Helpers
 
     def login_page
       Pages::Login.new
+    end
+
+    def data_sharing_spa_page
+      Pages::DataSharingSPA.new
     end
 
     def agents_spa_page

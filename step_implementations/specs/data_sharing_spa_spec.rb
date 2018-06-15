@@ -43,8 +43,8 @@ step 'Verify data that will be shared is visible' do
 end
 
 step 'Verify data sharing permissions are updated by <user> user' do |user|
-  msg ="#{user} changed the data sharing permission on 15 Jun 2018."
-  assert_equal msg, data_sharing_spa_page.get_updated_by_message, "Expected data sharing permissions to be updated by user #{user}"
+  msg ="#{user} changed the data sharing permission"
+  assert_true data_sharing_spa_page.get_updated_by_message.include? msg
 end
 
 step 'Verify data sharing consent is <isAllowed>' do |isAllowed|

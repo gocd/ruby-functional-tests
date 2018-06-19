@@ -54,6 +54,7 @@
     <authorization>
         <admins>
           <user>admin</user>
+          <user>group1Admin</user>
         </admins>
       </authorization>
         <pipeline name="admin-pipeline" lockBehavior="lockOnFailure">

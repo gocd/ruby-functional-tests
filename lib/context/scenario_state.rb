@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2016 ThoughtWorks, Inc.
+# Copyright 2018 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,6 +19,14 @@ module Context
     def initialize
       @scenario_store = Gauge::DataStoreFactory.scenario_datastore
       @scenario_store.put 'non-existing-pipeline', 'ghost-pipeline'
+    end
+
+    def retrive key
+      @scenario_store.get key
+    end
+
+    def store (key, value)
+      @scenario_store.put key, value
     end
 
     def add_pipeline(initial_name, replaced_name)
@@ -104,5 +112,6 @@ module Context
     def get_current_material_name
       @scenario_store.get "current_material_name"
     end
+
   end
 end

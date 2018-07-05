@@ -124,6 +124,11 @@ module Pages
         .find(:xpath, '..').has_css?('.edit_config.disabled')
     end
 
+    def edit_pipeline(pipeline)
+      !(pipeline_name text: scenario_state.self_pipeline)
+        .find(:xpath, '..').find('.edit_config').click
+    end
+
     def locked?
       (pipeline_name text: scenario_state.self_pipeline)
         .find(:xpath, '..').has_css?('.pipeline_locked')

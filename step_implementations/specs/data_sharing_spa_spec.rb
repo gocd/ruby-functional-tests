@@ -57,7 +57,7 @@ end
 
 def verify_usage_data_displayed_info(response, displayed_info)
    response_body = response.body
-   expected = JSON.parse(response_body)['_embedded']
+   expected = JSON.parse(response_body)
    actual = JSON.parse(displayed_info)
 
    assert_equal expected, actual, "Expected data being shared to be visible. Original_Data: #{expected}. Displayed_Data: #{actual}"

@@ -93,7 +93,7 @@ module Context
     def create_pipeline(material, upstream)
       pipeline = Pipeline.new(group: 'configrepo', name: @pipeline_name.to_s) do |p|
         p << GitMaterial.new(url: material.to_s, name: 'gitmaterial')
-        p << DependencyMaterial.new(pipeline: scenario_state.get_pipeline(upstream).to_s) unless upstream.empty?
+        p << DependencyMaterial.new(pipeline: scenario_state.actual_pipeline_name(upstream).to_s) unless upstream.empty?
         p << Stage.new(name: 'defaultStage') do |s|
           s << Job.new(name: 'defaultJob') do |j|
             j << ExecTask.new(command: 'ls')
@@ -112,7 +112,7 @@ module Context
     def update_pipeline(upstream)
       pipeline = Pipeline.new(group: 'configrepo', name: @pipeline_name.to_s) do |p|
         p << GitMaterial.new(url: "#{@path}/config_repo.git", name: 'gitmaterial')
-        p << DependencyMaterial.new(pipeline: scenario_state.get_pipeline(upstream).to_s)
+        p << DependencyMaterial.new(pipeline: scenario_state.actual_pipeline_name(upstream).to_s)
         p << Stage.new(name: 'defaultStage') do |s|
           s << Job.new(name: 'defaultJob') do |j|
             j << ExecTask.new(command: 'ls')

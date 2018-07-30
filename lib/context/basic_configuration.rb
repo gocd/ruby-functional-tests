@@ -76,7 +76,7 @@ module Context
 
     def set_material_path_for_pipeline(pipeline, material_path)
       current_config = get_config_from_server
-      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get_pipeline(pipeline)}']/materials/git").each do |material|
+      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline)}']/materials/git").each do |material|
         material['url'] = material_path
       end
       load_dom(current_config)
@@ -119,7 +119,7 @@ module Context
       self.config_dom = get_config_from_server
 
       except_pipelines_names = except_pipelines.map do |except_pipeline|
-        scenario_state.get_pipeline(except_pipeline)
+        scenario_state.actual_pipeline_name(except_pipeline)
       end
 
       config_dom.xpath('//cruise/pipelines/pipeline').each do |pipeline|

@@ -21,8 +21,12 @@ module Pages
 
     element :add_store, '.button.add-artifact-store'
     element :store_modal, '.artifact-store-modal-body'
-    element :save, '.button.save primary'
+    element :save, '.button.save.primary'
     element :id, "input[data-prop-name='id']"
+    element :plugin_id, "select[data-prop-name='pluginId']"
+    element :server_url, "input[ng-model='Url']"
+    element :username, "input[ng-model='Username']"
+    element :password, "input[ng-model='Password']"
     
 
 
@@ -31,6 +35,15 @@ module Pages
     def start_add_store
       add_store.click
       assert_true has_store_modal?
+    end
+
+    def plugin=(plugin)
+      plugin_id.select plugin
+    end
+
+    def fill_form(field_value)
+      f = field_value.split(':', 2)
+      instance_eval(f[0]).set("#{f[1]}")
     end
 
     def save_store

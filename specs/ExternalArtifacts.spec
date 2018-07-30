@@ -6,32 +6,36 @@ ExternalArtifacts
 tags: external_artifacts
 
 Setup of contexts
-* Secure Configuration - setup
+* External Artifacts Configuration - setup
 * Login as "admin" - setup
+* Using pipeline "upstream, downstream" - setup
+* With "1" live agents - setup
 * Capture go state "ExternalArtifacts" - setup
 
-* Start creating artifact store for plugin "plugin-name"
-* Specify store details as "key1:value1" "key2:value2"
-* On Job settings page of pipeline "pipeline_name"
-* Open Artifacts tab
+* Start creating artifact store for plugin "Dummy artifact plugin" with id "TestArtifact"
+* Save store details as "server_url: http://localhost:8153/go, username: admin, password: badger"
+* On Job settings page of pipeline "upstream" stage "defaultStage" job "defaultJob"
+* Open "Artifacts" tab - On Job settings page
 * Add artifact of type "External"
-* Use external artifact plugin "plugin-name"
-* Save artifact details as "key1:value1" "key2:value2"
-* On Swift Dashboard Page
-* Click on pipeline "downstream" for editing
-* Open stage listing page
-* Open stage "defaultStage"
-* Open jobs
-* Open job "defaultJob"
-* Add task "Fetch Artifact" of type "External"
-* Save task details as "key1:value1" "key2:value2"
+* Start creating external artifact with values "external_artifacts_id: test_artifact, external_artifacts_store_id: TestArtifact"
+* Save external artifact with values "source: test_artifact, destination: TestArtifact"
+
+* On Job settings page of pipeline "downstream" stage "defaultStage" job "defaultJob"
+* Open "Tasks" tab - On Job settings page
+* Add task "Fetch Artifact"
+* Select artifact type "External" pipeline "upstream" stage "defaultStage" job "defaultJob" artifact id "TestArtifact"
+* Save task details
+
+
 * Looking at pipeline "upstream" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed
-* Verify stage "firstStage" is "passed" - On Swift Dashboard page
-* Looking at pipeline "downstream" - On Swift Dashboard page
-* Wait till pipeline completed
-* Verify stage "firstStage" is "passed" - On Swift Dashboard page
+ Verify stage "firstStage" is "passed" - On Swift Dashboard page
+ Looking at pipeline "downstream" - On Swift Dashboard page
+ Wait till pipeline completed
+ Verify stage "firstStage" is "passed" - On Swift Dashboard page
+
+
 
 More steps on console logs verification and artifacts tab verification on job details page to be added here
 

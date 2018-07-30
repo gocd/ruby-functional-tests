@@ -31,13 +31,13 @@ end
 
 step 'Verify pipelines <pipelines> are available on <environment> edit page' do |pipelines, environment|
   pipelines.split(',').each do |p|
-    assert_true environments_edit_page(scenario_state.get_environment(environment)).is_pipeline_exists? scenario_state.get_pipeline(p.strip)
+    assert_true environments_edit_page(scenario_state.get_environment(environment)).is_pipeline_exists? scenario_state.actual_pipeline_name(p.strip)
   end
 end
 
 step 'Verify pipelines <pipelines> are not available on <environment> edit page' do |pipelines, environment|
   pipelines.split(',').each do |p|
-    assert_false environments_edit_page(scenario_state.get_environment(environment)).is_pipeline_exists? scenario_state.get_pipeline(p.strip)
+    assert_false environments_edit_page(scenario_state.get_environment(environment)).is_pipeline_exists? scenario_state.actual_pipeline_name(p.strip)
   end
 end
 
@@ -82,18 +82,18 @@ step 'Add agent <agent> and save environment' do |agent|
 end
 
 step 'Add pipeline <pipeline> and save environment' do |pipeline|
-  environments_edit_page(scenario_state.get_current_environment).add_pipeline(scenario_state.get_pipeline(pipeline))
+  environments_edit_page(scenario_state.get_current_environment).add_pipeline(scenario_state.actual_pipeline_name(pipeline))
   environments_edit_page(scenario_state.get_current_environment).save
 end
 
 step 'Verify removing pipelines <pipelines> is not allowed' do |pipelines|
   pipelines.split(',').each do |p|
-    assert_false environments_edit_page(scenario_state.get_current_environment).can_edit_pipeline? scenario_state.get_pipeline(p.strip)
+    assert_false environments_edit_page(scenario_state.get_current_environment).can_edit_pipeline? scenario_state.actual_pipeline_name(p.strip)
   end
 end
 
 step 'Remove pipelines <pipelines> and save environment' do |pipelines|
-  pipelines.split(',').each { |p| environments_edit_page(scenario_state.get_current_environment).remove_pipeline scenario_state.get_pipeline(p.strip) }
+  pipelines.split(',').each { |p| environments_edit_page(scenario_state.get_current_environment).remove_pipeline scenario_state.actual_pipeline_name(p.strip) }
   environments_edit_page(scenario_state.get_current_environment).save
 end
 

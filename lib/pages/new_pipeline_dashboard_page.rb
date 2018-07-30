@@ -177,11 +177,11 @@ module Pages
     end
 
     def visible?(pipeline)
-      has_pipeline_name? text: (scenario_state.get_pipeline(pipeline) || pipeline)
+      has_pipeline_name? text: (scenario_state.actual_pipeline_name(pipeline) || pipeline)
     end
 
     def wait_till_pipeline_showsup(pipeline, timeout=120)
-      wait_till_event_occurs_or_bomb timeout, "Pipeline #{scenario_state.get_pipeline(pipeline)} failed to showup on dashboard" do
+      wait_till_event_occurs_or_bomb timeout, "Pipeline #{scenario_state.actual_pipeline_name(pipeline)} failed to showup on dashboard" do
         reload_page
         break if visible?(pipeline)
       end
@@ -337,7 +337,7 @@ module Pages
     private
 
     def pipeline_checkbox_for(pipeline_name)
-      pipeline_selector_dropdown.find("input#pipeline_#{scenario_state.get_pipeline(pipeline_name)}")
+      pipeline_selector_dropdown.find("input#pipeline_#{scenario_state.actual_pipeline_name(pipeline_name)}")
     end
 
     def get_pipeline_checkboxes_for(pipeline_group_name)

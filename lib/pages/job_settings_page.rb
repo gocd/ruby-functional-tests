@@ -16,7 +16,7 @@
 
 module Pages
   class JobSettings < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines{/pipeline_name}/stages{/stage_name}/job/{/job_name}/tasks"
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines{/pipeline_name}/stages{/stage_name}/job{/job_name}/tasks"
 
     element :add_new_task, '#add_new_task_dropdown_link'
     element :new_task_list, '#new_task_popup'
@@ -26,9 +26,7 @@ module Pages
     element :task_job, '#task_job'
     element :task_artifactId, '#task_artifactId'
     element :task_save, "button[value='SAVE']"
-    element :artifacts_tab, '#artifacts'
-    element :tasks_tab, '#tasks'
-    element :select_artifact_type, '#select_artifact_type'
+    element :publish_artifact_type, '#select_artifact_type'
     element :add_artifact, '#add_artifact'
     element :artifact_source, '.artifact_source'
     element :store_id, "input[name='job[artifactConfigs][][storeId]']"
@@ -38,7 +36,12 @@ module Pages
 
     def add_new_task_of_type(type)
       add_new_task.click
+      add_new_task.click
       new_task_list.find('a', text: type).click
+    end
+
+    def on_tab(tab_name)
+      page.find('a', text: tab_name).click
     end
   end
 end

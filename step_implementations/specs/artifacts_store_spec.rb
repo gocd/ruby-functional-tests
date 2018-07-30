@@ -14,22 +14,16 @@
 # limitations under the License.
 ##########################################################################
 
-module Pages
-  class JobDetails < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/tab/build/detail{/pipeline_name}{/pipeline_counter}{/stage_name}{/stage_counter}{/job_name}"
+step 'Start creating artifact store for plugin <plugin_name> with id <id>' do |plugin_name, id|
+  artifacts_store_page.load
+  artifacts_store_page.start_add_store
+  artifacts_store_page.id.set id
+  artifacts_store_page.plugin= plugin_name
+end
 
-    element :tabs, '.sub_tabs_container'
-    element :console_output, '.buildoutput_pre'
-
-
-    load_validation { has_add_new_task? }
-
-    def on_tab(type)
-      tabs.find('a', text: type).click
-    end
-
-    def console_content
-      console_output['innerHTML']
-    end
+step 'Save store details as <key_value>' do |key_value|
+  key_value.split(',').each do |field|
+    artifacts_store_page.fill_form(field)
   end
+  artifacts_store_page.save_store
 end

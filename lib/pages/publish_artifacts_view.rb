@@ -15,21 +15,21 @@
 ##########################################################################
 
 module Pages
-  class JobDetails < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/tab/build/detail{/pipeline_name}{/pipeline_counter}{/stage_name}{/stage_counter}{/job_name}"
+  
+  class PublishArtifactsView < AppBase
 
-    element :tabs, '.sub_tabs_container'
-    element :console_output, '.buildoutput_pre'
+    elements :external_artifacts_form, '.dirtyform'
+    elements :external_artifacts_id, '#job_artifactConfigs__id'
+    elements :external_artifacts_store_id, '#job_artifactConfigs__storeId'
+    elements :source, "input[name='job[artifactConfigs][][configuration][Source]']"
+    elements :destination, "input[name='job[artifactConfigs][][configuration][Destination]']"
+    element :save_publish_artifacts, "button[value='SAVE']"
 
-
-    load_validation { has_add_new_task? }
-
-    def on_tab(type)
-      tabs.find('a', text: type).click
+    def fill_form(key_value)
+      f = key_value.split(':', 2)
+      external_artifacts_form[0].find(:xpath, instance_eval(f[0])[0].path).set("#{f[1]}")
     end
 
-    def console_content
-      console_output['innerHTML']
-    end
   end
+  
 end

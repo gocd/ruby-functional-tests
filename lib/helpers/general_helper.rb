@@ -18,7 +18,7 @@ module Helpers
   module GeneralHelper
 
     def sanitize_message(msg)
-      msg.gsub(/\$(.*?)\$/) {|name| scenario_state.get_pipeline(name.delete! '$') }
+      msg.gsub(/\$(.*?)\$/) {|name| scenario_state.actual_pipeline_name(name.delete! '$') }
     end
 
 

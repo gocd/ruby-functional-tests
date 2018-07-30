@@ -26,6 +26,11 @@ step 'Secure Configuration - setup' do
   secure_configuration.setup 'secure-cruise-config.xml', 'password.properties'
 end
 
+
+step 'External Artifacts Configuration - setup' do
+  secure_configuration.setup 'external-artifacts-cruise-config.xml', 'password.properties'
+end
+
 step 'Multiple agents Configuration - setup' do
   basic_configuration.setup 'multiple-agents-cruise-config.xml'
 end

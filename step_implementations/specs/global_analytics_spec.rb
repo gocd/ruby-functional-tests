@@ -19,7 +19,7 @@ step 'Navigate to global analytics page' do |_tmp|
 end
 
 step 'Verify pipeline <name> is shown on top of pipelines waiting longest for agents' do |pipeline_name|
-	assert_true global_analytics_page.pipeline_with_highest_wait_time.casecmp(scenario_state.get_pipeline(pipeline_name)).zero?
+	assert_true global_analytics_page.pipeline_with_highest_wait_time.casecmp(scenario_state.actual_pipeline_name(pipeline_name)).zero?
 end
 
 step 'Configure analytics plugin' do ||
@@ -46,5 +46,5 @@ step 'Verify pipelines <pipelines> are listed' do |pipelines|
 end
 
 step 'Selecting pipeline <pipeline> should show pipeline build analytics' do |pipeline|
-	global_analytics_page.pipeline_build_time_visible_on_selection scenario_state.get_pipeline(pipeline)
+	global_analytics_page.pipeline_build_time_visible_on_selection scenario_state.actual_pipeline_name(pipeline)
 end

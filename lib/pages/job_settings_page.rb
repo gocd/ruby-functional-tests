@@ -30,6 +30,7 @@ module Pages
     element :add_artifact, '#add_artifact'
     element :artifact_source, '.artifact_source'
     element :store_id, "input[name='job[artifactConfigs][][storeId]']"
+    element :task_configuration_path, "input[name='task[configuration][Path]']"
 
 
     load_validation { has_add_new_task? }

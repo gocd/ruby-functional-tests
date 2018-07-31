@@ -43,7 +43,7 @@ module Pages
 
     def fill_form(field_value)
       f = field_value.split(':', 2)
-      instance_eval(f[0]).set("#{f[1]}")
+      instance_eval(f[0]).set("#{f[1].strip}")
     end
 
     def save_store

@@ -63,7 +63,11 @@
                 <jobs>
                 <job name="defaultJob">
                     <tasks>
-                    <exec command="ls"/>
+                    <exec command="/bin/bash">
+                        <arg>-c</arg>
+                        <arg>sleep 10; touch artifact.txt</arg>
+                        <runif status="passed" />
+                    </exec>
                     </tasks>
                 </job>
                 </jobs>
@@ -71,14 +75,15 @@
         </pipeline>
         <pipeline name="downstream" lockBehavior="lockOnFailure">
             <materials>
-                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+                <pipeline pipelineName="upstream" stageName="defaultStage" materialName="upstream" />
             </materials>
             <stage name="defaultStage">
-                <approval type="manual"/>
                 <jobs>
                 <job name="defaultJob">
                     <tasks>
-                    <exec command="ls"/>
+                    <exec command="sleep" >
+                        <arg>10</arg>
+                    </exec>
                     </tasks>
                 </job>
                 </jobs>

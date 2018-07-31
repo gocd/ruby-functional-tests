@@ -45,12 +45,13 @@ step 'Add task <task_name>' do |task|
   job_settings_page.add_new_task_of_type task
 end
 
-step 'Select artifact type <a_type> pipeline <p_name> stage <s_name> job <j_name> artifact id <a_id>' do |a_type, p_name, s_name, j_name, a_id|
+step 'Select artifact type <a_type> pipeline <p_name> stage <s_name> job <j_name> artifact id <a_id> path <path>' do |a_type, p_name, s_name, j_name, a_id, path|
   job_settings_page.external_artifact.click
   job_settings_page.task_pipeline.set scenario_state.actual_pipeline_name(p_name)
   job_settings_page.task_stage.set s_name
   job_settings_page.task_job.set j_name
   job_settings_page.task_artifactId.set a_id
+  job_settings_page.task_configuration_path.set path
 end
 
 step 'Save task details' do

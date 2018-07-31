@@ -51,6 +51,7 @@ require 'pages/global_analytics_page'
 require 'pages/artifacts_store_page'
 require 'pages/job_settings_page'
 require 'pages/publish_artifacts_view'
+require 'pages/job_details_page'
 
 
 
@@ -142,6 +143,10 @@ module Helpers
 
     def publish_artifacts_view
       Pages::PublishArtifactsView.new
+    end
+
+    def job_details_page
+      Pages::JobDetailsPage.new
     end
 
     def basic_configuration

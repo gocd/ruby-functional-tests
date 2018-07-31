@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2016 ThoughtWorks, Inc.
+# Copyright 2018 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,13 +14,16 @@
 # limitations under the License.
 ##########################################################################
 
-module Helpers
-  module GeneralHelper
+step 'Start creating artifact store for plugin <plugin_name> with id <id>' do |plugin_name, id|
+  artifacts_store_page.load
+  artifacts_store_page.start_add_store
+  artifacts_store_page.id.set id
+  artifacts_store_page.plugin= plugin_name
+end
 
-    def sanitize_message(msg)
-      msg.gsub(/\$(.*?)\$/) {|name| scenario_state.actual_pipeline_name(name.delete! '$') }
-    end
-
-
+step 'Save store details as <key_value>' do |key_value|
+  key_value.split(',').each do |field|
+    artifacts_store_page.fill_form(field)
   end
+  artifacts_store_page.save_store
 end

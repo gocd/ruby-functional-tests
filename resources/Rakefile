@@ -17,28 +17,26 @@
 # Test Rakefile to be checked in to any SCM material repostitory used in test
 
 task :wait_for_stopjob_file do
-  until File.exist?("../../../stopjob")
-    sleep 1
-  end
-  p "Exiting waiting loop as the stop job file created"
+  sleep 1 until File.exist?('../../../stopjob')
+  p 'Exiting waiting loop as the stop job file created'
 end
 
 task :wait_and_fail do
-  until File.exist?("../../../failjob")
-    sleep 1
-  end
-  fail("Intentionally fail the job")
+  sleep 1 until File.exist?('../../../failjob')
+  raise('Intentionally fail the job')
 end
 
 task :wait_or_fail do
-  until File.exist?("../../../failjob") || File.exist?("../../../stopjob")
+  until File.exist?('../../../failjob') || File.exist?('../../../stopjob')
     sleep 1
   end
-  fail("Intentionally fail the job") if File.exist?("../../../failjob")
+  raise('Intentionally fail the job') if File.exist?('../../../failjob')
 end
 
 task :wait_forever do
-  until File.exist?("../../../neverexists")
-    sleep 1
-  end
+  sleep 1 until File.exist?('../../../neverexists')
+end
+
+task :create_file, [:file_name] do |_t, args|
+  File.open(args.file_name.to_s, 'w') { |f| f.write 'Testfile' }
 end

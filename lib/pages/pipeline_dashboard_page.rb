@@ -19,24 +19,24 @@ module Pages
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/old_dashboard{?autoRefresh*}"
 
     def trigger_pipeline(pipeline)
-      SitePrism::Page.element :trigger_button, "#deploy-#{scenario_state.get_pipeline(pipeline)}"
+      SitePrism::Page.element :trigger_button, "#deploy-#{scenario_state.actual_pipeline_name(pipeline)}"
       trigger_button.click
       reload_page
     end
 
     def get_latest_stage_state(pipeline)
-      SitePrism::Page.element :pipeline_panel, "#pipeline_#{scenario_state.get_pipeline(pipeline)}_panel"
+      SitePrism::Page.element :pipeline_panel, "#pipeline_#{scenario_state.actual_pipeline_name(pipeline)}_panel"
       pipeline_panel.find('.latest_stage').text
     end
 
     def get_pipeline_stage_state(pipeline, stagename)
-      SitePrism::Page.element :pipeline_panel, "#pipeline_#{scenario_state.get_pipeline(pipeline)}_panel"
+      SitePrism::Page.element :pipeline_panel, "#pipeline_#{scenario_state.actual_pipeline_name(pipeline)}_panel"
       target_stage = pipeline_panel.all('.stage').select{|stage| stage.has_selector?("div[data-stage=#{stagename}]")}
       target_stage.first.find("div[data-stage=#{stagename}]")['title']
     end
 
     def verify_pipeline_is_at_label(pipeline, label)
-      SitePrism::Page.element :label_text, "#pipeline_#{scenario_state.get_pipeline(pipeline)}_panel > div.pipeline_instance > div.status.details > div.label > a"
+      SitePrism::Page.element :label_text, "#pipeline_#{scenario_state.actual_pipeline_name(pipeline)}_panel > div.pipeline_instance > div.status.details > div.label > a"
       assert_equal label_text.text, label
     end
 
@@ -48,39 +48,39 @@ module Pages
     end
 
     def wait_till_pipeline_start_building(pipeline)
-      wait_till_event_occurs_or_bomb 30, "Pipeline #{scenario_state.get_pipeline(pipeline)} failed to start building" do
+      wait_till_event_occurs_or_bomb 30, "Pipeline #{scenario_state.actual_pipeline_name(pipeline)} failed to start building" do
         reload_page
         break if get_latest_stage_state(pipeline).include?('Building')
       end
     end
 
     def wait_till_pipeline_complete(pipeline)
-      wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.get_pipeline(pipeline)} failed to complete with in timeout" do
+      wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.actual_pipeline_name(pipeline)} failed to complete with in timeout" do
         reload_page
         break unless get_latest_stage_state(pipeline).include?('Building')
       end
     end
 
     def wait_till_stage_complete(pipeline, stage)
-      wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.get_pipeline(pipeline)} Stage #{stage} failed to complete with in timeout" do
+      wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.actual_pipeline_name(pipeline)} Stage #{stage} failed to complete with in timeout" do
         reload_page
         break unless get_pipeline_stage_state(pipeline, stage).include?('Building')
       end
     end
 
     def is_editable?(pipeline)
-      page.has_css?("#pipeline_#{scenario_state.get_pipeline(pipeline)}_panel > div.pipeline_header > div.pipeline_actions > a")
+      page.has_css?("#pipeline_#{scenario_state.actual_pipeline_name(pipeline)}_panel > div.pipeline_header > div.pipeline_actions > a")
     end
 
     def is_locked?(pipeline)
-      SitePrism::Page.element :pipeline_panel, "#pipeline_#{scenario_state.get_pipeline(pipeline)}_panel"
+      SitePrism::Page.element :pipeline_panel, "#pipeline_#{scenario_state.actual_pipeline_name(pipeline)}_panel"
       pipeline_panel.has_selector?(".locked_instance.locked") || pipeline_panel.has_selector?("#unlock")
     end
 
     def wait_till_pipeline_showsup(pipeline)
-      wait_till_event_occurs_or_bomb 120, "Config repo Pipeline #{scenario_state.get_pipeline(pipeline)} failed to showup on dashboard" do
+      wait_till_event_occurs_or_bomb 120, "Config repo Pipeline #{scenario_state.actual_pipeline_name(pipeline)} failed to showup on dashboard" do
         reload_page
-        break if page.has_css?("#deploy-#{scenario_state.get_pipeline(pipeline)}")
+        break if page.has_css?("#deploy-#{scenario_state.actual_pipeline_name(pipeline)}")
       end
     end
   end

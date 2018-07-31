@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2016 ThoughtWorks, Inc.
+# Copyright 2018 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,13 +14,15 @@
 # limitations under the License.
 ##########################################################################
 
-module Helpers
-  module GeneralHelper
-
-    def sanitize_message(msg)
-      msg.gsub(/\$(.*?)\$/) {|name| scenario_state.actual_pipeline_name(name.delete! '$') }
-    end
-
-
-  end
+step 'On Job details page of pipeline <pipeline_name> counter <counter> stage <stage_name> counter <counter> job <job_name>' do |pipeline_name, pipeline_counter, stage_name, stage_counter, job_name|
+  job_details_page.load(pipeline_name: scenario_state.actual_pipeline_name(pipeline_name), pipeline_counter: pipeline_counter, stage_name: stage_name, stage_counter: stage_counter, job_name: job_name)
 end
+
+step 'Open <tab_id> tab - On Job details page' do |tab_id|
+  job_details_page.on_tab(tab_id)
+end
+
+step 'Verify console log contains message <message>' do |message|
+  assert_true job_details_page.console_content.include? message
+end
+

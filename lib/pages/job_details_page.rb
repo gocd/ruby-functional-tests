@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2016 ThoughtWorks, Inc.
+# Copyright 2018 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,13 +14,23 @@
 # limitations under the License.
 ##########################################################################
 
-module Helpers
-  module GeneralHelper
+module Pages
+  class JobDetailsPage < AppBase
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/tab/build/detail{/pipeline_name}{/pipeline_counter}{/stage_name}{/stage_counter}{/job_name}"
 
-    def sanitize_message(msg)
-      msg.gsub(/\$(.*?)\$/) {|name| scenario_state.actual_pipeline_name(name.delete! '$') }
+    element :tabs, '.sub_tabs_container'
+    element :console_output, '.buildoutput_pre'
+
+
+    load_validation { has_add_new_task? }
+
+    def on_tab(type)
+      tabs.find('a', text: type).click
     end
 
-
+    def console_content
+      wait_for_console_output
+      console_output['innerHTML']
+    end
   end
 end

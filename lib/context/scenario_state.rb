@@ -45,7 +45,7 @@ module Context
       @scenario_store.put initial_name, replaced_name
     end
 
-    def get_pipeline(original_name)
+    def actual_pipeline_name(original_name)
       @scenario_store.get original_name
     end
 
@@ -62,7 +62,7 @@ module Context
     end
 
     def self_pipeline
-      get_pipeline(current_pipeline)
+      actual_pipeline_name(current_pipeline)
     end
 
     def set_current_pipeline(pipeline)

@@ -48,6 +48,10 @@ require 'pages/pipeline_history_page'
 require 'pages/admin_pipeline_page'
 require 'pages/stage_details_page'
 require 'pages/global_analytics_page'
+require 'pages/artifacts_store_page'
+require 'pages/job_settings_page'
+require 'pages/publish_artifacts_view'
+require 'pages/job_details_page'
 
 
 
@@ -127,6 +131,22 @@ module Helpers
 
     def admin_pipeline_page
       Pages::AdminPipelinePage.new
+    end
+
+    def artifacts_store_page
+      Pages::ArtifactsStore.new
+    end
+
+    def job_settings_page
+      Pages::JobSettings.new
+    end
+
+    def publish_artifacts_view
+      Pages::PublishArtifactsView.new
+    end
+
+    def job_details_page
+      Pages::JobDetailsPage.new
     end
 
     def basic_configuration

@@ -17,23 +17,16 @@
 module Pages
   class ServerHealthMessage < AppBase
 
-    element :message_notifier, '.messages'
-    element :health_messages, '#cruise_message_body'
-
-    def wait_for_server_health_message
-      wait_till_event_occurs_or_bomb 45, "Server Health Message not shown" do
-        reload_page
-        break if page.has_css?('#cruise_message_counts > a')
-      end
-    end
+    element :message_notifier, '.server-health-summary'
+    element :health_messages, '.server-health-statuses'
 
     def verify_message_notifier_showsup
-      assert message_notifier.visible?
+      wait_until_message_notifier_visible(60)
     end
 
     def verify_message_displayed(msg)
       message_notifier.click
-      assert health_messages.all('div > div.description').map{|available_msg| available_msg.text.include?(sanitize_message msg)}.include?(true)
+      assert health_messages.all('li').map{|available_msg| available_msg.text.include?(sanitize_message msg)}.include?(true)
     end
 
   end

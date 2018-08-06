@@ -96,7 +96,7 @@ module Context
         p << DependencyMaterial.new(pipeline: scenario_state.actual_pipeline_name(upstream).to_s) unless upstream.empty?
         p << Stage.new(name: 'defaultStage') do |s|
           s << Job.new(name: 'defaultJob') do |j|
-            j << ExecTask.new(command: 'ls')
+            j << ExecTask.new(command: 'sleep', arguments: ['10'])
           end
         end
       end

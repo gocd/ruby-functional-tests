@@ -14,14 +14,11 @@
 # limitations under the License.
 ##########################################################################
 
-step "Verify server health message is shown" do |pipeline|
+step 'Verify server health message is shown' do |_pipeline|
   server_health_message.verify_message_notifier_showsup
 end
 
-step "Verify server health message <message> is shown" do |msg|
+step 'Verify server health message <message> is shown' do |msg|
+  server_health_message.verify_message_notifier_showsup
   server_health_message.verify_message_displayed(msg)
-end
-
-step "Wait for server health message" do
-  server_health_message.wait_for_server_health_message
 end

@@ -11,39 +11,38 @@ Setup of contexts
 * With "1" live agents - setup
 * Capture go state "ConfigReposPipeline" - setup
 
-* Looking at pipeline "simple-upstream"
-* Trigger "simple-upstream"
-* Wait till pipeline completed
-* Verify stage "defaultStage" is "Passed"
+* Looking at pipeline "simple-upstream" - On Swift Dashboard page
+* Trigger pipeline - On Swift Dashboard page
+* Wait till pipeline completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" - On Swift Dashboard page
 
 * Create a new config repo pipeline with name "first-pipeline" on repo "1" as downstream of "simple-upstream"
-* Verify pipeline "first-pipeline" shows up on the dashboard
-* Verify pipeline "first-pipeline" is not editable
+* Verify pipeline "first-pipeline" shows up - On Swift Dashboard page
+* Looking at pipeline "first-pipeline" - On Swift Dashboard page
+* Verify pipeline is not editable - On Swift Dashboard page
 
-* Looking at pipeline "first-pipeline"
-* Trigger "first-pipeline"
-* Wait till pipeline completed
-* Verify stage "defaultStage" is "Passed"
+* Trigger pipeline - On Swift Dashboard page
+* Wait till pipeline completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" - On Swift Dashboard page
 
 * Create a new config repo pipeline with name "second-pipeline" on repo "2" as downstream of "first-pipeline"
-* Verify pipeline "second-pipeline" shows up on the dashboard
+* Verify pipeline "second-pipeline" shows up - On Swift Dashboard page
 
-* Looking at pipeline "second-pipeline"
-* Trigger "second-pipeline"
-* Wait till pipeline completed
-* Verify stage "defaultStage" is "Passed"
+* Looking at pipeline "second-pipeline" - On Swift Dashboard page
+* Trigger pipeline - On Swift Dashboard page
+* Wait till pipeline completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" - On Swift Dashboard page
 
 * Create a new config repo pipeline with name "third-pipeline" on repo "3" as downstream of "non-existing-pipeline"
-* Verify pipeline "third-pipeline" do not show up on the dashboard
+* Verify pipeline "third-pipeline" do not show up - On Swift Dashboard page
 
-* Verify server health message is shown
 * Verify server health message "Pipeline with name '$non-existing-pipeline$' does not exist, it is defined as a dependency for pipeline '$third-pipeline$'" is shown
 
 * Update config repo pipeline with name "third-pipeline" as downstream of "second-pipeline"
-* Verify pipeline "third-pipeline" shows up on the dashboard
+* Verify pipeline "third-pipeline" shows up - On Swift Dashboard page
 
 * Update config repo pipeline with name "second-pipeline" as downstream of "non-existing-pipeline"
-* Wait for server health message
+
 * Verify server health message "Pipeline with name '$non-existing-pipeline$' does not exist, it is defined as a dependency for pipeline '$second-pipeline$'" is shown
 
 teardown

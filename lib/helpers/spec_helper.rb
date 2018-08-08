@@ -48,10 +48,14 @@ require 'pages/pipeline_history_page'
 require 'pages/admin_pipeline_page'
 require 'pages/stage_details_page'
 require 'pages/global_analytics_page'
+<<<<<<< HEAD
 require 'pages/artifacts_store_page'
 require 'pages/job_settings_page'
 require 'pages/publish_artifacts_view'
 require 'pages/job_details_page'
+=======
+require 'pages/pipeline_history_pagination'
+>>>>>>> "New spec for Pipeline History Pagination"
 
 
 
@@ -133,6 +137,7 @@ module Helpers
       Pages::AdminPipelinePage.new
     end
 
+<<<<<<< HEAD
     def artifacts_store_page
       Pages::ArtifactsStore.new
     end
@@ -147,6 +152,10 @@ module Helpers
 
     def job_details_page
       Pages::JobDetailsPage.new
+=======
+    def pipeline_history_pagination
+      Pages::PipelineHistoryPgination.new
+>>>>>>> "New spec for Pipeline History Pagination"
     end
 
     def basic_configuration

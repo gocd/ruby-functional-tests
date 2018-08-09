@@ -52,7 +52,6 @@ require 'pages/artifacts_store_page'
 require 'pages/job_settings_page'
 require 'pages/publish_artifacts_view'
 require 'pages/job_details_page'
-require 'pages/pipeline_history_pagination'
 
 
 
@@ -150,10 +149,6 @@ module Helpers
       Pages::JobDetailsPage.new
     end
     
-    def pipeline_history_pagination
-      Pages::PipelineHistoryPgination.new
-    end
-
     def basic_configuration
       Context::BasicConfiguration.new
     end

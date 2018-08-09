@@ -49,8 +49,17 @@ step 'Verify stage <stage> is <state> - On Swift Dashboard page' do |stage, stat
   new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.current_pipeline, stage, state.downcase
 end
 
+step 'Trigger and cancel stage <defaultStage> <trigger_number> times' do |stage_name, trigger_number|
+  scenario_state.store "current_stage_name", stage_name
+  new_pipeline_dashboard_page.trigger_cancel_pipeline trigger_number
+end
+
 step 'Verify stage <stage> is <state> on pipeline with label <label> - On Swift Dashboard page' do |stage, state, label|
   new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.current_pipeline, stage, state
+  new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.current_pipeline, label
+end
+
+step 'Verify stage <stage> is with label <label> - On Swift Dashboard page' do |stage , label|
   new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.current_pipeline, label
 end
 

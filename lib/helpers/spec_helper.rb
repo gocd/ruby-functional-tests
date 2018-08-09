@@ -148,7 +148,7 @@ module Helpers
     def job_details_page
       Pages::JobDetailsPage.new
     end
-
+    
     def basic_configuration
       Context::BasicConfiguration.new
     end

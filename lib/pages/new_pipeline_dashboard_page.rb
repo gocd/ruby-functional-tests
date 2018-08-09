@@ -27,6 +27,7 @@ module Pages
     element :material_for_trigger, '.material-for-trigger'
     element :pipeline_selector_dropdown, '.filter_options'
     iframe :build_time_chart, PipelineBuildTime, 0
+    element :stage_name, '.stage_name'
 
     load_validation { has_pipeline_group? }
 
@@ -88,7 +89,7 @@ module Pages
 
     def verify_pipeline_is_at_label(pipeline, label)
       assert_true (pipeline_name text: pipeline)
-        .find('.pipeline_instance-label').text.include?(label)
+        .find(:xpath, '../../..').find('.pipeline_instance-label').text.include?(label)
     end
 
     def verify_pipeline_stage_state(pipeline, stage, state)
@@ -190,6 +191,24 @@ module Pages
     def click_history
       (pipeline_name text: scenario_state.self_pipeline)
         .find(:xpath, '../../..').find('.pipeline_history').click
+    end
+
+    def trigger_cancel_pipeline(trigger_number)
+        
+      (0...trigger_number.to_i).each do |number|
+        trigger_pipeline
+        cancel_pipeline
+      end
+    end
+
+    def cancel_pipeline 
+      (pipeline_name text: scenario_state.self_pipeline)
+        .find(:xpath, '../../..').find('.pipeline_stage.building').click
+
+      (stage_name text: scenario_state.retrive('current_stage_name'))
+        .find(:xpath, '../..').find('.stage_action').click
+    
+      find_by_id('cruise-header-tab-pipelines').click
     end
 
     def open_build_cause

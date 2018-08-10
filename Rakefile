@@ -109,6 +109,9 @@ zips.each do |package, file|
     desc "extract out #{package}"
     task :prepare do
       sh("unzip -q -o #{file} -d target")
+      if package == 'server'
+        cp "config-files/server-logback.xml", "target/go-server-#{VERSION_NUMBER}/config/logback.xml"
+      end
     end
 
     desc "Build go #{package}"

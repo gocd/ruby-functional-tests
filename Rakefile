@@ -110,6 +110,7 @@ zips.each do |package, file|
     task :prepare do
       sh("unzip -q -o #{file} -d target")
       if package == 'server'
+        mkdir_p "target/go-server-#{VERSION_NUMBER}/config"
         cp "config-files/server-logback.xml", "target/go-server-#{VERSION_NUMBER}/config/logback.xml"
       end
     end

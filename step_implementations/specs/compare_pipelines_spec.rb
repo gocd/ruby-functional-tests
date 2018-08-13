@@ -15,13 +15,13 @@
 ##########################################################################
 
 step 'Verify displays revision <revision> having label <label> under pipeline named <pipeline>' do |revision, label, pipeline|
-  compare_pipeline_page.verify_pipeline_dependency_revision(scenario_state.retrive(pipeline), revision)
-  compare_pipeline_page.verify_pipeline_dependency_label(scenario_state.retrive(pipeline), label)
+  assert_true compare_pipeline_page.verify_pipeline_dependency_revision(scenario_state.retrive(pipeline), revision)
+  assert_true compare_pipeline_page.verify_pipeline_dependency_label(scenario_state.retrive(pipeline), label)
 end
 
 step 'Verify displays revision <material_id> having comment <comment> under <material_type>' do |material_id, comment, material_type|
-  compare_pipeline_page.verify_scm_material_comment(material_type, comment)
-  compare_pipeline_page.verify_scm_material_revision(material_type, scenario_state.material_revision(material_id))
+  assert_true compare_pipeline_page.verify_scm_material_comment(material_type, comment)
+  assert_true compare_pipeline_page.verify_scm_material_revision(material_type, scenario_state.material_revision(material_id))
 end
 
 step 'Search for <search_string> on to pipeline textbox' do |search_string|

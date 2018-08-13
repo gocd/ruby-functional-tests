@@ -52,6 +52,7 @@ require 'pages/artifacts_store_page'
 require 'pages/job_settings_page'
 require 'pages/publish_artifacts_view'
 require 'pages/job_details_page'
+require 'pages/compare_pipeline_page'
 
 
 
@@ -147,6 +148,10 @@ module Helpers
 
     def job_details_page
       Pages::JobDetailsPage.new
+    end
+
+    def compare_pipeline_page
+      Pages::ComparePipelinePage.new
     end
     
     def basic_configuration

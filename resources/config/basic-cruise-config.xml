@@ -18,6 +18,60 @@
 <cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="111">
     <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="gauge" tokenGenerationKey="token"/>
     <pipelines group="basic">
+    <pipeline name="up">
+            <materials>
+                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="sleep">
+                                <arg>5</arg>
+                                <runif status="passed"/>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+        <pipeline name="down">
+            <materials>
+                <pipeline pipelineName="up" stageName="defaultStage" materialName="up"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="sleep">
+                                <arg>5</arg>
+                                <runif status="passed"/>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+        <pipeline name="child-of-down">
+            <materials>
+                <pipeline pipelineName="down" stageName="defaultStage" materialName="down"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="sleep">
+                                <arg>5</arg>
+                                <runif status="passed"/>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
         <pipeline name="basic-pipeline-run-till-file-exists">
             <materials>
                 <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>

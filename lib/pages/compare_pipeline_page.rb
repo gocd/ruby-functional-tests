@@ -23,22 +23,22 @@ module Pages
 
     def verify_pipeline_dependency_revision(pipeline_name, revision)
       pipeline_dependency_material_modifications(pipeline_name)
-        .find('.revision').a.text.contains(sanitize_message(revision))
+      .find('.change').find('.revision').text.include? sanitize_message(revision)
     end
 
     def verify_pipeline_dependency_label(pipeline_name, label)
       pipeline_dependency_material_modifications(pipeline_name)
-        .find('.label').a.text.contains(label)
+      .find('.change').find('.label').text.include? label
     end
 
     def verify_scm_material_revision(material_type, revision)
-      pipeline_dependency_material_modifications(material_type)
-        .find('.revision').a.text.contains(revision)
+      pipeline_scm_material_modifications(material_type)
+      .find('.change').find('.revision').text.include? revision
     end
 
     def verify_scm_material_comment(material_type, comment)
-      pipeline_dependency_material_modifications(material_type)
-        .find('.comment').p.text.contains(comment)
+      pipeline_scm_material_modifications(material_type)
+      .find('.change').find('.comment').text.include? comment
     end
 
     def click_label(label)
@@ -48,12 +48,12 @@ module Pages
     private
 
     def pipeline_dependency_material_modifications(pipeline_name)
-      materials = check_ins.all('.material_title').each { |mt| return mt if mt.text.start_with?("Pipeline - #{pipeline_name}") }
-      materials.first.find(:xpath, '..').find('.list_table.material_modifications')
+      materials = check_ins.all('.material_title').select { |mt| mt if mt.text.start_with?("Pipeline - #{pipeline_name}") }
+      materials.first.find(:xpath, '..').find('.list_table.dependency_material_modifications')
     end
 
     def pipeline_scm_material_modifications(material_type)
-      materials = check_ins.all('.material_title').each { |mt| return mt if mt.text.start_with?("#{material_type} - ") }
+      materials = check_ins.all('.material_title').select { |mt| mt if mt.text.start_with?("#{material_type} - ") }
       materials.first.find(:xpath, '..').find('.list_table.material_modifications')
     end
 

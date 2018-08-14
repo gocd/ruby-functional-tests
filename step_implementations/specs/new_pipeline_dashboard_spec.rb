@@ -55,8 +55,8 @@ step 'Trigger and cancel stage <defaultStage> <trigger_number> times' do |stage_
 end
 
 step 'Verify stage <stage> is <state> on pipeline with label <label> - On Swift Dashboard page' do |stage, state, label|
-  new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.current_pipeline, stage, state
-  new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.current_pipeline, label
+  new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.self_pipeline, stage, state
+  new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.self_pipeline, label
 end
 
 step 'Verify stage <stage> is with label <label> - On Swift Dashboard page' do |stage , label|
@@ -205,4 +205,12 @@ end
 
 step 'Click on material revision <revision> and verify material VSM is rendered' do |revision|
   assert_true new_pipeline_dashboard_page.material_vsm_rendered_for revision
+end
+
+step 'Switch to Environment Variables tab - On Swift Dashboard page' do
+  new_pipeline_dashboard_page.switch_to_environment_variables_tab
+end
+
+step 'Change variable <key> to <value>' do |key , value|
+  new_pipeline_dashboard_page.change_variable_to(key, value)
 end

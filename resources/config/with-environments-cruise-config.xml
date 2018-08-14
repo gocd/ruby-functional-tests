@@ -88,7 +88,7 @@
                 <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
             </environmentvariables>
             <materials>
-                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="$multi-environmmnet-var-on-git-pipeline" dest="git" materialName="git" autoUpdate="true"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -109,7 +109,35 @@
                             <variable name="JOB_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
                         </environmentvariables>
                         <tasks>
-                            <ant target="longsleep" workingdir="hg/dev"/>
+                            <exec command="sleep" args="5"/>
+                            <exec command="/bin/bash">
+                				<arg>-c</arg>
+                				<arg>echo JOB_LEVEL_VARIABLE=$JOB_LEVEL_VARIABLE.</arg>                				
+              				</exec>
+              				<exec command="/bin/bash">
+                				<arg>-c</arg>
+                				<arg>echo ENVIRONMENT_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER=$ENVIRONMENT_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER.</arg>                				
+              				</exec>
+              				<exec command="/bin/bash">
+                				<arg>-c</arg>
+                				<arg>echo PIPELINE_LEVEL_VARIABLE=$PIPELINE_LEVEL_VARIABLE.</arg>                				
+              				</exec>
+              				<exec command="/bin/bash">
+                				<arg>-c</arg>
+                				<arg>echo ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE=$ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE.</arg>                				
+              				</exec>
+              				<exec command="/bin/bash">
+                				<arg>-c</arg>
+                				<arg>echo ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_PIPELINE=$ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_PIPELINE.</arg>                				
+              				</exec>
+              				<exec command="/bin/bash">
+                				<arg>-c</arg>
+                				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB.</arg>                				
+              				</exec>
+              				<exec command="/bin/bash">
+                				<arg>-c</arg>
+                				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_JOB_ONLY=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_JOB_ONLY.</arg>                				
+              				</exec>
                         </tasks>
                     </job>
                     <job name="another-job">
@@ -194,12 +222,4 @@
         <environment name="internal">
         </environment>
     </environments>
-      <agents>
-    <agent hostname="missing-agent" ipaddress="10.232.3.1" uuid="missing">
-      <resources>
-        <resource>missing</resource>
-      </resources>
-    </agent>
-  </agents>
-
 </cruise>

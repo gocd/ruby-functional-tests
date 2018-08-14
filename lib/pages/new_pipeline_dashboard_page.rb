@@ -28,6 +28,8 @@ module Pages
     element :pipeline_selector_dropdown, '.filter_options'
     iframe :build_time_chart, PipelineBuildTime, 0
     element :stage_name, '.stage_name'
+    element :environment_variables_tab, '.h-tab_tab-head.pipeline_options-heading'
+    element :environment_variables_key_value , '.environment-variables.plain.key-value-pair'
 
     load_validation { has_pipeline_group? }
 
@@ -351,6 +353,15 @@ module Pages
       unless status == checked_status_for_newly_created_pipelines
         pipeline_selector_dropdown.find('#show-newly-created-pipelines').click
       end
+    end
+
+    def switch_to_environment_variables_tab
+      environment_variables_tab.find('li', text: 'Environment variables').click
+    end
+
+    def change_variable_to(key,value)
+      env_var_to_be_repalaced = environment_variables_key_value.find('dt' , text: "#{key}", exact_text: true).find(:xpath , '..').find('.value').find('input')
+      replace_element_value(env_var_to_be_repalaced,value)
     end
 
     private

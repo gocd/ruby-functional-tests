@@ -45,6 +45,10 @@ module Pages
       page.find('.ac_results').find('h3', text: label).click
     end
 
+    def label_exists?(label)
+      page.find('.ac_results').has_selector?('h3', text: label)
+    end
+
     private
 
     def pipeline_dependency_material_modifications(pipeline_name)

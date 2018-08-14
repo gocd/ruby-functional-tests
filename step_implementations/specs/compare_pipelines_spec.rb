@@ -28,6 +28,32 @@ step 'Search for <search_string> on to pipeline textbox' do |search_string|
   compare_pipeline_page.to_pipeline.set search_string
 end
 
+step 'Search for <search_string> on from pipeline textbox' do |search_string|
+  compare_pipeline_page.from_pipeline.set search_string
+end
+
+step 'Search for revision <revision> on from pipeline textbox' do |revision|
+  compare_pipeline_page.from_pipeline.set scenario_state.material_revision(revision)
+end
+
+step 'Search for revision <revision> on to pipeline textbox' do |revision|
+  compare_pipeline_page.to_pipeline.set scenario_state.material_revision(revision)
+end
+
 step 'Click on label <label> in the dropdown' do |label|
   compare_pipeline_page.click_label label
+end
+
+step 'Verify dropdown has labels <label_list>' do |label_list|
+  label_list.split(',').each {|label|
+    compare_pipeline_page.label_exists? label.strip
+  }
+end
+
+step 'Verify that to pipeline textbox is populated with <label>' do |label|
+  assert_true compare_pipeline_page.to_pipeline.value == label
+end
+
+step 'Verify that from pipeline textbox is populated with <label>' do |label|
+  assert_true compare_pipeline_page.from_pipeline.value == label
 end

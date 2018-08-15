@@ -286,6 +286,12 @@ module Pages
         .find('a', text: 'VSM').click
     end
 
+    def click_compare(pipeline)
+      (pipeline_name text: pipeline)
+        .find(:xpath, '../../..')
+        .find('a', text: 'Compare').click
+    end
+
     def current_vsm_rendered_for(pipeline)
       page.has_css?('.page_name', text: 'Value Stream Map') &&
         page.has_css?('.label', text: 'Pipeline') &&

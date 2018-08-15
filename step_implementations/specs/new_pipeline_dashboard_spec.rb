@@ -55,7 +55,7 @@ step 'Trigger and cancel stage <defaultStage> <trigger_number> times' do |stage_
 end
 
 step 'Verify stage <stage> is <state> on pipeline with label <label> - On Swift Dashboard page' do |stage, state, label|
-  new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.self_pipeline, stage, state
+  new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.self_pipeline, stage, state.downcase
   new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.self_pipeline, label
 end
 
@@ -200,7 +200,11 @@ end
 
 step 'Visit pipeline VSM page and verify VSM is rendered' do
   new_pipeline_dashboard_page.click_vsm scenario_state.self_pipeline
-  assert_true new_pipeline_dashboard_page.current_vsm_rendered_for scenario_state.self_pipeline
+  assert_true new_pipeline_dashboard_page.current_vsm_rendered_for scenario_states.self_pipeline
+end
+
+step 'Click pipeline compare link' do |_tmp|
+  new_pipeline_dashboard_page.click_compare scenario_state.self_pipeline
 end
 
 step 'Click on material revision <revision> and verify material VSM is rendered' do |revision|

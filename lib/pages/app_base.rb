@@ -47,7 +47,7 @@ module Pages
     end
 
     def replace_element_value(element_to_be_replaced, replace_by_value)
-      element_to_be_replaced.send_keys [:command , 'a']
+      element_to_be_replaced.send_keys [:control , 'a']
       element_to_be_replaced.send_keys :backspace
       element_to_be_replaced.send_keys replace_by_value
     end

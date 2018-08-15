@@ -27,7 +27,7 @@ step 'Add environment <env> to any <count> Idle agents - Using Agents API' do |_
         rescue RestClient::ExceptionWithResponse => err
           scenario_state.add_api_response err.response
           raise "Patch agents info call failed with response code #{err.response.code} and the response body - #{err.response.body}"
-        end
+    end
   end
 end
 

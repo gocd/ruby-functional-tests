@@ -26,3 +26,6 @@ step 'Verify console log contains message <message>' do |message|
   assert_true job_details_page.console_content.include? message
 end
 
+step 'Verify console log does not contains message <message>' do |message|
+  assert_false job_details_page.console_content.include? message
+end

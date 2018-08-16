@@ -7,7 +7,7 @@ tags: edit_environments
 
 Setup of contexts
 * With Environments Configuration - setup
-* Using pipeline "environment-pipeline, environment-pipeline-locked, environment-failing-pipeline,pipeline-with-environment-variables" - setup
+* Using pipeline "environment-pipeline, environment-pipeline-locked, environment-failing-pipeline" - setup
 * With "1" live agents - setup
 * Capture go state "EditExistingEnvironments" - setup
 
@@ -17,7 +17,7 @@ Setup of contexts
 * Edit pipelines
 * Remove pipelines "environment-pipeline,environment-pipeline-locked" and save environment
 * Verify message "Updated environment 'uat'" is present
-* Verify pipelines "environment-failing-pipeline,pipeline-with-environment-variables" are available on "uat" edit page
+* Verify pipelines "environment-failing-pipeline" are available on "uat" edit page
 
 * Edit Agents
 * Add agent "missing-agent" and save environment

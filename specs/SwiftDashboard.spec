@@ -37,7 +37,7 @@ Setup of contexts
 * Create a "stopjob" file and validate pipeline completed
 * Verify stage "firstStage" is "passed" - On Swift Dashboard page
 * Verify pipeline is triggered by "admin" - On Swift Dashboard page
-* Pause pipeline with reason "twist testing it" - On Swift Dashboard page
+* Pause pipeline with reason "gauge testing it" - On Swift Dashboard page
 * Verify pipeline is paused with reason "gauge testing it" by "admin" - On Swift Dashboard page
 * Verify cannot trigger pipeline
 * Unpause pipeline - On Swift Dashboard page

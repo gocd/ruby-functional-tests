@@ -33,11 +33,11 @@ end
 step 'Verify plugin with id <id> has version <version> name <name> description <description> author <author> with enabled link to <link>' do |id, version, name, description, author, link|
   assert_true plugins_spa_page.is_expected_version?(id, version)
   assert_true plugins_spa_page.is_expected_name?(id, name)
-  plugins_spa_page.expand_collapse_plugin_config(id)
+  plugins_spa_page.expand_plugin_config(id)
   assert_true plugins_spa_page.is_expected_description?(id, description)
   assert_true plugins_spa_page.is_expected_author?(id, author)
   assert_true plugins_spa_page.is_expected_author_link?(id, author, link)
-  plugins_spa_page.expand_collapse_plugin_config(id)
+  plugins_spa_page.collapse_plugin_config(id)
 end
 
 step 'Verify invalid plugin with id <id> has version <version> name <name> description <description> author <author> with enabled link to <link>' do |id, version, name, description, author, link|
@@ -49,12 +49,12 @@ step 'Verify invalid plugin with id <id> has version <version> name <name> descr
 end
 
 step 'Verify plugin with id <id> has path <path> supported OS <os> target go version <go_version> and bundled status as <bundled>' do |id, path, os, go_version, bundled|
-  plugins_spa_page.expand_collapse_plugin_config(id)
+  plugins_spa_page.expand_plugin_config(id)
   assert_true plugins_spa_page.is_expected_installed_path?(id, path)
   assert_true plugins_spa_page.is_expected_supported_os?(id, os)
   assert_true plugins_spa_page.is_expected_go_version?(id, go_version)
   assert_true plugins_spa_page.is_expected_bundled?(id, bundled)
-  plugins_spa_page.expand_collapse_plugin_config(id)
+  plugins_spa_page.collapse_plugin_config(id)
 end
 
 step 'Verify invalid plugin with id <id> has path <path> supported OS <os> target go version <go_version> and bundled status as <bundled>' do |id, path, os, go_version, bundled|

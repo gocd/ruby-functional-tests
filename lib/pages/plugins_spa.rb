@@ -27,17 +27,25 @@ module Pages
     end
 
     def plugin_by_id_is_invalid?(id)
-      plugin_config_element_of(id).has_selector?('dt', text: 'There were errors loading the plugin')
+      plugin_settings.find('.plugin-id', text: id).find(:xpath, '../../..')[:class].include?('plugin disabled')
     end
 
     def plugin_by_id_is_valid?(id)
-      plugin_settings.find('.plugin-id', text: id).find(:xpath, '../../..')[:class] == 'plugin active'
+      plugin_settings.find('.plugin-id', text: id).find(:xpath, '../../..')[:class].include?('plugin active')
     end
 
-    def expand_collapse_plugin_config(id)
+    def collapse_plugin_config(id)
+      return if plugin_settings.find('.plugin-id', text: id).find(:xpath, '../../..')[:class].include?('collapsed')
       plugin_settings.find('.plugin-id', text: id).click
     rescue StandardError => e
-      p "Not a valid plugin, moving ahead without expanding or collapsing. #{e.message} "
+      p "Not a valid plugin, moving ahead without collapsing. #{e.message} "
+    end
+
+    def expand_plugin_config(id)
+      return if plugin_settings.find('.plugin-id', text: id).find(:xpath, '../../..')[:class].include?('expanded')
+      plugin_settings.find('.plugin-id', text: id).click
+      rescue StandardError => e
+        p "Not a valid plugin, moving ahead without expanding. #{e.message} "
     end
 
     def is_expected_version?(id, version)
@@ -51,15 +59,15 @@ module Pages
     end
 
     def is_expected_description?(id, desc)
-      plugin_config_element_of(id).has_selector?('dd', text: desc)
+      parent_for_given_label(id,'Description').find('span').text == desc
     end
 
     def is_expected_author?(id, author)
-      plugin_config_element_of(id).has_selector?('dd', text: author)
+      parent_for_given_label(id,'Author').find('span').text == author
     end
 
     def is_expected_author_link?(id, author, link)
-      plugin_config_element_of(id).find('a', text: author)[:href] == link
+     parent_for_given_label(id,'Author').find('a', text: author)[:href] == link
     end
 
     def is_author_link_disabled?(id, author, _link)
@@ -67,19 +75,19 @@ module Pages
     end
 
     def is_expected_installed_path?(id, path)
-      plugin_config_element_of(id).has_selector?('dd', text: path)
+      parent_for_given_label(id,'Plugin file location').find('span').has_text?(path)
     end
 
     def is_expected_supported_os?(id, os)
-      plugin_config_element_of(id).has_selector?('dd', text: os)
+      parent_for_given_label(id,'Supported operating systems').find('span').text == os
     end
 
     def is_expected_go_version?(id, version)
-      plugin_config_element_of(id).has_selector?('dd', text: version)
+      parent_for_given_label(id,'Target Go Version').find('span').text == version
     end
 
     def is_expected_bundled?(id, bundled)
-      plugin_config_element_of(id).has_selector?('dd', text: bundled)
+      parent_for_given_label(id,'Bundled').find('span').text == bundled
     end
 
     def plugin_config_element_of(id)
@@ -102,6 +110,10 @@ module Pages
 
     def is_plugins_settings_displayed?(id)
       plugin_settings.find('.plugin-id', text: id).find(:xpath, '../../..').has_selector?('.plugin-actions', visible: true)
+    end
+
+    def parent_for_given_label(id,label_text)
+      plugin_config_element_of(id).find('label' , text: label_text).find(:xpath , '..')
     end
   end
 end

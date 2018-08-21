@@ -11,10 +11,11 @@ Setup of contexts
 PipelineSelector
 ----------------
 
-tags: new_dashboard, no_security, pipeline_selector
+tags: new_dashboard, no_security, pipeline_selector , implementation_pending
 
-* Turn on AutoRefresh - On Swift Dashboard page
-* Open pipelines selector - On Swift Dashboard page
+* Verify current view is "Default"
+
+* Open pipelines selector for "Default" view
 
 Make selections when security is disabled
 * Verify show newly created pipelines option status is checked
@@ -43,8 +44,8 @@ Enable security
 * Load login page
 * Login as "pipelineSelectorAdmin" - Swift Dashboard
 
-* Turn on AutoRefresh - On Swift Dashboard page
-* Open pipelines selector - On Swift Dashboard page
+* Verify current view is "Default"
+* Open pipelines selector for "Default" view
 * Verify show newly created pipelines option status is checked
 * Set show newly created pipelines option status as "unchecked"
 * Deselect all pipelines
@@ -64,7 +65,7 @@ Enable security
 * Logout and login as "pavan"
 
 //Verify that user 'pavan' sees all pipelines created when no security was setup + the newly added pipelines by 'admin'
-* Turn on AutoRefresh - On Swift Dashboard page
+* Verify current view is "Default"
 * Verify group "basic" is visible - On Swift Dashboard page
 * Verify pipeline "basic-pipeline-run-till-file-exists" shows up - On Swift Dashboard page
 * Verify pipeline "admin-test-basic" shows up - On Swift Dashboard page
@@ -75,7 +76,7 @@ Enable security
 * Verify group "dependency-group" is visible - On Swift Dashboard page
 * Verify pipeline "dependency-group-pipeline-1" shows up - On Swift Dashboard page
 * Verify pipeline "admin-test-dependency" shows up - On Swift Dashboard page
-* Open pipelines selector - On Swift Dashboard page
+* Open pipelines selector for "Default" view
 
 //'pavan' makes selections
 * Verify show newly created pipelines option status is checked
@@ -156,7 +157,7 @@ Enable security
 * Verify pipeline "artifact_md5_verification-pipeline-1" do not show up - On Swift Dashboard page
 
 
-* Open pipelines selector - On Swift Dashboard page
+* Open pipelines selector for "Default" view
 
 //verify that even if 1 pipeline is deselected the group checkbox appears deselected
 * Verify "basic" is deselected

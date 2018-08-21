@@ -10,14 +10,12 @@ Setup of contexts
 PipelineSelectorWithSecurity
 ----------------------------
 
-tags: pipeline_selector, with_security
+tags: pipeline_selector, with_security, implementation_pending
 
-* Turn on AutoRefresh - On Swift Dashboard page
-* Open pipelines selector - On Swift Dashboard page
-* Select all pipelines
-* Apply selections
+* Verify current view is "Default"
 
-* Open pipelines selector - On Swift Dashboard page
+
+* Open pipelines selector for "Default" view
 * Verify groups "basic, admin-only, viewable, open-to-all,operable" are visible - Already on pipelines selector section
 * Verify all pipelines are selected
 * Deselect all pipelines
@@ -40,16 +38,20 @@ tags: pipeline_selector, with_security
 * Verify group "viewable" is visible - On Swift Dashboard page
 * Verify group "open-to-all" is visible - On Swift Dashboard page
 * Verify group "operable" is visible - On Swift Dashboard page
+* Create a view "admin-basic-view" and add gorup "basic"
+* Verify current view is "admin-basic-view"
 
 * Logout and login as "view"
 
+* Verify current view is "Default"
 * Verify group "basic" is visible - On Swift Dashboard page
 * Verify group "viewable" is visible - On Swift Dashboard page
 * Verify group "open-to-all" is visible - On Swift Dashboard page
 * Verify group "admin-only" is not visible - On Swift Dashboard page
 * Verify group "operable" is not visible - On Swift Dashboard page
+* Verify view "admin-basic-view" is not available
 
-* Open pipelines selector - On Swift Dashboard page
+* Open pipelines selector for "Default" view
 
 * Verify groups "basic, viewable, open-to-all" are visible - Already on pipelines selector section
 * Verify groups "admin-only,operable" are not visible - Already on pipelines selector section
@@ -66,41 +68,48 @@ tags: pipeline_selector, with_security
 
 * Logout and login as "pipelineSelectorAdmin"
 
+* Verify current view is "Default"
 * Verify group "basic" is not visible - On Swift Dashboard page
 * Verify group "open-to-all" is visible - On Swift Dashboard page
 * Verify group "viewable" is visible - On Swift Dashboard page
 * Verify group "admin-only" is visible - On Swift Dashboard page
 * Verify group "operable" is visible - On Swift Dashboard page
-
-* Open pipelines selector - On Swift Dashboard page
-
-* Verify groups "basic, admin-only, viewable, open-to-all, operable" are visible - Already on pipelines selector section
+* Switch to view "admin-basic-view"
+* Verify group "basic" is visible - On Swift Dashboard page
+* Verify group "open-to-all" is not visible - On Swift Dashboard page
+* Verify group "viewable" is not visible - On Swift Dashboard page
+* Verify group "admin-only" is not visible - On Swift Dashboard page
+* Verify group "operable" is not visible - On Swift Dashboard page
 
 * Logout and login as "operate"
 
+* Verify current view is "Default"
 * Verify group "basic" is visible - On Swift Dashboard page
 * Verify group "viewable" is visible - On Swift Dashboard page
 * Verify group "open-to-all" is visible - On Swift Dashboard page
 * Verify group "operable" is visible - On Swift Dashboard page
 * Verify group "admin-only" is not visible - On Swift Dashboard page
 
-* Open pipelines selector - On Swift Dashboard page
+* Open pipelines selector for "Default" view
 
 * Verify groups "basic, viewable, open-to-all,operable" are visible - Already on pipelines selector section
 * Verify groups "admin-only" are not visible - Already on pipelines selector section
+* Verify view "admin-basic-view" is not available
 
 * Logout and login as "operatorUser"
+
+* Verify current view is "Default"
 * Verify group "basic" is visible - On Swift Dashboard page
 * Verify group "viewable" is visible - On Swift Dashboard page
 * Verify group "open-to-all" is visible - On Swift Dashboard page
 * Verify group "admin-only" is not visible - On Swift Dashboard page
 * Verify group "operable" is not visible - On Swift Dashboard page
 
-* Open pipelines selector - On Swift Dashboard page
+* Open pipelines selector for "Default" view
 
 * Verify groups "basic, viewable, open-to-all" are visible - Already on pipelines selector section
 * Verify groups "admin-only,operable" are not visible - Already on pipelines selector section
-
+* Verify view "admin-basic-view" is not available
 
 
 Teardown of contexts

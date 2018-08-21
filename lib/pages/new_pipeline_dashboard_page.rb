@@ -22,8 +22,8 @@ module Pages
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/pipelines{?autoRefresh*}"
 
     element :pipeline_name, '.pipeline_name'
-    elements :pipeline_group, '.pipeline-group'
-    elements :pipeline_group_title, '.pipeline-group_title'
+    elements :pipeline_group, '.dashboard-group'
+    elements :pipeline_group_title, '.dashboard-group_title'
     element :material_for_trigger, '.material-for-trigger'
     element :pipeline_selector_dropdown, '.filter_options'
     iframe :build_time_chart, PipelineBuildTime, 0

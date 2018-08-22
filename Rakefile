@@ -32,6 +32,7 @@ VERSION_NUMBER = ENV['GO_VERSION'] || (raise 'Environment variable GO_VERSION no
 
 GAUGE_TAGS = ENV['GAUGE_TAGS'] || 'smoke'
 LOAD_BALANCED = GO_JOB_RUN_COUNT && GO_JOB_RUN_INDEX
+DEBUG_GAUGE = ENV['DEBUG_GAUGE'] || 'No'
 DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
 USE_POSTGRESQL = !ENV['USE_POSTGRESQL'].nil?
 
@@ -264,7 +265,11 @@ task prepare: %w[plugins:prepare addons:prepare]
 
 task :test do
   if LOAD_BALANCED
-    sh "bundle exec gauge --tags '#{GAUGE_TAGS}' -n #{GO_JOB_RUN_COUNT} -g #{GO_JOB_RUN_INDEX} run specs"
+    if ENV['DEBUG_GAUGE']
+      sh "bundle exec gauge  -l debug --tags '#{GAUGE_TAGS}' -n #{GO_JOB_RUN_COUNT} -g #{GO_JOB_RUN_INDEX} run specs"
+    else
+      sh "bundle exec gauge --tags '#{GAUGE_TAGS}' -n #{GO_JOB_RUN_COUNT} -g #{GO_JOB_RUN_INDEX} run specs"
+    end
   else
     sh "bundle exec gauge --tags '#{GAUGE_TAGS}' run specs"
   end

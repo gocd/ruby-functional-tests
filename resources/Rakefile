@@ -40,3 +40,11 @@ end
 task :create_file, [:file_name] do |_t, args|
   File.open(args.file_name.to_s, 'w') { |f| f.write 'Testfile' }
 end
+
+task :string_reverse , [:variables] do |t, args|
+  variables = args[:variables].split(' ')
+  variables.each do |env_variable|
+      value = ENV["#{env_variable}"].reverse
+      puts "#{env_variable}=#{value}"
+  end
+end

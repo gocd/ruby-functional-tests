@@ -91,6 +91,10 @@ step 'Verify pipeline is not locked - On Swift Dashboard page' do |_pipeline|
   assert_false new_pipeline_dashboard_page.locked?
 end
 
+step 'Unlock the pipeline - On Swift Dashboard Page' do |_tmp|
+  new_pipeline_dashboard_page.unlock
+end
+
 step 'Verify pipeline <pipeline> is not visible - On Swift Dashboard page' do |pipeline|
   assert_false new_pipeline_dashboard_page.visible?(pipeline)
 end

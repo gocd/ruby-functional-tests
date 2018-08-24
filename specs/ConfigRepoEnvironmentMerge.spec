@@ -12,7 +12,7 @@ Setup of contexts
 * With "1" live agents - setup
 * Capture go state "ConfigReposEnvironmentMerge" - setup
 
-* Looking at pipeline "simple-upstream"
+* Looking at pipeline "simple-upstream" - On Swift Dashboard page
 
 * Verify environment "test-environment" shows up on the environments page
 

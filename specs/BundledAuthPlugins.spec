@@ -17,7 +17,7 @@ Setup of contexts
 * Set password file path as "password_plugin.properties"
 * Save authorization config
 
-* On Pipeline Dashboard page
+* On Swift Dashboard Page
 * Logout and login as "pwdadmin"
 
 * Start to add a new authorization config with id as "ldap_auth" for plugin "LDAP Authentication Plugin for GoCD"
@@ -36,7 +36,7 @@ Setup of contexts
 * Add user "user1" as admin user
 * Save pipeline group permissions
 
-* On Pipeline Dashboard page
+* On Swift Dashboard Page
 * Logout and login as "view_user"
 
 * Looking at pipeline "basic-pipeline" - On Swift Dashboard page
@@ -53,7 +53,7 @@ Setup of contexts
 * Set password file path as "non_existent_file"
 * Save authorization config
 
-* On Pipeline Dashboard page
+* On Swift Dashboard Page
 * Logout and Login as "user1" with password as "pass_user1"
 
 * Verify pipeline is editable - On Swift Dashboard page

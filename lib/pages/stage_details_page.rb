@@ -18,9 +18,10 @@ module Pages
   class StageDetailsPage < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/pipelines{/pipeline_name}{/label}{/stage_name}{/counter}{/tab_name}"
 
-    element :build_cause_box, ".build_cause"
-    elements :materials, ".material"
-    elements :material_names, ".material_name"
+    element :build_cause_box, '.build_cause'
+    elements :materials, '.material'
+    elements :material_names, '.material_name'
+    element :locked_instance, '.locked_instance'
 
     def verify_latest_revision_for_modification(modification_number)
       latest_revision = Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).latest_revision
@@ -32,8 +33,8 @@ module Pages
     end
 
     def verify_material_has_changed(material_type, material_name)
-      material_section = material_header_for(material_type, material_name).first(:xpath, ".//..")
-      material_section[:class].include?("changed")
+      material_section = material_header_for(material_type, material_name).first(:xpath, './/..')
+      material_section[:class].include?('changed')
     end
 
     def verify_comment_in_modification(modification_number, comment)
@@ -48,7 +49,25 @@ module Pages
       commit_author.include?(user_name)
     end
 
+    def locked_status?(status)
+      wait_till_event_occurs_or_bomb 20, "Pipeline is not in Locked state #{status}" do
+        reload_page
+        break if locked_instance.text.include?(status)
+      end
+      locked_instance.text.include?(status)
+    end
+
+    def unlock_pipeline
+      wait_for_locked_instance(5)
+      locked_instance.click
+    end
+
+    def rerun_stage(stage)
+      page.find("#stage_bar_rerun_#{stage}").click
+    end
+
     private
+
     def getRevisionForModification(modification_number)
       modification = modification_section_for(modification_number)
       modification.find('.revision dl dd').text
@@ -56,12 +75,11 @@ module Pages
 
     def modification_section_for(modification_number)
       material_header = material_header_for(scenario_state.get_current_material_type, scenario_state.get_current_material_name)
-      material_header.first(:xpath, ".//..").all('.change')[modification_number.to_i]
+      material_header.first(:xpath, './/..').all('.change')[modification_number.to_i]
     end
 
     def material_header_for(material_type, material_name)
-      material_names.select {|name| name.text.include? "#{material_type} - #{material_name}"}.first
+      material_names.select { |name| name.text.include? "#{material_type} - #{material_name}" }.first
     end
-
   end
 end

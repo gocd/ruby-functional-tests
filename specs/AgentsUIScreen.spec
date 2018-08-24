@@ -85,8 +85,8 @@ Disable agent
 
 Sort by status
 
-* Looking at pipeline "basic-pipeline-with-long-running-job"
-* Trigger "basic-pipeline-with-long-running-job"
+* Looking at pipeline "basic-pipeline-with-long-running-job" - On Swift Dashboard page
+* Trigger pipeline - On Swift Dashboard page
 * On Agents page
 * Wait till agent "1" status is "Building"
 * Sort by "Status"

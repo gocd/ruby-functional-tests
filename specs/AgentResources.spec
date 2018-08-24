@@ -11,9 +11,9 @@ Setup of contexts
 * With "1" live agents - setup
 * Capture go state "AgentResources" - setup
 
-* Looking at pipeline "basic-pipeline-with-job-resources"
-* Trigger "basic-pipeline-with-job-resources"
-* Verify stage "defaultStage" is "Building"
+* Looking at pipeline "basic-pipeline-with-job-resources" - On Swift Dashboard page
+* Trigger pipeline - On Swift Dashboard page
+* Verify stage "defaultStage" is "Building" - On Swift Dashboard page
 
 * On Agents page
 * Verify agents at state "Building" is "0"

@@ -30,6 +30,7 @@ module Pages
     element :stage_name, '.stage_name'
     element :environment_variables_tab, '.h-tab_tab-head.pipeline_options-heading'
     element :environment_variables_key_value , '.environment-variables.plain.key-value-pair'
+    element :environment_variables_secure_key_value , '.environment-variables.secure.key-value-pair'
 
     load_validation { has_pipeline_group? }
 
@@ -77,8 +78,8 @@ module Pages
         .find(:xpath, '../../..').find('.pipeline_btn.unpause').click
     end
 
-    def get_all_stages(pipeline) # This one needs to be relooked - the way the view is modelled do not make it easy to get latest stage state
-      (pipeline_name text: pipeline)
+    def get_all_stages(pipeline) # This one needs to be relooked - the way the view is modelled do not make it easy to get latest stage state 
+    (pipeline_name text: pipeline)
         .find(:xpath, '../../..').find('.pipeline_stages', wait: 10).all('a')
     rescue StandardError => e
       p 'Looks like Pipeline still not started, trying after page reload...'
@@ -368,8 +369,17 @@ module Pages
     end
 
     def switch_to_environment_variables_tab
-      environment_variables_tab.find('li', text: 'Environment variables').click
+      environment_variables_tab.find('li', text: 'Environment variables', exact_text: true).click
     end
+
+    def switch_to_secure_environment_variables_tab
+      environment_variables_tab.find('li', text: 'Secure Environment variables', exact_text: true).click
+    end
+
+    def override_secure_env_variable(secure_env_variable_key,secure_env_variable_value)
+      environment_variables_secure_key_value.find('dt' , text: "#{secure_env_variable_key}", exact_text: true).find(:xpath , '..').find('a' , text: 'Override').click
+      environment_variables_secure_key_value.find('dt' , text: "#{secure_env_variable_key}", exact_text: true).find(:xpath , '..').find('.value').find('input').set(secure_env_variable_value)
+    end  
 
     def change_variable_to(key,value)
       env_var_to_be_repalaced = environment_variables_key_value.find('dt' , text: "#{key}", exact_text: true).find(:xpath , '..').find('.value').find('input')

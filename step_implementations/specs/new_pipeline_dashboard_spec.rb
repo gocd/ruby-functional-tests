@@ -219,6 +219,14 @@ step 'Switch to Environment Variables tab - On Swift Dashboard page' do
   new_pipeline_dashboard_page.switch_to_environment_variables_tab
 end
 
+step 'Switch to Secure Environment Variables tab - On Swift Dashboard page' do
+  new_pipeline_dashboard_page.switch_to_secure_environment_variables_tab
+end
+
 step 'Change variable <key> to <value>' do |key , value|
   new_pipeline_dashboard_page.change_variable_to(key, value)
+end
+
+step 'Override secure variable named <secure_env_variable_key> with value <secure_env_variable_value>' do |secure_env_variable_key,secure_env_variable_value|
+  new_pipeline_dashboard_page.override_secure_env_variable(secure_env_variable_key,secure_env_variable_value)
 end

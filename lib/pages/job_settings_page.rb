@@ -15,7 +15,7 @@
 ##########################################################################
 
 module Pages
-  class JobSettings < AppBase
+  class JobSettings < GeneralSettingsPage
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines{/pipeline_name}/stages{/stage_name}/job{/job_name}/tasks"
 
     element :add_new_task, '#add_new_task_dropdown_link'
@@ -31,6 +31,8 @@ module Pages
     element :artifact_source, '.artifact_source'
     element :store_id, "input[name='job[artifactConfigs][][storeId]']"
     element :task_configuration_path, "input[name='task[configuration][Path]']"
+    element :task_working_directory, "input[name='task[workingDirectory]']"
+    element :task_target, "input[name='task[target]']"
 
 
     load_validation { has_add_new_task? }
@@ -41,8 +43,9 @@ module Pages
       new_task_list.find('a', text: type).click
     end
 
-    def on_tab(tab_name)
-      page.find('a', text: tab_name).click
+    def configure_rake_task(target,working_directory)
+      task_target.set(target)
+      task_working_directory.set(working_directory)
     end
   end
 end

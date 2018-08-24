@@ -11,10 +11,10 @@ Setup of contexts
 * With "1" live agents - setup
 * Capture go state "ConfigReposEnvironment" - setup
 
-* Looking at pipeline "simple-upstream"
+* Looking at pipeline "simple-upstream" - On Swift Dashboard page
 
 * Create a new config repo pipeline with name "config-repo-pipeline" on repo "1" as downstream of "simple-upstream"
-* Verify pipeline "config-repo-pipeline" shows up on the dashboard
+* Verify pipeline "config-repo-pipeline" shows up - On Swift Dashboard page
 
 * Create a new config repo environment with name "config-repo-environment" on repo "2"
 * Add pipelines "simple-upstream, config-repo-pipeline" to config repo environment "config-repo-environment"

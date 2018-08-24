@@ -41,7 +41,7 @@ Below steps fail becuase new plugins page do not show values as "Unknown" if the
 * Verify plugin with id "com.example.elasticagent.foocloud" has settings enabled
 * Verify plugin with id "test-valid-innerclass-plugin.jar" do not show settings option
 
-* On Pipeline Dashboard page
+* On Swift Dashboard Page
 * Logout and login as "group1Admin"
 
 * On Plugins page

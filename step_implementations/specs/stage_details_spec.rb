@@ -30,7 +30,7 @@ end
 step 'Verify modification <modification_number> has revision <revision> - Already On Build Cause Section' do |modification_number, revision|
   material_type =   scenario_state.get_current_material_type
   actual_revision = revision
-  if material_type == "Pipeline"
+  if material_type == 'Pipeline'
     revision_arr = revision.split(/\//)
     upstream_pipeline = revision_arr[0]
     revision_arr.delete(upstream_pipeline)
@@ -54,4 +54,16 @@ end
 step 'Verify modification <modification_number> is checked in by <user_name> with comment <comment>' do |modification_number, user_name, comment|
   assert_true stage_details_page.verify_comment_in_modification(modification_number, comment)
   assert_true stage_details_page.verify_modification_triggered_by(modification_number, user_name)
+end
+
+step 'Verify the lock status is <status> - On Stage Details page' do |status|
+  assert_true stage_details_page.locked_status?(status)
+end
+
+step 'Unlock the pipeline - On Stage Details page' do
+	stage_details_page.unlock_pipeline
+end
+
+step 'Rerun stage <stage> - On Stage Details page' do |stage|
+	stage_details_page.rerun_stage(stage)
 end

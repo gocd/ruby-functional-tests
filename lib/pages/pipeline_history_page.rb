@@ -18,17 +18,12 @@ module Pages
   class PipelineHistoryPage < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/tab/pipeline/history{/pipelinename}"
 
-    element :pipeline_history, '#pipeline-history'
-    element :pipeline_name, '.pipeline_name'
-    elements :pipeline_group, '.pipeline-group'
-    element :stage_name, '.stage_name'
-    element :pipeline_instance_label, '.pipeline_instance-label'
-    element :pagination_links , '#page_links'
-    element :current_page , '.page-num.highlight-warning'
-    element :page_next , '#page-next'
-    element :page_previous , '#page-previous'
-    element :filter_history , '#labelFilterField'
-    element :label_filter_clear , ".filter-clear-icon"
+    element :pipeline_history_group, '.pipeline-history-group'
+    element :current_page, '.page-num.highlight-warning'
+    element :page_next, '#page-next'
+    element :page_previous, '#page-previous'
+    element :filter_history, '#labelFilterField'
+    element :label_filter_clear, '.filter-clear-icon'
 
     def verify_current_pagination_number(page_number)
       assert_true current_page.text.include?(page_number)
@@ -41,20 +36,19 @@ module Pages
     def click_for_previous_page
       page_previous.click
     end
-    
+
     def verify_stage_history_has(pipeline_histories)
-      array = Array.new
       array = pipeline_histories.split(/\s*,\s*/)
-      all_history_tags = page.all('a', text: 'VSM').map {|a|  a[:href]}
-      array.each {|history|
+      all_history_tags = page.all('a', text: 'VSM').map { |a| a[:href] }
+      array.each do |history|
         assert_true all_history_tags.include?("#{GoConstants::GO_SERVER_BASE_URL}/pipelines/value_stream_map/#{scenario_state.self_pipeline}/#{history}")
-      }
+      end
     end
-    
+
     def search_given_pipeline(search_string)
-      filter_history.set(search_string);
+      filter_history.set(search_string)
     end
- 
+
     def click_on_pagenumber(page_number)
       find("#page_#{page_number}").click
     end
@@ -62,7 +56,5 @@ module Pages
     def clear_label_filter_selection
       label_filter_clear.click
     end
-
-
   end
 end

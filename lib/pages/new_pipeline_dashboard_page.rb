@@ -137,6 +137,12 @@ module Pages
         .find(:xpath, '..').has_css?('.pipeline_locked')
     end
 
+    def unlock
+      sleep 5
+      (pipeline_name text: scenario_state.self_pipeline)
+        .find(:xpath, '..').find('.pipeline_locked').click
+    end
+
     def open_build_analytics
       (pipeline_name text: scenario_state.self_pipeline)
         .find(:xpath, '..').find('.pipeline-analytics').click

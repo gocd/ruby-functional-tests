@@ -16,18 +16,18 @@ Setup of contexts
 * Set environments "uat"
 * Verify agent "1" assigned environments "uat"
 
-* Looking at pipeline "basic-pipeline-fast"
-* Trigger "basic-pipeline-fast"
-* Verify stage "defaultStage" is "Building"
+* Looking at pipeline "basic-pipeline-fast" - On Swift Dashboard page
+* Trigger pipeline - On Swift Dashboard page
+* Verify stage "defaultStage" is "Building" - On Swift Dashboard page
 
 * On Agents page
 * Verify agents at state "Building" is "0"
 * Select agent "1"
 * Remove environments "uat"
 
-* Looking at pipeline "basic-pipeline-fast"
-* Wait till pipeline completed
-* Verify stage "defaultStage" is "Passed"
+* Looking at pipeline "basic-pipeline-fast" - On Swift Dashboard page
+* Wait till pipeline completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" - On Swift Dashboard page
 
 teardown
 _______________

@@ -12,10 +12,10 @@ Setup of contexts
 * With "1" live agents - setup
 * Capture go state "SmokeTest" - setup
 
-* Looking at pipeline "basic-pipeline-with-git-material"
-* Trigger "basic-pipeline-with-git-material"
-* Wait till pipeline completed
-* Verify stage "defaultStage" is "Passed"
+* Looking at pipeline "basic-pipeline-with-git-material" - On Swift Dashboard page
+* Trigger pipeline - On Swift Dashboard page
+* Wait till pipeline completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" - On Swift Dashboard page
 
 * On Preferences page
 * Verify page title is "Preferences"

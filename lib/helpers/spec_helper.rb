@@ -49,17 +49,22 @@ require 'pages/admin_pipeline_page'
 require 'pages/stage_details_page'
 require 'pages/global_analytics_page'
 require 'pages/artifacts_store_page'
+require 'pages/general_settings_page'
 require 'pages/job_settings_page'
 require 'pages/publish_artifacts_view'
 require 'pages/job_details_page'
 require 'pages/compare_pipeline_page'
-
-
+require 'pages/stage_settings_page'
+require 'pages/pipeline_settings_page'
 
 module Helpers
   module SpecHelper
     def app_base_page
       Pages::AppBase.new
+    end
+
+    def general_settings_page
+      Pages::GeneralSettingsPage.new
     end
 
     def login_page
@@ -152,6 +157,14 @@ module Helpers
 
     def compare_pipeline_page
       Pages::ComparePipelinePage.new
+    end
+
+    def stage_settings_page
+      Pages::StageSettingsPage.new
+    end
+
+    def pipeline_settings_page
+      Pages::PipelineSettingsPage.new
     end
     
     def basic_configuration

@@ -58,3 +58,6 @@ step 'Save task details' do
   job_settings_page.task_save.click
 end
 
+step 'Set target to <target> with working directory <working_directory>' do |target,working_directory|
+  job_settings_page.configure_rake_task(target,working_directory)
+end

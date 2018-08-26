@@ -15,7 +15,7 @@
 ##########################################################################
 @auto_refresh = false
 step 'Verify pipeline activity page is shown' do |_tmp|
-  assert_true pipeline_history_page.has_pipeline_history?
+  assert_true pipeline_history_page.has_pipeline_history_group?
 end
 
 step 'Verify pipeline history page <page_number> is shown' do |page_number|

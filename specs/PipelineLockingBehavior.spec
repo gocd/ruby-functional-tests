@@ -28,7 +28,7 @@ Setup of contexts
 * On Swift Dashboard Page
 * Verify pipeline is locked - On Swift Dashboard page
 * Create a "failjob" file
-* Verify stage "firstStage" is "Failed" - On Swift Dashboard page
+* Verify stage "secondStage" is "Failed" - On Swift Dashboard page
 * Verify pipeline "pipeline-unlock-onComplete" is not locked and is schedulable - Using api
 * Verify pipeline is not locked - On Swift Dashboard page
 
@@ -36,7 +36,7 @@ Setup of contexts
 * Verify pipeline "pipeline-unlock-onComplete" is locked and not schedulable - Using api
 * Verify pipeline is locked - On Swift Dashboard page
 * Cancel stage "lastStage" of pipeline "pipeline-unlock-onComplete"
-* Verify stage "firstStage" is "Cancelled" - On Swift Dashboard page
+* Verify stage "lastStage" is "Cancelled" - On Swift Dashboard page
 * Verify pipeline "pipeline-unlock-onComplete" is not locked and is schedulable - Using api
 * Verify pipeline is not locked - On Swift Dashboard page
 

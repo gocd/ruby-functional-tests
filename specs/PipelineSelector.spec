@@ -11,7 +11,7 @@ Setup of contexts
 PipelineSelector
 ----------------
 
-tags: new_dashboard, no_security, pipeline_selector , implementation_pending
+tags: no_security, pipeline_selector , implementation_pending
 
 * Verify current view is "Default"
 

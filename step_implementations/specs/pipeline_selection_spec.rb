@@ -14,26 +14,46 @@
 # limitations under the License.
 ##########################################################################
 
+step 'Verify current view is <view_name>' do |view_name|
+  assert_equal view_name.downcase, new_pipeline_dashboard_page.current_view_name.downcase
+end
+
+step 'Start creating new view' do
+  new_pipeline_dashboard_page.dashboard_tabs.find(".add-tab").click
+end
+
+step 'Edit current tab' do
+  new_pipeline_dashboard_page.edit_view
+end
+
+step 'Delete view <view>' do |view|
+  new_pipeline_dashboard_page.switch_to_tab(view)
+  new_pipeline_dashboard_page.edit_view
+  new_pipeline_dashboard_page.delete_tab
+end
+
+step 'Verify view <view> is not available' do |view|
+  assert_raise Capybara::ElementNotFound do
+    new_pipeline_dashboard_page.switch_to_tab(view)
+  end
+end
+
+step 'Set view name as <view_name>' do |view_name|
+  new_pipeline_dashboard_page.set_view_name(view_name)
+end
+
+step 'Verify groups <groups> are visible' do |groups|
+  modal = new_pipeline_dashboard_page.personalization_editor
+  groups.split(',').each do |group|
+    assert_true modal.find(".selected-pipelines li span", text: group.strip).visible?
+  end
+end
 step 'Verify show newly created pipelines option status is checked' do |_tmp|
   assert_true new_pipeline_dashboard_page.is_checked?('#show-newly-created-pipelines')
 end
 
 step 'Set show newly created pipelines option status as <status>' do |status|
   new_pipeline_dashboard_page.set_newly_created_pipeline_status(status)
-end
-
-step 'Verify groups <pipeline_group_names> are visible - Already on pipelines selector section' do |pipeline_group_names|
-  pipeline_group_names.split(',').each {|pipeline_group_name|
-    assert_true new_pipeline_dashboard_page.group_name_visible_in_selection_dropdown(pipeline_group_name.strip)
-  }
-end
-
-step 'Verify groups <pipeline_group_names> are not visible - Already on pipelines selector section' do |pipeline_group_names|
-  pipeline_group_names.split(',').each {|pipeline_group_name|
-    assert_raise Capybara::ElementNotFound do
-      new_pipeline_dashboard_page.group_name_visible_in_selection_dropdown(pipeline_group_name.strip)
-    end
-  }
 end
 
 step 'Deselect all pipelines' do |_tmp|
@@ -45,11 +65,11 @@ step 'Select all pipelines' do |_tmp|
 end
 
 step 'Verify all pipelines are selected' do |_tmp|
-  assert_true new_pipeline_dashboard_page.all_pipelines_selected?
+  assert_false new_pipeline_dashboard_page.all_pipelines_selected?
 end
 
 step 'Verify no pipelines are selected' do |_tmp|
-  assert_true new_pipeline_dashboard_page.no_pipelines_selected?
+  assert_false new_pipeline_dashboard_page.no_pipelines_selected?
 end
 
 step 'Select group <pipeline_group_name>' do |pipeline_group_name|
@@ -81,13 +101,29 @@ step 'Deselect pipeline <pipeline_name>' do |pipeline_name|
 end
 
 step 'Verify <pipeline_group> is selected' do |pipeline_group_name|
-  assert_true new_pipeline_dashboard_page.is_checked?("#pgroup_#{pipeline_group_name}")
+  assert_true new_pipeline_dashboard_page.pipeline_group_selected?(pipeline_group_name)
 end
 
 step 'Verify <pipeline_group> is deselected' do |pipeline_group_name|
-  assert_false new_pipeline_dashboard_page.is_checked?("#pgroup_#{pipeline_group_name}")
+  assert_false new_pipeline_dashboard_page.pipeline_group_selected?(pipeline_group_name)
+end
+
+step 'Verify <pipeline_group> is indeterminate' do |pipeline_group_name|
+  assert_true new_pipeline_dashboard_page.is_pipeline_group_indeterminate?(pipeline_group_name)
+end
+
+step 'Verify <pipeline_group> is not indeterminate' do |pipeline_group_name|
+  assert_false new_pipeline_dashboard_page.is_pipeline_group_indeterminate?(pipeline_group_name)
 end
 
 step 'Apply selections' do |_tmp|
   new_pipeline_dashboard_page.apply_selection
+end
+
+step 'Select filter state <state>' do |state|
+  new_pipeline_dashboard_page.filter_by_state(state.capitalize)
+end
+
+step 'Trigger pipeline <name> - On Swift Dashboard page' do |name|
+  new_pipeline_dashboard_page.trigger_pipeline(name)
 end

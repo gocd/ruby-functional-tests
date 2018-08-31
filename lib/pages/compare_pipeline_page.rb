@@ -23,22 +23,24 @@ module Pages
 
     def verify_pipeline_dependency_revision(pipeline_name, revision)
       pipeline_dependency_material_modifications(pipeline_name)
-      .find('.change').find('.revision').text.include? sanitize_message(revision)
+        .find('.change').find('.revision').text.include? sanitize_message(revision)
     end
 
     def verify_pipeline_dependency_label(pipeline_name, label)
       pipeline_dependency_material_modifications(pipeline_name)
-      .find('.change').find('.label').text.include? label
+        .find('.change').find('.label').text.include? label
     end
 
     def verify_scm_material_revision(material_type, revision)
-      pipeline_scm_material_modifications(material_type)
-      .find('.change').find('.revision').text.include? revision
+      pipeline_scm_material_modifications(material_type).all('.change').collect do |change|
+        change.find('.revision').text
+      end.include? revision
     end
 
     def verify_scm_material_comment(material_type, comment)
-      pipeline_scm_material_modifications(material_type)
-      .find('.change').find('.comment').text.include? comment
+      pipeline_scm_material_modifications(material_type).all('.change').collect do |change|
+        change.find('.comment').text
+      end.include? comment
     end
 
     def click_label(label)
@@ -47,6 +49,22 @@ module Pages
 
     def label_exists?(label)
       page.find('.ac_results').has_selector?('h3', text: label)
+    end
+
+    def number_of_materials?(count)
+      check_ins.all('.material_title').size.equal? count
+    end
+
+    def checkin_info_message?(message)
+      check_ins.find('.message').text.include? message
+    end
+
+    def checkin_warn_message?(message)
+      check_ins.find('.warning').text.include? message
+    end
+
+    def see_bisect_diff
+      check_ins.find('a', text: 'CONTINUE').click
     end
 
     private
@@ -60,6 +78,5 @@ module Pages
       materials = check_ins.all('.material_title').select { |mt| mt if mt.text.start_with?("#{material_type} - ") }
       materials.first.find(:xpath, '..').find('.list_table.material_modifications')
     end
-
   end
 end

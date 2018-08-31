@@ -67,3 +67,7 @@ end
 step 'Rerun stage <stage> - On Stage Details page' do |stage|
 	stage_details_page.rerun_stage(stage)
 end
+
+step 'Cancel <stage> - On Stage Detail Page' do |stage|
+	stage_details_page.cancel_stage(stage)
+end

@@ -230,3 +230,7 @@ end
 step 'Override secure variable named <secure_env_variable_key> with value <secure_env_variable_value>' do |secure_env_variable_key,secure_env_variable_value|
   new_pipeline_dashboard_page.override_secure_env_variable(secure_env_variable_key,secure_env_variable_value)
 end
+
+step 'Sleep for <secs> seconds' do |secs|
+	sleep secs.to_i
+end

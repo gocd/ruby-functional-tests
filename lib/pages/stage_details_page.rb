@@ -66,6 +66,10 @@ module Pages
       page.find("#stage_bar_rerun_#{stage}").click
     end
 
+    def cancel_stage(stage)
+      page.find("#stage_bar_cancel_#{stage}").click
+    end
+
     private
 
     def getRevisionForModification(modification_number)

@@ -57,3 +57,19 @@ end
 step 'Verify that from pipeline textbox is populated with <label>' do |label|
   assert_true compare_pipeline_page.from_pipeline.value == label
 end
+
+step 'Verify there is message <msg>' do |msg|
+	assert_true compare_pipeline_page.checkin_info_message?(msg)
+end
+
+step 'Opt to see bisect diff' do ||
+	compare_pipeline_page.see_bisect_diff
+end
+
+step 'Verify there is a warning message <msg>' do |msg|
+	assert_true compare_pipeline_page.checkin_warn_message?(msg)
+end
+
+step 'Verify that there are <count> materials' do |count|
+	assert_true compare_pipeline_page.number_of_materials? count.to_i
+end

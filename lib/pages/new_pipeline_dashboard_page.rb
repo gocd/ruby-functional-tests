@@ -168,7 +168,7 @@ module Pages
     end
 
     def group_visible?(group)
-      pipeline_group_title.select { |grp| grp.find('strong', wait: 5).text == group }.any?
+      pipeline_group_title.select { |grp| grp.text == group }.any?
     end
 
     def pipeline_in_group?(group)

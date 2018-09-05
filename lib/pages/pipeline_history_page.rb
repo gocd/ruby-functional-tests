@@ -24,6 +24,7 @@ module Pages
     element :page_previous, '#page-previous'
     element :filter_history, '#labelFilterField'
     element :label_filter_clear, '.filter-clear-icon'
+    element :build_cause_summary, '.build-cause-summary-container'
 
     def verify_current_pagination_number(page_number)
       assert_true current_page.text.include?(page_number)
@@ -55,6 +56,22 @@ module Pages
 
     def clear_label_filter_selection
       label_filter_clear.click
+    end
+
+    def open_build_cause(pipeline_name, label)
+      page.find("#pipeline-#{label}-#{pipeline_name}")
+    end
+
+    def shows_build_cause_message(message)
+      build_cause_summary.text.include? message
+    end
+
+    def triggered_by?(pipeline_name, label, user)
+      page.find("#pipeline-#{label}-#{pipeline_name}").text.equal? "Triggered by #{user}"
+    end
+
+    def pause_pipeline
+      page.find('span', text: "Pause").click
     end
   end
 end

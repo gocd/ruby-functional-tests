@@ -63,3 +63,7 @@ end
 step 'With Environments Configuration - setup' do
 	basic_configuration.setup 'with-environments-cruise-config.xml'
 end
+
+step 'Fanin Configuration - setup' do
+  basic_configuration.setup 'fanin-cruise-config.xml'
+end

@@ -170,6 +170,8 @@ step 'Trigger pipeline with options - On Swift Dashboard page' do |_tmp|
 end
 
 step 'Using material <material_name> set revision to trigger with as <identifier> - On Swift Dashboard page' do |material_name, identifier|
+  material_name = new_pipeline_dashboard_page.sanitize_message(material_name)
+  identifier = new_pipeline_dashboard_page.sanitize_message(identifier)
   new_pipeline_dashboard_page.set_revision_to_trigger_with(material_name, identifier)
 end
 
@@ -233,4 +235,11 @@ end
 
 step 'Sleep for <secs> seconds' do |secs|
 	sleep secs.to_i
+end
+
+step 'Trigger and wait for stage <stage> is <state> with label <label> - On Swift Dashboard page' do |stage, state, label|
+  new_pipeline_dashboard_page.trigger_pipeline(false)
+  new_pipeline_dashboard_page.wait_till_pipeline_complete
+  new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.self_pipeline, stage, state.downcase
+  new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.self_pipeline, label
 end

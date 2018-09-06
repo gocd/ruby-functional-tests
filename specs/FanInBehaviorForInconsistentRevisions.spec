@@ -2,7 +2,7 @@ FanInBehaviorForInconsistentRevisions
 =====================================
 
 Setup of contexts
-* Fanin configuration - setup
+* Fanin Configuration - setup
 * Using pipeline "FIR1, FIR2, FIR3" - setup
 * With "2" live agents - setup
 * Capture go state "FanInBehaviorForInconsistentRevisions" - setup

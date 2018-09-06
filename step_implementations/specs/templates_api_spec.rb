@@ -68,5 +68,5 @@ step 'Update template <template>' do |template|
 end
 
 step 'Verify returned <response> response code' do |expected_code|
-  assert_true scenario_state.retrive('api_response').code == expected_code.to_i
+  assert_true scenario_state.retrieve('api_response').code == expected_code.to_i
 end

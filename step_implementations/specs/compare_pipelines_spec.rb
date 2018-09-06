@@ -15,8 +15,8 @@
 ##########################################################################
 
 step 'Verify displays revision <revision> having label <label> under pipeline named <pipeline>' do |revision, label, pipeline|
-  assert_true compare_pipeline_page.verify_pipeline_dependency_revision(scenario_state.retrive(pipeline), revision)
-  assert_true compare_pipeline_page.verify_pipeline_dependency_label(scenario_state.retrive(pipeline), label)
+  assert_true compare_pipeline_page.verify_pipeline_dependency_revision(scenario_state.retrieve(pipeline), revision)
+  assert_true compare_pipeline_page.verify_pipeline_dependency_label(scenario_state.retrieve(pipeline), label)
 end
 
 step 'Verify displays revision <material_id> having comment <comment> under <material_type>' do |material_id, comment, material_type|

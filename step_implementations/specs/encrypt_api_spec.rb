@@ -27,7 +27,7 @@ step 'Encrypt value <value> and store encrypted value as <identifier>' do |value
 end
 
 step 'Verify encrypted values <identifier0> and <identifier1> are not same' do |identifier0, identifier1|
-  assert_false scenario_state.retrive(identifier0).eql? scenario_state.retrive(identifier1)
+  assert_false scenario_state.retrieve(identifier0).eql? scenario_state.retrieve(identifier1)
 end
 
 

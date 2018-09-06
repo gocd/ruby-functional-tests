@@ -21,7 +21,7 @@ module Context
       @scenario_store.put 'non-existing-pipeline', 'ghost-pipeline'
     end
 
-    def retrive key
+    def retrieve key
       @scenario_store.get key
     end
 
@@ -94,7 +94,7 @@ module Context
     end
 
     def material_revision(id)
-      @scenario_store.get id
+     (@scenario_store.get id).nil? ? id : (@scenario_store.get id)
     end
 
     def set_current_material_type(material_type)

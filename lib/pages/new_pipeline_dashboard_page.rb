@@ -34,11 +34,13 @@ module Pages
 
     load_validation { has_pipeline_group? }
 
-    def trigger_pipeline
+    def trigger_pipeline(wait_for_building = true)
       (pipeline_name text: scenario_state.self_pipeline)
         .find(:xpath, '../..').find('.pipeline_btn.play').click
-      reload_page
-      wait_till_pipeline_start_building
+      if wait_for_building
+        reload_page
+        wait_till_pipeline_start_building
+      end
     end
 
     def trigger_pipeline_disabled?
@@ -214,7 +216,7 @@ module Pages
       (pipeline_name text: scenario_state.self_pipeline)
         .find(:xpath, '../../..').find('.pipeline_stage.building').click
 
-      (stage_name text: scenario_state.retrive('current_stage_name'))
+      (stage_name text: scenario_state.retrieve('current_stage_name'))
         .find(:xpath, '../..').find('.stage_action').click
     
       find_by_id('cruise-header-tab-pipelines').click

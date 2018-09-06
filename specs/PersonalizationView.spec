@@ -3,7 +3,7 @@ PersonalizationView
 
 PersonalizationView
 ----------------------------
-tags: personalization, with_security, implementation_pending
+tags: personalization, with_security
 
 Setup of contexts
 * Secure Configuration - setup

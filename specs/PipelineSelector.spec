@@ -10,7 +10,7 @@ Setup of contexts
 
 PipelineSelector
 ----------------
-tags: no_security, pipeline_selector , implementation_pending
+tags: personalization, no_security, pipeline_selector , implementation_pending
 
 * On Swift Dashboard Page
 * Verify current view is "default"

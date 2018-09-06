@@ -32,6 +32,10 @@ step 'Delete view <view>' do |view|
   new_pipeline_dashboard_page.delete_tab
 end
 
+step 'Change view to <view>' do |view|
+  new_pipeline_dashboard_page.switch_to_tab(view)
+end
+
 step 'Verify view <view> is not available' do |view|
   assert_raise Capybara::ElementNotFound do
     new_pipeline_dashboard_page.switch_to_tab(view)
@@ -46,6 +50,13 @@ step 'Verify groups <groups> are visible' do |groups|
   modal = new_pipeline_dashboard_page.personalization_editor
   groups.split(',').each do |group|
     assert_true modal.find(".selected-pipelines li span", text: group.strip).visible?
+  end
+end
+
+step 'Verify groups <groups> are not visible' do |groups|
+  modal = new_pipeline_dashboard_page.personalization_editor
+  groups.split(',').each do |group|
+    modal.assert_no_selector(".selected-pipelines li span", text: group.strip)
   end
 end
 

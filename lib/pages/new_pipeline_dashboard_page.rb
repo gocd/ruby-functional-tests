@@ -363,10 +363,6 @@ module Pages
       personalization_modal.find_button('Save').click
     end
 
-    def is_checked?(selector)
-      personalization_editor.find(selector).checked?
-    end
-
     def switch_to_environment_variables_tab
       environment_variables_tab.find('li', text: 'Environment variables', exact_text: true).click
     end
@@ -454,12 +450,6 @@ module Pages
       end
       expanded_section = pipeline_group_checkbox_for(pipeline_group_name).first(:xpath, '../..')
       expanded_section.all('ul.selected-pipelines_pipeline-list li input')
-    end
-
-    def checked_status_for_newly_created_pipelines
-      checked_status = is_checked?('#show-newly-created-pipelines')
-      return 'checked' if checked_status
-      'unchecked'
     end
 
     def pipeline_group_checkbox_for(pipeline_group_name)

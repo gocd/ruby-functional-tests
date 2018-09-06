@@ -46,7 +46,7 @@
       </authorization>
         <pipeline name="basic-pipeline-with-git-material">
             <materials>
-                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="basic-pipeline-with-git-material" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>

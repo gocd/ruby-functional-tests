@@ -20,7 +20,7 @@
     <pipelines group="defaultGroup">
         <pipeline name="basic-pipeline-run-and-cancel">
             <materials>
-                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="basic-pipeline-run-and-cancel" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>

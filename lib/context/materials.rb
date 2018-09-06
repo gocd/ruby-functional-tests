@@ -29,15 +29,27 @@ module Context
     end
 
     def setup_material_for(pipeline)
-      rm_rf(@path)
-      mkdir_p(@path)
-      cd(@path) do
-        Open3.popen3('git init sample.git') do |_stdin, _stdout, stderr, wait_thr|
-          raise "Initialization of git Material Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
+      begin
+        current_configuration = basic_configuration.get_config_from_server
+        material_url = current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline)}']/materials/git/@url").first.value
+        if !scenario_state.retrieve(material_url).nil?
+          material_path = scenario_state.retrieve(material_url)
+        else
+          rm_rf(@path)
+          mkdir_p(@path)
+          cd(@path) do
+            Open3.popen3('git init sample.git') do |_stdin, _stdout, stderr, wait_thr|
+              raise "Initialization of git Material Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
+            end
+          end
+          initial_commit
+          material_path = "#{@path}/sample.git"
+          scenario_state.store(material_url , material_path)
         end
+        basic_configuration.set_material_path_for_pipeline(pipeline, material_path)
+      rescue StandardError => e
+        p "The Pipeline #{pipeline} does not have a git material. #{e.message}"
       end
-      initial_commit
-      basic_configuration.set_material_path_for_pipeline(pipeline, "#{@path}/sample.git")
     end
 
     def initial_commit

@@ -59,7 +59,7 @@
       </authorization>
         <pipeline name="admin-pipeline" lockBehavior="lockOnFailure">
             <materials>
-                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="admin-pipeline" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -189,7 +189,7 @@
     <pipelines group="open-to-all">
         <pipeline name="manual-stages-that-run-till-file-exists">
             <materials>
-                <git url="$git-on-git-pipeline" dest="git" materialName="gitMaterial" autoUpdate="false"/>
+                <git url="manual-stages-that-run-till-file-exists" dest="git" materialName="gitMaterial" autoUpdate="false"/>
             </materials>
             <stage name="firstStage">
                 <approval type="manual"/>
@@ -225,7 +225,7 @@
       </authorization>
         <pipeline name="basic-pipeline-with-git-material">
             <materials>
-                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="basic-pipeline-with-git-material" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -244,7 +244,7 @@
         
         <pipeline name="P1">
             <materials>
-                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="P1" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -263,7 +263,7 @@
             </pipeline>
         <pipeline name="P2">
             <materials>
-                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="P2" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>

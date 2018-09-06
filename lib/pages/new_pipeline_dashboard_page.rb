@@ -414,6 +414,18 @@ module Pages
       dashboard_tabs.find(".edit-tab").click
     end
 
+    def show_new_pipelines?
+      show_new_pipelines_checkbox.checked?
+    end
+
+    def check_show_new_pipelines
+      show_new_pipelines_checkbox.click unless show_new_pipelines?
+    end
+
+    def uncheck_show_new_pipelines
+      show_new_pipelines_checkbox.click if show_new_pipelines?
+    end
+
     def filter_by_state(state)
       personalization_editor.find(".stage-state-selector")
         .find("span", text: state)
@@ -421,6 +433,12 @@ module Pages
     end
 
     private
+
+    def show_new_pipelines_checkbox
+      personalization_editor.find(".show-pipelines")
+        .find("span", text: "New")
+        .sibling("input")
+    end
 
     def pipeline_checkbox_for(pipeline_name)
       personalization_editor.find("ul.selected-pipelines_pipeline-list li span",

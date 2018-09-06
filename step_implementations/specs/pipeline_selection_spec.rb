@@ -48,12 +48,17 @@ step 'Verify groups <groups> are visible' do |groups|
     assert_true modal.find(".selected-pipelines li span", text: group.strip).visible?
   end
 end
+
 step 'Verify show newly created pipelines option status is checked' do |_tmp|
-  assert_true new_pipeline_dashboard_page.is_checked?('#show-newly-created-pipelines')
+  assert_true new_pipeline_dashboard_page.show_new_pipelines?
 end
 
-step 'Set show newly created pipelines option status as <status>' do |status|
-  new_pipeline_dashboard_page.set_newly_created_pipeline_status(status)
+step 'Uncheck show newly created pipelines' do
+  new_pipeline_dashboard_page.uncheck_show_new_pipelines
+end
+
+step 'Check show newly created pipelines' do
+  new_pipeline_dashboard_page.check_show_new_pipelines
 end
 
 step 'Deselect all pipelines' do |_tmp|

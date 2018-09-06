@@ -10,16 +10,15 @@ Setup of contexts
 
 PipelineSelector
 ----------------
-
 tags: no_security, pipeline_selector , implementation_pending
 
-* Verify current view is "Default"
-
-* Open pipelines selector for "Default" view
+* On Swift Dashboard Page
+* Verify current view is "default"
+* Edit current tab
 
 Make selections when security is disabled
 * Verify show newly created pipelines option status is checked
-* Verify groups "basic,dependency-group,artifact_md5_verification" are visible - Already on pipelines selector section
+* Verify groups "basic,dependency-group,artifact_md5_verification" are visible
 * Deselect all pipelines
 * Select group "basic"
 * Verify all pipelines in group "basic" are selected
@@ -44,10 +43,11 @@ Enable security
 * Load login page
 * Login as "pipelineSelectorAdmin" - Swift Dashboard
 
-* Verify current view is "Default"
-* Open pipelines selector for "Default" view
+* On Swift Dashboard Page
+* Verify current view is "default"
+* Edit current tab
 * Verify show newly created pipelines option status is checked
-* Set show newly created pipelines option status as "unchecked"
+* Uncheck show newly created pipelines
 * Deselect all pipelines
 * Select group "artifact_md5_verification"
 * Select group "dependency-group"
@@ -65,7 +65,7 @@ Enable security
 * Logout and login as "pavan"
 
 //Verify that user 'pavan' sees all pipelines created when no security was setup + the newly added pipelines by 'admin'
-* Verify current view is "Default"
+* Verify current view is "default"
 * Verify group "basic" is visible - On Swift Dashboard page
 * Verify pipeline "basic-pipeline-run-till-file-exists" shows up - On Swift Dashboard page
 * Verify pipeline "admin-test-basic" shows up - On Swift Dashboard page
@@ -76,7 +76,7 @@ Enable security
 * Verify group "dependency-group" is visible - On Swift Dashboard page
 * Verify pipeline "dependency-group-pipeline-1" shows up - On Swift Dashboard page
 * Verify pipeline "admin-test-dependency" shows up - On Swift Dashboard page
-* Open pipelines selector for "Default" view
+* Edit current tab
 
 //'pavan' makes selections
 * Verify show newly created pipelines option status is checked
@@ -157,7 +157,7 @@ Enable security
 * Verify pipeline "artifact_md5_verification-pipeline-1" do not show up - On Swift Dashboard page
 
 
-* Open pipelines selector for "Default" view
+* Edit current tab
 
 //verify that even if 1 pipeline is deselected the group checkbox appears deselected
 * Verify "basic" is deselected

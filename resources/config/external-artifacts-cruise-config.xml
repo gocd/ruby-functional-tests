@@ -56,7 +56,7 @@
       </authorization>
         <pipeline name="upstream" lockBehavior="lockOnFailure">
             <materials>
-                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="upstream" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>

@@ -57,6 +57,14 @@ module Context
       current_config
     end
 
+    def set_material_path_for_pipeline(pipeline, material_path)
+      current_config = get_config_from_server
+      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline)}']/materials/git").each do |material|
+        material['url'] = material_path
+      end
+      load_dom(current_config)
+    end
+
     def replace_pipeline_names
       config_dom.xpath('//cruise/pipelines/pipeline').each do |pipeline|
         initial_name = pipeline['name']
@@ -72,14 +80,6 @@ module Context
         end
         scenario_state.add_pipeline initial_name, pipeline['name']
       end
-    end
-
-    def set_material_path_for_pipeline(pipeline, material_path)
-      current_config = get_config_from_server
-      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline)}']/materials/git").each do |material|
-        material['url'] = material_path
-      end
-      load_dom(current_config)
     end
 
     def set_config_repo(config_repo_path, idx)

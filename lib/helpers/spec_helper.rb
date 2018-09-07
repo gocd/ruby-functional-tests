@@ -44,6 +44,7 @@ require 'pages/pipeline_group_edit_page'
 require 'pages/plugins_spa'
 require 'pages/user_summary'
 require 'pages/new_pipeline_dashboard_page'
+require 'pages/dashboard_personalization'
 require 'pages/pipeline_history_page'
 require 'pages/admin_pipeline_page'
 require 'pages/stage_details_page'
@@ -81,6 +82,10 @@ module Helpers
 
     def pipeline_dashboard_page
       Pages::PipelineDashboard.new
+    end
+
+    def dashboard_personalization
+      Pages::DashboardPersonalization.new
     end
 
     def new_pipeline_dashboard_page
@@ -166,7 +171,7 @@ module Helpers
     def pipeline_settings_page
       Pages::PipelineSettingsPage.new
     end
-    
+
     def basic_configuration
       Context::BasicConfiguration.new
     end

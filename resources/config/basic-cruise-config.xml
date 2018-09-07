@@ -20,7 +20,7 @@
     <pipelines group="basic">
     <pipeline name="pipeline-with-lock-all-manual" lockBehavior="lockOnFailure">
             <materials>
-                <git url="pipeline-with-lock-all-manual" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="material-for-pipeline-with-lock-all-manual" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="firstStage">
                 <approval type="manual"/>
@@ -45,7 +45,7 @@
         </pipeline>
     <pipeline name="up">
             <materials>
-                <git url="up" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="material-for-up" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -99,7 +99,7 @@
         </pipeline>
         <pipeline name="basic-pipeline-run-till-file-exists">
             <materials>
-                <git url="basic-pipeline-run-till-file-exists" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="material-for-basic-pipeline-run-till-file-exists" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -115,7 +115,7 @@
         <pipeline name="downstream">
             <materials>
                 <pipeline pipelineName="basic-pipeline-run-till-file-exists" stageName="defaultStage" materialName="basic-pipeline-run-till-file-exists-downstream"/>
-                <git url="downstream" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="material-for-downstream" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -130,7 +130,7 @@
         </pipeline>
         <pipeline name="basic-pipeline-with-long-running-job">
             <materials>
-                <git url="basic-pipeline-with-long-running-job" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="material-for-basic-pipeline-with-long-running-job" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -147,7 +147,7 @@
         </pipeline>
         <pipeline name="basic-pipeline-fast">
             <materials>
-                <git url="basic-pipeline-fast" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="material-for-basic-pipeline-fast" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -163,7 +163,7 @@
         </pipeline>
         <pipeline name="basic-pipeline-with-job-resources">
             <materials>
-                <git url="basic-pipeline-with-job-resources" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="material-for-basic-pipeline-with-job-resources" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -183,7 +183,7 @@
         </pipeline>
         <pipeline name="pipeline-unlock-onComplete" lockBehavior="unlockWhenFinished">
             <materials>
-                <git url="pipeline-unlock-onComplete" dest="tasks" materialName="git" autoUpdate="false"/>
+                <git url="material-for-pipeline-unlock-onComplete" dest="tasks" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="firstStage">
                 <jobs>
@@ -218,7 +218,7 @@
     <pipelines group="dependency-group">
         <pipeline name="dependency-group-pipeline-1">
             <materials>
-                <git url="dependency-group-pipeline-1" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="material-for-dependency-group-pipeline-1" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -236,7 +236,7 @@
     <pipelines group="artifact_md5_verification">
         <pipeline name="artifact_md5_verification-pipeline-1">
             <materials>
-                <git url="artifact_md5_verification-pipeline-1" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="material-for-artifact_md5_verification-pipeline-1" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -252,7 +252,7 @@
         </pipeline>
         <pipeline name="artifact_md5_verification-pipeline-2">
             <materials>
-                <git url="artifact_md5_verification-pipeline-2" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="material-for-artifact_md5_verification-pipeline-2" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -268,7 +268,7 @@
         </pipeline>
         <pipeline name="edit-pipeline">
             <materials>
-                <git url="edit-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="material-for-edit-pipeline" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>

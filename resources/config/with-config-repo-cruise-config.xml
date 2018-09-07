@@ -31,7 +31,7 @@
     <pipelines group="basic">
         <pipeline name="simple-upstream">
             <materials>
-                <git url="$git-on-git-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="material-for-simple-upstream" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -48,7 +48,7 @@
         </pipeline>
         <pipeline name="main-config-pipeline">
             <materials>
-                <git url="main-config-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="material-for-main-config-pipeline" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>

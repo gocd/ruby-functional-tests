@@ -42,7 +42,7 @@
     <pipelines group="basic">
         <pipeline name="basic-pipeline">
             <materials>
-                <git url="basic-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="material-for-basic-pipeline" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>

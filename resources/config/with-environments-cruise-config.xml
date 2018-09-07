@@ -55,7 +55,7 @@
     </pipeline>
     <pipeline name="environment-failing-pipeline" lockBehavior="lockOnFailure">
             <materials>
-                <git url="environment-failing-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="material-for-environment-failing-pipeline" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -88,7 +88,7 @@
                 <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
             </environmentvariables>
             <materials>
-                <git url="pipeline-with-environment-variables" dest="git" materialName="git" autoUpdate="true"/>
+                <git url="material-for-pipeline-with-environment-variables" dest="git" materialName="git" autoUpdate="true"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -170,7 +170,7 @@
         </pipeline>
         <pipeline name="environment-pipeline-locked" lockBehavior="lockOnFailure">
          <materials>
-           <git url="environment-pipeline-locked" dest="git" materialName="git" autoUpdate="false"/>
+           <git url="material-for-environment-pipeline-locked" dest="git" materialName="git" autoUpdate="false"/>
              </materials>
              <stage name="defaultStage">
                <approval type="manual"/>

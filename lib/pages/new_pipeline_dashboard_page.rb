@@ -34,10 +34,10 @@ module Pages
 
     load_validation { has_pipeline_group? }
 
-    def trigger_pipeline(wait_for_building = true)
+    def trigger_pipeline(wait_to_build = true)
       (pipeline_name text: scenario_state.self_pipeline)
         .find(:xpath, '../..').find('.pipeline_btn.play').click
-      if wait_for_building
+      if wait_to_build
         reload_page
         wait_till_pipeline_start_building
       end

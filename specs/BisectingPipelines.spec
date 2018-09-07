@@ -34,7 +34,7 @@ tags: shine, bisect, automate
 * Open changes section - On Swift Dashboard page
 
 * Looking at material of type "Git" named "git"
-* Verify modification "0" has revision "rev-5" - Already On Build Cause Section
+* Verify modification "0" has revision "rev-5" - On Build Cause popup
 * Verify material has changed - Already On Build Cause Section
 * Verify modification "1" has revision "rev-4" - Already On Build Cause Section
 * Verify material has changed - Already On Build Cause Section

@@ -156,7 +156,8 @@ end
 
 step 'Looking at material of type <material_type> named <name> verify shows latest revision - On Swift Dashboard page' do |type, name|
   latest_revision = Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).latest_revision
-  revision = new_pipeline_dashboard_page.revision_of_material(type, name)
+  material_name = new_pipeline_dashboard_page.sanitize_message(name)
+  revision = new_pipeline_dashboard_page.revision_of_material(type, material_name)
   new_pipeline_dashboard_page.shows_revision_at?(revision, latest_revision)
 end
 
@@ -249,15 +250,23 @@ step 'Sleep for <secs> seconds' do |secs|
 end
 
 step 'Verify modification <position> has revision <revision> - On Build Cause popup' do |position, revision|
-	revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.retrieve('current_material_type'), scenario_state.retrieve('current_material_name'))
-  new_pipeline_dashboard_page.shows_revision_at?(revision_element, revision, position.to_i)
+  material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.retrieve('current_material_name'))
+  revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.retrieve('current_material_type'), material_name)
+  assert_true new_pipeline_dashboard_page.shows_revision_at?(revision_element, scenario_state.retrieve(revision), position.to_i)
 end
 
 step 'Verify material has changed - On Build Cause popup' do ||
-  revision = new_pipeline_dashboard_page.revision_of_material(scenario_state.retrieve('current_material_type'), scenario_state.retrieve('current_material_name'))
-  assert_true new_pipeline_dashboard_page.material_revision_changed? revision
+  material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.retrieve('current_material_name'))
+  revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.retrieve('current_material_type'), material_name)
+  assert_true new_pipeline_dashboard_page.material_revision_changed? revision_element
 end
 
 step 'Verify pipeline does not get triggered' do ||
 	new_pipeline_dashboard_page.wait_to_check_pipeline_do_not_start
+end
+
+step 'Verify material has not changed - On Build Cause popup' do ||
+	material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.retrieve('current_material_name'))
+  revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.retrieve('current_material_type'), material_name)
+  assert_false new_pipeline_dashboard_page.material_revision_changed? revision_element
 end

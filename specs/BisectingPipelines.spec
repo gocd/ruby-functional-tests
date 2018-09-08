@@ -47,12 +47,16 @@ tags: shine, bisect, automate
 
 * Using material "git" set revision to trigger with as "rev-3" - On Swift Dashboard page
 * Trigger pipeline with options - On Swift Dashboard page
+
+* Looking at pipeline "basic-pipeline-fast" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "passed" on pipeline with label "3" - On Swift Dashboard page
 * Verify pipeline is triggered by "anonymous" - On Swift Dashboard page
+
 * Open changes section - On Swift Dashboard page
 
-* Verify modification "0" has revision "rev-3" - Already On Build Cause Section
-* Verify material has not changed - Already On Build Cause Section
+* Verify modification "0" has revision "rev-3" - On Build Cause popup
+* Verify material has not changed - On Build Cause popup
 
 * Click on history - On Swift Dashboard page
 

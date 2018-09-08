@@ -236,13 +236,13 @@ module Pages
 
     def revision_of_material(type, name)
       revisions(scenario_state.self_pipeline).select do |material|
-        material.find('.rev-head').text.include? "#{type} - #{sanitize_message(name)}"
+        material.find('.rev-head').text.include? "#{type} - #{name}"
       end .first
     end
 
     def shows_revision_at?(revision_element, revision, position=0)
-      revision_class = scenario_state.retrieve('current_material_type').equal? 'Pipeline' ? '.modified_by' : '.revision_id'
-      revision_element.all('.modifications')[position].has_css?(revision_class, text: sanitize_message(revision))
+      revision_class = scenario_state.retrieve('current_material_type') == 'Pipeline' ? '.modified_by' : '.revision_id'
+      revision_element.all('.modifications')[position].has_css?(revision_class, text: revision)
     end
 
     def triggered_by?(user)

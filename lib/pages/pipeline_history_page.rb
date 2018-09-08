@@ -59,7 +59,7 @@ module Pages
     end
 
     def open_build_cause(pipeline_name, label)
-      page.find("#pipeline-#{label}-#{pipeline_name}")
+      page.find("#pipeline-#{label}-#{pipeline_name}").click
     end
 
     def shows_build_cause_message(message)

@@ -19,8 +19,8 @@ step 'On stage details page material tab for <pipeline_name> label <label> stage
 end
 
 step 'Looking at material of type <material_type> named <material_name>' do |material_type, material_name|
-  scenario_state.set_current_material_type(material_type)
-  scenario_state.set_current_material_name(material_name)
+  scenario_state.store('current_material_type', material_type)
+  scenario_state.store('current_material_name', material_name)
 end
 
 step 'Verify modification <modification_number> has latest revision' do |modification_number|
@@ -28,7 +28,7 @@ step 'Verify modification <modification_number> has latest revision' do |modific
 end
 
 step 'Verify modification <modification_number> has revision <revision> - Already On Build Cause Section' do |modification_number, revision|
-  material_type =   scenario_state.get_current_material_type
+  material_type =   scenario_state.retrieve('current_material_type')
   actual_revision = revision
   if material_type == 'Pipeline'
     revision_arr = revision.split(/\//)
@@ -40,14 +40,14 @@ step 'Verify modification <modification_number> has revision <revision> - Alread
 end
 
 step 'Verify material has changed - Already On Build Cause Section' do |_tmp|
-  material_type =   scenario_state.get_current_material_type
-  material_name =   scenario_state.get_current_material_name
+  material_type =   scenario_state.retrieve('current_material_type')
+  material_name =   scenario_state.retrieve('current_material_name')
   assert_true stage_details_page.verify_material_has_changed(material_type, material_name)
 end
 
 step 'Verify material has not changed - Already On Build Cause Section' do |_tmp|
-  material_type =   scenario_state.get_current_material_type
-  material_name =   scenario_state.get_current_material_name
+  material_type =   scenario_state.retrieve('current_material_type')
+  material_name =   scenario_state.retrieve('current_material_name')
   assert_false stage_details_page.verify_material_has_changed(material_type, material_name)
 end
 

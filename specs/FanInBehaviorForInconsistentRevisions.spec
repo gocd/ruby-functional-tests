@@ -81,12 +81,12 @@ tags: diamond dependency, fanin
 * Verify stage "defaultStage" is "Passed" on pipeline with label "5" - On Swift Dashboard page
 * Open changes section - On Swift Dashboard page
 
-* Looking at material of type "Pipeline" named "${runtime_name:FIR2}" for pipeline "FIR3" with counter "5"
-* Verify modification "0" has revision "$FIR2$/5/stage1/1"
-* Verify material has changed
-* Looking at material of type "Pipeline" named "${runtime_name:FIR1}" for pipeline "FIR3" with counter "5"
-* Verify modification "0" has revision "${runtime_name:FIR1}/1/stage1/1"
-* Verify material has not changed
+* Looking at material of type "Pipeline" named "$FIR2$"
+* Verify modification "0" has revision "$FIR2$/5/stage1/1" - On Build Cause popup
+* Verify material has changed - On Build Cause popup
+* Looking at material of type "Pipeline" named "$FIR1$"
+* Verify modification "0" has revision "$FIR1$/1/stage1/1" - On Build Cause popup
+* Verify material has changed - On Build Cause popup
 
 * Looking at pipeline "FIR1" - On Swift Dashboard page
 * Open trigger with options - On Swift Dashboard page
@@ -97,7 +97,7 @@ tags: diamond dependency, fanin
 * Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" on pipeline with label "5" - On Swift Dashboard page
 * Looking at pipeline "FIR3" - On Swift Dashboard page
-* Verify pipeline is at label "5" and does not get triggered
+* Verify pipeline does not get triggered
 
 
 

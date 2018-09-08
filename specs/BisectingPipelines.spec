@@ -34,16 +34,12 @@ tags: shine, bisect, automate
 * Open changes section - On Swift Dashboard page
 
 * Looking at material of type "Git" named "git"
+* Verify material has changed - On Build Cause popup
 * Verify modification "0" has revision "rev-5" - On Build Cause popup
-* Verify material has changed - Already On Build Cause Section
-* Verify modification "1" has revision "rev-4" - Already On Build Cause Section
-* Verify material has changed - Already On Build Cause Section
-* Verify modification "2" has revision "rev-3" - Already On Build Cause Section
-* Verify material has changed - Already On Build Cause Section
-* Verify modification "3" has revision "rev-2" - Already On Build Cause Section
-* Verify material has changed - Already On Build Cause Section
-* Verify modification "4" has revision "rev-1" - Already On Build Cause Section
-* Verify material has changed - Already On Build Cause Section
+* Verify modification "1" has revision "rev-4" - On Build Cause popup
+* Verify modification "2" has revision "rev-3" - On Build Cause popup
+* Verify modification "3" has revision "rev-2" - On Build Cause popup
+* Verify modification "4" has revision "rev-1" - On Build Cause popup
 
 
 * Looking at pipeline "basic-pipeline-fast" - On Swift Dashboard page
@@ -59,7 +55,6 @@ tags: shine, bisect, automate
 * Verify material has not changed - Already On Build Cause Section
 
 * Click on history - On Swift Dashboard page
-
 
 * Open build cause of pipeline with label "2"
 * Verify build cause message contains "Comment a"

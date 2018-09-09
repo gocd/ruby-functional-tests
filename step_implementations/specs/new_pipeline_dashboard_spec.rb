@@ -54,6 +54,13 @@ step 'Trigger and cancel stage <defaultStage> <trigger_number> times' do |stage_
   new_pipeline_dashboard_page.trigger_cancel_pipeline trigger_number
 end
 
+step 'Trigger and wait for stage <stage> is <state> with label <label> - On Swift Dashboard page' do |stage, state, label|
+  new_pipeline_dashboard_page.trigger_pipeline(false)
+  new_pipeline_dashboard_page.wait_till_pipeline_complete
+  new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.self_pipeline, stage, state.downcase
+  new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.self_pipeline, label
+end
+
 step 'Verify stage <stage> is <state> on pipeline with label <label> - On Swift Dashboard page' do |stage, state, label|
   new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.self_pipeline, stage, state.downcase
   new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.self_pipeline, label
@@ -127,6 +134,10 @@ step 'Verify pipeline is paused with reason <reason> by <user> - On Swift Dashbo
   assert_true new_pipeline_dashboard_page.pause_message?("Paused by #{user} (#{reason})")
 end
 
+step 'Verify pipeline is paused by <user> - On Swift Dashboard page' do |reason, user|
+  assert_true new_pipeline_dashboard_page.pause_message?("Paused by #{user} ()")
+end
+
 step 'Unpause pipeline - On Swift Dashboard page' do |_tmp|
   new_pipeline_dashboard_page.unpause_pipeline
 end
@@ -145,8 +156,9 @@ end
 
 step 'Looking at material of type <material_type> named <name> verify shows latest revision - On Swift Dashboard page' do |type, name|
   latest_revision = Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).latest_revision
-  revision = new_pipeline_dashboard_page.revision_of_material(type, name)
-  new_pipeline_dashboard_page.shows_revision?(revision, latest_revision)
+  material_name = new_pipeline_dashboard_page.sanitize_message(name)
+  revision = new_pipeline_dashboard_page.revision_of_material(type, material_name)
+  new_pipeline_dashboard_page.shows_revision_at?(revision, latest_revision)
 end
 
 step 'Checkin file <filename> as user <user> with message <message> - On Swift Dashboard page' do |filename, user, message|
@@ -237,9 +249,24 @@ step 'Sleep for <secs> seconds' do |secs|
 	sleep secs.to_i
 end
 
-step 'Trigger and wait for stage <stage> is <state> with label <label> - On Swift Dashboard page' do |stage, state, label|
-  new_pipeline_dashboard_page.trigger_pipeline(false)
-  new_pipeline_dashboard_page.wait_till_pipeline_complete
-  new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.self_pipeline, stage, state.downcase
-  new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.self_pipeline, label
+step 'Verify modification <position> has revision <revision> - On Build Cause popup' do |position, revision|
+  material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.retrieve('current_material_name'))
+  revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.retrieve('current_material_type'), material_name)
+  assert_true new_pipeline_dashboard_page.shows_revision_at?(revision_element, scenario_state.retrieve(revision), position.to_i)
+end
+
+step 'Verify material has changed - On Build Cause popup' do ||
+  material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.retrieve('current_material_name'))
+  revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.retrieve('current_material_type'), material_name)
+  assert_true new_pipeline_dashboard_page.material_revision_changed? revision_element
+end
+
+step 'Verify pipeline does not get triggered' do ||
+	new_pipeline_dashboard_page.wait_to_check_pipeline_do_not_start
+end
+
+step 'Verify material has not changed - On Build Cause popup' do ||
+	material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.retrieve('current_material_name'))
+  revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.retrieve('current_material_type'), material_name)
+  assert_false new_pipeline_dashboard_page.material_revision_changed? revision_element
 end

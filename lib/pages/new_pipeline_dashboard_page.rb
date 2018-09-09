@@ -34,10 +34,10 @@ module Pages
 
     load_validation { has_pipeline_group? }
 
-    def trigger_pipeline(wait_for_building = true)
+    def trigger_pipeline(wait_to_build = true)
       (pipeline_name text: scenario_state.self_pipeline)
         .find(:xpath, '../..').find('.pipeline_btn.play').click
-      if wait_for_building
+      if wait_to_build
         reload_page
         wait_till_pipeline_start_building
       end
@@ -108,6 +108,13 @@ module Pages
       wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
         reload_page
         break if get_all_stages(scenario_state.self_pipeline).first['class'].include?('building')
+      end
+    end
+
+    def wait_to_check_pipeline_do_not_start
+      wait_till_event_occurs_or_bomb 20, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
+        reload_page
+        break if !get_all_stages(scenario_state.self_pipeline).first['class'].include?('building')
       end
     end
 
@@ -233,8 +240,9 @@ module Pages
       end .first
     end
 
-    def shows_revision?(revision_element, revision_id)
-      revision_element.has_css?('.revision_id', text: revision_id)
+    def shows_revision_at?(revision_element, revision, position=0)
+      revision_class = scenario_state.retrieve('current_material_type') == 'Pipeline' ? '.modified_by' : '.revision_id'
+      revision_element.all('.modifications')[position].has_css?(revision_class, text: revision)
     end
 
     def triggered_by?(user)
@@ -386,6 +394,10 @@ module Pages
     def change_variable_to(key,value)
       env_var_to_be_repalaced = environment_variables_key_value.find('dt' , text: "#{key}", exact_text: true).find(:xpath , '..').find('.value').find('input')
       replace_element_value(env_var_to_be_repalaced,value)
+    end
+
+    def material_revision_changed?(revision)
+      revision[:class].include?('changed')
     end
 
     private

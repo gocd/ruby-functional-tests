@@ -55,3 +55,19 @@ step 'Approve stage <stage> with label <label>' do |stage, label|
     p "Stage #{stage} approval on history page failed with response code #{err.response.code} and the response body - #{err.response.body}"
   end
 end
+
+step 'Open build cause of pipeline with label <label>' do |label|
+	pipeline_history_page.open_build_cause(scenario_state.self_pipeline, label)
+end
+
+step 'Verify build cause message contains <message>' do |message|
+	pipeline_history_page.shows_build_cause_message?(message)
+end
+
+step 'Verify pipeline with label <label> is triggered by <user>' do |label, user|
+	pipeline_history_page.triggered_by?(scenario_state.self_pipeline, label, user)
+end
+
+step 'Pause pipeline on activity page' do ||
+	pipeline_history_page.pause_pipeline
+end

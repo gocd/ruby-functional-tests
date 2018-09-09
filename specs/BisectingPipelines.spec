@@ -67,10 +67,6 @@ tags: shine, bisect, automate
 * Verify build cause message contains "Comment d"
 * Verify build cause message contains "Comment e"
 * Verify pipeline with label "2" is triggered by "anonymous"
-* Pause pipeline on activity page
-
-* On Swift Dashboard Page
-* Verify pipeline is paused by "anonymous" - On Swift Dashboard page
 
 
 Teardown of contexts

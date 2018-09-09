@@ -86,7 +86,7 @@ tags: diamond dependency, fanin
 * Verify material has changed - On Build Cause popup
 * Looking at material of type "Pipeline" named "$FIR1$"
 * Verify modification "0" has revision "$FIR1$/1/stage1/1" - On Build Cause popup
-* Verify material has changed - On Build Cause popup
+* Verify material has not changed - On Build Cause popup
 
 * Looking at pipeline "FIR1" - On Swift Dashboard page
 * Open trigger with options - On Swift Dashboard page

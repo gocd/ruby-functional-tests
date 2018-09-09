@@ -59,15 +59,16 @@ module Pages
     end
 
     def open_build_cause(pipeline_name, label)
-      page.find("#pipeline-#{label}-#{pipeline_name}").click
+      page.find('.pipeline-label', text: label).find(:xpath, '../..').find('.pipeline-info', text: /Triggered by/).click
+
     end
 
-    def shows_build_cause_message(message)
+    def shows_build_cause_message?(message)
       build_cause_summary.text.include? message
     end
 
     def triggered_by?(pipeline_name, label, user)
-      page.find("#pipeline-#{label}-#{pipeline_name}").text.equal? "Triggered by #{user}"
+      page.find('.pipeline-label', text: label).find(:xpath, '../..').find('.pipeline-info', text: /Triggered by/).text.equal? "Triggered by #{user}"
     end
 
     def pause_pipeline

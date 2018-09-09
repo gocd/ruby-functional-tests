@@ -349,7 +349,7 @@
       <materials>
         <git url="git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
       </materials>
-      <stage name="stage1">
+      <stage name="defaultStage">
         <approval type="manual"/>
         <jobs>
           <job name="job1">
@@ -364,7 +364,7 @@
       <materials>
         <git url="git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
       </materials>
-      <stage name="stage1">
+      <stage name="defaultStage">
       	<approval type="manual"/>
         <jobs>
           <job name="job1">
@@ -377,10 +377,10 @@
     </pipeline>
     <pipeline name="FIR3">
       <materials>
-        <pipeline pipelineName="FIR1" stageName="stage1"/>
-        <pipeline pipelineName="FIR2" stageName="stage1"/>
+        <pipeline pipelineName="FIR1" stageName="defaultStage"/>
+        <pipeline pipelineName="FIR2" stageName="defaultStage"/>
       </materials>
-      <stage name="stage1">
+      <stage name="defaultStage">
         <jobs>
           <job name="job1">
             <tasks>

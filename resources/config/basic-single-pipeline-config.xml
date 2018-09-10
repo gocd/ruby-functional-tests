@@ -27,7 +27,10 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="ls" />
+                            <exec command="sleep">
+                                <arg>5</arg>
+                                <runif status="passed"/>
+                            </exec>
                         </tasks>
                     </job>
                 </jobs>

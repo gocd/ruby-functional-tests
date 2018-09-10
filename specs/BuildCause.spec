@@ -82,3 +82,4 @@ tags: new_dasboard, build_cause
 Teardown of contexts
 ____________________
 * Capture go state "BuildCause" - teardown
+* With "1" live agents - teardown

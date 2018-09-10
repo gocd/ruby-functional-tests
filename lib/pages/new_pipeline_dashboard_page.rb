@@ -25,7 +25,6 @@ module Pages
     elements :pipeline_group, '.dashboard-group'
     elements :pipeline_group_title, '.dashboard-group_title'
     element :material_for_trigger, '.material-for-trigger'
-    element :pipeline_selector_dropdown, '.filter_options'
     iframe :build_time_chart, PipelineBuildTime, 0
     element :stage_name, '.stage_name'
     element :environment_variables_tab, '.h-tab_tab-head.pipeline_options-heading'
@@ -41,6 +40,13 @@ module Pages
         reload_page
         wait_till_pipeline_start_building
       end
+    end
+
+    def trigger_pipeline(name)
+      (pipeline_name text: name)
+        .find(:xpath, '../..').find('.pipeline_btn.play').click
+      reload_page
+      wait_till_pipeline_start_building
     end
 
     def trigger_pipeline_disabled?
@@ -80,7 +86,7 @@ module Pages
         .find(:xpath, '../../..').find('.pipeline_btn.unpause').click
     end
 
-    def get_all_stages(pipeline) # This one needs to be relooked - the way the view is modelled do not make it easy to get latest stage state 
+    def get_all_stages(pipeline) # This one needs to be relooked - the way the view is modelled do not make it easy to get latest stage state
     (pipeline_name text: pipeline)
         .find(:xpath, '../../..').find('.pipeline_stages', wait: 10).all('a')
     rescue StandardError => e
@@ -212,20 +218,20 @@ module Pages
     end
 
     def trigger_cancel_pipeline(trigger_number)
-        
+
       (0...trigger_number.to_i).each do |number|
         trigger_pipeline
         cancel_pipeline
       end
     end
 
-    def cancel_pipeline 
+    def cancel_pipeline
       (pipeline_name text: scenario_state.self_pipeline)
         .find(:xpath, '../../..').find('.pipeline_stage.building').click
 
       (stage_name text: scenario_state.retrieve('current_stage_name'))
         .find(:xpath, '../..').find('.stage_action').click
-    
+
       find_by_id('cruise-header-tab-pipelines').click
     end
 
@@ -270,33 +276,6 @@ module Pages
       sleep 10
     end
 
-    def open_pipeline_selector_dropdown
-      page.find('.filter_btn').click
-    end
-
-    def group_name_visible_in_selection_dropdown(group_name)
-      pipeline_selector_dropdown.find("#pgroup_#{group_name}", wait: 2)
-                                .find(:xpath, './/..')
-                                .find('label', text: group_name)
-                                .visible?
-    end
-
-    def deselect_all_pipelines
-      pipeline_selector_dropdown.find('.select-none').click
-    end
-
-    def select_all_pipelines
-      pipeline_selector_dropdown.find('.select-all').click
-    end
-
-    def all_pipelines_selected?
-      pipeline_selector_dropdown.find('.select-all')[:class].include?('selected')
-    end
-
-    def no_pipelines_selected?
-      pipeline_selector_dropdown.find('.select-none')[:class].include?('selected')
-    end
-
     def click_vsm(pipeline)
       (pipeline_name text: pipeline)
         .find(:xpath, '../../..')
@@ -321,63 +300,6 @@ module Pages
       page.has_css?('.label', text: 'Material') && !page.find("##{scenario_state.self_pipeline}")[:class].include?('current')
     end
 
-    def select_pipeline_group(pipeline_group_name)
-      unless pipeline_group_checkbox_for(pipeline_group_name).checked?
-        pipeline_group_checkbox_for(pipeline_group_name).click
-      end
-    end
-
-    def deselect_pipeline_group(pipeline_group_name)
-      if pipeline_group_checkbox_for(pipeline_group_name).checked?
-        pipeline_group_checkbox_for(pipeline_group_name).click
-      end
-    end
-
-    def expand_pipeline_group(pipeline_group_name)
-      dropdown_arrow = pipeline_group_checkbox_for(pipeline_group_name).first(:xpath, './/..').find('.arrow-right')
-      dropdown_arrow.click
-    end
-
-    def are_all_pipelines_selected_for?(pipeline_group_name)
-      pipeline_checkboxes_for_pgroup = get_pipeline_checkboxes_for(pipeline_group_name)
-      pipeline_checkboxes_for_pgroup.each do |checkbox|
-        return false unless is_checked?("##{checkbox[:id]}")
-      end
-      true
-    end
-
-    def are_all_pipelines_deselected_for?(pipeline_group_name)
-      pipeline_checkboxes_for_pgroup = get_pipeline_checkboxes_for(pipeline_group_name)
-      pipeline_checkboxes_for_pgroup.each do |checkbox|
-        return false if is_checked?("##{checkbox[:id]}")
-      end
-      true
-    end
-
-    def select_pipeline(pipeline_name)
-      pipeline_checkbox = pipeline_checkbox_for(pipeline_name)
-      pipeline_checkbox.click unless pipeline_checkbox.checked?
-    end
-
-    def deselect_pipeline(pipeline_name)
-      pipeline_checkbox = pipeline_checkbox_for(pipeline_name)
-      pipeline_checkbox.click if pipeline_checkbox.checked?
-    end
-
-    def apply_selection
-      pipeline_selector_dropdown.find_button('Apply').click
-    end
-
-    def is_checked?(selector)
-      pipeline_selector_dropdown.find(selector).checked?
-    end
-
-    def set_newly_created_pipeline_status(status)
-      unless status == checked_status_for_newly_created_pipelines
-        pipeline_selector_dropdown.find('#show-newly-created-pipelines').click
-      end
-    end
-
     def switch_to_environment_variables_tab
       environment_variables_tab.find('li', text: 'Environment variables', exact_text: true).click
     end
@@ -389,7 +311,7 @@ module Pages
     def override_secure_env_variable(secure_env_variable_key,secure_env_variable_value)
       environment_variables_secure_key_value.find('dt' , text: "#{secure_env_variable_key}", exact_text: true).find(:xpath , '..').find('a' , text: 'Override').click
       environment_variables_secure_key_value.find('dt' , text: "#{secure_env_variable_key}", exact_text: true).find(:xpath , '..').find('.value').find('input').set(secure_env_variable_value)
-    end  
+    end
 
     def change_variable_to(key,value)
       env_var_to_be_repalaced = environment_variables_key_value.find('dt' , text: "#{key}", exact_text: true).find(:xpath , '..').find('.value').find('input')
@@ -401,31 +323,6 @@ module Pages
     end
 
     private
-
-    def pipeline_checkbox_for(pipeline_name)
-      pipeline_selector_dropdown.find("input#pipeline_#{scenario_state.actual_pipeline_name(pipeline_name)}")
-    end
-
-    def get_pipeline_checkboxes_for(pipeline_group_name)
-      begin
-        expand_pipeline_group(pipeline_group_name)
-      rescue StandardError
-        # do nothing the group is already expanded.
-      end
-      expanded_section = pipeline_group_checkbox_for(pipeline_group_name).first(:xpath, '../..')
-      expanded_pipelines_section = expanded_section.all('.filter_pipeline-list')
-      expanded_pipelines_section.first.all('.pipeline-cb')
-    end
-
-    def checked_status_for_newly_created_pipelines
-      checked_status = is_checked?('#show-newly-created-pipelines')
-      return 'checked' if checked_status
-      'unchecked'
-    end
-
-    def pipeline_group_checkbox_for(pipeline_group_name)
-      pipeline_selector_dropdown.find("input#pgroup_#{pipeline_group_name}")
-    end
 
     def revisions(pipeline)
       (pipeline_name text: pipeline)

@@ -14,80 +14,132 @@
 # limitations under the License.
 ##########################################################################
 
+step 'Verify current view is <view_name>' do |view_name|
+  assert_equal view_name.downcase, dashboard_personalization.current_view_name.downcase
+end
+
+step 'Start creating new view' do
+  dashboard_personalization.dashboard_tabs.find(".add-tab").click
+end
+
+step 'Edit current tab' do
+  dashboard_personalization.edit_view
+end
+
+step 'Delete view <view>' do |view|
+  dashboard_personalization.switch_to_tab(view)
+  dashboard_personalization.edit_view
+  dashboard_personalization.delete_tab
+end
+
+step 'Change view to <view>' do |view|
+  dashboard_personalization.switch_to_tab(view)
+end
+
+step 'Verify view <view> is not available' do |view|
+  assert_raise Capybara::ElementNotFound do
+    dashboard_personalization.switch_to_tab(view)
+  end
+end
+
+step 'Set view name as <view_name>' do |view_name|
+  dashboard_personalization.set_view_name(view_name)
+end
+
+step 'Verify groups <groups> are visible' do |groups|
+  modal = dashboard_personalization.personalization_editor
+  groups.split(',').each do |group|
+    assert_true modal.find(".selected-pipelines li span", text: group.strip).visible?
+  end
+end
+
+step 'Verify groups <groups> are not visible' do |groups|
+  modal = dashboard_personalization.personalization_editor
+  groups.split(',').each do |group|
+    modal.assert_no_selector(".selected-pipelines li span", text: group.strip)
+  end
+end
+
 step 'Verify show newly created pipelines option status is checked' do |_tmp|
-  assert_true new_pipeline_dashboard_page.is_checked?('#show-newly-created-pipelines')
+  assert_true dashboard_personalization.show_new_pipelines?
 end
 
-step 'Set show newly created pipelines option status as <status>' do |status|
-  new_pipeline_dashboard_page.set_newly_created_pipeline_status(status)
+step 'Uncheck show newly created pipelines' do
+  dashboard_personalization.uncheck_show_new_pipelines
 end
 
-step 'Verify groups <pipeline_group_names> are visible - Already on pipelines selector section' do |pipeline_group_names|
-  pipeline_group_names.split(',').each {|pipeline_group_name|
-    assert_true new_pipeline_dashboard_page.group_name_visible_in_selection_dropdown(pipeline_group_name.strip)
-  }
-end
-
-step 'Verify groups <pipeline_group_names> are not visible - Already on pipelines selector section' do |pipeline_group_names|
-  pipeline_group_names.split(',').each {|pipeline_group_name|
-    assert_raise Capybara::ElementNotFound do
-      new_pipeline_dashboard_page.group_name_visible_in_selection_dropdown(pipeline_group_name.strip)
-    end
-  }
+step 'Check show newly created pipelines' do
+  dashboard_personalization.check_show_new_pipelines
 end
 
 step 'Deselect all pipelines' do |_tmp|
-  new_pipeline_dashboard_page.deselect_all_pipelines
+  dashboard_personalization.deselect_all_pipelines
 end
 
 step 'Select all pipelines' do |_tmp|
-  new_pipeline_dashboard_page.select_all_pipelines
+  dashboard_personalization.select_all_pipelines
 end
 
 step 'Verify all pipelines are selected' do |_tmp|
-  assert_true new_pipeline_dashboard_page.all_pipelines_selected?
+  assert_false dashboard_personalization.all_pipelines_selected?
 end
 
 step 'Verify no pipelines are selected' do |_tmp|
-  assert_true new_pipeline_dashboard_page.no_pipelines_selected?
+  assert_false dashboard_personalization.no_pipelines_selected?
 end
 
 step 'Select group <pipeline_group_name>' do |pipeline_group_name|
-  new_pipeline_dashboard_page.select_pipeline_group(pipeline_group_name)
+  dashboard_personalization.select_pipeline_group(pipeline_group_name)
 end
 
 step 'Deselect group <pipeline_group_name>' do |pipeline_group_name|
-  new_pipeline_dashboard_page.deselect_pipeline_group(pipeline_group_name)
+  dashboard_personalization.deselect_pipeline_group(pipeline_group_name)
 end
 
 step 'Expand group <pipeline_group>' do |pipeline_group_name|
-  new_pipeline_dashboard_page.expand_pipeline_group(pipeline_group_name)
+  dashboard_personalization.expand_pipeline_group(pipeline_group_name)
 end
 
 step 'Verify all pipelines in group <pipeline_group> are selected' do |pipeline_group_name|
-  assert_true new_pipeline_dashboard_page.are_all_pipelines_selected_for?(pipeline_group_name)
+  assert_true dashboard_personalization.are_all_pipelines_selected_for?(pipeline_group_name)
 end
 
 step 'Verify all pipelines in group <pipeline_group> are deselected' do |pipeline_group_name|
-  assert_true new_pipeline_dashboard_page.are_all_pipelines_deselected_for?(pipeline_group_name)
+  assert_true dashboard_personalization.are_all_pipelines_deselected_for?(pipeline_group_name)
 end
 
 step 'Select pipeline <pipeline_name>' do |pipeline_name|
-  new_pipeline_dashboard_page.select_pipeline(pipeline_name)
+  dashboard_personalization.select_pipeline(pipeline_name)
 end
 
 step 'Deselect pipeline <pipeline_name>' do |pipeline_name|
-  new_pipeline_dashboard_page.deselect_pipeline(pipeline_name)
+  dashboard_personalization.deselect_pipeline(pipeline_name)
 end
 
 step 'Verify <pipeline_group> is selected' do |pipeline_group_name|
-  assert_true new_pipeline_dashboard_page.is_checked?("#pgroup_#{pipeline_group_name}")
+  assert_true dashboard_personalization.pipeline_group_selected?(pipeline_group_name)
 end
 
 step 'Verify <pipeline_group> is deselected' do |pipeline_group_name|
-  assert_false new_pipeline_dashboard_page.is_checked?("#pgroup_#{pipeline_group_name}")
+  assert_false dashboard_personalization.pipeline_group_selected?(pipeline_group_name)
+end
+
+step 'Verify <pipeline_group> is indeterminate' do |pipeline_group_name|
+  assert_true dashboard_personalization.is_pipeline_group_indeterminate?(pipeline_group_name)
+end
+
+step 'Verify <pipeline_group> is not indeterminate' do |pipeline_group_name|
+  assert_false dashboard_personalization.is_pipeline_group_indeterminate?(pipeline_group_name)
 end
 
 step 'Apply selections' do |_tmp|
-  new_pipeline_dashboard_page.apply_selection
+  dashboard_personalization.apply_selection
+end
+
+step 'Select filter state <state>' do |state|
+  dashboard_personalization.filter_by_state(state.capitalize)
+end
+
+step 'Trigger pipeline <name> - On Swift Dashboard page' do |name|
+  new_pipeline_dashboard_page.trigger_pipeline(name)
 end

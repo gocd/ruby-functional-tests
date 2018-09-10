@@ -55,7 +55,7 @@ step 'Trigger and cancel stage <defaultStage> <trigger_number> times' do |stage_
 end
 
 step 'Trigger and wait for stage <stage> is <state> with label <label> - On Swift Dashboard page' do |stage, state, label|
-  new_pipeline_dashboard_page.trigger_pipeline(false)
+  new_pipeline_dashboard_page.trigger_pipeline(wait_to_build: false)
   new_pipeline_dashboard_page.wait_till_pipeline_complete
   new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.self_pipeline, stage, state.downcase
   new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.self_pipeline, label

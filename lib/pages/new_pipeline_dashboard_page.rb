@@ -33,20 +33,13 @@ module Pages
 
     load_validation { has_pipeline_group? }
 
-    def trigger_pipeline(wait_to_build = true)
-      (pipeline_name text: scenario_state.self_pipeline)
+    def trigger_pipeline(name: scenario_state.self_pipeline, wait_to_build: true)
+      (pipeline_name text: name)
         .find(:xpath, '../..').find('.pipeline_btn.play').click
       if wait_to_build
         reload_page
         wait_till_pipeline_start_building
       end
-    end
-
-    def trigger_pipeline(name)
-      (pipeline_name text: name)
-        .find(:xpath, '../..').find('.pipeline_btn.play').click
-      reload_page
-      wait_till_pipeline_start_building
     end
 
     def trigger_pipeline_disabled?

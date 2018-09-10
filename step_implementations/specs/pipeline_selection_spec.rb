@@ -141,5 +141,5 @@ step 'Select filter state <state>' do |state|
 end
 
 step 'Trigger pipeline <name> - On Swift Dashboard page' do |name|
-  new_pipeline_dashboard_page.trigger_pipeline(name)
+  new_pipeline_dashboard_page.trigger_pipeline(name: name)
 end

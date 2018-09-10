@@ -105,5 +105,6 @@ tags: diamond dependency, fanin
 Teardown of contexts
 ____________________
 * Capture go state "FanInBehaviorForInconsistentRevisions" - teardown
+* With "2" live agents - teardown
 
 

@@ -57,6 +57,7 @@ require 'pages/job_details_page'
 require 'pages/compare_pipeline_page'
 require 'pages/stage_settings_page'
 require 'pages/pipeline_settings_page'
+require 'pages/vsm_page'
 
 module Helpers
   module SpecHelper
@@ -162,6 +163,10 @@ module Helpers
 
     def compare_pipeline_page
       Pages::ComparePipelinePage.new
+    end
+
+    def vsm_page
+      Pages::VSMPage.new
     end
 
     def stage_settings_page

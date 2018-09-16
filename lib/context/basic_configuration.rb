@@ -91,6 +91,10 @@ module Context
     end
 
     def create_plugin_settings(settings)
+      settings['configuration'].collect!{|hash|
+        hash['value'] = GoConstants::ANALYTICS_LICENCE_KEY if hash['key'] == 'license'
+        hash
+      }
       RestClient.post http_url('/api/admin/plugin_settings'), settings.to_json,
                       {content_type: :json, accept: 'application/vnd.go.cd.v1+json'}.merge(basic_configuration.header)
     end

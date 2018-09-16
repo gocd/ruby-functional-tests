@@ -71,8 +71,7 @@ module Pages
     def pipeline_build_time_visible_on_selection(pipeline)
       pipelines_selector.find('option', :text => pipeline).select_option
       build_time_chart do |frame|
-        (frame.find('#chart-container').find( '.pipeline-val' ).text == pipeline) &&
-          frame.find('#chart-container').has_css?('.highcharts-series-group')
+        frame.find('#chart-container').has_css?('.highcharts-series-group')
       end
     end
 

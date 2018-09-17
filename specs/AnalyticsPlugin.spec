@@ -82,6 +82,15 @@ Will have to see how and where to automate those steps, is functional test the r
 * Verify pipelines "P1, P2" are listed
 * Selecting pipeline "P1" should show pipeline build analytics
 
+* On Swift Dashboard Page
+* Looking at pipeline "P2" - On Swift Dashboard page
+* Visit pipeline VSM page and verify VSM is rendered
+
+* Start VSM analytics selections
+* Select material as the source for VSM analytics
+* View VSM analytics
+* Verify VSM trends are displayed
+
 * Logout and login as "view"
 * Analytics menu should not be visible
 

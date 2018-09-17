@@ -259,7 +259,7 @@
 
         <pipeline name="P1">
             <materials>
-                <git url="material-for-P1" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="analytics-material" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -278,7 +278,7 @@
             </pipeline>
         <pipeline name="P2">
             <materials>
-                <git url="material-for-P2" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="analytics-material" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>

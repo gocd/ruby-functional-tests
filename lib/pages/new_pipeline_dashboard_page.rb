@@ -158,16 +158,16 @@ module Pages
     end
 
     def build_time_graph_displayed?
+      page.has_css?('h5', text:"Analytics for pipeline: #{scenario_state.self_pipeline}")
       build_time_chart do |frame|
-        (frame.find('#chart-container').find('.pipeline-val').text == scenario_state.self_pipeline) &&
-          frame.find('#chart-container').has_css?('.highcharts-series-group')
+        frame.find('#chart-container').has_css?('.highcharts-series-group')
       end
     end
 
     def mttr_displayed?
       build_time_chart do |frame|
         frame.find('#chart-container').has_css?('.mttr') &&
-          !frame.find('#chart-container').find('.mttr').text.match(/[1-9][0-9].*s/)[0].nil?
+          !frame.find('#chart-container').find('.mttr').find('.metric-value').text.match(/[1-9][0-9].*s/)[0].nil?
       end
     end
 

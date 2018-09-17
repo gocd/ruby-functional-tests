@@ -252,7 +252,9 @@ end
 step 'Verify modification <position> has revision <revision> - On Build Cause popup' do |position, revision|
   material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.retrieve('current_material_name'))
   revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.retrieve('current_material_type'), material_name)
-  assert_true new_pipeline_dashboard_page.shows_revision_at?(revision_element, scenario_state.retrieve(revision), position.to_i)
+  revision =  new_pipeline_dashboard_page.sanitize_message(revision)
+  revision =  scenario_state.retrieve(revision) || revision
+  assert_true new_pipeline_dashboard_page.shows_revision_at?(revision_element, revision, position.to_i)
 end
 
 step 'Verify material has changed - On Build Cause popup' do ||

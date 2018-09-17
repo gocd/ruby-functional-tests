@@ -241,7 +241,7 @@ module Pages
 
     def shows_revision_at?(revision_element, revision, position=0)
       revision_class = scenario_state.retrieve('current_material_type') == 'Pipeline' ? '.modified_by' : '.revision_id'
-      revision_element.all('.modifications')[position].has_css?(revision_class, text: revision)
+      revision_element.all('.modifications')[position].has_css?(revision_class, text: revision, exact_text: true)
     end
 
     def triggered_by?(user)

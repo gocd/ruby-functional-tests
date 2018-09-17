@@ -284,7 +284,53 @@
                 </jobs>
             </stage>
         </pipeline>
+         <!-- d stands for diamond -->
+        <pipeline name="d-up-left" template="dependency-pipeline-template">
+            <materials>
+                <git url="material-for-diamond-dependency" materialName="git-second" autoUpdate="true"/>
+            </materials>
+        </pipeline>
+        <pipeline name="d-up-right" template="dependency-pipeline-template">
+            <materials>
+                <git url="material-for-diamond-dependency" materialName="git-second" autoUpdate="true"/>
+            </materials>
+        </pipeline>
+        <pipeline name="d-down" template="autoStagePipelineTemplate">
+            <materials>
+                <pipeline pipelineName="d-up-left" stageName="defaultStage"/>
+                <pipeline pipelineName="d-up-right" stageName="defaultStage"/>
+                <git url="material-for-diamond-dependency" materialName="git-second" autoUpdate="true"/>
+            </materials>
+        </pipeline>
     </pipelines>
+    <templates>
+            <pipeline name="dependency-pipeline-template">
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="ls"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+
+        <pipeline name="autoStagePipelineTemplate">
+            <stage name="defaultStage">
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="ls"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+
+    </templates>
+
     <environments>
         <environment name="prod">
             <pipelines>

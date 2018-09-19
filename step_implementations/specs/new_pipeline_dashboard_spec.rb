@@ -245,10 +245,6 @@ step 'Override secure variable named <secure_env_variable_key> with value <secur
   new_pipeline_dashboard_page.override_secure_env_variable(secure_env_variable_key,secure_env_variable_value)
 end
 
-step 'Sleep for <secs> seconds' do |secs|
-	sleep secs.to_i
-end
-
 step 'Verify modification <position> has revision <revision> - On Build Cause popup' do |position, revision|
   material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.retrieve('current_material_name'))
   revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.retrieve('current_material_type'), material_name)

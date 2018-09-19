@@ -82,10 +82,10 @@ tags: diamond dependency, fanin
 * Open changes section - On Swift Dashboard page
 
 * Looking at material of type "Pipeline" named "$FIR2$"
-* Verify modification "0" has revision "$FIR2$/5/stage1/1" - On Build Cause popup
+* Verify modification "0" has revision "$FIR2$/5/defaultStage/1" - On Build Cause popup
 * Verify material has changed - On Build Cause popup
 * Looking at material of type "Pipeline" named "$FIR1$"
-* Verify modification "0" has revision "$FIR1$/1/stage1/1" - On Build Cause popup
+* Verify modification "0" has revision "$FIR1$/1/defaultStage/1" - On Build Cause popup
 * Verify material has not changed - On Build Cause popup
 
 * Looking at pipeline "FIR1" - On Swift Dashboard page

@@ -13,9 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##########################################################################
+
 step 'Add environment variable <variable_name> with value <variable_value>' do |variable_name, variable_value|
-    general_settings_page.add_env_variable(variable_name,variable_value)
-  end
+  general_settings_page.add_env_variable(variable_name,variable_value)
+end
 
 step 'Add secure environment variable <variable_name> with value <variable_value>' do |variable_name, variable_value|
   general_settings_page.add_sec_env_variable(variable_name,variable_value)

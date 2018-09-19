@@ -17,5 +17,21 @@
 module Pages
     class PipelineSettingsPage < GeneralSettingsPage
       set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines{/pipeline_name}/general"
+
+      element :message, '#success'
+      element :add_variables, '#add_variables'
+
+      def message_displayed?(message)
+        page.has_css?('.success', text:message, exact_text: true)
+      end
+
+      def add_parameter(name, value)
+        params_row = page.find('.params').all('tr').last
+        params_row.find("input[name='pipeline[params][][name]']").set name
+        params_row.find("input[name='pipeline[params][][valueForDisplay]']").set value
+        add_variables.click
+      end
+
+
     end
 end

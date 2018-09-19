@@ -169,6 +169,10 @@ module Helpers
       Pages::VSMPage.new
     end
 
+    def pipeline_creation_wizard
+      Pages::PipelineCreationWizard.new
+    end
+
     def stage_settings_page
       Pages::StageSettingsPage.new
     end

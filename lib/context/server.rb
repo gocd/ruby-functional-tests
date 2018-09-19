@@ -49,7 +49,7 @@ module Context
         puts 'Running test in development mode so not stopping the server........'
       else
         Bundler.with_clean_env do
-          process = ChildProcess.build('with-java.sh', STOP_COMMAND)
+          process = ChildProcess.build('./with-java.sh', STOP_COMMAND)
           process.detach = true
           process.cwd = GoConstants::SERVER_DIR
           process.start

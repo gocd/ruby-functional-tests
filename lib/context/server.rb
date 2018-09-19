@@ -16,20 +16,25 @@
 
 module Context
   class Server
+    include FileUtils
+
     START_COMMAND = OS.windows? ? %w(cmd /c start-server.bat) : './server.sh'
     STOP_COMMAND = OS.windows? ? %w(cmd /c stop-server.bat) : './stop-server.sh'
     DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
 
     def start
       return if DEVELOPMENT_MODE && server_running?
+      cp 'resources/with-java.sh', GoConstants::SERVER_DIR
+      chmod 0755, "#{GoConstants::SERVER_DIR}/with-java.sh"
       Bundler.with_clean_env do
-        process = ChildProcess.build(START_COMMAND)
+        process = ChildProcess.build('./with-java.sh', START_COMMAND)
         process.detach = true
         process.environment.merge!('GO_SERVER_SYSTEM_PROPERTIES' => GoConstants::GO_SERVER_SYSTEM_PROPERTIES,
                                    'GO_SERVER_PORT' => GoConstants::SERVER_PORT,
                                    'GO_SERVER_SSL_PORT' => GoConstants::SERVER_SSL_PORT,
                                    'SERVER_MEM' => GoConstants::SERVER_MEM,
                                    'SERVER_MAX_MEM' => GoConstants::SERVER_MAX_MEM,
+                                   'GO_PIPELINE_COUNTER' => GoConstants::GO_PIPELINE_COUNTER,
                                    'MANUAL_SETTING' => 'Y',
                                    'DAEMON' => 'Y',
                                    'PRODUCTION_MODE' => 'N')
@@ -44,7 +49,7 @@ module Context
         puts 'Running test in development mode so not stopping the server........'
       else
         Bundler.with_clean_env do
-          process = ChildProcess.build(STOP_COMMAND)
+          process = ChildProcess.build('with-java.sh', STOP_COMMAND)
           process.detach = true
           process.cwd = GoConstants::SERVER_DIR
           process.start
@@ -70,7 +75,7 @@ module Context
     end
 
     def wait_to_start
-      Timeout.timeout(120) do
+      Timeout.timeout(180) do
         loop do
           begin
             break if server_running?

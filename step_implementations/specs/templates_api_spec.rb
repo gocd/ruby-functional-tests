@@ -14,17 +14,16 @@
 # limitations under the License.
 ##########################################################################
 
-require 'representers/template'
-include Representers
-include Helpers::GoUrlHelper
+require_relative '../../lib/representers/template.rb'
+require_relative '../../lib/helpers/go_url_helper.rb'
 
-TEMPLATE_API_VERSION = 'application/vnd.go.cd.v3+json'.freeze
+TEMPLATE_API_VERSION = 'application/vnd.go.cd.v4+json'.freeze
 
 step 'Create template <template>' do |template|
   tmp = Representers::Template.new(name: template.to_s,
-                                   stages: [Stage.new(name: 'Stage1',
-                                                      jobs: [Job.new(name: 'Job1',
-                                                                     tasks: [Task.new(name: 'Task1', attributes: Attributes.new)])])])
+                                   stages: [Representers::Stage.new(name: 'Stage1',
+                                                      jobs: [Representers::Job.new(name: 'Job1',
+                                                                     tasks: [Representers::Task.new(name: 'Task1', attributes: Representers::Attributes.new)])])])
   begin
     response = RestClient.post http_url('/api/admin/templates'), Representers::TemplateRepresenter.new(tmp).to_json,
                                { content_type: :json, accept: TEMPLATE_API_VERSION }.merge(basic_configuration.header)
@@ -54,9 +53,9 @@ end
 
 step 'Update template <template>' do |template|
   tmp = Representers::Template.new(name: template.to_s,
-                                   stages: [Stage.new(name: 'updated-stage-name',
-                                                      jobs: [Job.new(name: 'updated-job-name',
-                                                                     tasks: [Task.new(name: 'updated-task-name', attributes: Attributes.new)])])])
+                                   stages: [Representers::Stage.new(name: 'updated-stage-name',
+                                                      jobs: [Representers::Job.new(name: 'updated-job-name',
+                                                                     tasks: [Representers::Task.new(name: 'updated-task-name', attributes: Representers::Attributes.new)])])])
   begin
     response = RestClient.get http_url("/api/admin/templates/#{template}"), { accept: TEMPLATE_API_VERSION }.merge(basic_configuration.header)
     update_response = RestClient.put http_url("/api/admin/templates/#{template}"), Representers::TemplateRepresenter.new(tmp).to_json,

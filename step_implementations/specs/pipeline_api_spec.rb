@@ -14,13 +14,13 @@
 # limitations under the License.
 ##########################################################################
 
-include Helpers::GoUrlHelper
+require_relative '../../lib/helpers/go_url_helper.rb'
 
 step "Verify pipeline <pipeline> is locked and not schedulable - Using api" do |pipeline|
   begin
     response = RestClient.get http_url("/api/pipelines/#{scenario_state.actual_pipeline_name(pipeline)}/status"), basic_configuration.header
-    assert_true JSON.parse(response.body)['locked'] == true
-    assert_true JSON.parse(response.body)['schedulable'] == false
+    assert_true JSON.parse(response.body)['locked']
+    assert_false JSON.parse(response.body)['schedulable']
   rescue RestClient::ExceptionWithResponse => err
     p "Pipeline Status call failed with response code #{err.response.code} and the response body - #{err.response.body}"
   end
@@ -29,8 +29,8 @@ end
 step "Verify pipeline <pipeline> is not locked and is schedulable - Using api" do |pipeline|
   begin
     response = RestClient.get http_url("/api/pipelines/#{scenario_state.actual_pipeline_name(pipeline)}/status"), basic_configuration.header
-    assert_true JSON.parse(response.body)['locked'] == false
-    assert_true JSON.parse(response.body)['schedulable'] == true
+    assert_false JSON.parse(response.body)['locked']
+    assert_true JSON.parse(response.body)['schedulable']
   rescue RestClient::ExceptionWithResponse => err
     p "Pipeline Status call failed with response code #{err.response.code} and the response body - #{err.response.body}"
   end

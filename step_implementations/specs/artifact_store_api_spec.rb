@@ -15,7 +15,7 @@
 ##########################################################################
 
 require 'json'
-include Helpers::GoUrlHelper
+require_relative '../../lib/helpers/go_url_helper.rb'
 
 ARTIFACT_STORE_API_VERSION = 'application/vnd.go.cd.v1+json'.freeze
 

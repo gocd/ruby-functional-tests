@@ -1,6 +1,7 @@
 require 'roar/decorator'
 require 'roar/json'
 require 'roar/client'
+require 'ostruct'
 
 module Representers
 

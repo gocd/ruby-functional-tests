@@ -48,7 +48,6 @@ Setup of contexts
 
 * On Swift Dashboard Page
 * Verify stage "firstStage" is "building" - On Swift Dashboard page
- Verify stage "secondStage" is "building" - On Swift Dashboard page
 
 * Create a "stopjob" file and validate pipeline completed
 * Verify stage "firstStage" is "passed" - On Swift Dashboard page

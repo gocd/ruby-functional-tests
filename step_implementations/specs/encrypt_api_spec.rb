@@ -14,7 +14,7 @@
 # limitations under the License.
 ##########################################################################
 
-include Helpers::GoUrlHelper
+require_relative '../../lib/helpers/go_url_helper.rb'
 
 ENCRYPT_API_VERSION = 'application/vnd.go.cd.v1+json'.freeze
 

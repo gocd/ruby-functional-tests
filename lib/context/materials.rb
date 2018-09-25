@@ -19,13 +19,21 @@ require 'open3'
 module Context
   class Materials
     include FileUtils
+
+    def material_need_to_be_set?(pipeline_name)
+      current_configuration = basic_configuration.get_config_from_server
+      material_url = current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline_name)}']/materials/#{@material_type}/@url")
+      material_url ? true : false
+    end
   end
 
   class GitMaterials < Materials
     attr_reader :path
+    attr_reader :material_type
 
-    def initialize(path = "#{GoConstants::TEMP_DIR}/gitmaterial-#{Time.now.to_i}")
+    def initialize(path = "#{GoConstants::TEMP_DIR}/gitmaterial-#{Time.now.to_i}", type='git')
       @path = path
+      @material_type = type
     end
 
     def setup_material_for(pipeline)
@@ -46,9 +54,9 @@ module Context
           material_path = "#{@path}/sample.git"
           scenario_state.store(material_url , material_path)
         end
-        basic_configuration.set_material_path_for_pipeline(pipeline, material_path)
+        basic_configuration.set_material_path_for_pipeline('git', pipeline, material_path)
       rescue StandardError => e
-        p "The Pipeline #{pipeline} does not have a git material. #{e.message}"
+        raise "The Pipeline #{pipeline} setup for GIT material failed. #{e.message}"
       end
     end
 
@@ -64,7 +72,7 @@ module Context
     def new_commit(filename, commit, author = 'gouser')
       cd("#{@path}") do
         sh "touch #{filename}"
-        Open3.popen3(%(git add . && git commit --author="#{author} <user@go>'" -m "#{commit}")) do |_stdin, _stdout, stderr, wait_thr|
+        Open3.popen3(%(git add . && git commit --author="#{author} <user@go>" -m "#{commit}")) do |_stdin, _stdout, stderr, wait_thr|
           raise "Failed to commit to git repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
         end
       end
@@ -73,6 +81,75 @@ module Context
     def latest_revision
       cd("#{@path}") do
         stdout, _stdeerr, _status = Open3.capture3(%(git rev-parse HEAD))
+        return stdout.delete("\n")
+      end
+    end
+
+
+  end
+
+  class SVNMaterials < Materials
+    attr_reader :repository_directory
+    attr_reader :working_copy
+    attr_reader :repo_uuid
+    attr_reader :material_type
+
+    def initialize(repo_dir = "#{GoConstants::TEMP_DIR}/svn_repo_dir-#{Time.now.to_i}",
+                  working_copy = "#{GoConstants::TEMP_DIR}/svn_wrk_copy-#{Time.now.to_i}",
+                  type = 'svn')
+      @repository_directory = repo_dir
+      @working_copy = working_copy
+      @material_type = type
+    end
+
+    def setup_material_for(pipeline)
+      begin
+        current_configuration = basic_configuration.get_config_from_server
+        material_url = current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline)}']/materials/svn/@url").first.value
+        if !scenario_state.retrieve(material_url).nil?
+          material_path = scenario_state.retrieve(material_url)
+        else
+          rm_rf(@repository_directory)
+          mkdir_p(@repository_directory)
+          cp_r('test-repos/svn_repos/end2end/', @repository_directory)
+          cd(@repository_directory) do
+            Open3.popen3("svn checkout file://#{@repository_directory}/end2end #{@working_copy}") do |_stdin, _stdout, stderr, wait_thr|
+              raise "SVN Material Checkout to working directory Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
+            end
+            stdout, _stdeerr, _status = Open3.capture3(%(svnlook uuid #{@repository_directory}))
+            @repo_uuid = stdout.delete("\n")
+          end
+          initial_commit
+          material_path = "file://#{@repository_directory}/end2end"
+          scenario_state.store(material_url , material_path)
+        end
+        basic_configuration.set_material_path_for_pipeline('svn', pipeline, material_path)
+      rescue StandardError => e
+        raise "The Pipeline #{pipeline} setup for SVN material failed. #{e.message}"
+      end
+    end
+
+    def initial_commit
+      cp_r 'resources/Rakefile', "#{@working_copy}/"
+      cd(@working_copy) do
+        Open3.popen3(%(svn add Rakefile && svn ci --non-interactive --username gouser -m "Commit the test rakefile")) do |_stdin, _stdout, stderr, wait_thr|
+          raise "Failed to commit to SVN repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
+        end
+      end
+    end
+
+    def new_commit(filename, commit, author = 'gouser')
+      cd("#{@working_copy}") do
+        sh "touch #{filename}"
+        Open3.popen3(%(svn add #{filename} && svn ci --non-interactive --username "#{author} <user@go>" -m "#{commit}")) do |_stdin, _stdout, stderr, wait_thr|
+          raise "Failed to commit to SVN repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
+        end
+      end
+    end
+
+    def latest_revision
+      cd("#{@working_copy}") do
+        stdout, _stdeerr, _status = Open3.capture3(%(svn info -r HEAD))
         return stdout.delete("\n")
       end
     end

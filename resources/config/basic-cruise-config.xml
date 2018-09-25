@@ -284,24 +284,40 @@
                 </jobs>
             </stage>
         </pipeline>
-         <!-- d stands for diamond -->
-        <pipeline name="d-up-left" template="dependency-pipeline-template">
-            <materials>
-                <git url="material-for-diamond-dependency" materialName="git-second" autoUpdate="true"/>
-            </materials>
-        </pipeline>
-        <pipeline name="d-up-right" template="dependency-pipeline-template">
-            <materials>
-                <git url="material-for-diamond-dependency" materialName="git-second" autoUpdate="true"/>
-            </materials>
-        </pipeline>
-        <pipeline name="d-down" template="autoStagePipelineTemplate">
-            <materials>
-                <pipeline pipelineName="d-up-left" stageName="defaultStage"/>
-                <pipeline pipelineName="d-up-right" stageName="defaultStage"/>
-                <git url="material-for-diamond-dependency" materialName="git-second" autoUpdate="true"/>
-            </materials>
-        </pipeline>
+        <pipeline name="parent_pipeline">
+      <materials>
+        <svn url="svn-url-svn-pipeline" dest="svn" autoUpdate="false" materialName="svn">
+          <filter>
+            <ignore pattern="*.ignore"/>
+          </filter>
+        </svn>
+        <git url="git-on-git-pipeline" dest="git" autoUpdate="false" materialName="git">
+          <filter>
+            <ignore pattern="*.ignore"/>
+          </filter>
+        </git>
+      </materials>
+      <stage name="first_stage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+                <exec command="rake" args="wait_for_stopjob_file" workingdir="tasks"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="second_stage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+                <exec command="rake" args="wait_for_stopjob_file" workingdir="tasks"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
     </pipelines>
     <templates>
             <pipeline name="dependency-pipeline-template">

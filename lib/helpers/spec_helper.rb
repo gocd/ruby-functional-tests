@@ -58,6 +58,7 @@ require 'pages/compare_pipeline_page'
 require 'pages/stage_settings_page'
 require 'pages/pipeline_settings_page'
 require 'pages/vsm_page'
+require 'pages/pipeline_creation_wizard'
 
 module Helpers
   module SpecHelper
@@ -211,6 +212,10 @@ module Helpers
 
     def git_materials
       Context::GitMaterials.new
+    end
+
+    def svn_materials
+      Context::SVNMaterials.new
     end
 
     def go_state

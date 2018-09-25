@@ -284,6 +284,40 @@
                 </jobs>
             </stage>
         </pipeline>
+        <pipeline name="parent_pipeline">
+      <materials>
+        <svn url="svn-url-svn-pipeline" dest="svn" autoUpdate="false" materialName="svn">
+          <filter>
+            <ignore pattern="*.ignore"/>
+          </filter>
+        </svn>
+        <git url="git-on-git-pipeline" dest="git" autoUpdate="false" materialName="git">
+          <filter>
+            <ignore pattern="*.ignore"/>
+          </filter>
+        </git>
+      </materials>
+      <stage name="first_stage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+                <exec command="rake" args="wait_for_stopjob_file" workingdir="tasks"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="second_stage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+                <exec command="rake" args="wait_for_stopjob_file" workingdir="tasks"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
     </pipelines>
     <environments>
         <environment name="prod">

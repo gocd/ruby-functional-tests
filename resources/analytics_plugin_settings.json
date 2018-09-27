@@ -5,7 +5,8 @@
             "key": "client_cert"
         },
         {
-            "key": "use_ssl"
+            "key": "use_ssl",
+            "value":"false"
         },
         {
             "key": "client_pkcs8_key"
@@ -20,7 +21,8 @@
             "key": "client_key"
         },
         {
-            "key": "password"
+            "key": "password",
+            "value": "postgres"
         },
         {
             "key": "license",
@@ -30,15 +32,16 @@
             "key": "periodic_cleanup_time"
         },
         {
-            "key": "port"
+            "key": "port",
+            "value": "5433"
         },
         {
             "key": "host",
-            "value": "127.0.0.1"
+            "value": "localhost"
         },
         {
             "key": "name",
-            "value": "analytics"
+            "value": "VSM9"
         },
         {
             "key": "max_connections_idle"
@@ -54,8 +57,7 @@
         },
         {
             "key": "username",
-            "value": "go"
+            "value": "postgres"
         }
     ]
   }
-  

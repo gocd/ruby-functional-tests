@@ -28,3 +28,16 @@ end
 step 'Verify VSM trends are displayed' do
   vsm_page.vsm_analytics_visible?
 end
+
+step 'Select pipeline <pipeline> for VSM analytics' do |pipeline|
+  vsm_page.select_pipeline_on_VSM(pipeline)
+end
+
+step 'Select material <material> for VSM analytics' do |material|
+  vsm_page.select_material_on_VSM(material)
+end
+
+step 'Verify VSM trend has <workflows> workflows' do |workflows|
+  
+  vsm_page.verify_Workflow_count_VSM_chart(workflows)
+end

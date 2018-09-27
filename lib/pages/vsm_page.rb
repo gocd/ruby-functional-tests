@@ -22,9 +22,10 @@ module Pages
   class VSMPage < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/pipelines/value_stream_map{/pipeline_name}{/pipeline_counter}"
     element :enable_analytics, '.enable-analytics'
-    element :material, '.material'
+    element :material, '.material'  
     element :view_analytics, '.view-vsm-analytics'
     iframe :vsm_analytics_trend, VSMAnalyticsTrend, 0 
+    iframe :vsm_trend_chart, VsmTrendChart, 0
 
     def click_analytics
       enable_analytics.click
@@ -33,6 +34,34 @@ module Pages
     def select_source(source_type, source_name = 'git')
       material.click if source_type == 'material'
     end
+
+    def select_pipeline_on_VSM(pipeline)
+      pipeline_name = scenario_state.actual_pipeline_name(pipeline)
+      #binding.pry
+      
+      page.find(:xpath,"//div[@id='#{pipeline_name}']").click
+      
+    end
+
+    def select_material_on_VSM(material)
+      material_url= scenario_state.retrieve(material)
+      #binding.pry
+      
+      page.find(:xpath,"//h3[contains(text(),'#{material_url}')]").click
+      
+    end
+
+    def verify_Workflow_count_VSM_chart(workflow_count)
+      binding.pry
+      build_time_chart do |frame|
+      frame.has_css?('table.vsm-trends-table tbody tr', :count => workflow_count.to_i)
+     # page.has_css?(table.vsm-trends-table tbody tr', :count => workflow_count.to_i)    
+    end
+  end
+  
+ 
+   
+     
 
     def vsm_analytics_visible?
       vsm_analytics_trend do |frame|

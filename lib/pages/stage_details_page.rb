@@ -67,7 +67,6 @@ module Pages
     end
 
     def cancel_stage(stage)
-      binding.pry
       page.find("#stage_bar_cancel_#{stage}").click
     end
 

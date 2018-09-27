@@ -50,7 +50,7 @@ step 'Verify stage <stage> is <state> - On Swift Dashboard page' do |stage, stat
 end
 
 step 'Trigger and cancel stage <defaultStage> <trigger_number> times' do |stage_name, trigger_number|
-  scenario_state.store "current_stage_name", stage_name
+  scenario_state.store 'current_stage_name', stage_name
   new_pipeline_dashboard_page.trigger_cancel_pipeline trigger_number
 end
 
@@ -66,7 +66,7 @@ step 'Verify stage <stage> is <state> on pipeline with label <label> - On Swift 
   new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.self_pipeline, label
 end
 
-step 'Verify stage <stage> is with label <label> - On Swift Dashboard page' do |stage , label|
+step 'Verify stage <stage> is with label <label> - On Swift Dashboard page' do |_stage, label|
   new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.current_pipeline, label
 end
 
@@ -134,7 +134,7 @@ step 'Verify pipeline is paused with reason <reason> by <user> - On Swift Dashbo
   assert_true new_pipeline_dashboard_page.pause_message?("Paused by #{user} (#{reason})")
 end
 
-step 'Verify pipeline is paused by <user> - On Swift Dashboard page' do |reason, user|
+step 'Verify pipeline is paused by <user> - On Swift Dashboard page' do |user|
   assert_true new_pipeline_dashboard_page.pause_message?("Paused by #{user} ()")
 end
 
@@ -237,16 +237,16 @@ step 'Switch to Secure Environment Variables tab - On Swift Dashboard page' do
   new_pipeline_dashboard_page.switch_to_secure_environment_variables_tab
 end
 
-step 'Change variable <key> to <value>' do |key , value|
+step 'Change variable <key> to <value>' do |key, value|
   new_pipeline_dashboard_page.change_variable_to(key, value)
 end
 
-step 'Override secure variable named <secure_env_variable_key> with value <secure_env_variable_value>' do |secure_env_variable_key,secure_env_variable_value|
-  new_pipeline_dashboard_page.override_secure_env_variable(secure_env_variable_key,secure_env_variable_value)
+step 'Override secure variable named <secure_env_variable_key> with value <secure_env_variable_value>' do |secure_env_variable_key, secure_env_variable_value|
+  new_pipeline_dashboard_page.override_secure_env_variable(secure_env_variable_key, secure_env_variable_value)
 end
 
 step 'Sleep for <secs> seconds' do |secs|
-	sleep secs.to_i
+  sleep secs.to_i
 end
 
 step 'Verify modification <position> has revision <revision> - On Build Cause popup' do |position, revision|
@@ -257,18 +257,29 @@ step 'Verify modification <position> has revision <revision> - On Build Cause po
   assert_true new_pipeline_dashboard_page.shows_revision_at?(revision_element, revision, position.to_i)
 end
 
-step 'Verify material has changed - On Build Cause popup' do ||
+step 'Verify material has changed - On Build Cause popup' do
   material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.retrieve('current_material_name'))
   revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.retrieve('current_material_type'), material_name)
   assert_true new_pipeline_dashboard_page.material_revision_changed? revision_element
 end
 
-step 'Verify pipeline does not get triggered' do ||
-	new_pipeline_dashboard_page.wait_to_check_pipeline_do_not_start
+step 'Verify pipeline does not get triggered' do
+  new_pipeline_dashboard_page.wait_to_check_pipeline_do_not_start
 end
 
-step 'Verify material has not changed - On Build Cause popup' do ||
-	material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.retrieve('current_material_name'))
+step 'Verify material has not changed - On Build Cause popup' do
+  material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.retrieve('current_material_name'))
   revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.retrieve('current_material_type'), material_name)
   assert_false new_pipeline_dashboard_page.material_revision_changed? revision_element
+end
+
+step 'PipelineVisibility <table>' do |table|
+  table.rows.each do |row|
+    scenario_state.set_current_pipeline(row['Pipeline Name'])
+    (1..table.columns.length - 1).each do |i| # this is assuming the first column is reserved for pipeline name
+      method_name = table.columns[i].tr(' ', '_').downcase
+      raise "The method #{method_name} does not exist" unless new_pipeline_dashboard_page.respond_to?(method_name)
+      assert_equal row[table.columns[i]], new_pipeline_dashboard_page.send(method_name).to_s
+    end
+  end
 end

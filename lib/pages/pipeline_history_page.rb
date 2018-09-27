@@ -72,7 +72,37 @@ module Pages
     end
 
     def pause_pipeline
-      page.find('span', text: "Pause").click
+      accept_confirm do page.find("#pause-#{scenario_state.self_pipeline}").click end
     end
+
+    def verify_stage_can_rerun?(pipeline_name ,label, stage_name )
+      page.has_selector?("#rerun-#{pipeline_name}-#{label}-#{stage_name}", visible: false) # visibility is set to false for on-hover functionality of the button
+    end
+
+    def verify_stage_can_be_approved?(stage_name, label)
+      page.has_selector?("#approve-#{label}-#{stage_name}") # visibility is set to false for on-hover functionality of the button
+    end
+
+    def approve_stage(stage_name, label)
+      accept_confirm do page.find("#approve-#{label}-#{stage_name}").click end # visibility is set to false for on-hover functionality of the button
+    end
+
+    def verify_stage_cannot_rerun?(pipeline_name ,label, stage_name )
+      page.has_no_selector?("#rerun-#{pipeline_name}-#{label}-#{stage_name}", visible: false) # visibility is set to false for on-hover functionality of the button
+    end
+
+    def verify_stage_cannot_be_approved?(stage_name, label)
+      page.has_no_selector?("#approve-#{label}-#{stage_name}", visible: false) # visibility is set to false for on-hover functionality of the button
+    end
+
+    def verify_cannot_approve_stage?(stage_name, label)
+      page.has_no_selector?("#approve-#{label}-#{stage_name}", visible: false)
+    end
+
+    def stage_rerun(pipeline ,current_label, stage_name)
+      binding.pry
+      page.find("#rerun-#{pipeline_name}-#{label}-#{stage_name}", visible: false)
+    end
+
   end
 end

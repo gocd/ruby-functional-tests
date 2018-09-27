@@ -28,8 +28,8 @@ module Pages
     iframe :build_time_chart, PipelineBuildTime, 0
     element :stage_name, '.stage_name'
     element :environment_variables_tab, '.h-tab_tab-head.pipeline_options-heading'
-    element :environment_variables_key_value , '.environment-variables.plain.key-value-pair'
-    element :environment_variables_secure_key_value , '.environment-variables.secure.key-value-pair'
+    element :environment_variables_key_value, '.environment-variables.plain.key-value-pair'
+    element :environment_variables_secure_key_value, '.environment-variables.secure.key-value-pair'
 
     load_validation { has_pipeline_group? }
 
@@ -80,7 +80,7 @@ module Pages
     end
 
     def get_all_stages(pipeline) # This one needs to be relooked - the way the view is modelled do not make it easy to get latest stage state
-    (pipeline_name text: pipeline)
+      (pipeline_name text: pipeline)
         .find(:xpath, '../../..').find('.pipeline_stages', wait: 10).all('a')
     rescue StandardError => e
       p 'Looks like Pipeline still not started, trying after page reload...'
@@ -113,7 +113,7 @@ module Pages
     def wait_to_check_pipeline_do_not_start
       wait_till_event_occurs_or_bomb 20, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
         reload_page
-        break if !get_all_stages(scenario_state.self_pipeline).first['class'].include?('building')
+        break unless get_all_stages(scenario_state.self_pipeline).first['class'].include?('building')
       end
     end
 
@@ -136,7 +136,7 @@ module Pages
         .find(:xpath, '..').has_css?('.edit_config.disabled')
     end
 
-    def edit_pipeline(pipeline)
+    def edit_pipeline(_pipeline)
       !(pipeline_name text: scenario_state.self_pipeline)
         .find(:xpath, '..').find('.edit_config').click
     end
@@ -158,7 +158,7 @@ module Pages
     end
 
     def build_time_graph_displayed?
-      page.has_css?('h5', text:"Analytics for pipeline: #{scenario_state.self_pipeline}")
+      page.has_css?('h5', text: "Analytics for pipeline: #{scenario_state.self_pipeline}")
       build_time_chart do |frame|
         frame.find('#chart-container').has_css?('.highcharts-series-group')
       end
@@ -194,11 +194,11 @@ module Pages
         .find(:xpath, '../../..').has_selector?('.pipeline_instances', visible: true)
     end
 
-    def visible?(pipeline)
+    def visible?(pipeline = scenario_state.self_pipeline)
       has_pipeline_name? text: (scenario_state.actual_pipeline_name(pipeline) || pipeline)
     end
 
-    def wait_till_pipeline_showsup(pipeline, timeout=120)
+    def wait_till_pipeline_showsup(pipeline, timeout = 120)
       wait_till_event_occurs_or_bomb timeout, "Pipeline #{scenario_state.actual_pipeline_name(pipeline)} failed to showup on dashboard" do
         reload_page
         break if visible?(pipeline)
@@ -211,8 +211,7 @@ module Pages
     end
 
     def trigger_cancel_pipeline(trigger_number)
-
-      (0...trigger_number.to_i).each do |number|
+      (0...trigger_number.to_i).each do |_number|
         trigger_pipeline
         cancel_pipeline
       end
@@ -239,7 +238,7 @@ module Pages
       end .first
     end
 
-    def shows_revision_at?(revision_element, revision, position=0)
+    def shows_revision_at?(revision_element, revision, position = 0)
       revision_class = scenario_state.retrieve('current_material_type') == 'Pipeline' ? '.modified_by' : '.revision_id'
       revision_element.all('.modifications')[position].has_css?(revision_class, text: revision, exact_text: true)
     end
@@ -301,18 +300,69 @@ module Pages
       environment_variables_tab.find('li', text: 'Secure Environment variables', exact_text: true).click
     end
 
-    def override_secure_env_variable(secure_env_variable_key,secure_env_variable_value)
-      environment_variables_secure_key_value.find('dt' , text: "#{secure_env_variable_key}", exact_text: true).find(:xpath , '..').find('a' , text: 'Override').click
-      environment_variables_secure_key_value.find('dt' , text: "#{secure_env_variable_key}", exact_text: true).find(:xpath , '..').find('.value').find('input').set(secure_env_variable_value)
+    def override_secure_env_variable(secure_env_variable_key, secure_env_variable_value)
+      environment_variables_secure_key_value.find('dt', text: secure_env_variable_key.to_s, exact_text: true).find(:xpath, '..').find('a', text: 'Override').click
+      environment_variables_secure_key_value.find('dt', text: secure_env_variable_key.to_s, exact_text: true).find(:xpath, '..').find('.value').find('input').set(secure_env_variable_value)
     end
 
-    def change_variable_to(key,value)
-      env_var_to_be_repalaced = environment_variables_key_value.find('dt' , text: "#{key}", exact_text: true).find(:xpath , '..').find('.value').find('input')
-      replace_element_value(env_var_to_be_repalaced,value)
+    def change_variable_to(key, value)
+      env_var_to_be_repalaced = environment_variables_key_value.find('dt', text: key.to_s, exact_text: true).find(:xpath, '..').find('.value').find('input')
+      replace_element_value(env_var_to_be_repalaced, value)
     end
 
     def material_revision_changed?(revision)
       revision[:class].include?('changed')
+    end
+
+    def can_operate_using_ui?
+      begin
+        !(pipeline_name text: scenario_state.self_pipeline).find(:xpath, '../..').has_selector?('.pipeline_btn.play.disabled',  exact_text: true)
+      rescue StandardError
+        return false
+      end
+    end
+
+    def can_operate_using_api?
+      begin
+        response = RestClient.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/schedule"),{},{ accept: 'application/vnd.go.cd.v1+json',X_GoCD_Confirm: 'true'}.merge(basic_configuration.header)
+        return (response.code == 202)
+      rescue RestClient::ExceptionWithResponse => err
+       p "Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+       return false
+      end
+    end
+
+    def can_pause_using_ui?
+      begin
+        !(pipeline_name text: scenario_state.self_pipeline).find(:xpath , '../../..').has_selector?('.pipeline_btn.pause.disabled', exact_text: true)
+      rescue StandardError
+        return false
+      end
+    end
+
+    def can_pause_using_api?
+      pause_using_api?
+      unpause_using_api?
+    end
+    
+    def unpause_using_api?
+      begin
+        response = RestClient.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/unpause"),{},{ accept: 'application/vnd.go.cd.v1+json',X_GoCD_Confirm: 'true'}.merge(basic_configuration.header)
+        return (response.code == 200)
+      rescue RestClient::ExceptionWithResponse => err
+       p "Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+       return false
+      end
+    end
+
+    def pause_using_api?
+      begin
+        response = RestClient.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/pause"),{},{ accept: 'application/vnd.go.cd.v1+json',X_GoCD_Confirm: 'true'}.merge(basic_configuration.header)
+        return (response.code == 200)
+      rescue RestClient::ExceptionWithResponse => err
+       p "Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+       return false
+      end
     end
 
     private

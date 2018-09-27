@@ -71,3 +71,43 @@ end
 step 'Pause pipeline on activity page' do ||
 	pipeline_history_page.pause_pipeline
 end
+
+step 'Looking at pipeline with label <label>' do |label|
+  scenario_state.set_current_label(label)
+end
+
+step 'Verify stage <stage_name> of pipeline can be rerun' do |stage_name|
+  pipeline_history_page.verify_stage_can_rerun?(scenario_state.self_pipeline ,scenario_state.get_current_label, stage_name )
+end
+
+step 'Rerun stage <stage_name> - Already On Pipeline History Page' do |stage_name|
+  pipeline_history_page.stage_rerun(scenario_state.self_pipeline ,scenario_state.get_current_label, stage_name )
+end
+
+step 'Verify <stage_name> stage can be cancelled' do |stage_name|
+  pipeline_history_page.verify_stage_can_cancel?(scenario_state.self_pipeline ,scenario_state.get_current_label, stage_name )
+end
+
+step 'Verify pipeline is paused on pipeline activity page' do ||
+  pipeline_history_page.verify_pipeline_is_paused?
+end
+
+step 'Unpause pipeline on pipeline activity page' do ||
+  pipeline_history_page.pause_pipeline
+end
+
+step 'Verify <stage_name> can be approved on Pipeline Activity Page' do |stage_name|
+  pipeline_history_page.verify_stage_can_be_approved?(stage_name, scenario_state.get_current_label)
+end
+
+step 'Approve stage <stage_name> on Pipeline Activity Page' do |stage_name|
+  pipeline_history_page.approve_stage(stage_name, scenario_state.get_current_label)
+end
+
+step 'Verify stage <stage_name> of pipeline cannot be rerun on Pipeline Activity Page' do |stage_name|
+  pipeline_history_page.verify_stage_cannot_rerun?(scenario_state.self_pipeline ,scenario_state.get_current_label, stage_name )
+end
+
+step 'Verify <stage_name> cannot be approved on Pipeline Activity Page' do |stage_name|
+  pipeline_history_page.verify_cannot_approve_stage?(stage_name, scenario_state.get_current_label)
+end

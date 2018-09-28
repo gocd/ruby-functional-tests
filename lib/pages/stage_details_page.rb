@@ -70,6 +70,14 @@ module Pages
       page.find("#stage_bar_cancel_#{stage}").click
     end
 
+    def verify_stage_rerun_is_enabled?(stage_name)
+      page.has_selector?("#stage_bar_rerun_#{stage_name}")
+    end
+
+    def verify_jobs_can_rerun?
+      page.has_selector?('span', text: "RERUN SELECTED")
+    end
+
     private
 
     def getRevisionForModification(modification_number)
@@ -85,5 +93,6 @@ module Pages
     def material_header_for(material_type, material_name)
       material_names.select { |name| name.text.include? "#{material_type} - #{material_name}" }.first
     end
+
   end
 end

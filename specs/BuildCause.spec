@@ -16,7 +16,7 @@ tags: new_dasboard, build_cause
 * Trigger pipeline - On Swift Dashboard page
 * Create a "stopjob" file and validate pipeline completed
 * Verify pipeline is triggered by "anonymous" - On Swift Dashboard page
-* On stage details page material tab for "basic-pipeline-run-till-file-exists" label "1" stage name "defaultStage" counter "1"
+* On stage details page "materials" tab for "basic-pipeline-run-till-file-exists" label "1" stage name "defaultStage" counter "1"
 
 * Looking at material of type "Git" named "git"
 * Verify modification "0" has latest revision
@@ -26,7 +26,7 @@ tags: new_dasboard, build_cause
 * Looking at pipeline "downstream" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Create a "stopjob" file and validate pipeline completed
-* On stage details page material tab for "downstream" label "1" stage name "defaultStage" counter "1"
+* On stage details page "materials" tab for "downstream" label "1" stage name "defaultStage" counter "1"
 
 * Looking at material of type "Pipeline" named "basic-pipeline-run-till-file-exists-downstream"
 * Verify modification "0" has revision "basic-pipeline-run-till-file-exists/1/defaultStage/1" - Already On Build Cause Section
@@ -40,7 +40,7 @@ tags: new_dasboard, build_cause
 * Trigger pipeline - On Swift Dashboard page
 * Create a "stopjob" file and validate pipeline completed
 
-* On stage details page material tab for "basic-pipeline-run-till-file-exists" label "2" stage name "defaultStage" counter "1"
+* On stage details page "materials" tab for "basic-pipeline-run-till-file-exists" label "2" stage name "defaultStage" counter "1"
 * Looking at material of type "Git" named "git"
 
 * Verify modification "0" is checked in by "loser" with comment "Comment loser"
@@ -51,7 +51,7 @@ tags: new_dasboard, build_cause
 * Looking at pipeline "basic-pipeline-run-till-file-exists" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Create a "stopjob" file and validate pipeline completed
-* On stage details page material tab for "basic-pipeline-run-till-file-exists" label "3" stage name "defaultStage" counter "1"
+* On stage details page "materials" tab for "basic-pipeline-run-till-file-exists" label "3" stage name "defaultStage" counter "1"
 
 * Looking at material of type "Git" named "git"
 * Verify modification "0" is checked in by "loser" with comment "Comment loser"
@@ -63,7 +63,7 @@ tags: new_dasboard, build_cause
 * Trigger pipeline - On Swift Dashboard page
 * Create a "stopjob" file and validate pipeline completed
 
-* On stage details page material tab for "downstream" label "2" stage name "defaultStage" counter "1"
+* On stage details page "materials" tab for "downstream" label "2" stage name "defaultStage" counter "1"
 * Looking at material of type "Pipeline" named "basic-pipeline-run-till-file-exists"
 * Verify modification "0" has revision "basic-pipeline-run-till-file-exists/3/defaultStage/1" - Already On Build Cause Section
 * Verify material has changed - Already On Build Cause Section
@@ -73,7 +73,7 @@ tags: new_dasboard, build_cause
 * Trigger pipeline - On Swift Dashboard page
 * Create a "stopjob" file and validate pipeline completed
 
-* On stage details page material tab for "downstream" label "3" stage name "defaultStage" counter "1"
+* On stage details page "materials" tab for "downstream" label "3" stage name "defaultStage" counter "1"
 * Looking at material of type "Pipeline" named "basic-pipeline-run-till-file-exists"
 * Verify modification "0" has revision "basic-pipeline-run-till-file-exists/3/defaultStage/1" - Already On Build Cause Section
 * Verify material has not changed - Already On Build Cause Section

@@ -15,55 +15,59 @@
 ##########################################################################
 
 step 'SmokeConfiguration - setup' do
-    secure_configuration.setup 'basic-secure-cruise-config.xml', 'password.properties'
-  end
-  
-  step 'Basic Configuration - setup' do
-    basic_configuration.setup 'basic-cruise-config.xml'
-  end
-  
-  step 'Single Pipeline Configuration - setup' do
-    basic_configuration.setup 'basic-single-pipeline-config.xml'
-  end
-  
-  step 'Secure Configuration - setup' do
-    secure_configuration.setup 'secure-cruise-config.xml', 'password.properties'
-  end
-  
-  
-  step 'External Artifacts Configuration - setup' do
-    secure_configuration.setup 'external-artifacts-cruise-config.xml', 'password.properties'
-  end
-  
-  step 'Multiple agents Configuration - setup' do
-    basic_configuration.setup 'multiple-agents-cruise-config.xml'
-  end
-  
-  step 'Config repos Configuration - setup' do
-    basic_configuration.setup 'with-config-repo-cruise-config.xml'
-  end
-  
-  step 'Config repo git repository - setup' do
-    basic_configuration.setup 'with-config-repo-cruise-config.xml'
-  end
-  
-  step 'AuthPluginsConfiguration - setup' do
-    secure_configuration.setup 'auth-plugins-config.xml', 'password.properties'
-  end
-  
-  step 'Enable security and add <users> as admins' do |adminUsers|
-    basic_configuration.enable_security_with_admin_rights 'password.properties', adminUsers
-  end
-  
-  step 'With no users - setup' do
-    basic_configuration.remove_all_users
-  end
-  
-  
-  step 'With Environments Configuration - setup' do
-      basic_configuration.setup 'with-environments-cruise-config.xml'
-  end
-  
-  step 'Fanin Configuration - setup' do
-    basic_configuration.setup 'fanin-cruise-config.xml'
-  end
+  secure_configuration.setup 'basic-secure-cruise-config.xml', 'password.properties'
+end
+
+step 'Basic Configuration - setup' do
+  basic_configuration.setup 'basic-cruise-config.xml'
+end
+
+step 'Single Pipeline Configuration - setup' do
+  basic_configuration.setup 'basic-single-pipeline-config.xml'
+end
+
+step 'Secure Configuration - setup' do
+  secure_configuration.setup 'secure-cruise-config.xml', 'password.properties'
+end
+
+
+step 'External Artifacts Configuration - setup' do
+  secure_configuration.setup 'external-artifacts-cruise-config.xml', 'password.properties'
+end
+
+step 'Multiple agents Configuration - setup' do
+  basic_configuration.setup 'multiple-agents-cruise-config.xml'
+end
+
+step 'Config repos Configuration - setup' do
+  basic_configuration.setup 'with-config-repo-cruise-config.xml'
+end
+
+step 'Config repo git repository - setup' do
+  basic_configuration.setup 'with-config-repo-cruise-config.xml'
+end
+
+step 'AuthPluginsConfiguration - setup' do
+  secure_configuration.setup 'auth-plugins-config.xml', 'password.properties'
+end
+
+step 'Enable security and add <users> as admins' do |adminUsers|
+  basic_configuration.enable_security_with_admin_rights 'password.properties', adminUsers
+end
+
+step 'With no users - setup' do
+  basic_configuration.remove_all_users
+end
+
+
+step 'With Environments Configuration - setup' do
+	basic_configuration.setup 'with-environments-cruise-config.xml'
+end
+
+step 'Fanin Configuration - setup' do
+  basic_configuration.setup 'fanin-cruise-config.xml'
+end
+
+step 'Permissions configuration - setup' do
+  secure_configuration.setup 'permissions-cruise-config.xml','password.properties'
+end

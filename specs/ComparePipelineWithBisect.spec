@@ -33,7 +33,7 @@ tags: compare_pipeline
 * On Swift Dashboard Page
 * Looking at pipeline "up" - On Swift Dashboard page
 * Verify stage "defaultStage" is "Building" - On Swift Dashboard page
-* On stage details page material tab for "up" label "3" stage name "defaultStage" counter "1"
+* On stage details page "materials" tab for "up" label "3" stage name "defaultStage" counter "1"
 
 * Cancel "defaultStage" - On Stage Detail Page
 

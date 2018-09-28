@@ -26,8 +26,8 @@ class GoConstants
   SERVER_MEM = ENV['GAUGE_GO_SERVER_MEM'] || '512m'
   SERVER_MAX_MEM = ENV['GAUGE_GO_SERVER_MAX_MEM'] || '1024m'
   LDAP_SERVER_IP = 'localhost:10389'
-  ANALYTICS_LICENCE_KEY = ENV['ANALYTICS_LICENSE_KEY'] || 'eyJleHBpcnkiOiAiMjA5My0wNS0xMCIsICJvcmciOiAiVGhvdWdodFdvcmtzIEluYyIsICJzaWduYXR1cmUiOiAiSGdhb3NNcmQxNEJjbmdtU2QxSDAyQ2dVd3NsY2xvZWRBd0xoQjRXUThUbTRyWXJtdkg0Q251SDJTUE5tVkJPaFdCODYrM091UTR2b3prekZpNFowR2c9PSJ9Cg=='
-
+  ANALYTICS_LICENSE_KEY = ENV['ANALYTICS_LICENSE_KEY'] || 'no_license_key'
+  GO_PIPELINE_COUNTER = ENV['GO_PIPELINE_COUNTER'] || '0'
   TEMP_DIR = '/tmp/materials'.freeze
   GAUGE_AGENT_DIR = 'target/gauge_agents'.freeze
   CONFIG_PATH = 'resources/config'.freeze

@@ -156,19 +156,19 @@ namespace :plugins do
 
     # preparing the database - drop and recreate analytics database
 
-    # ENV['ANALYTICS_DB_NAME_TO_USE'] = "#{ENV['ANALYTICS_DB_NAME'] || "analytics"}"
-    # ENV['POSTGRES_DB_HOST_TO_USE'] = "#{ENV['DB_HOST'] || "localhost"}"
+    ENV['ANALYTICS_DB_NAME_TO_USE'] = "#{ENV['ANALYTICS_DB_NAME'] || "analytics"}"
+    ENV['POSTGRES_DB_HOST_TO_USE'] = "#{ENV['DB_HOST'] || "localhost"}"
 
 
-    # puts "Using DB: #{ENV['ANALYTICS_DB_NAME_TO_USE']} on host: #{ENV['POSTGRES_DB_HOST_TO_USE']}"
+    puts "Using DB: #{ENV['ANALYTICS_DB_NAME_TO_USE']} on host: #{ENV['POSTGRES_DB_HOST_TO_USE']}"
 
-    # db_user = ENV['DB_USER'] || 'postgres'
+    db_user = ENV['DB_USER'] || 'postgres'
 
-    # drop_db_command = "java -jar tools/run_with_postgres.jar #{ENV['POSTGRES_DB_HOST_TO_USE']} 5432 postgres #{db_user} '' 'DROP DATABASE IF EXISTS #{ENV['ANALYTICS_DB_NAME_TO_USE']}'"
-    # create_db_command = "java -jar tools/run_with_postgres.jar #{ENV['POSTGRES_DB_HOST_TO_USE']} 5432 postgres #{db_user} '' 'CREATE DATABASE #{ENV['ANALYTICS_DB_NAME_TO_USE']}'"
-    # system("#{drop_db_command} && #{create_db_command}") || (puts "Failed to drop and recreate DB. Tried running: #{drop_db_command} && #{create_db_command}"; exit 1)
+    drop_db_command = "java -jar tools/run_with_postgres.jar #{ENV['POSTGRES_DB_HOST_TO_USE']} 5432 postgres #{db_user} '' 'DROP DATABASE IF EXISTS #{ENV['ANALYTICS_DB_NAME_TO_USE']}'"
+    create_db_command = "java -jar tools/run_with_postgres.jar #{ENV['POSTGRES_DB_HOST_TO_USE']} 5432 postgres #{db_user} '' 'CREATE DATABASE #{ENV['ANALYTICS_DB_NAME_TO_USE']}'"
+    system("#{drop_db_command} && #{create_db_command}") || (puts "Failed to drop and recreate DB. Tried running: #{drop_db_command} && #{create_db_command}"; exit 1)
 
-    # puts "Recreated analytics DB: #{ENV['ANALYTICS_DB_NAME_TO_USE']}"
+    puts "Recreated analytics DB: #{ENV['ANALYTICS_DB_NAME_TO_USE']}"
   end
 
   desc 'gradle build go plugins'

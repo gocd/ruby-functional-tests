@@ -13,19 +13,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##########################################################################
-step 'Start VSM analytics selections' do
+
+
+step 'Start VSM analytics selections' do ||
   vsm_page.click_analytics
 end
 
-step 'Select material as the source for VSM analytics' do
+step 'Select material as the source for VSM analytics' do ||
   vsm_page.select_source('material')
 end
 
-step 'View VSM analytics' do
+step 'View VSM analytics' do ||
   vsm_page.view_analytics.click
 end
 
-step 'Verify VSM trends are displayed' do
+step 'Verify VSM trends are displayed' do ||
   vsm_page.vsm_analytics_visible?
 end
 
@@ -38,6 +40,10 @@ step 'Select material <material> for VSM analytics' do |material|
 end
 
 step 'Verify VSM trend has <workflows> workflows' do |workflows|
-  
-  vsm_page.verify_Workflow_count_VSM_chart(workflows)
+  vsm_page.verify_workflow_count_vsm_chart(workflows)
 end
+
+step 'Verify VSM throughput is <percent>' do |percent|
+  vsm_page.verify_throughput_value(percent)
+end  
+

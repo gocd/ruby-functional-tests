@@ -24,8 +24,7 @@ module Pages
     element :enable_analytics, '.enable-analytics'
     element :material, '.material'  
     element :view_analytics, '.view-vsm-analytics'
-    iframe :vsm_analytics_trend, VSMAnalyticsTrend, 0 
-    iframe :vsm_trend_chart, VsmTrendChart, 0
+    iframe :vsm_analytics_trend, VSMAnalyticsTrend, 0
 
     def click_analytics
       enable_analytics.click
@@ -37,39 +36,34 @@ module Pages
 
     def select_pipeline_on_VSM(pipeline)
       pipeline_name = scenario_state.actual_pipeline_name(pipeline)
-      #binding.pry
-      
       page.find(:xpath,"//div[@id='#{pipeline_name}']").click
-      
     end
 
     def select_material_on_VSM(material)
       material_url= scenario_state.retrieve(material)
-      #binding.pry
-      
       page.find(:xpath,"//h3[contains(text(),'#{material_url}')]").click
-      
     end
 
-    def verify_Workflow_count_VSM_chart(workflow_count)
-      binding.pry
-      build_time_chart do |frame|
-      frame.has_css?('table.vsm-trends-table tbody tr', :count => workflow_count.to_i)
-     # page.has_css?(table.vsm-trends-table tbody tr', :count => workflow_count.to_i)    
+    def verify_workflow_count_vsm_chart(workflow_count)
+      vsm_analytics_trend do |frame|
+      count=frame.all('.vsm-trends-table tbody tr').length
+      assert_equal workflow_count.to_i ,count , "Expected workflow Count should be #{workflow_count.to_i} , but actual is #{count}"
     end
   end
   
- 
-   
-     
-
-    def vsm_analytics_visible?
+    def verify_throughput_value(throughput_val)
       vsm_analytics_trend do |frame|
-        frame.has_css?('.vsm-trends-container')
-        frame.has_css?('.workflow-metrics')
-        frame.has_css?('.vsm-trends')
-      end
+      actual_throughput=frame.find('.throughput dd').text
+      assert_equal throughput_val ,actual_throughput , "Expected throughput should be #{throughput_val} , but actual is #{actual_throughput}"
     end
-
   end
+
+  def vsm_analytics_visible?
+    vsm_analytics_trend do |frame|
+      frame.has_css?('.vsm-trends-container')
+      frame.has_css?('.workflow-metrics')
+      frame.has_css?('.vsm-trends')
+    end
+  end
+ end
 end

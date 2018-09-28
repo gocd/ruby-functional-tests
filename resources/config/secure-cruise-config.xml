@@ -51,41 +51,41 @@
         </security>
     </server>
     <pipelines group="VSM.Analytics">
-    <pipeline name="VSM1">
-      <materials>
-         <git url="git-on-git-pipeline_VSM1" dest="git" materialName="git" autoUpdate="true"/>
-      </materials>
-      <stage name="defaultStage">
-        <approval type="manual"/>
-        <jobs>
-          <job name="defaultJob">
-            <tasks>
-              <exec command="sleep">
-                                <arg>5</arg>
-                                <runif status="passed"/>
-              </exec>
-            </tasks>
-          </job>
-        </jobs>
-      </stage>
-    </pipeline>
-    <pipeline name="VSM2">
-      <materials>
-        <pipeline pipelineName="VSM1" stageName="defaultStage" materialName="VSM1" />
-      </materials>
-      <stage name="defaultStage">
-        <jobs>
-          <job name="defaultJob">
-            <tasks>
-              <exec command="sleep">
-                                <arg>5</arg>
-                                <runif status="passed"/>
-              </exec>
-            </tasks>
-          </job>
-        </jobs>
-      </stage>
-    </pipeline>
+        <pipeline name="VSM1">
+            <materials>
+                <git url="git-on-git-pipeline_VSM1" dest="git" materialName="git" autoUpdate="true"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                     <tasks>
+                          <exec command="sleep">
+                            <arg>5</arg>
+                            <runif status="passed"/>
+                          </exec>
+                     </tasks>
+                   </job>
+                </jobs>
+            </stage>
+        </pipeline>
+        <pipeline name="VSM2">
+            <materials>
+                 <pipeline pipelineName="VSM1" stageName="defaultStage" materialName="VSM1" />
+            </materials>
+            <stage name="defaultStage">
+                 <jobs>
+                  <job name="defaultJob">
+                     <tasks>
+                          <exec command="sleep">
+                            <arg>5</arg>
+                            <runif status="passed"/>
+                          </exec>
+                     </tasks>
+                 </job>
+                </jobs>
+            </stage>
+       </pipeline>
     <pipeline name="VSM3">
       <materials>
         <pipeline pipelineName="VSM1" stageName="defaultStage" materialName="VSM1" />
@@ -94,14 +94,17 @@
       <stage name="defaultStage">
         <jobs>
           <job name="defaultJob">
-             <tasks>
-                    <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
-                    </tasks>
+           <tasks>
+              <exec command="sleep">
+                 <arg>5</arg>
+                 <runif status="passed"/>
+              </exec>
+           </tasks>
           </job>
         </jobs>
       </stage>
     </pipeline>
-    <pipeline name="VSM4">
+     <pipeline name="VSM4">
       <materials>
         <pipeline pipelineName="VSM2" stageName="defaultStage" materialName="VSM2" />
         <pipeline pipelineName="VSM3" stageName="defaultStage" materialName="VSM3" />
@@ -111,8 +114,78 @@
           <job name="defaultJob">
             <tasks>
               <exec command="sleep">
-                                <arg>5</arg>
-                                <runif status="passed"/>
+                 <arg>5</arg>
+                 <runif status="passed"/>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
+  <pipelines group="VSM.Analytics.Rerun">
+    <pipeline name="Rerun1">
+      <materials>
+         <git url="git-on-git-pipeline_R1" dest="git" materialName="git" autoUpdate="true"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="sleep">
+                <arg>5</arg>
+                <runif status="passed"/>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="Rerun2">
+      <materials>
+        <pipeline pipelineName="Rerun1" stageName="defaultStage" materialName="Rerun1" />
+      </materials>
+      <stage name="defaultStage">
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="sleep">
+                <arg>5</arg>
+                <runif status="passed"/>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="Rerun3">
+      <materials>
+        <pipeline pipelineName="Rerun1" stageName="defaultStage" materialName="Rerun1" />
+        <git url="git-on-git-pipeline_R3" dest="git" materialName="git" autoUpdate="true"/>
+      </materials>
+      <stage name="defaultStage">
+        <jobs>
+          <job name="defaultJob">
+             <tasks>
+                <exec command="rake" args="wait_or_fail" workingdir="git"/>
+             </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="Rerun4">
+      <materials>
+        <pipeline pipelineName="Rerun2" stageName="defaultStage" materialName="Rerun2" />
+        <pipeline pipelineName="Rerun3" stageName="defaultStage" materialName="Rerun3" />
+      </materials>
+      <stage name="defaultStage">
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="sleep">
+                <arg>5</arg>
+                <runif status="passed"/>
               </exec>
             </tasks>
           </job>

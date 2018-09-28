@@ -92,7 +92,7 @@ module Context
 
     def create_plugin_settings(settings)
       settings['configuration'].collect!{|hash|
-        hash['value'] = GoConstants::ANALYTICS_LICENCE_KEY if hash['key'] == 'license'
+        hash['value'] = GoConstants::ANALYTICS_LICENSE_KEY if hash['key'] == 'license'
         hash
       }
       RestClient.post http_url('/api/admin/plugin_settings'), settings.to_json,

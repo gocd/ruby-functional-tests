@@ -1,0 +1,6 @@
+#verify user can operate stage <stage_name> for pipeline <pipeline_name> from stage details page
+* Looking at pipeline <pipeline_name> - On Swift Dashboard page
+* On stage details page "overview" tab for <pipeline_name> label "1" stage name <stage_name> counter "1"
+* Verify rerun is enabled for stage <stage_name>
+* On stage details page "jobs" tab for <pipeline_name> label "1" stage name <stage_name> counter "1"
+* Verify rerun selected button is enabled on jobs tab

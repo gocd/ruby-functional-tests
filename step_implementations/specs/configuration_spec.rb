@@ -67,3 +67,7 @@ end
 step 'Fanin Configuration - setup' do
   basic_configuration.setup 'fanin-cruise-config.xml'
 end
+
+step 'Permissions configuration - setup' do
+  secure_configuration.setup 'permissions-cruise-config.xml','password.properties'
+end

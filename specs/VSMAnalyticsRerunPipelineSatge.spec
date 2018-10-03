@@ -38,7 +38,7 @@ VSMAnalyticsRerunPipelineSatge
 * Verify VSM throughput is "0%"
 
 * Looking at pipeline "Rerun3" - On Swift Dashboard page
-* On stage details page material tab for "Rerun3" label "1" stage name "defaultStage" counter "1"
+* On stage details page "materials" tab for "Rerun3" label "1" stage name "defaultStage" counter "1"
 * Rerun stage "defaultStage" - On Stage Details page
 * On Swift Dashboard Page
 * Create a "stopjob" file and validate pipeline completed

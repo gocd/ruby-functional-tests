@@ -31,6 +31,7 @@
                     <users>
                         <user>admin</user>
                         <user>pipelineSelectorAdmin</user>
+                        <user>templateadmin</user>
                     </users>
                 </role>
                 <role name="operator">
@@ -51,6 +52,16 @@
         </security>
     </server>
     <pipelines group="VSM.Analytics">
+     <authorization>
+      <view>
+        <user>group1Admin</user>
+        <user>view</user>
+        <user>operatorUser</user>
+      </view>
+      <admins>
+        <user>group1Admin</user>
+      </admins>
+    </authorization>
         <pipeline name="VSM1">
             <materials>
                 <git url="git-on-git-pipeline_VSM1" dest="git" materialName="git" autoUpdate="true"/>

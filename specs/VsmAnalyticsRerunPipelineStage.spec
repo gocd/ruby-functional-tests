@@ -1,4 +1,4 @@
-VSMAnalyticsRerunPipelineSatge
+VsmAnalyticsRerunPipelineStage
 ==============
 
 tags: VSM_analytics
@@ -12,7 +12,7 @@ Setup of contexts
 * With "2" live agents - setup
 * Capture go state "AnalyticsPlugin" - setup
 
-VSMAnalyticsRerunPipelineSatge
+VsmAnalyticsRerunPipelineStage
 ------------------------------------
 
 * Looking at pipeline "Rerun1" - On Swift Dashboard page

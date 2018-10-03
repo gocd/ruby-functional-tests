@@ -1,4 +1,4 @@
-VSMAnalytics
+VsmAnalyticsVisibilityForAllUsers
 ==============
 
 tags: VSM_analytics
@@ -13,7 +13,7 @@ Setup of contexts
 * With "2" live agents - setup
 * Capture go state "AnalyticsPlugin" - setup
 
-VSMAnalytics
+VsmAnalyticsVisibilityForAllUsers
 ------------------------------------
 
 * Looking at pipeline "VSM1" - On Swift Dashboard page

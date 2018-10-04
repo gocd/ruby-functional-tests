@@ -55,6 +55,9 @@ step 'Enable security and add <users> as admins' do |adminUsers|
   basic_configuration.enable_security_with_admin_rights 'password.properties', adminUsers
 end
 
+step 'Enable security with password file' do
+  basic_configuration.enable_security_with_password_file 'password.properties'
+end
 step 'With no users - setup' do
   basic_configuration.remove_all_users
 end

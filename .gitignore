@@ -9,3 +9,4 @@ vendor/bundle/
 .bundle/config
 .gauge/
 *.lock
+.vscode

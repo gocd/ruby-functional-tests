@@ -70,3 +70,20 @@ end
 step 'Load login page' do |_tmp|
   login_page.load
 end
+
+
+
+step 'VerifyIfUserIsAdmin <table>' do |table|
+  table.rows.each do |row|
+    scenario_state.set_current_user(row['login as user'])
+    logout 
+    login_page.signin scenario_state.current_user
+    (1..table.columns.length-1).each do |column_count| 
+      user_summary_page.load
+      method_name = table.columns[column_count]
+      raise "The method #{method_name} does not exist" unless user_summary_page.respond_to?(method_name)
+      assert_equal row[table.columns[column_count]], user_summary_page.send(method_name).to_s
+      
+    end
+  end
+end

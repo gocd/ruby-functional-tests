@@ -26,6 +26,7 @@ module Pages
     element :shared_data_info, '.shared-data'
 
     def is_data_sharing_allowed
+      wait_for_data_sharing_toggle
       data_sharing_toggle.checked?
     end
 

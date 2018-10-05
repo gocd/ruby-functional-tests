@@ -31,7 +31,6 @@
                     <users>
                         <user>admin</user>
                         <user>pipelineSelectorAdmin</user>
-                        <user>templateadmin</user>
                     </users>
                 </role>
                 <role name="operator">

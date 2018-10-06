@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2016 ThoughtWorks, Inc.
+# Copyright 2018 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ end
 
 step 'Verify data that will be shared is visible' do
   begin
-    response = RestClient.get http_url("/api/internal/data_sharing/usagedata"), { accept: USAGE_DATA_API_VERSION }.merge(basic_configuration.header)
+    response = RestClient.get http_url('/api/internal/data_sharing/usagedata'), { accept: USAGE_DATA_API_VERSION }.merge(basic_configuration.header)
   rescue RestClient::ExceptionWithResponse => err
     raise "Failed to get the data sharing usagedata information. Returned response code - #{err.response.code}"
   end
@@ -43,22 +43,22 @@ step 'Verify data that will be shared is visible' do
 end
 
 step 'Verify data sharing permissions are updated by <user> user' do |user|
-  msg ="#{user} changed the data sharing permission"
+  msg = "#{user} changed the data sharing permission"
   assert_true data_sharing_spa_page.get_updated_by_message.include? msg
 end
 
 step 'Verify data sharing consent is <isAllowed>' do |isAllowed|
   if isAllowed.eql? 'allowed'
-    assert_equal true, data_sharing_spa_page.is_data_sharing_allowed, "Expected data sharing consent to be allowed"
+    assert_equal true, data_sharing_spa_page.data_sharing_allowed?, 'Expected data sharing consent to be allowed'
   else
-    assert_equal false, data_sharing_spa_page.is_data_sharing_allowed, "Expected data sharing consent to be not allowed"
+    assert_equal false, data_sharing_spa_page.data_sharing_allowed?, 'Expected data sharing consent to be not allowed'
   end
 end
 
 def verify_usage_data_displayed_info(response, displayed_info)
-   response_body = response.body
-   expected = JSON.parse(response_body)
-   actual = JSON.parse(displayed_info)
+  response_body = response.body
+  expected = JSON.parse(response_body)
+  actual = JSON.parse(displayed_info)
 
-   assert_equal expected, actual, "Expected data being shared to be visible. Original_Data: #{expected}. Displayed_Data: #{actual}"
+  assert_equal expected, actual, "Expected data being shared to be visible. Original_Data: #{expected}. Displayed_Data: #{actual}"
 end

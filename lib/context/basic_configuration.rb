@@ -192,6 +192,26 @@ module Context
       current_config.xpath('//server').first.add_child password_authentication_config
       load_dom(current_config)
     end
+    
+    def enable_security_with_password_file(pwd_file)
+      current_config = get_config_from_server
+      password_file_path = File.expand_path("#{GoConstants::CONFIG_PATH}/#{pwd_file}")
+     
+
+      password_file_authentication_config = "<security>
+          <authConfigs>
+              <authConfig id=\"61f10215-9fba-4962-a2f4-d6c8944ade32\" pluginId=\"cd.go.authentication.passwordfile\">
+                  <property>
+                      <key>PasswordFilePath</key>
+                      <value>#{password_file_path}</value>
+                  </property>
+              </authConfig>
+          </authConfigs>
+        </security>"
+      current_config.xpath('//server').first.add_child password_file_authentication_config
+      load_dom(current_config)
+    end
+    
 
   end
 end

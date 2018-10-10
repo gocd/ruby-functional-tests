@@ -34,7 +34,7 @@ module Pages
     def logout
       new_pipeline_dashboard_page.load
       page.find('.current-user.opens-left').hover
-      page.find('a', text: 'Sign out').click
+      page.find('a', text: 'Sign out', wait: 20).click
     end
 
     def menu_item_visible(item)

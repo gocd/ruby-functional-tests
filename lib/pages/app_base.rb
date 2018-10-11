@@ -21,6 +21,7 @@ module Pages
   class AppBase < SitePrism::Page
     include Helpers::Wait
     include Helpers::GeneralHelper
+    include Helpers::GoUrlHelper
 
     def resize()
       page.driver.browser.manage.window.resize_to(1240, 1024)
@@ -32,13 +33,7 @@ module Pages
     end
 
     def logout
-      if page.has_css? ('.current_user_name')
-        page.find('.current_user_name').hover
-        page.find('.logout', wait: 60).click
-      else
-        page.find('.current-user.opens-left').hover
-        page.find('a', text: 'Sign out', wait: 60).click
-      end
+      page.driver.browser.navigate.to(http_url('/auth/logout'))
     end
 
     def menu_item_visible(item)

@@ -33,8 +33,8 @@ module Pages
 
     def logout
       new_pipeline_dashboard_page.load
-      page.find('.current-user.opens-left').hover
       sleep 30
+      page.find('.current-user.opens-left').hover
       page.find('a', text: 'Sign out', wait: 60).click
     end
 

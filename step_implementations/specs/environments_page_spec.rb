@@ -25,24 +25,24 @@ end
 
 step 'Open Environment edit page for environment <environment>' do |environment|
   environments_dashboard_page.load
-  environments_dashboard_page.click_environment environment
+  environments_dashboard_page.show_environment(environment)
   scenario_state.current_environment(environment)
 end
 
 step 'Verify pipelines <pipelines> are available on <environment> edit page' do |pipelines, environment|
-  pipelines.split(',').each do |p|
-    assert_true environments_edit_page(scenario_state.get_environment(environment)).is_pipeline_exists? scenario_state.actual_pipeline_name(p.strip)
+  pipelines.split(',').each do |pipeline|
+    assert_true environments_edit_page(scenario_state.get_environment(environment)).is_pipeline_exists? scenario_state.actual_pipeline_name(pipeline.strip)
   end
 end
 
 step 'Verify pipelines <pipelines> are not available on <environment> edit page' do |pipelines, environment|
-  pipelines.split(',').each do |p|
-    assert_false environments_edit_page(scenario_state.get_environment(environment)).is_pipeline_exists? scenario_state.actual_pipeline_name(p.strip)
+  pipelines.split(',').each do |pipelines|
+    assert_false environments_edit_page(scenario_state.get_environment(environment)).is_pipeline_exists? scenario_state.actual_pipeline_name(pipelines.strip)
   end
 end
 
 step 'Edit pipelines' do
-  environments_edit_page(scenario_state.get_current_environment).click_pipeline_edit
+  environments_edit_page(scenario_state.get_current_environment).edit_pipeline
 end
 
 step 'Verify agents <agents> are available on <environment> edit page' do |agents, environment|
@@ -59,7 +59,7 @@ step 'Verify environment variables <vars> are available on <environment> edit pa
 end
 
 step 'Edit Agents' do
-  environments_edit_page(scenario_state.get_current_environment).click_agents_edit
+  environments_edit_page(scenario_state.get_current_environment).edit_agents
 end
 
 step 'Save environment' do
@@ -67,7 +67,7 @@ step 'Save environment' do
 end
 
 step 'Edit environment variables' do
-  environments_edit_page(scenario_state.get_current_environment).click_vars_edit
+  environments_edit_page(scenario_state.get_current_environment).edit_environment_variables
 end
 
 step 'Select all agents and verify all are selected' do
@@ -108,4 +108,8 @@ end
 step 'Add new variable' do
   environments_edit_page(scenario_state.get_current_environment).add_new_var
   environments_edit_page(scenario_state.get_current_environment).save
+end
+
+step 'Expand environment <environment>' do |environment|
+	environments_dashboard_page.show_environment(environment)
 end

@@ -32,9 +32,13 @@ module Pages
     end
 
     def logout
-      agents_spa_page.load
-      page.find('.current-user.opens-left').hover
-      page.find('a', text: 'Sign out', wait: 60).click
+      if page.has_css? ('.current_user_name')
+        page.find('.current_user_name').hover
+        page.find('.logout', wait: 60).click
+      else
+        page.find('.current-user.opens-left').hover
+        page.find('a', text: 'Sign out', wait: 60).click
+      end
     end
 
     def menu_item_visible(item)

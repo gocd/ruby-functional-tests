@@ -26,12 +26,14 @@ Setup of contexts
 
 * Edit pipelines
 * Add pipeline "main-config-pipeline" and save environment
+* Open Environment edit page for environment "config-repo-environment"
 * Verify pipelines "simple-upstream, config-repo-pipeline, main-config-pipeline" are available on "config-repo-environment" edit page
 
 * Edit pipelines
 * Verify removing pipelines "simple-upstream, config-repo-pipeline" is not allowed
 
 * Remove pipelines "main-config-pipeline" and save environment
+* Open Environment edit page for environment "config-repo-environment"
 * Verify pipelines "simple-upstream, config-repo-pipeline" are available on "config-repo-environment" edit page
 * Verify pipelines "main-config-pipeline" are not available on "config-repo-environment" edit page
 

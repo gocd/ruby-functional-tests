@@ -15,7 +15,7 @@ Setup of contexts
 * Login as "admin" - setup
 
 Verify if user is admin
-* VerifyIfUserIsAdmin 
+* VerifyIfUserHasRole
      |login as user|admin?|
      |-------------|------|
      |pavan        |true  | 

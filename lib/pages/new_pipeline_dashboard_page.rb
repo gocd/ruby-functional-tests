@@ -33,6 +33,10 @@ module Pages
 
     load_validation { has_pipeline_group? }
 
+    def admin?
+      menu_item_visible('admin') 
+    end
+    
     def trigger_pipeline(name: scenario_state.self_pipeline, wait_to_build: true)
       (pipeline_name text: name)
         .find(:xpath, '../..').find('.pipeline_btn.play').click

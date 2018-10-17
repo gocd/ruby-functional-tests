@@ -120,19 +120,28 @@ module Context
     end
 
     def remove_pipelines_except(except_pipelines)
+      pipeline_groups=[]
       self.config_dom = get_config_from_server
 
       except_pipelines_names = except_pipelines.map do |except_pipeline|
         scenario_state.actual_pipeline_name(except_pipeline)
       end
 
+      except_pipelines_names.each do |pl|
+        group_name=config_dom.xpath("//cruise/pipelines/pipeline[@name='#{pl}']").first.parent['group']
+        pipeline_groups.push(group_name)
+       end
+  
       config_dom.xpath('//cruise/pipelines/pipeline').each do |pipeline|
         pipeline.remove unless except_pipelines_names.include?(pipeline['name'])
       end
       config_dom.xpath('//environments/environment/pipelines/pipeline').each do |env|
         env.remove unless except_pipelines_names.include?(env['name'])
       end
+      config_dom.xpath('//cruise/pipelines').each do |pgroup|
+        pgroup.remove unless pipeline_groups.uniq.include?(pgroup['group'])
 
+      end
       load_dom(config_dom)
     end
 
@@ -160,6 +169,19 @@ module Context
 
     def material_url_for(pipeline)
       get_config_from_server.xpath("//cruise/pipelines/pipeline[@name='#{pipeline}']/materials/git").attribute('url').value
+    end
+
+    def add_user_as_admin(user)
+      current_config = get_config_from_server
+      admin_user_tag="<user>#{user}</user>"
+      current_config.at("//cruise/server/security/roles/role[@name='admins']/users").add_child admin_user_tag
+      load_dom(current_config)
+    end
+    
+    def remove_user_as_admin(user)
+      current_config = get_config_from_server
+      current_config.xpath("//cruise/server/security/roles/role[@name='admins']/users/user[contains(text(),'#{user}')]").remove
+     load_dom(current_config)
     end
 
     def enable_security_with_admin_rights(pwd_file, adminUsers)

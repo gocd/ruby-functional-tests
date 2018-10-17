@@ -16,10 +16,41 @@
 
 module Pages
   class ComparePipelinePage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/compare{/pipeline_name}{/from_pipeline}}/with{/to_pipeline}}"
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/compare{/pipeline_name}{/from_pipeline}/with{/to_pipeline}"
     element :check_ins, '#tab-content-of-checkins'
     element :to_pipeline, '#to_pipeline'
     element :from_pipeline, '#from_pipeline'
+    element :browse_to_timeline,'a#browse_timeline_link_to'
+    element :browse_from_timeline,'a#browse_timeline_link_from'
+
+     def click_on_To_box_for_browse_timeline
+      to_pipeline.click
+      browse_to_timeline.click
+     end
+
+     def click_on_From_box_for_browse_timeline
+      from_pipeline.click
+      browse_from_timeline.click
+     end
+
+     def selected_pipeline_label_is?(label)
+      page.has_selector?('li.pim_list.clear_float.selected .pipeline_label', text: label)
+     end
+
+     def get_pipeline_labels
+      pipeline_labels=[]
+      page.all('li.pim_list .pipeline_label'). find {|element| pipeline_labels.push(element.text.to_i)}
+      return pipeline_labels
+     end
+
+     def click_page(label)  
+       page.find('.wrapper a.MB_focusable', text: label).click
+     end  
+
+     def select_pipeline_with_label(label)
+      page.find('li.pim_list .pipeline_label', text: label).click
+      page.find('a', text:'SELECT THIS PIPELINE').click
+     end 
 
     def verify_pipeline_dependency_revision(pipeline_name, revision)
       pipeline_dependency_material_modifications(pipeline_name)

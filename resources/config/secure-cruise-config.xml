@@ -263,17 +263,20 @@
           </stage>
         </pipeline>
         <pipeline name="viewable-pipeline">
-            <materials>
-                <hg url="$hgurl-viewable-pipeline" dest="hg" autoUpdate="false" materialName="viewable-pipeline-hg"/>
+             <materials>
+                <git url="material-for-viewable-pipeline" dest="git" materialName="git" autoUpdate="true"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
                 <jobs>
                     <job name="defaultJob">
-                        <tasks>
-                            <exec command="dir"/>
-                        </tasks>
-                    </job>
+                     <tasks>
+                          <exec command="sleep">
+                            <arg>5</arg>
+                            <runif status="passed"/>
+                          </exec>
+                     </tasks>
+                   </job>
                 </jobs>
             </stage>
         </pipeline>

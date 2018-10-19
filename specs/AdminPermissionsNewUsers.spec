@@ -4,7 +4,7 @@ AdminPermissionsNewUsers
 AdminPermissionsNewUsers
 ------------------------
 
-tags: admin_permissions
+tags: admin_permissions, with_security
 
 Setup of contexts
 * Basic Configuration - setup
@@ -29,6 +29,7 @@ Verify if user is admin
 
 teardown
 _______________
+* As user "admin" for teardown
 * Capture go state "AdminPermissionsNewUsers" - teardown
 * With "1" live agents - teardown
 

@@ -5,14 +5,14 @@ AdminRolesAndUsers
 AdminRolesAndUsers
 ------------------------
 
-tags: admin_permissions
+tags: admin_permissions, with_security
 
 Setup of contexts
 * Secure Configuration - setup
 * Using pipeline "viewable-pipeline" - setup
 * Login as "admin" - setup
 * With "1" live agents - setup
-* Capture go state "AdminPermissionsNewUsers" - setup
+* Capture go state "AdminRolesAndUsers" - setup
 
 
 * Making "pavan" an admin user
@@ -48,6 +48,7 @@ Verify if user is admin
 
 teardown
 _______________
-* Capture go state "AdminPermissionsNewUsers" - teardown
+* As user "admin" for teardown
+* Capture go state "AdminRolesAndUsers" - teardown
 * With "1" live agents - teardown
 

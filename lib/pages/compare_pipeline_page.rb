@@ -102,12 +102,12 @@ module Pages
 
     def pipeline_dependency_material_modifications(pipeline_name)
       materials = check_ins.all('.material_title').select { |mt| mt if mt.text.start_with?("Pipeline - #{pipeline_name}") }
-      materials.first.find(:xpath, '..').find('.list_table.dependency_material_modifications')
+      materials.first.sibling('.list_table.dependency_material_modifications')
     end
 
     def pipeline_scm_material_modifications(material_type)
       materials = check_ins.all('.material_title').select { |mt| mt if mt.text.start_with?("#{material_type} - ") }
-      materials.first.find(:xpath, '..').find('.list_table.material_modifications')
+      materials.first.sibling('.list_table.dependency_material_modifications')
     end
   end
 end

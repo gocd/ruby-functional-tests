@@ -59,7 +59,7 @@ module Pages
     end
 
     def open_build_cause(pipeline_name, label)
-      page.find('.pipeline-label', text: label).find(:xpath, '../..').find('.pipeline-info', text: /Triggered by/).click
+      page.find('.pipeline-label', text: label).ancestor('.pipeline-name').find('.pipeline-info', text: /Triggered by/).click
 
     end
 
@@ -68,7 +68,7 @@ module Pages
     end
 
     def triggered_by?(pipeline_name, label, user)
-      page.find('.pipeline-label', text: label).find(:xpath, '../..').find('.pipeline-info', text: /Triggered by/).text.equal? "Triggered by #{user}"
+      page.find('.pipeline-label', text: label).ancestor('.pipeline-name').find('.pipeline-info', text: /Triggered by/).text.equal? "Triggered by #{user}"
     end
 
     def pause_pipeline
@@ -100,7 +100,6 @@ module Pages
     end
 
     def stage_rerun(pipeline ,current_label, stage_name)
-      binding.pry
       page.find("#rerun-#{pipeline_name}-#{label}-#{stage_name}", visible: false)
     end
 

@@ -107,7 +107,7 @@ module Pages
 
     def pipeline_scm_material_modifications(material_type)
       materials = check_ins.all('.material_title').select { |mt| mt if mt.text.start_with?("#{material_type} - ") }
-      materials.first.sibling('.list_table.dependency_material_modifications')
+      materials.first.sibling('.list_table.material_modifications')
     end
   end
 end

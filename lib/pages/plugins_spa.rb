@@ -31,7 +31,7 @@ module Pages
     end
 
     def plugin_by_id_is_valid?(id)
-      plugin_settings.find('.plugin-id', text: id)..ancestor('.plugin-header')[:class].include?('plugin active')
+      plugin_settings.find('.plugin-id', text: id).ancestor('.plugin-header')[:class].include?('plugin active')
     end
 
     def collapse_plugin_config(id)
@@ -92,7 +92,7 @@ module Pages
 
     def plugin_config_element_of(id)
       plugin_settings.find('.plugin-id', text: id)
-                     .ancestor('.plugin-header').find('.plugin-config-read-only')
+                     .ancestor('.plugin.expanded').find('.plugin-config-read-only')
     end
 
     def plugin_actions_of(id)

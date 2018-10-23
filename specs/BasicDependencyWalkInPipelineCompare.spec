@@ -14,17 +14,17 @@ tags: compare_pipeline, dependency_walk
 
 * On Swift Dashboard Page
 * Looking at pipeline "up" - On Swift Dashboard page
-* Trigger pipeline - On Swift Dashboard page
+* Trigger pipeline and not wait for building - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
 
 * Looking at pipeline "down" - On Swift Dashboard page
-* Trigger pipeline - On Swift Dashboard page
+* Trigger pipeline and not wait for building - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
 
 * Looking at pipeline "child-of-down" - On Swift Dashboard page
-* Trigger pipeline - On Swift Dashboard page
+* Trigger pipeline and not wait for building - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
 

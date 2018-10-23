@@ -33,7 +33,6 @@ require 'pages/app_base'
 require 'pages/login_page'
 require 'pages/data_sharing_spa'
 require 'pages/agents_spa'
-require 'pages/pipeline_dashboard_page'
 require 'pages/environments_page'
 require 'pages/environments_edit_page'
 require 'pages/server_health_messages'
@@ -79,10 +78,6 @@ module Helpers
 
     def agents_spa_page
       Pages::AgentsSPA.new
-    end
-
-    def pipeline_dashboard_page
-      Pages::PipelineDashboard.new
     end
 
     def dashboard_personalization

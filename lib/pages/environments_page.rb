@@ -26,6 +26,7 @@ module Pages
     end
 
     def show_environment(environment)
+      reload_page
       page.find("#environment_entity_#{scenario_state.get_environment(environment)}").click
     end
 

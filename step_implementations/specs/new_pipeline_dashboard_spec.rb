@@ -28,8 +28,8 @@ step 'Trigger pipeline - On Swift Dashboard page' do |_tmp|
   new_pipeline_dashboard_page.trigger_pipeline
 end
 
-step 'Trigger pipeline and not wait for building - On Swift Dashboard page' do |_tmp|
-  new_pipeline_dashboard_page.trigger_pipeline(wait_to_build: false)
+step 'Trigger pipeline and wait for building - On Swift Dashboard page' do |_tmp|
+  new_pipeline_dashboard_page.trigger_pipeline(wait_to_build: true)
 end
 
 step 'Looking at pipeline <pipeline> - On Swift Dashboard page' do |pipeline|

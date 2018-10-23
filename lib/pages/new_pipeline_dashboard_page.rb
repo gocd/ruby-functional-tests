@@ -37,13 +37,10 @@ module Pages
       menu_item_visible('admin')
     end
 
-    def trigger_pipeline(name: scenario_state.self_pipeline, wait_to_build: true)
+    def trigger_pipeline(name: scenario_state.self_pipeline, wait_to_build: false)
       (pipeline_name text: name)
         .ancestor('.pipeline').find('.pipeline_btn.play').click
-      if wait_to_build
-        reload_page
-        wait_till_pipeline_start_building
-      end
+      wait_till_pipeline_start_building if wait_to_build
     end
 
     def trigger_pipeline_disabled?
@@ -110,28 +107,24 @@ module Pages
 
     def wait_till_pipeline_start_building
       wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
-        reload_page
         break if get_all_stages(scenario_state.self_pipeline).first['class'].include?('building')
       end
     end
 
     def wait_to_check_pipeline_do_not_start
       wait_till_event_occurs_or_bomb 20, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
-        reload_page
         break unless get_all_stages(scenario_state.self_pipeline).first['class'].include?('building')
       end
     end
 
     def wait_till_pipeline_complete
       wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.self_pipeline} failed to complete with in timeout" do
-        reload_page
         break unless get_all_stages(scenario_state.self_pipeline).last['class'].include?('building')
       end
     end
 
     def wait_till_stage_complete(stage)
       wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.self_pipeline} Stage #{stage} failed to complete with in timeout" do
-        reload_page
         break unless get_pipeline_stage_state(scenario_state.self_pipeline, stage).include?('building')
       end
     end

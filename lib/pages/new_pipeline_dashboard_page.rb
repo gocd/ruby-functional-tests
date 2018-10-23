@@ -84,8 +84,9 @@ module Pages
     end
 
     def get_all_stages(pipeline) # This one needs to be relooked - the way the view is modelled do not make it easy to get latest stage state
+      reload_page
       (pipeline_name text: pipeline)
-        .ancestor('.pipeline').find('.pipeline_stages', wait: 10).all('a')
+        .ancestor('.pipeline').find('.pipeline_instance', wait: 30).find('.pipeline_stages').all('a')
     rescue StandardError => e
       p 'Looks like Pipeline still not started, trying after page reload...'
     end
@@ -319,8 +320,9 @@ module Pages
     end
 
     def can_operate_using_ui?
-      !(pipeline_name text: scenario_state.self_pipeline).ancestor('.pipeline').has_selector?('.pipeline_btn.play.disabled', exact_text: true)
+      !(pipeline_name text: scenario_state.self_pipeline).ancestor('.pipeline_header').find('.pipeline_operations').find("button[title='Trigger Pipeline']")['class'].include? 'disabled'
     rescue StandardError
+      p "Pipeline operate check failed with ERROR: #{e}"
       false
     end
 
@@ -333,8 +335,9 @@ module Pages
     end
 
     def can_pause_using_ui?
-      !(pipeline_name text: scenario_state.self_pipeline).ancestor('.pipeline').has_selector?('.pipeline_btn.pause.disabled', exact_text: true)
-    rescue StandardError
+      !(pipeline_name text: scenario_state.self_pipeline).ancestor('.pipeline_header').find('.pipeline_operations').find("button[title='Pause Pipeline']")['class'].include? 'disabled'
+    rescue StandardError => e
+      p "Pipeline pause check failed with ERROR: #{e}"
       false
     end
 

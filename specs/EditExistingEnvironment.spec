@@ -16,13 +16,13 @@ Setup of contexts
 
 * Edit pipelines
 * Remove pipelines "environment-pipeline,environment-pipeline-locked" and save environment
-* Verify message "Updated environment 'uat'" is present
 * Expand environment "uat"
 * Verify pipelines "environment-failing-pipeline" are available on "uat" edit page
+* Verify pipelines "environment-pipeline,environment-pipeline-locked" are not available on "uat" edit page
+
 
 * Edit Agents
 * Add agent "missing-agent" and save environment
-* Verify message "Updated environment 'uat'" is present
 * Expand environment "uat"
 * Verify agents "missing-agent (10.232.3.1)" are available on "uat" edit page
 
@@ -35,7 +35,6 @@ Setup of contexts
 * For variable at row "1" set name "another" value "abc"
 * For variable at row "4" set name "correct" value "value"
 * Add new variable
-* Verify message "Updated environment 'uat'" is present
 * Expand environment "uat"
 * Verify environment variables "another = abc,correct = value" are available on "uat" edit page
 

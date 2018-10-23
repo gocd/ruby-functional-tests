@@ -35,14 +35,14 @@ module Pages
     end
 
     def collapse_plugin_config(id)
-      return if plugin_settings.find('.plugin-id', text: id)..ancestor('.plugin-header')[:class].include?('collapsed')
+      return if plugin_settings.find('.plugin-id', text: id).ancestor('.plugin-header')[:class].include?('collapsed')
       plugin_settings.find('.plugin-id', text: id).click
     rescue StandardError => e
       p "Not a valid plugin, moving ahead without collapsing. #{e.message} "
     end
 
     def expand_plugin_config(id)
-      return if plugin_settings.find('.plugin-id', text: id)..ancestor('.plugin-header')[:class].include?('expanded')
+      return if plugin_settings.find('.plugin-id', text: id).ancestor('.plugin-header')[:class].include?('expanded')
       plugin_settings.find('.plugin-id', text: id).click
       rescue StandardError => e
         p "Not a valid plugin, moving ahead without expanding. #{e.message} "
@@ -109,7 +109,7 @@ module Pages
     end
 
     def is_plugins_settings_displayed?(id)
-      plugin_settings.find('.plugin-id', text: id)..ancestor('.plugin-header').has_selector?('.plugin-actions', visible: true)
+      plugin_settings.find('.plugin-id', text: id).ancestor('.plugin-header').has_selector?('.plugin-actions', visible: true)
     end
 
     def parent_for_given_label(id,label_text)

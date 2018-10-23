@@ -34,12 +34,12 @@ module Pages
     load_validation { has_pipeline_group? }
 
     def admin?
-      menu_item_visible('admin') 
+      menu_item_visible('admin')
     end
-    
+
     def trigger_pipeline(name: scenario_state.self_pipeline, wait_to_build: true)
       (pipeline_name text: name)
-        .find(:xpath, '../..').find('.pipeline_btn.play').click
+        .ancestor('.pipeline').find('.pipeline_btn.play').click
       if wait_to_build
         reload_page
         wait_till_pipeline_start_building
@@ -49,7 +49,7 @@ module Pages
     def trigger_pipeline_disabled?
       begin
         (pipeline_name text: scenario_state.self_pipeline)
-          .find(:xpath, '../..').find('.pipeline_btn.play.disabled', wait: 5)
+          .ancestor('.pipeline').find('.pipeline_btn.play.disabled', wait: 5)
       rescue StandardError
         return false
       end
@@ -58,34 +58,34 @@ module Pages
 
     def trigger_pipeline_with_options
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../../..').find('.pipeline_btn.play_with_options').click
+        .ancestor('.pipeline').find('.pipeline_btn.play_with_options').click
     end
 
     def trigger_pipeline_with_options_disabled?
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../../..').has_css?('.pipeline_btn.play_with_options.disabled')
+        .ancestor('.pipeline').has_css?('.pipeline_btn.play_with_options.disabled')
     end
 
     def pause_pipeline(reason)
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../../..').find('.pipeline_btn.pause').click
+        .ancestor('.pipeline').find('.pipeline_btn.pause').click
       page.find('.modal-body').find('input').set(reason)
       page.find('.modal-buttons').find('button', text: 'OK').click
     end
 
     def pause_message?(message)
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../../..').has_selector?('.pipeline_pause-message', text: message)
+        .ancestor('.pipeline').has_selector?('.pipeline_pause-message', text: message)
     end
 
     def unpause_pipeline
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../../..').find('.pipeline_btn.unpause').click
+        .ancestor('.pipeline').find('.pipeline_btn.unpause').click
     end
 
     def get_all_stages(pipeline) # This one needs to be relooked - the way the view is modelled do not make it easy to get latest stage state
       (pipeline_name text: pipeline)
-        .find(:xpath, '../../..').find('.pipeline_stages', wait: 10).all('a')
+        .ancestor('.pipeline').find('.pipeline_stages', wait: 10).all('a')
     rescue StandardError => e
       p 'Looks like Pipeline still not started, trying after page reload...'
     end
@@ -97,7 +97,7 @@ module Pages
 
     def verify_pipeline_is_at_label(pipeline, label)
       assert_true (pipeline_name text: pipeline)
-        .find(:xpath, '../../..').find('.pipeline_instance-label').text.include?(label)
+        .ancestor('.pipeline').find('.pipeline_instance-label').text.include?(label)
     end
 
     def verify_pipeline_stage_state(pipeline, stage, state)
@@ -137,28 +137,28 @@ module Pages
 
     def editable?
       !(pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '..').has_css?('.edit_config.disabled')
+      .ancestor('.pipeline').has_css?('.edit_config.disabled')
     end
 
     def edit_pipeline(_pipeline)
       !(pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '..').find('.edit_config').click
+      .ancestor('.pipeline').find('.edit_config').click
     end
 
     def locked?
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '..').has_css?('.pipeline_locked')
+      .ancestor('.pipeline').has_css?('.pipeline_locked')
     end
 
     def unlock
       sleep 5
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '..').find('.pipeline_locked').click
+      .ancestor('.pipeline').find('.pipeline_locked').click
     end
 
     def open_build_analytics
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '..').find('.pipeline-analytics').click
+      .ancestor('.pipeline').find('.pipeline-analytics').click
     end
 
     def build_time_graph_displayed?
@@ -195,7 +195,7 @@ module Pages
 
     def pipeline_history_exists?
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../../..').has_selector?('.pipeline_instances', visible: true)
+        .ancestor('.pipeline').has_selector?('.pipeline_instances', visible: true)
     end
 
     def visible?(pipeline = scenario_state.self_pipeline)
@@ -211,7 +211,7 @@ module Pages
 
     def click_history
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../../..').find('.pipeline_history').click
+        .ancestor('.pipeline').find('.pipeline_history').click
     end
 
     def trigger_cancel_pipeline(trigger_number)
@@ -223,17 +223,17 @@ module Pages
 
     def cancel_pipeline
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../../..').find('.pipeline_stage.building').click
+        .ancestor('.pipeline').find('.pipeline_stage.building').click
 
       (stage_name text: scenario_state.retrieve('current_stage_name'))
-        .find(:xpath, '../..').find('.stage_action').click
+        .ancestor('.pipeline').find('.stage_action').click
 
       find_by_id('cruise-header-tab-pipelines').click
     end
 
     def open_build_cause
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../../..').find('.changes').click
+        .ancestor('.pipeline').find('.changes').click
     end
 
     def revision_of_material(type, name)
@@ -249,7 +249,7 @@ module Pages
 
     def triggered_by?(user)
       (pipeline_name text: scenario_state.self_pipeline)
-        .find(:xpath, '../../..')
+        .ancestor('.pipeline')
         .find('.pipeline_instance-details')
         .all('div').first.text.eql? "Triggered by #{user}"
     end
@@ -274,13 +274,13 @@ module Pages
 
     def click_vsm(pipeline)
       (pipeline_name text: pipeline)
-        .find(:xpath, '../../..')
+        .ancestor('.pipeline')
         .find('a', text: 'VSM').click
     end
 
     def click_compare(pipeline)
       (pipeline_name text: pipeline)
-        .find(:xpath, '../../..')
+        .ancestor('.pipeline')
         .find('a', text: 'Compare').click
     end
 
@@ -305,12 +305,12 @@ module Pages
     end
 
     def override_secure_env_variable(secure_env_variable_key, secure_env_variable_value)
-      environment_variables_secure_key_value.find('dt', text: secure_env_variable_key.to_s, exact_text: true).find(:xpath, '..').find('a', text: 'Override').click
-      environment_variables_secure_key_value.find('dt', text: secure_env_variable_key.to_s, exact_text: true).find(:xpath, '..').find('.value').find('input').set(secure_env_variable_value)
+      environment_variables_secure_key_value.find('dt', text: secure_env_variable_key.to_s, exact_text: true).sibling('.value').find('a', text: 'Override').click
+      environment_variables_secure_key_value.find('dt', text: secure_env_variable_key.to_s, exact_text: true).sibling('.value').find('input').set(secure_env_variable_value)
     end
 
     def change_variable_to(key, value)
-      env_var_to_be_repalaced = environment_variables_key_value.find('dt', text: key.to_s, exact_text: true).find(:xpath, '..').find('.value').find('input')
+      env_var_to_be_repalaced = environment_variables_key_value.find('dt', text: key.to_s, exact_text: true).sibling('.value').find('input')
       replace_element_value(env_var_to_be_repalaced, value)
     end
 
@@ -319,61 +319,51 @@ module Pages
     end
 
     def can_operate_using_ui?
-      begin
-        !(pipeline_name text: scenario_state.self_pipeline).find(:xpath, '../..').has_selector?('.pipeline_btn.play.disabled',  exact_text: true)
-      rescue StandardError
-        return false
-      end
+      !(pipeline_name text: scenario_state.self_pipeline).ancestor('.pipeline').has_selector?('.pipeline_btn.play.disabled', exact_text: true)
+    rescue StandardError
+      false
     end
 
     def can_operate_using_api?
-      begin
-        response = RestClient.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/schedule"),{},{ accept: 'application/vnd.go.cd.v1+json',X_GoCD_Confirm: 'true'}.merge(basic_configuration.header)
-        return (response.code == 202)
-      rescue RestClient::ExceptionWithResponse => err
-       p "Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
-       return false
-      end
+      response = RestClient.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/schedule"), {}, { accept: 'application/vnd.go.cd.v1+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
+      (response.code == 202)
+    rescue RestClient::ExceptionWithResponse => err
+      p "Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+      false
     end
 
     def can_pause_using_ui?
-      begin
-        !(pipeline_name text: scenario_state.self_pipeline).find(:xpath , '../../..').has_selector?('.pipeline_btn.pause.disabled', exact_text: true)
-      rescue StandardError
-        return false
-      end
+      !(pipeline_name text: scenario_state.self_pipeline).ancestor('.pipeline').has_selector?('.pipeline_btn.pause.disabled', exact_text: true)
+    rescue StandardError
+      false
     end
 
     def can_pause_using_api?
       pause_using_api?
       unpause_using_api?
     end
-    
+
     def unpause_using_api?
-      begin
-        response = RestClient.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/unpause"),{},{ accept: 'application/vnd.go.cd.v1+json',X_GoCD_Confirm: 'true'}.merge(basic_configuration.header)
-        return (response.code == 200)
-      rescue RestClient::ExceptionWithResponse => err
-       p "Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
-       return false
-      end
+      response = RestClient.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/unpause"), {}, { accept: 'application/vnd.go.cd.v1+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
+      (response.code == 200)
+    rescue RestClient::ExceptionWithResponse => err
+      p "Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+      false
     end
 
     def pause_using_api?
-      begin
-        response = RestClient.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/pause"),{},{ accept: 'application/vnd.go.cd.v1+json',X_GoCD_Confirm: 'true'}.merge(basic_configuration.header)
-        return (response.code == 200)
-      rescue RestClient::ExceptionWithResponse => err
-       p "Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
-       return false
-      end
+      response = RestClient.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/pause"), {}, { accept: 'application/vnd.go.cd.v1+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
+      (response.code == 200)
+    rescue RestClient::ExceptionWithResponse => err
+      p "Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+      false
     end
 
     private
 
     def revisions(pipeline)
       (pipeline_name text: pipeline)
-        .find(:xpath, '../../..')
+        .ancestor('.pipeline')
         .find('.material_changes').all('.revisions')
     end
   end

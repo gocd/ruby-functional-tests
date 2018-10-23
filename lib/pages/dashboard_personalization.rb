@@ -159,7 +159,7 @@ module Pages
 
     def pipeline_group_checkbox_for(pipeline_group_name)
       personalization_editor.first(".selected-pipelines li span", text: pipeline_group_name)
-        .find(:xpath, '../input')
+        .sibling('input')
     end
   end
 end

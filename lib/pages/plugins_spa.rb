@@ -27,22 +27,22 @@ module Pages
     end
 
     def plugin_by_id_is_invalid?(id)
-      plugin_settings.find('.plugin-id', text: id).find(:xpath, '../../..')[:class].include?('plugin disabled')
+      plugin_settings.find('.plugin-id', text: id)..ancestor('.plugin-header')[:class].include?('plugin disabled')
     end
 
     def plugin_by_id_is_valid?(id)
-      plugin_settings.find('.plugin-id', text: id).find(:xpath, '../../..')[:class].include?('plugin active')
+      plugin_settings.find('.plugin-id', text: id)..ancestor('.plugin-header')[:class].include?('plugin active')
     end
 
     def collapse_plugin_config(id)
-      return if plugin_settings.find('.plugin-id', text: id).find(:xpath, '../../..')[:class].include?('collapsed')
+      return if plugin_settings.find('.plugin-id', text: id)..ancestor('.plugin-header')[:class].include?('collapsed')
       plugin_settings.find('.plugin-id', text: id).click
     rescue StandardError => e
       p "Not a valid plugin, moving ahead without collapsing. #{e.message} "
     end
 
     def expand_plugin_config(id)
-      return if plugin_settings.find('.plugin-id', text: id).find(:xpath, '../../..')[:class].include?('expanded')
+      return if plugin_settings.find('.plugin-id', text: id)..ancestor('.plugin-header')[:class].include?('expanded')
       plugin_settings.find('.plugin-id', text: id).click
       rescue StandardError => e
         p "Not a valid plugin, moving ahead without expanding. #{e.message} "
@@ -50,12 +50,12 @@ module Pages
 
     def is_expected_version?(id, version)
       plugin_settings.find('.plugin-id', text: id)
-                     .find(:xpath, '../../..').find('.plugin-version').has_selector?('.value', text: version)
+                     .ancestor('.plugin-header').find('.plugin-version').has_selector?('.value', text: version)
     end
 
     def is_expected_name?(id, name)
       plugin_settings.find('.plugin-id', text: id)
-                     .find(:xpath, '../../..').has_selector?('div', text: name)
+                     .ancestor('.plugin-header').has_selector?('div', text: name)
     end
 
     def is_expected_description?(id, desc)
@@ -92,12 +92,12 @@ module Pages
 
     def plugin_config_element_of(id)
       plugin_settings.find('.plugin-id', text: id)
-                     .find(:xpath, '../../..').find('.plugin-config-read-only')
+                     .ancestor('.plugin-header').find('.plugin-config-read-only')
     end
 
     def plugin_actions_of(id)
       plugin_settings.find('.plugin-id', text: id)
-                     .find(:xpath, '../../..').find('.plugin-actions')
+                     .ancestor('.plugin-header').find('.plugin-actions')
     end
 
     def is_plugins_settings_enabled?(id)
@@ -109,7 +109,7 @@ module Pages
     end
 
     def is_plugins_settings_displayed?(id)
-      plugin_settings.find('.plugin-id', text: id).find(:xpath, '../../..').has_selector?('.plugin-actions', visible: true)
+      plugin_settings.find('.plugin-id', text: id)..ancestor('.plugin-header').has_selector?('.plugin-actions', visible: true)
     end
 
     def parent_for_given_label(id,label_text)

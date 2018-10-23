@@ -47,7 +47,7 @@ module Pages
     end
 
     def select_user(user)
-      (username text: user,exact_text: true).find(:xpath, '..').find('.selector').find("input[type='checkbox']").set(true)
+      (username text: user,exact_text: true).ancestor('.user').find('.selector').find("input[type='checkbox']").set(true)
     end
 
     def enable(user)
@@ -56,11 +56,11 @@ module Pages
     end
 
     def enabled?(user)
-      (username text: user,exact_text: true).find(:xpath, '..').find('.enabled')['title'] == 'Yes'
+      (username text: user,exact_text: true).ancestor('.user').find('.enabled')['title'] == 'Yes'
     end
 
     def disabled?(user)
-      (username text: user,exact_text: true).find(:xpath, '..').find('.enabled')['title'] == 'No'
+      (username text: user,exact_text: true).ancestor('.user').find('.enabled')['title'] == 'No'
     end
 
     def update_success?(message)
@@ -76,7 +76,7 @@ module Pages
     end
 
     def admin?
-      (username text: scenario_state.current_user ,exact_text: true).find(:xpath, '..').find('.is_admin')['title'] == 'Yes'
+      (username text: scenario_state.current_user ,exact_text: true).ancestor('.user').find('.is_admin')['title'] == 'Yes'
     end  
 
     def error_msg_displayed? message

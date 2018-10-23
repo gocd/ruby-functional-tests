@@ -27,11 +27,11 @@ module Pages
     end
 
     def plugin_by_id_is_invalid?(id)
-      plugin_settings.find('.plugin-id', text: id)..ancestor('.plugin-header')[:class].include?('plugin disabled')
+      plugin_settings.find('.plugin-id', text: id).ancestor('.plugin.disabled').visible?
     end
 
     def plugin_by_id_is_valid?(id)
-      plugin_settings.find('.plugin-id', text: id).ancestor('.plugin-header')[:class].include?('plugin active')
+      plugin_settings.find('.plugin-id', text: id).ancestor('.plugin.active').visible?
     end
 
     def collapse_plugin_config(id)

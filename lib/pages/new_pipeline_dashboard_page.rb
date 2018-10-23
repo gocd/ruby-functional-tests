@@ -89,6 +89,7 @@ module Pages
     end
 
     def get_pipeline_stage_state(pipeline, stagename) # This need relook too
+      return if get_all_stages(pipeline).nil?
       target_stage = get_all_stages(pipeline).select { |stage| stage['href'].include?(stagename) }
       target_stage.first['class']
     end
@@ -100,31 +101,34 @@ module Pages
 
     def verify_pipeline_stage_state(pipeline, stage, state)
       wait_till_event_occurs_or_bomb 20, "Pipeline #{pipeline} stage #{stage} is not in #{state} state" do
-        reload_page
         break if get_pipeline_stage_state(pipeline, stage).include?(state)
       end
     end
 
     def wait_till_pipeline_start_building
       wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
+        return if get_all_stages(scenario_state.self_pipeline).nil?
         break if get_all_stages(scenario_state.self_pipeline).first['class'].include?('building')
       end
     end
 
     def wait_to_check_pipeline_do_not_start
       wait_till_event_occurs_or_bomb 20, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
+        return if get_all_stages(scenario_state.self_pipeline).nil?
         break unless get_all_stages(scenario_state.self_pipeline).first['class'].include?('building')
       end
     end
 
     def wait_till_pipeline_complete
       wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.self_pipeline} failed to complete with in timeout" do
+        return if get_all_stages(scenario_state.self_pipeline).nil?
         break unless get_all_stages(scenario_state.self_pipeline).last['class'].include?('building')
       end
     end
 
     def wait_till_stage_complete(stage)
       wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.self_pipeline} Stage #{stage} failed to complete with in timeout" do
+        return if get_all_stages(scenario_state.self_pipeline).nil?
         break unless get_pipeline_stage_state(scenario_state.self_pipeline, stage).include?('building')
       end
     end
@@ -210,7 +214,7 @@ module Pages
 
     def trigger_cancel_pipeline(trigger_number)
       (0...trigger_number.to_i).each do |_number|
-        trigger_pipeline
+        trigger_pipeline(wait_to_build: true)
         cancel_pipeline
       end
     end
@@ -314,7 +318,7 @@ module Pages
 
     def can_operate_using_ui?
       !(pipeline_name text: scenario_state.self_pipeline).ancestor('.pipeline_header').find('.pipeline_operations').find("button[title='Trigger Pipeline']")['class'].include? 'disabled'
-    rescue StandardError
+    rescue StandardError => e
       p "Pipeline operate check failed with ERROR: #{e}"
       false
     end

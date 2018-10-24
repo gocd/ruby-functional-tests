@@ -40,6 +40,13 @@ step 'Save external artifact with values <key_value>' do |key_value|
   publish_artifacts_view.save_publish_artifacts.click
 end
 
+step 'Save artifact with values <key_value> at <index>' do |key_value,index|
+  key_value.split(',').each do |field|
+    publish_artifacts_view.fill_form_with_index(field,index)
+  end
+  publish_artifacts_view.save_publish_artifacts.click
+end
+
 step 'Add task <task_name>' do |task|
   job_settings_page.add_new_task.click
   job_settings_page.add_new_task_of_type task
@@ -61,3 +68,35 @@ end
 step 'Set target to <target> with working directory <working_directory>' do |target,working_directory|
   job_settings_page.configure_rake_task(target,working_directory)
 end
+
+step 'Set on Cancel task <task> and command <command> - Already on Task edit popup' do |task,command|
+  job_settings_page.configure_on_cancel_More_task(task,command)
+end
+step 'Set More task - Command as <command> argument as <arglist> working directory as <working_directory> runIfConditions as <run_conditions> - Already on Task edit popup' do |command,arglist,working_directory,run_conditions|
+  job_settings_page.configure_more_task(command,arglist,working_directory,run_conditions)
+end  
+
+step 'verifyTask <table>' do |table|
+  table.rows.each do |row| 
+    (1..table.columns.length-1).each do |column_Header| 
+      header_name = table.columns[column_Header]
+    
+      assert_true true, job_settings_page.get_cell_value_from_table(row['Order_no'].to_i,row[table.columns[column_Header]])
+    end
+  end
+end  
+
+step 'Delete task <task_no>' do |task_no|
+  job_settings_page.delete_task(task_no)
+end
+
+step 'Verify no task with command <command> exists' do |command|
+  assert_true true, job_settings_page.verify_task_with_command_is_not_exists(command)
+end
+
+step 'Verify artifact with type as <type> source as <src> and destination as <dest>  exists for <job> in <stage>' do |type, src, dest, job,stage|
+  artifact="#{type}:#{src}:#{dest}"
+  assert_true true, publish_artifacts_view.verify_artifact_exist(scenario_state.actual_pipeline_name(scenario_state.current_pipeline),artifact,stage,job)
+end
+
+ 

@@ -18,7 +18,7 @@ Setup of contexts
 * Open "Artifacts" tab - On Job settings page
 * Add artifact of type "External"
 * Start creating external artifact with values "external_artifacts_id: test_artifact, external_artifacts_store_id: TestArtifact"
-* Save external artifact with values "source: artifact.txt, destination: test_folder"
+* Save external artifact with values "external_source: artifact.txt, external_destination: test_folder"
 
 * On Job settings page of pipeline "downstream" stage "defaultStage" job "defaultJob"
 * Open "Tasks" tab - On Job settings page

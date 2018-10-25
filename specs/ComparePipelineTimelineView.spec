@@ -10,6 +10,7 @@ ComparePipelineTimelineView
 ---------------------------
 
 tags: compare_pipeline
+
 * Looking at pipeline "edit-pipeline" - On Swift Dashboard page
 * Trigger and cancel stage "defaultStage" "12" times
 * On Pipeline Compare page from "12" build to "12"

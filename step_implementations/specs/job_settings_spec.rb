@@ -63,7 +63,11 @@ step 'Set target to <target> with working directory <working_directory>' do |tar
 end
 
 step 'Set on Cancel task <task> and command <command> - Already on Task edit popup' do |task,command|
+<<<<<<< HEAD
   job_settings_page.configure_on_cancel_More_task(task,command)
+=======
+  job_settings_page.configure_on_cancel_more_task(task,command)
+>>>>>>> Removed parameter true from assert_true
 end
 step 'Set More task - Command as <command> argument as <arglist> working directory as <working_directory> runIfConditions as <run_conditions> - Already on Task edit popup' do |command,arglist,working_directory,run_conditions|
   job_settings_page.configure_more_task(command,arglist,working_directory,run_conditions)
@@ -73,7 +77,11 @@ step 'verifyTask <table>' do |table|
   table.rows.each do |row| 
     (1..table.columns.length-1).each do |column_Header| 
      
+<<<<<<< HEAD
       assert_true true, job_settings_page.get_cell_value_from_table(row['Order_no'].to_i,row[table.columns[column_Header]],table.columns[column_Header])
+=======
+      assert_true  job_settings_page.get_cell_value_from_table(row['Order_no'].to_i,row[table.columns[column_Header]],table.columns[column_Header])
+>>>>>>> Removed parameter true from assert_true
     end
   end
 end  
@@ -83,14 +91,26 @@ step 'Delete task <task_no>' do |task_no|
 end
 
 step 'Verify no task with command <command> exists' do |command|
+<<<<<<< HEAD
   assert_true true, job_settings_page.verify_task_with_command_is_not_exists(command)
+=======
+  assert_true  job_settings_page.verify_task_with_command_is_not_exists(command)
+>>>>>>> Removed parameter true from assert_true
 end
 
 step 'Verify artifact with type as <type> source as <src> and destination as <dest>  exists for <job> in <stage>' do |type, src, dest, job,stage|
   artifact="#{type}:#{src}:#{dest}"
+<<<<<<< HEAD
   assert_true true, publish_artifacts_view.verify_artifact_exist(scenario_state.actual_pipeline_name(scenario_state.current_pipeline),artifact,stage,job)
 end
 
 step 'Verify no <task> task with command  <command> exists in <job> under <stage> for piepline <pipeline>' do |task,command,job,stage,pipeline|
    assert_true true, job_settings_page.verify_task_with_command_is_not_exist_in_config(task,command,job,stage,pipeline)
+=======
+  assert_true  publish_artifacts_view.verify_artifact_exist(scenario_state.actual_pipeline_name(scenario_state.current_pipeline),artifact,stage,job)
+end
+
+step 'Verify no <task> task with command  <command> exists in <job> under <stage> for piepline <pipeline>' do |task,command,job,stage,pipeline|
+   assert_true  job_settings_page.verify_task_with_command_is_not_exist_in_config(task,command,job,stage,pipeline)
+>>>>>>> Removed parameter true from assert_true
 end

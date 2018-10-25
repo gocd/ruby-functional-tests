@@ -40,8 +40,12 @@ module Pages
     element :on_cancel_task_check_box, ".has_cancel_task.MB_focusable"
     element :delete_task_button, ".primary.submit.MB_focusable"
   
+<<<<<<< HEAD
     
 
+=======
+   
+>>>>>>> Removed parameter true from assert_true
     load_validation { has_add_new_task? }
 
    
@@ -67,7 +71,11 @@ module Pages
         }
     end
 
+<<<<<<< HEAD
     def  configure_on_cancel_More_task(task,command)
+=======
+    def  configure_on_cancel_more_task(task,command)
+>>>>>>> Removed parameter true from assert_true
       on_cancel_task_check_box.click
       page.find('option', text: task).click
       task_advance_option_command.set(command)
@@ -97,6 +105,7 @@ module Pages
    end
 
    def verify_task_with_command_is_not_exist_in_config(task,command,job,stage,pipeline)
+<<<<<<< HEAD
     
       if basic_configuration.get_config_from_server.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline)}']/stage[@name='#{stage}']/jobs/job[@name='#{job}']/tasks/#{task}[@command='#{command}']").count==0 
         return true 
@@ -105,5 +114,12 @@ module Pages
    end
    
 
+=======
+      if basic_configuration.get_config_from_server.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline)}']/stage[@name='#{stage}']/jobs/job[@name='#{job}']/tasks/#{task}[@command='#{command}']").count==0 
+        return true 
+      end
+   end
+   
+>>>>>>> Removed parameter true from assert_true
   end
 end

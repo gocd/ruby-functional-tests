@@ -67,21 +67,20 @@ module Pages
         }
     end
 
-    def  configure_on_cancel_More_task(task,command)
+    def  configure_on_cancel_more_task(task,command)
       on_cancel_task_check_box.click
       page.find('option', text: task).click
       task_advance_option_command.set(command)
     end
   
     def get_cell_value_from_table(row_count,header_name,column_name)
-     
        case column_name
          when "Task Type"
           return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(2)").text.eql?(header_name)
          when "Run If Conditions"
           return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(3)").text.eql?(header_name)
          when "Properties"
-          return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(4)").text.eql?(header_name)
+          return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(4)").text.gsub("\n", ' ').eql?(header_name)
          when "On Cancel"
           return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(5)").text.eql?(header_name)
         end

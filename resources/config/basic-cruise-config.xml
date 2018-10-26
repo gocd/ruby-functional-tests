@@ -230,7 +230,7 @@
             </stage>
          </pipeline>
   </pipelines>
-    </pipelines>
+   
     <pipelines group="dependency-group">
         <pipeline name="dependency-group-pipeline-1">
             <materials>

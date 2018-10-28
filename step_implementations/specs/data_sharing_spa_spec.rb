@@ -14,7 +14,7 @@
 # limitations under the License.
 ##########################################################################
 
-USAGE_DATA_API_VERSION = 'application/vnd.go.cd.v2+json'.freeze
+USAGE_DATA_API_VERSION = 'application/vnd.go.cd.v3+json'.freeze
 
 step 'On Data Sharing SPA' do |_count|
   data_sharing_spa_page.load

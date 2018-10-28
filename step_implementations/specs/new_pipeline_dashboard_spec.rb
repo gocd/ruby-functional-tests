@@ -280,9 +280,11 @@ end
 step 'PipelineVisibility <table>' do |table|
   table.rows.each do |row|
     scenario_state.set_current_pipeline(row['Pipeline Name'])
+    p "Executing validation for pipeline #{row['Pipeline Name']}"
     (1..table.columns.length - 1).each do |i| # this is assuming the first column is reserved for pipeline name
       method_name = table.columns[i].tr(' ', '_').downcase
       raise "The method #{method_name} does not exist" unless new_pipeline_dashboard_page.respond_to?(method_name)
+      p "Validating method - #{method_name}"
       assert_equal row[table.columns[i]], new_pipeline_dashboard_page.send(method_name).to_s
     end
   end

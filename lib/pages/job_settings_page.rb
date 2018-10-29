@@ -126,11 +126,7 @@ module Pages
    end
 
    def verify_task_with_command_is_not_exist_in_config(task,command,job,stage,pipeline)
-    
-      if basic_configuration.get_config_from_server.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline)}']/stage[@name='#{stage}']/jobs/job[@name='#{job}']/tasks/#{task}[@command='#{command}']").count==0 
-        return true 
-      end
-
+     basic_configuration.get_config_from_server.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline)}']/stage[@name='#{stage}']/jobs/job[@name='#{job}']/tasks/#{task}[@command='#{command}']").count==0 
    end
    
 

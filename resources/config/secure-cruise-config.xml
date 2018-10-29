@@ -492,7 +492,58 @@
                 </jobs>
             </stage>
         </pipeline>
+
+        <pipeline name="basic-pipeline-fast">
+            <materials>
+                <git url="material-for-basic-pipeline-fast" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="ls">
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+
+        <pipeline name="pipeline-run-till-file-exits" lockBehavior="lockOnFailure">
+            <materials>
+                <git url="material-for-pipeline-run-till-file-exits" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+
+        <pipeline name="pipeline-with-failing-stage" lockBehavior="lockOnFailure">
+            <materials>
+                <git url="material-for-pipeline-with-failing-stage" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                <job name="defaultJob">
+                    <tasks>
+                    <exec command="executable-that-will-not-be-found"/>
+                    </tasks>
+                </job>
+                </jobs>
+            </stage>
+        </pipeline>
     </pipelines>
+
+
     <!-- Add this template creation and adding template admin to the spec ones API supports updating authoriztion -->
     <templates>
       <pipeline name="Template-With-Admin">

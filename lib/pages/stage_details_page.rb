@@ -22,6 +22,7 @@ module Pages
     elements :materials, '.material'
     elements :material_names, '.material_name'
     element :locked_instance, '.locked_instance'
+    element :page_status_bar, '.page_status_bar'
 
     def verify_latest_revision_for_modification(modification_number)
       latest_revision = Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).latest_revision
@@ -76,6 +77,10 @@ module Pages
 
     def verify_jobs_can_rerun?
       page.has_selector?('span', text: "RERUN SELECTED")
+    end
+
+    def check_pipeline_status(status) 
+      page_status_bar.find('.run_results').find('.result').text.include?(status)
     end
 
     private

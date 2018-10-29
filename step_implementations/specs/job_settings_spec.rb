@@ -69,3 +69,19 @@ end
 step 'Set target to <target> with working directory <working_directory>' do |target,working_directory|
   job_settings_page.configure_rake_task(target,working_directory)
 end
+
+step 'verifyTask <table>' do |table|
+  table.rows.each do |row| 
+    (1..table.columns.length-1).each do |column_Header| 
+      assert_true  job_settings_page.get_cell_value_from_table(row['Order_no'].to_i,row[table.columns[column_Header]],table.columns[column_Header])
+    end
+  end
+end  
+
+step 'setTask <table>' do |table|
+  table.rows.each do |row|
+     job_settings_page.set_task(row['TaskType'],row['Target'],row['BuildFile'],row['WorkingDirectory'],row['RunIf-View'])
+    end
+  end
+
+

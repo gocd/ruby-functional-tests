@@ -34,15 +34,16 @@ module Pages
     element :task_working_directory, "input[name='task[workingDirectory]']"
     element :task_target, "input[name='task[target]']"
     element :tasks_list, "table.tasks_list_table"
+    element :task_build_file, "input[name='task[buildFile]']"
 
 
-    load_validation { has_add_new_task? }
+  load_validation { has_add_new_task? }
 
     def add_new_task_of_type(type)
       add_new_task.click
       add_new_task.click
       new_task_list.find('a', text: type).click
-    end
+    end 
 
     def configure_rake_task(target,working_directory)
       task_target.set(target)
@@ -56,5 +57,29 @@ module Pages
     def move_task_up(task_index)
       tasks_list.find("tbody tr.task_#{task_index} button.promote_button .promote_up").ancestor('button.promote_button').click
     end
+   def set_task(task_type,target,build_file,working_directory,run_if_list)
+      add_new_task.click
+      new_task_list.find('a', text: task_type, exact_text: true).click
+      task_target.set(target)
+      task_build_file.set(build_file)
+      task_working_directory.set(working_directory)
+      run_if_list.split(',').each { |run_condition|
+       page.find("input[name='task[runIfConfigs#{run_condition}]']").set(true) }
+      general_settings_page.task_save.click
+    end
+
+    def get_cell_value_from_table(row_count,header_name,column_name)
+      case column_name
+        when "Task Type"
+         return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(2)").text.eql?(header_name)
+        when "Run If Conditions"
+         return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(3)").text.eql?(header_name)
+        when "Properties"
+          return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(4)").text.gsub("\n", ' ').eql?(header_name)
+        when "On Cancel"
+         return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(5)").text.eql?(header_name)
+       end
+    end   
+
   end
 end

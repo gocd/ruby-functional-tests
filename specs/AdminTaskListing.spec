@@ -24,7 +24,6 @@ Verify Tasks
 |1       |Custom Command    |Passed            |Command: ls                                        |No            |
 |2       |Custom Command    |Failed, Passed    |Command: sleep Arguments: 5 Working Directory: git |Custom Command|
 
-* Wait for "40" seconds
 * Delete task "1"
 * Verify no task with command "Command: ls" exists 
 * Verify no "exec" task with command  "ls" exists in "defaultJob" under "defaultStage" for piepline "pipeline-ls"

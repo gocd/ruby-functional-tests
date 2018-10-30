@@ -264,7 +264,7 @@
         </pipeline>
         <pipeline name="viewable-pipeline">
              <materials>
-                <git url="material-for-viewable-pipeline" dest="git" materialName="git" autoUpdate="true"/>
+                <git url="material-for-viewable-pipeline" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>

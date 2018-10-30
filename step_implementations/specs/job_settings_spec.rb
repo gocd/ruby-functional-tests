@@ -40,6 +40,13 @@ step 'Save external artifact with values <key_value>' do |key_value|
   publish_artifacts_view.save_publish_artifacts.click
 end
 
+step 'Save artifact with values <key_value> at <index>' do |key_value,index|
+  key_value.split(',').each do |field|
+    publish_artifacts_view.fill_form_with_index(field,index)
+  end
+  publish_artifacts_view.save_publish_artifacts.click
+end
+
 step 'Add task <task_name>' do |task|
   job_settings_page.add_new_task.click
   job_settings_page.add_new_task_of_type task
@@ -70,14 +77,12 @@ step 'Set target to <target> with working directory <working_directory>' do |tar
   job_settings_page.configure_rake_task(target,working_directory)
 end
 
-
 step 'Set on Cancel task <task> and command <command> - Already on Task edit popup' do |task,command|
   job_settings_page.configure_on_cancel_more_task(task,command)
 end
 step 'Set More task - Command as <command> argument as <arglist> working directory as <working_directory> runIfConditions as <run_conditions> - Already on Task edit popup' do |command,arglist,working_directory,run_conditions|
   job_settings_page.configure_more_task(command,arglist,working_directory,run_conditions)
 end  
-
 
 step 'verifyTask <table>' do |table|
   table.rows.each do |row| 

@@ -214,7 +214,23 @@
                 </jobs>
             </stage>
         </pipeline>
-    </pipelines>
+        <pipeline name="pipeline-ls">
+             <materials>
+             <hg url="material-for-pipeline-ls" dest="git" materialName="git" autoUpdate="false"/>
+             </materials>
+             <stage name="defaultStage">
+                <jobs>
+                 <job name="defaultJob">
+                      <tasks>
+                        <exec command="ls">
+                        </exec>
+                     </tasks>
+                 </job>
+                 </jobs>
+            </stage>
+         </pipeline>
+  </pipelines>
+   
     <pipelines group="dependency-group">
         <pipeline name="dependency-group-pipeline-1">
             <materials>

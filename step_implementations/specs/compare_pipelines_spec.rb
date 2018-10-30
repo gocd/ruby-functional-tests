@@ -87,7 +87,7 @@ assert_true compare_pipeline_page.selected_pipeline_label_is? label
 end
  step 'Verify that page has pipeline range <high> to <low>' do |high,low|
   pipeline_label_range=*(low.to_i..high.to_i)
-  assert_true true, (pipeline_label_range-compare_pipeline_page.get_pipeline_labels).empty?
+  assert_true  (pipeline_label_range-compare_pipeline_page.get_pipeline_labels).empty?
 end
  step 'Click page <page> - On Pipeline Compare page' do |page|
  compare_pipeline_page.click_page page

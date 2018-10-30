@@ -36,12 +36,12 @@ module Pages
 
     def select_pipeline_on_VSM(pipeline)
       pipeline_name = scenario_state.actual_pipeline_name(pipeline)
-      page.find(:xpath,"//div[@id='#{pipeline_name}']").click
+      page.find("##{pipeline_name}").click
     end
 
     def select_material_on_VSM(material)
       material_url= scenario_state.retrieve(material)
-      page.find(:xpath,"//h3[contains(text(),'#{material_url}')]").click
+      page.find('h3', text: material_url.to_s).click
     end
 
     def verify_workflow_count_vsm_chart(workflow_count)

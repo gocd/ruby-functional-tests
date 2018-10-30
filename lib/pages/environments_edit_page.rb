@@ -68,8 +68,8 @@ module Pages
       pipeline_checkbox.set(true)
     end
 
-    def add_agent(_agent)
-      page.find(:xpath, "//td[@title='missing-agent']").find(:xpath, '..').find("td[class='selector']").find("input[type='checkbox']").set(true)
+    def add_agent(agent)
+      page.find('.agent_hostname', text: agent).ancestor('.hostname').sibling('.selector').find("input[type='checkbox']").set(true)
     end
 
     def remove_pipeline(pipeline)
@@ -95,8 +95,8 @@ module Pages
     end
 
     def set_vars_at(row, var, value)
-      page.find(:xpath, "(//input[@class='form_input environment_variable_name MB_focusable'])[#{row.to_i}]").set(var)
-      page.find(:xpath, "(//input[@class='form_input environment_variable_value MB_focusable'])[#{row.to_i}]").set(value)
+      page.all('.environment_variable_name')[row.to_i].set(var)
+      page.all('.environment_variable_value')[row.to_i].set(value)
     end
 
     def add_new_var

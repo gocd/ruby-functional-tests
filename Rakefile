@@ -145,8 +145,6 @@ namespace :plugins do
     sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/json-config-plugin.jar"
     url = JSON.parse(open(DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL).read)[0]['assets'][0]['browser_download_url']
     sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-registry-artifact-plugin.jar"
-    url = JSON.parse(open(TEST_EXTERNAL_ARTIFACTS_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
-    sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/dummy-artifact-plugin-0.0.1.jar"
   end
 
   desc 'task for preparing anlytics plugin'

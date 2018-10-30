@@ -79,3 +79,7 @@ end
 step 'Verify rerun selected button is enabled on jobs tab' do ||
   stage_details_page.verify_jobs_can_rerun?
 end
+
+step 'Verify stage result shows <status> - On Stage Detail Page' do |status|
+  stage_details_page.check_pipeline_status(status)
+end

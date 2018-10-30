@@ -28,6 +28,10 @@ step 'Trigger pipeline - On Swift Dashboard page' do |_tmp|
   new_pipeline_dashboard_page.trigger_pipeline
 end
 
+step 'Trigger pipeline and wait for building - On Swift Dashboard page' do |_tmp|
+  new_pipeline_dashboard_page.trigger_pipeline(wait_to_build: true)
+end
+
 step 'Looking at pipeline <pipeline> - On Swift Dashboard page' do |pipeline|
   new_pipeline_dashboard_page.load(autoRefresh: @auto_refresh)
   scenario_state.set_current_pipeline pipeline
@@ -55,7 +59,7 @@ step 'Trigger and cancel stage <defaultStage> <trigger_number> times' do |stage_
 end
 
 step 'Trigger and wait for stage <stage> is <state> with label <label> - On Swift Dashboard page' do |stage, state, label|
-  new_pipeline_dashboard_page.trigger_pipeline(wait_to_build: false)
+  new_pipeline_dashboard_page.trigger_pipeline
   new_pipeline_dashboard_page.wait_till_pipeline_complete
   new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.self_pipeline, stage, state.downcase
   new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.self_pipeline, label
@@ -276,9 +280,11 @@ end
 step 'PipelineVisibility <table>' do |table|
   table.rows.each do |row|
     scenario_state.set_current_pipeline(row['Pipeline Name'])
+    p "Executing validation for pipeline #{row['Pipeline Name']}"
     (1..table.columns.length - 1).each do |i| # this is assuming the first column is reserved for pipeline name
       method_name = table.columns[i].tr(' ', '_').downcase
       raise "The method #{method_name} does not exist" unless new_pipeline_dashboard_page.respond_to?(method_name)
+      p "Validating method - #{method_name}"
       assert_equal row[table.columns[i]], new_pipeline_dashboard_page.send(method_name).to_s
     end
   end

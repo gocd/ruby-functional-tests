@@ -22,7 +22,7 @@ module Pages
     element :from_pipeline, '#from_pipeline'
     element :browse_to_timeline,'a#browse_timeline_link_to'
     element :browse_from_timeline,'a#browse_timeline_link_from'
-    element :pipeline_instance_list, '.pipeline_instance_list ul > li:nth-child(1)'
+    element :pipeline_instance_list, '.pipeline_instance_list'
 
      def click_on_To_box_for_browse_timeline
       to_pipeline.click
@@ -40,14 +40,16 @@ module Pages
 
      def get_pipeline_labels
       pipeline_labels=[]
-      page.has_content?(pipeline_instance_list,wait: 5)
-      page.all('.pipeline_instance_list ul li div.pipeline_label').each {|element| 
-        pipeline_labels.push(element.text.to_i)}
+      page.find('.pipeline_instance_list').all('.pipeline_label', wait: 10).each {|element| 
+        pipeline_labels.push(element.text.to_i)
+      }
+        puts pipeline_labels
       return pipeline_labels
      end
 
      def click_page(label)  
        page.find('.wrapper a.MB_focusable', text: label).click
+       page.has_content?(pipeline_instance_list,wait:10)
      end  
 
      def select_pipeline_with_label(label)

@@ -1,14 +1,15 @@
 ArtifactsEdit
 ================
 
-Setup of contexts
-* Basic Configuration - setup
-* Using pipeline "edit-pipeline" - setup
-* Capture go state "ArtifactsEdit" - setup
 ArtifactsEdit
 ----------------
 
 tags: artifact
+
+Setup of contexts
+* Basic Configuration - setup
+* Using pipeline "edit-pipeline" - setup
+* Capture go state "ArtifactsEdit" - setup
 
 * On Job settings page of pipeline "edit-pipeline" stage "defaultStage" job "defaultJob"
 * Open "Artifacts" tab - On Job settings page
@@ -24,6 +25,7 @@ tags: artifact
 
 teardown
 _______________
+
 * Capture go state "ArtifactsEdit" - teardown
 
 

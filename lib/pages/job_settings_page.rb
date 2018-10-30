@@ -39,23 +39,25 @@ module Pages
     element :advance_option_task_type, ".on_cancel_type.MB_focusable option"
     element :on_cancel_task_check_box, ".has_cancel_task.MB_focusable"
     element :delete_task_button, ".primary.submit.MB_focusable"
-  
-    
+    element :tasks_list, "table.tasks_list_table"
+    element :task_build_file, "input[name='task[buildFile]']"
 
-    load_validation { has_add_new_task? }
+
+
+   load_validation { has_add_new_task? }
 
    
-
     def add_new_task_of_type(type)
       add_new_task.click
       add_new_task.click
       new_task_list.find('a', text: type).click
-    end
+    end 
 
     def configure_rake_task(target,working_directory)
       task_target.set(target)
       task_working_directory.set(working_directory)
     end
+
 
     def configure_more_task(command,arglist,working_directory,run_conditions)
       task_commands.set(command)
@@ -86,19 +88,50 @@ module Pages
         end
      end   
   
-   def delete_task (task_no)
-    page.find("tr:nth-child(#{task_no.to_i}) td span.icon_remove").click
-    delete_task_button.click
-   end 
-
-   def verify_task_with_command_is_not_exists(command)
+    def delete_task (task_no)
+     page.find("tr:nth-child(#{task_no.to_i}) td span.icon_remove").click
+     delete_task_button.click
+    end 
+    
+    def verify_task_with_command_is_not_exists(command)
      page.has_no_css?('li.task_property.command span.value', text:command.split(':').last.strip)
-   end
+    end
 
-   def verify_task_with_command_is_not_exist_in_config(task,command,job,stage,pipeline)
+    def verify_task_with_command_is_not_exist_in_config(task,command,job,stage,pipeline)
      basic_configuration.get_config_from_server.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline)}']/stage[@name='#{stage}']/jobs/job[@name='#{job}']/tasks/#{task}[@command='#{command}']").count==0 
-   end
+    end
    
+    def move_task_down(task_index)
+      tasks_list.find("tbody tr.task_#{task_index} button.promote_button .promote_down").ancestor('button.promote_button').click
+    end
+
+    def move_task_up(task_index)
+      tasks_list.find("tbody tr.task_#{task_index} button.promote_button .promote_up").ancestor('button.promote_button').click
+    end
+  
+    def set_task(task_type,target,build_file,working_directory,run_if_list)
+      add_new_task.click
+      new_task_list.find('a', text: task_type, exact_text: true).click
+      task_target.set(target)
+      task_build_file.set(build_file)
+      task_working_directory.set(working_directory)
+      run_if_list.split(',').each { |run_condition|
+       page.find("input[name='task[runIfConfigs#{run_condition}]']").set(true) }
+      general_settings_page.task_save.click
+    end
+
+    def get_cell_value_from_table(row_count,header_name,column_name)
+      case column_name
+        when "Task Type"
+         return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(2)").text.eql?(header_name)
+        when "Run If Conditions"
+         return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(3)").text.eql?(header_name)
+        when "Properties"
+          return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(4)").text.gsub("\n", ' ').eql?(header_name)
+        when "On Cancel"
+         return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(5)").text.eql?(header_name)
+       end
+    end   
 
   end
 end

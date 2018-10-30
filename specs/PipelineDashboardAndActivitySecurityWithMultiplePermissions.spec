@@ -44,5 +44,6 @@ Teardown of contexts
 ____________________
 * Capture go state "PipelineDashboardAndActivitySecurityWithMultiplePermissions" - teardown
 * With "1" live agents - teardown
+* Logout - from any page
 
 

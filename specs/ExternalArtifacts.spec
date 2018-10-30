@@ -25,6 +25,7 @@ Setup of contexts
 * Add task "Fetch Artifact"
 * Select artifact type "External" pipeline "upstream" stage "defaultStage" job "defaultJob" artifact id "test_artifact" path "test_folder"
 * Save task details
+* Move task "2" up
 
 
 * Looking at pipeline "upstream" - On Swift Dashboard page
@@ -41,7 +42,13 @@ Setup of contexts
 
 * On Job details page of pipeline "downstream" counter "1" stage "defaultStage" counter "1" job "defaultJob"
 * Verify console log contains message "Fetching pluggable artifact using plugin cd.go.artifact.dummy"
+* Verify console log contains message "NOTE: Setting new environment variable: VAR1 = ********"
+* Verify console log contains message "NOTE: Setting new environment variable: VAR2 = VALUE2"
+* Verify console log contains message "WARNING: Replacing environment variable: GO_JOB_NAME = new job name (previously: defaultJob)"
 
+* Verify console log contains message "VAR1=CHANGED_VALUEX"
+* Verify console log contains message "VAR2=VALUE2"
+* Verify console log contains message "GO_JOB_NAME=new job name"
 
 teardown
 _______________

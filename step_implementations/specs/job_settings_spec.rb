@@ -45,6 +45,14 @@ step 'Add task <task_name>' do |task|
   job_settings_page.add_new_task_of_type task
 end
 
+step 'Move task <task_index> up' do |task_index|
+  job_settings_page.move_task_up task_index
+end
+
+step 'Move task <task_index> down' do |task_index|
+  job_settings_page.move_task_down task_index
+end
+
 step 'Select artifact type <a_type> pipeline <p_name> stage <s_name> job <j_name> artifact id <a_id> path <path>' do |a_type, p_name, s_name, j_name, a_id, path|
   job_settings_page.external_artifact.click
   job_settings_page.task_pipeline.set scenario_state.actual_pipeline_name(p_name)
@@ -62,12 +70,14 @@ step 'Set target to <target> with working directory <working_directory>' do |tar
   job_settings_page.configure_rake_task(target,working_directory)
 end
 
+
 step 'Set on Cancel task <task> and command <command> - Already on Task edit popup' do |task,command|
   job_settings_page.configure_on_cancel_more_task(task,command)
 end
 step 'Set More task - Command as <command> argument as <arglist> working directory as <working_directory> runIfConditions as <run_conditions> - Already on Task edit popup' do |command,arglist,working_directory,run_conditions|
   job_settings_page.configure_more_task(command,arglist,working_directory,run_conditions)
 end  
+
 
 step 'verifyTask <table>' do |table|
   table.rows.each do |row| 
@@ -76,6 +86,7 @@ step 'verifyTask <table>' do |table|
     end
   end
 end  
+
 
 step 'Delete task <task_no>' do |task_no|
   job_settings_page.delete_task(task_no)
@@ -93,3 +104,12 @@ end
 step 'Verify no <task> task with command  <command> exists in <job> under <stage> for piepline <pipeline>' do |task,command,job,stage,pipeline|
    assert_true  job_settings_page.verify_task_with_command_is_not_exist_in_config(task,command,job,stage,pipeline)
 end
+
+step 'setTask <table>' do |table|
+  table.rows.each do |row|
+     job_settings_page.set_task(row['TaskType'],row['Target'],row['BuildFile'],row['WorkingDirectory'],row['RunIf-View'])
+    end
+  end
+
+
+

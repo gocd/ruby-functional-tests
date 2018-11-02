@@ -10,7 +10,7 @@ Setup of contexts
 AdvancedParamSubstitution
 -------------------------
 
-tags: Parameters_subsitution
+tags: Parameters_subsitution, wip
 
 * Start add new pipeline in pipeline group "basic"
 

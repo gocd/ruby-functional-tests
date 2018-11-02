@@ -57,9 +57,9 @@ module Context
       current_config
     end
 
-    def set_material_path_for_pipeline(pipeline, material_path)
+    def set_material_path_for_pipeline(material_type, pipeline, material_path)
       current_config = get_config_from_server
-      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline)}']/materials/git").each do |material|
+      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline)}']/materials/#{material_type}").each do |material|
         material['url'] = material_path
       end
       load_dom(current_config)

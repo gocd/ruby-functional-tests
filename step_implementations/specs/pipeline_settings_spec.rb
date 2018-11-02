@@ -15,9 +15,21 @@
 ##########################################################################
 
 step 'On Pipeline settings page of pipeline <pipeline_name>' do |pipeline_name|
-    pipeline_settings_page.load(pipeline_name: scenario_state.actual_pipeline_name(pipeline_name))
-  end
-  
-  step 'Open <tab_id> tab - On Pipeline settings page' do |tab_id|
-    pipeline_settings_page.on_tab(tab_id)
-  end
+  pipeline_settings_page.load(pipeline_name: scenario_state.actual_pipeline_name(pipeline_name))
+end
+
+step 'Open <tab_id> tab - On Pipeline settings page' do |tab_id|
+  pipeline_settings_page.on_tab(tab_id)
+end
+
+step 'Verify pipeline created successfully' do
+  assert_true pipeline_settings_page.partial_message_displayed?('Pipeline successfully created.')
+end
+
+step 'Add parameter name <name> and value <value>' do |name, value|
+	pipeline_settings_page.add_parameter(name, value)
+end
+
+step 'Save Pipeline settings' do ||
+	pipeline_settings_page.save
+end

@@ -58,3 +58,7 @@ end
 step 'Analytics menu should be visible' do |_tmp|
 	assert_true app_base_page.menu_item_visible "Analytics"
 end
+
+step 'Sleep for <secs> seconds' do |secs|
+	sleep secs.to_i
+end

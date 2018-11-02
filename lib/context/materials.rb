@@ -20,10 +20,13 @@ module Context
   class Materials
     include FileUtils
 
-    def material_need_to_be_set?(pipeline_name)
+    def has_material_config?(pipeline_name)
+      !material_config(pipeline_name).empty?
+    end
+
+    def material_config(pipeline)
       current_configuration = basic_configuration.get_config_from_server
-      material_url = current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline_name)}']/materials/#{@material_type}/@url")
-      material_url ? true : false
+      current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline)}']/materials/#{@material_type}/@url")
     end
   end
 
@@ -38,8 +41,7 @@ module Context
 
     def setup_material_for(pipeline)
       begin
-        current_configuration = basic_configuration.get_config_from_server
-        material_url = current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline)}']/materials/git/@url").first.value
+        material_url = material_config(pipeline).first.value
         if !scenario_state.retrieve(material_url).nil?
           material_path = scenario_state.retrieve(material_url)
         else
@@ -104,8 +106,7 @@ module Context
 
     def setup_material_for(pipeline)
       begin
-        current_configuration = basic_configuration.get_config_from_server
-        material_url = current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline)}']/materials/svn/@url").first.value
+        material_url = material_config(pipeline).first.value
         if !scenario_state.retrieve(material_url).nil?
           material_path = scenario_state.retrieve(material_url)
         else
@@ -121,7 +122,7 @@ module Context
           end
           initial_commit
           material_path = "file://#{@repository_directory}/end2end"
-          scenario_state.store(material_url , material_path)
+          scenario_state.store(material_url, material_path)
         end
         basic_configuration.set_material_path_for_pipeline('svn', pipeline, material_path)
       rescue StandardError => e

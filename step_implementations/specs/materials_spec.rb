@@ -16,8 +16,8 @@
 
 step 'Using pipeline <pipeline> - setup' do |pipelines|
   pipelines.split(',').each { |pipeline| 
-    git_materials.setup_material_for pipeline.strip if git_materials.material_need_to_be_set?(pipeline.strip)
-    svn_materials.setup_material_for pipeline.strip if svn_materials.material_need_to_be_set?(pipeline.strip)
+    git_materials.setup_material_for pipeline.strip if git_materials.has_material_config?(pipeline.strip)
+    svn_materials.setup_material_for pipeline.strip if svn_materials.has_material_config?(pipeline.strip)
   }
   basic_configuration.remove_pipelines_except pipelines.split(',').map(&:strip)
 end

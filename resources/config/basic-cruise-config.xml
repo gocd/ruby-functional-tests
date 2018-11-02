@@ -230,6 +230,23 @@
                 </jobs>
             </stage>
              </pipeline>
+        <pipeline name="edit-pipeline-with-tasks">
+            <materials>
+                <git url="material-for-edit-pipeline-with-tasks" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <ant target="longsleep" workingdir="hg/dev"/>
+							<rake target="all" workingdir="hg/dev"/>
+							<nant target="all" workingdir="hg/dev"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
     </pipelines>
     <pipelines group="dependency-group">
         <pipeline name="dependency-group-pipeline-1">

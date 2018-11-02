@@ -115,3 +115,22 @@ step 'setTask <table>' do |table|
     end
 end
 
+
+step 'VerifyFieldsOnTaskList <table>' do |table|
+      table.rows.each do |row|
+      (1..table.columns.length-1).each do |column_name| 
+      element=table.columns[column_name]
+      job_settings_page.click_on_task_by_index(row['TaskIndex'].to_i)
+      value=job_settings_page.send(element).value
+      job_settings_page.task_cancel.click
+      assert_equal row[table.columns[column_name]], value
+    end
+  end
+end
+
+step 'EditTaskWithOnCancel <table>' do |table|
+    table.rows.each do |row|
+    job_settings_page.click_on_task_by_index(row['TaskIndex'].to_i)
+    job_settings_page.edit_task_with_on_cancel(row['task_build_file'],row['task_target'],row['task_working_directory'],row['On_Cancel_TaskType'],row['On_Cancel_Build_File'],row['On_Cancel_Target'],row['On_Cancel_Working_Dir'])
+    end
+end

@@ -27,47 +27,47 @@ module Pages
     end
 
     def plugin_by_id_is_invalid?(id)
-      plugin_settings.find('.plugin-id', text: id).find(:xpath, '../../..')[:class].include?('plugin disabled')
+      plugin_settings.find('.plugin-id', text: id).ancestor('.plugin.disabled').visible?
     end
 
     def plugin_by_id_is_valid?(id)
-      plugin_settings.find('.plugin-id', text: id).find(:xpath, '../../..')[:class].include?('plugin active')
+      plugin_settings.find('.plugin-id', text: id).ancestor('.plugin.active').visible?
     end
 
     def collapse_plugin_config(id)
-      return if plugin_settings.find('.plugin-id', text: id).find(:xpath, '../../..')[:class].include?('collapsed')
+      return if plugin_settings.find('.plugin-id', text: id).ancestor('.plugin-header')[:class].include?('collapsed')
       plugin_settings.find('.plugin-id', text: id).click
     rescue StandardError => e
       p "Not a valid plugin, moving ahead without collapsing. #{e.message} "
     end
 
     def expand_plugin_config(id)
-      return if plugin_settings.find('.plugin-id', text: id).find(:xpath, '../../..')[:class].include?('expanded')
+      return if plugin_settings.find('.plugin-id', text: id).ancestor('.plugin-header')[:class].include?('expanded')
       plugin_settings.find('.plugin-id', text: id).click
-      rescue StandardError => e
-        p "Not a valid plugin, moving ahead without expanding. #{e.message} "
+    rescue StandardError => e
+      p "Not a valid plugin, moving ahead without expanding. #{e.message} "
     end
 
     def is_expected_version?(id, version)
       plugin_settings.find('.plugin-id', text: id)
-                     .find(:xpath, '../../..').find('.plugin-version').has_selector?('.value', text: version)
+                     .ancestor('.plugin-header').find('.plugin-version').has_selector?('.value', text: version)
     end
 
     def is_expected_name?(id, name)
       plugin_settings.find('.plugin-id', text: id)
-                     .find(:xpath, '../../..').has_selector?('div', text: name)
+                     .ancestor('.plugin-header').has_selector?('div', text: name)
     end
 
     def is_expected_description?(id, desc)
-      parent_for_given_label(id,'Description').find('span').text == desc
+      parent_for_given_label(id, 'Description').find('span').text == desc
     end
 
     def is_expected_author?(id, author)
-      parent_for_given_label(id,'Author').find('span').text == author
+      parent_for_given_label(id, 'Author').find('span').text == author
     end
 
     def is_expected_author_link?(id, author, link)
-     parent_for_given_label(id,'Author').find('a', text: author)[:href] == link
+      parent_for_given_label(id, 'Author').find('a', text: author)[:href] == link
     end
 
     def is_author_link_disabled?(id, author, _link)
@@ -75,29 +75,29 @@ module Pages
     end
 
     def is_expected_installed_path?(id, path)
-      parent_for_given_label(id,'Plugin file location').find('span').has_text?(path)
+      parent_for_given_label(id, 'Plugin file location').find('span').has_text?(path)
     end
 
     def is_expected_supported_os?(id, os)
-      parent_for_given_label(id,'Supported operating systems').find('span').text == os
+      parent_for_given_label(id, 'Supported operating systems').find('span').text == os
     end
 
     def is_expected_go_version?(id, version)
-      parent_for_given_label(id,'Target Go Version').find('span').text == version
+      parent_for_given_label(id, 'Target Go Version').find('span').text == version
     end
 
     def is_expected_bundled?(id, bundled)
-      parent_for_given_label(id,'Bundled').find('span').text == bundled
+      parent_for_given_label(id, 'Bundled').find('span').text == bundled
     end
 
     def plugin_config_element_of(id)
       plugin_settings.find('.plugin-id', text: id)
-                     .find(:xpath, '../../..').find('.plugin-config-read-only')
+                     .ancestor('.plugin.expanded').find('.plugin-config-read-only')
     end
 
     def plugin_actions_of(id)
       plugin_settings.find('.plugin-id', text: id)
-                     .find(:xpath, '../../..').find('.plugin-actions')
+                     .ancestor('.plugin-header').find('.plugin-actions')
     end
 
     def is_plugins_settings_enabled?(id)
@@ -109,7 +109,7 @@ module Pages
     end
 
     def is_plugins_settings_displayed?(id)
-      plugin_settings.find('.plugin-id', text: id).find(:xpath, '../../..').has_selector?('.plugin-actions', visible: true)
+      plugin_settings.all('.plugin-header').select { |plugin| plugin.all('dd.value').last.text.eql? id }.last.has_css?('.edit-plugin')
     end
 
     def parent_for_given_label(id,label_text)

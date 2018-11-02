@@ -22,9 +22,9 @@ module Pages
   class VSMPage < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/pipelines/value_stream_map{/pipeline_name}{/pipeline_counter}"
     element :enable_analytics, '.enable-analytics'
-    element :material, '.material'
+    element :material, '.material'  
     element :view_analytics, '.view-vsm-analytics'
-    iframe :vsm_analytics_trend, VSMAnalyticsTrend, 0 
+    iframe :vsm_analytics_trend, VSMAnalyticsTrend, 0
 
     def click_analytics
       enable_analytics.click
@@ -34,13 +34,36 @@ module Pages
       material.click if source_type == 'material'
     end
 
-    def vsm_analytics_visible?
-      vsm_analytics_trend do |frame|
-        frame.has_css?('.vsm-trends-container')
-        frame.has_css?('.workflow-metrics')
-        frame.has_css?('.vsm-trends')
-      end
+    def select_pipeline_on_VSM(pipeline)
+      pipeline_name = scenario_state.actual_pipeline_name(pipeline)
+      page.find("##{pipeline_name}").click
     end
 
+    def select_material_on_VSM(material)
+      material_url= scenario_state.retrieve(material)
+      page.find('h3', text: material_url.to_s).click
+    end
+
+    def verify_workflow_count_vsm_chart(workflow_count)
+      vsm_analytics_trend do |frame|
+      count=frame.all('.vsm-trends-table tbody tr').length
+      assert_equal workflow_count.to_i ,count , "Expected workflow Count should be #{workflow_count.to_i} , but actual is #{count}"
+    end
   end
+  
+    def verify_throughput_value(throughput_val)
+      vsm_analytics_trend do |frame|
+      actual_throughput=frame.find('.throughput dd').text
+      assert_equal throughput_val ,actual_throughput , "Expected throughput should be #{throughput_val} , but actual is #{actual_throughput}"
+    end
+  end
+
+  def vsm_analytics_visible?
+    vsm_analytics_trend do |frame|
+      frame.has_css?('.vsm-trends-container')
+      frame.has_css?('.workflow-metrics')
+      frame.has_css?('.vsm-trends')
+    end
+  end
+ end
 end

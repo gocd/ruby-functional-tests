@@ -18,14 +18,14 @@ module Pages
   class AgentsSPA < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/agents"
 
-    element :agents_head, '#agents > div > div.row.expanded.agents-table-body > div > table > thead > tr'
+    element :agents_head, '#agents > div > div.agents-table-body > div > table > thead > tr'
     element :agents_table, '.agents-table.stack'
-    elements :agents_row, '#agents > div > div.row.expanded.agents-table-body > div > table > tbody > tr'
-    elements :agents_column, '#agents > div > div.row.expanded.agents-table-body > div > table > tbody > tr > td'
+    elements :agents_row, '#agents > div > div.agents-table-body > div > table > tbody > tr'
+    elements :agents_column, '#agents > div > div.agents-table-body > div > table > tbody > tr > td'
     elements :agents_menu, '#agents div div.header-panel header div div.columns.medium-7.large-7 ul'
     element :agent_menu, '#agents div header div div.columns.medium-7.large-7 ul'
     element :filter_agent, '#filter-agent'
-    elements :agents_summary, '#agents > div > div.header-panel > div.search-panel > div > div.columns.medium-6.large-8 > ul > li'
+    elements :agents_summary, '#agents > div > div.header-panel > div.agents-search-panel > div.show-for-large > ul > li'
 
     load_validation { has_filter_agent? }
 
@@ -54,7 +54,7 @@ module Pages
 
     def add_resource(resource)
       agents_menu[0].find('li.has-dropdown.is-open').find('input[type="text"]').set resource
-      agents_menu[0].find('li.has-dropdown.is-open').find('button', text: 'ADD').click
+      agents_menu[0].find('li.has-dropdown.is-open').find('button', text: 'Add').click
     end
 
     def set_resource(resource, value)
@@ -66,7 +66,7 @@ module Pages
     end
 
     def apply_changes
-      agents_menu[0].find('li.has-dropdown.is-open').find('button', text: 'APPLY').click
+      agents_menu[0].find('li.has-dropdown.is-open').find('button', text: 'Apply').click
       reload_page
     end
 
@@ -82,7 +82,7 @@ module Pages
     def get_listed_agents(column_name)
       headers = {}
       agents_head.all('th').each_with_index { |head, index| headers.merge!(head.text.to_s => (index + 1).to_s) }
-      agents_row.map { |row| row.find("td:nth-child(#{headers[column_name]})").text }
+      agents_row.map { |row| row.find("td:nth-child(#{headers[column_name.upcase]})").text }
     end
 
     def get_message
@@ -90,7 +90,7 @@ module Pages
     end
 
     def sort_by(column)
-      agents_head.find('label', text: column).click
+      agents_head.find('label', text: column.upcase).click
     end
 
     def filter_by(search_string)

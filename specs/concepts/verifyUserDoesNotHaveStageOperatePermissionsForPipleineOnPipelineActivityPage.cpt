@@ -1,0 +1,5 @@
+# verify user does not have stage <stage_name> operate permissions for pipleine <pipeline_name> on pipeline activity page
+* Looking at pipeline <pipeline_name> - On Swift Dashboard page
+* Click on history - On Swift Dashboard page
+* Looking at pipeline with label "1"
+* Verify stage <stage_name> of pipeline cannot be rerun on Pipeline Activity Page

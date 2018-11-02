@@ -51,7 +51,7 @@ task :clean_all do
       sh './gradlew -q clean'
     end
     cd "../#{GO_PLUGINS_DIRNAME}" do
-      sh 'mvn clean -q'
+      sh './gradlew -q clean'
     end
   end
 end
@@ -145,8 +145,6 @@ namespace :plugins do
     sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/json-config-plugin.jar"
     url = JSON.parse(open(DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL).read)[0]['assets'][0]['browser_download_url']
     sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-registry-artifact-plugin.jar"
-    url = JSON.parse(open(TEST_EXTERNAL_ARTIFACTS_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
-    sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/dummy-artifact-plugin-0.0.1.jar"
   end
 
   desc 'task for preparing anlytics plugin'
@@ -175,7 +173,7 @@ namespace :plugins do
   task build: %i[version api] do
     cd "../#{GO_PLUGINS_DIRNAME}" do
       go_full_version = JSON.parse(File.read("../#{GO_TRUNK_DIRNAME}/installers/target/distributions/meta/version.json"))['go_full_version']
-      sh "mvn --quiet --batch-mode package -Dgo.version=#{go_full_version} -DskipTests"
+      sh "./gradlew -q jar -PgoVersion=#{go_full_version} -DskipTests"
     end
   end
 

@@ -16,20 +16,18 @@
 
 module Pages
   class EnvironmentsPage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/environments"
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/environments"
 
     def wait_till_environment_showsup(environment)
-      wait_till_event_occurs_or_bomb 30, "Environment #{scenario_state.get_environment(environment)} failed to showup on environments page" do
+      wait_till_event_occurs_or_bomb 300, "Environment #{scenario_state.get_environment(environment)} failed to showup on environments page" do
         reload_page
-        break if page.has_css?("#environment_#{scenario_state.get_environment(environment)}_panel > div > div > div > div > h2 > a")
+        break if page.has_css?("#environment_entity_#{scenario_state.get_environment(environment)}")
       end
     end
 
-    def click_environment(environment)
-      SitePrism::Page.element :environment_name, "#environment_#{scenario_state.get_environment(environment)}_panel > div > div > div > div > h2 > a"
-      environment_name.click
-
-      assert_true page.has_css?("#body_content > div.content_wrapper_outer > div > div > div")
+    def show_environment(environment)
+      reload_page
+      page.find("#environment_entity_#{scenario_state.get_environment(environment)}").click
     end
 
   end

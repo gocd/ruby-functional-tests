@@ -14,8 +14,8 @@
 # limitations under the License.
 ##########################################################################
 
-step 'On stage details page material tab for <pipeline_name> label <label> stage name <stage_name> counter <counter>' do |pipeline_name, label, stage_name, counter|
-  stage_details_page.load(pipeline_name: scenario_state.actual_pipeline_name(pipeline_name), label: label, stage_name: stage_name, counter: counter, tab_name: 'materials')
+step 'On stage details page <tab> tab for <pipeline_name> label <label> stage name <stage_name> counter <counter>' do |tab,pipeline_name, label, stage_name, counter|
+  stage_details_page.load(pipeline_name: scenario_state.actual_pipeline_name(pipeline_name), label: label, stage_name: stage_name, counter: counter, tab_name: tab)
 end
 
 step 'Looking at material of type <material_type> named <material_name>' do |material_type, material_name|
@@ -70,4 +70,16 @@ end
 
 step 'Cancel <stage> - On Stage Detail Page' do |stage|
 	stage_details_page.cancel_stage(stage)
+end
+
+step 'Verify rerun is enabled for stage <stage_name>' do |stage_name|
+	stage_details_page.verify_stage_rerun_is_enabled? stage_name
+end
+
+step 'Verify rerun selected button is enabled on jobs tab' do ||
+  stage_details_page.verify_jobs_can_rerun?
+end
+
+step 'Verify stage result shows <status> - On Stage Detail Page' do |status|
+  stage_details_page.check_pipeline_status(status)
 end

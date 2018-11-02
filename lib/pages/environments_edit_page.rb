@@ -16,22 +16,23 @@
 
 module Pages
   class EnvironmentsEditPage < AppBase
-    element :pipeline_edit_button, "#edit_pipelines"
-    element :agents_edit_button, "#edit_agents"
-    element :save_button, "#MB_content > div > form > div.form_buttons.actions > button.primary.finish.submit.MB_focusable"
-    element :agents_list, "div[class='added_item added_agents']"
-    element :pipelines_list, "#body_content > div.content_wrapper_outer > div > div > div > div > div.added_item.added_pipelines > ul"
-    element :env_vars_list, "div[class='added_item added_environment_variables']"
-    element :save_message, "#message_pane > p"
-    element :all_agents, "#select_all_agents"
-    elements :list_of_agents, "td.selector"
-    elements :agent_row, "td.hostname"
-    element :vars_edit_button, "#edit_environment_variables"
-    elements :vars_edit_row, "tr[class='environment-variable-edit-row']"
-    elements :add_item, "a[class='add_item']"
+
+    attr_reader :environment
+
+    element :save_button, "button[value='Save']"
+    element :agents_list, '.added_item.added_agents'
+    element :pipelines_list, '.added_item.added_pipelines'
+    element :env_vars_list, '.added_item.added_environment_variables'
+    element :save_message, '#message_pane'
+    element :all_agents, '#select_all_agents'
+    elements :list_of_agents, 'td.selector'
+    elements :agent_row, 'td.hostname'
+    elements :vars_edit_row, '.environment-variable-edit-row'
+    elements :add_item, '.add_item'
 
     def initialize(environment)
-      SitePrism::Page.set_url "#{GoConstants::GO_SERVER_BASE_URL}/environments/#{environment}/show"
+      SitePrism::Page.set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/environments/#{environment}/show"
+      @environment = environment
     end
 
     def is_pipeline_exists?(pipeline)
@@ -50,16 +51,16 @@ module Pages
       all_agents.click
     end
 
-    def click_pipeline_edit
-      pipeline_edit_button.click
+    def edit_pipeline
+      page.find("#edit_pipelines_for_#{@environment}").click
     end
 
-    def click_agents_edit
-      agents_edit_button.click
+    def edit_agents
+      page.find("#edit_agents_for_#{@environment}").click
     end
 
-    def click_vars_edit
-      vars_edit_button.click
+    def edit_environment_variables
+      page.find("#edit_environment_variables_for_#{@environment}").click
     end
 
     def add_pipeline(pipeline)
@@ -68,7 +69,7 @@ module Pages
     end
 
     def add_agent(agent)
-      page.find(:xpath, "//td[@title='missing-agent']").find(:xpath, "..").find("td[class='selector']").find("input[type='checkbox']").set(true)
+      page.find('.agent_hostname', text: agent).ancestor('.hostname').sibling('.selector').find("input[type='checkbox']").set(true)
     end
 
     def remove_pipeline(pipeline)
@@ -90,17 +91,16 @@ module Pages
     end
 
     def all_agents_checked
-      list_of_agents.all? {|agent| agent.find("input[type='checkbox']").checked?}
+      list_of_agents.all? { |agent| agent.find("input[type='checkbox']").checked? }
     end
 
     def set_vars_at(row, var, value)
-      page.find(:xpath, "(//input[@class='form_input environment_variable_name MB_focusable'])[#{row.to_i}]").set(var)
-      page.find(:xpath, "(//input[@class='form_input environment_variable_value MB_focusable'])[#{row.to_i}]").set(value)
+      page.all('.environment_variable_name')[row.to_i].set(var)
+      page.all('.environment_variable_value')[row.to_i].set(value)
     end
 
     def add_new_var
       add_item[0].click
     end
-
   end
 end

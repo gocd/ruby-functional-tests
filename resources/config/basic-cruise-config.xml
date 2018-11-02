@@ -15,7 +15,7 @@
  * limitations under the License.
  *************************GO-LICENSE-END******************************* -->
 
-<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="113">
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="114">
     <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="gauge" tokenGenerationKey="token"/>
     <pipelines group="basic">
     <pipeline name="pipeline-with-lock-all-manual" lockBehavior="lockOnFailure">
@@ -214,6 +214,22 @@
                 </jobs>
             </stage>
         </pipeline>
+        <pipeline name="pipeline-ls">
+            <materials>
+                <git url="material-for-pipeline-ls" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="ls">
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+             </pipeline>
     </pipelines>
     <pipelines group="dependency-group">
         <pipeline name="dependency-group-pipeline-1">

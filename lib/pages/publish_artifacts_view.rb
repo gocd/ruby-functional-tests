@@ -21,8 +21,10 @@ module Pages
     elements :external_artifacts_form, '.dirtyform'
     elements :external_artifacts_id, '#job_artifactConfigs__id'
     elements :external_artifacts_store_id, '#job_artifactConfigs__storeId'
-    elements :source, "input[name='job[artifactConfigs][][configuration][Source]']"
-    elements :destination, "input[name='job[artifactConfigs][][configuration][Destination]']"
+    elements :source, "input[name='job[artifactConfigs][][source]']"
+    elements :destination, "input[name='job[artifactConfigs][][destination]']"
+    elements :external_source, "input[name='job[artifactConfigs][][configuration][Source]']"
+    elements :external_destination, "input[name='job[artifactConfigs][][configuration][Destination]']"
     element :save_publish_artifacts, "button[value='SAVE']"
 
     def fill_form(key_value)
@@ -30,6 +32,23 @@ module Pages
       external_artifacts_form[0].find(:xpath, instance_eval(f[0])[0].path).set("#{f[1].strip}")
     end
 
+    def fill_form_with_index(key_value, index)
+      f = key_value.split(':', 2)
+      external_artifacts_form[0].find(:xpath, instance_eval(f[0])[index.to_i-1].path).set("#{f[1].strip}")
+    end
+
+    def verify_artifact_exist(pipeline,artifact,stage,job)
+      @artifact_list=[]
+       basic_configuration.get_config_from_server.xpath("//cruise/pipelines/pipeline[@name='#{pipeline}']/stage[@name='#{stage}']/jobs/job[@name='#{job}']/artifacts/artifact").each { 
+        |art|  @artifact_list.push("#{art['type']}:#{art['src']}:#{art['dest']}") 
+        }
+        if @artifact_list.include?(artifact) 
+          return true
+        else 
+          return false
+        end  
+     end
+     
   end
   
 end

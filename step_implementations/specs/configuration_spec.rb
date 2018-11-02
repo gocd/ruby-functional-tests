@@ -55,6 +55,15 @@ step 'Enable security and add <users> as admins' do |adminUsers|
   basic_configuration.enable_security_with_admin_rights 'password.properties', adminUsers
 end
 
+step 'Making <user> an admin user' do |user|
+  basic_configuration.add_user_as_admin user
+end
+step 'Removing <user> as an admin user' do |user|
+  basic_configuration.remove_user_as_admin user
+end
+step 'Enable security with password file' do
+  basic_configuration.enable_security_with_password_file 'password.properties'
+end
 step 'With no users - setup' do
   basic_configuration.remove_all_users
 end
@@ -66,4 +75,8 @@ end
 
 step 'Fanin Configuration - setup' do
   basic_configuration.setup 'fanin-cruise-config.xml'
+end
+
+step 'Permissions configuration - setup' do
+  secure_configuration.setup 'permissions-cruise-config.xml','password.properties'
 end

@@ -25,24 +25,24 @@ end
 
 step 'Open Environment edit page for environment <environment>' do |environment|
   environments_dashboard_page.load
-  environments_dashboard_page.click_environment environment
+  environments_dashboard_page.show_environment(environment)
   scenario_state.current_environment(environment)
 end
 
 step 'Verify pipelines <pipelines> are available on <environment> edit page' do |pipelines, environment|
-  pipelines.split(',').each do |p|
-    assert_true environments_edit_page(scenario_state.get_environment(environment)).is_pipeline_exists? scenario_state.actual_pipeline_name(p.strip)
+  pipelines.split(',').each do |pipeline|
+    assert_true environments_edit_page(scenario_state.get_environment(environment)).is_pipeline_exists? scenario_state.actual_pipeline_name(pipeline.strip)
   end
 end
 
 step 'Verify pipelines <pipelines> are not available on <environment> edit page' do |pipelines, environment|
-  pipelines.split(',').each do |p|
-    assert_false environments_edit_page(scenario_state.get_environment(environment)).is_pipeline_exists? scenario_state.actual_pipeline_name(p.strip)
+  pipelines.split(',').each do |pipelines|
+    assert_false environments_edit_page(scenario_state.get_environment(environment)).is_pipeline_exists? scenario_state.actual_pipeline_name(pipelines.strip)
   end
 end
 
 step 'Edit pipelines' do
-  environments_edit_page(scenario_state.get_current_environment).click_pipeline_edit
+  environments_edit_page(scenario_state.get_environment(scenario_state.get_current_environment)).edit_pipeline
 end
 
 step 'Verify agents <agents> are available on <environment> edit page' do |agents, environment|
@@ -59,53 +59,57 @@ step 'Verify environment variables <vars> are available on <environment> edit pa
 end
 
 step 'Edit Agents' do
-  environments_edit_page(scenario_state.get_current_environment).click_agents_edit
+  environments_edit_page(scenario_state.get_environment(scenario_state.get_current_environment)).edit_agents
 end
 
 step 'Save environment' do
-  environments_edit_page(scenario_state.get_current_environment).save
+  environments_edit_page(scenario_state.get_environment(scenario_state.get_current_environment)).save
 end
 
 step 'Edit environment variables' do
-  environments_edit_page(scenario_state.get_current_environment).click_vars_edit
+  environments_edit_page(scenario_state.get_environment(scenario_state.get_current_environment)).edit_environment_variables
 end
 
 step 'Select all agents and verify all are selected' do
-  env = environments_edit_page(scenario_state.get_current_environment)
+  env = environments_edit_page(scenario_state.get_environment(scenario_state.get_current_environment))
   env.select_all_agents
   assert_true env.all_agents_checked
 end
 
 step 'Add agent <agent> and save environment' do |agent|
-  environments_edit_page(scenario_state.get_current_environment).add_agent(agent)
-  environments_edit_page(scenario_state.get_current_environment).save
+  environments_edit_page(scenario_state.get_environment(scenario_state.get_current_environment)).add_agent(agent)
+  environments_edit_page(scenario_state.get_environment(scenario_state.get_current_environment)).save
 end
 
 step 'Add pipeline <pipeline> and save environment' do |pipeline|
-  environments_edit_page(scenario_state.get_current_environment).add_pipeline(scenario_state.actual_pipeline_name(pipeline))
-  environments_edit_page(scenario_state.get_current_environment).save
+  environments_edit_page(scenario_state.get_environment(scenario_state.get_current_environment)).add_pipeline(scenario_state.actual_pipeline_name(pipeline))
+  environments_edit_page(scenario_state.get_environment(scenario_state.get_current_environment)).save
 end
 
 step 'Verify removing pipelines <pipelines> is not allowed' do |pipelines|
   pipelines.split(',').each do |p|
-    assert_false environments_edit_page(scenario_state.get_current_environment).can_edit_pipeline? scenario_state.actual_pipeline_name(p.strip)
+    assert_false environments_edit_page(scenario_state.get_environment(scenario_state.get_current_environment)).can_edit_pipeline? scenario_state.actual_pipeline_name(p.strip)
   end
 end
 
 step 'Remove pipelines <pipelines> and save environment' do |pipelines|
-  pipelines.split(',').each { |p| environments_edit_page(scenario_state.get_current_environment).remove_pipeline scenario_state.actual_pipeline_name(p.strip) }
-  environments_edit_page(scenario_state.get_current_environment).save
+  pipelines.split(',').each { |p| environments_edit_page(scenario_state.get_environment(scenario_state.get_current_environment)).remove_pipeline scenario_state.actual_pipeline_name(p.strip) }
+  environments_edit_page(scenario_state.get_environment(scenario_state.get_current_environment)).save
 end
 
 step 'Verify message <message> is present' do |message|
-  assert_true environments_edit_page(scenario_state.get_current_environment).get_message.include? message
+  assert_true environments_edit_page(scenario_state.get_environment(scenario_state.get_current_environment)).get_message.include? message
 end
 
 step 'For variable at row <row> set name <var> value <value>' do |row, var, value|
-  environments_edit_page(scenario_state.get_current_environment).set_vars_at(row, var, value)
+  environments_edit_page(scenario_state.get_environment(scenario_state.get_current_environment)).set_vars_at(row, var, value)
 end
 
 step 'Add new variable' do
-  environments_edit_page(scenario_state.get_current_environment).add_new_var
-  environments_edit_page(scenario_state.get_current_environment).save
+  environments_edit_page(scenario_state.get_environment(scenario_state.get_current_environment)).add_new_var
+  environments_edit_page(scenario_state.get_environment(scenario_state.get_current_environment)).save
+end
+
+step 'Expand environment <environment>' do |environment|
+	environments_dashboard_page.show_environment(environment)
 end

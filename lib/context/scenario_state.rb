@@ -109,5 +109,13 @@ module Context
       @scenario_store.get "current_material_name"
     end
 
+    def set_current_label(label)
+      @scenario_store.put "current_label", label
+    end
+
+    def get_current_label
+      @scenario_store.get "current_label"
+    end
+
   end
 end

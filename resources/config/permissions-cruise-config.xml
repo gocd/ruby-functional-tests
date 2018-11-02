@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *************************GO-LICENSE-START******************************
+ * Copyright 2017 ThoughtWorks, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *************************GO-LICENSE-END******************************* -->
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="114">
+  <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="twist" tokenGenerationKey="token">
+ <security>
+ 
+      <roles>
+        <role name="misc">
+          <users>
+            <user>group1View</user>
+          </users>
+        </role>
+      </roles>
+   <admins>
+     <user>admin</user>
+  </admins>
+   <authConfigs>
+     <authConfig id="faf64df3-15c4-44dd-9865-99cc92dc579d" pluginId="cd.go.authentication.passwordfile">
+       <property>
+         <key>PasswordFilePath</key>
+         <value>$password_properties</value>
+       </property>
+     </authConfig>
+   </authConfigs>
+ </security>
+  </server>
+  <pipelines group="GroupA">
+    <authorization>
+      <view>
+        <user>raghu</user>
+        <user>pavan</user>
+      </view>
+      <operate>
+        <role>misc</role>
+      </operate>
+    </authorization>
+    <pipeline name="P1">
+      <materials>
+        <git url="material-for-pipeline-P1" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="sleep">
+              <arg>5</arg>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
+  <pipelines group="GroupB">
+    <authorization>
+      <view>
+        <user>raghu</user>
+      </view>
+      <operate>
+        <user>raghu</user>
+      </operate>
+      <admins>
+        <role>misc</role>
+      </admins>
+    </authorization>
+    <pipeline name="P2">
+      <materials>
+        <git url="material-for-pipeline-P2" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="sleep">
+                <arg>5</arg>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
+  <pipelines group="GroupC">
+    <authorization>
+      <view>
+        <user>pavan</user>
+        <role>misc</role>
+      </view>
+      <operate>
+        <user>pavan</user>
+        <role>misc</role>
+      </operate>
+      <admins>
+        <user>raghu</user>
+      </admins>
+    </authorization>
+    <pipeline name="P3">
+      <materials>
+        <git url="material-for-pipeline-P3" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual">
+          <authorization>
+            <user>pavan</user>
+          </authorization>
+        </approval>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="sleep">
+                <arg>5</arg>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
+  <pipelines group="GroupD">
+    <authorization>
+      <view>
+        <role>misc</role>
+      </view>
+      <operate>
+        <user>raghu</user>
+      </operate>
+    </authorization>
+    <pipeline name="P4">
+      <materials>
+        <git url="material-for-pipeline-P4" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="sleep">
+                <arg>5</arg>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
+  
+  
+  <pipelines group="GroupE">
+    <authorization>
+      <view>
+        <user>raghu</user>
+        <user>pavan</user>
+      </view>
+      <operate>
+        <user>raghu</user>
+        <user>pavan</user>
+      </operate>
+      <admins>
+        <role>misc</role>
+      </admins>
+    </authorization>
+    <pipeline name="P5">
+      <materials>
+        <git url="material-for-pipeline-P5" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual">
+          <authorization>
+            <user>raghu</user>
+          </authorization>
+        </approval>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="sleep">
+                <arg>5</arg>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
+  <pipelines group="GroupF">
+    <authorization>
+      <view>
+        <user>raghu</user>
+        <user>pavan</user>
+        <role>misc</role>
+      </view>
+      <operate>
+        <user>raghu</user>
+        <user>pavan</user>
+        <role>misc</role>
+      </operate>
+    </authorization>
+    <pipeline name="P6">
+      <materials>
+        <git url="material-for-pipeline-P6" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="firstStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="sleep">
+                <arg>5</arg>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="secondStage">
+        <approval type="manual">
+          <authorization>
+            <user>raghu</user>
+          </authorization>
+        </approval>
+        <jobs>
+          <job name="secondJob">
+            <tasks>
+              <exec command="sleep">
+                <arg>5</arg>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
+  <pipelines group="GroupG">
+    <authorization>
+      <view>
+        <user>raghu</user>
+        <user>pavan</user>
+        <role>misc</role>
+      </view>
+      <operate>
+        <user>raghu</user>
+        <user>pavan</user>
+        <role>misc</role>
+      </operate>
+    </authorization>
+    <pipeline name="P7">
+      <materials>
+        <git url="material-for-pipeline-P7" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="firstStage">
+        <approval type="manual">
+         <authorization>
+            <role>misc</role>
+          </authorization>
+        </approval>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="sleep">
+                <arg>5</arg>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="secondStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="secondJob">
+            <tasks>
+              <exec command="sleep">
+                <arg>5</arg>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
+  
+     <pipelines group="GroupH">
+    <authorization>
+      <view>
+        <user>raghu</user>
+        <user>pavan</user>
+        <user>group1View</user>
+      </view>
+      <operate>
+        <role>misc</role>
+      </operate>
+    </authorization>
+    <pipeline name="P8">
+      <materials>
+        <git url="material-for-pipeline-P8" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="sleep">
+                <arg>5</arg>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
+  
+    <pipelines group="GroupI">
+    <authorization>
+      <admins>
+        <user>group1View</user>
+      </admins>
+      <view>
+        <role>misc</role>
+      </view>
+    </authorization>
+    <pipeline name="P9">
+      <materials>
+        <git url="material-for-pipeline-P9" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="sleep">
+                <arg>5</arg>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
+  
+    
+  <agents>
+    <agent hostname="missing-agent" ipaddress="10.232.3.1" uuid="missing">
+      <resources>
+        <resource>missing</resource>
+      </resources>
+    </agent>
+    <agent hostname="denied-agent" ipaddress="10.232.3.2" uuid="denied" isDisabled="true">
+      <resources>
+        <resource>denied</resource>
+      </resources>
+    </agent>
+  </agents> 
+</cruise>

@@ -47,7 +47,7 @@ module Pages
     end
 
     def select_user(user)
-      (username text: user).find(:xpath, '..').find('.selector').find("input[type='checkbox']").set(true)
+      (username text: user,exact_text: true).ancestor('.user').find('.selector').find("input[type='checkbox']").set(true)
     end
 
     def enable(user)
@@ -56,11 +56,11 @@ module Pages
     end
 
     def enabled?(user)
-      (username text: user).find(:xpath, '..').find('.enabled')['title'] == 'Yes'
+      (username text: user,exact_text: true).ancestor('.user').find('.enabled')['title'] == 'Yes'
     end
 
     def disabled?(user)
-      (username text: user).find(:xpath, '..').find('.enabled')['title'] == 'No'
+      (username text: user,exact_text: true).ancestor('.user').find('.enabled')['title'] == 'No'
     end
 
     def update_success?(message)
@@ -74,6 +74,10 @@ module Pages
       roles_panel.find("button[value='Add']").click
       update_success? "Role(s)/Admin-Privilege modified for 1 user(s) successfully."
     end
+
+    def admin?
+      (username text: scenario_state.current_user ,exact_text: true).ancestor('.user').find('.is_admin')['title'] == 'Yes'
+    end  
 
     def error_msg_displayed? message
       page.find('.error').text.eql? message

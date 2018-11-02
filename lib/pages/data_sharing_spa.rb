@@ -25,8 +25,10 @@ module Pages
     element :updated_by_info, '.updated-by'
     element :shared_data_info, '.shared-data'
 
-    def is_data_sharing_allowed
-      data_sharing_toggle.checked?
+    load_validation { has_data_sharing_toggle? }
+
+    def data_sharing_allowed?
+      page.find('.human-readable-consent').text.eql? 'Yes'
     end
 
     def toggle_data_sharing

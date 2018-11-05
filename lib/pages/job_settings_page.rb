@@ -122,11 +122,9 @@ module Pages
      end  
 
     def edit_task_with_on_cancel(build_file,target,working_directory,cancel_task_type,cancel_build_file,cancel_Target,cancel_working_Dir)
-      task_build_file.native.clear
+      
       task_build_file.set(build_file)
-      task_target.native.clear
       task_target.set(target)
-      task_working_directory.native.clear
       task_working_directory.set(working_directory)
       on_cancel_task_check_box.set(true)
       page.find('option', text: cancel_task_type, exact_text: true).click

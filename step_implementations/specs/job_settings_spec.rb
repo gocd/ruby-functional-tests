@@ -134,3 +134,26 @@ step 'EditTaskWithOnCancel <table>' do |table|
     job_settings_page.edit_task_with_on_cancel(row['task_build_file'],row['task_target'],row['task_working_directory'],row['On_Cancel_TaskType'],row['On_Cancel_Build_File'],row['On_Cancel_Target'],row['On_Cancel_Working_Dir'])
     end
 end
+
+step 'ArtifactSetAndValidate <table>' do |table|
+  table.rows.each do |row|
+    publish_artifacts_view.remove_all_artifacts()
+    job_settings_page.add_artifact.click
+    publish_artifacts_view.single_source.set(row['source'])
+    publish_artifacts_view.single_destination.set(row['destination'])
+    publish_artifacts_view.save_publish_artifacts.click
+    source_error_msg=publish_artifacts_view.verify_source_error_message()
+    dest_error_msg=publish_artifacts_view.verify_destination_error_message()  
+    save_status_msg=publish_artifacts_view.save_status.text
+    publish_artifacts_view.delete_artifact.click
+    assert_equal row['messageForSource'], source_error_msg
+    assert_equal row['messageForDestination'], dest_error_msg
+    assert_equal row['saveStatus'], save_status_msg
+  end
+end
+
+step 'SetEnvironmentVariablesForJob <table>' do |table|
+  table.rows.each do |row| 
+  parameters_page.set_parameter(row['index'],row['name'],row['value'])
+ end
+end 

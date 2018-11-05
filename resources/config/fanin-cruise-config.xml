@@ -123,18 +123,19 @@
     <pipelines group="dependency-group">       
         <pipeline name="d-up-left" template="manualStagePipelineTemplate">
             <materials>
-                <git url="$git-second" materialName="git-second" autoUpdate="true"/>
+                <git url="material-for-diamond-dependency" materialName="git-second" autoUpdate="true"/>
             </materials>
         </pipeline>
         <pipeline name="d-up-right" template="manualStagePipelineTemplate">
             <materials>
-                <git url="$git-second" materialName="git-second" autoUpdate="true"/>
+                <git url="material-for-diamond-dependency" materialName="git-second" autoUpdate="true"/>
             </materials>
         </pipeline>
         <pipeline name="d-down" template="autoStagePipelineTemplate">
             <materials>
                 <pipeline pipelineName="d-up-left" stageName="defaultStage"/>
                 <pipeline pipelineName="d-up-right" stageName="defaultStage"/>
+                <git url="material-for-diamond-dependency" materialName="git-second" autoUpdate="true"/>
             </materials>
         </pipeline>
     </pipelines>

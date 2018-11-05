@@ -15,7 +15,7 @@ PipelineDependencyDiamond
 =========================
 
 Setup of contexts
-* Basic Configuration - setup
+* Fanin Configuration - setup
 * Using pipeline "d-up-left, d-up-right, d-down" - setup
 * With "2" live agents - setup
 * Capture go state "PipelineDependencyDiamond" - setup

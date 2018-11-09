@@ -25,7 +25,11 @@ module Pages
     elements :destination, "input[name='job[artifactConfigs][][destination]']"
     elements :external_source, "input[name='job[artifactConfigs][][configuration][Source]']"
     elements :external_destination, "input[name='job[artifactConfigs][][configuration][Destination]']"
-    element :save_publish_artifacts, "button[value='SAVE']"
+    element  :save_publish_artifacts, "button[value='SAVE']"
+    element  :delete_artifact, "span.delete_artifact"
+    element  :save_status, ".flash>p"
+    element  :single_source, "input[name='job[artifactConfigs][][source]']"
+    element  :single_destination, "input[name='job[artifactConfigs][][destination]']"
 
     def fill_form(key_value)
       f = key_value.split(':', 2)
@@ -48,7 +52,30 @@ module Pages
           return false
         end  
      end
+
+     def verify_source_error_message()
+      if(page.has_css?('.form_error')) 
+      page.find('.artifact_source').ancestor('.field_with_errors').sibling('.form_error').text
+      else
+        return ""
+      end
+     end 
+
+     def verify_destination_error_message()
+      if(page.has_css?('.form_error')) 
+        page.find('.artifact_destination').ancestor('.field_with_errors').sibling('.form_error').text
+        else
+          return ""
+        end
+     end
+
+     def remove_all_artifacts()
+       if page.has_css?('.delete_artifact') 
+         page.all('.delete_artifact').each { |delete_icon|  
+           delete_icon.click
+          }
+      end
+     end
      
   end
-  
 end

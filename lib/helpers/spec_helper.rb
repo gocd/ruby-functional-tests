@@ -58,6 +58,7 @@ require 'pages/stage_settings_page'
 require 'pages/pipeline_settings_page'
 require 'pages/vsm_page'
 require 'pages/pipeline_creation_wizard'
+require 'pages/parameters_page'
 
 module Helpers
   module SpecHelper
@@ -216,5 +217,10 @@ module Helpers
     def go_state
       Context::GoState.new
     end
+    
+    def parameters_page
+      Pages::ParametersPage.new
+    end
+
   end
 end

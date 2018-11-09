@@ -33,7 +33,6 @@ module Pages
     element :task_configuration_path, "input[name='task[configuration][Path]']"
     element :task_working_directory, "input[name='task[workingDirectory]']"
     element :task_target, "input[name='task[target]']"
-    element :task_commands, "input[name='task[command]']"
     element :argument, "textarea[name='task[argListString]']"
     element :task_advance_option_command, "input[name='task[onCancelConfig][execOnCancel][command]']"
     element :advance_option_task_type, ".on_cancel_type.MB_focusable option"
@@ -42,18 +41,9 @@ module Pages
     element :tasks_list, "table.tasks_list_table"
     element :task_build_file, "input[name='task[buildFile]']"
     element :task_commands, "input[name='task[command]']"
-    element :argument, "textarea[name='task[argListString]']"
-    element :task_advance_option_command, "input[name='task[onCancelConfig][execOnCancel][command]']"
-    element :advance_option_task_type, ".on_cancel_type.MB_focusable option"
-    element :on_cancel_task_check_box, ".has_cancel_task.MB_focusable"
-    element :delete_task_button, ".primary.submit.MB_focusable"
-  
-    load_validation { has_add_new_task? }
-
+    element :task_cancel, ".close_modalbox_control"
    
-
-   load_validation { has_add_new_task? }
-
+    load_validation { has_add_new_task? }
    
     def add_new_task_of_type(type)
       add_new_task.click
@@ -65,7 +55,6 @@ module Pages
       task_target.set(target)
       task_working_directory.set(working_directory)
     end
-
 
     def configure_more_task(command,arglist,working_directory,run_conditions)
       task_commands.set(command)
@@ -128,59 +117,25 @@ module Pages
       general_settings_page.task_save.click
     end
 
-    def get_cell_value_from_table(row_count,header_name,column_name)
-      case column_name
-        when "Task Type"
-         return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(2)").text.eql?(header_name)
-        when "Run If Conditions"
-         return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(3)").text.eql?(header_name)
-        when "Properties"
-          return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(4)").text.gsub("\n", ' ').eql?(header_name)
-        when "On Cancel"
-         return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(5)").text.eql?(header_name)
-       end
-    end   
-    def configure_more_task(command,arglist,working_directory,run_conditions)
-      task_commands.set(command)
-      arglist.split(',').each {|arg| argument.set(arg)}
+    def click_on_task_by_index(row_count)
+      page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(2) a").click
+     end  
+
+    def edit_task_with_on_cancel(build_file,target,working_directory,cancel_task_type,cancel_build_file,cancel_Target,cancel_working_Dir)
+      
+      task_build_file.set(build_file)
+      task_target.set(target)
       task_working_directory.set(working_directory)
+      on_cancel_task_check_box.set(true)
+      page.find('option', text: cancel_task_type, exact_text: true).click
+      page.find("input[name='task[onCancelConfig][#{cancel_task_type.downcase}OnCancel][buildFile]']").native.clear
+      page.find("input[name='task[onCancelConfig][#{cancel_task_type.downcase}OnCancel][buildFile]']").set(cancel_build_file)
+      page.find("input[name='task[onCancelConfig][#{cancel_task_type.downcase}OnCancel][target]']").native.clear
+      page.find("input[name='task[onCancelConfig][#{cancel_task_type.downcase}OnCancel][target]']").set(cancel_Target)
+      page.find("input[name='task[onCancelConfig][#{cancel_task_type.downcase}OnCancel][workingDirectory]']").native.clear
+      page.find("input[name='task[onCancelConfig][#{cancel_task_type.downcase}OnCancel][workingDirectory]']").set(cancel_working_Dir)
+      general_settings_page.task_save.click
+    end  
 
-      run_conditions.split(',').each { |run_condition|
-         page.find("input[name='task[runIfConfigs#{run_condition}]']").set(true)
-        }
-    end
-
-    def  configure_on_cancel_more_task(task,command)
-      on_cancel_task_check_box.click
-      page.find('option', text: task).click
-      task_advance_option_command.set(command)
-    end
-  
-    def get_cell_value_from_table(row_count,header_name,column_name)
-       case column_name
-         when "Task Type"
-          return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(2)").text.eql?(header_name)
-         when "Run If Conditions"
-          return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(3)").text.eql?(header_name)
-         when "Properties"
-          return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(4)").text.gsub("\n", ' ').eql?(header_name)
-         when "On Cancel"
-          return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(5)").text.eql?(header_name)
-        end
-     end   
-  
-   def delete_task (task_no)
-    page.find("tr:nth-child(#{task_no.to_i}) td span.icon_remove").click
-    delete_task_button.click
-   end 
-
-   def verify_task_with_command_is_not_exists(command)
-     page.has_no_css?('li.task_property.command span.value', text:command.split(':').last.strip)
-   end
-
-   def verify_task_with_command_is_not_exist_in_config(task,command,job,stage,pipeline)
-     basic_configuration.get_config_from_server.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline)}']/stage[@name='#{stage}']/jobs/job[@name='#{job}']/tasks/#{task}[@command='#{command}']").count==0 
-   end
-   
   end
 end

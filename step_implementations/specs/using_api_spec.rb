@@ -87,6 +87,38 @@ step 'Verify <label_count> instances of <pipeline_name> <stage_name> <job_name> 
     end
 end
 
+step 'Attempt to pause pipline <pipeline_name> with cause <pause_cause> and should return with http status <response_code>' do |pipeline_name, pause_cause, response_code|
+    pipeline_name= scenario_state.actual_pipeline_name(pipeline_name) || pipeline_name
+    assert_true (response_code.to_i == pause_pipeline_using_api(pipeline_name,pause_cause))
+end
+
+step 'Verify pipeline is paused with reason <pause_cause> by <paused_by> - Using API' do |pause_cause, user|
+    begin
+        response = RestClient.get(http_url("/api/pipelines/#{scenario_state.self_pipeline}/status"),basic_configuration.header)
+        assert_true (JSON.parse(response.body)['pausedCause'] == pause_cause)
+        assert_true (JSON.parse(response.body)['pausedBy'] == user)
+      rescue RestClient::ExceptionWithResponse => err
+        p "Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+        return err.response.code
+      end
+end
+
+step 'Verify pipeline is unpaused - Using API' do ||
+    begin
+        response = RestClient.get(http_url("/api/pipelines/#{scenario_state.self_pipeline}/status"),basic_configuration.header)
+        assert_true(JSON.parse(response.body)['paused'] == false)
+    rescue RestClient::ExceptionWithResponse => err
+        p "Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+        return err.response.code
+    end
+end
+
+step 'Attempt to unpause pipeline <pipeline_name> and should return with http status <response_code>' do |pipeline_name, repsonse_code|
+    pipeline_name= scenario_state.actual_pipeline_name(pipeline_name) || pipeline_name
+    assert_true (repsonse_code.to_i == unpause_pipeline_using_api(pipeline_name))
+end
+
+
 def hit_pipeline_history_API_and_verify_response(pipeline_name, stage_name, status, apiEndPoint, pipeline_counter, count, offset, current_pageSize)
     response = RestClient.get http_url(apiEndPoint), basic_configuration.header
     assert_true (JSON.parse(response.body)['pagination']['offset'] == offset)
@@ -136,4 +168,27 @@ def hit_job_history_API_and_verify_response(pipeline_name, stage_name, status, a
     p "Pipeline Status call failed with response code #{err.response.code} and the response body - #{err.response.body}"
 end 
 
+def pause_pipeline_using_api(pipeline_name , pause_cause)
+    tmp = {
+        :"pause_cause" => pause_cause
+    }
+      begin
+        response = RestClient.post http_url("/api/pipelines/#{pipeline_name}/pause"),JSON.generate(tmp),
+                                    {content_type: :json,accept: 'application/vnd.go.cd.v1+json',X_GoCD_Confirm: 'true'}.merge(basic_configuration.header)
+      return response.code
+      rescue RestClient::ExceptionWithResponse => err
+      p "Pause Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+      return err.response.code
+      end
+end
 
+def unpause_pipeline_using_api(pipeline_name)
+    begin
+        response = RestClient.post http_url("/api/pipelines/#{pipeline_name}/unpause"),{},
+                                    { accept: 'application/vnd.go.cd.v1+json',X_GoCD_Confirm: 'true'}.merge(basic_configuration.header)
+        return response.code
+    rescue RestClient::ExceptionWithResponse => err
+        p "Unpause Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+        return err.response.code
+    end
+  end

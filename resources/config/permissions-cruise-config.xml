@@ -349,8 +349,27 @@
       </stage>
     </pipeline>
   </pipelines>
-  
-    
+  <pipelines group="group1">
+	 <authorization>
+       <view>
+           <user>group1View</user>
+       </view>
+	 </authorization>
+	 <pipeline name="pipeline1">
+      <materials>
+        <git url="material-for-pipeline-pipeline1" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="first">
+        <jobs>
+            <job name="defaultJob">
+                  <tasks>
+                      <exec command="ls"/>
+                  </tasks>
+            </job>
+          </jobs>
+      </stage>
+	  </pipeline>
+  </pipelines>   
   <agents>
     <agent hostname="missing-agent" ipaddress="10.232.3.1" uuid="missing">
       <resources>

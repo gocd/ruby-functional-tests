@@ -14,7 +14,7 @@
 # limitations under the License.
 ##########################################################################
 
-require 'json'
+
 step "On User Summary page" do |count|
   user_summary_page.load
 end

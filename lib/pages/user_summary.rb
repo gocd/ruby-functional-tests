@@ -32,7 +32,7 @@ module Pages
     element :roles_panel, "#roles_panel"
     element :admin, "span", text:"Go System Administrator"
     element :add_role, ".apply_resources"
-    element :meesage_after_adding_role ,"#message_pane"
+    element :message_after_adding_role ,"#message_pane"
     element :add_new_role, "input[name='new_role']"
 
 
@@ -101,7 +101,7 @@ module Pages
     end
 
     def verify_message_after_applying_roles()
-      meesage_after_adding_role.text
+      message_after_adding_role.text
     end
 
     def get_user_roles(user)

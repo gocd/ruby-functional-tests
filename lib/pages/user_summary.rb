@@ -31,6 +31,9 @@ module Pages
     element :btn_role, "button[value='Roles']"
     element :roles_panel, "#roles_panel"
     element :admin, "span", text:"Go System Administrator"
+    element :add_role, ".apply_resources"
+    element :message_after_adding_role ,"#message_pane"
+    element :add_new_role, "input[name='new_role']"
 
 
     load_validation { has_add_user? }
@@ -82,5 +85,36 @@ module Pages
     def error_msg_displayed? message
       page.find('.error').text.eql? message
     end
+   
+    def select_role(role)
+      page.find('.selectors .tristate', text: role, exact_text: true).click
+    end 
+
+    def add_roles_to_users(roles,users)
+      users.split(',').each { |user| select_user(user)
+      }
+      btn_role.click
+      roles.split(',').each{
+        |role| select_role(role)
+      }
+      add_role.click
+    end
+
+    def verify_message_after_applying_roles()
+      message_after_adding_role.text
+    end
+
+    def get_user_roles(user)
+      (username text: user,exact_text: true).ancestor('.user').find('.selector').sibling('.roles').find('span').text  
+    end
+    
+    def add_new_roles_to_users(new_role,users)
+      users.split(',').each { |user| select_user(user)
+      }
+      btn_role.click
+      add_new_role.set(new_role)
+      add_role.click
+    end
+  
   end
 end

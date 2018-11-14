@@ -14,6 +14,7 @@
 # limitations under the License.
 ##########################################################################
 
+require 'json'
 step "On User Summary page" do |count|
   user_summary_page.load
 end
@@ -55,4 +56,33 @@ end
 
 step "Verify error message <msg> is displayed" do |msg|
   assert_true user_summary_page.error_msg_displayed? msg
+end
+
+step "Add user <user> - Using user API" do |user|
+  RestClient.post http_url('/api/users'), {"login_name": user}.to_json,
+  {content_type: :json, accept: 'application/vnd.go.cd.v2+json'}.merge(basic_configuration.header)
+end
+
+step "Add Roles as <roles> to users <users>" do |roles,users|
+  user_summary_page.add_roles_to_users(roles,users)
+end
+
+step "Verify message displayed as <message> after applying roles to users." do |message|
+  assert_true user_summary_page.verify_message_after_applying_roles().start_with? message
+end
+
+step "Verify users <users> are assigned role <roles>" do |users,roles|
+  users.split(',').each{ |user| 
+      assert_true user_summary_page.get_user_roles(user).include?roles
+  }
+end
+
+step "Add new role as <new_role> to users <users>" do |new_role,users|
+  user_summary_page.add_new_roles_to_users(new_role,users)
+end
+
+step "Verify users <users> does not have the role <roles>" do |users,roles|
+  users.split(',').each{  |user|
+    assert_false user_summary_page.get_user_roles(user).include?roles
+ }
 end

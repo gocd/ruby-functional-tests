@@ -13,8 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##########################################################################
-
-require 'json'
 require_relative '../../lib/helpers/go_url_helper.rb'
 
 ARTIFACT_STORE_API_VERSION = 'application/vnd.go.cd.v1+json'.freeze

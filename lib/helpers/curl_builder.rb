@@ -13,8 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##########################################################################
-require 'uri'
-
 module CurlBuilder
   @generated_curls = ["#!/usr/bin/env bash"]
 

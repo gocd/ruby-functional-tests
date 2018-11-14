@@ -13,11 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##########################################################################
-
-require 'json'
-require 'json_builder'
-require 'deep_merge'
-
 module Context
   class Configuration
 

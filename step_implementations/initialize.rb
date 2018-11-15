@@ -20,6 +20,13 @@ require 'owasp_zap'
 require 'pry'
 require 'test/unit'
 require 'ostruct'
+require 'singleton'
+require 'ladle'
+require 'open3'
+require 'json'
+require 'json_builder'
+require 'deep_merge'
+require 'uri'
 Bundler.setup(:default)
 Bundler.require
 

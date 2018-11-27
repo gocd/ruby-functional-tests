@@ -117,5 +117,13 @@ module Context
       @scenario_store.get "current_label"
     end
 
+    def set_job_completed_time current_job_url, job_completed_time
+      @scenario_store.put current_job_url, job_completed_time
+    end  
+
+    def get_job_completed_time(current_job_url)
+      @scenario_store.get current_job_url
+    end
+
   end
 end

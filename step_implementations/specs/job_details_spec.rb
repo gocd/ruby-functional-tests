@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##########################################################################
-
 step 'On Job details page of pipeline <pipeline_name> counter <counter> stage <stage_name> counter <counter> job <job_name>' do |pipeline_name, pipeline_counter, stage_name, stage_counter, job_name|
   job_details_page.load(pipeline_name: scenario_state.actual_pipeline_name(pipeline_name), pipeline_counter: pipeline_counter, stage_name: stage_name, stage_counter: stage_counter, job_name: job_name)
 end
@@ -29,3 +28,17 @@ end
 step 'Verify console log does not contains message <message>' do |message|
   assert_false job_details_page.console_content.include? message
 end
+
+step 'Store the job completed time stamp' do ||
+  job_url=job_details_page.current_path.match(/\/detail.*/)[0].downcase
+  scenario_state.set_job_completed_time job_url , job_details_page.job_completed_time.text
+end   
+
+step 'Verify the job completed time stamp for job <job> of stage <stage> of pipeline <pipeline> with label <label> is Different for stage counter <counter1> and stage counter <counter2>' do |job, stage, pipeline,label, counter1, counter2|
+  rerun1= "/detail/#{scenario_state.actual_pipeline_name(pipeline)}/#{label}/#{stage}/#{counter1}/#{job}"
+  rerun2= "/detail/#{scenario_state.actual_pipeline_name(pipeline)}/#{label}/#{stage}/#{counter2}/#{job}"
+  stagererun1=scenario_state.get_job_completed_time rerun1.downcase
+  stagererun2=scenario_state.get_job_completed_time rerun2.downcase
+  assert_not_equal stagererun1 , stagererun2
+end  
+

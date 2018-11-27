@@ -20,6 +20,7 @@ module Pages
 
     element :tabs, '.sub_tabs_container'
     element :console_output, '.buildoutput_pre'
+    element :job_completed_time, 'span#build_completed_date'
 
 
     load_validation { has_add_new_task? }

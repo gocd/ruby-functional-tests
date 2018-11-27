@@ -247,6 +247,22 @@
                 </jobs>
             </stage>
         </pipeline>
+         <pipeline name="pipeline-with-failing-stage" lockBehavior="lockOnFailure">
+            <materials>
+                <git url="material-for-pipeline-with-failing-stage" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                <job name="defaultJob">
+                    <tasks>
+                    <exec command="executable-that-will-not-be-found"/>
+                    </tasks>
+                </job>
+                </jobs>
+            </stage>
+        </pipeline>
+        
     </pipelines>
     <pipelines group="dependency-group">
         <pipeline name="dependency-group-pipeline-1">

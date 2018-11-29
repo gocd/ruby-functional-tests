@@ -79,7 +79,7 @@ module Pages
     end
 
     def admin?
-      (username text: scenario_state.current_user ,exact_text: true).ancestor('.user').find('.is_admin')['title'] == 'Yes'
+      (username text: scenario_state.retrieve('current_user') ,exact_text: true).ancestor('.user').find('.is_admin')['title'] == 'Yes'
     end  
 
     def error_msg_displayed? message

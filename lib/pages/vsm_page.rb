@@ -35,7 +35,7 @@ module Pages
     end
 
     def select_pipeline_on_VSM(pipeline)
-      pipeline_name = scenario_state.actual_pipeline_name(pipeline)
+      pipeline_name = scenario_state.retrieve(pipeline)
       page.find("##{pipeline_name}").click
     end
 

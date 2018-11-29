@@ -23,7 +23,7 @@ step 'Using pipeline <pipeline> - setup' do |pipelines|
 end
 
 step 'Using environment <environment> - setup' do |environments|
-  environments.split(',').each { |env| scenario_state.add_environment(env, env) }
+  environments.split(',').each { |env| scenario_state.store(env, env) }
   basic_configuration.remove_environments_except environments.split(',').map(&:strip)
 end
 

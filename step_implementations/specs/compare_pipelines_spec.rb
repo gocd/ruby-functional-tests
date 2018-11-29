@@ -74,7 +74,7 @@ step 'Verify that there are <count> materials' do |count|
 	assert_true compare_pipeline_page.number_of_materials? count.to_i
 end
 step 'On Pipeline Compare page from <from_pipeline> build to <to_pipeline>' do |from_pipeline,to_pipeline|
-  compare_pipeline_page.load(pipeline_name: scenario_state.actual_pipeline_name(scenario_state.current_pipeline), from_pipeline: from_pipeline, to_pipeline: to_pipeline)
+  compare_pipeline_page.load(pipeline_name: scenario_state.retrieve(scenario_state.current_pipeline), from_pipeline: from_pipeline, to_pipeline: to_pipeline)
 end
  step 'Click to browse the timeline on to suggestion box' do ||
   compare_pipeline_page.click_on_To_box_for_browse_timeline

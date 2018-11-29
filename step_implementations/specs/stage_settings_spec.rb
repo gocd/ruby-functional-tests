@@ -15,7 +15,7 @@
 ##########################################################################
 
 step 'On Stage settings page of pipeline <pipeline_name> stage <stage_name>' do |pipeline_name, stage_name|
-    stage_settings_page.load(pipeline_name: scenario_state.actual_pipeline_name(pipeline_name), stage_name: stage_name)
+    stage_settings_page.load(pipeline_name: scenario_state.retrieve(pipeline_name), stage_name: stage_name)
   end
   
   step 'Open <tab_id> tab - On Stage settings page' do |tab_id|

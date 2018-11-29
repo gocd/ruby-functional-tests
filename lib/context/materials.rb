@@ -17,46 +17,45 @@ module Context
   class Materials
     include FileUtils
 
+    attr_reader :material_type
+
     def has_material_config?(pipeline_name)
       !material_config(pipeline_name).empty?
     end
 
     def material_config(pipeline)
       current_configuration = basic_configuration.get_config_from_server
-      current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline)}']/materials/#{@material_type}/@url")
+      current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.retrieve(pipeline)}']/materials/#{@material_type}/@url")
     end
   end
 
   class GitMaterials < Materials
     attr_reader :path
-    attr_reader :material_type
 
-    def initialize(path = "#{GoConstants::TEMP_DIR}/gitmaterial-#{Time.now.to_i}", type='git')
+    def initialize(path = "#{GoConstants::TEMP_DIR}/gitmaterial-#{Time.now.to_i}", type = 'git')
       @path = path
       @material_type = type
     end
 
     def setup_material_for(pipeline)
-      begin
-        material_url = material_config(pipeline).first.value
-        if !scenario_state.retrieve(material_url).nil?
-          material_path = scenario_state.retrieve(material_url)
-        else
-          rm_rf(@path)
-          mkdir_p(@path)
-          cd(@path) do
-            Open3.popen3('git init sample.git') do |_stdin, _stdout, stderr, wait_thr|
-              raise "Initialization of git Material Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
-            end
+      material_url = material_config(pipeline).first.value
+      if !scenario_state.retrieve(material_url).nil?
+        material_path = scenario_state.retrieve(material_url)
+      else
+        rm_rf(@path)
+        mkdir_p(@path)
+        cd(@path) do
+          Open3.popen3('git init sample.git') do |_stdin, _stdout, stderr, wait_thr|
+            raise "Initialization of git Material Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
           end
-          initial_commit
-          material_path = "#{@path}/sample.git"
-          scenario_state.store(material_url , material_path)
         end
-        basic_configuration.set_material_path_for_pipeline('git', pipeline, material_path)
-      rescue StandardError => e
-        raise "The Pipeline #{pipeline} setup for GIT material failed. #{e.message}"
+        initial_commit
+        material_path = "#{@path}/sample.git"
+        scenario_state.store(material_url, material_path)
       end
+      basic_configuration.set_material_path_for_pipeline('git', pipeline, material_path)
+    rescue StandardError => e
+      raise "The Pipeline #{pipeline} setup for GIT material failed. #{e.message}"
     end
 
     def initial_commit
@@ -69,7 +68,7 @@ module Context
     end
 
     def new_commit(filename, commit, author = 'gouser')
-      cd("#{@path}") do
+      cd(@path.to_s) do
         sh "touch #{filename}"
         Open3.popen3(%(git add . && git commit --author="#{author} <user@go>" -m "#{commit}")) do |_stdin, _stdout, stderr, wait_thr|
           raise "Failed to commit to git repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
@@ -78,53 +77,48 @@ module Context
     end
 
     def latest_revision
-      cd("#{@path}") do
+      cd(@path.to_s) do
         stdout, _stdeerr, _status = Open3.capture3(%(git rev-parse HEAD))
         return stdout.delete("\n")
       end
     end
-
-
   end
 
   class SVNMaterials < Materials
     attr_reader :repository_directory
     attr_reader :working_copy
     attr_reader :repo_uuid
-    attr_reader :material_type
 
     def initialize(repo_dir = "#{GoConstants::TEMP_DIR}/svn_repo_dir-#{Time.now.to_i}",
-                  working_copy = "#{GoConstants::TEMP_DIR}/svn_wrk_copy-#{Time.now.to_i}",
-                  type = 'svn')
+                   working_copy = "#{GoConstants::TEMP_DIR}/svn_wrk_copy-#{Time.now.to_i}",
+                   type = 'svn')
       @repository_directory = repo_dir
       @working_copy = working_copy
       @material_type = type
     end
 
     def setup_material_for(pipeline)
-      begin
-        material_url = material_config(pipeline).first.value
-        if !scenario_state.retrieve(material_url).nil?
-          material_path = scenario_state.retrieve(material_url)
-        else
-          rm_rf(@repository_directory)
-          mkdir_p(@repository_directory)
-          cp_r('test-repos/svn_repos/end2end/', @repository_directory)
-          cd(@repository_directory) do
-            Open3.popen3("svn checkout file://#{@repository_directory}/end2end #{@working_copy}") do |_stdin, _stdout, stderr, wait_thr|
-              raise "SVN Material Checkout to working directory Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
-            end
-            stdout, _stdeerr, _status = Open3.capture3(%(svnlook uuid #{@repository_directory}))
-            @repo_uuid = stdout.delete("\n")
+      material_url = material_config(pipeline).first.value
+      if !scenario_state.retrieve(material_url).nil?
+        material_path = scenario_state.retrieve(material_url)
+      else
+        rm_rf(@repository_directory)
+        mkdir_p(@repository_directory)
+        cp_r('test-repos/svn_repos/end2end/', @repository_directory)
+        cd(@repository_directory) do
+          Open3.popen3("svn checkout file://#{@repository_directory}/end2end #{@working_copy}") do |_stdin, _stdout, stderr, wait_thr|
+            raise "SVN Material Checkout to working directory Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
           end
-          initial_commit
-          material_path = "file://#{@repository_directory}/end2end"
-          scenario_state.store(material_url, material_path)
+          stdout, _stdeerr, _status = Open3.capture3(%(svnlook uuid #{@repository_directory}))
+          @repo_uuid = stdout.delete("\n")
         end
-        basic_configuration.set_material_path_for_pipeline('svn', pipeline, material_path)
-      rescue StandardError => e
-        raise "The Pipeline #{pipeline} setup for SVN material failed. #{e.message}"
+        initial_commit
+        material_path = "file://#{@repository_directory}/end2end"
+        scenario_state.store(material_url, material_path)
       end
+      basic_configuration.set_material_path_for_pipeline('svn', pipeline, material_path)
+    rescue StandardError => e
+      raise "The Pipeline #{pipeline} setup for SVN material failed. #{e.message}"
     end
 
     def initial_commit
@@ -137,7 +131,7 @@ module Context
     end
 
     def new_commit(filename, commit, author = 'gouser')
-      cd("#{@working_copy}") do
+      cd(@working_copy.to_s) do
         sh "touch #{filename}"
         Open3.popen3(%(svn add #{filename} && svn ci --non-interactive --username "#{author} <user@go>" -m "#{commit}")) do |_stdin, _stdout, stderr, wait_thr|
           raise "Failed to commit to SVN repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
@@ -146,13 +140,74 @@ module Context
     end
 
     def latest_revision
-      cd("#{@working_copy}") do
+      cd(@working_copy.to_s) do
         stdout, _stdeerr, _status = Open3.capture3(%(svn info -r HEAD))
         return stdout.delete("\n")
       end
     end
+  end
 
+  class TFSMaterials < Materials
+    attr_reader :repository_directory
+    attr_reader :working_copy
+    attr_reader :repo_uuid
 
+    def initialize(repo_dir = "#{GoConstants::TEMP_DIR}/svn_repo_dir-#{Time.now.to_i}",
+                   working_copy = "#{GoConstants::TEMP_DIR}/svn_wrk_copy-#{Time.now.to_i}",
+                   type = 'svn')
+      @repository_directory = repo_dir
+      @working_copy = working_copy
+      @material_type = type
+    end
+
+    def setup_material_for(pipeline)
+      material_url = material_config(pipeline).first.value
+      if !scenario_state.retrieve(material_url).nil?
+        material_path = scenario_state.retrieve(material_url)
+      else
+        rm_rf(@repository_directory)
+        mkdir_p(@repository_directory)
+        cp_r('test-repos/svn_repos/end2end/', @repository_directory)
+        cd(@repository_directory) do
+          Open3.popen3("svn checkout file://#{@repository_directory}/end2end #{@working_copy}") do |_stdin, _stdout, stderr, wait_thr|
+            raise "SVN Material Checkout to working directory Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
+          end
+          stdout, _stdeerr, _status = Open3.capture3(%(svnlook uuid #{@repository_directory}))
+          @repo_uuid = stdout.delete("\n")
+        end
+        initial_commit
+        material_path = "file://#{@repository_directory}/end2end"
+        scenario_state.store(material_url, material_path)
+      end
+      basic_configuration.set_material_path_for_pipeline('svn', pipeline, material_path)
+    rescue StandardError => e
+      raise "The Pipeline #{pipeline} setup for SVN material failed. #{e.message}"
+    end
+
+    def initial_commit
+      cp_r 'resources/Rakefile', "#{@working_copy}/"
+      cd(@working_copy) do
+        Open3.popen3(%(svn add Rakefile && svn ci --non-interactive --username gouser -m "Commit the test rakefile")) do |_stdin, _stdout, stderr, wait_thr|
+          raise "Failed to commit to SVN repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
+        end
+      end
+    end
+
+    def new_commit(filename, commit, author = 'gouser')
+      cd(@working_copy.to_s) do
+        sh "touch #{filename}"
+        Open3.popen3(%(svn add #{filename} && svn ci --non-interactive --username "#{author} <user@go>" -m "#{commit}")) do |_stdin, _stdout, stderr, wait_thr|
+          raise "Failed to commit to SVN repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
+        end
+      end
+    end
+
+    def latest_revision
+      cd(@working_copy.to_s) do
+        stdout, _stdeerr, _status = Open3.capture3(%(svn info -r HEAD))
+        return stdout.delete("\n")
+      end
+    end
   end
 
   class ConfigRepoMaterial < Materials
@@ -173,14 +228,14 @@ module Context
       end
       create_pipeline("#{@path}/config_repo.git", upstream)
       basic_configuration.set_config_repo("#{@path}/config_repo.git", repo)
-      scenario_state.add_pipeline pipeline, @pipeline_name
+      scenario_state.store pipeline, @pipeline_name
       scenario_state.add_configrepo pipeline, self
     end
 
     def create_pipeline(material, upstream)
       pipeline = Pipeline.new(group: 'configrepo', name: @pipeline_name.to_s) do |p|
         p << GitMaterial.new(url: material.to_s, name: 'gitmaterial')
-        p << DependencyMaterial.new(pipeline: scenario_state.actual_pipeline_name(upstream).to_s) unless upstream.empty?
+        p << DependencyMaterial.new(pipeline: scenario_state.retrieve(upstream).to_s) unless upstream.empty?
         p << Stage.new(name: 'defaultStage') do |s|
           s << Job.new(name: 'defaultJob') do |j|
             j << ExecTask.new(command: 'sleep', arguments: ['10'])
@@ -199,7 +254,7 @@ module Context
     def update_pipeline(upstream)
       pipeline = Pipeline.new(group: 'configrepo', name: @pipeline_name.to_s) do |p|
         p << GitMaterial.new(url: "#{@path}/config_repo.git", name: 'gitmaterial')
-        p << DependencyMaterial.new(pipeline: scenario_state.actual_pipeline_name(upstream).to_s)
+        p << DependencyMaterial.new(pipeline: scenario_state.retrieve(upstream).to_s)
         p << Stage.new(name: 'defaultStage') do |s|
           s << Job.new(name: 'defaultJob') do |j|
             j << ExecTask.new(command: 'ls')
@@ -266,7 +321,7 @@ module Context
       end
       create_environment("#{@path}/config_repo.git")
       basic_configuration.set_config_repo("#{@path}/config_repo.git", repo)
-      scenario_state.add_environment environment, @environment_name
+      scenario_state.store environment, @environment_name
       scenario_state.add_configrepo environment, self
     end
   end

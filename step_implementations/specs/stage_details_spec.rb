@@ -15,7 +15,7 @@
 ##########################################################################
 
 step 'On stage details page <tab> tab for <pipeline_name> label <label> stage name <stage_name> counter <counter>' do |tab,pipeline_name, label, stage_name, counter|
-  stage_details_page.load(pipeline_name: scenario_state.actual_pipeline_name(pipeline_name), label: label, stage_name: stage_name, counter: counter, tab_name: tab)
+  stage_details_page.load(pipeline_name: scenario_state.retrieve(pipeline_name), label: label, stage_name: stage_name, counter: counter, tab_name: tab)
 end
 
 step 'Looking at material of type <material_type> named <material_name>' do |material_type, material_name|
@@ -34,7 +34,7 @@ step 'Verify modification <modification_number> has revision <revision> - Alread
     revision_arr = revision.split(/\//)
     upstream_pipeline = revision_arr[0]
     revision_arr.delete(upstream_pipeline)
-    actual_revision = [scenario_state.actual_pipeline_name(upstream_pipeline), revision_arr.join('/')].join('/')
+    actual_revision = [scenario_state.retrieve(upstream_pipeline), revision_arr.join('/')].join('/')
   end
   assert_true stage_details_page.verify_revision_for_modification(modification_number, actual_revision)
 end

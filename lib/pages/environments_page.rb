@@ -19,15 +19,15 @@ module Pages
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/environments"
 
     def wait_till_environment_showsup(environment)
-      wait_till_event_occurs_or_bomb 300, "Environment #{scenario_state.get_environment(environment)} failed to showup on environments page" do
+      wait_till_event_occurs_or_bomb 300, "Environment #{scenario_state.retrieve(environment)} failed to showup on environments page" do
         reload_page
-        break if page.has_css?("#environment_entity_#{scenario_state.get_environment(environment)}")
+        break if page.has_css?("#environment_entity_#{scenario_state.retrieve(environment)}")
       end
     end
 
     def show_environment(environment)
       reload_page
-      page.find("#environment_entity_#{scenario_state.get_environment(environment)}").click
+      page.find("#environment_entity_#{scenario_state.retrieve(environment)}").click
     end
 
   end

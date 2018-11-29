@@ -197,11 +197,11 @@ module Pages
     end
 
     def visible?(pipeline = scenario_state.self_pipeline)
-      has_pipeline_name? text: (scenario_state.actual_pipeline_name(pipeline) || pipeline)
+      has_pipeline_name? text: (scenario_state.retrieve(pipeline) || pipeline)
     end
 
     def wait_till_pipeline_showsup(pipeline, timeout = 120)
-      wait_till_event_occurs_or_bomb timeout, "Pipeline #{scenario_state.actual_pipeline_name(pipeline)} failed to showup on dashboard" do
+      wait_till_event_occurs_or_bomb timeout, "Pipeline #{scenario_state.retrieve(pipeline)} failed to showup on dashboard" do
         reload_page
         break if visible?(pipeline)
       end

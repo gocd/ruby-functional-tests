@@ -25,7 +25,7 @@ step 'Add environment <env> to any <count> Idle agents - Using Agents API' do |_
                                       { accept: GoConstants::AGENTS_API_VERSION, content_type: :json }
                      .merge(basic_configuration.header)
         rescue RestClient::ExceptionWithResponse => err
-          scenario_state.add_api_response err.response
+          scenario_state.store('api_response', err.response)
           raise "Patch agents info call failed with response code #{err.response.code} and the response body - #{err.response.body}"
     end
   end
@@ -68,7 +68,7 @@ def all_agents_info
                             { accept: GoConstants::AGENTS_API_VERSION }.merge(basic_configuration.header)
   response
 rescue RestClient::ExceptionWithResponse => err
-  scenario_state.add_api_response err.response
+  scenario_state.store('api_response', err.response)
   raise "Get all agents info call failed with response code #{err.response.code} and the response body - #{err.response.body}"
 end
 

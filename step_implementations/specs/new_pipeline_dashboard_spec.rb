@@ -34,7 +34,7 @@ end
 
 step 'Looking at pipeline <pipeline> - On Swift Dashboard page' do |pipeline|
   new_pipeline_dashboard_page.load(autoRefresh: @auto_refresh)
-  scenario_state.set_current_pipeline pipeline
+  scenario_state.store 'current_pipeline', pipeline
 end
 
 step 'Turn off AutoRefresh - On Swift Dashboard page' do |_pipeline|
@@ -275,7 +275,7 @@ end
 
 step 'PipelineVisibility <table>' do |table|
   table.rows.each do |row|
-    scenario_state.set_current_pipeline(row['Pipeline Name'])
+    scenario_state.store('current_pipeline', row['Pipeline Name'])
     p "Executing validation for pipeline #{row['Pipeline Name']}"
     (1..table.columns.length - 1).each do |i| # this is assuming the first column is reserved for pipeline name
       method_name = table.columns[i].tr(' ', '_').downcase

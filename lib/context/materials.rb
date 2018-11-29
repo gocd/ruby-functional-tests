@@ -229,7 +229,7 @@ module Context
       create_pipeline("#{@path}/config_repo.git", upstream)
       basic_configuration.set_config_repo("#{@path}/config_repo.git", repo)
       scenario_state.store pipeline, @pipeline_name
-      scenario_state.add_configrepo pipeline, self
+      scenario_state.store("#{pipeline}-configrepo", self)
     end
 
     def create_pipeline(material, upstream)
@@ -322,7 +322,7 @@ module Context
       create_environment("#{@path}/config_repo.git")
       basic_configuration.set_config_repo("#{@path}/config_repo.git", repo)
       scenario_state.store environment, @environment_name
-      scenario_state.add_configrepo environment, self
+      scenario_state.store("#{environment}-configrepo", self)
     end
   end
 end

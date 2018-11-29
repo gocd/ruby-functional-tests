@@ -18,7 +18,7 @@ require_relative '../../lib/helpers/go_url_helper.rb'
 
 step "Verify pipeline <pipeline> is locked and not schedulable - Using api" do |pipeline|
   begin
-    response = RestClient.get http_url("/api/pipelines/#{scenario_state.retrieve(pipeline)}/status"), basic_configuration.header
+    response = RestClient.get http_url("/api/pipelines/#{scenario_state.get(pipeline)}/status"), basic_configuration.header
     assert_true JSON.parse(response.body)['locked']
     assert_false JSON.parse(response.body)['schedulable']
   rescue RestClient::ExceptionWithResponse => err
@@ -28,7 +28,7 @@ end
 
 step "Verify pipeline <pipeline> is not locked and is schedulable - Using api" do |pipeline|
   begin
-    response = RestClient.get http_url("/api/pipelines/#{scenario_state.retrieve(pipeline)}/status"), basic_configuration.header
+    response = RestClient.get http_url("/api/pipelines/#{scenario_state.get(pipeline)}/status"), basic_configuration.header
     assert_false JSON.parse(response.body)['locked']
     assert_true JSON.parse(response.body)['schedulable']
   rescue RestClient::ExceptionWithResponse => err
@@ -39,7 +39,7 @@ end
 
 step "Trigger stage <stage> run <run>" do |stage, run|
   begin
-    response = RestClient.post http_url("/run/#{scenario_state.retrieve(scenario_state.current_pipeline)}/#{run}/#{stage}"), "",basic_configuration.header
+    response = RestClient.post http_url("/run/#{scenario_state.get(scenario_state.get('current_pipeline'))}/#{run}/#{stage}"), "",basic_configuration.header
     assert_true response.code == 200
   rescue RestClient::ExceptionWithResponse => err
     p "Trigger stage call failed with response code #{err.response.code} and the response body - #{err.response.body}"
@@ -49,7 +49,7 @@ end
 
 step "Cancel stage <stage> of pipeline <pipeline>" do |stage, pipeline|
   begin
-    response = RestClient.post http_url("/api/stages/#{scenario_state.retrieve(pipeline)}/#{stage}/cancel"),"", basic_configuration.header
+    response = RestClient.post http_url("/api/stages/#{scenario_state.get(pipeline)}/#{stage}/cancel"),"", basic_configuration.header
     assert_true response.code == 200
   rescue RestClient::ExceptionWithResponse => err
     p "Cancel stage call failed with response code #{err.response.code} and the response body - #{err.response.body}"

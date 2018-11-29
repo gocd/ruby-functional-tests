@@ -15,7 +15,7 @@
 ##########################################################################
 
 step 'On Job settings page of pipeline <pipeline_name> stage <stage_name> job <job_name>' do |pipeline_name, stage_name, job_name|
-  job_settings_page.load(pipeline_name: scenario_state.retrieve(pipeline_name), stage_name: stage_name, job_name: job_name)
+  job_settings_page.load(pipeline_name: scenario_state.get(pipeline_name), stage_name: stage_name, job_name: job_name)
 end
 
 step 'Open <tab_id> tab - On Job settings page' do |tab_id|
@@ -62,7 +62,7 @@ end
 
 step 'Select artifact type <a_type> pipeline <p_name> stage <s_name> job <j_name> artifact id <a_id> path <path>' do |a_type, p_name, s_name, j_name, a_id, path|
   job_settings_page.external_artifact.click
-  job_settings_page.task_pipeline.set scenario_state.retrieve(p_name)
+  job_settings_page.task_pipeline.set scenario_state.get(p_name)
   job_settings_page.task_stage.set s_name
   job_settings_page.task_job.set j_name
   job_settings_page.task_artifactId.set a_id
@@ -102,7 +102,7 @@ end
 
 step 'Verify artifact with type as <type> source as <src> and destination as <dest>  exists for <job> in <stage>' do |type, src, dest, job,stage|
   artifact="#{type}:#{src}:#{dest}"
-  assert_true  publish_artifacts_view.verify_artifact_exist(scenario_state.retrieve(scenario_state.current_pipeline),artifact,stage,job)
+  assert_true  publish_artifacts_view.verify_artifact_exist(scenario_state.self_pipeline,artifact,stage,job)
 end
 
 step 'Verify no <task> task with command  <command> exists in <job> under <stage> for piepline <pipeline>' do |task,command,job,stage,pipeline|

@@ -32,7 +32,7 @@ module Context
       replace_pipeline_names
       copy_password_file(pwd_file)
       load_dom(config_dom)
-      scenario_state.store 'current_user', 'admin'
+      scenario_state.put 'current_user', 'admin'
     end
   end
 end

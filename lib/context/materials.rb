@@ -25,7 +25,7 @@ module Context
 
     def material_config(pipeline)
       current_configuration = basic_configuration.get_config_from_server
-      current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.retrieve(pipeline)}']/materials/#{@material_type}/@url")
+      current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{@material_type}/@url")
     end
   end
 
@@ -39,8 +39,8 @@ module Context
 
     def setup_material_for(pipeline)
       material_url = material_config(pipeline).first.value
-      if !scenario_state.retrieve(material_url).nil?
-        material_path = scenario_state.retrieve(material_url)
+      if !scenario_state.get(material_url).nil?
+        material_path = scenario_state.get(material_url)
       else
         rm_rf(@path)
         mkdir_p(@path)
@@ -51,7 +51,7 @@ module Context
         end
         initial_commit
         material_path = "#{@path}/sample.git"
-        scenario_state.store(material_url, material_path)
+        scenario_state.put(material_url, material_path)
       end
       basic_configuration.set_material_path_for_pipeline('git', pipeline, material_path)
     rescue StandardError => e
@@ -99,8 +99,8 @@ module Context
 
     def setup_material_for(pipeline)
       material_url = material_config(pipeline).first.value
-      if !scenario_state.retrieve(material_url).nil?
-        material_path = scenario_state.retrieve(material_url)
+      if !scenario_state.get(material_url).nil?
+        material_path = scenario_state.get(material_url)
       else
         rm_rf(@repository_directory)
         mkdir_p(@repository_directory)
@@ -114,7 +114,7 @@ module Context
         end
         initial_commit
         material_path = "file://#{@repository_directory}/end2end"
-        scenario_state.store(material_url, material_path)
+        scenario_state.put(material_url, material_path)
       end
       basic_configuration.set_material_path_for_pipeline('svn', pipeline, material_path)
     rescue StandardError => e
@@ -162,8 +162,8 @@ module Context
 
     def setup_material_for(pipeline)
       material_url = material_config(pipeline).first.value
-      if !scenario_state.retrieve(material_url).nil?
-        material_path = scenario_state.retrieve(material_url)
+      if !scenario_state.get(material_url).nil?
+        material_path = scenario_state.get(material_url)
       else
         rm_rf(@repository_directory)
         mkdir_p(@repository_directory)
@@ -177,7 +177,7 @@ module Context
         end
         initial_commit
         material_path = "file://#{@repository_directory}/end2end"
-        scenario_state.store(material_url, material_path)
+        scenario_state.put(material_url, material_path)
       end
       basic_configuration.set_material_path_for_pipeline('svn', pipeline, material_path)
     rescue StandardError => e
@@ -228,14 +228,14 @@ module Context
       end
       create_pipeline("#{@path}/config_repo.git", upstream)
       basic_configuration.set_config_repo("#{@path}/config_repo.git", repo)
-      scenario_state.store pipeline, @pipeline_name
-      scenario_state.store("#{pipeline}-configrepo", self)
+      scenario_state.put pipeline, @pipeline_name
+      scenario_state.put("#{pipeline}-configrepo", self)
     end
 
     def create_pipeline(material, upstream)
       pipeline = Pipeline.new(group: 'configrepo', name: @pipeline_name.to_s) do |p|
         p << GitMaterial.new(url: material.to_s, name: 'gitmaterial')
-        p << DependencyMaterial.new(pipeline: scenario_state.retrieve(upstream).to_s) unless upstream.empty?
+        p << DependencyMaterial.new(pipeline: scenario_state.get(upstream).to_s) unless upstream.empty?
         p << Stage.new(name: 'defaultStage') do |s|
           s << Job.new(name: 'defaultJob') do |j|
             j << ExecTask.new(command: 'sleep', arguments: ['10'])
@@ -254,7 +254,7 @@ module Context
     def update_pipeline(upstream)
       pipeline = Pipeline.new(group: 'configrepo', name: @pipeline_name.to_s) do |p|
         p << GitMaterial.new(url: "#{@path}/config_repo.git", name: 'gitmaterial')
-        p << DependencyMaterial.new(pipeline: scenario_state.retrieve(upstream).to_s)
+        p << DependencyMaterial.new(pipeline: scenario_state.get(upstream).to_s)
         p << Stage.new(name: 'defaultStage') do |s|
           s << Job.new(name: 'defaultJob') do |j|
             j << ExecTask.new(command: 'ls')
@@ -321,8 +321,8 @@ module Context
       end
       create_environment("#{@path}/config_repo.git")
       basic_configuration.set_config_repo("#{@path}/config_repo.git", repo)
-      scenario_state.store environment, @environment_name
-      scenario_state.store("#{environment}-configrepo", self)
+      scenario_state.put environment, @environment_name
+      scenario_state.put("#{environment}-configrepo", self)
     end
   end
 end

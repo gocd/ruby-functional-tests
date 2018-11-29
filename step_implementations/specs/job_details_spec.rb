@@ -15,7 +15,7 @@
 ##########################################################################
 
 step 'On Job details page of pipeline <pipeline_name> counter <counter> stage <stage_name> counter <counter> job <job_name>' do |pipeline_name, pipeline_counter, stage_name, stage_counter, job_name|
-  job_details_page.load(pipeline_name: scenario_state.retrieve(pipeline_name), pipeline_counter: pipeline_counter, stage_name: stage_name, stage_counter: stage_counter, job_name: job_name)
+  job_details_page.load(pipeline_name: scenario_state.get(pipeline_name), pipeline_counter: pipeline_counter, stage_name: stage_name, stage_counter: stage_counter, job_name: job_name)
 end
 
 step 'Open <tab_id> tab - On Job details page' do |tab_id|

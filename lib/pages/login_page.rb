@@ -22,7 +22,7 @@ module Pages
     element :password, '#user_password'
     element :submit, '#signin2'
 
-    element :current_user_new_dashboard, '.current-user.opens-left > a'
+    element :current_user_new_dashboard, '[data-test-id="username"]'
     element :current_user_old_dashboard, '.current_user_name'
     element :login_error, '#error-box'
 
@@ -39,7 +39,7 @@ module Pages
       rescue => e
         assert_equal current_user_new_dashboard.text.downcase, user.downcase
       end
-      scenario_state.store 'current_user', user
+      scenario_state.put 'current_user', user
     end
 
     def signin_failure(message)

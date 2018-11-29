@@ -88,7 +88,7 @@ step 'Verify <label_count> instances of <pipeline_name> <stage_name> <job_name> 
 end
 
 step 'Attempt to pause pipline <pipeline_name> with cause <pause_cause> and should return with http status <response_code>' do |pipeline_name, pause_cause, response_code|
-    pipeline_name= scenario_state.retrieve(pipeline_name) || pipeline_name
+    pipeline_name= scenario_state.get(pipeline_name) || pipeline_name
     assert_true (response_code.to_i == pause_pipeline_using_api(pipeline_name,pause_cause))
 end
 
@@ -114,7 +114,7 @@ step 'Verify pipeline is unpaused - Using API' do ||
 end
 
 step 'Attempt to unpause pipeline <pipeline_name> and should return with http status <response_code>' do |pipeline_name, repsonse_code|
-    pipeline_name= scenario_state.retrieve(pipeline_name) || pipeline_name
+    pipeline_name= scenario_state.get(pipeline_name) || pipeline_name
     assert_true (repsonse_code.to_i == unpause_pipeline_using_api(pipeline_name))
 end
 

@@ -21,100 +21,26 @@ module Context
       @scenario_store.put 'non-existing-pipeline', 'ghost-pipeline'
     end
 
-    def retrieve(key)
+    def get(key)
       @scenario_store.get key
     end
 
-    def store(key, value)
+    def put(key, value)
       @scenario_store.put key, value
     end
 
-    def add_pipeline(initial_name, replaced_name)
-      @scenario_store.put initial_name, replaced_name
-    end
-
-    def current_environment(env)
-      @scenario_store.put 'current_env', env
-    end
-
-    def get_current_environment
-      @scenario_store.get 'current_env'
-    end
-
-    def add_environment(initial_name, replaced_name)
-      @scenario_store.put initial_name, replaced_name
-    end
-
-    def actual_pipeline_name(original_name)
-      @scenario_store.get original_name
-    end
-
-    def get_environment(original_name)
-      @scenario_store.get original_name
-    end
-
-    def set_current_user(user)
-      @scenario_store.put 'current_user', user
-    end
-
-    def current_user
-      @scenario_store.get 'current_user'
-    end
+   
 
     def self_pipeline
       @scenario_store.get(@scenario_store.get('current_pipeline'))
     end
 
-    def set_current_pipeline(pipeline)
-      @scenario_store.put 'current_pipeline', pipeline
-    end
-
-    def current_pipeline
-      @scenario_store.get 'current_pipeline'
-    end
-
-    def add_configrepo(entity, repo)
-      @scenario_store.put "#{entity}-configrepo", repo
-    end
-
-    def configrepo(entity)
-      @scenario_store.get "#{entity}-configrepo"
-    end
-
-    def add_api_response(response)
-      @scenario_store.put 'api_response', response
-    end
-
-    def api_response
-      @scenario_store.get 'api_response'
-    end
+    
 
     def material_revision(id)
       (@scenario_store.get id).nil? ? id : (@scenario_store.get id)
     end
 
-    def set_current_material_type(material_type)
-      @scenario_store.put 'current_material_type', material_type
-    end
-
-    def get_current_material_type
-      @scenario_store.get 'current_material_type'
-    end
-
-    def set_current_material_name(material_name)
-      @scenario_store.put 'current_material_name', material_name
-    end
-
-    def get_current_material_name
-      @scenario_store.get 'current_material_name'
-    end
-
-    def set_current_label(label)
-      @scenario_store.put 'current_label', label
-    end
-
-    def get_current_label
-      @scenario_store.get 'current_label'
-    end
+    
   end
 end

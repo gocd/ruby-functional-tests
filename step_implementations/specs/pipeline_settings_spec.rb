@@ -15,7 +15,7 @@
 ##########################################################################
 
 step 'On Pipeline settings page of pipeline <pipeline_name>' do |pipeline_name|
-  pipeline_settings_page.load(pipeline_name: scenario_state.retrieve(pipeline_name))
+  pipeline_settings_page.load(pipeline_name: scenario_state.get(pipeline_name))
 end
 
 step 'Open <tab_id> tab - On Pipeline settings page' do |tab_id|

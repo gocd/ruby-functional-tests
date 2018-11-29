@@ -95,7 +95,7 @@ module Pages
     end
 
     def verify_task_with_command_is_not_exist_in_config(task,command,job,stage,pipeline)
-     basic_configuration.get_config_from_server.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.retrieve(pipeline)}']/stage[@name='#{stage}']/jobs/job[@name='#{job}']/tasks/#{task}[@command='#{command}']").count==0 
+     basic_configuration.get_config_from_server.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/stage[@name='#{stage}']/jobs/job[@name='#{job}']/tasks/#{task}[@command='#{command}']").count==0 
     end
    
     def move_task_down(task_index)

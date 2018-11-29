@@ -35,12 +35,12 @@ module Pages
     end
 
     def select_pipeline_on_VSM(pipeline)
-      pipeline_name = scenario_state.retrieve(pipeline)
+      pipeline_name = scenario_state.get(pipeline)
       page.find("##{pipeline_name}").click
     end
 
     def select_material_on_VSM(material)
-      material_url= scenario_state.retrieve(material)
+      material_url= scenario_state.get(material)
       page.find('h3', text: material_url.to_s).click
     end
 

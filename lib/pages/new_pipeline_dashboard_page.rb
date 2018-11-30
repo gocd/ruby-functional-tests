@@ -232,7 +232,7 @@ module Pages
       (stage_name text: scenario_state.retrieve('current_stage_name'))
         .ancestor('.pipeline').find('.stage_action').click
 
-      find_by_id('cruise-header-tab-pipelines').click
+        page.find('#app-menu').find('a', text: 'DASHBOARD').click
     end
 
     def open_build_cause

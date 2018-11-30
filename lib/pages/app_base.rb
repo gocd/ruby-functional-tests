@@ -37,7 +37,7 @@ module Pages
     end
 
     def menu_item_visible(item)
-      page.all('ul', :class => 'menu').first.has_css?('a', :text => item.upcase)
+      page.find('#app-menu').has_css?('a', text: item.upcase)
     end
 
     def replace_element_value(element_to_be_replaced, replace_by_value)

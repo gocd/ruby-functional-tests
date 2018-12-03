@@ -32,4 +32,8 @@ step 'Remember current version as <identifier>' do |id|
   scenario_state.store id, latest_revision
 end
 
+step 'Make pipeline <pipeline> use non existant material' do |pipeline|
+  basic_configuration.set_non_existant_material_URL pipeline
+
+end
 

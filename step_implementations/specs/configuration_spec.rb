@@ -80,3 +80,7 @@ end
 step 'Permissions configuration - setup' do
   secure_configuration.setup 'permissions-cruise-config.xml','password.properties'
 end
+
+step 'Changing the artifacts location to <artifact_location>' do |artifact_location|
+  basic_configuration.set_artifact_location artifact_location
+end 

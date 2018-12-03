@@ -233,7 +233,22 @@ module Context
       current_config.xpath('//server').first.add_child password_file_authentication_config
       load_dom(current_config)
     end
-    
+
+    def set_non_existant_material_URL(pipeline)
+      current_config = get_config_from_server
+      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline)}']/materials/git").each do |material|
+        material['url'] = "non_existant_path"
+      end
+      load_dom(current_config)
+    end
+
+    def set_artifact_location(artifact_location)
+      current_config = get_config_from_server
+      current_config.xpath("//cruise/server").each do |server|
+       server['artifactsdir'] = artifact_location
+      end
+      load_dom(current_config)
+    end  
 
   end
 end

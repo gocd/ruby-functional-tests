@@ -84,3 +84,6 @@ end
 step 'Group admin security configuration - setup' do
   secure_configuration.setup 'group-admin-security-config.xml','password.properties'
 end
+step 'Changing the artifacts location to <artifact_location>' do |artifact_location|
+  basic_configuration.set_artifact_location artifact_location
+end 

@@ -74,7 +74,8 @@ end
 
 
 step 'VerifyIfUserHasRole <table>' do |table|
-  table.rows.each do |row|
+  table.rows.each_with_index do |row, index|
+    p "Executing Verify user role validation for row #{index + 1}"
     scenario_state.set_current_user(row['login as user'])
     logout 
     login_page.signin scenario_state.current_user

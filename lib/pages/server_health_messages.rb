@@ -17,8 +17,8 @@
 module Pages
   class ServerHealthMessage < AppBase
 
-    element :message_notifier, '.server-health-summary'
-    element :health_messages, '.server-health-statuses'
+    element :message_notifier, '[data-test-id="server-health-messages-count"]'
+    element :health_messages, '[data-test-id="modal-body"]'
 
     def verify_message_notifier_showsup
       wait_until_message_notifier_visible(60)
@@ -26,7 +26,7 @@ module Pages
 
     def verify_message_displayed(msg)
       message_notifier.click
-      assert health_messages.all('li').map{|available_msg| available_msg.text.include?(sanitize_message msg)}.include?(true)
+      assert health_messages.all('[data-test-class="server-health-message_detail"]').map{|available_msg| available_msg.text.include?(sanitize_message msg)}.include?(true)
     end
 
   end

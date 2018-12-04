@@ -77,7 +77,7 @@ step 'Verify stage <stage> is <state> on pipeline with label <label> and counter
 end
 
 step 'Verify stage <stage> is with label <label> - On Swift Dashboard page' do |_stage, label|
-  new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state..retrieve('current_pipeline'), label
+  new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.get('current_pipeline'), label
 end
 
 step 'Verify pipeline <pipeline> shows up - On Swift Dashboard page' do |pipeline|

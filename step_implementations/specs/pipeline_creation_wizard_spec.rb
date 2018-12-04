@@ -31,7 +31,7 @@ step 'Select material type as <type>' do |type|
 end
 
 step 'Set pipeline and stage <pipeline> <stage>' do |pipeline, stage|
-  pipeline_creation_wizard.pipeline_material.set "#{scenario_state.actual_pipeline_name(pipeline)} [#{stage}]"
+  pipeline_creation_wizard.pipeline_material.set "#{scenario_state.get(pipeline)} [#{stage}]"
 end
 
 step 'Go next from materials' do ||

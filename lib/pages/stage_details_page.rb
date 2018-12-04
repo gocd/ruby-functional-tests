@@ -91,7 +91,7 @@ module Pages
     end
 
     def modification_section_for(modification_number)
-      material_header = material_header_for(scenario_state.retrieve('current_material_type'), scenario_state.get_current_material_name)
+      material_header = material_header_for(scenario_state.get('current_material_type'), scenario_state.get('current_material_name'))
       material_header.first(:xpath, './/..').all('.change')[modification_number.to_i]
     end
 

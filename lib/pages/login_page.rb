@@ -39,7 +39,7 @@ module Pages
       rescue => e
         assert_equal current_user_new_dashboard.text.downcase, user.downcase
       end
-      scenario_state.set_current_user user
+      scenario_state.put 'current_user', user
     end
 
     def signin_failure(message)

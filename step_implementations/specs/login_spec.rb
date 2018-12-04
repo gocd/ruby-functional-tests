@@ -46,15 +46,15 @@ step 'Logout and Login as <user> with password as <pwd>' do |user, pwd|
 end
 
 step 'As user <user>' do |user|
-  scenario_state.set_current_user user
+  scenario_state.put 'current_user', user
 end
 
 step 'As unauthenticated user' do
-  scenario_state.set_current_user nil
+  scenario_state.put 'current_user', nil
 end
 
 step 'As user <user> for teardown' do |user|
-  scenario_state.set_current_user user
+  scenario_state.put 'current_user', user
 end
 
 def logout
@@ -78,7 +78,7 @@ step 'VerifyIfUserHasRole <table>' do |table|
     p "Executing Verify user role validation for row #{index + 1}"
     scenario_state.set_current_user(row['login as user'])
     logout 
-    login_page.signin scenario_state.current_user
+    login_page.signin scenario_state.get('current_user')
     (1..table.columns.length-1).each do |column_count| 
       new_pipeline_dashboard_page.load
       method_name = table.columns[column_count]

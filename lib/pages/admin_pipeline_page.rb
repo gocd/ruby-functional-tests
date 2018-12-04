@@ -40,12 +40,12 @@ module Pages
 
     private
     def row_for_pipeline(pipeline)
-      pipeline_link = pipeline_link text: (scenario_state.actual_pipeline_name(pipeline) || pipeline)
+      pipeline_link = pipeline_link text: (scenario_state.get(pipeline) || pipeline)
       pipeline_link.first(:xpath, ".//../..")
     end
 
     def click_on_clone_link_for(pipeline)
-      pipeline_name = scenario_state.actual_pipeline_name(pipeline)
+      pipeline_name = scenario_state.get(pipeline)
       page.find(".clone_button_for_#{pipeline_name}").click
     end
 

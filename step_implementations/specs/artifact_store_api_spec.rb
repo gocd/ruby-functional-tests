@@ -20,10 +20,10 @@ ARTIFACT_STORE_API_VERSION = 'application/vnd.go.cd.v1+json'.freeze
 step 'Create artifact store <artifact_store_id>' do |artifact_store_id|
   begin
     response = create(artifact_store_id)
-    scenario_state.store 'api_response', response
+    scenario_state.put 'api_response', response
   rescue RestClient::ExceptionWithResponse => err
     p "Create artifact store call failed with response code #{err.response.code} and the response body - #{err.response.body}"
-    scenario_state.store 'api_response', err.response
+    scenario_state.put 'api_response', err.response
   end
 end
 
@@ -48,20 +48,20 @@ end
 step 'Update artifact store <artifact_store_id>' do |artifact_store_id|
   begin
     update_response = update(artifact_store_id)
-    scenario_state.store 'api_response', update_response
+    scenario_state.put 'api_response', update_response
   rescue RestClient::ExceptionWithResponse => err
     p "Update artifact store call failed with response code #{err.response.code} and response body - #{err.response.body}"
-    scenario_state.store 'api_response', err.response
+    scenario_state.put 'api_response', err.response
   end
 end
 
 step 'Delete artifact store <artifact_store_id>' do |artifact_store_id|
   begin
     delete_response = delete(artifact_store_id)
-    scenario_state.store 'api_response', delete_response
+    scenario_state.put 'api_response', delete_response
   rescue RestClient::ExceptionWithResponse => err
     p "Update artifact store call failed with response code #{err.response.code} and response body - #{err.response.body}"
-    scenario_state.store 'api_response', err.response
+    scenario_state.put 'api_response', err.response
   end
 end
 
@@ -92,9 +92,9 @@ def try_api_call(func, arg = nil)
     else
       response = func.call
     end
-    scenario_state.store 'api_response', response
+    scenario_state.put 'api_response', response
   rescue RestClient::ExceptionWithResponse => err
-    scenario_state.store 'api_response', err.response
+    scenario_state.put 'api_response', err.response
   end
 end
 

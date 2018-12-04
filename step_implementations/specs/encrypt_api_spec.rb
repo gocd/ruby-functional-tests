@@ -20,14 +20,14 @@ ENCRYPT_API_VERSION = 'application/vnd.go.cd.v1+json'.freeze
 
 step 'Encrypt value <value> and store encrypted value as <identifier>' do |value, identifier|
   begin
-    scenario_state.store identifier, JSON.parse(encrypt(value).body)['encrypted_value']
+    scenario_state.put identifier, JSON.parse(encrypt(value).body)['encrypted_value']
   rescue RestClient::ExceptionWithResponse => err
-    scenario_state.store 'api_response', err.response
+    scenario_state.put 'api_response', err.response
   end
 end
 
 step 'Verify encrypted values <identifier0> and <identifier1> are not same' do |identifier0, identifier1|
-  assert_false scenario_state.retrieve(identifier0).eql? scenario_state.retrieve(identifier1)
+  assert_false scenario_state.get(identifier0).eql? scenario_state.get(identifier1)
 end
 
 
@@ -35,7 +35,7 @@ step 'Encrypt value <value>' do |value, identifier|
   begin
     encrypt(value)
   rescue RestClient::ExceptionWithResponse => err
-    scenario_state.store 'api_response', err.response
+    scenario_state.put 'api_response', err.response
   end
 end
 

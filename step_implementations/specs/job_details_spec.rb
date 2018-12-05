@@ -35,8 +35,8 @@ step 'Store the job completed time stamp' do
 end
 
 step 'Verify the job completed time stamp for job <job> of stage <stage> of pipeline <pipeline> with label <label> is Different for stage counter <counter1> and stage counter <counter2>' do |job, stage, pipeline, label, counter1, counter2|
-  rerun1 = "/detail/#{scenario_state.actual_pipeline_name(pipeline)}/#{label}/#{stage}/#{counter1}/#{job}"
-  rerun2 = "/detail/#{scenario_state.actual_pipeline_name(pipeline)}/#{label}/#{stage}/#{counter2}/#{job}"
+  rerun1 = "/detail/#{scenario_state.get(pipeline)}/#{label}/#{stage}/#{counter1}/#{job}"
+  rerun2 = "/detail/#{scenario_state.get(pipeline)}/#{label}/#{stage}/#{counter2}/#{job}"
   stagererun1 = scenario_state.get rerun1.downcase
   stagererun2 = scenario_state.get rerun2.downcase
   assert_not_equal stagererun1, stagererun2

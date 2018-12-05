@@ -29,3 +29,7 @@ end
 step "Move pipeline <pipeline_name> from group <source_group> to group <destination_group>" do |pipeline, source_group, destination_group|
   admin_pipeline_page.move_pipeline(pipeline, source_group, destination_group)
 end
+
+step 'Open config tab as group admin' do 
+  admin_pipeline_page.navigate_to("Config XML")
+end

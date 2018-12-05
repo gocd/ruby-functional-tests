@@ -38,6 +38,10 @@ module Pages
       page.find('#div_move_to_groups').find('ul li.move_to_group_option', {text: destination_group}).click
     end
 
+    def navigate_to(tab)
+      page.find('.sub_tabs_container').find('a', text: tab).click
+    end
+
     private
     def row_for_pipeline(pipeline)
       pipeline_link = pipeline_link text: (scenario_state.get(pipeline) || pipeline)

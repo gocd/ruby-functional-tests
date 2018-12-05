@@ -80,3 +80,7 @@ end
 step 'Permissions configuration - setup' do
   secure_configuration.setup 'permissions-cruise-config.xml','password.properties'
 end
+
+step 'Group admin security configuration - setup' do
+  secure_configuration.setup 'group-admin-security-config.xml','password.properties'
+end

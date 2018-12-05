@@ -40,6 +40,10 @@ module Pages
       page.find('#app-menu').has_css?('a', text: item.upcase)
     end
 
+    def hover_on_admin
+      page.find('#app-menu').find('a', text: 'ADMIN').hover
+    end
+
     def replace_element_value(element_to_be_replaced, replace_by_value)
       element_to_be_replaced.send_keys [:control , 'a']
       element_to_be_replaced.send_keys :backspace

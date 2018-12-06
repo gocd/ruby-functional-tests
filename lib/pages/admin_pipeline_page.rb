@@ -23,7 +23,6 @@ module Pages
     elements :error_messages, "[data-test-class='server-health-message_message']"
     elements :error_discription, "[data-test-class='server-health-message_detail']"
   
-
     def clone_pipeline(source_pipeline_name, new_pipeline_name, pipeline_group_name)
       click_on_clone_link_for(source_pipeline_name)
       page.find("#pipeline_group_pipeline_name").set new_pipeline_name
@@ -58,15 +57,15 @@ module Pages
 
     def verify_number_of_error_message(number_of_err_msg)
         wait_till_event_occurs_or_bomb 120, "Total number of errors are not equal to #{number_of_err_msg}" do
-           break if number_of_err_msg.to_i==error_and_warning_count.text.split('and')[0].scan(/\d+/)[0].total_warnings
+        reload_page
+        break if number_of_err_msg.to_i == error_and_warning_count.text.split("and")[0].scan(/\d+/)[0].to_i
           end
-        return error_and_warning_count.text.split('and')[0].scan(/\d+/)[0].to_i
     end  
 
     def verify_number_of_warnings(number_of_warning_msg)
-      if error_and_warning_count.text.split('and')[1].include?"warning" 
-        total_warnings= error_and_warning_count.text.split('and')[1].scan(/\d+/)[0].to_i
-        assert_equal total_warnings,number_of_warning_msg.to_i
+      if error_and_warning_count.text.split('and')[1].include? "warning"
+        total_warnings = error_and_warning_count.text.split('and')[1].scan(/\d+/)[0].to_i
+        assert_equal total_warnings, number_of_warning_msg.to_i
        else 
        assert_true false 
       end 
@@ -82,39 +81,37 @@ module Pages
 
     def verify_error_message(error_message)
        wait_till_event_occurs_or_bomb 60, "Does not contains #{error_message}" do
-        msg=""
+        found = false
         error_messages.each { |message|
-         msg=message.text
-         break if msg.include?error_message
+          found = true if message.text.include? error_message
         }
-       return msg.include?error_message
+        break if found
       end
     end  
 
     def verify_message_do_not_contains(error_message)
-      msg_list=[]
+      msg_list = []
       error_messages.each { |message|
         msg_list.push(message.text)
       }
       assert_true !msg_list.include?(error_message)
     end  
 
-    def verify_error_discription_do_not_contains(error_message)
-      msg_list=[]
-      error_discription.each {|message|
+    def verify_error_description_do_not_contains(error_message)
+      msg_list = []
+      error_discription.each { |message|
         msg_list.push(message.text)
       }
       assert_true !msg_list.include?(error_message)
     end 
 
-    def verify_error_discription(error_message)
+    def verify_error_description(error_message)
       wait_till_event_occurs_or_bomb 60, "Does not contains #{error_message}" do
-        msg=""
+        found = false
         error_discription.each { |message|
-         msg=message.text
-         break if msg.include?error_message
+          found = true if message.text.include? error_message
         }
-       return msg.include?error_message
+        break if found
       end
     end
 
@@ -129,6 +126,5 @@ module Pages
       pipeline_name = scenario_state.get(pipeline)
       page.find(".clone_button_for_#{pipeline_name}").click
     end
-
   end
 end

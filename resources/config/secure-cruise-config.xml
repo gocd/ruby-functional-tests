@@ -452,10 +452,10 @@
             </pipeline>
         <pipeline name="basic-pipeline-with-all-materials">
           <materials>
-           <hg url="Non-existing-material" dest="hg" materialName="hg" autoUpdate="false"/>
-           <svn url="Non-existing material" dest="svn" materialName="svn" autoUpdate="false"/>
-           <git url="Non-existing material" dest="git" materialName="git" autoUpdate="false"/>
-           <p4 port="nonexisting:6578" useTickets="true" dest="p4" materialName="p4" autoUpdate="false">
+           <hg url="http://Non-existing-material" dest="hg" materialName="hg" autoUpdate="false"/>
+           <svn url="http://Non-existing-material" dest="svn" materialName="svn" autoUpdate="false"/>
+           <git url="http://Non-existing-material" dest="git" materialName="git" autoUpdate="false"/>
+           <p4 port="http://nonexisting:6578" useTickets="true" dest="p4" materialName="p4" autoUpdate="false">
            <view>//depot/... //p4test_1/...</view>
             <filter>
              <ignore pattern="*.ignore"/>

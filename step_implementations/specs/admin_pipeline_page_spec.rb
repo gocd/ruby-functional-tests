@@ -33,3 +33,13 @@ end
 step 'Open config tab as group admin' do 
   admin_pipeline_page.navigate_to("Config XML")
 end
+
+step 'Verify that extract template is enabled for <pipeline>' do |pipeline|
+  scenario_state.put 'current_pipeline', pipeline
+  assert_true admin_pipeline_page.pipeline_can_be_extracted? scenario_state.self_pipeline
+end
+
+step 'Verify that extract template is disabled for <pipeline>' do |pipeline|
+  scenario_state.put 'current_pipeline', pipeline
+  assert_true admin_pipeline_page.pipeline_extraction_disabled? scenario_state.self_pipeline
+end

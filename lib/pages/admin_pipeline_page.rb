@@ -42,6 +42,14 @@ module Pages
       page.find('.sub_tabs_container').find('a', text: tab).click
     end
 
+    def pipeline_can_be_extracted?(pipeline)
+      page.find(".title_secondary_info.extract_template_for_pipeline_#{pipeline}").visible?
+    end
+
+    def pipeline_extraction_disabled?(pipeline)
+      page.find(".action_icon.add_icon_disabled.extract_template_for_pipeline_#{pipeline}").visible?
+    end
+
     private
     def row_for_pipeline(pipeline)
       pipeline_link = pipeline_link text: (scenario_state.get(pipeline) || pipeline)

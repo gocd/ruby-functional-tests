@@ -20,11 +20,11 @@ tags: error_messages
 * Open error messages popup
 
 * Verify error description contains "Failed to run git clone command"
-* Verify error description contains "Error while executing [hg clone"
+* Verify error description contains "Failed to run hg clone command"
 * Verify error description contains "Error performing command: --- Command --- svn log"
-* Verify error description contains "Error while executing [p4 login]"
+* Verify error description contains "Error performing command: --- Command --- p4 login"
 * Verify message contains "Invalid Configuration"
-* Verify error description contains "Invalid content was found starting with element 'timer'"
+* Verify error description contains "Invalid cron syntax"
 
 * On Swift Dashboard Page
 * Turn on AutoRefresh - On Swift Dashboard page
@@ -34,7 +34,7 @@ tags: error_messages
 * Open error messages popup
 
 * Verify message do not contain "Invalid Configuration"
-* Verify error description does not contain "Invalid content was found starting with element 'timer'"
+* Verify error description does not contain "Invalid cron syntax"
 
 * Make cruise config file invalid
 
@@ -43,8 +43,7 @@ tags: error_messages
 * Open error messages popup
 
 * Verify message contains "Invalid Configuration"
-* Wait for "50" seconds
-* Verify error description contains "Invalid content was found starting with element 'pipelines'."
+* Verify error description contains "XML document structures must start and end within the same entity"
 * Close the error popup
 
 Teardown of contexts

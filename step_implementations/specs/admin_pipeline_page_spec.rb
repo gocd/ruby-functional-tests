@@ -31,8 +31,7 @@ step "Move pipeline <pipeline_name> from group <source_group> to group <destinat
 end
 
 step 'Verify there are <number_of_errors> errors' do |number_of_errors|
-  total_errors=admin_pipeline_page.verify_number_of_error_message number_of_errors
-  assert_equal total_errors.to_i,number_of_errors.to_i
+  admin_pipeline_page.verify_number_of_error_message number_of_errors
 end
 
 step 'Verify there are <number_of_warnings> warnings' do |number_of_warnings|
@@ -40,11 +39,11 @@ step 'Verify there are <number_of_warnings> warnings' do |number_of_warnings|
 end  
 
 step 'Verify message contains <message>' do |message|
-  assert_true admin_pipeline_page.verify_error_message(message)
+  admin_pipeline_page.verify_error_message(message)
 end  
 
 step 'Verify error description contains <message>' do |message|
-  assert_true admin_pipeline_page.verify_error_discription(message)
+ admin_pipeline_page.verify_error_description(message)
 end
 
 step 'Open error messages popup' do ||
@@ -64,7 +63,7 @@ step 'Verify message do not contain <message>' do |message|
 end
 
 step 'Verify error description does not contain <message>' do |message|
-  admin_pipeline_page.verify_error_discription_do_not_contains message
+  admin_pipeline_page.verify_error_description_do_not_contains message
 end  
 
 step 'Close the error popup' do ||

@@ -22,6 +22,11 @@ step 'Using pipeline <pipeline> - setup' do |pipelines|
   basic_configuration.remove_pipelines_except pipelines.split(',').map(&:strip)
 end
 
+step 'Using pipeline with nonexisting material <pipeline> - setup' do |pipelines|
+  basic_configuration.remove_pipelines_except pipelines.split(',').map(&:strip)
+end
+
+
 step 'Using environment <environment> - setup' do |environments|
   environments.split(',').each { |env| scenario_state.add_environment(env, env) }
   basic_configuration.remove_environments_except environments.split(',').map(&:strip)
@@ -32,8 +37,4 @@ step 'Remember current version as <identifier>' do |id|
   scenario_state.store id, latest_revision
 end
 
-step 'Make pipeline <pipeline> use non existant material' do |pipeline|
-  basic_configuration.set_non_existant_material_URL pipeline
-
-end
 

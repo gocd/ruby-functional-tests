@@ -59,7 +59,7 @@ module Context
 
     def set_material_path_for_pipeline(material_type, pipeline, material_path)
       current_config = get_config_from_server
-      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline)}']/materials/#{material_type}").each do |material|
+      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{material_type}").each do |material|
         material['url'] = material_path
       end
       load_dom(current_config)
@@ -78,7 +78,7 @@ module Context
         config_dom.xpath('//environments/environment/pipelines/pipeline').each do |env|
           env['name'] = pipeline['name'] if env['name'] == initial_name
         end
-        scenario_state.add_pipeline initial_name, pipeline['name']
+        scenario_state.put initial_name, pipeline['name']
       end
     end
 
@@ -109,7 +109,7 @@ module Context
       self.config_dom = get_config_from_server
 
       except_environments_names = except_environments.map do |except_env|
-        scenario_state.get_environment(except_env)
+        scenario_state.get(except_env)
       end
 
       config_dom.xpath('//cruise/environments/environment').each do |env|
@@ -124,7 +124,7 @@ module Context
       self.config_dom = get_config_from_server
 
       except_pipelines_names = except_pipelines.map do |except_pipeline|
-        scenario_state.actual_pipeline_name(except_pipeline)
+        scenario_state.get(except_pipeline)
       end
 
       except_pipelines_names.each do |pl|
@@ -146,8 +146,8 @@ module Context
     end
 
     def header
-      return {Confirm: true} unless scenario_state.current_user
-      basic_auth = Base64.encode64([scenario_state.current_user, 'badger'].join(':'))
+      return {Confirm: true} unless scenario_state.get 'current_user'
+      basic_auth = Base64.encode64([scenario_state.get('current_user'), 'badger'].join(':'))
       {Authorization: "Basic #{basic_auth}", Confirm: true}
     end
 

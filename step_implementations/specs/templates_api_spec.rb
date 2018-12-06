@@ -27,9 +27,9 @@ step 'Create template <template>' do |template|
   begin
     response = RestClient.post http_url('/api/admin/templates'), Representers::TemplateRepresenter.new(tmp).to_json,
                                { content_type: :json, accept: TEMPLATE_API_VERSION }.merge(basic_configuration.header)
-    scenario_state.store 'api_response', response
+    scenario_state.put 'api_response', response
   rescue RestClient::ExceptionWithResponse => err
-    scenario_state.store 'api_response', err.response
+    scenario_state.put 'api_response', err.response
   end
 end
 
@@ -60,12 +60,12 @@ step 'Update template <template>' do |template|
     response = RestClient.get http_url("/api/admin/templates/#{template}"), { accept: TEMPLATE_API_VERSION }.merge(basic_configuration.header)
     update_response = RestClient.put http_url("/api/admin/templates/#{template}"), Representers::TemplateRepresenter.new(tmp).to_json,
                                      { content_type: :json, if_match: response.headers[:etag], accept: TEMPLATE_API_VERSION }.merge(basic_configuration.header)
-    scenario_state.store 'api_response', update_response
+    scenario_state.put 'api_response', update_response
   rescue RestClient::ExceptionWithResponse => err
-    scenario_state.store 'api_response', err.response
+    scenario_state.put 'api_response', err.response
   end
 end
 
 step 'Verify returned <response> response code' do |expected_code|
-  assert_true scenario_state.retrieve('api_response').code == expected_code.to_i
+  assert_true scenario_state.get('api_response').code == expected_code.to_i
 end

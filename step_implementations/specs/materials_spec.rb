@@ -28,13 +28,13 @@ end
 
 
 step 'Using environment <environment> - setup' do |environments|
-  environments.split(',').each { |env| scenario_state.add_environment(env, env) }
+  environments.split(',').each { |env| scenario_state.put(env, env) }
   basic_configuration.remove_environments_except environments.split(',').map(&:strip)
 end
 
 step 'Remember current version as <identifier>' do |id|
   latest_revision = Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).latest_revision
-  scenario_state.store id, latest_revision
+  scenario_state.put id, latest_revision
 end
 
 

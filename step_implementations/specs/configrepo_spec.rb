@@ -31,9 +31,9 @@ step 'Wait for config repo changes to sync' do
 end
 
 step 'Add pipelines <pipelines> to config repo environment <environment>' do |pipelines, environment|
-  pipelines.split(',').each { |p| scenario_state.configrepo(environment).add_pipeline(scenario_state.actual_pipeline_name(p.strip)) }
+  pipelines.split(',').each { |p| scenario_state.get("#{environment}-configrepo").add_pipeline(scenario_state.get(p.strip)) }
 end
 
 step 'Update config repo pipeline with name <pipeline> as downstream of <upstream>' do |pipeline, upstream|
-  scenario_state.configrepo(pipeline).update_pipeline(upstream)
+  scenario_state.get("#{pipeline}-configrepo").update_pipeline(upstream)
 end

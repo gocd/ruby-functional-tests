@@ -34,7 +34,7 @@ end
 
 step 'Looking at pipeline <pipeline> - On Swift Dashboard page' do |pipeline|
   new_pipeline_dashboard_page.load(autoRefresh: @auto_refresh)
-  scenario_state.set_current_pipeline pipeline
+  scenario_state.put 'current_pipeline', pipeline
 end
 
 step 'Turn off AutoRefresh - On Swift Dashboard page' do |_pipeline|
@@ -42,7 +42,7 @@ step 'Turn off AutoRefresh - On Swift Dashboard page' do |_pipeline|
 end
 
 step 'Wait till stage <stage> completed - On Swift Dashboard page' do |stage|
-  new_pipeline_dashboard_page.wait_till_stage_complete scenario_state.current_pipeline, stage
+  new_pipeline_dashboard_page.wait_till_stage_complete scenario_state.get('current_pipeline'), stage
 end
 
 step 'Wait till pipeline completed - On Swift Dashboard page' do |_stage|
@@ -50,11 +50,11 @@ step 'Wait till pipeline completed - On Swift Dashboard page' do |_stage|
 end
 
 step 'Verify stage <stage> is <state> - On Swift Dashboard page' do |stage, state|
-  new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.current_pipeline, stage, state.downcase
+  new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.get('current_pipeline'), stage, state.downcase
 end
 
 step 'Trigger and cancel stage <defaultStage> <trigger_number> times' do |stage_name, trigger_number|
-  scenario_state.store 'current_stage_name', stage_name
+  scenario_state.put 'current_stage_name', stage_name
   new_pipeline_dashboard_page.trigger_cancel_pipeline trigger_number
 end
 
@@ -77,7 +77,7 @@ step 'Verify stage <stage> is <state> on pipeline with label <label> and counter
 end
 
 step 'Verify stage <stage> is with label <label> - On Swift Dashboard page' do |_stage, label|
-  new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.current_pipeline, label
+  new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.get('current_pipeline'), label
 end
 
 step 'Verify pipeline <pipeline> shows up - On Swift Dashboard page' do |pipeline|
@@ -256,16 +256,16 @@ step 'Override secure variable named <secure_env_variable_key> with value <secur
 end
 
 step 'Verify modification <position> has revision <revision> - On Build Cause popup' do |position, revision|
-  material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.retrieve('current_material_name'))
-  revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.retrieve('current_material_type'), material_name)
+  material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.get('current_material_name'))
+  revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.get('current_material_type'), material_name)
   revision =  new_pipeline_dashboard_page.sanitize_message(revision)
-  revision =  scenario_state.retrieve(revision) || revision
+  revision =  scenario_state.get(revision) || revision
   assert_true new_pipeline_dashboard_page.shows_revision_at?(revision_element, revision, position.to_i)
 end
 
 step 'Verify material has changed - On Build Cause popup' do
-  material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.retrieve('current_material_name'))
-  revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.retrieve('current_material_type'), material_name)
+  material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.get('current_material_name'))
+  revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.get('current_material_type'), material_name)
   assert_true new_pipeline_dashboard_page.material_revision_changed? revision_element
 end
 
@@ -274,14 +274,14 @@ step 'Verify pipeline does not get triggered' do
 end
 
 step 'Verify material has not changed - On Build Cause popup' do
-  material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.retrieve('current_material_name'))
-  revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.retrieve('current_material_type'), material_name)
+  material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.get('current_material_name'))
+  revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.get('current_material_type'), material_name)
   assert_false new_pipeline_dashboard_page.material_revision_changed? revision_element
 end
 
 step 'PipelineVisibility <table>' do |table|
   table.rows.each do |row|
-    scenario_state.set_current_pipeline(row['Pipeline Name'])
+    scenario_state.put('current_pipeline', row['Pipeline Name'])
     p "Executing validation for pipeline #{row['Pipeline Name']}"
     (1..table.columns.length - 1).each do |i| # this is assuming the first column is reserved for pipeline name
       method_name = table.columns[i].tr(' ', '_').downcase

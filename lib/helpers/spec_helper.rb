@@ -59,6 +59,7 @@ require 'pages/pipeline_settings_page'
 require 'pages/vsm_page'
 require 'pages/pipeline_creation_wizard'
 require 'pages/parameters_page'
+require 'pages/config_xml_page'
 
 module Helpers
   module SpecHelper
@@ -172,6 +173,10 @@ module Helpers
 
     def stage_settings_page
       Pages::StageSettingsPage.new
+    end
+
+    def config_xml_page
+      Pages::ConfigXMLPage.new
     end
 
     def pipeline_settings_page

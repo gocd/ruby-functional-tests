@@ -203,11 +203,11 @@ module Pages
     end
 
     def visible?(pipeline = scenario_state.self_pipeline)
-      has_pipeline_name? text: (scenario_state.actual_pipeline_name(pipeline) || pipeline)
+      has_pipeline_name? text: (scenario_state.get(pipeline) || pipeline)
     end
 
     def wait_till_pipeline_showsup(pipeline, timeout = 120)
-      wait_till_event_occurs_or_bomb timeout, "Pipeline #{scenario_state.actual_pipeline_name(pipeline)} failed to showup on dashboard" do
+      wait_till_event_occurs_or_bomb timeout, "Pipeline #{scenario_state.get(pipeline)} failed to showup on dashboard" do
         reload_page
         break if visible?(pipeline)
       end
@@ -229,10 +229,10 @@ module Pages
       (pipeline_name text: scenario_state.self_pipeline)
         .ancestor('.pipeline').find('.pipeline_stage.building').click
 
-      (stage_name text: scenario_state.retrieve('current_stage_name'))
+      (stage_name text: scenario_state.get('current_stage_name'))
         .ancestor('.pipeline').find('.stage_action').click
 
-      find_by_id('cruise-header-tab-pipelines').click
+        page.find('#app-menu').find('a', text: 'DASHBOARD').click
     end
 
     def open_build_cause
@@ -247,7 +247,7 @@ module Pages
     end
 
     def shows_revision_at?(revision_element, revision, position = 0)
-      revision_class = scenario_state.retrieve('current_material_type') == 'Pipeline' ? '.modified_by' : '.revision_id'
+      revision_class = scenario_state.get('current_material_type') == 'Pipeline' ? '.modified_by' : '.revision_id'
       revision_element.all('.modifications')[position].has_css?(revision_class, text: revision, exact_text: true)
     end
 

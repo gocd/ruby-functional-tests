@@ -43,7 +43,7 @@ module Pages
     end
 
     def verify_number_of_error_message(number_of_err_msg)
-        wait_till_event_occurs_or_bomb 120, "Total number of errors are not equal to #{number_of_err_msg}" do
+        wait_till_event_occurs_or_bomb 60, "Total number of errors are not equal to #{number_of_err_msg}" do
         reload_page
         break if number_of_err_msg.to_i == error_and_warning_count.text.split("and")[0].scan(/\d+/)[0].to_i
           end
@@ -100,18 +100,31 @@ module Pages
         }
         break if found
       end
+    end  
+
+    def navigate_to(tab)
+      page.find('.sub_tabs_container').find('a', text: tab).click
+    end
+
+    def pipeline_can_be_extracted?(pipeline)
+      page.find(".title_secondary_info.extract_template_for_pipeline_#{pipeline}").visible?
+    end
+
+    def pipeline_extraction_disabled?(pipeline)
+      page.find(".action_icon.add_icon_disabled.extract_template_for_pipeline_#{pipeline}").visible?
     end
 
     private
 
     def row_for_pipeline(pipeline)
-      pipeline_link = pipeline_link text: (scenario_state.actual_pipeline_name(pipeline) || pipeline)
+      pipeline_link = pipeline_link text: (scenario_state.get(pipeline) || pipeline)
       pipeline_link.first(:xpath, ".//../..")
     end
 
     def click_on_clone_link_for(pipeline)
-      pipeline_name = scenario_state.actual_pipeline_name(pipeline)
+      pipeline_name = scenario_state.get(pipeline)
       page.find(".clone_button_for_#{pipeline_name}").click
     end
+
   end
 end

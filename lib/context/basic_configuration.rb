@@ -234,13 +234,6 @@ module Context
       load_dom(current_config)
     end
 
-    def set_non_existant_material_URL(pipeline)
-      current_config = get_config_from_server
-      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.actual_pipeline_name(pipeline)}']/materials/git").each do |material|
-        material['url'] = "non_existant_path"
-      end
-      load_dom(current_config)
-    end
 
     def set_artifact_location(artifact_location)
       current_config = get_config_from_server
@@ -249,6 +242,40 @@ module Context
       end
       load_dom(current_config)
     end  
+
+    def add_new_timer_spec_to_file(spec)
+      current_config = get_config_from_server
+      timer_tag="<timer>#{spec}</timer>"
+       if !current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/timer").empty?
+        current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/timer").remove
+        current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']").first.add_child timer_tag
+       else 
+        current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']").first.add_child timer_tag
+       end
+       file= File.open("#{GoConstants::SERVER_DIR}/config/cruise-config.xml", 'w')
+         begin
+         file.write(current_config.to_xml) 
+         rescue IOError => e
+         ensure file.close unless file.nil?
+         end
+    end
+
+    def set_timer_spec(spec)
+      current_config = get_config_from_server
+      timer_tag="<timer>#{spec}</timer>"
+      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']").children.first.add_previous_sibling timer_tag
+      load_dom(current_config)
+    end
+
+    def change_cruise_config_file_to(file)
+        new_file=Nokogiri::XML(File.read("#{GoConstants::CONFIG_PATH}/#{file}"))
+        config_file= File.open("#{GoConstants::SERVER_DIR}/config/cruise-config.xml", 'w') 
+         begin
+          config_file.write(new_file) 
+         rescue IOError => e
+         ensure config_file.close unless config_file.nil?
+         end
+     end
 
   end
 end

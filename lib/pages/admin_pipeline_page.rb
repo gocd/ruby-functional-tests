@@ -18,8 +18,10 @@ module Pages
   class AdminPipelinePage < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines"
     element :pipeline_link, '.pipeline td.name a'
-    element :error_and_warning_count, ".server_health_messages_count_widget__server-health-messages-container___ubAjf"
-    element :close_erroe_popup, ".index__close-icon___naBaW"
+    element :error_and_warning_count, "[data-test-id='server-health-messages-count']"
+    element :error_popup_ok_button, "[data-test-id='button-ok']"
+    elements :error_messages, "[data-test-class='server-health-message_message']"
+    elements :error_discription, "[data-test-class='server-health-message_detail']"
   
 
     def clone_pipeline(source_pipeline_name, new_pipeline_name, pipeline_group_name)
@@ -54,13 +56,11 @@ module Pages
     end
 
 
-    def verify_at_least_number_of_error_message(number_of_err_msg)
-       if error_and_warning_count.text.split('and')[0].include?"error" 
-         total_errors= error_and_warning_count.text.split('and')[0].scan(/\d+/)[0].to_i
-         assert_operator total_errors, :>=, number_of_err_msg.to_i
-       else 
-        assert_true false 
-       end
+    def verify_number_of_error_message(number_of_err_msg)
+        wait_till_event_occurs_or_bomb 120, "Total number of errors are not equal to #{number_of_err_msg}" do
+           break if number_of_err_msg.to_i==error_and_warning_count.text.split('and')[0].scan(/\d+/)[0].total_warnings
+          end
+        return error_and_warning_count.text.split('and')[0].scan(/\d+/)[0].to_i
     end  
 
     def verify_number_of_warnings(number_of_warning_msg)
@@ -76,23 +76,47 @@ module Pages
       assert_true !error_and_warning_count.text.include?("Warning")
     end  
     
+    def verify_there_are_no_error_messages
+      assert_true !error_and_warning_count.text.include?("error")
+    end 
+
     def verify_error_message(error_message)
-      msg=""
-      page.all('.server_health_messages_count_widget__message___3WAl7').each do |message|
-       msg=message.text
-       break if msg.include?error_message
+       wait_till_event_occurs_or_bomb 60, "Does not contains #{error_message}" do
+        msg=""
+        error_messages.each { |message|
+         msg=message.text
+         break if msg.include?error_message
+        }
+       return msg.include?error_message
       end
-      msg.include?error_message
     end  
 
     def verify_message_do_not_contains(error_message)
       msg_list=[]
-      page.all('.server_health_messages_count_widget__message___3WAl7').each do |message|
-        binding.pry
+      error_messages.each { |message|
         msg_list.push(message.text)
-       end
+      }
       assert_true !msg_list.include?(error_message)
     end  
+
+    def verify_error_discription_do_not_contains(error_message)
+      msg_list=[]
+      error_discription.each {|message|
+        msg_list.push(message.text)
+      }
+      assert_true !msg_list.include?(error_message)
+    end 
+
+    def verify_error_discription(error_message)
+      wait_till_event_occurs_or_bomb 60, "Does not contains #{error_message}" do
+        msg=""
+        error_discription.each { |message|
+         msg=message.text
+         break if msg.include?error_message
+        }
+       return msg.include?error_message
+      end
+    end
 
     private
 
@@ -105,8 +129,6 @@ module Pages
       pipeline_name = scenario_state.get(pipeline)
       page.find(".clone_button_for_#{pipeline_name}").click
     end
-
-
 
   end
 end

@@ -86,6 +86,7 @@ module Pages
         .ancestor('.pipeline').find('.pipeline_instance', wait: 30).find('.pipeline_stages').all('a')
     rescue StandardError => e
       p 'Looks like Pipeline still not started, trying after page reload...'
+      nil
     end
 
     def get_pipeline_stage_state(pipeline, stagename) # This need relook too

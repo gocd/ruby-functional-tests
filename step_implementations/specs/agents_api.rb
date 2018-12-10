@@ -15,84 +15,89 @@
 ##########################################################################
 
 step 'Add environment <env> to any <count> Idle agents - Using Agents API' do |_environment, _count|
-  idle_agents = JSON.parse(all_agents_info.body)['_embedded']['agents'].select do |agents|
-    agents['agent_state'] == 'Idle'
-  end
-  idle_agents[0.._count.to_i-1].each do |_agent|
+  agents_with_state('Idle')[0.._count.to_i - 1].each do |agent|
     begin
-          response = RestClient.patch http_url("/api/agents/#{_agent['uuid']}"),
-                                      "{\"environments\": [\"#{_environment}\"]}",
-                                      { accept: GoConstants::AGENTS_API_VERSION, content_type: :json }
-                     .merge(basic_configuration.header)
-        rescue RestClient::ExceptionWithResponse => err
-          scenario_state.put('api_response', err.response)
-          raise "Patch agents info call failed with response code #{err.response.code} and the response body - #{err.response.body}"
-    end
-  end
-end
-
-step 'Verify <label_count> instances of <pipeline_name> <stage_name> <job_name> <status> - Using Agents Api' do |label_count, _pipeline_name, stage_name,job_name, status|
-  offset = 0
-  agent_count=1     # for this use case keeping it one. If this step is reused later, this can be made configurable
-  while (label_count.to_i - offset) > 0
-  pipeline_counter = label_count.to_i - offset
-  current_pageSize = label_count.to_i - offset > 10 ? 10 : label_count.to_i - offset
-  hit_agent_history_API_and_verify_response(scenario_state.self_pipeline, stage_name, status, pipeline_counter, label_count.to_i, offset, current_pageSize,agent_count,job_name)
-  offset += 10
-  end
-end
-
-step 'Verify last job <pipeline_name> <stage_name> <job_name> <status> - Using Agents Api' do |pipeline_name, stage_name,job_name, status|
-  agent_count=1
-  idle_agents = JSON.parse(all_agents_info.body)['_embedded']['agents'].select do |agents|
-    agents['agent_state'] == 'Idle'
-  end
-  idle_agents[0..agent_count.to_i-1].each do |agent|
-    begin
-      apiEndPoint = "/api/agents/#{agent['uuid']}/job_run_history"
-      response = RestClient.get http_url(apiEndPoint), basic_configuration.header
-      assert_true (JSON.parse(response.body)['jobs'].first['pipeline_name'] == scenario_state.self_pipeline)
-      assert_true (JSON.parse(response.body)['jobs'].first['result'] == status)
-      assert_true (JSON.parse(response.body)['jobs'].first['stage_name'] == stage_name)
-      assert_true (JSON.parse(response.body)['jobs'].first['name'] == job_name)
-      assert_true (JSON.parse(response.body)['jobs'].first['stage_counter'].to_i == 1)
+      patch_agent(agent['uuid'], "{\"environments\": [\"#{_environment}\"]}")
     rescue RestClient::ExceptionWithResponse => err
-    p "Pipeline Status call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+      scenario_state.put('api_response', err.response)
+      raise "Patch agents info call failed with response code #{err.response.code} and the response body - #{err.response.body}"
     end
   end
+end
 
+step 'Verify <label_count> instances of <pipeline_name> <stage_name> <job_name> <status> - Using Agents Api' do |label_count, _pipeline_name, stage_name, job_name, status|
+  offset = 0
+  while (label_count.to_i - offset) > 0
+    pipeline_counter = label_count.to_i - offset
+    current_page_size = label_count.to_i - offset > 10 ? 10 : label_count.to_i - offset
+    hit_agent_history_API_and_verify_response(scenario_state.self_pipeline, stage_name, status, pipeline_counter, label_count.to_i, offset, current_page_size, job_name)
+    offset += 10
+  end
+end
+
+step 'Verify any operation on agents return code <code> - Using Agents Api' do |expected_code|
+  actual_code = patch_agent(agents_with_state('Idle')[0]['uuid'], "{\"agent_config_state\": [\"Disabled\"]}").code
+  assert_true actual_code.eql?(expected_code.to_i), "Response code not expected. Actual code : #{actual_code}"
+end
+
+step 'Verify last job <pipeline_name> <stage_name> <job_name> <status> - Using Agents Api' do |_pipeline_name, stage_name, job_name, status|
+  agents_with_state('Idle').each do |agent|
+    begin
+      api_end_point = "/api/agents/#{agent['uuid']}/job_run_history"
+      response = RestClient.get http_url(api_end_point), basic_configuration.header
+      response_json = JSON.parse(response.body)
+      assert_true response_json['jobs'].first['pipeline_name'] == scenario_state.self_pipeline
+      assert_true response_json['jobs'].first['result'] == status
+      assert_true response_json['jobs'].first['stage_name'] == stage_name
+      assert_true response_json['jobs'].first['name'] == job_name
+      assert_true response_json['jobs'].first['stage_counter'].to_i == 1
+    rescue RestClient::ExceptionWithResponse => err
+      p "Pipeline Status call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+    end
+  end
 end
 
 def all_agents_info
-  response = RestClient.get http_url('/api/agents'),
-                            { accept: GoConstants::AGENTS_API_VERSION }.merge(basic_configuration.header)
-  response
-rescue RestClient::ExceptionWithResponse => err
-  scenario_state.put('api_response', err.response)
-  raise "Get all agents info call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+  RestClient.get http_url('/api/agents'),
+                            { accept: GoConstants::AGENTS_API_VERSION }.merge(basic_configuration.header) do |response, _request, _result|
+    response
+  end
 end
 
-def hit_agent_history_API_and_verify_response(pipeline_name, stage_name, status, pipeline_counter, count, offset, current_pageSize,agent_count,job_name)
-  idle_agents = JSON.parse(all_agents_info.body)['_embedded']['agents'].select do |agents|
-    agents['agent_state'] == 'Idle'
+def patch_agent(agent_uuid, patch_request)
+  RestClient.patch http_url("/api/agents/#{agent_uuid}"),
+                                  patch_request,
+                                  { accept: GoConstants::AGENTS_API_VERSION, content_type: :json }
+                                  .merge(basic_configuration.header) do |response, _request, _result|
+    response
   end
-  idle_agents[0..agent_count.to_i-1].each do |agent|
+end
+
+def agents_with_state(state)
+  JSON.parse(all_agents_info.body)['_embedded']['agents'].select do |agents|
+    agents['agent_state'] == state
+  end
+end
+
+def hit_agent_history_API_and_verify_response(pipeline_name, stage_name, status, _pipeline_counter, count, offset, current_pageSize, job_name)
+  agents_with_state('Idle').each do |agent|
     begin
-      apiEndPoint = "/api/agents/#{agent['uuid']}/job_run_history" + (offset == 0 ? '' : '/' + offset.to_s)
-      response = RestClient.get http_url(apiEndPoint), basic_configuration.header
-      assert_true (JSON.parse(response.body)['pagination']['offset'] == offset)
-      assert_true (JSON.parse(response.body)['pagination']['total'] == count)
-      assert_true (JSON.parse(response.body)['pagination']['page_size'] == 10)
-      assert_true (JSON.parse(response.body)['jobs'].size == current_pageSize)
-      JSON.parse(response.body)['jobs'].map do |job|
-        assert_true (job['pipeline_name'] == pipeline_name)
-        assert_true (job['result'] == status)
-        assert_true (job['stage_name'] == stage_name)
-        assert_true (job['name'] == job_name)
-        assert_true (job['stage_counter'].to_i == 1)
+      api_end_point = "/api/agents/#{agent['uuid']}/job_run_history" + (offset == 0 ? '' : '/' + offset.to_s)
+      response = RestClient.get http_url(api_end_point), basic_configuration.header
+      response_json = JSON.parse(response.body)
+      assert_true response_json['pagination']['offset'] == offset
+      assert_true response_json['pagination']['total'] == count
+      assert_true response_json['pagination']['page_size'] == 10
+      assert_true response_json['jobs'].size == current_pageSize
+      response_json['jobs'].map do |job|
+        assert_true job['pipeline_name'] == pipeline_name
+        assert_true job['result'] == status
+        assert_true job['stage_name'] == stage_name
+        assert_true job['name'] == job_name
+        assert_true job['stage_counter'].to_i == 1
       end
     rescue RestClient::ExceptionWithResponse => err
-    p "Pipeline Status call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+      raise "Pipeline Status call failed with response code #{err.response.code} and the response body - #{err.response.body}"
     end
   end
 end

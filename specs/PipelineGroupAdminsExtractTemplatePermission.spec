@@ -27,5 +27,6 @@ Group admins should also have permission to extract templates
 Teardown of contexts
 ____________________
 * Capture go state "PipelineGroupAdminExtractTemplatePermission" - teardown
+* Logout - from any page
 
 

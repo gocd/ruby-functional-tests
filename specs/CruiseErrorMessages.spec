@@ -27,6 +27,18 @@ tags: error_messages
 * Verify error description contains "Invalid cron syntax"
 
 * On Swift Dashboard Page
+* Edit pipeline "basic-pipeline-with-all-materials"
+* Verify there are "5" errors
+* Open error messages popup
+
+* Verify error description contains "Failed to run git clone command"
+* Verify error description contains "Failed to run hg clone command"
+* Verify error description contains "Error performing command: --- Command --- svn log"
+* Verify error description contains "Error performing command: --- Command --- p4 login"
+* Verify message contains "Invalid Configuration"
+* Verify error description contains "Invalid cron syntax"
+
+* On Swift Dashboard Page
 * Turn on AutoRefresh - On Swift Dashboard page
 * set timer with spec "* * * * * ? 2012" on server 
 

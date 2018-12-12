@@ -291,3 +291,7 @@ step 'PipelineVisibility <table>' do |table|
     end
   end
 end
+
+step 'Edit pipeline <pipeline>' do |pipeline|
+  new_pipeline_dashboard_page.edit_pipeline pipeline
+end

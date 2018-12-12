@@ -27,14 +27,20 @@ module Pages
     end
 
     def plugin_to_test(id)
-      plugin_list_wrapper.find('[data-test-id="key-value-value-id"]', text: id).ancestor('[data-test-id="plugin-row"]')
+      if plugin_list_wrapper.find('[data-test-id="plugin-name"]', text: id).visible?
+        plugin_list_wrapper.find('[data-test-id="plugin-name"]', text: id).ancestor('[data-test-id="plugin-row"]')
+      elsif plugin_list_wrapper.find('[data-test-id="key-value-value-id"]', text: id).visible?
+        plugin_list_wrapper.find('[data-test-id="key-value-value-id"]', text: id).ancestor('[data-test-id="plugin-row"]')
+      else
+        raise "Plugin with identifier #{id} not visible on plugins list"
+      end
     end
 
-    def plugin_by_id_is_invalid?(id)
+    def plugin_is_invalid?(id)
       plugin_to_test(id)['data-test-has-error']
     end
 
-    def plugin_by_id_is_valid?(id)
+    def plugin_is_valid?(id)
       !plugin_to_test(id)['data-test-has-error']
     end
 

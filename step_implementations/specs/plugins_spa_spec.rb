@@ -18,7 +18,7 @@ step 'On Plugins page' do |_count|
   plugins_spa_page.load
 end
 
-step 'Verify plugin with id <id> is marked as invalid with message <message>' do |id, message|
+step 'Verify plugin with identifier <id> is marked as invalid with message <message>' do |id, message|
   assert_true plugins_spa_page.invalid_plugin_message_exists?(id, message)
 end
 
@@ -26,11 +26,11 @@ step 'Verify multiple method loads for plugin id <id>  are <methods>' do |id, me
   methods.split(',').each { |method| assert_true plugins_spa_page.invalid_plugin_message_exists?(id, method.strip) }
 end
 
-step 'Verify plugin with id <id> is valid' do |id|
-  assert_true plugins_spa_page.plugin_by_id_is_valid?(id)
+step 'Verify plugin with identifier <id> is valid' do |id|
+  assert_true plugins_spa_page.plugin_is_valid?(id)
 end
 
-step 'Verify plugin with id <id> has version <version> name <name> description <description> author <author> with enabled link to <link>' do |id, version, name, description, author, link|
+step 'Verify plugin with identifier <id> has version <version> name <name> description <description> author <author> with enabled link to <link>' do |id, version, name, description, author, link|
   assert_true plugins_spa_page.is_expected_version?(id, version)
   assert_true plugins_spa_page.is_expected_name?(id, name)
   plugins_spa_page.expand_plugin_config(id)
@@ -40,7 +40,7 @@ step 'Verify plugin with id <id> has version <version> name <name> description <
   plugins_spa_page.collapse_plugin_config(id)
 end
 
-step 'Verify invalid plugin with id <id> has version <version> name <name> description <description> author <author> with enabled link to <link>' do |id, version, name, description, author, link|
+step 'Verify invalid plugin with identifier <id> has version <version> name <name> description <description> author <author> with enabled link to <link>' do |id, version, name, description, author, link|
   assert_true plugins_spa_page.is_expected_version?(id, version)
   assert_true plugins_spa_page.is_expected_name?(id, name)
   assert_true plugins_spa_page.is_expected_description?(id, description)
@@ -48,7 +48,7 @@ step 'Verify invalid plugin with id <id> has version <version> name <name> descr
   assert_true plugins_spa_page.is_expected_author_link?(id, author, link)
 end
 
-step 'Verify plugin with id <id> has path <path> supported OS <os> target go version <go_version> and bundled status as <bundled>' do |id, path, os, go_version, bundled|
+step 'Verify plugin with identifier <id> has path <path> supported OS <os> target go version <go_version> and bundled status as <bundled>' do |id, path, os, go_version, bundled|
   plugins_spa_page.expand_plugin_config(id)
   assert_true plugins_spa_page.is_expected_installed_path?(id, path)
   assert_true plugins_spa_page.is_expected_supported_os?(id, os)
@@ -57,21 +57,21 @@ step 'Verify plugin with id <id> has path <path> supported OS <os> target go ver
   plugins_spa_page.collapse_plugin_config(id)
 end
 
-step 'Verify invalid plugin with id <id> has path <path> supported OS <os> target go version <go_version> and bundled status as <bundled>' do |id, path, os, go_version, bundled|
+step 'Verify invalid plugin with identifier <id> has path <path> supported OS <os> target go version <go_version> and bundled status as <bundled>' do |id, path, os, go_version, bundled|
   assert_true plugins_spa_page.is_expected_installed_path?(id, path)
   assert_true plugins_spa_page.is_expected_supported_os?(id, os)
   assert_true plugins_spa_page.is_expected_go_version?(id, go_version)
   assert_true plugins_spa_page.is_expected_bundled?(id, bundled)
 end
 
-step 'Verify plugin with id <plugin_id> has settings enabled' do |id|
+step 'Verify plugin with identifier <plugin_id> has settings enabled' do |id|
   assert_true plugins_spa_page.is_plugins_settings_enabled?(id)
 end
 
-step 'Verify plugin with id <plugin_id> has settings disabled' do |id|
+step 'Verify plugin with identifier <plugin_id> has settings disabled' do |id|
   assert_true plugins_spa_page.is_plugins_settings_disabled?(id)
 end
 
-step 'Verify plugin with id <plugin_id> do not show settings option' do |id|
+step 'Verify plugin with identifier <plugin_id> do not show settings option' do |id|
   assert_false plugins_spa_page.is_plugins_settings_displayed?(id)
 end

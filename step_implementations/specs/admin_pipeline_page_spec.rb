@@ -43,8 +43,6 @@ step 'Verify that extract template is disabled for <pipeline>' do |pipeline|
   scenario_state.put 'current_pipeline', pipeline
   assert_true admin_pipeline_page.pipeline_extraction_disabled? scenario_state.self_pipeline
 end
-step 'Verify there are at least <number_of_errors> errors' do |number_of_errors|
-  admin_pipeline_page.verify_at_least_number_of_error_message number_of_errors
 step 'Verify there are <number_of_errors> errors' do |number_of_errors|
   admin_pipeline_page.verify_number_of_error_message number_of_errors
 end
@@ -82,7 +80,6 @@ step 'Verify error description does not contain <message>' do |message|
 end  
 
 step 'Close the error popup' do ||
-  admin_pipeline_page.close_erroe_popup.click
-end
   admin_pipeline_page.error_popup_ok_button.click
 end
+ 

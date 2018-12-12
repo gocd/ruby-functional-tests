@@ -10,8 +10,8 @@ Setup of contexts
 
 CruiseErrorMessages
 -------------------
-
 tags: error_messages
+
 * Looking at pipeline "basic-pipeline-with-all-materials" - On Swift Dashboard page
 * Using timer with spec "* ? ? ? * ? 2012"
 * Trigger pipeline - On Swift Dashboard page

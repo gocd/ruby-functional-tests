@@ -26,6 +26,8 @@ module Pages
     element :current_user_old_dashboard, '.current_user_name'
     element :login_error, '#error-box'
 
+    load_validation { has_username? }
+
     def signin(user, pwd = 'badger')
       username.set user
       password.set pwd

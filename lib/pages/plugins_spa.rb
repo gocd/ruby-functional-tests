@@ -27,9 +27,9 @@ module Pages
     end
 
     def plugin_to_test(id)
-      if plugin_list_wrapper.find('[data-test-id="plugin-name"]', text: id).visible?
+      if plugin_list_wrapper.has_css?('[data-test-id="plugin-name"]', text: id)
         plugin_list_wrapper.find('[data-test-id="plugin-name"]', text: id).ancestor('[data-test-id="plugin-row"]')
-      elsif plugin_list_wrapper.find('[data-test-id="key-value-value-id"]', text: id).visible?
+      elsif plugin_list_wrapper.has_css?('[data-test-id="key-value-value-id"]', text: id)
         plugin_list_wrapper.find('[data-test-id="key-value-value-id"]', text: id).ancestor('[data-test-id="plugin-row"]')
       else
         raise "Plugin with identifier #{id} not visible on plugins list"

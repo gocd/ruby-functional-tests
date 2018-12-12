@@ -95,9 +95,6 @@ end
 
 step 'Make cruise config file invalid' do ||
   basic_configuration.change_cruise_config_file_to 'invalid-cruise-config.xml'
-end 
-step 'Group admin security configuration - setup' do
-  secure_configuration.setup 'group-admin-security-config.xml','password.properties'
 end
 
 step 'Changing the artifacts location to <artifact_location>' do |artifact_location|

@@ -81,9 +81,25 @@ step 'Permissions configuration - setup' do
   secure_configuration.setup 'permissions-cruise-config.xml','password.properties'
 end
 
+step 'Changing the artifacts location to <artifact_location>' do |artifact_location|
+  basic_configuration.set_artifact_location artifact_location
+end 
+
+step 'Using timer with spec <spec>' do |spec|
+  basic_configuration.add_new_timer_spec_to_file spec
+end 
+
+step 'set timer with spec <spec> on server' do |spec|
+basic_configuration.set_timer_spec spec
+end 
+
+step 'Make cruise config file invalid' do ||
+  basic_configuration.change_cruise_config_file_to 'invalid-cruise-config.xml'
+end 
 step 'Group admin security configuration - setup' do
   secure_configuration.setup 'group-admin-security-config.xml','password.properties'
 end
+
 step 'Changing the artifacts location to <artifact_location>' do |artifact_location|
   basic_configuration.set_artifact_location artifact_location
 end 
@@ -110,5 +126,3 @@ end
 step 'Allow unknown users to login' do ||
   basic_configuration.allow_known_user_to_login("false")
 end
-
-

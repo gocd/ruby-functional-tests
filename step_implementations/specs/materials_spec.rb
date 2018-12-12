@@ -22,6 +22,11 @@ step 'Using pipeline <pipeline> - setup' do |pipelines|
   basic_configuration.remove_pipelines_except pipelines.split(',').map(&:strip)
 end
 
+step 'Using pipeline with nonexisting material <pipeline> - setup' do |pipelines|
+  basic_configuration.remove_pipelines_except pipelines.split(',').map(&:strip)
+end
+
+
 step 'Using environment <environment> - setup' do |environments|
   environments.split(',').each { |env| scenario_state.put(env, env) }
   basic_configuration.remove_environments_except environments.split(',').map(&:strip)

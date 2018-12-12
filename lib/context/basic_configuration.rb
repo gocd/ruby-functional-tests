@@ -233,7 +233,6 @@ module Context
       current_config.xpath('//server').first.add_child password_file_authentication_config
       load_dom(current_config)
     end
-    
 
 
     def set_artifact_location(artifact_location)
@@ -277,6 +276,7 @@ module Context
          end
      end
 
+
      def allow_known_user_to_login(value)
       current_config = get_config_from_server
       current_config.xpath("//cruise/server/security").each do |security|
@@ -284,5 +284,6 @@ module Context
       end
       load_dom(current_config)
      end
+
   end
 end

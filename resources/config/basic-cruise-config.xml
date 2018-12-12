@@ -147,7 +147,7 @@
         </pipeline>
         <pipeline name="basic-pipeline-fast">
             <materials>
-                <git url="material-for-basic-pipeline-fast" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="non-existing-material" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>

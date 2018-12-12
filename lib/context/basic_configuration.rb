@@ -235,5 +235,54 @@ module Context
     end
     
 
+
+    def set_artifact_location(artifact_location)
+      current_config = get_config_from_server
+      current_config.xpath("//cruise/server").each do |server|
+       server['artifactsdir'] = artifact_location
+      end
+      load_dom(current_config)
+    end  
+
+    def add_new_timer_spec_to_file(spec)
+      current_config = get_config_from_server
+      timer_tag = "<timer>#{spec}</timer>"
+       if !current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/timer").empty?
+        current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/timer").remove
+        current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']").children.first.add_previous_sibling timer_tag
+       else 
+        current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']").children.first.add_previous_sibling timer_tag
+       end
+      file = File.open("#{GoConstants::SERVER_DIR}/config/cruise-config.xml", "w")
+         begin
+          file.write(current_config.to_xml) 
+          rescue IOError => e
+          ensure file.close unless file.nil?   
+          end
+     end
+
+    def set_timer_spec(spec)
+      current_config = get_config_from_server
+      timer_tag = "<timer>#{spec}</timer>"
+      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']").children.first.add_previous_sibling timer_tag
+      load_dom(current_config)
+    end
+
+    def change_cruise_config_file_to(file)
+      config_file = File.open("#{GoConstants::SERVER_DIR}/config/cruise-config.xml", "w")
+        begin
+         config_file.write(File.read("#{GoConstants::CONFIG_PATH}/#{file}")) 
+         rescue IOError => e
+         ensure config_file.close unless config_file.nil?
+         end
+     end
+
+     def allow_known_user_to_login(value)
+      current_config = get_config_from_server
+      current_config.xpath("//cruise/server/security").each do |security|
+        security['allowOnlyKnownUsersToLogin'] = value
+      end
+      load_dom(current_config)
+     end
   end
 end

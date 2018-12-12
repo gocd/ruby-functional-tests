@@ -262,6 +262,24 @@
                 </jobs>
             </stage>
         </pipeline>
+        <pipeline name="pipeline-with-wierd-command">
+            <params>
+                <param name="wierd-command">some_command_that_can_never_ever_exist</param>
+            </params>
+            <materials>
+                <git url="material-for-pipeline-with-wierd-command" dest="git" autoUpdate="false" materialName="git"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="#{wierd-command}_with_tail"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
         
     </pipelines>
     <pipelines group="dependency-group">

@@ -82,10 +82,7 @@ step 'Verify error description does not contain <message>' do |message|
 end  
 
 step 'Close the error popup' do ||
-<<<<<<< HEAD
   admin_pipeline_page.close_erroe_popup.click
 end
-=======
   admin_pipeline_page.error_popup_ok_button.click
 end
->>>>>>> Commiting spec cruiseErrorMessages.spec

@@ -99,3 +99,16 @@ end
 step 'Make cruise config file invalid' do ||
   basic_configuration.change_cruise_config_file_to 'invalid-cruise-config.xml'
 end 
+step 'Group admin security configuration - setup' do
+  secure_configuration.setup 'group-admin-security-config.xml','password.properties'
+end
+
+step 'Allow only known users to login' do ||
+  basic_configuration.allow_known_user_to_login("true")
+end
+
+step 'Allow unknown users to login' do ||
+  basic_configuration.allow_known_user_to_login("false")
+end
+
+

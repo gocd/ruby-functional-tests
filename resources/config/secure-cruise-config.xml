@@ -563,6 +563,21 @@
                 </jobs>
             </stage>
         </pipeline>
+        <pipeline name="basic-pipeline">
+            <materials>
+              <hg url="$hgurl-basic-pipeline" dest="hg" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+             <approval type="manual"/>
+              <jobs>
+                <job name="defaultJob">
+                   <tasks>
+                    <exec command="ls"/>
+                   </tasks>
+                </job>
+              </jobs>
+             </stage>
+          </pipeline>
     </pipelines>
 
 

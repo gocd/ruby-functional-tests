@@ -27,7 +27,7 @@ end
 
 step "Verify users <users> are enabled" do |users|
   users.split(',').each{|user|
-    assert_true user_summary_page.enabled?(user)
+    assert_true user_summary_page.enabled?(user.strip)
   }
 end
 

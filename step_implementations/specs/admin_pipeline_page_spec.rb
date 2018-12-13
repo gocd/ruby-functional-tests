@@ -14,19 +14,19 @@
 # limitations under the License.
 ##########################################################################
 
-step "On Admin page" do |_tmp|
+step 'On Admin page' do |_tmp|
   admin_pipeline_page.load
 end
 
-step "Clone pipeline <pipeline_name> to <new_pipeline_name> in pipeline group <target_group>" do |pipeline_name, new_pipeline_name, pipeline_group_name|
+step 'Clone pipeline <pipeline_name> to <new_pipeline_name> in pipeline group <target_group>' do |pipeline_name, new_pipeline_name, pipeline_group_name|
   admin_pipeline_page.clone_pipeline(pipeline_name, new_pipeline_name, pipeline_group_name)
 end
 
-step "Delete <pipeline_name>" do |pipeline|
+step 'Delete <pipeline_name>' do |pipeline|
   admin_pipeline_page.delete_pipeline(pipeline)
 end
 
-step "Move pipeline <pipeline_name> from group <source_group> to group <destination_group>" do |pipeline, source_group, destination_group|
+step 'Move pipeline <pipeline_name> from group <source_group> to group <destination_group>' do |pipeline, source_group, destination_group|
   admin_pipeline_page.move_pipeline(pipeline, source_group, destination_group)
 end
 
@@ -36,27 +36,27 @@ end
 
 step 'Verify there are <number_of_warnings> warnings' do |number_of_warnings|
   admin_pipeline_page.verify_number_of_warnings number_of_warnings
-end  
+end
 
 step 'Verify message contains <message>' do |message|
   admin_pipeline_page.verify_error_message(message)
-end  
+end
 
 step 'Verify error description contains <message>' do |message|
- admin_pipeline_page.verify_error_description(message)
+  admin_pipeline_page.verify_error_description(message)
 end
 
-step 'Open error messages popup' do ||
-admin_pipeline_page.error_and_warning_count.click
+step 'Open error messages popup' do
+  admin_pipeline_page.error_and_warning_count.click
 end
 
-step 'Verify there are no warnings' do ||
+step 'Verify there are no warnings' do
   admin_pipeline_page.verify_there_are_no_warnings
-end  
+end
 
-step 'Verify there are no error messages' do ||
+step 'Verify there are no error messages' do
   admin_pipeline_page.verify_there_are_no_error_messages
-end  
+end
 
 step 'Verify message do not contain <message>' do |message|
   admin_pipeline_page.verify_message_do_not_contains message
@@ -64,13 +64,13 @@ end
 
 step 'Verify error description does not contain <message>' do |message|
   admin_pipeline_page.verify_error_description_do_not_contains message
-end  
+end
 
-step 'Close the error popup' do ||
+step 'Close the error popup' do
   admin_pipeline_page.error_popup_ok_button.click
 end
-step 'Open config tab as group admin' do 
-  admin_pipeline_page.navigate_to("Config XML")
+step 'Open config tab as group admin' do
+  admin_pipeline_page.navigate_to('Config XML')
 end
 
 step 'Verify that extract template is enabled for <pipeline>' do |pipeline|

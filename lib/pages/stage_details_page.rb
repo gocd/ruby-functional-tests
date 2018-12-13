@@ -89,9 +89,8 @@ module Pages
       jobs_passed.text.include?status  and is_job_in_passed_list?(job)         
     end      
   
-
     def is_job_in_passed_list?(job)
-      passed_job_list.each{ |jobs| 
+      passed_job_list.each { |jobs| 
         return true if jobs.text.include?job
        }  
     end
@@ -101,7 +100,6 @@ module Pages
     end  
 
     def verify_stage_has_no_actions(stage)
-      binding.pry
       page.has_selector?("a#stage_bar_trigger_#{stage}") and page.has_selector?("a#stage_bar_rerun_#{stage}") and page.has_selector?("a#stage_bar_cancel_#{stage}")
     end  
 
@@ -120,9 +118,6 @@ module Pages
     def material_header_for(material_type, material_name)
       material_names.select { |name| name.text.include? "#{material_type} - #{material_name}" }.first
     end
-
-    
-
 
   end
 end

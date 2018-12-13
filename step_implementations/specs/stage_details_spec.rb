@@ -83,3 +83,15 @@ end
 step 'Verify stage result shows <status> - On Stage Detail Page' do |status|
   stage_details_page.check_pipeline_status(status)
 end
+
+step 'Wait for jobs to show <status> with jobs <job>' do |status,job|
+ assert_true stage_details_page.verify_status_with_job(status,job)
+end  
+
+step 'Verify Trigger is enabled for stage <stage>' do |stage|
+  stage_details_page.verify_stage_trigger_is_enabled? stage
+end
+
+step 'Verify stage <stage> does not have any action' do |stage|
+  assert_false stage_details_page.verify_stage_has_no_actions(stage)
+end

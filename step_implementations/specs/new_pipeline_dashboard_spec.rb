@@ -42,7 +42,7 @@ step 'Turn off AutoRefresh - On Swift Dashboard page' do |_pipeline|
 end
 
 step 'Wait till stage <stage> completed - On Swift Dashboard page' do |stage|
-  new_pipeline_dashboard_page.wait_till_stage_complete scenario_state.get('current_pipeline'), stage
+  new_pipeline_dashboard_page.wait_till_stage_complete stage
 end
 
 step 'Wait till pipeline completed - On Swift Dashboard page' do |_stage|

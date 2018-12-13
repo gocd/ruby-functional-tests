@@ -325,7 +325,7 @@
 
         <pipeline name="2-stage-viewable">
             <materials>
-                <hg url="$hgurl-viewable-pipeline" dest="hg" autoUpdate="false"/>
+                <git url="material-for-2-stage-viewable-pipeline" dest="git" autoUpdate="false"/>
             </materials>
             <stage name="first">
                 <approval type="manual">

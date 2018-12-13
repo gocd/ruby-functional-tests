@@ -23,6 +23,8 @@ module Pages
     elements :material_names, '.material_name'
     element :locked_instance, '.locked_instance'
     element :page_status_bar, '.page_status_bar'
+    element :jobs_passed, '.jobs_passed>span'
+    elements :passed_job_list, 'li.job a span.wrapped_word'
 
     def verify_latest_revision_for_modification(modification_number)
       latest_revision = Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).latest_revision
@@ -82,6 +84,24 @@ module Pages
     def check_pipeline_status(status) 
       page_status_bar.find('.run_results').find('.result').text.include?(status)
     end
+
+    def verify_status_with_job(status,job)
+      jobs_passed.text.include?status  and is_job_in_passed_list?(job)         
+    end      
+  
+    def is_job_in_passed_list?(job)
+      passed_job_list.each { |jobs| 
+        return true if jobs.text.include?job
+       }  
+    end
+
+    def  verify_stage_trigger_is_enabled?(stage)
+      page.has_selector?("#stage_bar_trigger_#{stage}")
+    end  
+
+    def verify_stage_has_no_actions(stage)
+      page.has_selector?("a#stage_bar_trigger_#{stage}") and page.has_selector?("a#stage_bar_rerun_#{stage}") and page.has_selector?("a#stage_bar_cancel_#{stage}")
+    end  
 
     private
 

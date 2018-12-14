@@ -116,6 +116,7 @@ module GoCDInitialize
   end
 
   after_scenario do
+    app_base_page.logout
     basic_configuration.reset_config
   end
 end

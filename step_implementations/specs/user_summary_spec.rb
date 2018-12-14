@@ -33,7 +33,7 @@ end
 
 step "Verify users <users> are disabled" do |users|
   users.split(',').each{|user|
-    assert_true user_summary_page.disabled?(user)
+    assert_true user_summary_page.disabled?(user.strip)
   }
 end
 
@@ -45,7 +45,7 @@ end
 
 step "Disable users <users>" do |users|
   users.split(',').each{|user|
-    user_summary_page.select_user(user)
+    user_summary_page.select_user(user.strip)
   }
   user_summary_page.btn_disable.click
 end
@@ -61,6 +61,13 @@ end
 step "Add user <user> - Using user API" do |user|
   RestClient.post http_url('/api/users'), {"login_name": user}.to_json,
   {content_type: :json, accept: 'application/vnd.go.cd.v2+json'}.merge(basic_configuration.header)
+end
+
+step "Attempt to delete <user> user and should return <code>" do |user, response_code|
+  RestClient.delete http_url("/api/users/#{user}"),
+  {accept: 'application/vnd.go.cd.v2+json'}.merge(basic_configuration.header) do |response, _request, _result|
+    assert_true response.code == response_code.to_i
+  end
 end
 
 step "Add Roles as <roles> to users <users>" do |roles,users|

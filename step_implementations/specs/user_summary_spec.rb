@@ -75,13 +75,41 @@ step "Add Roles as <roles> to users <users>" do |roles,users|
 end
 
 step "Verify message displayed as <message> after applying roles to users." do |message|
-  assert_true user_summary_page.verify_message_after_applying_roles().start_with? message
+  assert_true user_summary_page.message_after_applying_roles.start_with? message
 end
 
 step "Verify users <users> are assigned role <roles>" do |users,roles|
   users.split(',').each{ |user| 
       assert_true user_summary_page.get_user_roles(user).include?roles
   }
+end
+
+step "Verify users <users> are administrators" do |users|
+  users.split(',').each {|user|
+    assert_true user_summary_page.admin? user.strip
+  }
+end
+
+step "Add roles <roles>" do |roles|
+  user_summary_page.add_roles(roles)
+end
+
+step "Remove roles <roles>" do |roles|
+  user_summary_page.remove_roles(roles)
+end
+
+step "Verify users <users> are not administrators" do |users|
+  users.split(',').each {|user|
+    assert_true user_summary_page.admin? user, 'No'
+  }
+end
+
+step 'Apply changes to roles' do
+  user_summary_page.add_role.click
+end
+
+step 'Toggle selection of users <users>' do |users|
+  user_summary_page.select_users(users)
 end
 
 step "Add new role as <new_role> to users <users>" do |new_role,users|

@@ -53,6 +53,11 @@ module Pages
       (username text: user,exact_text: true).ancestor('.user').find('.selector').find("input[type='checkbox']").set(true)
     end
 
+    def select_users(users_list)
+      users_list.split(',').each { |user| select_user(user)
+      }
+    end
+
     def enable(user)
       select_user(user)
       btn_enable.click
@@ -78,29 +83,42 @@ module Pages
       update_success? "Role(s)/Admin-Privilege modified for 1 user(s) successfully."
     end
 
-    def admin?
-      (username text: scenario_state.get('current_user') ,exact_text: true).ancestor('.user').find('.is_admin')['title'] == 'Yes'
+    def admin?(user, expected='Yes')
+      (username text: user ,exact_text: true).ancestor('.user').find('.is_admin')['title'].eql?expected
     end  
 
     def error_msg_displayed? message
       page.find('.error').text.eql? message
     end
    
-    def select_role(role)
-      page.find('.selectors .tristate', text: role, exact_text: true).click
+    def set_role(role, value=true)
+      page.find('.selectors .tristate', text: role, exact_text: true).set(value)
     end 
 
-    def add_roles_to_users(roles,users)
-      users.split(',').each { |user| select_user(user)
-      }
+    def add_roles(roles)
       btn_role.click
-      roles.split(',').each{
-        |role| select_role(role)
+      set_roles(roles_list)
+    end
+
+    def remove_roles(roles)
+      btn_role.click
+      set_roles(roles_list, false)
+    end
+
+    def set_roles(roles_list, value=true)
+      roles_list.split(',').each{
+        |role| set_role(role, value)
       }
+    end
+
+    def add_roles_to_users(roles_list,users_list)
+      select_users(users_list)
+      btn_role.click
+      set_roles(roles_list)
       add_role.click
     end
 
-    def verify_message_after_applying_roles()
+    def message_after_applying_roles
       message_after_adding_role.text
     end
 

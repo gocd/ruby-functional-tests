@@ -28,7 +28,7 @@
                     <job name="defaultJob">
                         <tasks>
                             <exec command="sleep">
-                                <arg>5</arg>
+                                <arg>30</arg>
                                 <runif status="passed"/>
                             </exec>
                         </tasks>

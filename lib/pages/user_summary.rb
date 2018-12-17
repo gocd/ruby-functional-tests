@@ -53,7 +53,14 @@ module Pages
       (username text: user,exact_text: true).ancestor('.user').find('.selector').find("input[type='checkbox']").set(true)
     end
 
+    def deselect_all_users
+      page.all('.user').each{|user|
+        user.find("input[type='checkbox']").set(false)
+      }
+    end
+
     def select_users(users_list)
+      deselect_all_users
       users_list.split(',').each { |user| select_user(user)
       }
     end
@@ -90,31 +97,29 @@ module Pages
     def error_msg_displayed? message
       page.find('.error').text.eql? message
     end
-   
-    def set_role(role, value=true)
-      page.find('.selectors .tristate', text: role, exact_text: true).set(value)
-    end 
 
-    def add_roles(roles)
-      btn_role.click
-      set_roles(roles_list)
+    def role_disabled_message(role)
+      page.find('.selectors .tristate', text: role.strip, exact_text: true).ancestor('.selectors').find('.tristate_disabled_message').text
     end
 
-    def remove_roles(roles)
-      btn_role.click
-      set_roles(roles_list, false)
+    def role_enabled?(role)
+      !page.find('.selectors .tristate', text: role.strip, exact_text: true).ancestor('.selectors').has_css?('.tristate_disabled_message')
     end
 
-    def set_roles(roles_list, value=true)
+    def click_on_roles(roles_list)
+      click_roles(roles_list)
+    end
+
+    def click_roles(roles_list)
       roles_list.split(',').each{
-        |role| set_role(role, value)
+        |role| page.find('.selectors .tristate', text: role.strip, exact_text: true).click
       }
     end
 
     def add_roles_to_users(roles_list,users_list)
       select_users(users_list)
       btn_role.click
-      set_roles(roles_list)
+      click_on_roles(roles_list)
       add_role.click
     end
 

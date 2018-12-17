@@ -21,28 +21,32 @@ tags: admin, role, user_summary
 * Verify message displayed as "Role(s)/Admin-Privilege modified for" after applying roles to users.
 * Verify users "pavan" are assigned role "admins"
 
-* Toggle selection of users "pavan"
- Verify role state "Go System Administrator" is disabled with message "The selected users have administrative privilege via other roles. To remove this privilege, remove them from all administrative roles."
-* Toggle selection of users "pavan,raghu"
- Verify role state "Go System Administrator" is enabled
+* Select users "pavan"
+* Open roles menu
+* Verify role state "Go System Administrator" is disabled with message "The selected users have administrative privilege via other roles. To remove this privilege, remove them from all administrative roles."
+* Select users "raghu"
+* Open roles menu
 * Add roles "Go System Administrator, viewer"
 * Apply changes to roles
 * Verify message displayed as "Role(s)/Admin-Privilege modified for" after applying roles to users.
 * Verify users "raghu" are assigned role "viewer"
 * Verify users "pavan,raghu" are administrators
 
-* Toggle selection of users "pavan,raghu"
+* Select users "pavan,raghu"
+* Open roles menu
 * Verify role state "Go System Administrator" is disabled with message "The selected users have administrative privilege via other roles. To remove this privilege, remove them from all administrative roles."
-* Toggle selection of users "pavan"
+* Select users "raghu"
+* Open roles menu
 * Verify role state "Go System Administrator" is enabled
-* Add roles "Go System Administrator"
+* Remove roles "Go System Administrator"
 * Apply changes to roles
 * Verify message displayed as "Role(s)/Admin-Privilege modified for" after applying roles to users.
 * Verify users "raghu" are assigned role "viewer"
 * Verify users "pavan" are assigned role "admins"
 * Verify users "raghu" are not administrators
 
-* Toggle selection of users "pavan"
+* Select users "pavan"
+* Open roles menu
 * Verify role state "Go System Administrator" is disabled with message "The selected users have administrative privilege via other roles. To remove this privilege, remove them from all administrative roles."
 * Remove roles "admins"
 * Add roles "viewer"
@@ -51,15 +55,14 @@ tags: admin, role, user_summary
 * Verify users "pavan,raghu" are assigned role "viewer"
 * Verify users "pavan,raghu" are not administrators
 
-* Toggle selection of users "pavan,raghu"
+* Select users "pavan,raghu"
+* Open roles menu
 * Verify role state "Go System Administrator" is enabled
-* Select role states "admins:add, viewer:remove"
+* Remove roles "viewer"
+* Add roles "admins"
 * Apply changes to roles
 * Verify message displayed as "Role(s)/Admin-Privilege modified for" after applying roles to users.
 * Verify users "pavan, raghu" are assigned role "admins"
-
-
-
 
 
 Teardown of contexts

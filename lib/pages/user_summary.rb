@@ -53,6 +53,18 @@ module Pages
       (username text: user,exact_text: true).ancestor('.user').find('.selector').find("input[type='checkbox']").set(true)
     end
 
+    def deselect_all_users
+      page.all('.user').each{|user|
+        user.find("input[type='checkbox']").set(false)
+      }
+    end
+
+    def select_users(users_list)
+      deselect_all_users
+      users_list.split(',').each { |user| select_user(user)
+      }
+    end
+
     def enable(user)
       select_user(user)
       btn_enable.click
@@ -78,29 +90,40 @@ module Pages
       update_success? "Role(s)/Admin-Privilege modified for 1 user(s) successfully."
     end
 
-    def admin?
-      (username text: scenario_state.get('current_user') ,exact_text: true).ancestor('.user').find('.is_admin')['title'] == 'Yes'
+    def admin?(user, expected='Yes')
+      (username text: user ,exact_text: true).ancestor('.user').find('.is_admin')['title'].eql?expected
     end  
 
     def error_msg_displayed? message
       page.find('.error').text.eql? message
     end
-   
-    def select_role(role)
-      page.find('.selectors .tristate', text: role, exact_text: true).click
-    end 
 
-    def add_roles_to_users(roles,users)
-      users.split(',').each { |user| select_user(user)
+    def role_disabled_message(role)
+      page.find('.selectors .tristate', text: role.strip, exact_text: true).ancestor('.selectors').find('.tristate_disabled_message').text
+    end
+
+    def role_enabled?(role)
+      !page.find('.selectors .tristate', text: role.strip, exact_text: true).ancestor('.selectors').has_css?('.tristate_disabled_message')
+    end
+
+    def click_on_roles(roles_list)
+      click_roles(roles_list)
+    end
+
+    def click_roles(roles_list)
+      roles_list.split(',').each{
+        |role| page.find('.selectors .tristate', text: role.strip, exact_text: true).click
       }
+    end
+
+    def add_roles_to_users(roles_list,users_list)
+      select_users(users_list)
       btn_role.click
-      roles.split(',').each{
-        |role| select_role(role)
-      }
+      click_on_roles(roles_list)
       add_role.click
     end
 
-    def verify_message_after_applying_roles()
+    def message_after_applying_roles
       message_after_adding_role.text
     end
 

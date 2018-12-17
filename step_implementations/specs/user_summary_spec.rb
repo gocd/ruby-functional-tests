@@ -74,14 +74,56 @@ step "Add Roles as <roles> to users <users>" do |roles,users|
   user_summary_page.add_roles_to_users(roles,users)
 end
 
+step "Verify role state <role> is disabled with message <message>" do |role, message|
+  assert_false user_summary_page.role_enabled? role
+  assert_true user_summary_page.role_disabled_message(role).eql? message
+end
+
+step "Open roles menu" do 
+  user_summary_page.btn_role.click
+end
+
+step "Verify role state <role> is enabled" do |role|
+  assert_true user_summary_page.role_enabled? role
+end
+
+
 step "Verify message displayed as <message> after applying roles to users." do |message|
-  assert_true user_summary_page.verify_message_after_applying_roles().start_with? message
+  assert_true user_summary_page.message_after_applying_roles.start_with? message
 end
 
 step "Verify users <users> are assigned role <roles>" do |users,roles|
   users.split(',').each{ |user| 
-      assert_true user_summary_page.get_user_roles(user).include?roles
+      assert_true user_summary_page.get_user_roles(user.strip).include?roles
   }
+end
+
+step "Verify users <users> are administrators" do |users|
+  users.split(',').each {|user|
+    assert_true user_summary_page.admin? user.strip
+  }
+end
+
+step "Add roles <roles>" do |roles|
+  user_summary_page.click_on_roles(roles)
+end
+
+step "Remove roles <roles>" do |roles|
+  user_summary_page.click_on_roles(roles)
+end
+
+step "Verify users <users> are not administrators" do |users|
+  users.split(',').each {|user|
+    assert_true user_summary_page.admin? user, 'No'
+  }
+end
+
+step 'Apply changes to roles' do
+  user_summary_page.add_role.click
+end
+
+step 'Select users <users>' do |users|
+  user_summary_page.select_users(users)
 end
 
 step "Add new role as <new_role> to users <users>" do |new_role,users|

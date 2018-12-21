@@ -67,7 +67,10 @@ step 'Verify looking at <stage> having counter <counter>' do |stage,counter|
  end
 
  step 'Verify console has environment variable <environment_variable> set to value <value>' do |environment_variable,value|
+<<<<<<< HEAD
   job_details_page.console_content
+=======
+>>>>>>> Added spec JobRerun.spec,JobRerunConfigDeletion.spec
   assert_true job_details_page.console_content.include? "[go] setting environment variable '#{environment_variable}' to value '#{value}'"
  end
 

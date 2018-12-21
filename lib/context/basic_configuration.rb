@@ -285,5 +285,11 @@ module Context
       load_dom(current_config)
      end
 
+     def remove_job_from_stage(job,stage,pipeline)
+      current_config = get_config_from_server
+      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/stage[@name='#{stage}']/jobs/job[@name='#{job}']").remove
+      load_dom(current_config)
+    end 
+
   end
 end

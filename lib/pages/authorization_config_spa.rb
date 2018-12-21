@@ -18,23 +18,33 @@ module Pages
   class AuthConfigSPA < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/security/auth_configs"
 
-    element :add,               "button[class='button add-auth-config']"
-    element :id,                "input[data-prop-name='id']"
-    element :plugin_id,         "select[data-prop-name='pluginId']"
-    element :pwd_file_path,     "input[ng-model='PasswordFilePath']"
-    element :ldap_url,          "input[ng-model='Url']"
-    element :manager_dn,        "input[ng-model='ManagerDN']"
-    element :password,          "input[ng-model='Password']"
-    element :search_bases,      "textarea[ng-model='SearchBases']"
-    element :login_filter,      "input[ng-model='UserLoginFilter']"
-    element :display_name,      "input[ng-model='DisplayNameAttribute']"
-    element :email,             "input[ng-model='EmailAttribute']"
-    element :search_filter,     "input[ng-model='UserSearchFilter']"
-    element :save,              "button[class='button save primary']"
-    element :check_connection,  "button[class='button verify-connection save primary']"
+    element :add, "button[data-test-id='add-auth-config-button']"
+    element :id, "input[aria-label='Id']"
+    element :plugin_id, "select[aria-label='Plugin ID']"
+    element :pwd_file_path, "input[ng-model='PasswordFilePath']"
+    element :ldap_url, "input[ng-model='Url']"
+    element :manager_dn, "input[ng-model='ManagerDN']"
+    element :password, "input[ng-model='Password']"
+    element :search_bases, "textarea[ng-model='SearchBases']"
+    element :login_filter, "input[ng-model='UserLoginFilter']"
+    element :display_name, "input[ng-model='DisplayNameAttribute']"
+    element :email, "input[ng-model='EmailAttribute']"
+    element :search_filter, "input[ng-model='UserSearchFilter']"
+    element :flash_message, "div[data-test-id^='flash-message']"
+
+
+    element :save, "button[data-test-id='button-ok']"
+    element :edit, "button[data-test-id='auth-config-edit']"
+    element :clone, "button[data-test-id='auth-config-clone']"
+    element :confirm_delete, "button[data-test-id='button-delete']"
+    element :check_connection, "button[data-test-id='button-check-connection']"
 
     def click_add
       add.click
+    end
+
+    def click_confirm_delete
+      confirm_delete.click
     end
 
     def plugin=(plugin)
@@ -45,5 +55,42 @@ module Pages
       save.click
     end
 
+    def do_check_connection
+      check_connection.click
+    end
+
+    def has_auth_config(id)
+      return find_collapsable_header(id) != nil
+    end
+
+    def delete_auth_config(id)
+      selected_header = find_collapsable_header(id)
+      if (selected_header)
+        selected_header.find("button[data-test-id='auth-config-delete']").click
+      end
+    end
+
+    def edit_auth_config(id)
+      selected_header = find_collapsable_header(id)
+
+      if (selected_header)
+        selected_header.find("button[data-test-id='auth-config-edit']").click
+      end
+    end
+
+    def clone_auth_config(id)
+      selected_header = find_collapsable_header(id)
+
+      if (selected_header)
+        selected_header.find("button[data-test-id='auth-config-clone']").click
+      end
+    end
+
+    private
+
+    def find_collapsable_header(id)
+      selected_header = page.all("div[data-test-id='collapse-header']")
+                            .find {|widget| widget.find("span[data-test-id='key-value-value-id']").text === id}
+    end
   end
 end

@@ -21,12 +21,46 @@ step 'Start to add a new authorization config with id as <id> for plugin <plugin
   authorization_config_page.plugin = plugin_id
 end
 
+step 'Go to auth config page' do |_i|
+  authorization_config_page.load
+end
+
+step 'Set auth config id as <auth_config_id>' do |auth_config_id|
+  authorization_config_page.id.set auth_config_id
+end
+
 step 'Set password file path as <file>' do |file|
   authorization_config_page.pwd_file_path.set file == 'non_existent_file' ? file : File.expand_path("#{GoConstants::CONFIG_PATH}/#{file}")
 end
 
 step 'Save authorization config' do |_i|
   authorization_config_page.save_config
+end
+
+step 'Perform check connection' do |_i|
+  authorization_config_page.do_check_connection
+end
+
+step 'Verify falsh message <message>' do |message|
+  assert_equal message, authorization_config_page.flash_message.text
+end
+step 'Verify if auth config <auth_config_id> is added' do |auth_config_id|
+  assert_true authorization_config_page.has_auth_config(auth_config_id)
+end
+
+step 'Delete auth config <auth_config_id>' do |auth_config_id|
+  authorization_config_page.delete_auth_config(auth_config_id)
+end
+step 'Edit auth config <auth_config_id>' do |auth_config_id|
+  authorization_config_page.edit_auth_config(auth_config_id)
+  end
+
+step 'Clone auth config <auth_config_id>' do |auth_config_id|
+  authorization_config_page.clone_auth_config(auth_config_id)
+end
+
+step 'Confirm delete auth config' do |_i|
+  authorization_config_page.click_confirm_delete
 end
 
 step 'Set LDAP Url' do |_i|

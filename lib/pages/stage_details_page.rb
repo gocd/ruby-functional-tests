@@ -103,6 +103,19 @@ module Pages
       page.has_selector?("a#stage_bar_trigger_#{stage}") and page.has_selector?("a#stage_bar_rerun_#{stage}") and page.has_selector?("a#stage_bar_cancel_#{stage}")
     end  
 
+    def verify_stage_has_action?(stage,action)
+      page.has_selector?("a#stage_bar_#{action}_#{stage}")
+    end 
+
+    def verify_stage_does_not_has_action?(stage,action)
+      page.has_selector?("a#stage_bar_#{action}_#{stage}")
+    end 
+
+    def trigger_stage(stage)
+      page.find("a#stage_bar_trigger_#{stage}").click
+    end
+
+
     private
 
     def getRevisionForModification(modification_number)

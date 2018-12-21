@@ -95,3 +95,16 @@ end
 step 'Verify stage <stage> does not have any action' do |stage|
   assert_false stage_details_page.verify_stage_has_no_actions(stage)
 end
+
+step 'Verify stage <stage> has action <action>' do |stage, action|
+ assert_true stage_details_page.verify_stage_has_action?(stage,action)
+end
+
+step 'Verify stage <stage> does not have action <action>' do |stage, action|
+  assert_false stage_details_page.verify_stage_does_not_has_action?(stage,action)
+end 
+
+step 'Trigger stage <stage> - On stage details page' do |stage|
+  stage_details_page.trigger_stage(stage)
+end
+

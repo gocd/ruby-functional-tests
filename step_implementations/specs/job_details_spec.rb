@@ -25,6 +25,10 @@ step 'Verify console log contains message <message>' do |message|
   assert_true job_details_page.console_content.include? message
 end
 
+step "Verify console log contains pipeline <pipeline> with <message>" do |pipeline,message|
+  assert_true job_details_page.console_content.include?"#{scenario_state.get(pipeline)}/#{message}"
+end
+
 step 'Verify console log does not contains message <message>' do |message|
   assert_false job_details_page.console_content.include? message
 end
@@ -41,3 +45,51 @@ step 'Verify the job completed time stamp for job <job> of stage <stage> of pipe
   stagererun2 = scenario_state.get rerun2.downcase
   assert_not_equal stagererun1, stagererun2
 end
+
+step 'Verify rerun button is enabled' do
+  job_details_page.verify_rerun_button_is_enabled?
+end
+
+step 'Rerun <jobs> jobs' do |jobs|
+  jobs.split(',').each { |job|
+    job_details_page.select_jobs(job)
+  }
+  job_details_page.rerun_seleced.click
+end
+
+step 'Verify looking at <stage> having counter <counter>' do |stage,counter|
+  assert_true stage_details_page.current_path.include?"#{stage}/#{counter}"
+ end 
+
+ step 'Verify job <job> has state <state> and result <status>' do |job,state,status|
+  assert_equal state,job_details_page.get_job_has_state?(job,state)
+  assert_equal status,job_details_page.get_job_has_status?(job,status)
+ end
+
+ step 'Verify console has environment variable <environment_variable> set to value <value>' do |environment_variable,value|
+  assert_true job_details_page.console_content.include? "[go] setting environment variable '#{environment_variable}' to value '#{value}'"
+ end
+
+ step 'Verify breadcrumb contains stage run <stage>' do |stage|
+  assert_equal stage, job_details_page.breadcrumb_stage.text
+ end
+
+ step 'Verify displaying job <value>' do |value|
+  assert_true job_details_page.verify_job_with_current_value(value)
+ end 
+
+ step 'Verify historical job <value> is not a copy' do |value|
+ assert_false job_details_page.verify_job_is_not_copied_job(value)
+ end
+
+ step 'Verify properties tab shows value <value> for property <property>' do |value,property|
+  assert_equal value, job_details_page.get_value_of_property(property)
+ end
+
+ step 'Remove job <job> from stage <stage> in pipeline <pipeline>' do |job,stage,pipeline|
+  basic_configuration.remove_job_from_stage(job,stage,pipeline)
+  end
+  
+ step 'Verify rerun failed with cause <message>' do |message|
+    assert_equal message, job_details_page.verify_job_rerun_failed_message(message)
+ end 

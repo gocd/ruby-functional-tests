@@ -22,18 +22,18 @@
      <pipelines group="big-setup">
         <pipeline name="C1" template="manualStagePipelineTemplate">
       	  <materials>
-        <git url="git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
-        <git url="$git-two" materialName="git-two" dest="git-two" autoUpdate="true"/>
+        <git url="material-for-git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
+        <git url="material-for-git-two" materialName="git-two" dest="git-two" autoUpdate="true"/>
           </materials>
        </pipeline>
     <pipeline name="C2" template="manualStagePipelineTemplate">
       <materials>
-        <git url="git-one" materialName="git-one" autoUpdate="true"/>
+        <git url="material-for-git-one" materialName="git-one" autoUpdate="true"/>
       </materials>
     </pipeline>
     <pipeline name="C3" template="manualStagePipelineTemplate">
       <materials>
-        <git url="git-one" materialName="git-one" autoUpdate="true"/>
+        <git url="material-for-git-one" materialName="git-one" autoUpdate="true"/>
         <pipeline pipelineName="C2" stageName="defaultStage"/>
         <pipeline pipelineName="C1" stageName="defaultStage"/>
       </materials>
@@ -47,13 +47,13 @@
     </pipeline>
     <pipeline name="C5" template="manualStagePipelineTemplate">
       <materials>
-        <git url="$git-two" materialName="git-two" autoUpdate="true"/>
+        <git url="material-for-git-two" materialName="git-two" autoUpdate="true"/>
       </materials>
     </pipeline>
     <pipeline name="C6-auto" template="autoStagePipelineTemplate">
       <materials>
-        <git url="git-one" materialName="git-one" dest="git-one1" autoUpdate="true"/>
-        <git url="$git-four" materialName="git-four" dest="git-four" autoUpdate="true"/>
+        <git url="material-for-git-one" materialName="git-one" dest="git-one1" autoUpdate="true"/>
+        <git url="material-for-git-four" materialName="git-four" dest="git-four" autoUpdate="true"/>
         <pipeline pipelineName="C1" stageName="defaultStage"/>
         <pipeline pipelineName="C4-auto" stageName="defaultStage"/>
         <pipeline pipelineName="C5" stageName="defaultStage"/>
@@ -63,14 +63,14 @@
     </pipeline>
     <pipeline name="C7" template="manualStagePipelineTemplate">
       <materials>
-        <git url="$git-three" materialName="git-three" dest="git-three1" autoUpdate="true"/>
-        <git url="git-one" materialName="git-one" dest="git-one2" autoUpdate="true"/>
+        <git url="material-for-git-three" materialName="git-three" dest="git-three1" autoUpdate="true"/>
+        <git url="material-for-git-one" materialName="git-one" dest="git-one2" autoUpdate="true"/>
         <pipeline pipelineName="C4-auto" stageName="defaultStage"/>
       </materials>
     </pipeline>
     <pipeline name="C8" template="manualStagePipelineTemplate">
       <materials>
-        <git url="$git-three" materialName="git-three" autoUpdate="true"/>
+        <git url="material-for-git-three" materialName="git-three" autoUpdate="true"/>
         <pipeline pipelineName="C2" stageName="defaultStage"/>
       </materials>
     </pipeline>
@@ -89,7 +89,7 @@
       <materials>
         <pipeline pipelineName="C10-auto" stageName="defaultStage"/>
         <pipeline pipelineName="C9" stageName="defaultStage"/>
-        <git url="$git-three" materialName="git-three" autoUpdate="true"/>
+        <git url="material-for-git-three" materialName="git-three" autoUpdate="true"/>
       </materials>
     </pipeline>
      <pipeline name="C4-man" template="manualStagePipelineTemplate">
@@ -105,12 +105,12 @@
         <pipeline pipelineName="C2" stageName="defaultStage"/>
         <pipeline pipelineName="C3" stageName="defaultStage"/>
         <pipeline pipelineName="C5" stageName="defaultStage"/>
-        <git url="git-one" materialName="git-one" autoUpdate="true"/>
+        <git url="material-for-git-one" materialName="git-one" autoUpdate="true"/>
       </materials>
     </pipeline>
      <pipeline name="C6-auto-s" template="autoStagePipelineTemplate">
       <materials>
-        <git url="git-one" materialName="git-one" autoUpdate="true"/>
+        <git url="material-for-git-one" materialName="git-one" autoUpdate="true"/>
         <pipeline pipelineName="C1" stageName="defaultStage"/>
         <pipeline pipelineName="C4-man" stageName="defaultStage"/>
         <pipeline pipelineName="C5" stageName="defaultStage"/>
@@ -144,7 +144,7 @@
     <pipelines group="dummy-group">
 	       <pipeline name="basic-auto-pipeline" template="manualStagePipelineTemplate">
             <materials>
-                <git url="$git-on-basic-auto-pipeline" materialName="git"/>
+                <git url="material-for--basic-auto-pipeline" materialName="git"/>
             </materials>
         </pipeline>
       </pipelines>
@@ -154,13 +154,13 @@
     <pipelines group="dependency-add-group"> 
      <pipeline name="grandparent" template="manualStagePipelineTemplate">
         <materials>
-            <git url="$git-second" materialName="git-second" autoUpdate="true"/>
+            <git url="material-for-git-second" materialName="git-second" autoUpdate="true"/>
         </materials>
     </pipeline>
     <pipeline name="parent-left" template="manualStagePipelineTemplate">
         <materials>
             <pipeline pipelineName="grandparent" stageName="defaultStage"/>
-            <git url="$git-on-basic-auto-pipeline" materialName="git"/>
+            <git url="material-for-basic-auto-pipeline" materialName="git"/>
         </materials>
     </pipeline>
     <pipeline name="parent-right" template="manualStagePipelineTemplate">
@@ -180,7 +180,7 @@
   <pipelines group="all-auto-group"> 
     <pipeline name="grandparent-fast" template="autoStagePipelineTemplate">
         <materials>
-            <git url="$git-five" materialName="git-five" autoUpdate="true"/>
+            <git url="material-for-git-five" materialName="git-five" autoUpdate="true"/>
         </materials>
     </pipeline>
     <pipeline name="parent-fast" template="autoStagePipelineTemplate">
@@ -198,7 +198,7 @@
             <pipeline pipelineName="parent-fast" stageName="defaultStage"/>
             <pipeline pipelineName="parent-slow" stageName="defaultStage"/>
             <pipeline pipelineName="grandparent-fast" stageName="defaultStage"/>
-            <git url="$git-five" materialName="git-five" autoUpdate="true"/>
+            <git url="material-for-git-five" materialName="git-five" autoUpdate="true"/>
         </materials>
     </pipeline>
   </pipelines>
@@ -207,7 +207,7 @@
      <pipelines group="multi-stage-deep-triangle">
         <pipeline name="DeepC1" template="multi-stage-deep-triangle-template">
       	  <materials>
-        <git url="git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
+        <git url="material-for-git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
        </materials>
        </pipeline>
     <pipeline name="DeepC2" template="multi-stage-deep-triangle-template">
@@ -223,13 +223,13 @@
   
   <pipeline name="DeepC5" template="multi-stage-deep-triangle-template">
       <materials>
-        <git url="$git-two" materialName="git-two" autoUpdate="true"/>
+        <git url="material-for-git-two" materialName="git-two" autoUpdate="true"/>
       </materials>
     </pipeline>
 
     <pipeline name="DeepC6" template="multi-stage-deep-triangle-template">
       <materials>
-              <git url="$git-two" materialName="git-two" autoUpdate="true"/>
+              <git url="material-for-git-two" materialName="git-two" autoUpdate="true"/>
       </materials>
     </pipeline>
 
@@ -245,17 +245,17 @@
 <pipelines group="blacklisting_for_triangle_configuration">
     <pipeline name="cruise" template="autoStagePipelineTemplate">
       <materials>
-        <git url="git-one" dest="git-one" materialName="git-one">
+        <git url="material-for-git-one" dest="git-one" materialName="git-one">
           <filter>
             <ignore pattern="**/*"/>
           </filter>
         </git>
-        <git url="$git-two" dest="git-two" materialName="git-two"/>
+        <git url="material-for-git-two" dest="git-two" materialName="git-two"/>
       </materials>
     </pipeline>
     <pipeline name="acceptance" template="autoStagePipelineTemplate">
       <materials>
-        <git url="git-one" dest="git-one" materialName="git-one"/>
+        <git url="material-for-git-one" dest="git-one" materialName="git-one"/>
         <pipeline pipelineName="cruise" stageName="defaultStage"/>
       </materials>
     </pipeline>
@@ -264,7 +264,7 @@
   <pipelines group="manual_and_auto_trigger_for_deep_diamond_configuration">
     <pipeline name="P1" template="manualStagePipelineTemplate">
       <materials>
-        <git url="git-one" dest="git-one" materialName="git-one"/>
+        <git url="material-for-git-one" dest="git-one" materialName="git-one"/>
       </materials>
     </pipeline>
     <pipeline name="P2" template="manualStagePipelineTemplate">
@@ -274,13 +274,13 @@
     </pipeline>
 	<pipeline name="P3" template="manualStagePipelineTemplate">
       <materials>
-        <git url="git-one" dest="git-one" materialName="git-one"/>
+        <git url="material-for-git-one" dest="git-one" materialName="git-one"/>
       </materials>
     </pipeline>
     <pipeline name="P4" template="autoStagePipelineTemplate">
       <materials>
-        <git url="git-one" dest="git-one" materialName="git-one"/>
-        <git url="$git-two" dest="git-two" materialName="git-two"/>
+        <git url="material-for-git-one" dest="git-one" materialName="git-one"/>
+        <git url="material-for-git-two" dest="git-two" materialName="git-two"/>
         <pipeline pipelineName="P2" stageName="defaultStage"/>
         <pipeline pipelineName="P3" stageName="defaultStage"/>
       </materials>
@@ -290,7 +290,7 @@
     <pipelines group="stage-fail-and-cancel">
     <pipeline name="FS1">
       <materials>
-        <git url="git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
+        <git url="material-for-git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
       </materials>
       <stage name="stage1">
         <approval type="manual"/>
@@ -348,7 +348,7 @@
   <pipelines group="inconsistent-revisions">
     <pipeline name="FIR1">
       <materials>
-        <git url="git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
+        <git url="material-for-git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
       </materials>
       <stage name="defaultStage">
         <approval type="manual"/>
@@ -363,7 +363,7 @@
     </pipeline>
     <pipeline name="FIR2" lockBehavior="none">
       <materials>
-        <git url="git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
+        <git url="material-for-git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
       </materials>
       <stage name="defaultStage">
       	<approval type="manual"/>
@@ -396,7 +396,7 @@
   <pipelines group="trigger-with-options">
     <pipeline name="FTO1">
       <materials>
-        <git url="git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
+        <git url="material-for-git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
       </materials>
       <stage name="stage1">
         <approval type="manual"/>
@@ -414,7 +414,7 @@
     </pipeline>
     <pipeline name="FTO2" lockBehavior="none">
       <materials>
-        <git url="git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
+        <git url="material-for-git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
       </materials>
       <stage name="stage1">
       	<approval type="manual"/>
@@ -434,7 +434,7 @@
       <materials>
         <pipeline pipelineName="FTO1" stageName="stage1"/>
         <pipeline pipelineName="FTO2" stageName="stage1"/>
-        <git url="git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
+        <git url="material-for-git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
       </materials>
       <stage name="stage1">
       	<approval type="manual"/>
@@ -492,7 +492,7 @@
     <pipelines group="fanin-VSM">
         <pipeline name="VSMO1">
             <materials>
-                <git url="git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
+                <git url="material-for-git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
             </materials>
             <stage name="stage1">
                 <jobs>
@@ -506,7 +506,7 @@
         </pipeline>
         <pipeline name="VSMO2" lockBehavior="none">
             <materials>
-                <git url="git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
+                <git url="material-for-git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
             </materials>
             <stage name="stage1">
                 <jobs>
@@ -522,7 +522,7 @@
             <materials>
                 <pipeline pipelineName="VSMO1" stageName="stage1"/>
                 <pipeline pipelineName="VSMO2" stageName="stage1"/>
-                <git url="git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
+                <git url="material-for-git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
             </materials>
             <stage name="stage1">
                 <jobs>
@@ -569,7 +569,7 @@
 <pipelines group="stage_rerun_for_a_diamond_configuration">
      <pipeline name="Upstream1">
             <materials>
-                <git url="git-one" dest="git-one" materialName="git-one"/>
+                <git url="material-for-git-one" dest="git-one" materialName="git-one"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -586,7 +586,7 @@
 	</pipeline>
      <pipeline name="Upstream2" template="upstream_2_template">
             <materials>
-                <git url="git-one" dest="git-one" materialName="git-one"/>
+                <git url="material-for-git-one" dest="git-one" materialName="git-one"/>
             </materials>
 	</pipeline>
      <pipeline name="Downstream1" template="autoStagePipelineTemplate">

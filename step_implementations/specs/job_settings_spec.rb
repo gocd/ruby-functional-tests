@@ -157,3 +157,12 @@ step 'SetEnvironmentVariablesForJob <table>' do |table|
   parameters_page.set_parameter(row['index'],row['name'],row['value'])
  end
 end 
+
+step 'Check run multiple instance with <instance>' do |instance|
+  job_settings_page.check_multiple_instance_with(instance)
+end
+
+step 'Save Job Settings' do ||
+  job_settings_page.task_save.click
+end  
+

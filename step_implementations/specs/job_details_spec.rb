@@ -67,6 +67,7 @@ step 'Verify looking at <stage> having counter <counter>' do |stage,counter|
  end
 
  step 'Verify console has environment variable <environment_variable> set to value <value>' do |environment_variable,value|
+  job_details_page.console_content
   assert_true job_details_page.console_content.include? "[go] setting environment variable '#{environment_variable}' to value '#{value}'"
  end
 
@@ -93,3 +94,7 @@ step 'Verify looking at <stage> having counter <counter>' do |stage,counter|
  step 'Verify rerun failed with cause <message>' do |message|
     assert_equal message, job_details_page.verify_job_rerun_failed_message(message)
  end 
+
+ step 'Set run instance count to <count> for job <job> in pipeline <pipeline>' do |count,job,pipeline|
+  basic_configuration.set_run_instance_count_for_job(count,job,pipeline)
+ end  

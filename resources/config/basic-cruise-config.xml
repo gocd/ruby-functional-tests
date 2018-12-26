@@ -306,6 +306,29 @@
                 </jobs>
             </stage>
         </pipeline>
+        <pipeline name="pipeline-for-job-rerun-run-multiple-instance">
+            <materials>
+                <git url="material-for-pipeline-for-job-rerun-run-multiple-instance" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+            	<approval type="manual"/>
+                <jobs>
+                    <job name="first">
+                        <tasks>
+                            <exec command="/bin/sh">
+                            	<arg>-c</arg>
+                            	<arg>echo</arg>
+                            	<arg>Job Run Count: </arg>
+                            	<arg>$GO_JOB_RUN_COUNT</arg>
+                            	<arg> Job Run Index: </arg>
+                            	<arg>$GO_JOB_RUN_INDEX</arg>
+                            	<runif status="passed"/>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
         
     </pipelines>
     <pipelines group="dependency-group">

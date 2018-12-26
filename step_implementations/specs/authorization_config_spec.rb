@@ -41,8 +41,8 @@ step 'Perform check connection' do |_i|
   authorization_config_page.do_check_connection
 end
 
-step 'Verify falsh message <message>' do |message|
-  assert_equal message, authorization_config_page.flash_message.text
+step 'Verify flash message <message>' do |message|
+  assert_true authorization_config_page.flash_message.text.include? message
 end
 step 'Verify if auth config <auth_config_id> is added' do |auth_config_id|
   assert_true authorization_config_page.has_auth_config(auth_config_id)

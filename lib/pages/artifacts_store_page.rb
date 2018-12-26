@@ -19,11 +19,11 @@ module Pages
   class ArtifactsStore < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/artifact_stores"
 
-    element :add_store, '.button.add-artifact-store'
-    element :store_modal, '.artifact-store-modal-body'
-    element :save, '.button.save.primary'
-    element :id, "input[data-prop-name='id']"
-    element :plugin_id, "select[data-prop-name='pluginId']"
+    element :add_store, "button[data-test-id='add-artifact-stores-button']"
+    element :store_modal, 'div[data-test-id="modal-body"]'
+    element :save, "button[data-test-id='button-save']"
+    element :id, "input[data-test-id='form-field-input-id']"
+    element :plugin_id, "select[data-test-id='form-field-input-plugin-id']"
     element :server_url, "input[ng-model='Url']"
     element :username, "input[ng-model='Username']"
     element :password, "input[ng-model='Password']"

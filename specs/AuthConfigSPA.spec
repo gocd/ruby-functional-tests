@@ -39,7 +39,7 @@ Setup of contexts
 * Verify flash message "The authorization configuration cloned_auth_config was created successfully!"
 * Go to auth config page
 
-//## Detele auth config
+Detele auth config
 * Go to auth config page
 * Delete auth config "new_auth_config"
 * Confirm delete auth config

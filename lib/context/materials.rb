@@ -20,7 +20,7 @@ module Context
     attr_reader :material_type
 
     def has_material_config?(pipeline_name)
-      !material_config(pipeline_name).empty?
+      material_config(pipeline_name).start_with? 'material-for'
     end
 
     def material_config(pipeline)

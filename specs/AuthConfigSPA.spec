@@ -15,7 +15,7 @@ Setup of contexts
 * Start to add a new authorization config with id as "new_auth_config" for plugin "Password File Authentication Plugin for GoCD"
 * Set password file path as "password.properties"
 * Perform check connection
-* Verify falsh message "Connection ok"
+* Verify flash message "Connection ok"
 * Save authorization config
 * Go to auth config page
 * Verify if auth config "new_auth_config" is added
@@ -24,9 +24,9 @@ Setup of contexts
 * Edit auth config "new_auth_config"
 * Set password file path as "foobar"
 * Perform check connection
-* Verify falsh message "No password file at path `/Users/kritikasingh/ruby-functional-tests/resources/config/foobar`."
+* Verify flash message "No password file at path"
 * Save authorization config
-* Verify falsh message "The authorization configuration new_auth_config was updated successfully!"
+* Verify flash message "The authorization configuration new_auth_config was updated successfully!"
 * Go to auth config page
 
 * Go to auth config page
@@ -34,15 +34,15 @@ Setup of contexts
 * Set auth config id as "cloned_auth_config"
 * Set password file path as "password.properties"
 * Perform check connection
-* Verify falsh message "Connection ok"
+* Verify flash message "Connection ok"
 * Save authorization config
-* Verify falsh message "The authorization configuration cloned_auth_config was created successfully!"
+* Verify flash message "The authorization configuration cloned_auth_config was created successfully!"
 * Go to auth config page
 
 //## Detele auth config
 * Go to auth config page
 * Delete auth config "new_auth_config"
 * Confirm delete auth config
-* Verify falsh message "The authorization configuration new_auth_config was deleted successfully!"
+* Verify flash message "The authorization configuration new_auth_config was deleted successfully!"
 * Go to auth config page
 

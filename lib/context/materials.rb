@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2016 ThoughtWorks, Inc.
+# Copyright 2018 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,7 +20,8 @@ module Context
     attr_reader :material_type
 
     def has_material_config?(pipeline_name)
-      material_config(pipeline_name).start_with? 'material-for'
+      return material_config(pipeline_name).first.value.start_with?('material-for') unless material_config(pipeline_name).empty?
+      return false
     end
 
     def material_config(pipeline)

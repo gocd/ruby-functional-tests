@@ -111,3 +111,7 @@ end
 step 'Verify <stage_name> cannot be approved on Pipeline Activity Page' do |stage_name|
   pipeline_history_page.verify_cannot_approve_stage?(stage_name, scenario_state.get('current_label'))
 end
+
+step 'Verify on pipeline history page for <pipeline>' do |pipeline|
+  assert_true pipeline_history_page.current_path.include?scenario_state.get(pipeline)
+end

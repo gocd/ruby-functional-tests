@@ -159,7 +159,7 @@ step 'SetEnvironmentVariablesForJob <table>' do |table|
 end 
 
 step 'Check run multiple instance with <instance>' do |instance|
-  job_settings_page.check_multiple_instance_with(instance)
+  job_settings_page.set_multiple_instance_with(instance)
 end
 
 step 'Save Job Settings' do ||

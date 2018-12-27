@@ -5,8 +5,8 @@ JobRerunConfigDeletion
 Setup of contexts
 * Basic Configuration - setup
 * Using pipeline "pipeline-with-3-jobs" - setup
-
 * Capture go state "JobRerunConfigDeletion" - setup
+
 JobRerunConfigDeletion
 ----------------------
 

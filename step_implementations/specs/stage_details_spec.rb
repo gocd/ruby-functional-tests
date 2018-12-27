@@ -85,26 +85,32 @@ step 'Verify stage result shows <status> - On Stage Detail Page' do |status|
 end
 
 step 'Wait for jobs to show <status> with jobs <job>' do |status,job|
- assert_true stage_details_page.verify_status_with_job(status,job)
+ assert_true stage_details_page.status_with_job?(status,job)
 end  
 
 step 'Verify Trigger is enabled for stage <stage>' do |stage|
-  stage_details_page.verify_stage_trigger_is_enabled? stage
+  stage_details_page.stage_trigger_is_enabled? stage
 end
 
 step 'Verify stage <stage> does not have any action' do |stage|
-  assert_false stage_details_page.verify_stage_has_no_actions(stage)
+  assert_false stage_details_page.stage_has_no_actions?(stage)
 end
 
 step 'Verify stage <stage> has action <action>' do |stage, action|
- assert_true stage_details_page.verify_stage_has_action?(stage,action)
+ assert_true stage_details_page.stage_has_action?(stage,action)
 end
 
 step 'Verify stage <stage> does not have action <action>' do |stage, action|
-  assert_false stage_details_page.verify_stage_does_not_has_action?(stage,action)
+  assert_false stage_details_page.stage_does_not_has_action?(stage,action)
 end 
 
 step 'Trigger stage <stage> - On stage details page' do |stage|
   stage_details_page.trigger_stage(stage)
 end
+
+step 'Click on stage bar run <run>' do |run|
+  stage_details_page.click_other_runs(run) 
+end 
+
+
 

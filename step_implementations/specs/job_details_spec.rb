@@ -47,7 +47,7 @@ step 'Verify the job completed time stamp for job <job> of stage <stage> of pipe
 end
 
 step 'Verify rerun button is enabled' do
-  job_details_page.verify_rerun_button_is_enabled?
+  job_details_page.rerun_button_is_enabled?
 end
 
 step 'Rerun <jobs> jobs' do |jobs|
@@ -62,12 +62,12 @@ step 'Verify looking at <stage> having counter <counter>' do |stage,counter|
  end 
 
  step 'Verify job <job> has state <state> and result <status>' do |job,state,status|
-  assert_equal state,job_details_page.get_job_has_state?(job,state)
-  assert_equal status,job_details_page.get_job_has_status?(job,status)
+  assert_equal state,job_details_page.job_has_state?(job,state)
+  assert_equal status,job_details_page.job_has_status?(job,status)
  end
 
  step 'Verify console has environment variable <environment_variable> set to value <value>' do |environment_variable,value|
-  job_details_page.console_content
+  job_details_page.wait_for_console_output
   assert_true job_details_page.console_content.include? "[go] setting environment variable '#{environment_variable}' to value '#{value}'"
  end
 
@@ -76,11 +76,11 @@ step 'Verify looking at <stage> having counter <counter>' do |stage,counter|
  end
 
  step 'Verify displaying job <value>' do |value|
-  assert_true job_details_page.verify_job_with_current_value(value)
+  assert_true job_details_page.job_has_current_value?(value)
  end 
 
  step 'Verify historical job <value> is not a copy' do |value|
- assert_false job_details_page.verify_job_is_not_copied_job(value)
+ assert_false job_details_page.job_is_not_copied_job?(value)
  end
 
  step 'Verify properties tab shows value <value> for property <property>' do |value,property|
@@ -92,9 +92,38 @@ step 'Verify looking at <stage> having counter <counter>' do |stage,counter|
   end
   
  step 'Verify rerun failed with cause <message>' do |message|
-    assert_equal message, job_details_page.verify_job_rerun_failed_message(message)
+    assert_equal message, job_details_page.job_rerun_failed_message(message)
  end 
 
  step 'Set run instance count to <count> for job <job> in pipeline <pipeline>' do |count,job,pipeline|
   basic_configuration.set_run_instance_count_for_job(count,job,pipeline)
  end  
+
+ step 'Verify breadcrumb contains pipeline <pipeline>' do |pipeline|
+  assert_equal scenario_state.get(pipeline), job_details_page.breadcrumb_pipeline.text
+ end 
+
+ step 'Verify breadcrumb contains pipeline label <label>' do |label|
+  assert_equal label, job_details_page.breadcrumb_pipeline_label.text
+ end 
+
+ step 'Verify breadcrumb contains link to pipeline <pipeline> settings page' do |pipeline|
+  assert_true job_details_page.breadcrumb_contains_link_to_pipeline?(scenario_state.get(pipeline))
+ end 
+
+ step 'Click on stage bread crumb' do |stage|
+  job_details_page.breadcrumb_stage.click
+ end 
+ 
+ step 'Verify that <stage> stage is displayed' do |stage|
+  stage=new_pipeline_dashboard_page.sanitize_message(stage)
+  assert_true stage_details_page.current_path.include?stage
+ end
+
+ step 'Verify breadcrumb contains link to value stream map on pipeline label <label> for pipeline <pipeline> for counter <counter>' do |label,pipeline,counter|
+ assert_true job_details_page.vsm_link_exist?(pipeline,label,counter)
+ end 
+ step 'Click on pipeline bread crumb' do |pipeline|
+  job_details_page.breadcrumb_stage.click
+ end 
+

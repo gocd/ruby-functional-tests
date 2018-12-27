@@ -25,6 +25,8 @@ module Pages
     element :page_status_bar, '.page_status_bar'
     element :jobs_passed, '.jobs_passed>span'
     elements :passed_job_list, 'li.job a span.wrapped_word'
+   
+
 
     def verify_latest_revision_for_modification(modification_number)
       latest_revision = Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).latest_revision
@@ -85,7 +87,7 @@ module Pages
       page_status_bar.find('.run_results').find('.result').text.include?(status)
     end
 
-    def verify_status_with_job(status,job)
+    def status_with_job?(status,job)
       jobs_passed.text.include?status  and is_job_in_passed_list?(job)         
     end      
   
@@ -95,19 +97,19 @@ module Pages
        }  
     end
 
-    def  verify_stage_trigger_is_enabled?(stage)
+    def  stage_trigger_is_enabled?(stage)
       page.has_selector?("#stage_bar_trigger_#{stage}")
     end  
 
-    def verify_stage_has_no_actions(stage)
+    def stage_has_no_actions?(stage)
       page.has_selector?("a#stage_bar_trigger_#{stage}") and page.has_selector?("a#stage_bar_rerun_#{stage}") and page.has_selector?("a#stage_bar_cancel_#{stage}")
     end  
 
-    def verify_stage_has_action?(stage,action)
+    def stage_has_action?(stage,action)
       page.has_selector?("a#stage_bar_#{action}_#{stage}")
     end 
 
-    def verify_stage_does_not_has_action?(stage,action)
+    def stage_does_not_has_action?(stage,action)
       page.has_selector?("a#stage_bar_#{action}_#{stage}")
     end 
 
@@ -115,6 +117,10 @@ module Pages
       page.find("a#stage_bar_trigger_#{stage}").click
     end
 
+    def click_other_runs(run)
+      page.find('#show_other_stage_runs').click
+      page.find('span', text:run).ancestor('a').click
+    end
 
     private
 

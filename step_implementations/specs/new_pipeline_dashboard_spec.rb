@@ -80,6 +80,12 @@ step 'Verify stage <stage> is with label <label> - On Swift Dashboard page' do |
   new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.get('current_pipeline'), label
 end
 
+step 'Verify pipeline <pipeline> does not trigger and stays at label <label> - On Swift Dashboard page' do |_stage, label|
+  new_pipeline_dashboard_page.verify_pipeline_stays_at_label scenario_state.get(pipeline), label
+end
+
+
+
 step 'Verify pipeline <pipeline> shows up - On Swift Dashboard page' do |pipeline|
   new_pipeline_dashboard_page.load(autoRefresh: @auto_refresh)
   new_pipeline_dashboard_page.wait_till_pipeline_showsup pipeline

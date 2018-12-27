@@ -60,6 +60,7 @@ require 'pages/vsm_page'
 require 'pages/pipeline_creation_wizard'
 require 'pages/parameters_page'
 require 'pages/config_xml_page'
+require 'pages/drain_mode_spa'
 
 module Helpers
   module SpecHelper
@@ -105,6 +106,10 @@ module Helpers
 
     def authorization_config_page
       Pages::AuthConfigSPA.new
+    end
+
+    def drain_mode_page
+      Pages::DrainModePage.new
     end
 
     def role_config_page

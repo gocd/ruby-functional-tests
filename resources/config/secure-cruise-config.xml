@@ -382,7 +382,7 @@
                 </job>
                 </jobs>
             </stage>
-            </pipeline>
+        </pipeline>
     </pipelines>
     <pipelines group="basic">
       <authorization>
@@ -577,6 +577,74 @@
                     <job name="defaultJob">
                         <tasks>
                             <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+
+        <pipeline name="wait-for-stop-job" lockBehavior="lockOnFailure">
+            <materials>
+                <git url="material-for-wait-for-stop-job" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+                            <exec command="/bin/bash">
+                                <arg>-c</arg>
+                                <arg>echo "Second task completed"</arg>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+
+        <pipeline name="run-forever" lockBehavior="lockOnFailure">
+            <materials>
+                <git url="material-for-run-forever" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="rake" args="wait_forever" workingdir="git"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+
+        <pipeline name="timer-triggered" lockBehavior="lockOnFailure">
+            <materials>
+                <git url="material-for-timer-triggered" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="ls" workingdir="git"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+
+        <pipeline name="long-mdu" lockBehavior="lockOnFailure">
+            <materials>
+                <git url="https://github.com/cirosantilli/test-many-commits-1m" dest="git" materialName="long_running_mdu" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="ls" workingdir="git"/>
                         </tasks>
                     </job>
                 </jobs>

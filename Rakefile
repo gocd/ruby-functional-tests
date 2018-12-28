@@ -24,22 +24,23 @@ require 'json'
 require 'open-uri'
 include Sys
 
-GO_TRUNK_DIRNAME = ENV['GO_TRUNK_DIR'] || 'gocd'
+GO_TRUNK_DIRNAME   = ENV['GO_TRUNK_DIR'] || 'gocd'
 GO_PLUGINS_DIRNAME = ENV['GO_PLUGINS_DIR'] || 'go-plugins'
-GO_JOB_RUN_COUNT = ENV['GO_JOB_RUN_COUNT']
-GO_JOB_RUN_INDEX = ENV['GO_JOB_RUN_INDEX']
-VERSION_NUMBER = ENV['GO_VERSION'] || (raise 'Environment variable GO_VERSION not set, exiting......')
+GO_JOB_RUN_COUNT   = ENV['GO_JOB_RUN_COUNT']
+GO_JOB_RUN_INDEX   = ENV['GO_JOB_RUN_INDEX']
+VERSION_NUMBER     = ENV['GO_VERSION'] || (raise 'Environment variable GO_VERSION not set, exiting......')
 
-GAUGE_TAGS = ENV['GAUGE_TAGS'] || 'smoke'
-LOAD_BALANCED = GO_JOB_RUN_COUNT && GO_JOB_RUN_INDEX
+GAUGE_TAGS       = ENV['GAUGE_TAGS'] || 'smoke'
+LOAD_BALANCED    = GO_JOB_RUN_COUNT && GO_JOB_RUN_INDEX
 DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
-USE_POSTGRESQL = !ENV['USE_POSTGRESQL'].nil?
+USE_POSTGRESQL   = !ENV['USE_POSTGRESQL'].nil?
 
-ELASTICAGENTS_PLUGIN_RELEASE_URL = ENV['ELASTICAGENTS_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/elastic-agent-skeleton-plugin/releases/latest'
-JSON_CONFIG_PLUGIN_RELEASE_URL = ENV['JSON_CONFIG_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/tomzo/gocd-json-config-plugin/releases/latest'
+ELASTICAGENTS_PLUGIN_RELEASE_URL            = ENV['ELASTICAGENTS_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/elastic-agent-skeleton-plugin/releases/latest'
+JSON_CONFIG_PLUGIN_RELEASE_URL              = ENV['JSON_CONFIG_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/tomzo/gocd-json-config-plugin/releases/latest'
 DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL = ENV['DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd/docker-registry-artifact-plugin/releases'
-TEST_EXTERNAL_ARTIFACTS_PLUGIN_RELEASE_URL = ENV['TEST_EXTERNAL_ARTIFACTS_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/test-external-artifacts-plugin/releases/latest'
-ANALYTICS_PLUGIN_DOWNLOAD_URL = ENV['ANALYTICS_PLUGIN_DOWNLOAD_URL']
+TEST_EXTERNAL_ARTIFACTS_PLUGIN_RELEASE_URL  = ENV['TEST_EXTERNAL_ARTIFACTS_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/test-external-artifacts-plugin/releases/latest'
+ANALYTICS_PLUGIN_DOWNLOAD_URL               = ENV['ANALYTICS_PLUGIN_DOWNLOAD_URL']
+LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL      = ENV['LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL']
 
 desc 'cleans all directories'
 task :clean_all do
@@ -73,13 +74,13 @@ zips = %w[server agent].each_with_object({}) do |package, accumulator|
   accumulator
 end
 
-identifiers = { server: '-Dgo.gauge.server=true', agent: '-Dgo.gauge.agent=true', gauge: 'go_gauge' }
+identifiers = {server: '-Dgo.gauge.server=true', agent: '-Dgo.gauge.agent=true', gauge: 'go_gauge'}
 
 identifiers.each do |package, process_argument|
   namespace package do
     desc "Kill the #{package} identified using #{process_argument}"
     task :kill do
-      if process = ProcTable.ps.find { |each_process| each_process.environ[process_argument] }
+      if process = ProcTable.ps.find {|each_process| each_process.environ[process_argument]}
         $stderr.puts "Found PID(#{process.pid}) matching #{process_argument}"
         if OS.windows?
           sh("TASKKILL /PID #{process.pid}")
@@ -89,7 +90,7 @@ identifiers.each do |package, process_argument|
 
         sleep 2
         $stderr.puts "PID(#{process.pid}) exists after 2 seconds, force killing"
-        if ProcTable.ps.find { |each_process| each_process.pid == process.pid }
+        if ProcTable.ps.find {|each_process| each_process.pid == process.pid}
           if OS.windows?
             sh("TASKKILL /PID /F #{process.pid}")
           else
@@ -155,18 +156,24 @@ namespace :plugins do
     # preparing the database - drop and recreate analytics database
 
     ENV['ANALYTICS_DB_NAME_TO_USE'] = "#{ENV['ANALYTICS_DB_NAME'] || "analytics"}"
-    ENV['POSTGRES_DB_HOST_TO_USE'] = "#{ENV['DB_HOST'] || "localhost"}"
+    ENV['POSTGRES_DB_HOST_TO_USE']  = "#{ENV['DB_HOST'] || "localhost"}"
 
 
     puts "Using DB: #{ENV['ANALYTICS_DB_NAME_TO_USE']} on host: #{ENV['POSTGRES_DB_HOST_TO_USE']}"
 
     db_user = ENV['DB_USER'] || 'postgres'
 
-    drop_db_command = "java -jar tools/run_with_postgres.jar #{ENV['POSTGRES_DB_HOST_TO_USE']} 5432 postgres #{db_user} '' 'DROP DATABASE IF EXISTS #{ENV['ANALYTICS_DB_NAME_TO_USE']}'"
+    drop_db_command   = "java -jar tools/run_with_postgres.jar #{ENV['POSTGRES_DB_HOST_TO_USE']} 5432 postgres #{db_user} '' 'DROP DATABASE IF EXISTS #{ENV['ANALYTICS_DB_NAME_TO_USE']}'"
     create_db_command = "java -jar tools/run_with_postgres.jar #{ENV['POSTGRES_DB_HOST_TO_USE']} 5432 postgres #{db_user} '' 'CREATE DATABASE #{ENV['ANALYTICS_DB_NAME_TO_USE']}'"
     system("#{drop_db_command} && #{create_db_command}") || (puts "Failed to drop and recreate DB. Tried running: #{drop_db_command} && #{create_db_command}"; exit 1)
 
     puts "Recreated analytics DB: #{ENV['ANALYTICS_DB_NAME_TO_USE']}"
+  end
+
+  desc 'task for preparing ldap authorization plugin'
+  task :prepare_ldap_plugin do
+    mkdir_p "target/go-server-#{VERSION_NUMBER}/plugins/external"
+    sh "curl --silent --location -o target/go-server-#{VERSION_NUMBER}/plugins/external/ldap_authorization_plugin.jar --fail -H 'Accept: binary/octet-stream' --user '#{ENV['EXTENSIONS_USER']}:#{ENV['EXTENSIONS_PASSWORD']}' #{LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL}"
   end
 
   desc 'gradle build go plugins'
@@ -205,7 +212,7 @@ namespace :addons do
 
       # Drop and recreate database for the test
 
-      generated_db_name="#{ENV['DB_NAME_PREFIX']}__#{ENV['GO_JOB_NAME']}__#{ENV['GO_STAGE_NAME']}__#{ENV['GO_PIPELINE_NAME']}".gsub(/[^0-9a-zA-Z]/, "_")[0..62]
+      generated_db_name              = "#{ENV['DB_NAME_PREFIX']}__#{ENV['GO_JOB_NAME']}__#{ENV['GO_STAGE_NAME']}__#{ENV['GO_PIPELINE_NAME']}".gsub(/[^0-9a-zA-Z]/, "_")[0..62]
       ENV['POSTGRES_DB_NAME_TO_USE'] = "#{ENV['DB_NAME_PREFIX'] ? generated_db_name : "go"}"
 
       ENV['POSTGRES_DB_HOST_TO_USE'] = "#{ENV['DB_HOST'] || "localhost"}"
@@ -215,7 +222,7 @@ namespace :addons do
 
       db_user = ENV['DB_USER'] || 'postgres'
 
-      drop_db_command = "java -jar tools/run_with_postgres.jar #{ENV['POSTGRES_DB_HOST_TO_USE']} 5432 postgres #{db_user} '' 'DROP DATABASE IF EXISTS #{ENV['POSTGRES_DB_NAME_TO_USE']}'"
+      drop_db_command   = "java -jar tools/run_with_postgres.jar #{ENV['POSTGRES_DB_HOST_TO_USE']} 5432 postgres #{db_user} '' 'DROP DATABASE IF EXISTS #{ENV['POSTGRES_DB_NAME_TO_USE']}'"
       create_db_command = "java -jar tools/run_with_postgres.jar #{ENV['POSTGRES_DB_HOST_TO_USE']} 5432 postgres #{db_user} '' 'CREATE DATABASE #{ENV['POSTGRES_DB_NAME_TO_USE']}'"
       system("#{drop_db_command} && #{create_db_command}") || (puts "Failed to drop and recreate DB. Tried running: #{drop_db_command} && #{create_db_command}"; exit 1)
 
@@ -253,7 +260,7 @@ task 'bump-schema' do
     next unless content =~ /xsi:noNamespaceSchemaLocation="cruise-config.xsd"/
     puts "Replacing content in #{path}"
     content = content.gsub(/schemaVersion="\d+"/, %(schemaVersion="#{version}"))
-    open(path, 'w') { |f| f.write(content) }
+    open(path, 'w') {|f| f.write(content)}
   end
 end
 

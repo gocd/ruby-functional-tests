@@ -65,16 +65,27 @@ Setup of contexts
 
 * Attempt to pause pipline "basic-pipeline-fast" with cause "gauge testing it" and should return with http status "503"
 
-
- Verify server backup is successful
- Verify agent registaration is successful
- Restart server
- Verify server is not in drain mode
-
 * On Drain mode SPA
 * Disable drain mode
 
 * On Swift Dashboard Page
+* Verify drain mode banner not is shown
+
+* Looking at pipeline "admin-pipeline" - On Swift Dashboard page
+* Trigger pipeline - On Swift Dashboard page
+* Verify stage "defaultStage" is "passed" - On Swift Dashboard page
+
+* On Drain mode SPA
+* Enable drain mode
+
+ Verify server backup is successful
+ Verify agent registaration is successful
+* Restart server
+* Verify server is not in drain mode
+
+* On Swift Dashboard Page
+* Verify drain mode banner not is shown
+
 * Looking at pipeline "admin-pipeline" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Verify stage "defaultStage" is "passed" - On Swift Dashboard page

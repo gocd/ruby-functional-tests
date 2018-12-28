@@ -39,6 +39,10 @@ step 'Verify drain mode banner is shown' do
   assert_true drain_mode_page.has_css? drain_mode_banner
 end
 
+step 'Verify drain mode banner not is shown' do
+  assert_false drain_mode_page.has_css? drain_mode_banner
+end
+
 step 'Cancel pipeline <pipeline> counter <p_counter> stage <stage> counter <s_counter> - On Drain mode spa' do |pipeline, p_counter, stage, s_counter|
   drain_mode_page.cancel_stage(scenario_state.get(pipeline), p_counter, stage, s_counter)
 end
@@ -54,4 +58,8 @@ end
 
 step 'Verify in progress subsystems section shows material <name>' do |name|
 	drain_mode_page.shows_running_mdu_for_material(name)
+end
+
+step 'Verify server is not in drain mode' do ||
+	assert_false drain_mode_page.drain_mode_enabled?
 end

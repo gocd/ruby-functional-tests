@@ -53,6 +53,10 @@ module Pages
       gocd_role.set(value)
     end
 
+    def plugin_role=(value)
+      plugin_role.set(value)
+    end
+
     def save_role
       save.click
     end
@@ -87,8 +91,8 @@ module Pages
     private
 
     def find_collapsable_header(name)
-      selected_header = page.all("div[data-test-id='collapse-header']")
-                            .find {|widget| widget.find("span[data-test-id='key-value-value-name']").text === name}
+      page.all("div[data-test-id='collapse-header']")
+          .find {|widget| widget.find("span[data-test-id='key-value-value-name']").text === name}
     end
 
   end

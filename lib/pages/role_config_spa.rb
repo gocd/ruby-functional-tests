@@ -18,12 +18,12 @@ module Pages
   class RoleConfigSPA < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/security/roles"
 
-    element :add,               "button[class='button add-role']"
+    element :add,               'button[data-test-id="role-add-button"]'
     element :gocd_role,         "input[class='core-role']"
-    element :role_name,         "input[data-model-type='role']"
-    element :role_users,        "input[placeholder='username']"
-    element :add_role,          "button[class='button add-role-user-button']"
-    element :save,              "button[class='button save primary']"
+    element :role_name,         'input[data-test-id="form-field-input-role-name"]'
+    element :role_users,        'input[data-test-id="form-field-input-role-users"]'
+    element :add_role,          'button[data-test-id="role-add-user-button"]'
+    element :save,              'button[data-test-id="button-save"]'
 
     def click_add
       add.click

@@ -20,7 +20,7 @@ module Pages
 
     element :add, "button[data-test-id='add-auth-config-button']"
     element :id, "input[aria-label='Id']"
-    element :plugin_id, "select[aria-label='Plugin ID']"
+    element :plugin_id, 'select[data-test-id="form-field-input-plugin"]'
     element :pwd_file_path, "input[ng-model='PasswordFilePath']"
     element :ldap_url, "input[ng-model='Url']"
     element :manager_dn, "input[ng-model='ManagerDN']"
@@ -33,7 +33,7 @@ module Pages
     element :flash_message, "div[data-test-id^='flash-message']"
 
 
-    element :save, "button[data-test-id='button-ok']"
+    element :save, "button[data-test-id='button-save']"
     element :edit, "button[data-test-id='auth-config-edit']"
     element :clone, "button[data-test-id='auth-config-clone']"
     element :confirm_delete, "button[data-test-id='button-delete']"

@@ -18,7 +18,7 @@ step 'Start creating artifact store for plugin <plugin_name> with id <id>' do |p
   artifacts_store_page.load
   artifacts_store_page.start_add_store
   artifacts_store_page.id.set id
-  artifacts_store_page.plugin= plugin_name
+  artifacts_store_page.plugin = plugin_name
 end
 
 step 'Save store details as <key_value>' do |key_value|
@@ -26,4 +26,48 @@ step 'Save store details as <key_value>' do |key_value|
     artifacts_store_page.fill_form(field)
   end
   artifacts_store_page.save_store
+end
+
+step 'Go to artifact stores page' do |i|
+  artifacts_store_page.load
+end
+
+step 'Clone artifact store <artifact_store_id>' do |artifact_store_id|
+  artifacts_store_page.clone_artifact_store(artifact_store_id)
+end
+
+step 'Set id as <artifact_store_id>' do |id|
+  artifacts_store_page.id.set id
+end
+
+step 'Save artifact store' do |i|
+  artifacts_store_page.save_store
+end
+
+step 'Verify flash message for artifact <message>' do |message|
+  assert_true artifacts_store_page.flash_message.text.include? message
+end
+
+step 'Verify if artifact store <artifact_store_id> is present' do |artifact_store_id|
+  assert_true artifacts_store_page.has_artifact_store(artifact_store_id)
+end
+
+step 'Verify if artifact store <artifact_store_id> is not present' do |artifact_store_id|
+  assert_false artifacts_store_page.has_artifact_store(artifact_store_id)
+end
+
+step 'Edit artifact store <artifact_store_id>' do |artifact_store_id|
+  artifacts_store_page.edit_artifact_store(artifact_store_id)
+end
+
+step 'Expand plugin' do |i|
+  artifacts_store_page.expand_plugin
+end
+
+step 'Delete artifact store spa <artifact_store_id>' do |artifact_store_id|
+  artifacts_store_page.delete_artifact_store(artifact_store_id)
+end
+
+step 'Confirm delete artifact store' do |_i|
+  artifacts_store_page.click_confirm_delete
 end

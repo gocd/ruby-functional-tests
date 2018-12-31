@@ -46,3 +46,11 @@ Setup of contexts
 * Verify flash message "The authorization configuration new_auth_config was deleted successfully!"
 * Go to auth config page
 
+
+teardown
+_______________
+* As user "admin" for teardown
+* Capture go state "BundledAuthPlugins" - teardown
+* With "1" live agents - teardown
+* Logout - from any page
+* Ldap server - stop

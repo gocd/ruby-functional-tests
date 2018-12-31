@@ -8,7 +8,7 @@ tags: drain_mode
 Setup of contexts
 * Secure Configuration - setup
 * Login as "admin" - setup
-* Using pipeline "wait-for-stop-job, run-forever, long-mdu, basic-pipeline-fast, timer-triggered" - setup
+* Using pipeline "wait-for-stop-job, run-forever, basic-pipeline-fast, timer-triggered" - setup
 * With "3" live agents - setup
 * Capture go state "DrainModeSPA" - setup
 
@@ -22,18 +22,14 @@ Setup of contexts
 * Trigger pipeline - On Swift Dashboard page
 * Verify stage "defaultStage" is "Building" - On Swift Dashboard page
 
-* Looking at pipeline "long-mdu" - On Swift Dashboard page
-* Trigger pipeline - On Swift Dashboard page
-
 * Looking at pipeline "timer-triggered" - On Swift Dashboard page
 * Using timer with spec "0/30 * * 1/1 * ? *" 
 
 * On Drain mode SPA
-* Enable drain mode
+* Enable drain mode and expect it to be in progress
 
 * Verify in progress subsystems section shows pipeline "run-forever" counter "1" stage "defaultStage" counter "1" 
 * Verify in progress subsystems section shows pipeline "wait-for-stop-job" counter "1" stage "defaultStage" counter "1" 
-* Verify in progress subsystems section shows material "long_running_mdu"
 * Verify in progress subsystems section does not show pipeline "basic-pipeline-fast" counter "1" stage "defaultStage" counter "1" 
 
 * On Swift Dashboard Page
@@ -69,14 +65,15 @@ Setup of contexts
 * Disable drain mode
 
 * On Swift Dashboard Page
-* Verify drain mode banner not is shown
+* Verify drain mode banner is not shown
 
-* Looking at pipeline "admin-pipeline" - On Swift Dashboard page
+* On Swift Dashboard Page
+* Looking at pipeline "basic-pipeline-fast" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Verify stage "defaultStage" is "passed" - On Swift Dashboard page
 
 * On Drain mode SPA
-* Enable drain mode
+* Enable drain mode and expect it to be completed
 
  Verify server backup is successful
  Verify agent registaration is successful
@@ -84,7 +81,7 @@ Setup of contexts
 * Verify server is not in drain mode
 
 * On Swift Dashboard Page
-* Verify drain mode banner not is shown
+* Verify drain mode banner is not shown
 
 * Looking at pipeline "admin-pipeline" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
@@ -93,7 +90,10 @@ Setup of contexts
 
 teardown
 _______________
+* On Drain mode SPA
+* Disable drain mode
 * Capture go state "DrainModeSPA" - teardown
 * With "3" live agents - teardown
+
 
 

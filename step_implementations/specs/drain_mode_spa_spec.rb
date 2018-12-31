@@ -18,9 +18,15 @@ step 'On Drain mode SPA' do
   drain_mode_page.load
 end
 
-step 'Enable drain mode' do
+step 'Enable drain mode and expect it to be in progress' do
   drain_mode_page.switch_drain_mode
   assert_true drain_mode_page.drain_in_progress?
+end
+
+
+step 'Enable drain mode and expect it to be completed' do
+  drain_mode_page.switch_drain_mode
+  assert_true drain_mode_page.drain_complete?
 end
 
 step 'Verify in progress subsystems section shows pipeline <pipeline> counter <p_counter> stage <stage> counter <s_counter>' do |pipeline, p_counter, stage, s_counter|
@@ -36,11 +42,11 @@ step 'Verify pipeline <pipeline> counter <p_counter> stage <stage> counter <s_co
 end
 
 step 'Verify drain mode banner is shown' do
-  assert_true drain_mode_page.has_css? drain_mode_banner
+  assert_true drain_mode_page.drain_mode_banner_shown?
 end
 
-step 'Verify drain mode banner not is shown' do
-  assert_false drain_mode_page.has_css? drain_mode_banner
+step 'Verify drain mode banner is not shown' do
+  assert_false drain_mode_page.drain_mode_banner_shown?
 end
 
 step 'Cancel pipeline <pipeline> counter <p_counter> stage <stage> counter <s_counter> - On Drain mode spa' do |pipeline, p_counter, stage, s_counter|

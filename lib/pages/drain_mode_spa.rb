@@ -20,7 +20,6 @@ module Pages
     element :settings_save, 'button[data-test-id="button-save"]'
     element :drain_mode_switch, 'div[data-test-id="switch-wrapper"]'
     element :in_progress_subsystems, 'div[data-test-id="in-progress-subsystems"]'
-    element :drain_mode_banner, 'div[data-test-id="drain-mode-banner"]'
 
     load_validation { has_drain_mode_switch? }
 
@@ -38,7 +37,9 @@ module Pages
     end
 
     def cancel_stage(pipeline, pipeline_counter, stage, stage_counter)
+      in_progress_subsystems.find("button[data-test-id='cancel-stage-btn-for-#{pipeline}/#{pipeline_counter}/#{stage}/#{stage_counter}']", wait: 10)
       in_progress_subsystems.find("button[data-test-id='cancel-stage-btn-for-#{pipeline}/#{pipeline_counter}/#{stage}/#{stage_counter}']").click
+      binding.pry
     end
 
     def stage_in_inprogress_subsystem(pipeline, pipeline_counter, stage, stage_counter)
@@ -48,11 +49,14 @@ module Pages
     def switch_drain_mode
       drain_mode_switch.click
       settings_save.click(wait: 5)
-      binding.pry
     end
 
     def shows_running_mdu_for_material(name)
-      page.has_css?('div["data-test-id="key-value-value-name""]', text: name)
+      page.has_css?('div[data-test-id="key-value-value-name"]', text: name)
+    end
+
+    def drain_mode_banner_shown?
+      page.has_css? ('div[data-test-id="drain-mode-banner"]')
     end
 
 

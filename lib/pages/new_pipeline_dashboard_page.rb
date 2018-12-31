@@ -101,9 +101,9 @@ module Pages
     end
 
     def verify_pipeline_stays_at_label(pipeline, label)
-      wait_for_event 30, "Pipeline #{pipeline} stage #{stage} is not in #{state} state" do
+      wait_for_event 30, "Pipeline #{pipeline} label verification timed out" do
         raise "Pipeline #{pipeline} got trigerred. Expected not to" if (pipeline_name text: pipeline)
-                        .ancestor('.pipeline').find('.pipeline_instance-label').text.include?(label.to_i+1).to_s
+                        .ancestor('.pipeline').find('.pipeline_instance-label').text.include?((label.to_i+1).to_s)
       end
     end
 

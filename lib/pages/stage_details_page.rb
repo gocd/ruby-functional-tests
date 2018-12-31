@@ -25,6 +25,10 @@ module Pages
     element :page_status_bar, '.page_status_bar'
     element :jobs_passed, '.jobs_passed>span'
     elements :passed_job_list, 'li.job a span.wrapped_word'
+    element :stage_bar_run, '#current_stage_run'
+    element :stage_triggered_user, '.who'
+    element :automatically_triggered,'.schedule_info span.label'
+    
    
 
 
@@ -121,6 +125,31 @@ module Pages
       page.find('#show_other_stage_runs').click
       page.find('span', text:run).ancestor('a').click
     end
+
+    def job_status_in_collapsed_state
+      all_status=[]
+      page.find(".job_grouping .hidereveal_expander").each {|status|
+      all_status.push(status.text)
+      }
+      all_status
+    end
+
+    def passed_jobs
+      all_passed_jobs=[]
+      page.find('.color_code_small.Passed').sibling('wrapped_word').each {|job|
+        all_passed_jobs.push(job.text)}
+        all_passed_jobs  
+    end 
+
+    def history_runs
+      all_history_runs=[]
+      page.find('.label_counter_wrapper span.pipeline_label').each {|job|
+        all_history_runs.push(job.text)}
+        all_history_runs
+    end  
+
+
+
 
     private
 

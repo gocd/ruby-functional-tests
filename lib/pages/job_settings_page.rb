@@ -137,5 +137,10 @@ module Pages
       general_settings_page.task_save.click
     end  
 
+    def set_multiple_instance_with(instance)
+      page.find('#jobRunType_runMultipleInstances').set(true)
+      page.find('#job_runInstanceCount').set(instance)
+    end  
+    
   end
 end

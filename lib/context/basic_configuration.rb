@@ -285,5 +285,23 @@ module Context
       load_dom(current_config)
      end
 
+     def remove_job_from_stage(job,stage,pipeline)
+      current_config = get_config_from_server
+      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/stage[@name='#{stage}']/jobs/job[@name='#{job}']").remove
+      load_dom(current_config)
+    end 
+
+    def set_run_instance_count_for_job(count,job,pipeline)
+      current_config = get_config_from_server
+      if count=="0"
+        current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/stage/jobs/job[@name='#{job}']").first.remove_attribute("runInstanceCount")
+       else 
+        current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/stage/jobs/job[@name='#{job}']").each do |job|
+        job['runInstanceCount']=count
+        end
+      end
+     load_dom(current_config)
+    end
+
   end
 end

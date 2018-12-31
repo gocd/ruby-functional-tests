@@ -280,7 +280,73 @@
                 </jobs>
             </stage>
         </pipeline>
-        
+
+        <pipeline name="pipeline-with-3-jobs">
+            <materials>
+                <git url="material-for-pipeline-with-3-jobs" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="first">
+                        <tasks>
+                         <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+                         </tasks>
+                    </job>
+                    <job name="second">
+                        <tasks>
+                           <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+                        </tasks>
+                    </job>
+                    <job name="third">
+                        <tasks>
+                            <exec command="ls"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+        <pipeline name="pipeline-for-job-rerun-run-multiple-instance">
+            <materials>
+                <git url="material-for-pipeline-for-job-rerun-run-multiple-instance" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+            	<approval type="manual"/>
+                <jobs>
+                    <job name="first">
+                        <tasks>
+                            <exec command="/bin/sh">
+                            	<arg>-c</arg>
+                            	<arg>echo</arg>
+                            	<arg>Job Run Count: </arg>
+                            	<arg>$GO_JOB_RUN_COUNT</arg>
+                            	<arg> Job Run Index: </arg>
+                            	<arg>$GO_JOB_RUN_INDEX</arg>
+                            	<runif status="passed"/>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+        <pipeline name="breadcrumb-pipeline">
+            <materials>
+                <git url="material-for-breadcrumb-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="sleep">
+                                <arg>120</arg>
+                                <runif status="passed"/>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>     
     </pipelines>
     <pipelines group="dependency-group">
         <pipeline name="dependency-group-pipeline-1">

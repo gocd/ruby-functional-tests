@@ -27,14 +27,19 @@ module Pages
     element :server_url, "input[ng-model='Url']"
     element :username, "input[ng-model='Username']"
     element :password, "input[ng-model='Password']"
-    
+    element :flash_message, "div[data-test-id='flash-message-success']"
+    element :confirm_delete, "button[data-test-id='button-delete']"
 
 
-    load_validation { has_add_store? }
+    load_validation {has_add_store?}
 
     def start_add_store
       add_store.click
       assert_true has_store_modal?
+    end
+
+    def click_confirm_delete
+      confirm_delete.click
     end
 
     def plugin=(plugin)
@@ -50,6 +55,44 @@ module Pages
       save.click
     end
 
+    def expand_plugin
+      page.find("div[data-test-id='collapse-header']").click
+    end
 
+    def has_artifact_store(artifact_store_id)
+      page.all("span[data-test-id='key-value-value-id']")
+          .find {|widget| widget.text === artifact_store_id} != nil
+    end
+
+    def edit_artifact_store(artifact_store_id)
+      selected_header = find_collapsable_header(artifact_store_id)
+
+      if selected_header
+        selected_header.find("button[data-test-id='artifact-store-edit']").click
+      end
+    end
+
+    def clone_artifact_store(artifact_store_id)
+      selected_header = find_collapsable_header(artifact_store_id)
+
+      if selected_header
+        selected_header.find("button[data-test-id='artifact-store-clone']").click
+      end
+    end
+
+    def delete_artifact_store(artifact_store_id)
+      selected_header = find_collapsable_header(artifact_store_id)
+
+      if selected_header
+        selected_header.find("button[data-test-id='artifact-store-delete']").click
+      end
+    end
+
+    private
+
+    def find_collapsable_header(artifact_store_id)
+      page.all("div[data-test-id='collapse-body'] div[data-test-id='collapse-header']")
+          .find {|widget| widget.find("span[data-test-id='key-value-value-id']").text === artifact_store_id}
+    end
   end
 end

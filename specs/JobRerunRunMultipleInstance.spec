@@ -28,13 +28,13 @@ tags: job-rerun,run-multiple-instance
 * Verify job "first-runInstance-2" has state "Completed" and result "Passed"
 
 * On Job details page of pipeline "pipeline-for-job-rerun-run-multiple-instance" counter "1" stage "defaultStage" counter "1" job "first-runInstance-1"
-* Verify console has environment variable "GO_JOB_RUN_COUNT" set to value "2"
-* Verify console has environment variable "GO_JOB_RUN_INDEX" set to value "1"
+* Verify console log contains message "[go] setting environment variable 'GO_JOB_RUN_COUNT' to value '2'"
+* Verify console log contains message "[go] setting environment variable 'GO_JOB_RUN_INDEX' to value '1'"
 
 * On Job details page of pipeline "pipeline-for-job-rerun-run-multiple-instance" counter "1" stage "defaultStage" counter "1" job "first-runInstance-2"
 
-* Verify console has environment variable "GO_JOB_RUN_COUNT" set to value "2"
-* Verify console has environment variable "GO_JOB_RUN_INDEX" set to value "2"
+* Verify console log contains message "[go] setting environment variable 'GO_JOB_RUN_COUNT' to value '2'"
+* Verify console log contains message "[go] setting environment variable 'GO_JOB_RUN_INDEX' to value '2'"
 
 * On stage details page "jobs" tab for "pipeline-for-job-rerun-run-multiple-instance" label "1" stage name "defaultStage" counter "1"
 
@@ -49,8 +49,9 @@ tags: job-rerun,run-multiple-instance
 
 * On Job details page of pipeline "pipeline-for-job-rerun-run-multiple-instance" counter "1" stage "defaultStage" counter "2" job "first-runInstance-2"
 
-* Verify console has environment variable "GO_JOB_RUN_COUNT" set to value "2"
-* Verify console has environment variable "GO_JOB_RUN_INDEX" set to value "2"
+
+* Verify console log contains message "[go] setting environment variable 'GO_JOB_RUN_COUNT' to value '2'"
+* Verify console log contains message "[go] setting environment variable 'GO_JOB_RUN_INDEX' to value '2'"
 
 
 * On Job settings page of pipeline "pipeline-for-job-rerun-run-multiple-instance" stage "defaultStage" job "first"
@@ -63,7 +64,6 @@ tags: job-rerun,run-multiple-instance
 * Verify rerun failed with cause "Cannot rerun job 'first'. Run configuration for job has been changed to 'simple'."
 
 * On Swift Dashboard Page
-* Looking at pipeline "pipeline-for-job-rerun-run-multiple-instance" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page

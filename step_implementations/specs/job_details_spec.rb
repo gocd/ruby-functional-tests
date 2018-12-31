@@ -22,7 +22,7 @@ step 'Open <tab_id> tab - On Job details page' do |tab_id|
 end
 
 step 'Verify console log contains message <message>' do |message|
-  assert_true job_details_page.console_content.include? message
+  job_details_page.console_has_message?(message)
 end
 
 step "Verify console log contains pipeline <pipeline> with <message>" do |pipeline,message|
@@ -64,11 +64,6 @@ step 'Verify looking at <stage> having counter <counter>' do |stage,counter|
  step 'Verify job <job> has state <state> and result <status>' do |job,state,status|
   assert_equal state,job_details_page.job_has_state?(job,state)
   assert_equal status,job_details_page.job_has_status?(job,status)
- end
-
- step 'Verify console has environment variable <environment_variable> set to value <value>' do |environment_variable,value|
-  job_details_page.wait_for_console_output
-  assert_true job_details_page.console_content.include? "[go] setting environment variable '#{environment_variable}' to value '#{value}'"
  end
 
  step 'Verify breadcrumb contains stage run <stage>' do |stage|

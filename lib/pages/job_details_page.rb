@@ -40,6 +40,13 @@ module Pages
       console_output['innerHTML']
     end
 
+    def console_has_message?(message)
+      wait_till_event_occurs_or_bomb 20, "Console does not have message #{message}" do
+        wait_for_console_output
+        break if console_output['innerHTML'].include? message
+      end
+    end  
+
     def select_jobs(job)
       page.find("input[type='checkbox'][value=#{job}]").click
     end  

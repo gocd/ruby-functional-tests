@@ -62,3 +62,9 @@ end
 step 'Sleep for <secs> seconds' do |secs|
 	sleep secs.to_i
 end
+
+step 'Restart server' do ||
+  go_server.stop
+  go_server.start
+  go_server.wait_to_start
+end

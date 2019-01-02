@@ -37,9 +37,8 @@ module Pages
     end
 
     def cancel_stage(pipeline, pipeline_counter, stage, stage_counter)
-      in_progress_subsystems.find("button[data-test-id='cancel-stage-btn-for-#{pipeline}/#{pipeline_counter}/#{stage}/#{stage_counter}']", wait: 10)
-      in_progress_subsystems.find("button[data-test-id='cancel-stage-btn-for-#{pipeline}/#{pipeline_counter}/#{stage}/#{stage_counter}']").click
-      binding.pry
+      in_progress_subsystems.find("button[data-test-id='cancel-stage-btn-for-#{pipeline}/#{pipeline_counter}/#{stage}/#{stage_counter}']", wait: 10).click
+      reload_page
     end
 
     def stage_in_inprogress_subsystem(pipeline, pipeline_counter, stage, stage_counter)
@@ -56,7 +55,7 @@ module Pages
     end
 
     def drain_mode_banner_shown?
-      page.has_css? ('div[data-test-id="drain-mode-banner"]')
+      page.has_css?('div[data-test-id="drain-mode-banner"]')
     end
 
 

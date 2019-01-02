@@ -61,6 +61,9 @@ require 'pages/pipeline_creation_wizard'
 require 'pages/parameters_page'
 require 'pages/config_xml_page'
 require 'pages/drain_mode_spa'
+require 'pages/server_backup_page'
+
+
 
 module Helpers
   module SpecHelper
@@ -78,6 +81,10 @@ module Helpers
 
     def data_sharing_spa_page
       Pages::DataSharingSPA.new
+    end
+
+    def server_backup_page
+      Pages::BackUpPage.new
     end
 
     def agents_spa_page

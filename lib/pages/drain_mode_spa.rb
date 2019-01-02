@@ -24,16 +24,16 @@ module Pages
     load_validation { has_drain_mode_switch? }
 
     def drain_complete?
-      page.has_css?('div', text: 'GoCD Server is completely drained.')
+      page.has_css?('div', text: 'GoCD Server is completely drained.', wait:20)
     end
 
     def drain_mode_enabled?
-      drain_mode_switch.has_css?('input[data-test-id="switch-checkbox"]')
+      drain_mode_switch.has_css?('input[data-test-id="switch-checkbox"]', wait: 20)
     end
 
     def drain_in_progress?
-      page.has_css?('div', text: 'Some subsystems of GoCD are still in progress.', wait: 5) & 
-        page.has_css?('div[data-test-id="info-when-not-in-drain-mode"]', wait: 5)
+      page.has_css?('div', text: 'Some subsystems of GoCD are still in progress.', wait: 20) & 
+        page.has_css?('div[data-test-id="info-when-not-in-drain-mode"]', wait: 20)
     end
 
     def cancel_stage(pipeline, pipeline_counter, stage, stage_counter)
@@ -47,7 +47,7 @@ module Pages
 
     def switch_drain_mode
       drain_mode_switch.click
-      settings_save.click(wait: 5)
+      settings_save.click(wait: 10)
     end
 
     def shows_running_mdu_for_material(name)

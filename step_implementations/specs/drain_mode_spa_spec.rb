@@ -18,14 +18,15 @@ step 'On Drain mode SPA' do
   drain_mode_page.load
 end
 
-step 'Enable drain mode and expect it to be in progress' do
+step 'Enable drain mode' do
   drain_mode_page.switch_drain_mode
+end
+
+step 'Verify drain mode is in progress' do
   assert_true drain_mode_page.drain_in_progress?
 end
 
-
-step 'Enable drain mode and expect it to be completed' do
-  drain_mode_page.switch_drain_mode
+step 'Verify drain mode completed' do
   assert_true drain_mode_page.drain_complete?
 end
 
@@ -53,19 +54,15 @@ step 'Cancel pipeline <pipeline> counter <p_counter> stage <stage> counter <s_co
   drain_mode_page.cancel_stage(scenario_state.get(pipeline), p_counter, stage, s_counter)
 end
 
-step 'Verify drain mode successful' do
-  assert_true drain_mode_page.drain_complete?
-end
-
 step 'Disable drain mode' do
   drain_mode_page.switch_drain_mode
   assert_false drain_mode_page.drain_mode_enabled?
 end
 
 step 'Verify in progress subsystems section shows material <name>' do |name|
-	drain_mode_page.shows_running_mdu_for_material(name)
+  drain_mode_page.shows_running_mdu_for_material(name)
 end
 
-step 'Verify server is not in drain mode' do ||
-	assert_false drain_mode_page.drain_mode_enabled?
+step 'Verify server is not in drain mode' do
+  assert_false drain_mode_page.drain_mode_enabled?
 end

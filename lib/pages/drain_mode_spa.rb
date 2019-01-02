@@ -24,11 +24,11 @@ module Pages
     load_validation { has_drain_mode_switch? }
 
     def drain_complete?
-      page.has_css?('div', text: 'GoCD Server is completely drained.', wait:20)
+      page.has_css?('div', text: 'GoCD Server is completely drained.', wait: 20)
     end
 
     def drain_mode_enabled?
-      drain_mode_switch.has_css?('input[data-test-id="switch-checkbox"]', wait: 20)
+      page.has_css?('input[data-test-id="switch-checkbox"]', wait: 20)
     end
 
     def drain_in_progress?

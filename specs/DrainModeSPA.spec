@@ -31,14 +31,15 @@ Setup of contexts
 * Verify in progress subsystems section shows pipeline "run-forever" counter "1" stage "defaultStage" counter "1" 
 * Verify in progress subsystems section shows pipeline "wait-for-stop-job" counter "1" stage "defaultStage" counter "1" 
 * Verify in progress subsystems section does not show pipeline "basic-pipeline-fast" counter "1" stage "defaultStage" counter "1" 
+* Cancel pipeline "run-forever" counter "1" stage "defaultStage" counter "1" - On Drain mode spa
+
+* Verify in progress subsystems section does not show pipeline "run-forever" counter "1" stage "defaultStage" counter "1" 
+
+* On Admin page
+* Verify drain mode banner is shown
 
 * On Swift Dashboard Page
 * Verify drain mode banner is shown
-
-* On Drain mode SPA
-* Cancel pipeline "run-forever" counter "1" stage "defaultStage" counter "1" - On Drain mode spa
-
-* Verify in progress subsystems section shows pipeline "wait-for-stop-job" counter "1" stage "defaultStage" counter "1" 
 
 * Looking at pipeline "wait-for-stop-job" - On Swift Dashboard page
 * Create a "stopjob" file
@@ -74,24 +75,26 @@ Setup of contexts
 
 * On Drain mode SPA
 * Enable drain mode and expect it to be completed
-
- Verify server backup is successful
- Verify agent registaration is successful
+ 
+* Logout - from any page
 * Restart server
+* Login as "admin"
+
+* On Drain mode SPA
 * Verify server is not in drain mode
 
 * On Swift Dashboard Page
 * Verify drain mode banner is not shown
 
-* Looking at pipeline "admin-pipeline" - On Swift Dashboard page
+* Looking at pipeline "basic-pipeline-fast" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Verify stage "defaultStage" is "passed" - On Swift Dashboard page
 
 
 teardown
 _______________
-* On Drain mode SPA
-* Disable drain mode
+* As user "admin" for teardown
+* Logout - from any page
 * Capture go state "DrainModeSPA" - teardown
 * With "3" live agents - teardown
 

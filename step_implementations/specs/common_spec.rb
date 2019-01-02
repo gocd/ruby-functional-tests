@@ -67,4 +67,5 @@ step 'Restart server' do ||
   go_server.stop
   go_server.start
   go_server.wait_to_start
+  app_base_page.reload_page
 end

@@ -35,6 +35,7 @@ Setup of contexts
 teardown
 _______________
 * As user "admin" for teardown
+* Drain mode - teardown
 * Logout - from any page
 * Capture go state "DrainModeSPA" - teardown
 * With "1" live agents - teardown

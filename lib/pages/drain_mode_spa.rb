@@ -32,8 +32,7 @@ module Pages
     end
 
     def drain_in_progress?
-      page.has_css?('div', text: 'Some subsystems of GoCD are still in progress.', wait: 20) & 
-        page.has_css?('div[data-test-id="info-when-not-in-drain-mode"]', wait: 20)
+      page.has_css?('div', text: 'Some subsystems of GoCD are still in progress.', wait: 20)
     end
 
     def cancel_stage(pipeline, pipeline_counter, stage, stage_counter)
@@ -56,6 +55,10 @@ module Pages
 
     def drain_mode_banner_shown?
       page.has_css?('div[data-test-id="drain-mode-banner"]')
+    end
+
+    def disable_drain_mode
+      switch_drain_mode if drain_mode_enabled?
     end
 
 

@@ -63,7 +63,7 @@
     </authorization>
         <pipeline name="VSM1">
             <materials>
-                <git url="git-on-git-pipeline_VSM1" dest="git" materialName="git" autoUpdate="true"/>
+                <git url="material-for-pipeline_VSM1" dest="git" materialName="git" autoUpdate="true"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -99,7 +99,7 @@
     <pipeline name="VSM3">
       <materials>
         <pipeline pipelineName="VSM1" stageName="defaultStage" materialName="VSM1" />
-        <git url="git-on-git-pipeline_VSM3" dest="git" materialName="git" autoUpdate="true"/>
+        <git url="material-for-pipeline_VSM3" dest="git" materialName="git" autoUpdate="true"/>
       </materials>
       <stage name="defaultStage">
         <jobs>
@@ -136,7 +136,7 @@
   <pipelines group="VSM.Analytics.Rerun">
     <pipeline name="Rerun1">
       <materials>
-         <git url="git-on-git-pipeline_R1" dest="git" materialName="git" autoUpdate="true"/>
+         <git url="material-for-pipeline_R1" dest="git" materialName="git" autoUpdate="true"/>
       </materials>
       <stage name="defaultStage">
         <approval type="manual"/>
@@ -172,7 +172,7 @@
     <pipeline name="Rerun3">
       <materials>
         <pipeline pipelineName="Rerun1" stageName="defaultStage" materialName="Rerun1" />
-        <git url="git-on-git-pipeline_R3" dest="git" materialName="git" autoUpdate="true"/>
+        <git url="material-for-pipeline_R3" dest="git" materialName="git" autoUpdate="true"/>
       </materials>
       <stage name="defaultStage">
         <jobs>
@@ -249,7 +249,7 @@
         </authorization>
         <pipeline name="failing-pipeline">
           <materials>
-            <git url="$git-on-git-pipeline" dest="git" materialName="gitMaterial" autoUpdate="false"/>
+            <git url="material-for-failing-pipeline" dest="git" materialName="gitMaterial" autoUpdate="false"/>
           </materials>
           <stage name="defaultStage">
             <approval type="manual"/>
@@ -283,7 +283,7 @@
 
         <pipeline name="pipeline-with-stage-security">
             <materials>
-                <hg url="$hgurl-pipeline-with-stage-security" dest="hg" autoUpdate="false"/>
+                <hg url="material-for-pipeline-with-stage-security" dest="hg" autoUpdate="false"/>
             </materials>
             <stage name="first">
                 <approval type="manual">
@@ -304,7 +304,7 @@
 
         <pipeline name="pipeline-with-auto-stage-security">
             <materials>
-                <hg url="$hgurl-pipeline-with-stage-security" dest="hg" autoUpdate="false"/>
+                <hg url="material-for-pipeline-with-stage-security" dest="hg" autoUpdate="false"/>
             </materials>
             <stage name="first">
                 <approval type="success">
@@ -382,7 +382,7 @@
                 </job>
                 </jobs>
             </stage>
-            </pipeline>
+        </pipeline>
     </pipelines>
     <pipelines group="basic">
       <authorization>
@@ -415,7 +415,7 @@
 
         <pipeline name="P1">
             <materials>
-                <git url="analytics-material" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="material-for-analytics" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -434,7 +434,7 @@
             </pipeline>
         <pipeline name="P2">
             <materials>
-                <git url="analytics-material" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="material-for-analytics" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -519,7 +519,7 @@
         </authorization>
         <pipeline name="operable-pipeline">
             <materials>
-                <hg url="$hgurl-admin-pipeline" dest="hg" autoUpdate="false" materialName="admin-pipeline-hg"/>
+                <hg url="material-for-operable-pipeline" dest="hg" autoUpdate="false" materialName="admin-pipeline-hg"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -536,7 +536,7 @@
     <pipelines group="group.with.dot">
         <pipeline name="run.till.file.exists">
             <materials>
-                <hg url="$hgurl-admin-pipeline" dest="hg" autoUpdate="false" materialName="hg.material"/>
+                <hg url="material-for-pipeline" dest="hg" autoUpdate="false" materialName="hg.material"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -583,6 +583,74 @@
             </stage>
         </pipeline>
 
+        <pipeline name="wait-for-stop-job" lockBehavior="lockOnFailure">
+            <materials>
+                <git url="material-for-wait-for-stop-job" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+                            <exec command="/bin/bash">
+                                <arg>-c</arg>
+                                <arg>echo "Second task completed"</arg>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+
+        <pipeline name="run-forever" lockBehavior="lockOnFailure">
+            <materials>
+                <git url="material-for-run-forever" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="rake" args="wait_forever" workingdir="git"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+
+        <pipeline name="timer-triggered" lockBehavior="lockOnFailure">
+            <materials>
+                <git url="material-for-timer-triggered" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="ls" workingdir="git"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+
+        <pipeline name="long-mdu" lockBehavior="lockOnFailure">
+            <materials>
+                <git url="https://github.com/cirosantilli/test-many-commits-1m" dest="git" materialName="long_running_mdu" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="ls" workingdir="git"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+
         <pipeline name="pipeline-with-failing-stage" lockBehavior="lockOnFailure">
             <materials>
                 <git url="material-for-pipeline-with-failing-stage" dest="git" materialName="git" autoUpdate="false"/>
@@ -600,7 +668,7 @@
         </pipeline>
         <pipeline name="basic-pipeline">
             <materials>
-              <hg url="$hgurl-basic-pipeline" dest="hg" autoUpdate="false"/>
+              <hg url="material-for-basic-pipeline" dest="hg" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
              <approval type="manual"/>

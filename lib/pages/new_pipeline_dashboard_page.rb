@@ -83,7 +83,7 @@ module Pages
     def get_all_stages(pipeline) # This one needs to be relooked - the way the view is modelled do not make it easy to get latest stage state
       reload_page
       (pipeline_name text: pipeline)
-        .ancestor('.pipeline').find('.pipeline_instance', wait: 30).find('.pipeline_stages').all('a')
+        .ancestor('.pipeline').find('.pipeline_instance', wait: 10).find('.pipeline_stages').all('a')
     rescue StandardError => e
       p 'Looks like Pipeline still not started, trying after page reload...'
       nil
@@ -100,14 +100,23 @@ module Pages
         .ancestor('.pipeline').find('.pipeline_instance-label').text.include?(label)
     end
 
-    def verify_stage_counter_on_pipeline (pipeline,stage,label,counter)
-       expected_stage_counter_url="/go/pipelines/#{pipeline}/#{label}/#{stage}/#{counter}"
-       actual_stage_counter_url=(pipeline_name text: pipeline).ancestor('.pipeline').find('.pipeline_instance', wait: 30).find('.pipeline_stages a')['href'].match(/\/go.*/)[0]
-        assert_equal actual_stage_counter_url,  expected_stage_counter_url
-    end  
+    def verify_pipeline_stays_at_label(pipeline, label)
+      wait_for_event 30, "Pipeline #{pipeline} label verification timed out" do
+        reload_page
+        raise "Pipeline #{pipeline} got trigerred. Expected not to" if (pipeline_name text: pipeline)
+                        .ancestor('.pipeline').find('.pipeline_instance-label').text.include?((label.to_i+1).to_s)
+      end
+    end
+
+    def verify_stage_counter_on_pipeline(pipeline, stage, label, counter)
+      expected_stage_counter_url = "/go/pipelines/#{pipeline}/#{label}/#{stage}/#{counter}"
+      actual_stage_counter_url = (pipeline_name text: pipeline).ancestor('.pipeline').find('.pipeline_instance', wait: 30).find('.pipeline_stages a')['href'].match(/\/go.*/)[0]
+      assert_equal actual_stage_counter_url,  expected_stage_counter_url
+    end
 
     def verify_pipeline_stage_state(pipeline, stage, state)
-      wait_till_event_occurs_or_bomb 30, "Pipeline #{pipeline} stage #{stage} is not in #{state} state" do
+      wait_till_event_occurs_or_bomb 60, "Pipeline #{pipeline} stage #{stage} is not in #{state} state" do
+        next if get_pipeline_stage_state(pipeline, stage).nil?
         break if get_pipeline_stage_state(pipeline, stage).include?(state)
       end
     end
@@ -142,28 +151,28 @@ module Pages
 
     def editable?
       !(pipeline_name text: scenario_state.self_pipeline)
-      .ancestor('.pipeline').has_css?('.edit_config.disabled')
+        .ancestor('.pipeline').has_css?('.edit_config.disabled')
     end
 
     def edit_pipeline(_pipeline)
       !(pipeline_name text: scenario_state.self_pipeline)
-      .ancestor('.pipeline').find('.edit_config').click
+        .ancestor('.pipeline').find('.edit_config').click
     end
 
     def locked?
       (pipeline_name text: scenario_state.self_pipeline)
-      .ancestor('.pipeline').has_css?('.pipeline_locked')
+        .ancestor('.pipeline').has_css?('.pipeline_locked')
     end
 
     def unlock
       sleep 5
       (pipeline_name text: scenario_state.self_pipeline)
-      .ancestor('.pipeline').find('.pipeline_locked').click
+        .ancestor('.pipeline').find('.pipeline_locked').click
     end
 
     def open_build_analytics
       (pipeline_name text: scenario_state.self_pipeline)
-      .ancestor('.pipeline').find('.pipeline-analytics').click
+        .ancestor('.pipeline').find('.pipeline-analytics').click
     end
 
     def build_time_graph_displayed?
@@ -233,7 +242,7 @@ module Pages
       (stage_name text: scenario_state.get('current_stage_name'))
         .ancestor('.pipeline').find('.stage_action').click
 
-        page.find('#app-menu').find('a', text: 'DASHBOARD').click
+      page.find('#app-menu').find('a', text: 'DASHBOARD').click
     end
 
     def open_build_cause

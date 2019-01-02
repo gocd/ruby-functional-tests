@@ -20,7 +20,7 @@
   <pipelines group="basic">
     <pipeline name="svn-pipeline">
       <materials>
-        <svn url="$url" dest="svn"/>
+        <svn url="material-for-pipeline-url" dest="svn"/>
       </materials>
       <stage name="defaultStage">
         <approval type="manual"/>

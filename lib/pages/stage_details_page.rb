@@ -148,6 +148,10 @@ module Pages
         all_history_runs
     end  
 
+    def selected_history_entry
+      page.find('a.selected.alert')[:href]
+    end  
+
 
 
 

@@ -6,7 +6,7 @@ Setup of contexts
 * Basic Configuration - setup
 * Using pipeline "pipeline-ls,basic-auto-pipeline" - setup
 * With "2" live agents - setup
-* Logout on exit - setup
+Logout on exit - setup
 * Capture go state "StageDetails" - setup
 
 StageDetails
@@ -52,13 +52,13 @@ tags: stage-details
 * Verify stage "defaultStage" is "Passed" on pipeline with label "3" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" on pipeline with label "4" - On Swift Dashboard page
-* Navigate to stage detail page for "pipeline-ls" "3" "defaultStage" "1" with stage history page size "2"
+ Navigate to stage detail page for "pipeline-ls" "3" "defaultStage" "1" with stage history page size "2"
 
-* Turn off AutoRefresh - On Swift Dashboard page
+* Turn off AutoRefresh - On Swift Dashboard page    
 * Verify stage history has "3, 2, 1 (run 2), 1"
 * Verify stage bar triggered by shows "anonymous"
 
-* Add security with password file and users "admin" as admin
+* Enable security and add "admin" as admins
 
 * Logout and login as "admin"
 
@@ -68,7 +68,7 @@ tags: stage-details
 * On stage details page "overview" tab for "pipeline-ls" label "4" stage name "defaultStage" counter "1"
 
 * Turn off AutoRefresh - On Swift Dashboard page
-* * Verify stage bar triggered by shows "admin"
+* Verify stage bar triggered by shows "admin"
 
 * On Swift Dashboard Page
 * Looking at pipeline "basic-auto-pipeline" - On Swift Dashboard page

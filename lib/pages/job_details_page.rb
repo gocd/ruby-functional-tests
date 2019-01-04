@@ -42,7 +42,7 @@ module Pages
 
     def console_has_message?(message)
       wait_till_event_occurs_or_bomb 20, "Console does not have message #{message}" do
-        wait_for_console_output
+       p console_output['innerHTML']
         break if console_output['innerHTML'].include? message
       end
     end  

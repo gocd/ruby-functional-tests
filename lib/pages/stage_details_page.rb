@@ -28,6 +28,7 @@ module Pages
     element :stage_bar_run, '#current_stage_run'
     element :stage_triggered_user, '.who'
     element :automatically_triggered,'.schedule_info span.label'
+    element :stage_cancelled_user, '.result .message'
     
    
 
@@ -128,28 +129,51 @@ module Pages
 
     def job_status_in_collapsed_state
       all_status=[]
-      page.find(".job_grouping .hidereveal_expander").each {|status|
+      page.all(".job_grouping .hidereveal_expander").each {|status|
       all_status.push(status.text)
       }
       all_status
     end
 
-    def passed_jobs
-      all_passed_jobs=[]
-      page.find('.color_code_small.Passed').sibling('wrapped_word').each {|job|
-        all_passed_jobs.push(job.text)}
-        all_passed_jobs  
+    def open_jobs(job,status)
+      page.find("#jobs_#{status}").find('ul.hidereveal_content').has_css?('span', text:job)
     end 
 
     def history_runs
       all_history_runs=[]
-      page.find('.label_counter_wrapper span.pipeline_label').each {|job|
+      if(page.all('.label_counter_wrapper span').count>1)
+        page.all('.label_counter_wrapper span').each {|job|
         all_history_runs.push(job.text)}
-        all_history_runs
+      return format_all_history_runs(all_history_runs)
+      else
+      all_history_runs.push(page.all('.label_counter_wrapper span').text) 
+      return all_history_runs
+      end
     end  
 
+    def format_all_history_runs(all_history_runs)
+      final_history_runs=[]
+      for i in 0..all_history_runs.length-1 do
+        if all_history_runs[i].start_with?('(')
+          final_history_runs[i-1]= final_history_runs[i-1]+' '+all_history_runs[i]
+        else
+          final_history_runs[i]=all_history_runs[i]
+        end  
+      end
+      final_history_runs.compact
+    end
+
     def selected_history_entry
-      page.find('a.selected.alert')[:href]
+      all_history_runs=[]
+      if(page.find('a.selected.alert').all('span').count>1)
+         page.find('a.selected.alert').all('span').each {|job|
+           all_history_runs.push(job.text)
+          }
+        return format_all_history_runs(all_history_runs)
+      else
+          all_history_runs.push(page.find('a.selected.alert').find('span').text)
+         return  all_history_runs
+        end  
     end  
 
 

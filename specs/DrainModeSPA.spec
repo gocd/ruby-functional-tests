@@ -77,6 +77,10 @@ Setup of contexts
 * On Drain mode SPA
 * Enable drain mode
 * Verify drain mode completed
+
+* On server backup page
+* Perform server backup
+* Verify back up completed with message "Backup was generated successfully."
  
 * Logout - from any page
 * Restart server

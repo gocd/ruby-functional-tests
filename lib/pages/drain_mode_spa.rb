@@ -28,7 +28,7 @@ module Pages
     end
 
     def drain_mode_enabled?
-      page.has_css?('input[data-test-id="switch-checkbox"]', wait: 20)
+      drain_complete? || drain_in_progress?
     end
 
     def drain_in_progress?
@@ -36,12 +36,12 @@ module Pages
     end
 
     def cancel_stage(pipeline, pipeline_counter, stage, stage_counter)
-      in_progress_subsystems.find("button[data-test-id='cancel-stage-btn-for-#{pipeline}/#{pipeline_counter}/#{stage}/#{stage_counter}']", wait: 10).click
+      (in_progress_subsystems wait: 20).find("button[data-test-id='cancel-stage-btn-for-#{pipeline}/#{pipeline_counter}/#{stage}/#{stage_counter}']", wait: 20).click
       reload_page
     end
 
     def stage_in_inprogress_subsystem(pipeline, pipeline_counter, stage, stage_counter)
-      in_progress_subsystems.has_css?("button[data-test-id='cancel-stage-btn-for-#{pipeline}/#{pipeline_counter}/#{stage}/#{stage_counter}']", wait: 5)
+      (in_progress_subsystems wait: 20).has_css?("button[data-test-id='cancel-stage-btn-for-#{pipeline}/#{pipeline_counter}/#{stage}/#{stage_counter}']", wait: 20)
     end
 
     def switch_drain_mode

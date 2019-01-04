@@ -89,7 +89,7 @@ module Pages
     end
 
     def is_expected_go_version?(id, version)
-      plugin_to_test(id).find('[data-test-id="key-value-value-target-go-version"]').has_selector?('pre', text: version)
+      plugin_to_test(id).find('[data-test-id="key-value-value-target-gocd-version"]').has_selector?('pre', text: version)
     end
 
     def is_expected_bundled?(id, bundled)

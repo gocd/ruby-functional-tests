@@ -22,9 +22,7 @@ step 'Open <tab_id> tab - On Job details page' do |tab_id|
 end
 
 step 'Verify console log contains message <message>' do |message|
- content = job_details_page.console_content
- p content
- assert_true content.include?(message), "Expected message not present in #{content}"
+  job_details_page.console_has_message?(message)
 end
 
 step "Verify console log contains pipeline <pipeline> with <message>" do |pipeline,message|

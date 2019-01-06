@@ -68,5 +68,6 @@ step 'Verify server is not in drain mode' do
 end
 
 step 'Drain mode - teardown' do
+  drain_mode_page.load
 	drain_mode_page.disable_drain_mode
 end

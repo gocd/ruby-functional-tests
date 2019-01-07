@@ -63,6 +63,9 @@ Setup of contexts
 
 * Attempt to pause pipline "basic-pipeline-fast" with cause "gauge testing it" and should return with http status "503"
 
+* Looking at pipeline "timer-triggered" - On Swift Dashboard page
+* Using timer with spec "0 0/30 * 1/1 * ? *"
+
 * On Drain mode SPA
 * Disable drain mode
 

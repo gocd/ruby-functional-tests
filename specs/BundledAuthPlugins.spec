@@ -29,7 +29,7 @@ Setup of contexts
 
 * Start to add a GoCD config role "guest"
 * Add user "view_user" to the role
-* Save role config
+* Save role
 
 * Edit pipeline group "basic"
 * Add role "guest" as view user

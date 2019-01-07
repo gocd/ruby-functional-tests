@@ -60,6 +60,7 @@ require 'pages/vsm_page'
 require 'pages/pipeline_creation_wizard'
 require 'pages/parameters_page'
 require 'pages/config_xml_page'
+require 'pages/ldap_authorization_plugin'
 require 'pages/drain_mode_spa'
 require 'pages/server_backup_page'
 
@@ -117,6 +118,14 @@ module Helpers
 
     def drain_mode_page
       Pages::DrainModePage.new
+    end
+
+    def ldap_authorization_plugin_auth_config_modal
+      Pages::LDAPAuthorizationPluginAuthConfigModal.new
+    end
+
+    def ldap_authorization_plugin_role_config_modal
+      Pages::LDAPAuthorizationPluginRoleConfigModal.new
     end
 
     def role_config_page

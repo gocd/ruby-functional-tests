@@ -29,8 +29,8 @@ tags: job-rerun
 * Verify rerun button is enabled
 * On Job details page of pipeline "pipeline-with-3-jobs" counter "1" stage "defaultStage" counter "2" job "first"
 
-* Verify console log contains message "[go] setting environment variable 'GO_RERUN_OF_STAGE_COUNTER' to value '1'"
-* Verify console log contains message "[go] setting environment variable 'GO_STAGE_COUNTER' to value '2'"
+* Verify console has environment variable "GO_RERUN_OF_STAGE_COUNTER" set to value "1"
+* Verify console has environment variable "GO_STAGE_COUNTER" set to value "2"
 * Verify console log contains pipeline "pipeline-with-3-jobs" with "1/defaultStage/2/first"
 
 
@@ -42,7 +42,7 @@ tags: job-rerun
 * On Job details page of pipeline "pipeline-with-3-jobs" counter "1" stage "defaultStage" counter "2" job "third"
 
 * Verify console log does not contains message "GO_RERUN_OF_STAGE_COUNTER"
-* Verify console log contains message "[go] setting environment variable 'GO_STAGE_COUNTER' to value '1'"
+* Verify console has environment variable "GO_STAGE_COUNTER" set to value "1" 
 * Verify console log contains pipeline "pipeline-with-3-jobs" with "1/defaultStage/1/third"
 * Verify breadcrumb contains stage run "defaultStage / 1"
 * Verify displaying job "1"

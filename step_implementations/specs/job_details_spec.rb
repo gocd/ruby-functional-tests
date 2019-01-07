@@ -25,6 +25,12 @@ step 'Verify console log contains message <message>' do |message|
   job_details_page.console_has_message?(message)
 end
 
+step 'Verify console has environment variable <variable> set to value <count>' do |variable,count|
+  begin
+      job_details_page.console_has_message?("setting environment variable '#{variable}' to value '#{count}'")
+  rescue job_details_page.console_has_message?("overriding environment variable '#{variable}' to value '#{count}'")
+  end
+end
 step "Verify console log contains pipeline <pipeline> with <message>" do |pipeline,message|
   assert_true job_details_page.console_content.include?"#{scenario_state.get(pipeline)}/#{message}"
 end

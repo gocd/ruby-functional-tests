@@ -36,12 +36,12 @@ module Pages
     end
 
     def cancel_stage(pipeline, pipeline_counter, stage, stage_counter)
-      page.find('div[data-test-id="in-progress-subsystems"]', wait: 20).find("button[data-test-id='cancel-stage-btn-for-#{pipeline}/#{pipeline_counter}/#{stage}/#{stage_counter}']", wait: 20).click
+      page.find('div[data-test-id="in-progress-subsystems"]', wait: 60).find("button[data-test-id='cancel-stage-btn-for-#{pipeline}/#{pipeline_counter}/#{stage}/#{stage_counter}']", wait: 20).click
       reload_page
     end
 
     def stage_in_inprogress_subsystem(pipeline, pipeline_counter, stage, stage_counter)
-      page.find('div[data-test-id="in-progress-subsystems"]', wait: 20).has_css?("button[data-test-id='cancel-stage-btn-for-#{pipeline}/#{pipeline_counter}/#{stage}/#{stage_counter}']", wait: 20)
+      page.find('div[data-test-id="in-progress-subsystems"]', wait: 60).has_css?("button[data-test-id='cancel-stage-btn-for-#{pipeline}/#{pipeline_counter}/#{stage}/#{stage_counter}']", wait: 20)
     end
 
     def switch_drain_mode
@@ -60,7 +60,5 @@ module Pages
     def disable_drain_mode
       switch_drain_mode if drain_mode_enabled?
     end
-
-
   end
 end

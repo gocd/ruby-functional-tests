@@ -48,7 +48,7 @@ Gauge.configure do |config|
     Capybara.page.save_screenshot
     file = File.open(Dir.glob('screenshots/*.png').first, 'rb')
     file_content = File.binread(file.path)
-    FileUtils.rm_r 'screenshots', force: true
+    #FileUtils.rm_r 'screenshots', force: true
     return file_content
   }
 end

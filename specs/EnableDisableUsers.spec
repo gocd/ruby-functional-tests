@@ -46,7 +46,7 @@ Setup of contexts
 * Promote "user2" an admin user
 
 * Disable users "admin,user2,user1"
-* Verify error message "Did not disable any of the selected users. Ensure that all configured admins are not being disabled." is displayed
+* Verify error message "There must be atleast one admin user enabled!" is displayed
 
 
 

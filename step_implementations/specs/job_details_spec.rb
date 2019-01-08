@@ -68,8 +68,8 @@ step 'Verify looking at <stage> having counter <counter>' do |stage,counter|
  end 
 
  step 'Verify job <job> has state <state> and result <status>' do |job,state,status|
-  assert_equal state,job_details_page.job_has_state?(job,state)
-  assert_equal status,job_details_page.job_has_status?(job,status)
+  job_details_page.job_has_state?(job,state)
+  job_details_page.job_has_status?(job,status)
  end
 
  step 'Verify breadcrumb contains stage run <stage>' do |stage|

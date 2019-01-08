@@ -57,12 +57,18 @@ module Pages
       end
     end
 
-    def job_has_status?(job,state)
-     page.find("input[type='checkbox'][value='#{job}']").ancestor('.selector').sibling('.job_result').text
+    def job_has_status?(job,result)
+      wait_till_event_occurs_or_bomb 60, "Job #{job} does not have result #{result}" do
+        reload_page
+        break if result== page.find("td.job_name a",text:job).ancestor('td.job_name').sibling('.job_result').text
+          end
     end 
     def job_has_state?(job,state)
-     page.find("input[type='checkbox'][value='#{job}']").ancestor('.selector').sibling('.job_state').text
-    end 
+        wait_till_event_occurs_or_bomb 60, "Job #{job} does not have state #{state}" do
+        reload_page
+        break if state==page.find("td.job_name a",text:job).ancestor('td.job_name').sibling('.job_state').text
+          end
+    end
 
     def job_has_current_value?(value)
       if (page.has_css?("#build_list_#{value}"))

@@ -473,40 +473,58 @@
           </stage>
          </pipeline>
          <pipeline name="pipeline-with-3-stages" lockBehavior="lockOnFailure">
-    <materials>
-        <git url="material-for-pipeline-with-3-stages" dest="git" autoUpdate="false" />
-    </materials>
-    <stage name="first">
-        <approval type="manual" />
-        <jobs>
-            <job name="defaultJob">
+            <materials>
+                 <git url="material-for-pipeline-with-3-stages" dest="git" autoUpdate="false" />
+             </materials>
+            <stage name="first">
+                 <approval type="manual" />
+             <jobs>
+                  <job name="defaultJob">
+                      <tasks>
+                          <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+                      </tasks>
+                  </job>
+             </jobs>
+            </stage>
+            <stage name="second">
+             <approval type="manual" />
+             <jobs>
+               <job name="defaultJob">
                 <tasks>
                      <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
                 </tasks>
-            </job>
-        </jobs>
-    </stage>
-    <stage name="second">
-        <approval type="manual" />
-        <jobs>
-            <job name="defaultJob">
-                <tasks>
+                </job>
+             </jobs>
+            </stage>
+            <stage name="third">
+             <approval type="manual" />
+              <jobs>
+                 <job name="defaultJob">
+                  <tasks>
                      <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
-                </tasks>
-            </job>
-        </jobs>
-    </stage>
-    <stage name="third">
-        <approval type="manual" />
-        <jobs>
-            <job name="defaultJob">
-                <tasks>
-                     <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
-                </tasks>
-            </job>
-        </jobs>
-    </stage>
-</pipeline>
+                  </tasks>
+                 </job>
+              </jobs>
+          </stage>
+       </pipeline>
+       <pipeline name="edit-pipeline">
+            <materials>
+                <git url="material-for-edit-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                           <exec command="sleep">
+                                <arg>10</arg>
+                                <runif status="passed"/>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
     </pipelines>
     <pipelines group="operable">
         <authorization>

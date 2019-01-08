@@ -42,6 +42,7 @@ module Pages
     element :task_build_file, "input[name='task[buildFile]']"
     element :task_commands, "input[name='task[command]']"
     element :task_cancel, ".close_modalbox_control"
+    element :job_name, "#job_name"
    
     load_validation { has_add_new_task? }
    
@@ -141,6 +142,33 @@ module Pages
       page.find('#jobRunType_runMultipleInstances').set(true)
       page.find('#job_runInstanceCount').set(instance)
     end  
+
+    def error_messages
+      errors=[]
+      page.all('.form_error').each{|err| errors.push(err.text)}
+      return errors
+    end
+
+    def set_custom_tab(tab_name,path_name)
+      page.all('input.environment_variable_name').each{|tab| 
+     if(tab.value.blank?)
+        tab.set(tab_name)
+     else
+     end   
+      }
+      page.all('input.environment_variable_value').each{|tab| 
+        if(tab.value.blank?)
+           tab.set(tab_name)
+        else   
+        end  
+      }
+    end  
+    
+    def tab_error(tab_index)
+    page.find('tr:nth-child(1) .name .name_value_error').text
+    end
+      
+
     
   end
 end

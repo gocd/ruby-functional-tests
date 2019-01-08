@@ -22,3 +22,12 @@ step 'On Stage settings page of pipeline <pipeline_name> stage <stage_name>' do 
     stage_settings_page.on_tab(tab_id)
   end
 
+  step 'Set stage as <stage> - On Stage settings page' do |stage|
+    stage_settings_page.stage_name.set stage
+  end
+
+  step 'Verify that stage is named <stage_name>' do |stage_name|
+    assert_true stage_settings_page.stage_name.value.include?stage_name
+  end   
+
+

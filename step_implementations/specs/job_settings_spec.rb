@@ -182,6 +182,7 @@ step 'Verify error message <error_message> on name on tab <tab_index>' do |error
   assert_true  job_settings_page.tab_error(tab_index).include?error_message 
 end  
 
+
 step 'Set job as <job> - On Job settings page' do |job|
   job_settings_page.job_name.set job
 end  

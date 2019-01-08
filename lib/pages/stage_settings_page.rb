@@ -17,6 +17,8 @@
 module Pages
     class StageSettingsPage < GeneralSettingsPage
       set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines{/pipeline_name}/stages{/stage_name}/settings"
+      
+      element :stage_name, "#stage_name"
     end
 end
   

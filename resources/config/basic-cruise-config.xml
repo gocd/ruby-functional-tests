@@ -230,9 +230,26 @@
                 </jobs>
             </stage>
        </pipeline>
-       <pipeline name="basic-auto-pipeline">
+       <pipeline name="pipeline-stageDetails">
             <materials>
-                <git url="material-for-basic-auto-pipeline" dest="git" materialName="git"/>
+                <git url="material-for-pipeline-stageDetails" dest="git" materialName="git-stageDetails" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="ls">
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+       </pipeline>
+
+       <pipeline name="basic-auto-pipeline-stageDetails">
+            <materials>
+                <git url="material-for-basic-auto-pipeline-stageDetails" dest="git-auto-stageDetails" materialName="git"/>
             </materials>
             <stage name="defaultStage">
                 <jobs>

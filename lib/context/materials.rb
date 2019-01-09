@@ -33,7 +33,7 @@ module Context
   class GitMaterials < Materials
     attr_reader :path
 
-    def initialize(path = "#{GoConstants::TEMP_DIR}/gitmaterial-#{Time.now.to_i}", type = 'git')
+    def initialize(path = "#{GoConstants::TEMP_DIR}/gitmaterial-#{Time.now.to_i}-#{SecureRandom.hex(4)}", type = 'git')
       @path = path
       @material_type = type
     end
@@ -90,8 +90,8 @@ module Context
     attr_reader :working_copy
     attr_reader :repo_uuid
 
-    def initialize(repo_dir = "#{GoConstants::TEMP_DIR}/svn_repo_dir-#{Time.now.to_i}",
-                   working_copy = "#{GoConstants::TEMP_DIR}/svn_wrk_copy-#{Time.now.to_i}",
+    def initialize(repo_dir = "#{GoConstants::TEMP_DIR}/svn_repo_dir-#{Time.now.to_i}-#{SecureRandom.hex(4)}",
+                   working_copy = "#{GoConstants::TEMP_DIR}/svn_wrk_copy-#{Time.now.to_i}-#{SecureRandom.hex(4)}",
                    type = 'svn')
       @repository_directory = repo_dir
       @working_copy = working_copy

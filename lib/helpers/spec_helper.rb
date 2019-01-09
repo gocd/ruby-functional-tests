@@ -232,18 +232,10 @@ module Helpers
       Context::Server.new
     end
 
-    def git_materials
-      Context::GitMaterials.new
-    end
-
-    def svn_materials
-      Context::SVNMaterials.new
-    end
-
     def go_state
       Context::GoState.new
     end
-    
+
     def parameters_page
       Pages::ParametersPage.new
     end

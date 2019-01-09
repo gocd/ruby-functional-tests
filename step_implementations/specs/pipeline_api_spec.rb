@@ -35,12 +35,6 @@ step 'Trigger pipeline <pipeline> and verify response code <code> - Using api' d
   end
 end
 
-step 'Trigger pipeline <pipeline> and verify response code <code> - Using api' do |pipeline, response_code|
-  RestClient.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/schedule"),
-                  { content_type: :json, accept: PIPELINE_CONFIG_API_VERSION }.merge(basic_configuration.header) do |response, _request, _result|
-    assert_true response.code == response_code.to_i
-  end
-end
 
 step 'Verify pipeline <pipeline> is not locked and is schedulable - Using api' do |pipeline|
   begin

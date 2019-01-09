@@ -24,7 +24,7 @@ module Pages
     load_validation { has_drain_mode_switch? }
 
     def drain_complete?
-      page.has_css?('div', text: 'GoCD Server is completely drained.', wait: 20)
+      page.has_css?('div', text: 'GoCD Server is completely drained.', wait: 60)
     end
 
     def drain_mode_enabled?
@@ -32,7 +32,7 @@ module Pages
     end
 
     def drain_in_progress?
-      page.has_css?('div', text: 'Some subsystems of GoCD are still in progress.', wait: 20)
+      page.has_css?('div', text: 'Some subsystems of GoCD are still in progress.', wait: 60)
     end
 
     def cancel_stage(pipeline, pipeline_counter, stage, stage_counter)

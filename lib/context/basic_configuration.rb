@@ -27,16 +27,16 @@ module Context
     def detect_headers_from_loaded_config
       begin
         response = RestClient.get admin_config_url
-        return {Confirm: true} unless response.code != 200
-      rescue
+        return { Confirm: true } unless response.code != 200
+      rescue StandardError
       end
 
-      basic_auth = Base64.encode64(['admin', 'badger'].join(':'))
-      {Authorization: "Basic #{basic_auth}", Confirm: true}
+      basic_auth = Base64.encode64(%w[admin badger].join(':'))
+      { Authorization: "Basic #{basic_auth}", Confirm: true }
     end
 
     def load_dom(xml)
-      RestClient.post admin_config_url, {xmlFile: xml.to_s, md5: @md5}, detect_headers_from_loaded_config
+      RestClient.post admin_config_url, { xmlFile: xml.to_s, md5: @md5 }, detect_headers_from_loaded_config
     rescue RestClient::ExceptionWithResponse => err
       raise "Update config xml api call failed. Error message #{err.response.body}"
     end
@@ -91,12 +91,12 @@ module Context
     end
 
     def create_plugin_settings(settings)
-      settings['configuration'].collect!{|hash|
+      settings['configuration'].collect! do |hash|
         hash['value'] = GoConstants::ANALYTICS_LICENSE_KEY if hash['key'] == 'license'
         hash
-      }
+      end
       RestClient.post http_url('/api/admin/plugin_settings'), settings.to_json,
-                      {content_type: :json, accept: 'application/vnd.go.cd.v1+json'}.merge(basic_configuration.header)
+                      { content_type: :json, accept: 'application/vnd.go.cd.v1+json' }.merge(basic_configuration.header)
     end
 
     def reset_config
@@ -120,7 +120,7 @@ module Context
     end
 
     def remove_pipelines_except(except_pipelines)
-      pipeline_groups=[]
+      pipeline_groups = []
       self.config_dom = get_config_from_server
 
       except_pipelines_names = except_pipelines.map do |except_pipeline|
@@ -128,10 +128,10 @@ module Context
       end
 
       except_pipelines_names.each do |pl|
-        group_name=config_dom.xpath("//cruise/pipelines/pipeline[@name='#{pl}']").first.parent['group']
+        group_name = config_dom.xpath("//cruise/pipelines/pipeline[@name='#{pl}']").first.parent['group']
         pipeline_groups.push(group_name)
-       end
-  
+      end
+
       config_dom.xpath('//cruise/pipelines/pipeline').each do |pipeline|
         pipeline.remove unless except_pipelines_names.include?(pipeline['name'])
       end
@@ -140,15 +140,14 @@ module Context
       end
       config_dom.xpath('//cruise/pipelines').each do |pgroup|
         pgroup.remove unless pipeline_groups.uniq.include?(pgroup['group'])
-
       end
       load_dom(config_dom)
     end
 
     def header
-      return {Confirm: true} unless scenario_state.get 'current_user'
+      return { Confirm: true } unless scenario_state.get 'current_user'
       basic_auth = Base64.encode64([scenario_state.get('current_user'), 'badger'].join(':'))
-      {Authorization: "Basic #{basic_auth}", Confirm: true}
+      { Authorization: "Basic #{basic_auth}", Confirm: true }
     end
 
     def remove_all_users
@@ -158,13 +157,13 @@ module Context
     def enable_toggle(toggle)
       RestClient.post http_url("/api/admin/feature_toggles/#{toggle}"),
                       '{"toggle_value": "on"}',
-                      {content_type: :json}.merge(basic_configuration.header)
+                      { content_type: :json }.merge(basic_configuration.header)
     end
 
     def disable_toggle(toggle)
       RestClient.post http_url("/api/admin/feature_toggles/#{toggle}"),
                       '{"toggle_value": "off"}',
-                      {content_type: :json}.merge(basic_configuration.header)
+                      { content_type: :json }.merge(basic_configuration.header)
     end
 
     def material_url_for(pipeline)
@@ -173,15 +172,15 @@ module Context
 
     def add_user_as_admin(user)
       current_config = get_config_from_server
-      admin_user_tag="<user>#{user}</user>"
+      admin_user_tag = "<user>#{user}</user>"
       current_config.at("//cruise/server/security/roles/role[@name='admins']/users").add_child admin_user_tag
       load_dom(current_config)
     end
-    
+
     def remove_user_as_admin(user)
       current_config = get_config_from_server
       current_config.xpath("//cruise/server/security/roles/role[@name='admins']/users/user[contains(text(),'#{user}')]").remove
-     load_dom(current_config)
+      load_dom(current_config)
     end
 
     def enable_security_with_admin_rights(pwd_file, adminUsers)
@@ -189,7 +188,7 @@ module Context
       password_file_path = File.expand_path("#{GoConstants::CONFIG_PATH}/#{pwd_file}")
       admin_users = adminUsers.split(',')
       admin_user_tag = ''
-      admin_users.each {|admin| admin_user_tag += "<user>#{admin}</user>"}
+      admin_users.each { |admin| admin_user_tag += "<user>#{admin}</user>" }
 
       password_authentication_config = "<security>
           <authConfigs>
@@ -214,11 +213,10 @@ module Context
       current_config.xpath('//server').first.add_child password_authentication_config
       load_dom(current_config)
     end
-    
+
     def enable_security_with_password_file(pwd_file)
       current_config = get_config_from_server
       password_file_path = File.expand_path("#{GoConstants::CONFIG_PATH}/#{pwd_file}")
-     
 
       password_file_authentication_config = "<security>
           <authConfigs>
@@ -234,30 +232,29 @@ module Context
       load_dom(current_config)
     end
 
-
     def set_artifact_location(artifact_location)
       current_config = get_config_from_server
-      current_config.xpath("//cruise/server").each do |server|
-       server['artifactsdir'] = artifact_location
+      current_config.xpath('//cruise/server').each do |server|
+        server['artifactsdir'] = artifact_location
       end
       load_dom(current_config)
-    end  
+    end
 
     def add_new_timer_spec_to_file(spec)
       current_config = get_config_from_server
       timer_tag = "<timer>#{spec}</timer>"
-       if !current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/timer").empty?
+      if !current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/timer").empty?
         current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/timer").remove
         current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']").children.first.add_previous_sibling timer_tag
-       else 
+      else
         current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']").children.first.add_previous_sibling timer_tag
+      end
+      file = File.open("#{GoConstants::SERVER_DIR}/config/cruise-config.xml", 'w')
+      begin
+         file.write(current_config.to_xml)
+       rescue IOError => e
+       ensure file.close unless file.nil?
        end
-      file = File.open("#{GoConstants::SERVER_DIR}/config/cruise-config.xml", "w")
-         begin
-          file.write(current_config.to_xml) 
-          rescue IOError => e
-          ensure file.close unless file.nil?   
-          end
      end
 
     def set_timer_spec(spec)
@@ -268,40 +265,38 @@ module Context
     end
 
     def change_cruise_config_file_to(file)
-      config_file = File.open("#{GoConstants::SERVER_DIR}/config/cruise-config.xml", "w")
-        begin
-         config_file.write(File.read("#{GoConstants::CONFIG_PATH}/#{file}")) 
-         rescue IOError => e
-         ensure config_file.close unless config_file.nil?
-         end
+      config_file = File.open("#{GoConstants::SERVER_DIR}/config/cruise-config.xml", 'w')
+      begin
+         config_file.write(File.read("#{GoConstants::CONFIG_PATH}/#{file}"))
+       rescue IOError => e
+       ensure config_file.close unless config_file.nil?
+       end
      end
 
-
-     def allow_known_user_to_login(value)
+    def allow_known_user_to_login(value)
       current_config = get_config_from_server
-      current_config.xpath("//cruise/server/security").each do |security|
+      current_config.xpath('//cruise/server/security').each do |security|
         security['allowOnlyKnownUsersToLogin'] = value
       end
       load_dom(current_config)
-     end
+    end
 
-     def remove_job_from_stage(job,stage,pipeline)
+    def remove_job_from_stage(job, stage, _pipeline)
       current_config = get_config_from_server
       current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/stage[@name='#{stage}']/jobs/job[@name='#{job}']").remove
       load_dom(current_config)
-    end 
+   end
 
-    def set_run_instance_count_for_job(count,job,pipeline)
+    def set_run_instance_count_for_job(count, job, pipeline)
       current_config = get_config_from_server
-      if count=="0"
-        current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/stage/jobs/job[@name='#{job}']").first.remove_attribute("runInstanceCount")
-       else 
+      if count == '0'
+        current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/stage/jobs/job[@name='#{job}']").first.remove_attribute('runInstanceCount')
+      else
         current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/stage/jobs/job[@name='#{job}']").each do |job|
-        job['runInstanceCount']=count
+          job['runInstanceCount'] = count
         end
       end
-     load_dom(current_config)
+      load_dom(current_config)
     end
-
   end
 end

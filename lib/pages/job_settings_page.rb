@@ -108,7 +108,7 @@ module Pages
   
     def set_task(task_type,target,build_file,working_directory,run_if_list)
       add_new_task.click
-      new_task_list.find('a', text: task_type, exact_text: true).click
+      (new_task_list wait: 20).find('a', text: task_type, exact_text: true).click
       task_target.set(target)
       task_build_file.set(build_file)
       task_working_directory.set(working_directory)

@@ -15,7 +15,9 @@
 ##########################################################################
 
 step 'Using pipeline <pipeline> - setup' do |pipelines|
-  pipelines.split(',').each { |pipeline| 
+  pipelines.split(',').each { |pipeline|
+    git_materials = Context::GitMaterials.new
+    svn_materials = Context::SVNMaterials.new
     git_materials.setup_material_for pipeline.strip if git_materials.has_material_config?(pipeline.strip)
     svn_materials.setup_material_for pipeline.strip if svn_materials.has_material_config?(pipeline.strip)
   }
@@ -36,5 +38,3 @@ step 'Remember current version as <identifier>' do |id|
   latest_revision = Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).latest_revision
   scenario_state.put id, latest_revision
 end
-
-

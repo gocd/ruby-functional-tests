@@ -166,3 +166,37 @@ step 'Save Job Settings' do ||
   job_settings_page.task_save.click
 end  
 
+step 'Verify error message <message> is shown - Already On Job Edit Page' do |message|
+  assert_true job_settings_page.error_messages.include?message
+end  
+
+step 'Verify that job is named <job>' do |job|
+  assert_true job_settings_page.job_name.value.include?job
+end
+
+step 'Enter custom tab name <tab> with path <path>' do |tab,path|
+  job_settings_page.set_custom_tab(tab,path)
+end
+
+step 'Verify error message <error_message> on name on tab <tab_index>' do |error_message,tab_index|
+  assert_true  job_settings_page.tab_error(tab_index).include?error_message 
+end  
+
+
+step 'Set job as <job> - On Job settings page' do |job|
+  job_settings_page.job_name.set job
+end  
+
+step 'set run type as <run_type>' do |run_type|
+  job_settings_page.set_run_type(run_type)
+end  
+
+step 'Verify dropdown contains <dropdown>' do |dropdown|
+  drop_down_content=job_settings_page.get_dropdown
+  dropdown.split(',').each{|drpdwn|
+    assert_true drop_down_content.include?drpdwn
+  }
+end 
+step 'Select <resource> from the dropdown' do |resource|
+  job_settings_page.select_resouce_from_dropdown resource
+end  

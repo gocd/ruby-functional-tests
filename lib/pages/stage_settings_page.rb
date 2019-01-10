@@ -17,6 +17,30 @@
 module Pages
     class StageSettingsPage < GeneralSettingsPage
       set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines{/pipeline_name}/stages{/stage_name}/settings"
+      
+      element :stage_name, "#stage_name"
+
+     def job_resources(job)
+        page.find('td a', text:job).ancestor('tr').find('td:nth-child(2)').text
+     end 
+
+     def run_on_all(job)
+      page.find('td a', text:job).ancestor('tr').find('td:nth-child(3)').text
+     end  
+ 
+     def open_job(job)
+       page.find('td a', text:job).click
+     end  
+ 
+     def delete_job(job)
+      page.find('td a', text:job).ancestor('tr').find('td.remove').find('form span.icon_remove').click
+      page.find("button[value='Proceed']").click
+     end  
+ 
+     def job_present?job
+       page.has_css?('td a',text:job)
+     end 
+
     end
 end
   

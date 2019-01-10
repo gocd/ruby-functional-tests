@@ -32,23 +32,26 @@ module Pages
     element :stage_name, "input[name='pipeline_group[pipeline][stage][name]']"
     element :trigger_type_auto, '#auto'
     element :trigger_type_manual, '#manual'
+    element :add_new_job, 'a.add_link'
     
     #jobs
     element :job_name, "input[name='pipeline_group[pipeline][stage][jobs][][name]']"
     element :task_type, '#job_task_options'
     element :finish, "button[value='Finish']"
+    element :job_name_on_popup, '#job_name'
+    element :command_on_popup, "input[name='job[tasks][exec][command]']"
+    element :resources_on_popup, '#job_resources'
+    
+    
 
 
     def set_task_field(task_name, field, value)
       page.find("#pipeline_group_pipeline_stage_jobs__tasks_#{task_name}_#{field}").set value
     end
 
-    
+    def add_new_task(task)
+      page.find('#job_task_options').find(:option, task).select_option
+    end  
 
-
-    
-
-
-   
   end
 end

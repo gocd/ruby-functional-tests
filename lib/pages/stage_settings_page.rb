@@ -19,6 +19,8 @@ module Pages
       set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines{/pipeline_name}/stages{/stage_name}/settings"
       
       element :stage_name, "#stage_name"
+      element :permission_user_name, "input.permissions_user_name"
+      element :permission_role_name, "input.permissions_role_name"
 
      def job_resources(job)
         page.find('td a', text:job).ancestor('tr').find('td:nth-child(2)').text
@@ -40,6 +42,30 @@ module Pages
      def job_present?job
        page.has_css?('td a',text:job)
      end 
+
+     def option_is_selected?option
+      if option.eql?"Inherit from the pipeline group"
+       return page.find('input#inherit_permissions').checked?
+      else
+       return page.find('input#define_permissions').checked?
+      end 
+     end
+
+     def has_message?(message)
+      page.has_css?('div',text:message)
+     end
+
+     def  selecct_permission_option(option)
+      if option.eql?"Inherit from the pipeline group"
+        return page.find('input#inherit_permissions').click
+      else
+        return page.find('input#define_permissions').click
+      end 
+     end 
+
+     def  select_from_automlete(item)
+      page.find('.ac_results li',text:item).click
+     end
 
     end
 end

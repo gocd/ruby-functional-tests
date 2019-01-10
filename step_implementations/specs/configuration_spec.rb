@@ -108,3 +108,13 @@ end
 step 'Allow unknown users to login' do ||
   basic_configuration.allow_known_user_to_login("false")
 end
+
+step 'Verify that user <user> is authorized to operate on the stage <stage> of pipeline <pipeline>' do |user,stage,pipeline|
+  assert_true basic_configuration.stage_is_authorised_with_user?(user,stage,pipeline).include?user
+end  
+
+step 'Verify that role <role> is authorized to operate on the stage <stage> of pipeline <pipeline>' do |role,stage,pipeline|
+  assert_true basic_configuration.stage_is_authorised_with_role?(role,stage,pipeline).include?role
+end 
+
+

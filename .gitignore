@@ -10,3 +10,4 @@ vendor/bundle/
 .gauge/
 *.lock
 .vscode
+screenshots/*.png

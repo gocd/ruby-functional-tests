@@ -52,9 +52,13 @@ module Pages
     end  
 
     def rerun_button_is_enabled?
-      wait_till_event_occurs_or_bomb 20, "RERUN SELECTED button is disabled" do
-        break if page.has_css?("button[value='RERUN']")
+      wait_till_event_occurs_or_bomb 60, "RERUN SELECTED button is disabled" do
+        break if page.has_selector?("button[value='RERUN']")
       end
+    end
+
+    def rerun_button_is_disabled?
+      page.has_selector?("button[value='RERUN']")
     end
 
     def job_has_status?(job,result)

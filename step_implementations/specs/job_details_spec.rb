@@ -57,6 +57,10 @@ step 'Verify rerun button is enabled' do
   job_details_page.rerun_button_is_enabled?
 end
 
+step 'Verify rerun button is disabled' do
+  assert_false job_details_page.rerun_button_is_disabled?
+end
+
 step 'Rerun <jobs> jobs' do |jobs|
   jobs.split(',').each do |job|
     job_details_page.select_jobs(job)

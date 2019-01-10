@@ -28,6 +28,26 @@ step 'On Stage settings page of pipeline <pipeline_name> stage <stage_name>' do 
 
   step 'Verify that stage is named <stage_name>' do |stage_name|
     assert_true stage_settings_page.stage_name.value.include?stage_name
-  end   
+  end  
+  
+  step 'Verify job <job> with resources as <resources> and run on all as <run_on_all>' do |job,resources,run_on_all|
+    assert_equal resources, stage_settings_page.job_resources(job)
+    assert_equal run_on_all, stage_settings_page.run_on_all(job)
+  end
 
+  step 'Open job <job>' do |job|
+    stage_settings_page.open_job job
+  end  
+
+  step 'Delete job <job>' do |job|
+    stage_settings_page.delete_job job
+  end
+
+  step 'Verify <job> job is present' do |job|
+    assert_true stage_settings_page.job_present?job
+  end 
+  
+  step 'Verify <job> job is not present' do |job|
+    assert_false stage_settings_page.job_present?job
+  end 
 

@@ -12,54 +12,55 @@ EditStageAddNewJobFlow
 
 tags: Clicky Admin, 4699, smoke
 
-* On Stage settings page of pipeline "pipeline-ls" stage "defaultStage"
-* Add task "More.."
+* On Stage settings page of pipeline "edit-pipeline" stage "defaultStage"
+* Open "Jobs" tab - On Stage settings page
+* Add new Job
+* Add task "More.." - Already on Add New Job popup
 * Save Changes
 * Verify error message "Name is a required field" is shown - Already On Job Edit Page
 * Verify error message "Command cannot be empty" is shown - Already On Job Edit Page
 * Verify error message "Save failed, see errors below" is shown - Already On Job Edit Page
-* Set job name as "job_for_rake_target"
-* Enter "second-job" for job name
-* Enter "windows" for resources
-* Enter "ls" as command
-* Add job
+* Set job name as "second-job" - Already on Add New Job popup
+* Set resources as "windows" - Already on Add New Job popup
+* Set command as "ls" - Already on Add New Job popup
+* Save Changes
 
-* Verify that job saved sucessfully - Already on Job listing Page
+* Verify the message "Saved successfully." is present
 * Verify job "second-job" with resources as "windows" and run on all as "No"
 * Open job "second-job"
 
-* Open job settings
-* Enter "windows,win-xp,linux,win7" for resources - Already on Job edit page
-* Check run on all
-* Click save - Already On Job Edit Page
-* Verify that job saved sucessfully
+* Open "Job Settings" tab - On Job settings page
+* Set resources as "windows,win-xp,linux,win7" - Already on Add New Job popup
+* set run type as "Run on all agents"
+* Save Changes
+* Verify the message "Saved successfully." is present
 
-* Open stage "defaultStage" - Using Pipeline Navigation
+* On Stage settings page of pipeline "edit-pipeline" stage "defaultStage"
 
-* Open jobs
+* Open "Jobs" tab - On Stage settings page
 
 Testing autocomplete on Resources
 
-* Open add new job to this stage page
-
-* Enter "third-Job" for job name
-* Select as task type "More..."
-* Enter "ls" as command
-* Enter "win" for resources
+*  Add new Job
+* Set job name as "third-Job" - Already on Add New Job popup
+* Add task "More.." - Already on Add New Job popup
+* Set command as "ls" - Already on Add New Job popup
+* Set resources as "win" - Already on Add New Job popup
 * Verify dropdown contains "windows,win-xp,win7"
 * Select "windows" from the dropdown
-* Add job
+* Save Changes
 
 * Verify job "second-job" with resources as "windows, win-xp, linux, win7" and run on all as "Yes"
 * Verify job "third-Job" with resources as "windows" and run on all as "No"
 
-* Open stage "defaultStage" - Using Pipeline Navigation
+* On Stage settings page of pipeline "edit-pipeline" stage "defaultStage"
 
-* Open jobs
+* Open "Jobs" tab - On Stage settings page
 
 * Delete job "defaultJob"
 * Verify "second-job" job is present
-* Verify job "defaultJob" is not present
+* Verify "defaultJob" job is not present
+
 
 
 
@@ -67,7 +68,6 @@ Testing autocomplete on Resources
 Teardown of contexts
 ____________________
 * Capture go state "EditStageAddNewJobFlow" - teardown
-* Using pipeline "edit-pipeline" - teardown
-* Basic configuration - teardown
+
 
 

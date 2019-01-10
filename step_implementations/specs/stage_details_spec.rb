@@ -149,9 +149,3 @@ end
 step 'Verify selected stage history entry is <entry>' do |entry|
   assert_true stage_details_page.selected_history_entry.include?entry
 end  
-
-
-
-
-
-

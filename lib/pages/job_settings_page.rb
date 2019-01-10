@@ -146,6 +146,7 @@ module Pages
     def error_messages
       errors=[]
       page.all('.form_error').each{|err| errors.push(err.text)}
+      page.all('.error').each{|err| errors.push(err.text)}
       return errors
     end
 
@@ -167,8 +168,23 @@ module Pages
     def tab_error(tab_index)
     page.find('tr:nth-child(1) .name .name_value_error').text
     end
-      
 
+    def set_run_type(run_type)
+      page.find('label', text:run_type).sibling('input').click
+    end
+
+    def get_dropdown
+      dropdown=[]
+      page.all('.ac_results li').each{|list_item|
+        dropdown.push(list_item.text)
+      }
+      return dropdown
+    end  
+
+    def select_resouce_from_dropdown resource
+      page.find('#job_resources').click
+      page.find('.ac_results li',text:resource).click
+    end  
     
   end
 end

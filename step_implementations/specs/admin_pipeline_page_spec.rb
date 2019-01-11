@@ -82,3 +82,58 @@ step 'Verify that extract template is disabled for <pipeline>' do |pipeline|
   scenario_state.put 'current_pipeline', pipeline
   assert_true admin_pipeline_page.pipeline_extraction_disabled? scenario_state.self_pipeline
 end
+
+step 'Add new pipeline group' do ||
+  admin_pipeline_page.add_pipeline_group
+end
+
+step 'Enter pipeline group name <group> - Already On New Pipeline Group Popup' do |group|
+  admin_pipeline_page.add_group_name.set group
+end 
+
+step 'Verify error message <message> - Already On New Pipeline Group Popup' do |message|
+  assert_true job_settings_page.error_messages.include?message
+end 
+
+step 'Verify groups <groups> are visible - on Admin Pipelines tab' do |groups|
+  
+ group_names=admin_pipeline_page.total_pipeline_groups
+ groups.split(',').each{|group|
+  assert_true group_names.include?group
+ }
+   
+end
+
+step 'Verify <group> has pipelines <pipelines>' do |group,pipelines|
+  pipelines_from_groups=admin_pipeline_page.get_pipelines_from(group)
+  actual_pipelines=[]
+  pipelines.split(',').each{|pipeline|
+  actual_pipelines.push(scenario_state.get(pipeline))}
+  actual_pipelines.each{|pipeline|
+  assert_true pipelines_from_groups.include?pipeline
+  }
+  
+end
+
+step 'Verify delete link is disabled for <group>' do |group|
+ assert_true admin_pipeline_page.delete_link_is_disabled? group
+
+end 
+
+step 'Delete group <group>' do |group|
+  admin_pipeline_page.delete_group(group)
+end
+
+step 'Verify groups <groups> are not visible - on Admin Pipelines tab' do |groups|
+  
+  group_names=admin_pipeline_page.total_pipeline_groups
+  groups.split(',').each{|group|
+   assert_false group_names.include?group
+  }
+    
+ end
+
+ step 'Delete pipeline <pipeline_name>' do |pipeline|
+  admin_pipeline_page.delete_pipeline_from_group(pipeline)
+end
+

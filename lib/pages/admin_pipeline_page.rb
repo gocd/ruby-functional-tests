@@ -39,7 +39,7 @@ module Pages
     def move_pipeline(pipeline, _source_group, destination_group)
       pipeline_row = row_for_pipeline(pipeline)
       pipeline_row.find('.move_pipeline').click
-      page.find('#div_move_to_groups').find('ul li.move_to_group_option', {text: destination_group}).click
+      page.find('#shared_micro_dropdown').find('ul li.move_to_group_option', {text: destination_group}).click
     end
 
     def verify_number_of_error_message(number_of_err_msg)

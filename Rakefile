@@ -212,21 +212,11 @@ namespace :addons do
 
       # Drop and recreate database for the test
 
-      generated_db_name              = "#{ENV['DB_NAME_PREFIX']}__#{ENV['GO_JOB_NAME']}__#{ENV['GO_STAGE_NAME']}__#{ENV['GO_PIPELINE_NAME']}".gsub(/[^0-9a-zA-Z]/, "_")[0..62]
-      ENV['POSTGRES_DB_NAME_TO_USE'] = "#{ENV['DB_NAME_PREFIX'] ? generated_db_name : "go"}"
-
-      ENV['POSTGRES_DB_HOST_TO_USE'] = "#{ENV['DB_HOST'] || "localhost"}"
-
-
-      puts "Using DB: #{ENV['POSTGRES_DB_NAME_TO_USE']} on host: #{ENV['POSTGRES_DB_HOST_TO_USE']}"
-
-      db_user = ENV['DB_USER'] || 'postgres'
-
-      drop_db_command   = "java -jar tools/run_with_postgres.jar #{ENV['POSTGRES_DB_HOST_TO_USE']} 5432 postgres #{db_user} '' 'DROP DATABASE IF EXISTS #{ENV['POSTGRES_DB_NAME_TO_USE']}'"
-      create_db_command = "java -jar tools/run_with_postgres.jar #{ENV['POSTGRES_DB_HOST_TO_USE']} 5432 postgres #{db_user} '' 'CREATE DATABASE #{ENV['POSTGRES_DB_NAME_TO_USE']}'"
+      drop_db_command   = "java -jar tools/run_with_postgres.jar localhost 5432 postgres postgres '' 'DROP DATABASE IF EXISTS go'"
+      create_db_command = "java -jar tools/run_with_postgres.jar localhost 5432 postgres postgres '' 'CREATE DATABASE go'"
       system("#{drop_db_command} && #{create_db_command}") || (puts "Failed to drop and recreate DB. Tried running: #{drop_db_command} && #{create_db_command}"; exit 1)
 
-      puts "Recreated Postgresql DB: #{ENV['POSTGRES_DB_NAME_TO_USE']}"
+      puts "Recreated Postgresql DB: go"
     else
       p 'Not set to run with postgresql addon, proceeding with h2 database...'
     end

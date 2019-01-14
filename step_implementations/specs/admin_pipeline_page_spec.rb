@@ -91,6 +91,11 @@ step 'Enter pipeline group name <group> - Already On New Pipeline Group Popup' d
   admin_pipeline_page.add_group_name.set group
 end 
 
+step 'Enter pipeline group name <group> - Already On Clone Pipeline pop up' do |group|
+  admin_pipeline_page.set_group.set(group)
+end 
+
+
 step 'Verify error message <message> - Already On New Pipeline Group Popup' do |message|
   assert_true job_settings_page.error_messages.include?message
 end 
@@ -106,14 +111,17 @@ end
 
 step 'Verify <group> has pipelines <pipelines>' do |group,pipelines|
   pipelines_from_groups=admin_pipeline_page.get_pipelines_from(group)
-  actual_pipelines=[]
-  pipelines.split(',').each{|pipeline|
-  actual_pipelines.push(scenario_state.get(pipeline))}
-  actual_pipelines.each{|pipeline|
+  pipeline_names=[]
+  pipelines.split(',').each{ |pipeline|
+    ppl=scenario_state.get(pipeline)|| pipeline
+    pipeline_names=pipeline_names.push(ppl)
+  }
+  pipeline_names.each{|pipeline|
   assert_true pipelines_from_groups.include?pipeline
   }
-  
 end
+
+
 
 step 'Verify delete link is disabled for <group>' do |group|
  assert_true admin_pipeline_page.delete_link_is_disabled? group
@@ -137,3 +145,25 @@ step 'Verify groups <groups> are not visible - on Admin Pipelines tab' do |group
   admin_pipeline_page.delete_pipeline_from_group(pipeline)
 end
 
+
+step 'Verify error message <message> - Already On Clone Pipeline Popup' do |message|
+  assert_equal message, admin_pipeline_page.error_message_on_clone_window.text
+end
+
+step 'Enter pipeline name <pipeline>' do |pipeline|
+  admin_pipeline_page.set_pipeline.set(pipeline)
+end  
+
+step 'Verify <message> message is displayed' do |message|
+  assert_true pipeline_settings_page.message_displayed?(message)
+end
+
+step 'Verify pipeline <pipeline> is paused with message <message>' do |pipeline, message|
+  assert_true admin_pipeline_page.unpos_button_exist?(pipeline)
+  assert_equal message, admin_pipeline_page.get_pos_discription
+end 
+
+step 'Click clone button for pipeline <pipeline>' do |pipeline|
+  pipeline_name=scenario_state.get(pipeline) || pipeline
+  admin_pipeline_page.click_clone_button(pipeline_name)
+end 

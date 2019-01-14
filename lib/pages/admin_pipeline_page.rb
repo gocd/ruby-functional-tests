@@ -22,6 +22,8 @@ module Pages
     element :error_popup_ok_button, "[data-test-id='button-ok']"
     elements :error_messages, "[data-test-class='server-health-message_message']"
     elements :error_discription, "[data-test-class='server-health-message_detail']"
+    element :add_group_name,"#group_group"
+    
   
     def clone_pipeline(source_pipeline_name, new_pipeline_name, pipeline_group_name)
       click_on_clone_link_for(source_pipeline_name)
@@ -113,6 +115,40 @@ module Pages
     def pipeline_extraction_disabled?(pipeline)
       page.find(".action_icon.add_icon_disabled.extract_template_for_pipeline_#{pipeline}").visible?
     end
+
+    def add_pipeline_group 
+      page.find('a.link_as_button').click
+    end
+
+    def total_pipeline_groups
+      total_groups=[]
+      page.all(".group_name").each{|group|
+      total_groups.push(group.text)}
+      return total_groups
+    end  
+
+    def get_pipelines_from(group)
+      pipelines=[]
+      page.find('h2',text:group).ancestor('.pipeline_group').all('td.name a').each{|pipeline|
+       pipelines.push(pipeline.text)
+      }
+      return pipelines
+    end 
+
+    def delete_link_is_disabled? group
+      page.find('h2',text:group).ancestor('.pipeline_group').has_css?('.delete_icon_disabled.group_name_delete')
+    end 
+
+    def delete_group(group)
+      page.find('h2',text:group).ancestor('.pipeline_group').find('.group_name_delete').click
+      page.find("button[value='Proceed']").click
+    end
+
+    def delete_pipeline_from_group(pipeline)
+      page.find('td a', text:scenario_state.get(pipeline)).ancestor('tr').find('form span.delete_icon').click      
+      page.find("button[value='Proceed']").click
+    end 
+    
 
     private
 

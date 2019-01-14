@@ -28,6 +28,7 @@ module Pages
   end
 
   class LDAPAuthorizationPluginRoleConfigModal < AppBase
+    element :name, "input[data-test-id='form-field-input-role-name']"
     element :auth_config_id, "select[data-test-id='form-field-input-auth-config-id']"
     element :group_membership_attribute, "input[ng-model='UserGroupMembershipAttribute']"
     element :group_identifiers, "textarea[ng-model='GroupIdentifiers']"

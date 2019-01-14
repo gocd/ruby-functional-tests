@@ -23,6 +23,11 @@ module Pages
     elements :error_messages, "[data-test-class='server-health-message_message']"
     elements :error_discription, "[data-test-class='server-health-message_detail']"
     element :add_group_name,"#group_group"
+    element :save_clone_pipeline, "button.finish.submit"
+    element :error_message_on_clone_window, '.form_error'
+    element :set_pipeline, '.uniquePipelineName'
+    element :set_group, '.ac_input'
+
     
   
     def clone_pipeline(source_pipeline_name, new_pipeline_name, pipeline_group_name)
@@ -147,6 +152,22 @@ module Pages
     def delete_pipeline_from_group(pipeline)
       page.find('td a', text:scenario_state.get(pipeline)).ancestor('tr').find('form span.delete_icon').click      
       page.find("button[value='Proceed']").click
+    end 
+
+    def verify_group_has_pipeline(group,pipeline)
+      page.find('.group.pipeline_group' ,text:group).has_css?('a.wrapped_word',text:pipeline) 
+    end  
+
+    def click_clone_button(pipeline)
+      page.find(".clone_button_for_#{pipeline}").click
+    end
+
+    def unpos_button_exist?(pipeline)
+      page.has_css?("button#unpause-#{pipeline}")
+    end 
+
+    def get_pos_discription
+      page.find('.pause_description.paused_by').text
     end 
     
 

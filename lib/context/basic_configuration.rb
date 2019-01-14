@@ -298,5 +298,24 @@ module Context
       end
       load_dom(current_config)
     end
+
+    def stage_is_authorised_with_user?(user,stage,pipeline)
+      users=[]
+      current_config = get_config_from_server
+      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/stage[@name='#{stage}']/approval/authorization/user").each do |user|
+        users.push(user.text)
+      end
+      return users
+    end
+
+    def stage_is_authorised_with_role?(user,stage,pipeline)
+      roles=[]
+      current_config = get_config_from_server
+      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/stage[@name='#{stage}']/approval/authorization/role").each do |role|
+        roles.push(role.text)
+      end
+      return roles
+    end
+
   end
 end

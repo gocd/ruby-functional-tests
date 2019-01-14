@@ -51,3 +51,24 @@ step 'On Stage settings page of pipeline <pipeline_name> stage <stage_name>' do 
     assert_false stage_settings_page.job_present?job
   end 
 
+  step 'Verify option  <option> is selected' do |option|
+  assert_true  stage_settings_page.option_is_selected?option
+  end  
+
+  step 'Verify that the message <message> shows up - Already On Edit Stage Page' do |message|
+    assert_true stage_settings_page.has_message?(message)
+  end 
+
+  step 'Select <option>' do |option|
+     stage_settings_page.selecct_permission_option(option)
+  end  
+
+  step 'Set <user> as user name - On Permission tab' do |user|
+    stage_settings_page.permission_user_name.set user
+  end
+
+  step 'Set <role> as role name - On Permission tab' do |role|
+    stage_settings_page.permission_role_name.set role
+  end
+
+

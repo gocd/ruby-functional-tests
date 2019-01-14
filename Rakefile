@@ -212,8 +212,8 @@ namespace :addons do
 
       # Drop and recreate database for the test
 
-      drop_db_command   = "java -jar tools/run_with_postgres.jar localhost 5432 postgres postgres '' 'DROP DATABASE IF EXISTS go'"
-      create_db_command = "java -jar tools/run_with_postgres.jar localhost 5432 postgres postgres '' 'CREATE DATABASE go'"
+      drop_db_command   = "java -jar tools/run_with_postgres.jar localhost 5432 postgres go '' 'DROP DATABASE IF EXISTS go'"
+      create_db_command = "java -jar tools/run_with_postgres.jar localhost 5432 postgres go '' 'CREATE DATABASE go'"
       system("#{drop_db_command} && #{create_db_command}") || (puts "Failed to drop and recreate DB. Tried running: #{drop_db_command} && #{create_db_command}"; exit 1)
 
       puts "Recreated Postgresql DB: go"

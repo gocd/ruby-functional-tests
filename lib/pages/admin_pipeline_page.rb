@@ -45,8 +45,7 @@ module Pages
 
     def move_pipeline(pipeline, _source_group, destination_group)
       pipeline_row = row_for_pipeline(pipeline)
-      pipeline_row.find('.move_pipeline').click
-      page.find('#shared_micro_dropdown').find('ul li.move_to_group_option', {text: destination_group}).click
+      page.find('.scrollable_panel').find('ul li a', text:destination_group).click
     end
 
     def verify_number_of_error_message(number_of_err_msg)
@@ -168,6 +167,35 @@ module Pages
 
     def get_pos_discription
       page.find('.pause_description.paused_by').text
+    end 
+
+    def delete_button_enabled?(pipeline)
+      page.has_css?("form[action='/go/admin/pipelines/#{pipeline}'] span a")
+    end
+
+    def group_has_message?(group,message)
+      page.find('h2',text:group).ancestor('.pipeline_group').has_css?('.information',text:message)
+    end 
+
+    def add_new_pipeline_in_group(group)
+      page.find('h2',text:group).ancestor('.pipeline_group').find('.add_link.add_pipeline_to_group').click
+    end  
+
+    def edit_link_exist_for_pipeline?(pipeline)
+      page.find(".edit_for_pipeline_#{scenario_state.get(pipeline)}")[:href].include?"go/admin/pipelines/#{scenario_state.get(pipeline)}/general"
+    end 
+
+    def move_button_exist_for_pipeline?(pipeline)
+      page.has_css?("#a_move_#{scenario_state.get(pipeline)}")
+    end 
+
+    def pipeline_moved_to_group_list(pipeline)
+      page.find("#a_move_#{pipeline}").click
+      groups=[]
+      page.all("form[action='/go/admin/pipelines/move/#{pipeline}'] a").each{|group|
+        groups.push(group)
+      }
+      return groups;
     end 
     
 

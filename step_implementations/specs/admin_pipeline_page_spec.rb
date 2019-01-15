@@ -113,16 +113,13 @@ step 'Verify <group> has pipelines <pipelines>' do |group,pipelines|
   pipelines_from_groups=admin_pipeline_page.get_pipelines_from(group)
   pipeline_names=[]
   pipelines.split(',').each{ |pipeline|
-    ppl=scenario_state.get(pipeline)|| pipeline
-    pipeline_names=pipeline_names.push(ppl)
-  }
+    if scenario_state.get(pipeline)==nil ? pipeline_names.push(pipeline) : pipeline_names.push(scenario_state.get(pipeline))
+    end
+    }
   pipeline_names.each{|pipeline|
   assert_true pipelines_from_groups.include?pipeline
   }
 end
-
-
-
 step 'Verify delete link is disabled for <group>' do |group|
  assert_true admin_pipeline_page.delete_link_is_disabled? group
 
@@ -133,17 +130,15 @@ step 'Delete group <group>' do |group|
 end
 
 step 'Verify groups <groups> are not visible - on Admin Pipelines tab' do |groups|
-  
   group_names=admin_pipeline_page.total_pipeline_groups
   groups.split(',').each{|group|
    assert_false group_names.include?group
-  }
-    
+  }   
  end
 
  step 'Delete pipeline <pipeline_name>' do |pipeline|
   admin_pipeline_page.delete_pipeline_from_group(pipeline)
-end
+ end
 
 
 step 'Verify error message <message> - Already On Clone Pipeline Popup' do |message|
@@ -167,3 +162,53 @@ step 'Click clone button for pipeline <pipeline>' do |pipeline|
   pipeline_name=scenario_state.get(pipeline) || pipeline
   admin_pipeline_page.click_clone_button(pipeline_name)
 end 
+
+step 'Verify can delete <pipelines>' do |pipelines|
+  pipelines.split(',').each{|pipeline|
+  assert_true admin_pipeline_page.delete_button_enabled?(scenario_state.get(pipeline))
+  }
+end
+
+step 'Verify cannot delete <pipelines>' do |pipelines|
+  pipelines.split(',').each{|pipeline|
+  assert_false admin_pipeline_page.delete_button_enabled?(scenario_state.get(pipeline))
+  }
+end
+
+step 'Verify <group> does not have pipelines <pipelines>' do |group,pipelines|
+  pipelines_from_groups=admin_pipeline_page.get_pipelines_from(group)
+  pipeline_names=[]
+  pipelines.split(',').each{ |pipeline|
+    ppl=scenario_state.get(pipeline)|| pipeline
+    pipeline_names=pipeline_names.push(ppl)
+  }
+  pipeline_names.each{|pipeline|
+  assert_false pipelines_from_groups.include?pipeline
+  }
+end
+
+step 'Verify <group> has message <message>' do |group,message|
+assert_true admin_pipeline_page.group_has_message?(group,message)
+end
+
+step 'Click to create a new pipeline to group <group>' do |group|
+  admin_pipeline_page.add_new_pipeline_in_group(group)
+end 
+
+step 'Verify that the edit button for pipeline <pipeline> is a link for edit pipeline' do |pipeline|
+assert_true admin_pipeline_page.edit_link_exist_for_pipeline?(pipeline)
+end
+
+step 'Verify that move button is not present for <pipeline>' do |pipeline|
+  assert_false admin_pipeline_page.move_button_exist_for_pipeline?(pipeline)
+end
+
+step 'Verify that <pipeline> cannot be moved to group <group>' do |pipeline,group|
+  assert_false admin_pipeline_page.pipeline_moved_to_group_list(scenario_state.get(pipeline)).include?scenario_state.get(pipeline)
+end 
+
+
+
+
+
+

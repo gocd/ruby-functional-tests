@@ -28,8 +28,8 @@ module Pages
     element :set_pipeline, '.uniquePipelineName'
     element :set_group, '.ac_input'
 
-    
-  
+
+
     def clone_pipeline(source_pipeline_name, new_pipeline_name, pipeline_group_name)
       click_on_clone_link_for(source_pipeline_name)
       page.find("#pipeline_group_pipeline_name").set new_pipeline_name
@@ -45,7 +45,8 @@ module Pages
 
     def move_pipeline(pipeline, _source_group, destination_group)
       pipeline_row = row_for_pipeline(pipeline)
-      page.find('.scrollable_panel').find('ul li a', text:destination_group).click
+      pipeline_row.find('.move_pipeline').click
+      page.find('#shared_micro_dropdown').find('ul li.move_to_group_option', {text: destination_group}).click
     end
 
     def verify_number_of_error_message(number_of_err_msg)
@@ -53,24 +54,24 @@ module Pages
         reload_page
         break if number_of_err_msg.to_i == error_and_warning_count.text.split("and")[0].scan(/\d+/)[0].to_i
           end
-    end  
+    end
 
     def verify_number_of_warnings(number_of_warning_msg)
       if error_and_warning_count.text.split('and')[1].include? "warning"
         total_warnings = error_and_warning_count.text.split('and')[1].scan(/\d+/)[0].to_i
         assert_equal total_warnings, number_of_warning_msg.to_i
-       else 
-       assert_true false 
-      end 
+       else
+       assert_true false
+      end
     end
 
     def verify_there_are_no_warnings
       assert_true !error_and_warning_count.text.include?("warning")
-    end  
-    
+    end
+
     def verify_there_are_no_error_messages
       assert_true !error_and_warning_count.text.include?("error")
-    end 
+    end
 
     def verify_error_message(error_message)
        wait_till_event_occurs_or_bomb 60, "Does not contains #{error_message}" do
@@ -80,7 +81,7 @@ module Pages
         }
         break if found
       end
-    end  
+    end
 
     def verify_message_do_not_contains(error_message)
       msg_list = []
@@ -88,7 +89,7 @@ module Pages
         msg_list.push(message.text)
       }
       assert_true !msg_list.include?(error_message)
-    end  
+    end
 
     def verify_error_description_do_not_contains(error_message)
       msg_list = []
@@ -96,7 +97,7 @@ module Pages
         msg_list.push(message.text)
       }
       assert_true !msg_list.include?(error_message)
-    end 
+    end
 
     def verify_error_description(error_message)
       wait_till_event_occurs_or_bomb 60, "Does not contains #{error_message}" do
@@ -106,7 +107,7 @@ module Pages
         }
         break if found
       end
-    end  
+    end
 
     def navigate_to(tab)
       page.find('.sub_tabs_container').find('a', text: tab).click
@@ -120,7 +121,7 @@ module Pages
       page.find(".action_icon.add_icon_disabled.extract_template_for_pipeline_#{pipeline}").visible?
     end
 
-    def add_pipeline_group 
+    def add_pipeline_group
       page.find('a.link_as_button').click
     end
 
@@ -129,7 +130,7 @@ module Pages
       page.all(".group_name").each{|group|
       total_groups.push(group.text)}
       return total_groups
-    end  
+    end
 
     def get_pipelines_from(group)
       pipelines=[]
@@ -137,11 +138,11 @@ module Pages
        pipelines.push(pipeline.text)
       }
       return pipelines
-    end 
+    end
 
     def delete_link_is_disabled? group
       page.find('h2',text:group).ancestor('.pipeline_group').has_css?('.delete_icon_disabled.group_name_delete')
-    end 
+    end
 
     def delete_group(group)
       page.find('h2',text:group).ancestor('.pipeline_group').find('.group_name_delete').click
@@ -149,13 +150,13 @@ module Pages
     end
 
     def delete_pipeline_from_group(pipeline)
-      page.find('td a', text:scenario_state.get(pipeline)).ancestor('tr').find('form span.delete_icon').click      
+      page.find('td a', text:scenario_state.get(pipeline)).ancestor('tr').find('form span.delete_icon').click
       page.find("button[value='Proceed']").click
-    end 
+    end
 
     def verify_group_has_pipeline(group,pipeline)
-      page.find('.group.pipeline_group' ,text:group).has_css?('a.wrapped_word',text:pipeline) 
-    end  
+      page.find('.group.pipeline_group' ,text:group).has_css?('a.wrapped_word',text:pipeline)
+    end
 
     def click_clone_button(pipeline)
       page.find(".clone_button_for_#{pipeline}").click
@@ -163,11 +164,11 @@ module Pages
 
     def unpos_button_exist?(pipeline)
       page.has_css?("button#unpause-#{pipeline}")
-    end 
+    end
 
     def get_pos_discription
       page.find('.pause_description.paused_by').text
-    end 
+    end
 
     def delete_button_enabled?(pipeline)
       page.has_css?("form[action='/go/admin/pipelines/#{pipeline}'] span a")
@@ -175,19 +176,19 @@ module Pages
 
     def group_has_message?(group,message)
       page.find('h2',text:group).ancestor('.pipeline_group').has_css?('.information',text:message)
-    end 
+    end
 
     def add_new_pipeline_in_group(group)
       page.find('h2',text:group).ancestor('.pipeline_group').find('.add_link.add_pipeline_to_group').click
-    end  
+    end
 
     def edit_link_exist_for_pipeline?(pipeline)
       page.find(".edit_for_pipeline_#{scenario_state.get(pipeline)}")[:href].include?"go/admin/pipelines/#{scenario_state.get(pipeline)}/general"
-    end 
+    end
 
     def move_button_exist_for_pipeline?(pipeline)
       page.has_css?("#a_move_#{scenario_state.get(pipeline)}")
-    end 
+    end
 
     def pipeline_moved_to_group_list(pipeline)
       page.find("#a_move_#{pipeline}").click
@@ -196,8 +197,8 @@ module Pages
         groups.push(group)
       }
       return groups;
-    end 
-    
+    end
+
 
     private
 

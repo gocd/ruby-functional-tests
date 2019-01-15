@@ -113,3 +113,52 @@ end
 step 'Expand environment <environment>' do |environment|
 	environments_dashboard_page.show_environment(environment)
 end
+
+step 'Click add new environment link' do
+  environments_dashboard_page.load
+  environments_dashboard_page.click_on_add_new_environment
+end
+
+step 'Verify <button_name> button in <tab_name> is disabled' do |button_name,tab_name|
+  environments_dashboard_page.verify_button_is_disabled_on_tab button_name,tab_name
+end
+
+step 'Verify <button_name> button in <tab_name> is enabled' do |button_name,tab_name|
+  environments_dashboard_page.verify_button_is_enabled_on_tab button_name,tab_name
+end
+
+step 'Enter environment name <env_name>' do |env_name|
+  environments_dashboard_page.add_new_environment env_name
+end
+
+step 'Verify tabs <list_of_tab_names> are disabled' do |list_of_tab_names|
+  environments_dashboard_page.verify_tab_is_disabled list_of_tab_names
+end
+
+step 'Verify tabs <list_of_tab_names> are enabled' do |list_of_tab_names|
+  environments_dashboard_page.verify_tab_is_enabled list_of_tab_names
+end
+
+step 'Click Cancel button on tab <tab_name>' do |tab_name|
+  environments_dashboard_page.click_on_cancel tab_name
+end
+
+step 'Verify on environments page' do
+  environments_dashboard_page.verify_on_environments_page
+end
+
+step 'Verify on <tab_name> tab' do |tab_name|
+  environments_dashboard_page.verify_current_tab tab_name
+end
+
+step 'Select tab <tab-name>' do |tab_name|
+  environments_dashboard_page.click_on_tab tab_name
+end
+
+step 'Click <button_name> button in <tab_name>' do |button_name,tab_name|
+  environments_dashboard_page.click_on_button_on_tab button_name,tab_name
+end
+
+step 'Click no <button_name> button exists in <tab_name>' do |button_name,tab_name|
+  environments_dashboard_page.verify_button_not_present_on_tab button_name,tab_name
+end

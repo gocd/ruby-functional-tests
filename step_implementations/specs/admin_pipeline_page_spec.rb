@@ -23,11 +23,11 @@ step 'Clone pipeline <pipeline_name> to <new_pipeline_name> in pipeline group <t
 end
 
 step 'Delete <pipeline_name>' do |pipeline|
-  admin_pipeline_page.delete_pipeline(pipeline)
+  admin_pipeline_page.delete_pipeline(scenario_state.get(pipeline))
 end
 
 step 'Move pipeline <pipeline_name> from group <source_group> to group <destination_group>' do |pipeline, source_group, destination_group|
-  admin_pipeline_page.move_pipeline(pipeline, source_group, destination_group)
+  admin_pipeline_page.move_pipeline(scenario_state.get(pipeline), source_group, destination_group)
 end
 
 step 'Verify there are <number_of_errors> errors' do |number_of_errors|
@@ -89,24 +89,24 @@ end
 
 step 'Enter pipeline group name <group> - Already On New Pipeline Group Popup' do |group|
   admin_pipeline_page.add_group_name.set group
-end 
+end
 
 step 'Enter pipeline group name <group> - Already On Clone Pipeline pop up' do |group|
   admin_pipeline_page.set_group.set(group)
-end 
+end
 
 
 step 'Verify error message <message> - Already On New Pipeline Group Popup' do |message|
   assert_true job_settings_page.error_messages.include?message
-end 
+end
 
 step 'Verify groups <groups> are visible - on Admin Pipelines tab' do |groups|
-  
+
  group_names=admin_pipeline_page.total_pipeline_groups
  groups.split(',').each{|group|
   assert_true group_names.include?group
  }
-   
+
 end
 
 step 'Verify <group> has pipelines <pipelines>' do |group,pipelines|
@@ -123,7 +123,7 @@ end
 step 'Verify delete link is disabled for <group>' do |group|
  assert_true admin_pipeline_page.delete_link_is_disabled? group
 
-end 
+end
 
 step 'Delete group <group>' do |group|
   admin_pipeline_page.delete_group(group)
@@ -133,7 +133,7 @@ step 'Verify groups <groups> are not visible - on Admin Pipelines tab' do |group
   group_names=admin_pipeline_page.total_pipeline_groups
   groups.split(',').each{|group|
    assert_false group_names.include?group
-  }   
+  }
  end
 
  step 'Delete pipeline <pipeline_name>' do |pipeline|
@@ -147,7 +147,7 @@ end
 
 step 'Enter pipeline name <pipeline>' do |pipeline|
   admin_pipeline_page.set_pipeline.set(pipeline)
-end  
+end
 
 step 'Verify <message> message is displayed' do |message|
   assert_true pipeline_settings_page.message_displayed?(message)
@@ -156,12 +156,12 @@ end
 step 'Verify pipeline <pipeline> is paused with message <message>' do |pipeline, message|
   assert_true admin_pipeline_page.unpos_button_exist?(pipeline)
   assert_equal message, admin_pipeline_page.get_pos_discription
-end 
+end
 
 step 'Click clone button for pipeline <pipeline>' do |pipeline|
   pipeline_name=scenario_state.get(pipeline) || pipeline
   admin_pipeline_page.click_clone_button(pipeline_name)
-end 
+end
 
 step 'Verify can delete <pipelines>' do |pipelines|
   pipelines.split(',').each{|pipeline|
@@ -193,7 +193,7 @@ end
 
 step 'Click to create a new pipeline to group <group>' do |group|
   admin_pipeline_page.add_new_pipeline_in_group(group)
-end 
+end
 
 step 'Verify that the edit button for pipeline <pipeline> is a link for edit pipeline' do |pipeline|
 assert_true admin_pipeline_page.edit_link_exist_for_pipeline?(pipeline)
@@ -205,10 +205,4 @@ end
 
 step 'Verify that <pipeline> cannot be moved to group <group>' do |pipeline,group|
   assert_false admin_pipeline_page.pipeline_moved_to_group_list(scenario_state.get(pipeline)).include?scenario_state.get(pipeline)
-end 
-
-
-
-
-
-
+end

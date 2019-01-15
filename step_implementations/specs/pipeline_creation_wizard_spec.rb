@@ -86,3 +86,8 @@ step 'Set resources as <windows> - Already on Add New Job popup' do |resource|
 	pipeline_creation_wizard.resources_on_popup.set resource
 end	
 
+step 'Set url <url> for material  <material>' do |url,material|
+	pipeline_creation_wizard.set_material_url_for(material, url)
+end	
+
+

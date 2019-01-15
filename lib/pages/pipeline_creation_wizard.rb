@@ -53,5 +53,9 @@ module Pages
       page.find('#job_task_options').find(:option, task).select_option
     end  
 
+    def set_material_url_for(material, url)
+      page.find(".#{material}_url").set(url)
+    end  
+
   end
 end

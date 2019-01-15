@@ -30,5 +30,63 @@ module Pages
       page.find("#environment_entity_#{scenario_state.get(environment)}").click
     end
 
-  end
+    def click_on_add_new_environment
+      page.all("div .add_new_environment")[1].click
+    end
+    
+    def verify_button_is_disabled_on_tab(button_name, tab_name)
+      assert_true (page.find("#tab-content-of-#{tab_name}").find(".#{button_name.downcase}.submit").disabled?)
+    end
+
+    def verify_button_is_enabled_on_tab(button_name, tab_name)
+      assert_true (!page.find("#tab-content-of-#{tab_name}").find(".#{button_name.downcase}.submit").disabled?)
+    end
+
+    def add_new_environment(env_name)
+      page.find('div .environment_name').find('input' , id: 'environment_name').set env_name
+    end
+
+    def verify_tab_is_disabled(list_of_tab_names)
+      list_of_tab_names=list_of_tab_names.split(',')
+      counter=0
+      list_of_tab_names.each do |tab_name|
+        page.all('li', class: ['subsequent_tab','disabled'], visible:false)[counter].find('a' ,class: 'tab_button_body_match_text', visible:false, exact_text:"#{tab_name}")
+        counter=counter +1
+      end   
+    end
+
+    def verify_tab_is_enabled(list_of_tab_names)
+      list_of_tab_names=list_of_tab_names.split(',')
+      counter=0
+      list_of_tab_names.each do |tab_name|
+        page.all('li', class: ['subsequent_tab','!disabled'], visible:false)[counter].find('a' ,class: 'tab_button_body_match_text', visible:false, exact_text:"#{tab_name}")
+        counter=counter +1
+      end   
+    end
+
+    def click_on_cancel(tab_name)
+      page.find("#tab-content-of-#{tab_name}").find(".cancel_button").click
+    end
+
+    def verify_on_environments_page
+      assert_true (page.all('h1', id: 'page-title', class: 'entity_title')[1].text == 'Environments')
+    end
+
+    def verify_current_tab(tab_name)
+      page.find('li', class: 'current_tab').find('a', class: 'tab_button_body_match_text',visible:false, exact_text:"#{tab_name}")
+    end
+
+    def click_on_tab(tab_name)
+      page.find('a', id: "tab-link-of-#{tab_name}").click
+    end
+
+    def click_on_button_on_tab(button_name,tab_name)
+      page.find("#tab-content-of-#{tab_name}").find(".#{button_name.downcase}.submit").click
+    end
+
+    def verify_button_not_present_on_tab(button_name,tab_name)
+      assert_true(page.find("#tab-content-of-#{tab_name}").has_no_button?('Next'))
+    end
+
+end
 end

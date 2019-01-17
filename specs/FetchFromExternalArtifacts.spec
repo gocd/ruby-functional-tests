@@ -1,7 +1,7 @@
-ExternalArtifacts
+FetchFromExternalArtifacts
 =========
 
-ExternalArtifacts
+FetchFromExternalArtifacts
 -------------------
 tags: external_artifacts
 

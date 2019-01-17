@@ -67,6 +67,54 @@ module Pages
       page.find('.ac_results li',text:item).click
      end
 
+     def set_permission_user user
+       page.all("input.permissions_user_name").each{|input_element|
+        if(input_element.value.blank?)
+          input_element.set user
+        end  
+         }
+     end
+
+     def set_permission_role role
+      page.all("input.permissions_role_name").each{|input_element|
+        if(input_element.value.blank?)
+          input_element.set role
+        end  
+         }
+     end 
+
+     def inherited_users
+      users=[]
+      page.all("input[name='stage[operateUsers][][name]']").each{|element|
+        users.push(element.value) if element.disabled?
+      }
+      return users;
+     end
+
+     def inherited_roles
+      roles=[]
+      page.all("input[name='stage[operateRoles][][name]']").each{|element|
+        roles.push(element.value) if element.disabled?
+      }
+      return roles;
+     end
+
+     def specified_users
+      users=[]
+      page.all('.permissions_user_name').each{|element|
+        users.push(element.value) if !element.value.blank?
+      }
+      return users;
+     end
+
+     def specified_roles
+      users=[]
+      page.all('.permissions_role_name').each{|element|
+        users.push(element.value) if !element.value.blank?
+      }
+      return users;
+     end
+
     end
 end
   

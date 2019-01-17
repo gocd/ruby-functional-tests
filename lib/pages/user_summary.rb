@@ -139,5 +139,15 @@ module Pages
       add_role.click
     end
   
+    def delete_users_from_db(users)
+      payload="{\"enabled\":\"false\"}"
+      users.split(',').each{|user|
+        RestClient.patch http_url("/api/users/#{user}"), payload,
+        { content_type: :json, accept: 'application/vnd.go.cd.v2+json' }.merge(basic_configuration.header)
+      
+        RestClient.delete http_url("/api/users/#{user}"),
+        { content_type: :json, accept: 'application/vnd.go.cd.v2+json' }.merge(basic_configuration.header)
+      }
+    end
   end
 end

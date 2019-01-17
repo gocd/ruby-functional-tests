@@ -199,6 +199,36 @@ module Pages
       groups
     end
 
+    def add_user_to_group(user,type,group)
+     page.all('input.permissions_USER_name').each{ |input_element|
+      if input_element.value.blank?
+        input_element.set user
+        element=input_element.ancestor('tr').find("td input##{type}Privilege_USER_name")
+        element.click if !element.checked?
+      end
+     }
+     general_settings_page.task_save.click
+    end 
+
+    def add_role_to_group(user,type,group)
+       if page.has_css?("tr#ROLE_#{user}")
+         page.find("tr#ROLE_#{user} td input##{type}Privilege_ROLE_#{user}").click
+         general_settings_page.task_save.click  
+         return
+    elsif page.all('input.permissions_ROLE_name').each{ |input_element|
+         if input_element.value.blank?
+          input_element.set user
+          element=input_element.ancestor('tr').find("td input##{type}Privilege_ROLE_name")
+          element.click
+          general_settings_page.task_save.click
+          return
+        end    
+        }  
+      end
+
+    end 
+
+    
     private
 
     def row_for_pipeline(pipeline)

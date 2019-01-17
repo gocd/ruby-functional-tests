@@ -64,11 +64,29 @@ step 'On Stage settings page of pipeline <pipeline_name> stage <stage_name>' do 
   end  
 
   step 'Set <user> as user name - On Permission tab' do |user|
-    stage_settings_page.permission_user_name.set user
+    stage_settings_page.set_permission_user user
   end
 
   step 'Set <role> as role name - On Permission tab' do |role|
-    stage_settings_page.permission_role_name.set role
+    stage_settings_page.set_permission_role role
   end
 
+  step 'Verify that user <user> is inheritted' do |user|
+    assert_true stage_settings_page.inherited_users.include?user
+  end 
+  step 'Verify that role <user> is inheritted' do |user|
+    assert_true stage_settings_page.inherited_roles.include?user
+  end 
 
+  step 'Verify that user <user> is already added - On Permission tab' do |user|
+    assert_true stage_settings_page.specified_users.include?user
+  end 
+
+  step 'Verify that role <role> is already added - On Permission tab' do |role|
+    assert_true stage_settings_page.specified_roles.include?role
+  end 
+
+  step 'Verify message <message> shows up - On Permission tab' do |message|
+    assert_true stage_settings_page.has_message?message
+  end
+  

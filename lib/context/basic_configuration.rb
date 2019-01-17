@@ -316,6 +316,6 @@ module Context
       end
       return roles
     end
-
+ 
   end
 end

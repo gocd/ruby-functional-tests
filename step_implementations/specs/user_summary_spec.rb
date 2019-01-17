@@ -135,3 +135,8 @@ step "Verify users <users> does not have the role <roles>" do |users,roles|
     assert_false user_summary_page.get_user_roles(user).include?roles
  }
 end
+
+step 'Delete users <users> from DB' do |users|
+  user_summary_page.delete_users_from_db(users)
+end 
+

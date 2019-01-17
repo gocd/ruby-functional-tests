@@ -11,27 +11,25 @@ Setup of contexts
 EditStagePermissionsWithPipelineGroupAdmins
 -------------------------------------------
 
-tags: Clicky Admin
+tags: stage_permissions
 
 Verify that an admin or a pipeline group admin can be explicitly added as an operate user
-Wait for "60" seconds
 
-* Add user "pavan" - Using user API
-* Add user "raghu" - Using user API
+* Add user "user3" - Using user API
 
 * On Admin page
 * Edit pipeline group "basic"
 
-* Adding "pavan" as a "admin" user for group "basic"
+* Adding "user3" as a "admin" user for group "basic"
 
 * Looking at pipeline "edit-pipeline" - On Swift Dashboard page
 * On Stage settings page of pipeline "edit-pipeline" stage "defaultStage"
 * Open "Permissions" tab - On Stage settings page
 * Select "Specify locally"
-* Set "pavan" as user name - On Permission tab 
+* Set "user3" as user name - On Permission tab
 * Save Changes
-* Verify that user "pavan" is authorized to operate on the stage "defaultStage" of pipeline "edit-pipeline"
-* Set "admin" as user name - On Permission tab 
+* Verify that user "user3" is authorized to operate on the stage "defaultStage" of pipeline "edit-pipeline"
+* Set "admin" as user name - On Permission tab
 * Save Changes
 * Verify that user "admin" is authorized to operate on the stage "defaultStage" of pipeline "edit-pipeline"
 
@@ -40,7 +38,5 @@ Wait for "60" seconds
 Teardown of contexts
 ____________________
 * Capture go state "EditStagePermissionsWithPipelineGroupAdmins" - teardown
-* Delete users "pavan,raghu" from DB
+* Delete users "user3" from DB
 * Logout - from any page
-
-

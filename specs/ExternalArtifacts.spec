@@ -12,12 +12,12 @@ Setup of contexts
 * With "1" live agents - setup
 * Capture go state "ExternalArtifacts" - setup
 
-* Start creating artifact store for plugin "Dummy artifact plugin" with id "TestArtifact"
+* Start creating artifact store for plugin "Dummy artifact plugin" with id "ExternalArtifact"
 * Save store details as "server_url: http://localhost:8253/go, username: admin, password: badger"
 * On Job settings page of pipeline "upstream" stage "defaultStage" job "defaultJob"
 * Open "Artifacts" tab - On Job settings page
 * Add artifact of type "External"
-* Start creating external artifact with values "external_artifacts_id: test_artifact, external_artifacts_store_id: TestArtifact"
+* Start creating external artifact with values "external_artifacts_id: test_artifact, external_artifacts_store_id: ExternalArtifact"
 * Save external artifact with values "external_source: artifact.txt, external_destination: test_folder"
 
 * On Job settings page of pipeline "downstream" stage "defaultStage" job "defaultJob"

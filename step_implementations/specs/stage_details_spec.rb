@@ -128,7 +128,7 @@ step 'Verify stage bar is displaying run <run>' do |run|
 end  
 
 step 'Verify stage history has <runs>' do |runs|
-  all_history_runs=stage_details_page.history_runs
+  all_history_runs=stage_details_page.history_run
   runs.split(', ').each {|run|
     assert_true all_history_runs.include?run
   }
@@ -149,3 +149,15 @@ end
 step 'Verify selected stage history entry is <entry>' do |entry|
   assert_true stage_details_page.selected_history_entry.include?entry
 end  
+
+step 'click on stage history page of number <number>' do |number|
+  stage_details_page.click_stage_history_of_page_number(number)
+end 
+
+step 'Verify stage history has <runs> - on Stage details page.' do |runs|
+  stage_details_page.verify_total_history_runs runs 
+end  
+
+step 'Verify pipeline history page <page_number> is shown - on Stage details page' do |page_number|
+  assert_true stage_details_page.has_history_page_number?(page_number)
+end 

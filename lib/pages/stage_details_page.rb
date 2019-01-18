@@ -176,6 +176,20 @@ module Pages
         end  
     end  
 
+    def click_stage_history_of_page_number(number)
+      page.find("#stage_history_#{number}").click
+    end  
+
+    def verify_total_history_runs runs
+      runs.split(',').each{|run|
+        assert_true page.has_css?('.pipeline_label',text:run)}
+    end
+
+    def has_history_page_number?(page_number)
+      page.has_css?("a#stage_history_#{page_number}")
+    end 
+
+  
 
 
 

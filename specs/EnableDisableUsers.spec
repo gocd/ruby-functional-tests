@@ -12,6 +12,7 @@ Setup of contexts
 * With no users - setup
 * Secure Configuration - setup
 * Login as "admin" - setup
+* Update toggle "users_page_using_rails" to value "on"
 * Capture go state "EnableDisableUsers" - setup
 
 * On User Summary page
@@ -55,3 +56,4 @@ ____________________
 * As user "admin" for teardown
 * Capture go state "EnableDisableUsers" - teardown
 * Logout - from any page
+* Update toggle "users_page_using_rails" to value "off"

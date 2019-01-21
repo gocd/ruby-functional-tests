@@ -69,3 +69,7 @@ step 'Restart server' do ||
   go_server.wait_to_start
   app_base_page.reload_page
 end
+
+step 'Update toggle <toggle> to value <value>' do |toggle, value|
+  basic_configuration.update_toggle toggle, value
+end

@@ -30,7 +30,7 @@ tags: 4369, Clicky Admin, pipeline group
 
 
 * Adding "pavan" as a "admin" user for group "group5"
-* Verify pipeline group "group5" has user "pavan" with "admins" permissions
+* Verify pipeline group "group5" has user "pavan" with "admin" permissions
 * Save Changes
 * Verify the message "Saved successfully." is present
 * Adding "role-that-does-not-exist" as a "view" role for group "group5"
@@ -52,7 +52,7 @@ tags: 4369, Clicky Admin, pipeline group
 * Adding "operator" as a "operate" role for group "basic"
 * Adding "admins" as a "admin" role for group "basic"
 
-* Verify pipeline group "group5" has user "shilpa" with "admins" permissions
+* Verify pipeline group "group5" has user "shilpa" with "admin" permissions
 * Verify pipeline group "group5" has role "admins" with "admin" permissions
 * Verify pipeline group "group5" has user "admin" with "operate" permissions
 * Verify pipeline group "group5" has user "Rajeshvaran" with "view,operate" permissions

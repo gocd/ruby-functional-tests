@@ -5,6 +5,7 @@ Setup of contexts
 * With no users - setup
 * Secure Configuration - setup
 * Login as "admin" - setup
+* Update toggle "users_page_using_rails" to value "on"
 * Capture go state "UserAPI" - setup
 
 UserAPI
@@ -37,7 +38,7 @@ tags: api, users
 
 Teardown of contexts
 ____________________
+* As user "admin" for teardown
 * Capture go state "UserAPI" - teardown
 * Logout - from any page
-
-
+* Update toggle "users_page_using_rails" to value "off"

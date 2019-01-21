@@ -154,15 +154,9 @@ module Context
       RestClient.post delete_all_users_url, header
     end
 
-    def enable_toggle(toggle)
+    def update_toggle(toggle, value)
       RestClient.post http_url("/api/admin/feature_toggles/#{toggle}"),
-                      '{"toggle_value": "on"}',
-                      { content_type: :json }.merge(basic_configuration.header)
-    end
-
-    def disable_toggle(toggle)
-      RestClient.post http_url("/api/admin/feature_toggles/#{toggle}"),
-                      '{"toggle_value": "off"}',
+                      {"toggle_value": "#{value}"}.to_json,
                       { content_type: :json }.merge(basic_configuration.header)
     end
 
@@ -316,6 +310,6 @@ module Context
       end
       return roles
     end
- 
+
   end
 end

@@ -5,6 +5,7 @@ Setup of contexts
 * With no users - setup
 * Secure Configuration - setup
 * Login as "admin" - setup
+* Update toggle "users_page_using_rails" to value "on"
 * Using pipeline "basic-pipeline-fast" - setup
 * With "1" live agents - setup
 * Capture go state "DisabledUserAccess" - setup
@@ -47,6 +48,4 @@ ____________________
 * Capture go state "DisabledUserAccess" - teardown
 * With "1" live agents - teardown
 * Logout - from any page
-
-
-
+* Update toggle "users_page_using_rails" to value "off"

@@ -1,0 +1,82 @@
+
+EditAnExistingPipelineGroup
+===========================
+
+Setup of contexts
+* Group admin security configuration - setup
+* Login as "admin" - setup
+* Using pipeline "pipeline1,pipeline5" - setup
+* Capture go state "EditPipelineGroups" - setup
+
+EditAnExistingPipelineGroup
+---------------------------
+
+tags: 4369, Clicky Admin, pipeline group
+
+* On Admin page
+
+* Verify groups "group_name_to_be_changed,group4" are visible - on Admin Pipelines tab
+* Edit pipeline group "group4"
+
+* Set group name as "group5"
+* Save Changes
+* Verify the message "Saved successfully." is present
+
+* On Admin page
+
+
+* Verify groups "group_name_to_be_changed,group5" are visible - on Admin Pipelines tab
+* Edit pipeline group "group5"
+
+
+* Adding "pavan" as a "admin" user for group "group5"
+* Verify pipeline group "group5" has user "pavan" with "admin" permissions
+* Save Changes
+* Verify the message "Saved successfully." is present
+* Adding "role-that-does-not-exist" as a "view" role for group "group5"
+* Save Changes
+* Verify message "Role \"role-that-does-not-exist\" does not exist." shows up - On Permission tab
+
+* Logout and login as "pavan"
+
+* On Admin page
+
+* Verify groups "group5" are visible - on Admin Pipelines tab
+* Edit pipeline group "group5"
+
+* Adding "admin" as a "operate" user for group "group5"
+* Adding "Rajeshvaran" as a "view" user for group "group5"
+* Adding "Rajeshvaran" as a "operate" user for group "group5"
+* Adding "shilpa" as a "admin" user for group "group5"
+* Adding "viewer" as a "view" role for group "basic"
+* Adding "operator" as a "operate" role for group "basic"
+* Adding "admins" as a "admin" role for group "basic"
+
+* Verify pipeline group "group5" has user "shilpa" with "admin" permissions
+* Verify pipeline group "group5" has role "admins" with "admin" permissions
+* Verify pipeline group "group5" has user "admin" with "operate" permissions
+* Verify pipeline group "group5" has user "Rajeshvaran" with "view,operate" permissions
+* Verify pipeline group "group5" has role "operator" with "operate" permissions
+* Verify pipeline group "group5" has role "viewer" with "view" permissions
+
+* On Admin page
+
+* Edit pipeline group "group5"
+
+* Delete user "shilpa" -on edit group page
+* Delete role "viewer" -on edit group page
+* Save Changes
+* Verify the message "Saved successfully." is present
+
+
+
+* Verify pipeline group "group5" does not have user "shilpa"
+* Verify pipeline group "group5" does not have role "viewer"
+
+
+Teardown of contexts
+____________________
+* Capture go state "EditPipelineGroups" - teardown
+* Logout - from any page
+
+

@@ -205,6 +205,46 @@ step 'Adding <user> as a <type> user for group <group>' do |user,type,group|
   admin_pipeline_page.add_user_to_group(user,type,group)
 end
 
- step 'Adding <user> as a <type> role for group <group>' do |user,type,group|
+step 'Adding <user> as a <type> role for group <group>' do |user,type,group|
   admin_pipeline_page.add_role_to_group(user,type,group)
 end
+
+step 'Verify pipeline group <group> has user <user> with <permissions> permissions' do |group,user,permissions|
+  users=admin_pipeline_page.users_in_group()
+  permissions=admin_pipeline_page.users_permissions_in_group(user)
+  assert_true users.include?user
+  permissions.each{|permission|
+  assert_true permissions.include?permission
+  }
+end
+
+step 'Verify pipeline group <group> has role <role> with <permission> permissions' do |group,role,permissions|
+  roles=admin_pipeline_page.roles_in_group()
+  permissions=admin_pipeline_page.roles_permissions_in_group(role)
+  assert_true roles.include?role
+  permissions.each{|permission|
+  assert_true permissions.include?permission
+  }
+end
+
+step 'Verify pipeline group <group> does not have user <user>' do |group,user|
+  users=admin_pipeline_page.users_in_group()
+  assert_false users.include?user 
+end
+
+step 'Verify pipeline group <group> does not have role <role>' do |group,role|
+  roles=admin_pipeline_page.roles_in_group()
+  assert_false roles.include?role
+end
+
+step 'Delete user <user> -on edit group page' do |user|
+  admin_pipeline_page.delete_user_on_edit_group(user)
+end
+
+step 'Delete role <user> -on edit group page' do |role|
+  admin_pipeline_page.delete_role_on_edit_group(role)
+end
+
+step 'Set group name as <group>' do |group|
+  admin_pipeline_page.edit_group_name.set group
+end  

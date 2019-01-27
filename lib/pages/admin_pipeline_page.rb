@@ -27,6 +27,7 @@ module Pages
     element :error_message_on_clone_window, '.form_error'
     element :set_pipeline, '.uniquePipelineName'
     element :set_group, '.ac_input'
+    element :edit_group_name, 'input#group_group'
 
     def clone_pipeline(source_pipeline_name, new_pipeline_name, pipeline_group_name)
       click_on_clone_link_for(source_pipeline_name)
@@ -200,22 +201,27 @@ module Pages
     end
 
     def add_user_to_group(user,type,group)
-     page.all('input.permissions_USER_name').each{ |input_element|
-      if input_element.value.blank?
-        input_element.set user
-        element=input_element.ancestor('tr').find("td input##{type}Privilege_USER_name")
-        element.click if !element.checked?
-      end
-     }
-     general_settings_page.task_save.click
-    end 
+      if page.has_css?("tr#USER_#{user}")
+        page.find("tr#USER_#{user} td input##{type}Privilege_USER_#{user}").click
+        general_settings_page.task_save.click  
+        return
+      elsif page.all('input.permissions_USER_name').each{ |input_element|
+        if input_element.value.blank?
+           input_element.set user
+           element=input_element.ancestor('tr').find("td input##{type}Privilege_USER_name")
+           element.click
+           general_settings_page.task_save.click
+        end
+       }   
+      end 
+    end
 
     def add_role_to_group(user,type,group)
        if page.has_css?("tr#ROLE_#{user}")
          page.find("tr#ROLE_#{user} td input##{type}Privilege_ROLE_#{user}").click
          general_settings_page.task_save.click  
          return
-    elsif page.all('input.permissions_ROLE_name').each{ |input_element|
+       elsif page.all('input.permissions_ROLE_name').each{ |input_element|
          if input_element.value.blank?
           input_element.set user
           element=input_element.ancestor('tr').find("td input##{type}Privilege_ROLE_name")
@@ -225,9 +231,47 @@ module Pages
         end    
         }  
       end
-
     end 
 
+    def users_in_group()
+      users=[]
+      page.all('input.permissions_USER_name').each{|element|
+        users.push(element.value) if !element.value.blank?
+      }
+      return users;
+    end
+
+    def roles_in_group()
+      roles=[]
+      page.all('input.permissions_ROLE_name').each{|element|
+        roles.push(element.value) if !element.value.blank?
+      }
+      return roles;
+    end
+
+    def users_permissions_in_group(user)
+      permissions=[]
+      page.all("tr#USER_#{user} td input[type=checkbox]").each{|element|
+        permissions.push(element[:name]) if !element.checked?
+      }
+      return permissions
+    end 
+
+    def roles_permissions_in_group(role)
+      permissions=[]
+      page.all("tr#ROLE_#{role} td input[type=checkbox]").each{|element|
+        permissions.push(element[:name]) if !element.checked?
+      }
+      return permissions
+    end 
+
+    def delete_user_on_edit_group(user)
+    page.find("tr#USER_#{user} td span.remove_icon").click
+    end  
+
+    def delete_role_on_edit_group(role)
+      page.find("tr#ROLE_#{role} td span.remove_icon").click
+    end  
     
     private
 

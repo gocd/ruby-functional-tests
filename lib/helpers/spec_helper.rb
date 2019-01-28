@@ -61,7 +61,7 @@ require 'pages/pipeline_creation_wizard'
 require 'pages/parameters_page'
 require 'pages/config_xml_page'
 require 'pages/ldap_authorization_plugin'
-require 'pages/drain_mode_spa'
+require 'pages/maintenance_mode_spa'
 require 'pages/server_backup_page'
 
 
@@ -116,8 +116,8 @@ module Helpers
       Pages::AuthConfigSPA.new
     end
 
-    def drain_mode_page
-      Pages::DrainModePage.new
+    def maintenance_mode_page
+      Pages::MaintenanceModePage.new
     end
 
     def ldap_authorization_plugin_auth_config_modal

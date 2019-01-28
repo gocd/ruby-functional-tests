@@ -20,7 +20,9 @@ module Pages
 
       element :message, '#success'
       element :add_variables, '#add_variables'
-      element :save, "button[@value='SAVE']"
+      element :save, "button[value='SAVE']"
+      element :material_url_field,".url"
+      element :check_connection, "button[value='CHECK CONNECTION']"
 
       def message_displayed?(message)
         page.has_css?('.success', text:message, exact_text: true)
@@ -36,6 +38,18 @@ module Pages
         params_row.find("input[name='pipeline[params][][valueForDisplay]']").set value
         add_variables.click
       end
+
+      def select_material material_name
+        page.find('td',text:material_name).click
+      end  
+
+      def connection_ok?
+        page.has_css?('.ok_message')
+      end
+
+      def set_material_url url
+        page.find('.url').set url
+      end 
 
 
     end

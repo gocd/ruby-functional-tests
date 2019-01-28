@@ -110,7 +110,10 @@ module Pages
 
     def verify_stage_counter_on_pipeline(pipeline, stage, label, counter)
       expected_stage_counter_url = "/go/pipelines/#{pipeline}/#{label}/#{stage}/#{counter}"
-      actual_stage_counter_url = (pipeline_name text: pipeline).ancestor('.pipeline').find('.pipeline_instance', wait: 30).find('.pipeline_stages a')['href'].match(/\/go.*/)[0]
+      actual_stage_counter_url = ""
+      (pipeline_name text: pipeline).ancestor('.pipeline').find('.pipeline_instance', wait: 30).all('.pipeline_stages a').each{ |element|
+        actual_stage_counter_url=element['href'].match(/\/go.*/)[0] if element['href'].include?stage
+      }
       assert_equal actual_stage_counter_url,  expected_stage_counter_url
     end
 

@@ -33,3 +33,16 @@ end
 step 'Save Pipeline settings' do ||
 	pipeline_settings_page.save
 end
+
+step 'Edit material <material_name>' do |material_name|
+	pipeline_settings_page.select_material material_name
+end
+
+step 'Copy over material url from material url as <material-url>' do |material_url|
+  pipeline_settings_page.set_material_url scenario_state.get(material_url)
+end 
+
+step 'Check connectivity should be successful - Already on Git Material Creation Popup' do ||
+  pipeline_settings_page.check_connection.click 
+  assert_true  pipeline_settings_page.connection_ok?
+end

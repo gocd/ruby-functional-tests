@@ -200,3 +200,11 @@ end
 step 'Select <resource> from the dropdown' do |resource|
   job_settings_page.select_resouce_from_dropdown resource
 end  
+
+step 'Open task <number>' do |number|
+  job_settings_page.select_task number
+end
+
+step 'Set command as <command> - On Job Setting Page' do |command|
+	job_settings_page.task_commands.set command
+end	

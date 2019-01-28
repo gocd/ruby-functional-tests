@@ -144,7 +144,7 @@
     <pipelines group="dummy-group">
 	       <pipeline name="basic-auto-pipeline" template="manualStagePipelineTemplate">
             <materials>
-                <git url="material-for--basic-auto-pipeline" materialName="git"/>
+                <git url="material-for-basic-auto-pipeline" materialName="git"/>
             </materials>
         </pipeline>
       </pipelines>

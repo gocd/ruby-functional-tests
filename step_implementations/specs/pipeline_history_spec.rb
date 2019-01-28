@@ -115,3 +115,7 @@ end
 step 'Verify on pipeline history page for <pipeline>' do |pipeline|
   assert_true pipeline_history_page.current_path.include?scenario_state.get(pipeline)
 end
+
+step 'Verify pipeline is triggered by <user> - On History page' do |user|
+  assert_true pipeline_history_page.triggered_by_on_history_page? user
+end

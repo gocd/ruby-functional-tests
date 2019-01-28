@@ -15,23 +15,23 @@
 ##########################################################################
 
 module Pages
-  class DrainModePage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/drain_mode"
+  class MaintenanceModePage < AppBase
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/maintenance_mode"
     element :settings_save, 'button[data-test-id="button-save"]'
-    element :drain_mode_switch, 'div[data-test-id="switch-wrapper"]'
+    element :maintenance_mode_switch, 'div[data-test-id="switch-wrapper"]'
     element :in_progress_subsystems, 'div[data-test-id="in-progress-subsystems"]'
 
-    load_validation { has_drain_mode_switch? }
+    load_validation { has_maintenance_mode_switch? }
 
-    def drain_complete?
-      page.has_css?('div', text: 'GoCD Server is completely drained.', wait: 60)
+    def maintenance_complete?
+      page.has_css?('div', text: 'GoCD Server has no running subsystems.', wait: 60)
     end
 
-    def drain_mode_enabled?
-      drain_complete? || drain_in_progress?
+    def maintenance_mode_enabled?
+      maintenance_complete? || maintenance_in_progress?
     end
 
-    def drain_in_progress?
+    def maintenance_in_progress?
       page.has_css?('div', text: 'Some subsystems of GoCD are still in progress.', wait: 60)
     end
 
@@ -45,8 +45,8 @@ module Pages
       page.find('div[data-test-id="in-progress-subsystems"]', wait: 60).has_css?("button[data-test-id='cancel-stage-btn-for-#{pipeline}/#{pipeline_counter}/#{stage}/#{stage_counter}']", wait: 20)
     end
 
-    def switch_drain_mode
-      drain_mode_switch.click
+    def switch_maintenance_mode
+      maintenance_mode_switch.click
       settings_save.click(wait: 10)
     end
 
@@ -54,12 +54,12 @@ module Pages
       page.has_css?('div[data-test-id="key-value-value-name"]', text: name)
     end
 
-    def drain_mode_banner_shown?
-      page.has_css?('div[data-test-id="drain-mode-banner"]')
+    def maintenance_mode_banner_shown?
+      page.has_css?('div[data-test-id="maintenance-mode-banner"]')
     end
 
-    def disable_drain_mode
-      switch_drain_mode if drain_mode_enabled?
+    def disable_maintenance_mode
+      switch_maintenance_mode if maintenance_mode_enabled?
     end
   end
 end

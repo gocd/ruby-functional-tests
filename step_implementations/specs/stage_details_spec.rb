@@ -86,7 +86,7 @@ end
 
 step 'Wait for jobs to show <status> with jobs <job>' do |status,job|
  assert_true stage_details_page.status_with_job?(status,job)
-end  
+end
 
 step 'Verify Trigger is enabled for stage <stage>' do |stage|
   stage_details_page.stage_trigger_is_enabled? stage
@@ -102,37 +102,37 @@ end
 
 step 'Verify stage <stage> does not have action <action>' do |stage, action|
   assert_false stage_details_page.stage_does_not_has_action?(stage,action)
-end 
+end
 
 step 'Trigger stage <stage> - On stage details page' do |stage|
   stage_details_page.trigger_stage(stage)
 end
 
 step 'Click on stage bar run <run>' do |run|
-  stage_details_page.click_other_runs(run) 
-end 
+  stage_details_page.click_other_runs(run)
+end
 
 step 'Verify jobs shows <status> collapsed' do |status|
   assert_true stage_details_page.job_status_in_collapsed_state.include?status
-end  
+end
 
 step 'Verify jobs shows <status> open with jobs <jobs>' do |status,jobs|
   assert_true stage_details_page.job_status_in_collapsed_state.include?status
   jobs.split(',').each {|job|
     assert_true stage_details_page.open_jobs(job,status.partition(':').first.downcase)
-  } 
-end 
+  }
+end
 
 step 'Verify stage bar is displaying run <run>' do |run|
   assert_equal run, stage_details_page.stage_bar_run.text
-end  
+end
 
 step 'Verify stage history has <runs>' do |runs|
-  all_history_runs=stage_details_page.history_run
+  all_history_runs=stage_details_page.history_runs
   runs.split(', ').each {|run|
     assert_true all_history_runs.include?run
   }
-end 
+end
 
 step 'Verify stage bar triggered by shows <user>' do |user|
   assert_equal user, stage_details_page.stage_triggered_user.text
@@ -144,20 +144,20 @@ end
 
 step 'Verify stage bar triggered automatically by changes' do ||
   assert_equal "Automatically triggered", stage_details_page.automatically_triggered.text
-end  
+end
 
 step 'Verify selected stage history entry is <entry>' do |entry|
   assert_true stage_details_page.selected_history_entry.include?entry
-end  
+end
 
 step 'click on stage history page of number <number>' do |number|
   stage_details_page.click_stage_history_of_page_number(number)
-end 
+end
 
 step 'Verify stage history has <runs> - on Stage details page.' do |runs|
-  stage_details_page.verify_total_history_runs runs 
-end  
+  stage_details_page.verify_total_history_runs runs
+end
 
 step 'Verify pipeline history page <page_number> is shown - on Stage details page' do |page_number|
   assert_true stage_details_page.has_history_page_number?(page_number)
-end 
+end

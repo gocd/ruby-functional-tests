@@ -11,7 +11,7 @@ Setup of contexts
 FanInBehaviorStageFailAndCancel
 -------------------------------
 
-tags: diamond dependency, fanin, auto, 6437, 6368, long_running
+tags: diamond dependency, fanin
 
 * On Swift Dashboard Page
 * Looking at pipeline "FS1" - On Swift Dashboard page

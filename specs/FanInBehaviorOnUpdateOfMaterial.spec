@@ -12,7 +12,7 @@ Setup of contexts
 FanInBehaviorOnUpdateOfMaterial
 -------------------------------
 
-tags: diamond dependency, fanin, material-change
+tags: diamond dependency, fanin
 
                           git [g1, g2, g3, g4, g5, g6, g7]  ----------------------------------------+
                                  /                              \                                                          |

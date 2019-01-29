@@ -11,7 +11,7 @@ Setup of contexts
 FanInBehavior
 -------------
 
-tags: diamond dependency, fanin, auto
+tags: diamond dependency, fanin
 
 * On Swift Dashboard Page
 * Looking at pipeline "C6-auto" - On Swift Dashboard page

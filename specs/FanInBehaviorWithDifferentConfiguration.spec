@@ -11,7 +11,7 @@ Setup of contexts
 FanInBehaviorWithDifferentConfiguration
 ---------------------------------------
 
-tags: diamond dependency, fanin, auto, 6201
+tags: diamond dependency, fanin
 
 
 * On Swift Dashboard Page

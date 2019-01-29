@@ -29,15 +29,6 @@ module Context
       current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{@material_type}/@url")
     end
 
-    def material_config_new(pipeline)
-      material_url=[]
-      current_configuration = basic_configuration.get_config_from_server
-      current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{@material_type}/@url").each{ |url|
-        material_url.push(url.value)
-      }
-      material_url
-    end
-
     def get_material_type_count(pipeline)
       current_configuration = basic_configuration.get_config_from_server  
       current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{@material_type}/@url").count
@@ -74,27 +65,6 @@ module Context
         scenario_state.put(material_url, material_path)
       end
       basic_configuration.set_material_path_for_pipeline('git', pipeline, material_path,material_url)
-    rescue StandardError => e
-      raise "The Pipeline #{pipeline} setup for GIT material failed. #{e.message}"
-    end
-
-    def setup_material_for_new pipeline, material_url
-      #material_url = material_config(pipeline).first.value
-      if !scenario_state.get(material_url).nil?
-       material_path = scenario_state.get(material_url)
-     else
-        rm_rf(@path)
-        mkdir_p(@path)
-        cd(@path) do
-          Open3.popen3('git init sample.git') do |_stdin, _stdout, stderr, wait_thr|
-            raise "Initialization of git Material Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
-          end
-        end
-        initial_commit
-        material_path = "#{@path}/sample.git"
-        scenario_state.put(material_url, material_path)
-      end
-      basic_configuration.set_material_path_for_pipeline_new('git', pipeline, material_path,material_url)
     rescue StandardError => e
       raise "The Pipeline #{pipeline} setup for GIT material failed. #{e.message}"
     end

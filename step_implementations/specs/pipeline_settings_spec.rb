@@ -46,3 +46,11 @@ step 'Check connectivity should be successful - Already on Git Material Creation
   pipeline_settings_page.check_connection.click 
   assert_true  pipeline_settings_page.connection_ok?
 end
+
+step 'Select add new material of type <type>' do |type|
+  pipeline_settings_page.select_add_new_material type
+end
+
+step 'Delete material with name <material_name>' do |material_name|
+  pipeline_settings_page.delete_material material_name
+end

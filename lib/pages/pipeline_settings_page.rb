@@ -51,6 +51,15 @@ module Pages
         page.find('.url').set url
       end 
 
+      def select_add_new_material type
+        page.find('.menu_link',text: 'Add Material').click
+        page.find('#new_material_popup ul li a',text:type).click
+      end
 
+      def delete_material material_name
+        page.find('.material_name',text: material_name,exact_text:true).ancestor('tr').find('.icon_remove').click
+        page.find("button[value='Proceed']").click
+      end
+    
     end
 end

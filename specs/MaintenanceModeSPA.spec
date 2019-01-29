@@ -8,16 +8,13 @@ tags: drain_mode
 Setup of contexts
 * Secure Configuration - setup
 * Login as "admin" - setup
-* Using pipeline "wait-for-stop-job, run-forever, basic-pipeline-fast, timer-triggered" - setup
+* Using pipeline "wait-for-stop-job, basic-pipeline-fast, timer-triggered" - setup
 * With "3" live agents - setup
 * Capture go state "MaintenanceModeSPA" - setup
 
 * Looking at pipeline "basic-pipeline-fast" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Verify stage "defaultStage" is "passed" - On Swift Dashboard page
-* Looking at pipeline "run-forever" - On Swift Dashboard page
-* Trigger pipeline - On Swift Dashboard page
-* Verify stage "defaultStage" is "Building" - On Swift Dashboard page
 * Looking at pipeline "wait-for-stop-job" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Verify stage "defaultStage" is "Building" - On Swift Dashboard page
@@ -29,12 +26,8 @@ Setup of contexts
 * Enable maintenance mode
 * Verify maintenance mode is in progress
 
-* Verify in progress subsystems section shows pipeline "run-forever" counter "1" stage "defaultStage" counter "1"
 * Verify in progress subsystems section shows pipeline "wait-for-stop-job" counter "1" stage "defaultStage" counter "1"
 * Verify in progress subsystems section does not show pipeline "basic-pipeline-fast" counter "1" stage "defaultStage" counter "1"
-* Cancel pipeline "run-forever" counter "1" stage "defaultStage" counter "1" - On Maintenance mode spa
-
-* Verify in progress subsystems section does not show pipeline "run-forever" counter "1" stage "defaultStage" counter "1"
 
 * On Admin page
 * Verify maintenance mode banner is shown
@@ -107,6 +100,3 @@ _______________
 * Logout - from any page
 * Capture go state "MaintenanceModeSPA" - teardown
 * With "3" live agents - teardown
-
-
-

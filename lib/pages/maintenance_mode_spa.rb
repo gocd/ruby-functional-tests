@@ -24,6 +24,7 @@ module Pages
     load_validation { has_maintenance_mode_switch? }
 
     def maintenance_complete?
+      reload_page
       page.has_css?('div', text: 'GoCD Server has no running subsystems.', wait: 60)
     end
 
@@ -32,12 +33,12 @@ module Pages
     end
 
     def maintenance_in_progress?
+      reload_page
       page.has_css?('div', text: 'Some subsystems of GoCD are still in progress.', wait: 60)
     end
 
     def cancel_stage(pipeline, pipeline_counter, stage, stage_counter)
       page.find('div[data-test-id="in-progress-subsystems"]', wait: 60).find("button[data-test-id='cancel-stage-btn-for-#{pipeline}/#{pipeline_counter}/#{stage}/#{stage_counter}']", wait: 20).click
-      reload_page
     end
 
     def stage_in_inprogress_subsystem(pipeline, pipeline_counter, stage, stage_counter)

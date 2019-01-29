@@ -23,11 +23,15 @@ step 'Enable maintenance mode' do
 end
 
 step 'Verify maintenance mode is in progress' do
-  assert_true maintenance_mode_page.maintenance_in_progress?
+  wait_till_event_occurs_or_bomb 30, 'Maintenance mode is not enabled as expected' do
+    break if maintenance_mode_page.maintenance_in_progress?
+  end
 end
 
 step 'Verify maintenance mode completed' do
-  assert_true maintenance_mode_page.maintenance_complete?
+  wait_till_event_occurs_or_bomb 30, 'Maintenance mode is not enabled as expected' do
+    break if maintenance_mode_page.maintenance_complete?
+  end
 end
 
 step 'Verify in progress subsystems section shows pipeline <pipeline> counter <p_counter> stage <stage> counter <s_counter>' do |pipeline, p_counter, stage, s_counter|

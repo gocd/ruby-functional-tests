@@ -20,6 +20,7 @@ module Pages
     element :settings_save, 'button[data-test-id="button-save"]'
     element :maintenance_mode_switch, 'div[data-test-id="switch-wrapper"]'
     element :in_progress_subsystems, 'div[data-test-id="in-progress-subsystems"]'
+    element :flash_message, "div[data-test-id='flash-message-success']"
 
     load_validation { has_maintenance_mode_switch? }
 
@@ -38,7 +39,9 @@ module Pages
     end
 
     def cancel_stage(pipeline, pipeline_counter, stage, stage_counter)
-      page.find('div[data-test-id="in-progress-subsystems"]', wait: 60).find("button[data-test-id='cancel-stage-btn-for-#{pipeline}/#{pipeline_counter}/#{stage}/#{stage_counter}']", wait: 20).click
+      page.find("button[data-test-id='cancel-stage-btn-for-#{pipeline}/#{pipeline_counter}/#{stage}/#{stage_counter}']").click
+      page.has_css?("div[data-test-id='flash-message-success']", text: 'stage defaultStage successfully cancelled', wait: 20)
+
     end
 
     def stage_in_inprogress_subsystem(pipeline, pipeline_counter, stage, stage_counter)

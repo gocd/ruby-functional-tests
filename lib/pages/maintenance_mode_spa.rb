@@ -18,7 +18,7 @@ module Pages
   class MaintenanceModePage < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/maintenance_mode"
     element :settings_save, 'button[data-test-id="button-save"]'
-    element :maintenance_mode_switch, 'div[data-test-id="switch-wrapper"]'
+    element :maintenance_mode_switch, 'label[data-test-id="switch-paddle"]'
     element :in_progress_subsystems, 'div[data-test-id="in-progress-subsystems"]'
     element :flash_message, "div[data-test-id='flash-message-success']"
 
@@ -50,8 +50,8 @@ module Pages
     end
 
     def switch_maintenance_mode
-      maintenance_mode_switch.click
-      settings_save.click(wait: 10)
+      maintenance_mode_switch.click(wait: 30)
+      settings_save.click(wait: 30)
     end
 
     def shows_running_mdu_for_material(name)

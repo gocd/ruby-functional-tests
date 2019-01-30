@@ -144,7 +144,7 @@
     <pipelines group="dummy-group">
 	       <pipeline name="basic-auto-pipeline" template="manualStagePipelineTemplate">
             <materials>
-                <git url="material-for--basic-auto-pipeline" materialName="git"/>
+                <git url="material-for-basic-auto-pipeline" materialName="git"/>
             </materials>
         </pipeline>
       </pipelines>
@@ -643,7 +643,7 @@
           		<job name="defaultJob">
             		<tasks>
               			<exec command="sleep">
-                       	 <arg>10</arg>
+                       	 <arg>60</arg>
                        </exec>
                    </tasks>
                </job>

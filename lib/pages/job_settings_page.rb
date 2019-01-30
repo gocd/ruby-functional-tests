@@ -185,6 +185,10 @@ module Pages
       page.find('#job_resources').click
       page.find('.ac_results li',text:resource).click
     end  
+
+    def select_task task_no
+      page.find("tr:nth-child(#{task_no.to_i}) td a").click
+    end
     
   end
 end

@@ -20,7 +20,9 @@ module Pages
 
       element :message, '#success'
       element :add_variables, '#add_variables'
-      element :save, "button[@value='SAVE']"
+      element :save, "button[value='SAVE']"
+      element :material_url_field,".url"
+      element :check_connection, "button[value='CHECK CONNECTION']"
 
       def message_displayed?(message)
         page.has_css?('.success', text:message, exact_text: true)
@@ -37,6 +39,27 @@ module Pages
         add_variables.click
       end
 
+      def select_material material_name
+        page.find('td',text:material_name).click
+      end  
 
+      def connection_ok?
+        page.has_css?('.ok_message')
+      end
+
+      def set_material_url url
+        page.find('.url').set url
+      end 
+
+      def select_add_new_material type
+        page.find('.menu_link',text: 'Add Material').click
+        page.find('#new_material_popup ul li a',text:type).click
+      end
+
+      def delete_material material_name
+        page.find('.material_name',text: material_name,exact_text:true).ancestor('tr').find('.icon_remove').click
+        page.find("button[value='Proceed']").click
+      end
+    
     end
 end

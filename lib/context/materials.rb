@@ -28,6 +28,17 @@ module Context
       current_configuration = basic_configuration.get_config_from_server
       current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{@material_type}/@url")
     end
+
+    def get_material_type_count(pipeline)
+      current_configuration = basic_configuration.get_config_from_server  
+      current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{@material_type}/@url").count
+    end
+
+    def get_material_url(pipeline,count)
+      current_configuration = basic_configuration.get_config_from_server 
+      return current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{@material_type}/@url")[count].value
+    end
+
   end
 
   class GitMaterials < Materials
@@ -38,8 +49,7 @@ module Context
       @material_type = type
     end
 
-    def setup_material_for(pipeline)
-      material_url = material_config(pipeline).first.value
+    def setup_material_for(pipeline,material_url)
       if !scenario_state.get(material_url).nil?
         material_path = scenario_state.get(material_url)
       else
@@ -54,7 +64,7 @@ module Context
         material_path = "#{@path}/sample.git"
         scenario_state.put(material_url, material_path)
       end
-      basic_configuration.set_material_path_for_pipeline('git', pipeline, material_path)
+      basic_configuration.set_material_path_for_pipeline('git', pipeline, material_path,material_url)
     rescue StandardError => e
       raise "The Pipeline #{pipeline} setup for GIT material failed. #{e.message}"
     end

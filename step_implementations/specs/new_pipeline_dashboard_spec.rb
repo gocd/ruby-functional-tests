@@ -66,7 +66,6 @@ step 'Trigger and wait for stage <stage> is <state> with label <label> - On Swif
 end
 
 step 'Verify stage <stage> is <state> on pipeline with label <label> - On Swift Dashboard page' do |stage, state, label|
-  
   new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.self_pipeline, stage, state.downcase
   new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.self_pipeline, label
 end
@@ -176,8 +175,13 @@ step 'Looking at material of type <material_type> named <name> verify shows late
   new_pipeline_dashboard_page.shows_revision_at?(revision, latest_revision)
 end
 
+step 'With material <material> of type <type> for pipeline <pipeline>' do |material_name,material_type,pipeline|
+  current_material_url=basic_configuration.material_url(pipeline,material_type,material_name)
+  scenario_state.put("current_material_url",current_material_url)
+end 
+
 step 'Checkin file <filename> as user <user> with message <message> - On Swift Dashboard page' do |filename, user, message|
-  Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).new_commit(filename, message, user)
+  Context::GitMaterials.new(scenario_state.get("current_material_url")).new_commit(filename, message, user)
 end
 
 step 'Open trigger with options - On Swift Dashboard page' do |_tmp|
@@ -271,7 +275,7 @@ end
 step 'Verify material has changed - On Build Cause popup' do
   material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.get('current_material_name'))
   revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.get('current_material_type'), material_name)
-  assert_true new_pipeline_dashboard_page.material_revision_changed? revision_element
+ assert_true new_pipeline_dashboard_page.material_revision_changed? revision_element
 end
 
 step 'Verify pipeline does not get triggered' do

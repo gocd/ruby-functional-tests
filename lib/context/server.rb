@@ -23,13 +23,18 @@ module Context
     DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
 
     def start
-      return if DEVELOPMENT_MODE && server_running?
+     return if DEVELOPMENT_MODE && server_running?
+       system_properties =  if (ENV['FANINOFF']=="true")
+      "#{GoConstants::GO_SERVER_SYSTEM_PROPERTIES} -Dresolve.fanin.revisions=N"
+      else
+         GoConstants::GO_SERVER_SYSTEM_PROPERTIES 
+      end
       cp 'resources/with-java.sh', GoConstants::SERVER_DIR
       chmod 0755, "#{GoConstants::SERVER_DIR}/with-java.sh"
       Bundler.with_clean_env do
         process = ChildProcess.build('./with-java.sh', START_COMMAND)
         process.detach = true
-        process.environment.merge!('GO_SERVER_SYSTEM_PROPERTIES' => GoConstants::GO_SERVER_SYSTEM_PROPERTIES,
+        process.environment.merge!('GO_SERVER_SYSTEM_PROPERTIES' => system_properties,
                                    'GO_SERVER_PORT' => GoConstants::SERVER_PORT,
                                    'GO_SERVER_SSL_PORT' => GoConstants::SERVER_SSL_PORT,
                                    'SERVER_MEM' => GoConstants::SERVER_MEM,
@@ -46,7 +51,7 @@ module Context
 
     def stop
       if DEVELOPMENT_MODE
-        puts 'Running test in development mode so not stopping the server........'
+       puts 'Running test in development mode so not stopping the server........'
       else
         Bundler.with_clean_env do
           process = ChildProcess.build('./with-java.sh', STOP_COMMAND)

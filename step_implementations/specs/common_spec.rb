@@ -70,6 +70,18 @@ step 'Restart server' do ||
   app_base_page.reload_page
 end
 
+step 'Set Fan In turned off' do ||
+ ENV['FANINOFF']="true"
+end
+
+step  'Set Fan In turned off - teardown' do ||
+  ENV['FANINOFF']="false"
+  go_server.stop
+  go_server.start
+  go_server.wait_to_start
+  app_base_page.reload_page
+end
+
 step 'Update toggle <toggle> to value <value>' do |toggle, value|
   basic_configuration.update_toggle toggle, value
 end

@@ -57,9 +57,9 @@ module Context
       current_config
     end
 
-    def set_material_path_for_pipeline(material_type, pipeline, material_path)
+    def set_material_path_for_pipeline(material_type, pipeline, material_path,material_url)
       current_config = get_config_from_server
-      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{material_type}").each do |material|
+      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{material_type}[@url='#{material_url}']").each do |material|
         material['url'] = material_path
       end
       load_dom(current_config)
@@ -163,6 +163,11 @@ module Context
     def material_url_for(pipeline)
       get_config_from_server.xpath("//cruise/pipelines/pipeline[@name='#{pipeline}']/materials/git").attribute('url').value
     end
+
+    def material_url(pipeline,material_type,material_name)
+      current_configuration = basic_configuration.get_config_from_server 
+      return current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{material_type}[@materialName='#{material_name}']")[0]['url']
+    end 
 
     def add_user_as_admin(user)
       current_config = get_config_from_server

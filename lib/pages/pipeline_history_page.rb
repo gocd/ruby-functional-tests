@@ -103,5 +103,9 @@ module Pages
       page.find("#rerun-#{pipeline_name}-#{label}-#{stage_name}", visible: false)
     end
 
+    def triggered_by_on_history_page? user
+      page.find('.pipeline-label',text:"#{scenario_state.get('current_label')}").ancestor('.pipeline-name').has_css?('a',text:"Triggered by #{user}")
+    end 
+
   end
 end

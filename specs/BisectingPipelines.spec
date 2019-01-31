@@ -15,6 +15,7 @@ tags: shine, bisect, automate
 * Looking at pipeline "basic-pipeline-fast" - On Swift Dashboard page
 * Trigger and wait for stage "defaultStage" is "Passed" with label "1" - On Swift Dashboard page
 
+* With material "git" of type "git" for pipeline "basic-pipeline-fast"
 * Checkin file "foo1.txt" as user "cceuser1" with message "Comment a" - On Swift Dashboard page
 * Remember current version as "rev-1"
 
@@ -73,4 +74,3 @@ Teardown of contexts
 ____________________
 * Capture go state "BisectingPipelines" - teardown
 * With "1" live agents - teardown
-

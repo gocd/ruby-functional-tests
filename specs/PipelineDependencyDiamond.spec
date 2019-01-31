@@ -46,6 +46,7 @@ left [l1(g1), l2(g3), l3(g5), l3(g7)                  V                         
 * Verify stage "defaultStage" is "passed" on pipeline with label "1" - On Swift Dashboard page
 
 * Looking at pipeline "d-up-left" - On Swift Dashboard page
+* With material "git-second" of type "git" for pipeline "d-up-left"
 * Checkin file "new-file-2" as user "go <go@po.com>" with message "Added new-file 2" - On Swift Dashboard page
 * Remember current version as "g2"
 
@@ -54,12 +55,14 @@ left [l1(g1), l2(g3), l3(g5), l3(g7)                  V                         
 
 
 * Looking at pipeline "d-up-left" - On Swift Dashboard page
+* With material "git-second" of type "git" for pipeline "d-up-left"
 * Checkin file "new-file-3" as user "go <go@po.com>" with message "Added new-file 3" - On Swift Dashboard page
 * Remember current version as "g3"
 
 * Trigger and wait for stage "defaultStage" is "passed" with label "2" - On Swift Dashboard page
 
 * Looking at pipeline "d-up-left" - On Swift Dashboard page
+* With material "git-second" of type "git" for pipeline "d-up-left"
 * Checkin file "new-file-4" as user "go <go@po.com>" with message "Added new-file 4" - On Swift Dashboard page
 * Remember current version as "g4"
 
@@ -71,6 +74,7 @@ left [l1(g1), l2(g3), l3(g5), l3(g7)                  V                         
 * Verify stage "defaultStage" is with label "1" - On Swift Dashboard page
 
 * Looking at pipeline "d-up-left" - On Swift Dashboard page
+* With material "git-second" of type "git" for pipeline "d-up-left"
 * Checkin file "new-file-5" as user "go <go@po.com>" with message "Added new-file 5" - On Swift Dashboard page
 * Remember current version as "g5"
 
@@ -82,6 +86,7 @@ left [l1(g1), l2(g3), l3(g5), l3(g7)                  V                         
 * Trigger and wait for stage "defaultStage" is "passed" with label "3" - On Swift Dashboard page
 
 * Looking at pipeline "d-up-left" - On Swift Dashboard page
+* With material "git-second" of type "git" for pipeline "d-up-left"
 * Checkin file "new-file-6" as user "go <go@po.com>" with message "Added new-file 6" - On Swift Dashboard page
 * Remember current version as "g6"
 
@@ -89,6 +94,7 @@ left [l1(g1), l2(g3), l3(g5), l3(g7)                  V                         
 * Trigger and wait for stage "defaultStage" is "passed" with label "5" - On Swift Dashboard page
 
 * Looking at pipeline "d-up-left" - On Swift Dashboard page
+* With material "git-second" of type "git" for pipeline "d-up-left"
 * Checkin file "new-file-7" as user "go <go@po.com>" with message "Added new-file 7" - On Swift Dashboard page
 * Remember current version as "g7"
 

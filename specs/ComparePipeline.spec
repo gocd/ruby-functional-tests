@@ -24,6 +24,7 @@ tags: compare_pipeline
 * Verify that from pipeline textbox is populated with "1"
 
 * Looking at pipeline "up" - On Swift Dashboard page
+* With material "git" of type "git" for pipeline "up"
 * Checkin file "foo.txt" as user "user" with message "Comment user" - On Swift Dashboard page
 * Remember current version as "FIRST_REVISION"
 
@@ -47,6 +48,7 @@ tags: compare_pipeline
 * Verify that from pipeline textbox is populated with "1"
 
 * Looking at pipeline "up" - On Swift Dashboard page
+* With material "git" of type "git" for pipeline "up"
 * Checkin file "foo1.txt" as user "user" with message "second checkin comment" - On Swift Dashboard page
 * Remember current version as "THIRD_REVISION"
 

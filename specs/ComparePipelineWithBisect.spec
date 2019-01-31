@@ -15,6 +15,7 @@ tags: compare_pipeline
 * Trigger and cancel stage "defaultStage" "1" times
 
 * Looking at pipeline "up" - On Swift Dashboard page
+* With material "git" of type "git" for pipeline "up"
 * Checkin file "foo.txt" as user "user" with message "#10 - Comment user" - On Swift Dashboard page
 * Remember current version as "FIRST_REV"
 * Sleep for "5" seconds
@@ -56,5 +57,3 @@ tags: compare_pipeline
 Teardown of contexts
 ____________________
 * Capture go state "ComparePipelineWithBisect" - teardown
-
-

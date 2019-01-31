@@ -65,6 +65,7 @@ VSM Analytics Verifications - Material to pipeline for initial commit
 VSM Analytics Verifications - pipeline to pipeline for multiple commits
 
 * Looking at pipeline "VSM1" - On Swift Dashboard page
+* With material "git" of type "git" for pipeline "VSM1"
 * Checkin file "file_1" as user "go" with message "Added git-file_1" - On Swift Dashboard page
 * Remember current version as "git1"
 * Trigger pipeline - On Swift Dashboard page
@@ -84,6 +85,7 @@ VSM Analytics Verifications - pipeline to pipeline for multiple commits
 * Verify stage "defaultStage" is "Passed" - On Swift Dashboard page
 
 * Looking at pipeline "VSM1" - On Swift Dashboard page
+* With material "git" of type "git" for pipeline "VSM1"
 * Checkin file "file_2" as user "go" with message "Added git-file_2" - On Swift Dashboard page
 * Remember current version as "git2"
 * Trigger pipeline - On Swift Dashboard page
@@ -148,5 +150,3 @@ ____________________
 * As user "admin" for teardown
 * Capture go state "AnalyticsPlugin" - teardown
 * With "2" live agents - teardown
-
-

@@ -13,6 +13,7 @@ FanInBehaviorForInconsistentRevisions
 tags: diamond dependency, fanin
 
 * Looking at pipeline "FIR1" - On Swift Dashboard page
+* With material "git-one" of type "git" for pipeline "FIR1"
 * Checkin file "new-file-1" as user "go <go@po.com>" with message "Added new-file 1" - On Swift Dashboard page
 * Remember current version as "g1"
 
@@ -27,6 +28,7 @@ tags: diamond dependency, fanin
 * Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
 
 * Looking at pipeline "FIR1" - On Swift Dashboard page
+* With material "git-one" of type "git" for pipeline "FIR1"
 * Checkin file "new-file-2" as user "go <go@po.com>" with message "Added new-file 2" - On Swift Dashboard page
 * Remember current version as "g2"
 
@@ -41,6 +43,7 @@ tags: diamond dependency, fanin
 
 
 * Looking at pipeline "FIR1" - On Swift Dashboard page
+* With material "git-one" of type "git" for pipeline "FIR1"
 * Checkin file "new-file-3" as user "go <go@po.com>" with message "Added new-file 3" - On Swift Dashboard page
 * Remember current version as "g3"
 
@@ -106,5 +109,3 @@ Teardown of contexts
 ____________________
 * Capture go state "FanInBehaviorForInconsistentRevisions" - teardown
 * With "2" live agents - teardown
-
-

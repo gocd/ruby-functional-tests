@@ -33,6 +33,7 @@ tags: new_dasboard, build_cause
 * Verify material has changed - Already On Build Cause Section
 
 * Looking at pipeline "basic-pipeline-run-till-file-exists" - On Swift Dashboard page
+* With material "git" of type "git" for pipeline "basic-pipeline-run-till-file-exists"
 * Checkin file "foo.txt" as user "user" with message "Comment user" - On Swift Dashboard page
 * Checkin file "bar.txt" as user "loser" with message "Comment loser" - On Swift Dashboard page
 

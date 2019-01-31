@@ -59,7 +59,7 @@ end
 
 Capybara.configure do |config|
   config.save_path = 'screenshots'
-  config.default_max_wait_time = 60
+  config.default_max_wait_time = 20
 end
 
 Capybara.register_driver :selenium do |app|

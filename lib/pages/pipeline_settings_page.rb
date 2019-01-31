@@ -15,51 +15,50 @@
 ##########################################################################
 
 module Pages
-    class PipelineSettingsPage < GeneralSettingsPage
-      set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines{/pipeline_name}/general"
+  class PipelineSettingsPage < GeneralSettingsPage
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines{/pipeline_name}/general"
 
-      element :message, '#success'
-      element :add_variables, '#add_variables'
-      element :save, "button[value='SAVE']"
-      element :material_url_field,".url"
-      element :check_connection, "button[value='CHECK CONNECTION']"
+    element :message, '#success'
+    element :add_variables, '#add_variables'
+    element :save, "button[value='SAVE']"
+    element :material_url_field, '.url'
+    element :check_connection, "button[value='CHECK CONNECTION']"
 
-      def message_displayed?(message)
-        page.has_css?('.success', text:message, exact_text: true)
-      end
-
-      def partial_message_displayed?(message)
-        page.find('.success').text.include?(message)
-      end
-
-      def add_parameter(name, value)
-        params_row = page.find('.params.variables').find('.params').all('tr').last
-        params_row.find("input[name='pipeline[params][][name]']").set name
-        params_row.find("input[name='pipeline[params][][valueForDisplay]']").set value
-        add_variables.click
-      end
-
-      def select_material material_name
-        page.find('td',text:material_name).click
-      end  
-
-      def connection_ok?
-        page.has_css?('.ok_message')
-      end
-
-      def set_material_url url
-        page.find('.url').set url
-      end 
-
-      def select_add_new_material type
-        page.find('.menu_link',text: 'Add Material').click
-        page.find('#new_material_popup ul li a',text:type).click
-      end
-
-      def delete_material material_name
-        page.find('.material_name',text: material_name,exact_text:true).ancestor('tr').find('.icon_remove').click
-        page.find("button[value='Proceed']").click
-      end
-    
+    def message_displayed?(message)
+      page.has_css?('.success', text: message, exact_text: true)
     end
+
+    def partial_message_displayed?(message)
+      page.find('.success').text.include?(message)
+    end
+
+    def add_parameter(name, value)
+      params_row = page.find('.params.variables').find('.params').all('tr').last
+      params_row.find("input[name='pipeline[params][][name]']").set name
+      params_row.find("input[name='pipeline[params][][valueForDisplay]']").set value
+      add_variables.click
+    end
+
+    def select_material(material_name)
+      page.find('td', text: material_name).click
+    end
+
+    def connection_ok?
+      page.has_css?('.ok_message')
+    end
+
+    def set_material_url(url)
+      page.find('.url').set url
+    end
+
+    def select_add_new_material(type)
+      page.find('.menu_link', text: 'Add Material').click
+      page.find('#new_material_popup ul li a', text: type, exact_text: true).click
+    end
+
+    def delete_material(material_name)
+      page.find('.material_name', text: material_name, exact_text: true).ancestor('tr').find('.icon_remove').click
+      page.find("button[value='Proceed']").click
+    end
+  end
 end

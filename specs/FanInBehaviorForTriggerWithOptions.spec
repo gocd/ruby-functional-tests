@@ -13,6 +13,7 @@ FanInBehaviorForTriggerWithOptions
 tags: fanin-trigger-with-opts
 
 * Looking at pipeline "FTO1" - On Swift Dashboard page
+* With material "git-one" of type "git" for pipeline "FTO1"
 * Checkin file "new-file-0" as user "go <go@po.com>" with message "Added new-file 0" - On Swift Dashboard page
 * Remember current version as "g0"
 
@@ -30,6 +31,7 @@ tags: fanin-trigger-with-opts
 * Verify stage "stage1" is "passed" on pipeline with label "1" - On Swift Dashboard page
 
 * Looking at pipeline "FTO1" - On Swift Dashboard page
+* With material "git-one" of type "git" for pipeline "FTO1"
 * Checkin file "new-file-1" as user "go <go@po.com>" with message "Added new-file 1" - On Swift Dashboard page
 * Remember current version as "g1"
 
@@ -37,6 +39,7 @@ tags: fanin-trigger-with-opts
 * Trigger and wait for stage "stage1" is "passed" with label "2" - On Swift Dashboard page
 
 * Looking at pipeline "FTO1" - On Swift Dashboard page
+* With material "git-one" of type "git" for pipeline "FTO1"
 * Checkin file "new-file-2" as user "go <go@po.com>" with message "Added new-file 2" - On Swift Dashboard page
 * Remember current version as "g2"
 
@@ -49,6 +52,7 @@ tags: fanin-trigger-with-opts
 * Verify stage "stage1" is with label "1" - On Swift Dashboard page
 
 * Looking at pipeline "FTO1" - On Swift Dashboard page
+* With material "git-one" of type "git" for pipeline "FTO1"
 * Checkin file "new-file-3" as user "go <go@po.com>" with message "Added new-file 3" - On Swift Dashboard page
 * Remember current version as "g3"
 
@@ -147,5 +151,3 @@ Teardown of contexts
 ____________________
 * Capture go state "FanInBehaviorForTriggerWithOptions" - teardown
 * With "2" live agents - teardown
-
-

@@ -18,7 +18,7 @@ module Pages
   class MaintenanceModePage < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/maintenance_mode"
     element :settings_save, 'button[data-test-id="button-save"]'
-    element :maintenance_mode_switch, 'label[data-test-id="switch-paddle"]'
+    element :maintenance_mode_switch, 'input[data-test-id="switch-checkbox"]'
     element :in_progress_subsystems, 'div[data-test-id="in-progress-subsystems"]'
     element :flash_message, "div[data-test-id='flash-message-success']"
 

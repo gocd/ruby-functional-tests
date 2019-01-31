@@ -30,6 +30,7 @@ Setup of contexts
 * Verify pipeline is in group "admin-only" - On Swift Dashboard page
 
 * Looking at pipeline "manual-stages-that-run-till-file-exists" - On Swift Dashboard page
+* With material "gitMaterial" of type "git" for pipeline "manual-stages-that-run-till-file-exists"
 * Verify pipeline is in group "open-to-all" - On Swift Dashboard page
 * Verify pipeline has no history - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
@@ -57,6 +58,7 @@ Setup of contexts
 
 * On Swift Dashboard Page
 * Looking at pipeline "manual-stages-that-run-till-file-exists" - On Swift Dashboard page
+* With material "gitMaterial" of type "git" for pipeline "manual-stages-that-run-till-file-exists"
 * Checkin file "something" as user "gouser" with message "Added something" - On Swift Dashboard page
 * Remember current version as "git-commit1"
 * Checkin file "another file" as user "gouser" with message "Added another file" - On Swift Dashboard page
@@ -80,7 +82,7 @@ Setup of contexts
 * Create a "stopjob" file and validate pipeline completed
 * Verify stage "firstStage" is "Passed" - On Swift Dashboard page
 * Open trigger with options - On Swift Dashboard page
- 
+
 * Verify last run revision is "git-commit1" - On Swift Dashboard page
 
 * Close - Trigger with options - On Swift Dashboard page
@@ -95,5 +97,3 @@ ____________________
 * Capture go state "SwiftDashboard" - teardown
 * With "2" live agents - teardown
 * Logout - from any page
-
-

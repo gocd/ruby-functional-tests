@@ -29,6 +29,7 @@ tags: compare_pipeline, dependency_walk
 * Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
 
 * Looking at pipeline "up" - On Swift Dashboard page
+* With material "git" of type "git" for pipeline "up"
 * Checkin file "git-new-file" as user "go" with message "Added git-new-file" - On Swift Dashboard page
 * Remember current version as "git-new1"
 
@@ -51,6 +52,7 @@ Verify dependency chaining after scm triggers autoFirst pipeline
 * Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
 
 * Looking at pipeline "up" - On Swift Dashboard page
+* With material "git" of type "git" for pipeline "up"
 * Checkin file "git-another-new-file" as user "go" with message "Added git-another-new-file" - On Swift Dashboard page
 * Remember current version as "git-new2"
 

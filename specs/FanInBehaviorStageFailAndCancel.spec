@@ -98,10 +98,6 @@ tags: diamond dependency, fanin
 * Verify material has changed - On Build Cause popup
 
 
-
-
-
-
 Teardown of contexts
 ____________________
 * Capture go state "FanInBehaviorStageFailAndCancel" - teardown

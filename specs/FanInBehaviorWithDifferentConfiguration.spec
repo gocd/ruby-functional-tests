@@ -13,7 +13,6 @@ FanInBehaviorWithDifferentConfiguration
 
 tags: diamond dependency, fanin
 
-
 * On Swift Dashboard Page
 * Looking at pipeline "C1" - On Swift Dashboard page
 * With material "git-one" of type "git" for pipeline "C1"
@@ -113,9 +112,6 @@ tags: diamond dependency, fanin
 * Looking at material of type "Git" named "git-one"
 * Verify modification "0" has revision "git-one-g2" - On Build Cause popup
 * Verify material has not changed - On Build Cause popup
-
-
-
 
 
 

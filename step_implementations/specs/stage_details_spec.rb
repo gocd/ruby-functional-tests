@@ -161,3 +161,7 @@ end
 step 'Verify pipeline history page <page_number> is shown - on Stage details page' do |page_number|
   assert_true stage_details_page.has_history_page_number?(page_number)
 end
+
+step 'Setting first stage to auto approval' do ||
+  basic_configuration.auto_approve_first_stage()
+end

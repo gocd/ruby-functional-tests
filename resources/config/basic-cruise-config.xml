@@ -378,6 +378,31 @@
                 </jobs>
             </stage>
         </pipeline>     
+         <pipeline name="downstream-pipeline">
+            <materials>
+                <pipeline pipelineName="basic-pipeline-fast" stageName="defaultStage" materialName="upstream-material"/>
+                <git url="material-for-downstream-pipeline" dest="git" materialName="git" >
+                    <filter>
+                        <ignore pattern="**/*"/>
+                    </filter>
+                </git>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="success"/>
+                <jobs>
+                    <job name="defaultJob">
+                
+                           <tasks>
+                             <exec command="sleep">
+                                <arg>15</arg>
+                                <runif status="passed"/>
+                            </exec>
+                        </tasks>
+                        
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
     </pipelines>
     <pipelines group="dependency-group">
         <pipeline name="dependency-group-pipeline-1">
@@ -391,6 +416,58 @@
                         <tasks>
                             <exec command="ls">
                             </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+        <pipeline name="autoFirst" template="autoStagePipelineTemplate">
+            <materials>
+                <git url="material-for-autoFirst" materialName="git-first">
+                    <filter>
+                        <ignore pattern="*.oneignore"/>
+                        <ignore pattern="*.twoignore"/>
+                    </filter>
+                </git>
+            </materials>
+        </pipeline>
+        <pipeline name="child-of-autoFirst" template="autoStagePipelineTemplate">
+            <materials>
+                <git url="material-for-child-of-autoFirst" materialName="git-first" dest="gitfolder">
+                    <filter>
+                        <ignore pattern="*.twoignore"/>
+                    </filter>
+                </git>
+                <pipeline pipelineName="autoFirst" stageName="defaultStage"/>
+            </materials>
+        </pipeline>
+        <pipeline name="grandchild-of-autoFirst" template="autoStagePipelineTemplate">
+            <materials>
+                <git url="material-for-grandchild-of-autoFirst" materialName="git-first" dest="gitfolder"/>
+                <pipeline pipelineName="child-of-autoFirst" stageName="defaultStage"/>
+            </materials>
+        </pipeline>
+         <pipeline name="fourth" template="dependency-pipeline-template">
+            <materials>
+                <git url="material-for-fourth" materialName="git-first" autoUpdate="true"/>
+            </materials>
+        </pipeline>
+        <pipeline name="fifth" template="dependency-pipeline-template">
+            <materials>
+                <pipeline pipelineName="fourth" stageName="defaultStage"/>
+            </materials>
+        </pipeline>
+        <pipeline name="another-sixth-manual">
+            <materials>
+                <pipeline pipelineName="fourth" stageName="defaultStage"/>
+                <pipeline pipelineName="fifth" stageName="defaultStage"/>
+            </materials>
+            <stage name="defaultStage">
+            <approval type="manual"/>
+                <jobs>
+                    <job name="job-of-last">
+                        <tasks>
+                            <exec command="ls"/>
                         </tasks>
                     </job>
                 </jobs>
@@ -477,6 +554,125 @@
           <job name="defaultJob">
             <tasks>
                 <exec command="rake" args="wait_for_stopjob_file" workingdir="tasks"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    </pipelines>
+
+    <pipelines group="fetch-artifact-from-ancestor-group">
+      <pipeline name="uppest_pipeline">
+      <materials>
+        <git url="material-for-uppest_pipeline" materialName="git_material"/>
+      </materials>
+      <stage name="uppest-stage1">
+      <approval type="manual"/>
+        <jobs>
+          <job name="uppest-job1">
+            <tasks>
+               <exec command="echo" args="hello"/>
+            </tasks>
+            <artifacts>
+              <artifact type="build" src="first"/>
+            </artifacts>
+          </job>
+          <job name="uppest-job1a">
+            <tasks>
+               <exec command="echo" args="hello"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="uppest-stage2">
+        <jobs>
+          <job name="uppest-job2">
+            <tasks>
+               <exec command="echo" args="hello"/>
+            </tasks>
+            <artifacts>
+              <artifact type="build" src="second"/>
+            </artifacts>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="uppest-stage3">
+        <jobs>
+          <job name="uppest-job3">
+            <tasks>
+                <exec command="echo" args="hello"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="upper_pipeline">
+      <materials>
+        <pipeline pipelineName="uppest_pipeline" stageName="uppest-stage2"/>
+      </materials>
+      <stage name="upper-stage1">
+       <approval type="manual"/>
+        <jobs>
+          <job name="upper-job1">
+            <tasks>
+              <exec command="echo" args="hello"/>
+              <fetchartifact artifactOrigin="gocd" pipeline="uppest_pipeline" stage="uppest-stage1" job="uppest-job1" srcfile="first"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="upper_peer_pipeline">
+      <materials>
+        <pipeline pipelineName="uppest_pipeline" stageName="uppest-stage1"/>
+      </materials>
+      <stage name="upper-peer-stage1">
+       <approval type="manual"/>
+        <jobs>
+          <job name="upper-peer-job1">
+            <tasks>
+               <exec command="echo" args="hello"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="up_pipeline">
+      <materials>
+        <pipeline pipelineName="upper_pipeline" stageName="upper-stage1"/>
+        <pipeline pipelineName="upper_peer_pipeline" stageName="upper-peer-stage1"/>
+      </materials>
+      <stage name="up-stage1">
+        <approval type="manual"/>
+        <jobs>
+          <job name="up-job1">
+            <tasks>
+                <exec command="echo" args="hello"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="down_pipeline">
+      <materials>
+        <pipeline pipelineName="up_pipeline" stageName="up-stage1"/>
+      </materials>
+      <stage name="down-stage1">
+      <approval type="manual"/>
+        <jobs>
+          <job name="down-job1">
+            <tasks>
+              <fetchartifact artifactOrigin="gocd" pipeline="uppest_pipeline/upper_pipeline/up_pipeline" stage="uppest-stage1" job="uppest-job1" srcfile="first"/>
+              <fetchartifact artifactOrigin="gocd" pipeline="uppest_pipeline/upper_peer_pipeline/up_pipeline" stage="uppest-stage1" job="uppest-job1" srcfile="first"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="down-stage2">
+      <approval type="manual"/>
+        <jobs>
+          <job name="down-job2">
+            <tasks>
             </tasks>
           </job>
         </jobs>

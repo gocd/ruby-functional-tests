@@ -282,6 +282,10 @@ step 'Verify pipeline does not get triggered' do
   new_pipeline_dashboard_page.wait_to_check_pipeline_do_not_start
 end
 
+step 'Verify pipeline does not get triggered for <seconds> seconds' do |seconds|
+  new_pipeline_dashboard_page.wait_to_check_pipeline_do_not_start(seconds.to_i)
+end
+
 step 'Verify material has not changed - On Build Cause popup' do
   material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.get('current_material_name'))
   revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.get('current_material_type'), material_name)
@@ -303,4 +307,16 @@ end
 
 step 'Edit pipeline <pipeline>' do |pipeline|
   new_pipeline_dashboard_page.edit_pipeline pipeline
+end
+
+step 'Update auto scheduling to false' do ||
+  new_pipeline_dashboard_page.unset_auto_sceduling
+end
+
+step 'Wait till pipeline start building - On Swift Dashboard page' do ||
+  new_pipeline_dashboard_page.wait_till_pipeline_start_building
+end 
+
+step 'Wait till pipeline start building for <seconds> seconds - On Swift Dashboard page' do |seconds|
+  new_pipeline_dashboard_page.wait_till_pipeline_start_building seconds.to_i
 end

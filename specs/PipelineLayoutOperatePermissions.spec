@@ -34,7 +34,7 @@ tags: pipeline layout
 * Verify stage "first" does not have any action
 * Verify stage "second" does not have any action
 
-* Logout and login as "operate"
+* Logout and login as "operatorUser"
 
 * Looking at pipeline "2-stage-viewable" - On Swift Dashboard page
 * On stage details page "jobs" tab for "2-stage-viewable" label "1" stage name "first" counter "1"

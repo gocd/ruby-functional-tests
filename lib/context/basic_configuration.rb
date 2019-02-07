@@ -73,8 +73,17 @@ module Context
           materials['pipelineName'] = pipeline['name'] if materials['pipelineName'] == initial_name
         end
         config_dom.xpath('//fetchartifact').each do |fetch|
-          fetch['pipeline'] = pipeline['name'] if fetch['pipeline'] == initial_name
-        end
+          if fetch['pipeline'].include?('/')
+            fetch['pipeline'].split('/').each{|fetch_pipeline|
+              if fetch_pipeline.eql?(initial_name)
+                  fetch['pipeline']=fetch['pipeline'].sub(initial_name,pipeline['name'])  
+              end  
+            }
+            
+          else
+              fetch['pipeline'] = pipeline['name'] if fetch['pipeline'] == initial_name
+          end
+            end
         config_dom.xpath('//environments/environment/pipelines/pipeline').each do |env|
           env['name'] = pipeline['name'] if env['name'] == initial_name
         end
@@ -316,5 +325,14 @@ module Context
       return roles
     end
 
+    def auto_approve_first_stage()
+      current_config = get_config_from_server
+      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/materials/*").each { |material|
+      material.remove_attribute("autoUpdate") if(material.has_attribute?("autoUpdate")) 
+     }
+    approval_element= current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/stage[1]/approval")
+    current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/stage[1]/approval").remove if !approval_element.empty?
+    load_dom(current_config)  
+  end
   end
 end

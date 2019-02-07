@@ -54,3 +54,23 @@ end
 step 'Delete material with name <material_name>' do |material_name|
   pipeline_settings_page.delete_material material_name
 end
+
+step 'Enter black list <balcklicst>' do |blacklist|
+  pipeline_settings_page.set_material_blacklist(blacklist)
+end
+
+step 'Verify only on changes checkbox is disabled' do ||
+  assert_true pipeline_settings_page.only_on_changes_checkbox_disabled?
+end
+
+step 'Verify only on changes checkbox is enabled' do ||
+  assert_false pipeline_settings_page.only_on_changes_checkbox_disabled?
+end
+
+step 'Enter <timer> for cron time specifier' do |timer|
+  pipeline_settings_page.cron_timer.set timer
+end
+
+step 'Select onlyOnChanges flag to trigger pipeline only on new material' do ||
+  pipeline_settings_page.set_only_on_changes_checkbox
+end

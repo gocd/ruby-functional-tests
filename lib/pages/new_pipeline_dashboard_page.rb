@@ -124,15 +124,15 @@ module Pages
       end
     end
 
-    def wait_till_pipeline_start_building
-      wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
+    def wait_till_pipeline_start_building(wait_time=60)
+      wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
         return if get_all_stages(scenario_state.self_pipeline).nil?
         break if get_all_stages(scenario_state.self_pipeline).first['class'].include?('building')
       end
     end
 
-    def wait_to_check_pipeline_do_not_start
-      wait_till_event_occurs_or_bomb 20, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
+    def wait_to_check_pipeline_do_not_start(wait_time=20)
+      wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
         return if get_all_stages(scenario_state.self_pipeline).nil?
         break unless get_all_stages(scenario_state.self_pipeline).first['class'].include?('building')
       end
@@ -376,6 +376,10 @@ module Pages
     rescue RestClient::ExceptionWithResponse => err
       p "Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
       false
+    end
+
+    def unset_auto_sceduling
+      page.find("#pipeline_approval_type").set(false)  if page.find("#pipeline_approval_type").checked?
     end
 
     private

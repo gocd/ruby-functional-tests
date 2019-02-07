@@ -23,6 +23,7 @@ module Pages
     element :save, "button[value='SAVE']"
     element :material_url_field, '.url'
     element :check_connection, "button[value='CHECK CONNECTION']"
+    element :cron_timer, "input#pipeline_timer_timerSpec"
 
     def message_displayed?(message)
       page.has_css?('.success', text: message, exact_text: true)
@@ -40,7 +41,7 @@ module Pages
     end
 
     def select_material(material_name)
-      page.find('td', text: material_name).click
+      page.find('td a', text: material_name).click
     end
 
     def connection_ok?
@@ -60,5 +61,19 @@ module Pages
       page.find('.material_name', text: material_name, exact_text: true).ancestor('tr').find('.icon_remove').click
       page.find("button[value='Proceed']").click
     end
+
+    def set_material_blacklist(blacklist)
+      page.find("textarea[name='material[filterAsString]']").set blacklist
+    end
+
+    def only_on_changes_checkbox_disabled?
+      page.find("input#pipeline_timer_onlyOnChanges").disabled?
+    end
+
+    def set_only_on_changes_checkbox
+      page.find("input#pipeline_timer_onlyOnChanges").set(true)
+    end  
+
+
   end
 end

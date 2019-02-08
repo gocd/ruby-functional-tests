@@ -55,12 +55,19 @@ module Pages
       end
     end
 
+    
+
     def verify_number_of_warnings(number_of_warning_msg)
-      if error_and_warning_count.text.split('and')[1].include? 'warning'
-        total_warnings = error_and_warning_count.text.split('and')[1].scan(/\d+/)[0].to_i
-        assert_equal total_warnings, number_of_warning_msg.to_i
-      else
-        assert_true false
+      wait_till_event_occurs_or_bomb 120, "Total number of Warnings are not equal to #{number_of_warning_msg}" do
+        reload_page
+        break if number_of_warning_msg.to_i == error_and_warning_count.text.match('\d warning').to_s.scan(/\d+/)[0].to_i
+      end
+    end
+
+    def wait_till_error_popup_appears
+      wait_till_event_occurs_or_bomb 120, "Error message popup is not displaying" do
+        reload_page
+        break if page.has_css?()
       end
     end
 
@@ -140,8 +147,24 @@ module Pages
       pipelines
     end
 
+    def get_pipelines_from_templates(template)
+      pipelines = []
+      page.find('h2.group_name', text: group).ancestor('.template_group').all('td.name a').each do |pipeline|
+        pipelines.push(pipeline.text)
+      end
+      pipelines
+    end
+
     def delete_link_is_disabled?(group)
       page.find('h2', text: group).ancestor('.pipeline_group').has_css?('.delete_icon_disabled.group_name_delete')
+    end
+
+    def delete_link_is_disabled_for_template? template
+    page.find('h2', text: group_name).ancestor('.template_group').has_css?('.delete_icon_disabled')
+    end
+
+    def delete_template template 
+      page.find("span#trigger_delete_#{template}").click
     end
 
     def delete_group(group)
@@ -176,6 +199,10 @@ module Pages
 
     def group_has_message?(group, message)
       page.find('h2', text: group).ancestor('.pipeline_group').has_css?('.information', text: message)
+    end
+
+    def template_has_message?(template,message)
+      page.find('h2', text: group_name).ancestor('.template').has_css?('.information', text: message)
     end
 
     def add_new_pipeline_in_group(group)
@@ -272,7 +299,31 @@ module Pages
     def delete_role_on_edit_group(role)
       page.find("tr#ROLE_#{role} td span.remove_icon").click
     end  
+
+    def open_tab tab
+      page.find('.sub_tabs_container').find('a', text:tab).click
+    end
+
+    def total_templates
+      total_templates = []
+      page.all('.template_group h2.group_name').each do |template|
+        total_templates.push(template.text)
+      end
+      total_templates
+    end
     
+    def click_edit_pipeline pipeline
+        page.find('td a',text:pipeline).ancestor('td').sibling('td a.action_icon.edit_icon').click
+    end
+
+    def landed_on_pipeline_edit_page? pipeline
+      page.find('.pipeline_header').has_css?('a', text:pipeline)
+    end
+
+    def template_tab_is_visible?
+      page.has_css?('#tab-link-of-templates')
+    end
+
     private
 
     def row_for_pipeline(pipeline)

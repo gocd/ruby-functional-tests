@@ -38,6 +38,10 @@ step 'Verify there are <number_of_warnings> warnings' do |number_of_warnings|
   admin_pipeline_page.verify_number_of_warnings number_of_warnings
 end
 
+step 'Wait till error message popup appears' do ||
+  admin_pipeline_page.wait_till_error_popup_appears
+end
+
 step 'Verify message contains <message>' do |message|
   admin_pipeline_page.verify_error_message(message)
 end
@@ -104,6 +108,7 @@ step 'Verify groups <groups> are visible - on Admin Pipelines tab' do |groups|
   assert_true group_names.include?group
  }  
 end
+
 step 'Verify <group> has pipelines <pipelines>' do |group,pipelines|
   pipelines_from_groups=admin_pipeline_page.get_pipelines_from(group)
   pipeline_names=[]
@@ -185,6 +190,10 @@ step 'Verify <group> has message <message>' do |group,message|
 assert_true admin_pipeline_page.group_has_message?(group,message)
 end
 
+step 'Verify that template <template> has message <message>' do |template,message|
+  assert_true admin_pipeline_page.template_has_message?(template,message)
+ end
+
 step 'Click to create a new pipeline to group <group>' do |group|
   admin_pipeline_page.add_new_pipeline_in_group(group)
 end
@@ -248,3 +257,57 @@ end
 step 'Set group name as <group>' do |group|
   admin_pipeline_page.edit_group_name.set group
 end  
+
+step 'Open <tab> tab' do |tab|
+  admin_pipeline_page.open_tab tab
+end
+
+step 'Verify that templates <tmplates> are present - on Admin Templates tab' do |templates|
+  template_names=admin_pipeline_page.total_templates
+  templates.split(',').each{|template|
+ assert_true template_names.include?template
+}  
+end
+
+step 'Verify that template <template> is used by pipelines <pipeline>' do |template,pipelines|
+  pipelines_from_template=admin_pipeline_page.get_pipelines_from_templates(template)
+  pipeline_names=[]
+  pipelines.split(',').each{ |pipeline|
+    if scenario_state.get(pipeline)==nil ? pipeline_names.push(pipeline) : pipeline_names.push(scenario_state.get(pipeline))
+    end
+    }
+  pipeline_names.each{|pipeline|
+  assert_true pipelines_from_template.include?pipeline
+  }
+end
+
+step 'Verify that edit pipeline <pipeline> lands on pipeline edit page' do ||
+  admin_pipeline_page.click_edit_pipeline pipeline
+  assert_true admin_pipeline_page.click_edit_pipeline pipeline
+end
+
+step 'Verify cannot delete templates <templates>' do |templates|
+  templates.each{ |template|
+    assert_true admin_pipeline_page.delete_link_is_disabled_for_template? template
+  }
+end
+
+step 'Verify can delete templates <templates>' do |templates|
+  templates.each{ |template|
+    assert_false admin_pipeline_page.delete_link_is_disabled_for_template? template
+  }
+end 
+
+step 'Delete template <template>' do |template|
+  admin_pipeline_page.delete_template template
+end
+step 'Verify that templates <tmplates> are not present - on Admin Templates tab' do |templates|
+  template_names=admin_pipeline_page.total_templates
+  templates.split(',').each{|template|
+ assert_false template_names.include?template
+}  
+end
+
+step 'Verify templates tab is visible' do ||
+  admin_pipeline_page.template_tab_is_visible?
+end

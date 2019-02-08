@@ -58,17 +58,14 @@ module Pages
     
 
     def verify_number_of_warnings(number_of_warning_msg)
-      wait_till_event_occurs_or_bomb 120, "Total number of Warnings are not equal to #{number_of_warning_msg}" do
+      wait_till_event_occurs_or_bomb 90, "Total number of Warnings are not equal to #{number_of_warning_msg}" do
         reload_page
         break if number_of_warning_msg.to_i == error_and_warning_count.text.match('\d warning').to_s.scan(/\d+/)[0].to_i
       end
     end
 
     def wait_till_error_popup_appears
-      wait_till_event_occurs_or_bomb 120, "Error message popup is not displaying" do
-        reload_page
-        break if page.has_css?()
-      end
+      page.has_css?("[data-test-id='server-health-messages-count']", wait: 160)
     end
 
     def verify_there_are_no_warnings

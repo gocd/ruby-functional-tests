@@ -161,6 +161,22 @@
                 </jobs>
             </stage>
         </pipeline>
+        <pipeline name="timer-pipeline">
+            <materials>
+                <git url="material-for-timer-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="ls">
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
         <pipeline name="basic-pipeline-with-job-resources">
             <materials>
                 <git url="material-for-basic-pipeline-with-job-resources" dest="git" materialName="git" autoUpdate="false"/>

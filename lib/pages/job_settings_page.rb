@@ -189,6 +189,11 @@ module Pages
     def select_task task_no
       page.find("tr:nth-child(#{task_no.to_i}) td a").click
     end
+
+    def override_job_time_out(time)
+      page.find("#jobTimeout_override").click
+      page.find("#job_timeout").set time
+    end
     
   end
 end

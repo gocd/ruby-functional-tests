@@ -208,3 +208,7 @@ end
 step 'Set command as <command> - On Job Setting Page' do |command|
 	job_settings_page.task_commands.set command
 end	
+
+step 'Override job time out with <time> minutes' do |time|
+  job_settings_page.override_job_time_out(time)
+end

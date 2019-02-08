@@ -126,8 +126,16 @@ module Pages
 
     def wait_till_pipeline_start_building(wait_time = 60)
       wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
-        return if get_all_stages(scenario_state.self_pipeline).nil?
-        break if get_all_stages(scenario_state.self_pipeline).first['class'].include?('building')
+      return if get_all_stages(scenario_state.self_pipeline).nil?
+      break if get_all_stages(scenario_state.self_pipeline).first['class'].include?('building')
+     end
+    end
+
+
+    def verify_pipeline_stage_state_with_timeout pipeline, stage, state, wait_time
+      wait_till_event_occurs_or_bomb wait_time, "Pipeline #{pipeline} stage #{stage} is not in #{state} state" do
+        next if get_pipeline_stage_state(pipeline, stage).nil?
+        break if get_pipeline_stage_state(pipeline, stage).include?(state)
       end
     end
 

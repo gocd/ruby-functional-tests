@@ -18,7 +18,7 @@
 <cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="115">
     <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="gauge" tokenGenerationKey="token"/>
     <pipelines group="basic">
-   <pipeline name="pipeline-clean-working-dir">
+     <pipeline name="pipeline-clean-working-dir">
             <materials>
                 <git url="material-for-clean-working-dir" materialName="basic-git-material" autoUpdate="false"/>
             </materials>
@@ -50,6 +50,25 @@
                     <job name="secondJob">
                         <tasks>
                             <exec command="ls"/>
+                            <exec command="ls"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+     <pipeline name="basic-environment-pipeline">
+            <materials>
+                <git url="material-for-basic-environment-pipeline" dest="git" autoUpdate="false" materialName="git-material"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="sleep">
+                                <arg>20</arg>
+                                <runif status="passed"/>
+                            </exec>
                         </tasks>
                     </job>
                 </jobs>
@@ -77,11 +96,32 @@
                        <tasks>
                             <exec command="ls">
                             </exec>
+                       </tasks>
+                    </job>
+                </jobs>
+            </stage>
+    </pipeline>
+
+    
+    <pipeline name="hung-job-pipeline">
+            <materials>
+                <git url="material-for-hung-job-pipeline" dest="git" autoUpdate="false" materialName="git-material"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="sleep" args="300"/>
                         </tasks>
                     </job>
                 </jobs>
             </stage>
         </pipeline>
+
+                       
+
+                        
     <pipeline name="pipeline-with-lock-all-manual" lockBehavior="lockOnFailure">
             <materials>
                 <git url="material-for-pipeline-with-lock-all-manual" dest="git" materialName="git" autoUpdate="false"/>

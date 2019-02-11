@@ -19,41 +19,29 @@ tags: admin-page
 * Open "Server Configuration" tab
 
 * Set cancel job after "3" minutes
-* Save configuration
+* Save Server Configuration
 
-* Looking at pipeline "hung-job-pipeline"
-* Trigger pipeline
-
-* On Admin page
-
+* On Swift Dashboard Page
+* Looking at pipeline "hung-job-pipeline" - On Swift Dashboard page
+* Trigger pipeline - On Swift Dashboard page
+* Wait till error message popup appears
 * Verify there are "1" warnings
-* Open error and warning messages popup
-
-* Verify warning "message" contains "is not responding"
-* Verify warning "description" contains "This job may be hung."
-* Close
-
-* On Pipeline Dashboard Page
-* Looking at pipeline "hung-job-pipeline"
-* Verify stage "1" is "Building" on pipeline with label "1"
-* Navigate to stage "defaultStage" of run "1"
-
-* Wait for stage result to show "Cancelled"
-* Navigate to job "defaultJob"
-
-* Open console tab
-* Verify console contains "Go cancelled this job as it has not generated any console output for more than 3 minute(s)"
-
-* Verify there are no warnings
-
+* Open error messages popup
+* Verify message contains "is not responding"
+* Verify error description contains "This job may be hung."
+* On Swift Dashboard Page
+* Verify stage "defaultStage" is "Building" on pipeline with label "1" - On Swift Dashboard page
+* Wait till "150" seconds for stage "defaultStage" shows status "Cancelled" - On Swift Dashboard page
+* On Job details page of pipeline "hung-job-pipeline" counter "1" stage "defaultStage" counter "1" job "defaultJob"
+* Verify console log contains message "Go cancelled this job as it has not generated any console output for more than 3 minute(s)"
+* On Swift Dashboard Page
+* Verify there are no error and warnings
 
 
 
 Teardown of contexts
 ____________________
 * Capture go state "HungJobServerTagTimeOut" - teardown
-* With "1" live agents in directory "HungJobServerTagTimeOut" - teardown
-* Using pipeline "hung-job-pipeline" - teardown
-* Basic configuration - teardown
+* With "1" live agents - teardown
 
 

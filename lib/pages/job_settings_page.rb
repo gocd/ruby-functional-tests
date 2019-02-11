@@ -43,6 +43,7 @@ module Pages
     element :task_commands, "input[name='task[command]']"
     element :task_cancel, ".close_modalbox_control"
     element :job_name, "#job_name"
+    element :set_never, "#jobTimeout_never"
    
     load_validation { has_add_new_task? }
    

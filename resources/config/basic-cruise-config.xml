@@ -51,6 +51,21 @@
                 </jobs>
             </stage>
         </pipeline>
+        <pipeline name="hung-job-zero-timeout-pipeline">
+            <materials>
+                <git url="material-for-hung-job-zero-timeout-pipeline" dest="git" autoUpdate="false" materialName="git-material"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="sleep" args="160"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
     <pipeline name="pipeline-with-lock-all-manual" lockBehavior="lockOnFailure">
             <materials>
                 <git url="material-for-pipeline-with-lock-all-manual" dest="git" materialName="git" autoUpdate="false"/>

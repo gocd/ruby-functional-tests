@@ -263,7 +263,6 @@ step 'Set group name as <group>' do |group|
 end  
 
 step 'Open <tab> tab' do |tab|
-  binding.pry
   admin_pipeline_page.open_tab tab
 end
 

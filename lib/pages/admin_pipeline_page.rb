@@ -28,6 +28,7 @@ module Pages
     element :set_pipeline, '.uniquePipelineName'
     element :set_group, '.ac_input'
     element :edit_group_name, 'input#group_group'
+    element :save_server_configuration, '#submit_form'
 
     def clone_pipeline(source_pipeline_name, new_pipeline_name, pipeline_group_name)
       click_on_clone_link_for(source_pipeline_name)
@@ -65,11 +66,15 @@ module Pages
     end
 
     def wait_till_error_popup_appears
-      page.has_css?("[data-test-id='server-health-messages-count']", wait: 160)
+      page.has_css?("[data-test-id='server-health-messages-count']", wait: 240)
     end
 
     def verify_there_are_no_warnings
       assert_true !error_and_warning_count.text.include?('warning')
+    end
+
+    def verify_there_are_no_errors_and_warnings
+      page.has_css?("[data-test-id='server-health-messages-count']")
     end
 
     def verify_there_are_no_error_messages
@@ -323,6 +328,11 @@ module Pages
 
     def template_tab_is_visible?
       page.has_css?('#tab-link-of-templates')
+    end
+
+    def set_hung_job_override_time time
+      page.find("#hungjobs_overrideTimeout").click
+      page.find("#server_configuration_form_jobTimeout").set time
     end
 
     private

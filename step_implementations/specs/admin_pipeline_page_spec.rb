@@ -58,6 +58,10 @@ step 'Verify there are no warnings' do
   admin_pipeline_page.verify_there_are_no_warnings
 end
 
+step 'Verify there are no error and warnings' do 
+  assert_false admin_pipeline_page.verify_there_are_no_errors_and_warnings
+end
+
 step 'Verify there are no error messages' do
   admin_pipeline_page.verify_there_are_no_error_messages
 end
@@ -271,6 +275,7 @@ step 'Verify tabs <tabs> are not visible' do |tabs|
 end  
 
 step 'Open <tab> tab' do |tab|
+  binding.pry
   admin_pipeline_page.open_tab tab
 end
 
@@ -322,4 +327,12 @@ end
 
 step 'Verify templates tab is visible' do ||
   admin_pipeline_page.template_tab_is_visible?
+end
+
+step 'Set cancel job after <time> minutes' do |time|
+  admin_pipeline_page.set_hung_job_override_time time
+end
+
+step 'Save Server Configuration' do ||
+  admin_pipeline_page.save_server_configuration.click 
 end

@@ -275,7 +275,6 @@ step 'Verify tabs <tabs> are not visible' do |tabs|
 end  
 
 step 'Open <tab> tab' do |tab|
-  binding.pry
   admin_pipeline_page.open_tab tab
 end
 

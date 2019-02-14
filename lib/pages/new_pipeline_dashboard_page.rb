@@ -382,6 +382,10 @@ module Pages
       page.find("#pipeline_approval_type").set(false)  if page.find("#pipeline_approval_type").checked?
     end
 
+    def admin_link_visible?
+      page.has_css?('ul li a', text:'Admin')
+    end
+
     private
 
     def revisions(pipeline)

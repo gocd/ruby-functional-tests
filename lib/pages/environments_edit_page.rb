@@ -25,7 +25,7 @@ module Pages
     element :env_vars_list, '.added_item.added_environment_variables'
     element :save_message, '#message_pane'
     element :all_agents, '#select_all_agents'
-    elements :list_of_agents, 'td.selector'
+    elements :list_of_agents, 'td.agent_selector'
     elements :agent_row, 'td.hostname'
     elements :vars_edit_row, '.environment-variable-edit-row'
     elements :add_item, '.add_item'
@@ -69,7 +69,7 @@ module Pages
     end
 
     def add_agent(agent)
-      page.find('.agent_hostname', text: agent).ancestor('.hostname').sibling('.selector').find("input[type='checkbox']").set(true)
+      page.find('.agent_hostname', text: agent).ancestor('.hostname').sibling('.agent_selector').find("input[type='checkbox']").set(true)
     end
 
     def remove_pipeline(pipeline)

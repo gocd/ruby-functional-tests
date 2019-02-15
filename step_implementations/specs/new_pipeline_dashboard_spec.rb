@@ -214,6 +214,10 @@ step 'Verify trigger with option is disabled' do |_tmp|
   assert_true new_pipeline_dashboard_page.trigger_pipeline_with_options_disabled?
 end
 
+step 'Verify trigger with option is enabled' do |_tmp|
+  assert_false new_pipeline_dashboard_page.trigger_pipeline_with_options_disabled?
+end
+
 step 'Open pipelines selector - On Swift Dashboard page' do |_tmp|
   new_pipeline_dashboard_page.load(autoRefresh: @auto_refresh)
   new_pipeline_dashboard_page.open_pipeline_selector_dropdown

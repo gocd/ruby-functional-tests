@@ -22,14 +22,15 @@ tags: Clicky Admin
 |2       |Rake              |Passed            |Target: all Working Directory: hg/dev                              |No            |
 |3       |NAnt              |Passed            |Target: all Working Directory: hg/dev                              |No            |
 
-*Move task "1" down
+* Move down task number "1"
+
 * verifyTask
 |Order_no|Task Type         |Run If Conditions |Properties                                                         |On Cancel     |
 |--------|------------------|------------------|-------------------------------------------------------------------|--------------| 
 |1       |Rake              |Passed            |Target: all Working Directory: hg/dev                              |No            |
 |2       |Ant               |Passed            |Target: longsleep Working Directory: hg/dev                        |No            |
 
-* Move task "3" up
+* Move up task number "3"
 * verifyTask
 |Order_no|Task Type         |Run If Conditions |Properties                                                         |On Cancel     |
 |--------|------------------|------------------|-------------------------------------------------------------------|--------------| 

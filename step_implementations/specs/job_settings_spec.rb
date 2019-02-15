@@ -167,7 +167,7 @@ step 'Save Job Settings' do ||
 end  
 
 step 'Verify error message <message> is shown - Already On Job Edit Page' do |message|
-  assert_true job_settings_page.error_messages.include?new_pipeline_dashboard_page.sanitize_message(message)
+  assert_true job_settings_page.error_messages.include?sanitize_message(message)
 end  
 
 step 'Verify that job is named <job>' do |job|
@@ -209,6 +209,11 @@ step 'Set command as <command> - On Job Setting Page' do |command|
 	job_settings_page.task_commands.set command
 end	
 
-step 'Set Working directory as <dir>' do |dir|
-  job_settings_page.task_working_directory.set dir
+
+step 'Move down task number <number>' do |number|
+  job_settings_page.move_down_task_number number.to_i-1
+end
+
+step 'Move up task number <number>' do |number|
+  job_settings_page.move_up_task_number number.to_i-1
 end

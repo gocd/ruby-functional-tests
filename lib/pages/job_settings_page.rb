@@ -49,7 +49,7 @@ module Pages
     def add_new_task_of_type(type)
       add_new_task.click
       add_new_task.click
-      new_task_list.find('a', exact_text: type).click
+      new_task_list.find('a', text: type).click
     end 
 
     def configure_rake_task(target,working_directory)
@@ -188,6 +188,14 @@ module Pages
 
     def select_task task_no
       page.find("tr:nth-child(#{task_no.to_i}) td a").click
+    end
+
+    def move_down_task_number number
+      page.find(".task_#{number} .promote_down").click
+    end
+
+    def move_up_task_number number
+      page.find(".task_#{number} .promote_up").click
     end
     
   end

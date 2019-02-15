@@ -167,7 +167,6 @@ module Context
           }
           users_to_be_removed.delete('admin')
           return if users_to_be_removed.empty?
-          binding.pry
           RestClient.patch http_url("/api/users/operations/state"),
                     { "operations": '{ "enable": false }', "users": users_to_be_removed }.to_json,
                     { content_type: :json, accept: 'application/vnd.go.cd.v3+json' }.merge(header)

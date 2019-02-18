@@ -17,38 +17,38 @@
 module Pages
     class StageSettingsPage < GeneralSettingsPage
       set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines{/pipeline_name}/stages{/stage_name}/settings"
-      
+
       element :stage_name, "#stage_name"
       element :permission_user_name, "input.permissions_user_name"
       element :permission_role_name, "input.permissions_role_name"
 
      def job_resources(job)
         page.find('td a', text:job).ancestor('tr').find('td:nth-child(2)').text
-     end 
+     end
 
      def run_on_all(job)
       page.find('td a', text:job).ancestor('tr').find('td:nth-child(3)').text
-     end  
- 
+     end
+
      def open_job(job)
        page.find('td a', text:job).click
-     end  
- 
+     end
+
      def delete_job(job)
       page.find('td a', text:job).ancestor('tr').find('td.remove').find('form span.icon_remove').click
       page.find("button[value='Proceed']").click
-     end  
- 
+     end
+
      def job_present?job
        page.has_css?('td a',text:job)
-     end 
+     end
 
      def option_is_selected?option
       if option.eql?"Inherit from the pipeline group"
        return page.find('input#inherit_permissions').checked?
       else
        return page.find('input#define_permissions').checked?
-      end 
+      end
      end
 
      def has_message?(message)
@@ -60,8 +60,8 @@ module Pages
         return page.find('input#inherit_permissions').click
       else
         return page.find('input#define_permissions').click
-      end 
-     end 
+      end
+     end
 
      def  select_from_automlete(item)
       page.find('.ac_results li',text:item).click
@@ -71,7 +71,7 @@ module Pages
        page.all("input.permissions_user_name").each{|input_element|
         if(input_element.value.blank?)
           input_element.set user
-        end  
+        end
          }
      end
 
@@ -79,9 +79,9 @@ module Pages
       page.all("input.permissions_role_name").each{|input_element|
         if(input_element.value.blank?)
           input_element.set role
-        end  
+        end
          }
-     end 
+     end
 
      def inherited_users
       users=[]
@@ -117,4 +117,3 @@ module Pages
 
     end
 end
-  

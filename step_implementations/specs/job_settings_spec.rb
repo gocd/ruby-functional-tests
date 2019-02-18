@@ -216,9 +216,13 @@ end
 
 step 'Move up task number <number>' do |number|
   job_settings_page.move_up_task_number number.to_i-1
+<<<<<<< HEAD
 end
 
 step 'Set Working directory as <dir>' do |dir|
 	job_settings_page.task_working_directory.set dir
 end	
 
+=======
+end
+>>>>>>> 7c4f7d4a5157481d0b9de84e15521a84e65d45eb

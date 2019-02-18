@@ -49,7 +49,7 @@ module Pages
     def add_new_task_of_type(type)
       add_new_task.click
       add_new_task.click
-      new_task_list.find('a', text: type).click
+      new_task_list.find('a', exact_text: type).click
     end 
 
     def configure_rake_task(target,working_directory)

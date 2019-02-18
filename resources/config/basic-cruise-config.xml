@@ -80,7 +80,7 @@
                     <job name="fast">
                        <tasks>
                             <exec command="sleep">
-                                <arg>10</arg>
+                                <arg>5</arg>
                                 <runif status="passed"/>
                             </exec>
                         </tasks>
@@ -92,7 +92,7 @@
                     <job name="long">
                        <tasks>
                             <exec command="sleep">
-                                <arg>50</arg>
+                                <arg>30</arg>
                                 <runif status="passed"/>
                             </exec>
                         </tasks>

@@ -127,16 +127,21 @@ module Pages
       page.find('span', text:run).ancestor('a').click
     end
 
+    def stage_has_other_runs?
+        page.has_css?('#other_stage_runs ul') 
+    end 
+
     def job_status_in_collapsed_state
       all_status=[]
-      page.all(".job_grouping .hidereveal_expander").each {|status|
-      all_status.push(status.text)
+      page.all(".job_grouping .hidereveal_expander").each {|state|
+        job_status=state.text
+      all_status.push(job_status)
       }
       all_status
     end
 
     def open_jobs(job,status)
-      page.find("#jobs_#{status}").find('ul.hidereveal_content').has_css?('span', text:job)
+      page.find("#jobs_#{status.gsub(" ","_")}").find('ul.hidereveal_content').has_css?('span', text:job)
     end 
 
     def history_runs
@@ -189,7 +194,45 @@ module Pages
       page.has_css?("a#stage_history_#{page_number}")
     end 
 
+   def config_changed_marker_exists?pipeline_counter,stage_counter
+    page.has_css?(".config_change.counter_#{pipeline_counter}_#{stage_counter} span a")
+   end
+
+   def click_config_changed_link pipeline_counter,stage_counter
+    page.find(".config_change.counter_#{pipeline_counter}_#{stage_counter}").click
+   end
+
+   def config_changed_added_contains?line
+    page.all(".add td pre").each{|lines|
+        return true if lines.text.include?line
+      }
+   end
+
+   def config_changed_removed_contains?line
+    page.all(".remove td pre").each{|lines|
+      return true if lines.text.include?line
+      }
+   end
+
+   def history_shows_status? status
+    page.find('#stage_history').has_css?(".#{status}")
+   end
+
+   def stage_bar_has_date? 
+    page.has_css?(".schedule_info span.time")
+   end
   
+   def stage_bar_has_time? 
+    page.has_css?(".duration span.time")
+   end
+
+   def wait_for_stage_bar_to_show_run
+     wait_till_event_occurs_or_bomb 60, "Stage bar does not shows run" do
+       break if page.has_css?('#show_other_stage_runs')
+     end
+   end
+
+
 
 
 

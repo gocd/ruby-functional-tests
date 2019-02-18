@@ -24,6 +24,9 @@ module Pages
     element :material_url_field, '.url'
     element :check_connection, "button[value='CHECK CONNECTION']"
     element :cron_timer, "input#pipeline_timer_timerSpec"
+    element :label_template, "input#pipeline_labelTemplate"
+    element :material_name, "input[name='material[materialName]']"
+    element :stage_name, "input[name='material[pipelineStageName]']"
 
     def message_displayed?(message)
       page.has_css?('.success', text: message, exact_text: true)
@@ -41,6 +44,10 @@ module Pages
     end
 
     def select_material(material_name)
+      page.find('td a', text: material_name).click
+    end
+
+    def material_exist?(material_name)
       page.find('td a', text: material_name).click
     end
 
@@ -74,6 +81,9 @@ module Pages
       page.find("input#pipeline_timer_onlyOnChanges").set(true)
     end  
 
+    def url_exist_for_material? material,url
+      page.find('td a', text:material).ancestor('tr').has_css?('td',text:url)
+    end
 
   end
 end

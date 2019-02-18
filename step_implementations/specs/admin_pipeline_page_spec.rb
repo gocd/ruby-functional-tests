@@ -247,4 +247,16 @@ end
 
 step 'Set group name as <group>' do |group|
   admin_pipeline_page.edit_group_name.set group
-end  
+end
+
+step 'Verify tabs <tabs> are visible' do |tabs|
+  tabs.split(',').each { |tab|
+  assert_true admin_pipeline_page.tab_is_visible?(tab)
+  }
+end
+
+step 'Verify tabs <tabs> are not visible' do |tabs|
+  tabs.split(',').each { |tab|
+  assert_false admin_pipeline_page.tab_is_visible?(tab)
+  }
+end

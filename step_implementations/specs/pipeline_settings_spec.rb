@@ -71,6 +71,22 @@ step 'Enter <timer> for cron time specifier' do |timer|
   pipeline_settings_page.cron_timer.set timer
 end
 
+step 'Enter <label> for label template' do |label|
+  pipeline_settings_page.label_template.set label
+end
+
 step 'Select onlyOnChanges flag to trigger pipeline only on new material' do ||
   pipeline_settings_page.set_only_on_changes_checkbox
+end
+
+step 'Set material name as <pipeline_material>' do |material|
+  pipeline_settings_page.material_name.set material
+end
+
+step 'Set pipeline Stage as <stage_name>' do |stage|
+  pipeline_settings_page.stage_name.set new_pipeline_dashboard_page.sanitize_message(stage)
+end
+
+step 'Verify material <material> is exist with URL <url>' do |material,url|
+ assert_true pipeline_settings_page.url_exist_for_material? material,new_pipeline_dashboard_page.sanitize_message(url)
 end

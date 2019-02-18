@@ -272,6 +272,10 @@ module Pages
     def delete_role_on_edit_group(role)
       page.find("tr#ROLE_#{role} td span.remove_icon").click
     end  
+
+    def tab_is_visible?(tab)
+      page.has_css?('.sub_tabs_container ul li a', text: tab)
+    end
     
     private
 

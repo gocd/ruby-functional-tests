@@ -29,6 +29,7 @@ module Pages
     element :stage_triggered_user, '.who'
     element :automatically_triggered,'.schedule_info span.label'
     element :stage_cancelled_user, '.result .message'
+    element :compare,"a[title='Compare with the previous build']"
     
    
 

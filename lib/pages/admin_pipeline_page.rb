@@ -70,7 +70,11 @@ module Pages
     end
 
     def verify_there_are_no_warnings
-      assert_true !error_and_warning_count.text.include?('warning')
+      if page.has_css?("[data-test-id='server-health-messages-count']")
+        assert_true !error_and_warning_count.text.include?('warning')
+      else 
+        assert_true false
+      end  
     end
 
     def verify_there_are_no_errors_and_warnings

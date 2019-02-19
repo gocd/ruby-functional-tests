@@ -50,7 +50,6 @@
                     <job name="secondJob">
                         <tasks>
                             <exec command="ls"/>
-                            <exec command="ls"/>
                         </tasks>
                     </job>
                 </jobs>

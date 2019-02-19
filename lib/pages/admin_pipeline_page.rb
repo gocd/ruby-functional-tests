@@ -161,7 +161,7 @@ module Pages
 
     def get_pipelines_from_templates(template)
       pipelines = []
-      page.find('h2.group_name', text: group).ancestor('.template_group').all('td.name a').each do |pipeline|
+      page.find('h2.group_name', text: template).ancestor('.template_group').all('td.name a').each do |pipeline|
         pipelines.push(pipeline.text)
       end
       pipelines
@@ -172,11 +172,12 @@ module Pages
     end
 
     def delete_link_is_disabled_for_template? template
-    page.find('h2', text: group_name).ancestor('.template_group').has_css?('.delete_icon_disabled')
+      page.find('h2.group_name', text: template).sibling('.title_action_wrapper').has_css?('.delete_icon_disabled')
     end
 
     def delete_template template 
       page.find("span#trigger_delete_#{template}").click
+      page.find("button[value='Proceed']").click
     end
 
     def delete_group(group)
@@ -214,7 +215,7 @@ module Pages
     end
 
     def template_has_message?(template,message)
-      page.find('h2', text: group_name).ancestor('.template').has_css?('.information', text: message)
+      page.find('h2.group_name', text: template).ancestor('.template').has_css?('.information', text: message)
     end
 
     def add_new_pipeline_in_group(group)
@@ -329,7 +330,8 @@ module Pages
     end
     
     def click_edit_pipeline pipeline
-        page.find('td a',text:pipeline).ancestor('td').sibling('td a.action_icon.edit_icon').click
+    
+      page.find('td a',text:pipeline).ancestor('tr').find('td a.action_icon.edit_icon').click
     end
 
     def landed_on_pipeline_edit_page? pipeline

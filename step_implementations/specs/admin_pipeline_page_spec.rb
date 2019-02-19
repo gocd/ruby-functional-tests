@@ -297,19 +297,19 @@ step 'Verify that template <template> is used by pipelines <pipeline>' do |templ
   }
 end
 
-step 'Verify that edit pipeline <pipeline> lands on pipeline edit page' do ||
-  admin_pipeline_page.click_edit_pipeline pipeline
-  assert_true admin_pipeline_page.click_edit_pipeline pipeline
+step 'Verify that edit pipeline <pipeline> lands on pipeline edit page' do |pipeline|
+  admin_pipeline_page.click_edit_pipeline scenario_state.get(pipeline)
+  assert_true admin_pipeline_page.landed_on_pipeline_edit_page? scenario_state.get(pipeline)
 end
 
 step 'Verify cannot delete templates <templates>' do |templates|
-  templates.each{ |template|
+  templates.split(',').each{ |template|
     assert_true admin_pipeline_page.delete_link_is_disabled_for_template? template
   }
 end
 
 step 'Verify can delete templates <templates>' do |templates|
-  templates.each{ |template|
+  templates.split(',').each{ |template|
     assert_false admin_pipeline_page.delete_link_is_disabled_for_template? template
   }
 end 

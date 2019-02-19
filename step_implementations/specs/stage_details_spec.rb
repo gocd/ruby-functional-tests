@@ -165,3 +165,44 @@ end
 step 'Setting first stage to auto approval' do ||
   basic_configuration.auto_approve_first_stage()
 end
+
+step 'Verify config changed marker after pipeline counter <pipeline_counter> stage counter <stage_counter> is a link' do |pipeline_counter,stage_counter|
+  assert_true stage_details_page.config_changed_marker_exists?pipeline_counter,stage_counter
+end
+
+step 'Click on config changed link after pipeline counter <pipeline_counter> stage counter <stage_counter>' do |pipeline_counter,stage_counter|
+  stage_details_page.click_config_changed_link pipeline_counter,stage_counter
+end
+
+step 'Verify added changes contains lines <lines>' do |lines|
+  assert_true stage_details_page.config_changed_added_contains?lines
+end
+
+step 'Verify removed changes contains lines <lines>' do |lines|
+  assert_true stage_details_page.config_changed_removed_contains?lines
+end
+
+step 'Verify config changed marker after pipeline counter <pipeline_counter> stage counter <stage_counter> is not a link' do |pipeline_counter,stage_counter|
+  assert_false stage_details_page.config_changed_marker_exists?pipeline_counter,stage_counter
+end
+
+step 'Verify stage history shows current stage as <status>' do |status|
+  assert_true stage_details_page.history_shows_status? status
+end
+
+step 'Verify stage bar triggered at shows a date' do ||
+  assert_true stage_details_page.stage_bar_has_date? 
+end
+
+step 'Verify stage bar does not have other runs' do ||
+  assert_false stage_details_page.stage_has_other_runs?
+end
+
+step 'Verify stage bar duration shows a time' do ||
+  assert_true stage_details_page.stage_bar_has_time?
+end
+
+step 'Wait for stage bar to show other runs' do ||
+  stage_details_page.wait_for_stage_bar_to_show_run
+end
+

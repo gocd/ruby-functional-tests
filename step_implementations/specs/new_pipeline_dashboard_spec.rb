@@ -309,6 +309,10 @@ step 'PipelineVisibility <table>' do |table|
   end
 end
 
+step 'Verify admin link is disabled' do ||
+  assert_false new_pipeline_dashboard_page.admin_link_visible?
+end
+
 step 'Edit pipeline <pipeline>' do |pipeline|
   new_pipeline_dashboard_page.edit_pipeline pipeline
 end

@@ -64,3 +64,14 @@ step 'Cancel stage <stage> of pipeline <pipeline>' do |stage, pipeline|
     p "Cancel stage call failed with response code #{err.response.code} and the response body - #{err.response.body}"
   end
 end
+
+step 'Schedule should return code <status_code>' do |status_code|
+  payload=   "{\"environment_variables\": [],\"materials\": [],\"update_materials_before_scheduling\": true}"
+  begin
+    response = RestClient.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/schedule"), payload,
+        { content_type: :json, accept: 'application/vnd.go.cd.v1+json' }.merge(basic_configuration.header)
+    assert_true response.code == status_code.to_i
+  rescue RestClient::ExceptionWithResponse => err
+    p "Schedule did not return #{status_code}"
+  end
+end

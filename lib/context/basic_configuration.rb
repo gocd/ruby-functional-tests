@@ -76,10 +76,10 @@ module Context
           if fetch['pipeline'].include?('/')
             fetch['pipeline'].split('/').each{|fetch_pipeline|
               if fetch_pipeline.eql?(initial_name)
-                  fetch['pipeline']=fetch['pipeline'].sub(initial_name,pipeline['name'])  
-              end  
+                  fetch['pipeline']=fetch['pipeline'].sub(initial_name,pipeline['name'])
+              end
             }
-            
+
           else
               fetch['pipeline'] = pipeline['name'] if fetch['pipeline'] == initial_name
           end
@@ -160,7 +160,23 @@ module Context
     end
 
     def remove_all_users
-      RestClient.post delete_all_users_url, header
+      RestClient.get http_url("/api/users"), { accept: 'application/vnd.go.cd.v3+json' }.merge(header)  do |response, _request, _result|
+        if response.code == 200
+          disabled_users = JSON.parse(response.body)['_embedded']['users'].collect{ |user|
+            user['login_name'] if user['enabled'].eql? true
+          }.compact
+          enabled_users = JSON.parse(response.body)['_embedded']['users'].collect{ |user|
+            user['login_name'] if user['enabled'].eql? false
+          }.compact
+          users_to_be_removed = enabled_users.concat(disabled_users).delete_if{ |user| user.eql?'admin'}
+          RestClient.patch http_url("/api/users/operations/state"),
+                    { "operations": { "enable": false }, "users": enabled_users }.to_json,
+                    { content_type: :json, accept: 'application/vnd.go.cd.v3+json' }.merge(header) unless enabled_users.empty?
+          RestClient::Request.execute(method: 'delete',
+                    url: http_url("/api/users"), payload: { "users": users_to_be_removed }.to_json,
+                    headers: { content_type: :json, accept: 'application/vnd.go.cd.v3+json' }.merge(header)) unless users_to_be_removed.empty?
+        end
+      end
     end
 
     def update_toggle(toggle, value)
@@ -174,9 +190,9 @@ module Context
     end
 
     def material_url(pipeline,material_type,material_name)
-      current_configuration = basic_configuration.get_config_from_server 
+      current_configuration = basic_configuration.get_config_from_server
       return current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{material_type}[@materialName='#{material_name}']")[0]['url']
-    end 
+    end
 
     def add_user_as_admin(user)
       current_config = get_config_from_server
@@ -328,11 +344,11 @@ module Context
     def auto_approve_first_stage()
       current_config = get_config_from_server
       current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/materials/*").each { |material|
-      material.remove_attribute("autoUpdate") if(material.has_attribute?("autoUpdate")) 
+      material.remove_attribute("autoUpdate") if(material.has_attribute?("autoUpdate"))
      }
     approval_element= current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/stage[1]/approval")
     current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/stage[1]/approval").remove if !approval_element.empty?
-    load_dom(current_config)  
+    load_dom(current_config)
   end
   end
 end

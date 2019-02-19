@@ -389,6 +389,9 @@
         <admins>
           <user>group1Admin</user>
         </admins>
+        <operate>
+                <user>operate</user>
+       </operate>
           <view>
               <role>viewer</role>
               <role>operator</role>

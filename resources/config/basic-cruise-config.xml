@@ -18,7 +18,7 @@
 <cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="115">
     <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="gauge" tokenGenerationKey="token"/>
     <pipelines group="basic">
-    <pipeline name="pipeline-clean-working-dir">
+   <pipeline name="pipeline-clean-working-dir">
             <materials>
                 <git url="material-for-clean-working-dir" materialName="basic-git-material" autoUpdate="false"/>
             </materials>
@@ -55,6 +55,33 @@
                 </jobs>
             </stage>
         </pipeline>
+  <pipeline name="two-stage-pipeline">
+            <materials>
+                <git url="material-for-two-stage-pipeline" dest="git" autoUpdate="false" materialName="git"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                       <tasks>
+                            <exec command="ls">
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+            <stage name="anotherStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                       <tasks>
+                            <exec command="ls">
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
     <pipeline name="pipeline-with-lock-all-manual" lockBehavior="lockOnFailure">
             <materials>
                 <git url="material-for-pipeline-with-lock-all-manual" dest="git" materialName="git" autoUpdate="false"/>
@@ -75,6 +102,36 @@
                      <job name="basic-pipeline-run-till-file-exists-job">
                         <tasks>
                             <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+        <pipeline name="pipeline-with-lock" lockBehavior="lockOnFailure">
+            <materials>
+                <git url="material-for-pipeline-with-lock" dest="git" materialName="pipeline-with-lock-material" autoUpdate="false"/>
+            </materials>
+            <stage name="stage-1">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="fast">
+                       <tasks>
+                            <exec command="sleep">
+                                <arg>5</arg>
+                                <runif status="passed"/>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+            <stage name="stage-2">
+                <jobs>
+                    <job name="long">
+                       <tasks>
+                            <exec command="sleep">
+                                <arg>30</arg>
+                                <runif status="passed"/>
+                            </exec>
                         </tasks>
                     </job>
                 </jobs>
@@ -144,6 +201,21 @@
                     <job name="defaultJob">
                         <tasks>
                             <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+        <pipeline name="basic-pipeline-wait-till-file-exists">
+            <materials>
+                <git url="material-for-basic-pipeline-wait-till-file-exists" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="rake" args="wait_or_fail" workingdir="git"/>
                         </tasks>
                     </job>
                 </jobs>

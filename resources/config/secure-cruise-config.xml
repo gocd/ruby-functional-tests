@@ -44,6 +44,11 @@
                         <user>operate</user>
                     </users>
                 </role>
+                <role name="misc">
+                    <users>
+                        <user>group1View</user>
+                    </users>
+                 </role>
             </roles>
             <admins>
                 <role>admins</role>
@@ -705,8 +710,67 @@
     </pipelines>
 
 
+  <pipelines group="group-for-dependency-walk-1">
+    <authorization>
+      <view>
+        <user>pavan</user>
+      </view>
+      <operate>
+        <user>operate</user>
+        <role>operator</role>
+      </operate>
+      <admins>
+        <role>misc</role>
+      </admins>
+    </authorization>
+    <pipeline name="first-pipeline" template="simple-pass">
+      <mingle baseUrl="https://mingle-different.example.com" projectIdentifier="my_project">
+        <mqlGroupingConditions>status &gt; 'In Dev'</mqlGroupingConditions>
+      </mingle>
+      <materials>
+        <git url="material-for-first-pipeline" dest="git" materialName="git-first-pipeline" autoUpdate="false"/>
+      </materials>
+    </pipeline>
+  </pipelines>
+
+  <pipelines group="group-for-dependency-walk-2">
+    <authorization>
+      <view>
+        <user>raghu</user>
+        <user>pavan</user>
+        <role>operator</role>
+        <role>misc</role>
+      </view>
+      <operate>
+        <user>operate</user>
+        <role>operator</role>
+      </operate>
+    </authorization>
+    <pipeline name="down-pipeline" template="simple-pass">
+      <mingle baseUrl="https://mingle-different.example.com" projectIdentifier="my_project">
+        <mqlGroupingConditions>status &gt; 'Dev Complete'</mqlGroupingConditions>
+      </mingle>
+      <materials>
+        <git url="material-for-down-pipeline" dest="git" autoUpdate="false" materialName="git-down-pipeline"/>
+        <pipeline pipelineName="first-pipeline" stageName="defaultStage"/>
+      </materials>
+    </pipeline>
+  </pipelines>
+
     <!-- Add this template creation and adding template admin to the spec ones API supports updating authoriztion -->
     <templates>
+      <pipeline name="simple-pass">
+	        <stage name="defaultStage">
+	        	<approval type="manual"/>
+	        	<jobs>
+	            	<job name="defaultJob">
+	                    <tasks>
+	                        <exec command="ls"/>
+	                    </tasks>
+	                 </job>
+	            </jobs>
+		  	</stage>
+	  </pipeline>
       <pipeline name="Template-With-Admin">
         <authorization>
           <admins>

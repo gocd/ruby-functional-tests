@@ -584,6 +584,26 @@
         </pipeline>
     </pipelines>
     <pipelines group="dependency-group">
+    <pipeline name="first" template="dependency-pipeline-template">
+            <materials>
+                <git url="marerial-for-first" materialName="git-first" autoUpdate="true"/>
+            </materials>
+        </pipeline>
+        
+        <pipeline name="child-of-first" template="dependency-pipeline-template">
+            <materials>
+                <git url="material-for-child-of-first" materialName="git-child-of-first" autoUpdate="true"/>
+                <pipeline pipelineName="first" stageName="defaultStage"/>
+            </materials>
+        </pipeline>
+        
+        <pipeline name="grandchild-of-first" template="dependency-pipeline-template">
+            <materials>
+                <git url="material-for-grandchild-of-first" materialName="git-grandchild-of-first" autoUpdate="true"/>
+                <pipeline pipelineName="child-of-first" stageName="defaultStage"/>
+                <pipeline pipelineName="first" stageName="defaultStage"/>
+            </materials>
+        </pipeline>
         <pipeline name="dependency-group-pipeline-1">
             <materials>
                 <git url="material-for-dependency-group-pipeline-1" dest="git" materialName="git" autoUpdate="false"/>

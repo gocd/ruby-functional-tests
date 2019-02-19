@@ -120,6 +120,10 @@ step 'Verify pipeline <pipeline> is not visible - On Swift Dashboard page' do |p
   assert_false new_pipeline_dashboard_page.visible?(pipeline)
 end
 
+step 'Verify pipeline <pipeline> is visible - On Swift Dashboard page' do |pipeline|
+  assert_true new_pipeline_dashboard_page.visible?(pipeline)
+end
+
 step 'Verify group <group> is not visible - On Swift Dashboard page' do |group|
   assert_false new_pipeline_dashboard_page.group_visible?(group)
 end

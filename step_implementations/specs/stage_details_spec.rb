@@ -213,3 +213,8 @@ end
 step 'Click Compare pipeline link - Already on stage details page' do || 
   stage_details_page.compare_pipeline_link.click
 end
+
+step 'Click compare link - Already on stage Detail Page' do 
+  stage_details_page.compare.click
+end
+

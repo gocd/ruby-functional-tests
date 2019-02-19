@@ -5,6 +5,7 @@ StageSecurityForAutoApproval
 
 
 Setup of contexts
+* With no users - setup
 * Secure Configuration - setup
 * Login as "admin" - setup
 * Using pipeline "pipeline-with-auto-stage-security" - setup
@@ -74,4 +75,3 @@ Teardown of contexts
 ____________________
 * Capture go state "StageSecurityForAutoApproval" - teardown
 * With "1" live agents - teardown
-

@@ -95,3 +95,9 @@ end
  step 'Choose and select pipeline with label <label>' do |label|
   compare_pipeline_page.select_pipeline_with_label label
 end  
+step 'Click on upstream pipeline revision <rev>' do |rev|
+  compare_pipeline_page.click_revision rev
+end
+step 'Verify that unauthorized access message is shown' do ||
+  assert_true compare_pipeline_page.unauthorized_message_exist?
+end

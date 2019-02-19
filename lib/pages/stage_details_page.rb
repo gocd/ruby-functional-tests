@@ -30,6 +30,8 @@ module Pages
     element :automatically_triggered,'.schedule_info span.label'
     element :stage_cancelled_user, '.result .message'
     element :compare_pipeline_link, '#stage_run_details .compare_pipeline a'
+    element :compare,"a[title='Compare with the previous build']"
+
     
    
 

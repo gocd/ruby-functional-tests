@@ -68,15 +68,20 @@ module Pages
     end
 
     def verify_scm_material_revision(material_type, revision)
-      pipeline_scm_material_modifications(material_type).all('.change').collect do |change|
-        change.find('.revision').text
-      end.include? revision
+      
+      revisions=[]
+      pipeline_scm_material_modifications(material_type).each{|material|
+        revisions.push(material.sibling('.list_table.material_modifications').find('.change .revision').text)
+      }
+      return true if revisions.include?revision
     end
 
-    def verify_scm_material_comment(material_type, comment)
-      pipeline_scm_material_modifications(material_type).all('.change').collect do |change|
-        change.find('.comment').text
-      end.include? comment
+    def verify_scm_material_comment(material_type, comment) 
+      comments=[]
+      pipeline_scm_material_modifications(material_type).each{|material|
+        comments.push(material.sibling('.list_table.material_modifications').find('.change .comment').text)
+      }
+      return true if comments.include?comment
     end
 
     def click_label(label)
@@ -103,6 +108,13 @@ module Pages
       check_ins.find('a', text: 'CONTINUE').click
     end
 
+    def click_revision rev
+      page.find('a', text:sanitize_message(rev)).click
+    end
+
+    def unauthorized_message_exist?
+      page.has_css?('h3', text:"Not authorized to view pipeline { Not authorized to view pipeline }")
+    end 
     private
 
     def pipeline_dependency_material_modifications(pipeline_name)
@@ -111,8 +123,8 @@ module Pages
     end
 
     def pipeline_scm_material_modifications(material_type)
-      materials = check_ins.all('.material_title').select { |mt| mt if mt.text.start_with?("#{material_type} - ") }
-      materials.first.sibling('.list_table.material_modifications')
+     return check_ins.all('.material_title').select { |mt| mt if mt.text.start_with?("#{material_type} - ") }
+      
     end
   end
 end

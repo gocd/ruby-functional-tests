@@ -206,3 +206,7 @@ step 'Wait for stage bar to show other runs' do ||
   stage_details_page.wait_for_stage_bar_to_show_run
 end
 
+step 'Click compare link - Already on stage Detail Page' do 
+  stage_details_page.compare.click
+end
+

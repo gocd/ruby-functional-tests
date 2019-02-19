@@ -18,7 +18,44 @@
 <cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="115">
     <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="gauge" tokenGenerationKey="token"/>
     <pipelines group="basic">
-    <pipeline name="two-stage-pipeline">
+   <pipeline name="pipeline-clean-working-dir">
+            <materials>
+                <git url="material-for-clean-working-dir" materialName="basic-git-material" autoUpdate="false"/>
+            </materials>
+            <stage name="setup">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="setupJob">
+                        <tasks>
+                            <exec command="touch" args="abc.txt"/>
+                            <exec command="mkdir" args="bar"/>
+                            <exec command="touch" args="xyz.txt"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+            <stage name="first">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="firstJob">
+                        <tasks>
+                            <exec command="ls"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+            <stage name="second" cleanWorkingDir="true">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="secondJob">
+                        <tasks>
+                            <exec command="ls"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+  <pipeline name="two-stage-pipeline">
             <materials>
                 <git url="material-for-two-stage-pipeline" dest="git" autoUpdate="false" materialName="git"/>
             </materials>

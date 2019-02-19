@@ -111,11 +111,7 @@ module Pages
     end  
 
     def stage_has_action?(stage,action)
-      page.has_selector?("a#stage_bar_#{action}_#{stage}")
-    end 
-
-    def stage_does_not_has_action?(stage,action)
-      page.has_selector?("a#stage_bar_#{action}_#{stage}")
+      page.has_selector?("a#stage_bar_#{action.downcase}_#{stage}")
     end 
 
     def trigger_stage(stage)

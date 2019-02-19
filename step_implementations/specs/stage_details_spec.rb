@@ -101,7 +101,7 @@ step 'Verify stage <stage> has action <action>' do |stage, action|
 end
 
 step 'Verify stage <stage> does not have action <action>' do |stage, action|
-  assert_false stage_details_page.stage_does_not_has_action?(stage,action)
+  assert_false stage_details_page.stage_has_action?(stage,action)
 end
 
 step 'Trigger stage <stage> - On stage details page' do |stage|

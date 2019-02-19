@@ -304,7 +304,7 @@
 
         <pipeline name="pipeline-with-auto-stage-security">
             <materials>
-                <hg url="material-for-pipeline-with-stage-security" dest="hg" autoUpdate="false"/>
+                <git url="material-for-pipeline-with-stage-security" dest="git" autoUpdate="false"/>
             </materials>
             <stage name="first">
                 <approval type="success">
@@ -316,8 +316,8 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <ant target="run.till.file.exists" workingdir="hg/dev"/>
-                        </tasks>
+                          <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+                      </tasks>
                     </job>
                 </jobs>
             </stage>

@@ -81,6 +81,10 @@ module Pages
       page.has_css?("[data-test-id='server-health-messages-count']")
     end
 
+    def verify_there_are_no_errors_and_warnings
+      page.has_css?("[data-test-id='server-health-messages-count']")
+    end
+
     def verify_there_are_no_error_messages
       assert_true !error_and_warning_count.text.include?('error')
     end

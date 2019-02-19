@@ -54,7 +54,8 @@
                     </job>
                 </jobs>
             </stage>
-        </pipeline>
+     </pipeline>
+
      <pipeline name="basic-environment-pipeline">
             <materials>
                 <git url="material-for-basic-environment-pipeline" dest="git" autoUpdate="false" materialName="git-material"/>
@@ -72,8 +73,9 @@
                     </job>
                 </jobs>
             </stage>
-        </pipeline>
-  <pipeline name="two-stage-pipeline">
+     </pipeline>
+
+     <pipeline name="two-stage-pipeline">
             <materials>
                 <git url="material-for-two-stage-pipeline" dest="git" autoUpdate="false" materialName="git"/>
             </materials>
@@ -116,9 +118,9 @@
                     </job>
                 </jobs>
             </stage>
-        </pipeline>
+    </pipeline>
 
-        <pipeline name="hung-job-zero-timeout-pipeline">
+    <pipeline name="hung-job-zero-timeout-pipeline">
             <materials>
                 <git url="material-for-hung-job-zero-timeout-pipeline" dest="git" autoUpdate="false" materialName="git-material"/>
             </materials>
@@ -132,9 +134,9 @@
                     </job>
                 </jobs>
             </stage>
-        </pipeline>
+    </pipeline>
 
-    <pipeline name="pipeline-with-lock-all-manual" lockBehavior="lockOnFailure">
+      <pipeline name="pipeline-with-lock-all-manual" lockBehavior="lockOnFailure">
             <materials>
                 <git url="material-for-pipeline-with-lock-all-manual" dest="git" materialName="git" autoUpdate="false"/>
             </materials>

@@ -49,3 +49,4 @@ ____________________
 * With "1" live agents - teardown
 * Logout - from any page
 * Update toggle "users_page_using_rails" to value "off"
+* With no users - teardown

@@ -68,6 +68,10 @@ step 'With no users - setup' do
   basic_configuration.remove_all_users
 end
 
+step 'With no users - teardown' do
+  basic_configuration.remove_all_users
+end
+
 
 step 'With Environments Configuration - setup' do
 	basic_configuration.setup 'with-environments-cruise-config.xml'
@@ -83,15 +87,15 @@ end
 
 step 'Changing the artifacts location to <artifact_location>' do |artifact_location|
   basic_configuration.set_artifact_location artifact_location
-end 
+end
 
 step 'Using timer with spec <spec>' do |spec|
   basic_configuration.add_new_timer_spec_to_file spec
-end 
+end
 
 step 'set timer with spec <spec> on server' do |spec|
 basic_configuration.set_timer_spec spec
-end 
+end
 
 step 'Make cruise config file invalid' do ||
   basic_configuration.change_cruise_config_file_to 'invalid-cruise-config.xml'
@@ -111,10 +115,8 @@ end
 
 step 'Verify that user <user> is authorized to operate on the stage <stage> of pipeline <pipeline>' do |user,stage,pipeline|
   assert_true basic_configuration.stage_is_authorised_with_user?(user,stage,pipeline).include?user
-end  
+end
 
 step 'Verify that role <role> is authorized to operate on the stage <stage> of pipeline <pipeline>' do |role,stage,pipeline|
   assert_true basic_configuration.stage_is_authorised_with_role?(role,stage,pipeline).include?role
-end 
-
-
+end

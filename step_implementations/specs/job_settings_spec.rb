@@ -224,10 +224,7 @@ end
 step 'Override job time out with <time> minutes' do |time|
   job_settings_page.override_job_time_out(time)
 end
-<<<<<<< HEAD
-=======
 
 step 'Select never option' do ||
   job_settings_page.set_never.click
 end
->>>>>>> Adding spec ComparePipelinesEntryPoints.spec, and HungJob Related Specs

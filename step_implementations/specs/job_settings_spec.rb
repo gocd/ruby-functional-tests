@@ -221,5 +221,3 @@ end
 step 'Set Working directory as <dir>' do |dir|
   job_settings_page.task_working_directory.set dir
 end
-
-

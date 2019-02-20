@@ -56,5 +56,9 @@ module Pages
             end
         end
 
+        def is_link_exist?(link)
+            page.has_css?('.menu_link',text:link)
+        end
+
     end
 end

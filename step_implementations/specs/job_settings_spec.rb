@@ -221,6 +221,13 @@ end
 step 'Set Working directory as <dir>' do |dir|
   job_settings_page.task_working_directory.set dir
 end
+
+step 'Set cron field as <cron> and validate error message as <message>' do |cron,message|
+  pipeline_settings_page.cron_timer.set cron
+  general_settings_page.task_save.click
+  assert_true general_settings_page.get_message.include?message
+end
+
 step 'Override job time out with <time> minutes' do |time|
   job_settings_page.override_job_time_out(time)
 end

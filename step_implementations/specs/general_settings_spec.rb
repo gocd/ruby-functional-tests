@@ -37,3 +37,7 @@ end
 step 'Verify environment variable with name <key> and value <value> is present' do |key,value|
   general_settings_page.verify_variables_table_row(key,value)
 end
+
+step 'Verify <link> link is present' do |link|
+  general_settings_page.is_link_exist?(link)
+end

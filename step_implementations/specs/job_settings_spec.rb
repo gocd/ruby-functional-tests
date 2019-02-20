@@ -82,11 +82,11 @@ step 'Set on Cancel task <task> and command <command> - Already on Task edit pop
 end
 step 'Set More task - Command as <command> argument as <arglist> working directory as <working_directory> runIfConditions as <run_conditions> - Already on Task edit popup' do |command,arglist,working_directory,run_conditions|
   job_settings_page.configure_more_task(command,arglist,working_directory,run_conditions)
-end  
+end
 
 step 'verifyTask <table>' do |table|
-  table.rows.each do |row| 
-    (1..table.columns.length-1).each do |column_Header| 
+  table.rows.each do |row|
+    (1..table.columns.length-1).each do |column_Header|
       assert_true  job_settings_page.get_cell_value_from_table(row['Order_no'].to_i,row[table.columns[column_Header]],table.columns[column_Header])
     end
   end
@@ -118,7 +118,7 @@ end
 
 step 'VerifyFieldsOnTaskList <table>' do |table|
       table.rows.each do |row|
-      (1..table.columns.length-1).each do |column_name| 
+      (1..table.columns.length-1).each do |column_name|
       element=table.columns[column_name]
       job_settings_page.click_on_task_by_index(row['TaskIndex'].to_i)
       value=job_settings_page.send(element).value
@@ -143,7 +143,7 @@ step 'ArtifactSetAndValidate <table>' do |table|
     publish_artifacts_view.single_destination.set(row['destination'])
     publish_artifacts_view.save_publish_artifacts.click
     source_error_msg=publish_artifacts_view.verify_source_error_message()
-    dest_error_msg=publish_artifacts_view.verify_destination_error_message()  
+    dest_error_msg=publish_artifacts_view.verify_destination_error_message()
     save_status_msg=publish_artifacts_view.save_status.text
     publish_artifacts_view.delete_artifact.click
     assert_equal row['messageForSource'], source_error_msg
@@ -153,10 +153,10 @@ step 'ArtifactSetAndValidate <table>' do |table|
 end
 
 step 'SetEnvironmentVariablesForJob <table>' do |table|
-  table.rows.each do |row| 
+  table.rows.each do |row|
   parameters_page.set_parameter(row['index'],row['name'],row['value'])
  end
-end 
+end
 
 step 'Check run multiple instance with <instance>' do |instance|
   job_settings_page.set_multiple_instance_with(instance)
@@ -164,11 +164,11 @@ end
 
 step 'Save Job Settings' do ||
   job_settings_page.task_save.click
-end  
+end
 
 step 'Verify error message <message> is shown - Already On Job Edit Page' do |message|
   assert_true job_settings_page.error_messages.include?new_pipeline_dashboard_page.sanitize_message(message)
-end  
+end
 
 step 'Verify that job is named <job>' do |job|
   assert_true job_settings_page.job_name.value.include?job
@@ -179,27 +179,27 @@ step 'Enter custom tab name <tab> with path <path>' do |tab,path|
 end
 
 step 'Verify error message <error_message> on name on tab <tab_index>' do |error_message,tab_index|
-  assert_true  job_settings_page.tab_error(tab_index).include?error_message 
-end  
+  assert_true  job_settings_page.tab_error(tab_index).include?error_message
+end
 
 
 step 'Set job as <job> - On Job settings page' do |job|
   job_settings_page.job_name.set job
-end  
+end
 
 step 'set run type as <run_type>' do |run_type|
   job_settings_page.set_run_type(run_type)
-end  
+end
 
 step 'Verify dropdown contains <dropdown>' do |dropdown|
   drop_down_content=job_settings_page.get_dropdown
   dropdown.split(',').each{|drpdwn|
     assert_true drop_down_content.include?drpdwn
   }
-end 
+end
 step 'Select <resource> from the dropdown' do |resource|
   job_settings_page.select_resouce_from_dropdown resource
-end  
+end
 
 step 'Open task <number>' do |number|
   job_settings_page.select_task number
@@ -207,7 +207,7 @@ end
 
 step 'Set command as <command> - On Job Setting Page' do |command|
 	job_settings_page.task_commands.set command
-end	
+end
 
 
 step 'Move down task number <number>' do |number|
@@ -216,7 +216,7 @@ end
 
 step 'Move up task number <number>' do |number|
   job_settings_page.move_up_task_number number.to_i-1
-end  
+end
 
 step 'Set Working directory as <dir>' do |dir|
   job_settings_page.task_working_directory.set dir

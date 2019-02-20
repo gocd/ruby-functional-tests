@@ -6,7 +6,7 @@ ManualRegistrationOfAgents
 tags: agent_manual_registration
 
 Setup of contexts
-* SmokeConfiguration - setup
+* Smoke Configuration - setup
 * Login as "admin" - setup
 * Using pipeline "basic-pipeline-with-git-material" - setup
 * With "1" pending agents - setup

@@ -2,7 +2,7 @@ PluginsTabForm
 ==============
 
 Setup of contexts
-* SmokeConfiguration - setup
+* Smoke Configuration - setup
 * Login as "admin" - setup
 * Capture go state "PluginsTabForm" - setup
 

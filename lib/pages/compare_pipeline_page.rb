@@ -20,42 +20,42 @@ module Pages
     element :check_ins, '#tab-content-of-checkins'
     element :to_pipeline, '#to_pipeline'
     element :from_pipeline, '#from_pipeline'
-    element :browse_to_timeline,'a#browse_timeline_link_to'
-    element :browse_from_timeline,'a#browse_timeline_link_from'
+    element :browse_to_timeline, 'a#browse_timeline_link_to'
+    element :browse_from_timeline, 'a#browse_timeline_link_from'
     element :pipeline_instance_list, '.pipeline_instance_list'
 
-     def click_on_To_box_for_browse_timeline
+    def click_on_To_box_for_browse_timeline
       to_pipeline.click
       browse_to_timeline.click
-     end
+    end
 
-     def click_on_From_box_for_browse_timeline
+    def click_on_From_box_for_browse_timeline
       from_pipeline.click
       browse_from_timeline.click
-     end
+    end
 
-     def selected_pipeline_label_is?(label)
+    def selected_pipeline_label_is?(label)
       page.has_selector?('li.pim_list.clear_float.selected .pipeline_label', text: label)
-     end
+    end
 
-     def get_pipeline_labels
-      pipeline_labels=[]
-      page.find('.pipeline_instance_list').all('.pipeline_label', wait: 10).each {|element| 
+    def get_pipeline_labels
+      pipeline_labels = []
+      page.find('.pipeline_instance_list').all('.pipeline_label', wait: 10).each do |element|
         pipeline_labels.push(element.text.to_i)
-      }
-        puts pipeline_labels
-      return pipeline_labels
-     end
+      end
+      puts pipeline_labels
+      pipeline_labels
+    end
 
-     def click_page(label)  
-       page.find('.wrapper a.MB_focusable', text: label).click
-       page.has_content?(pipeline_instance_list,wait:10)
-     end  
+    def click_page(label)
+      page.find('.wrapper a.MB_focusable', text: label).click
+      page.has_content?(pipeline_instance_list, wait: 10)
+    end
 
-     def select_pipeline_with_label(label)
+    def select_pipeline_with_label(label)
       page.find('li.pim_list .pipeline_label', text: label).click
-      page.find('a', text:'SELECT THIS PIPELINE').click
-     end 
+      page.find('a', text: 'SELECT THIS PIPELINE').click
+    end
 
     def verify_pipeline_dependency_revision(pipeline_name, revision)
       pipeline_dependency_material_modifications(pipeline_name)
@@ -68,20 +68,19 @@ module Pages
     end
 
     def verify_scm_material_revision(material_type, revision)
-      
-      revisions=[]
-      pipeline_scm_material_modifications(material_type).each{|material|
-        revisions.push(material.sibling('.list_table.material_modifications').find('.change .revision').text)
-      }
-      return true if revisions.include?revision
+      revisions = []
+      pipeline_scm_material_modifications(material_type).each do |material|
+        material.sibling('.list_table.material_modifications').all('.change').each { |change| revisions.push(change.find('.revision').text) }
+      end
+      return true if revisions.include? revision
     end
 
-    def verify_scm_material_comment(material_type, comment) 
-      comments=[]
-      pipeline_scm_material_modifications(material_type).each{|material|
-        comments.push(material.sibling('.list_table.material_modifications').find('.change .comment').text)
-      }
-      return true if comments.include?comment
+    def verify_scm_material_comment(material_type, comment)
+      comments = []
+      pipeline_scm_material_modifications(material_type).each do |material|
+        material.sibling('.list_table.material_modifications').all('.change').each { |change| comments.push(change.find('.comment').text) }
+      end
+      return true if comments.include? comment
     end
 
     def click_label(label)
@@ -108,13 +107,14 @@ module Pages
       check_ins.find('a', text: 'CONTINUE').click
     end
 
-    def click_revision rev
-      page.find('a', text:sanitize_message(rev)).click
+    def click_revision(rev)
+      page.find('a', text: sanitize_message(rev)).click
     end
 
     def unauthorized_message_exist?
-      page.has_css?('h3', text:"Not authorized to view pipeline { Not authorized to view pipeline }")
-    end 
+      page.has_css?('h3', text: 'Not authorized to view pipeline { Not authorized to view pipeline }')
+    end
+
     private
 
     def pipeline_dependency_material_modifications(pipeline_name)
@@ -123,8 +123,7 @@ module Pages
     end
 
     def pipeline_scm_material_modifications(material_type)
-     return check_ins.all('.material_title').select { |mt| mt if mt.text.start_with?("#{material_type} - ") }
-      
+      check_ins.all('.material_title').select { |mt| mt if mt.text.start_with?("#{material_type} - ") }
     end
   end
 end

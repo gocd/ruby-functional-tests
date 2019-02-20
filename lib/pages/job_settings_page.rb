@@ -43,6 +43,7 @@ module Pages
     element :task_commands, "input[name='task[command]']"
     element :task_cancel, ".close_modalbox_control"
     element :job_name, "#job_name"
+    element :set_never, "#jobTimeout_never"
 
     load_validation { has_add_new_task? }
 
@@ -196,6 +197,11 @@ module Pages
     def move_up_task_number number
       page.find(".task_#{number} .promote_up").click
     end
-
+    
+    def override_job_time_out(time)
+      page.find("#jobTimeout_override").click
+      page.find("#job_timeout").set time
+    end
+    
   end
 end

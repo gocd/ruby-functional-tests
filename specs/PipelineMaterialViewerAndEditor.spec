@@ -11,7 +11,7 @@ Setup of contexts
 PipelineMaterialViewerAndEditor
 -------------------------------
 
-tags: Clicky Admin, 4598
+tags: Clicky Admin
 
 * On Swift Dashboard Page
 * Looking at pipeline "edit-pipeline" - On Swift Dashboard page

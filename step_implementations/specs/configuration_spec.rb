@@ -14,7 +14,7 @@
 # limitations under the License.
 ##########################################################################
 
-step 'SmokeConfiguration - setup' do
+step 'Smoke Configuration - setup' do
   secure_configuration.setup 'basic-secure-cruise-config.xml', 'password.properties'
 end
 

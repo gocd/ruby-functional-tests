@@ -63,4 +63,23 @@
             </stage>
         </pipeline>
       </pipelines>
+      <templates>
+      <pipeline name="Template-With-Admin">
+        <authorization>
+          <admins>
+            <user>templateadmin</user>
+          </admins>
+        </authorization>
+        <stage name="defaultStage">
+            <approval type="manual"/>
+            <jobs>
+                <job name="defaultJob">
+                    <tasks>
+                        <exec command="ls" />
+                    </tasks>
+                </job>
+            </jobs>
+        </stage>
+    </pipeline>
+  </templates>
 </cruise>

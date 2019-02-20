@@ -227,3 +227,11 @@ step 'Set cron field as <cron> and validate error message as <message>' do |cron
   general_settings_page.task_save.click
   assert_true general_settings_page.get_message.include?message
 end
+
+step 'Override job time out with <time> minutes' do |time|
+  job_settings_page.override_job_time_out(time)
+end
+
+step 'Select never option' do ||
+  job_settings_page.set_never.click
+end

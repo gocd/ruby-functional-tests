@@ -29,7 +29,9 @@ module Pages
     element :stage_triggered_user, '.who'
     element :automatically_triggered,'.schedule_info span.label'
     element :stage_cancelled_user, '.result .message'
+    element :compare_pipeline_link, '#stage_run_details .compare_pipeline a'
     element :compare,"a[title='Compare with the previous build']"
+
     
    
 
@@ -229,8 +231,10 @@ module Pages
      end
    end
 
-
-
+    def select_counter_from_history counter
+      page.find('span.pipeline_label.wrapped_word',text:counter).hover
+      page.find('span.pipeline_label.wrapped_word',text:counter).ancestor('.stage').find('.compare_pipeline a').click
+    end
 
 
     private

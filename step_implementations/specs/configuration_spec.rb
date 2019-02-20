@@ -30,6 +30,9 @@ step 'Secure Configuration - setup' do
   secure_configuration.setup 'secure-cruise-config.xml', 'password.properties'
 end
 
+step 'Template admin configuration - setup' do 
+  secure_configuration.setup 'template-admin-cruise-config.xml', 'password.properties'
+end
 
 step 'External Artifacts Configuration - setup' do
   secure_configuration.setup 'external-artifacts-cruise-config.xml', 'password.properties'

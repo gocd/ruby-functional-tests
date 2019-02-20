@@ -43,14 +43,14 @@ module Pages
     element :task_commands, "input[name='task[command]']"
     element :task_cancel, ".close_modalbox_control"
     element :job_name, "#job_name"
-   
+
     load_validation { has_add_new_task? }
-   
+
     def add_new_task_of_type(type)
       add_new_task.click
       add_new_task.click
       new_task_list.find('a', exact_text: type).click
-    end 
+    end
 
     def configure_rake_task(target,working_directory)
       task_target.set(target)
@@ -61,7 +61,6 @@ module Pages
       task_commands.set(command)
       arglist.split(',').each {|arg| argument.set(arg)}
       task_working_directory.set(working_directory)
-
       run_conditions.split(',').each { |run_condition|
          page.find("input[name='task[runIfConfigs#{run_condition}]']").set(true)
         }
@@ -72,7 +71,7 @@ module Pages
       page.find('option', text: task).click
       task_advance_option_command.set(command)
     end
-  
+
     def get_cell_value_from_table(row_count,header_name,column_name)
        case column_name
          when "Task Type"
@@ -84,21 +83,21 @@ module Pages
          when "On Cancel"
           return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(5)").text.eql?(header_name)
         end
-     end   
-  
+     end
+
     def delete_task (task_no)
      page.find("tr:nth-child(#{task_no.to_i}) td span.icon_remove").click
      delete_task_button.click
-    end 
-    
+    end
+
     def verify_task_with_command_is_not_exists(command)
      page.has_no_css?('li.task_property.command span.value', text:command.split(':').last.strip)
     end
 
     def verify_task_with_command_is_not_exist_in_config(task,command,job,stage,pipeline)
-     basic_configuration.get_config_from_server.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/stage[@name='#{stage}']/jobs/job[@name='#{job}']/tasks/#{task}[@command='#{command}']").count==0 
+     basic_configuration.get_config_from_server.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/stage[@name='#{stage}']/jobs/job[@name='#{job}']/tasks/#{task}[@command='#{command}']").count==0
     end
-   
+
     def move_task_down(task_index)
       tasks_list.find("tbody tr.task_#{task_index} button.promote_button .promote_down").ancestor('button.promote_button').click
     end
@@ -106,7 +105,7 @@ module Pages
     def move_task_up(task_index)
       tasks_list.find("tbody tr.task_#{task_index} button.promote_button .promote_up").ancestor('button.promote_button').click
     end
-  
+
     def set_task(task_type,target,build_file,working_directory,run_if_list)
       add_new_task.click
       (new_task_list wait: 20).find('a', text: task_type, exact_text: true).click
@@ -120,10 +119,10 @@ module Pages
 
     def click_on_task_by_index(row_count)
       page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(2) a").click
-     end  
+     end
 
     def edit_task_with_on_cancel(build_file,target,working_directory,cancel_task_type,cancel_build_file,cancel_Target,cancel_working_Dir)
-      
+
       task_build_file.set(build_file)
       task_target.set(target)
       task_working_directory.set(working_directory)
@@ -136,12 +135,12 @@ module Pages
       page.find("input[name='task[onCancelConfig][#{cancel_task_type.downcase}OnCancel][workingDirectory]']").native.clear
       page.find("input[name='task[onCancelConfig][#{cancel_task_type.downcase}OnCancel][workingDirectory]']").set(cancel_working_Dir)
       general_settings_page.task_save.click
-    end  
+    end
 
     def set_multiple_instance_with(instance)
       page.find('#jobRunType_runMultipleInstances').set(true)
       page.find('#job_runInstanceCount').set(instance)
-    end  
+    end
 
     def error_messages
       errors=[]
@@ -151,20 +150,20 @@ module Pages
     end
 
     def set_custom_tab(tab_name,path_name)
-      page.all('input.environment_variable_name').each{|tab| 
+      page.all('input.environment_variable_name').each{|tab|
      if(tab.value.blank?)
         tab.set(tab_name)
      else
-     end   
+     end
       }
-      page.all('input.environment_variable_value').each{|tab| 
+      page.all('input.environment_variable_value').each{|tab|
         if(tab.value.blank?)
            tab.set(tab_name)
-        else   
-        end  
+        else
+        end
       }
-    end  
-    
+    end
+
     def tab_error(tab_index)
     page.find('tr:nth-child(1) .name .name_value_error').text
     end
@@ -179,12 +178,12 @@ module Pages
         dropdown.push(list_item.text)
       }
       return dropdown
-    end  
+    end
 
     def select_resouce_from_dropdown resource
       page.find('#job_resources').click
       page.find('.ac_results li',text:resource).click
-    end  
+    end
 
     def select_task task_no
       page.find("tr:nth-child(#{task_no.to_i}) td a").click
@@ -197,6 +196,6 @@ module Pages
     def move_up_task_number number
       page.find(".task_#{number} .promote_up").click
     end
-    
+
   end
 end

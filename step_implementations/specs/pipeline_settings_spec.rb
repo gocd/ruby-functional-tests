@@ -90,3 +90,7 @@ end
 step 'Verify material <material> is exist with URL <url>' do |material,url|
  assert_true pipeline_settings_page.url_exist_for_material? material,new_pipeline_dashboard_page.sanitize_message(url)
 end
+
+step 'Enter Environment variable name <name> with value <value>' do |name,value|
+  pipeline_settings_page.add_env(name, value)
+end

@@ -90,4 +90,62 @@ step 'Set url <url> for material  <material>' do |url,material|
 	pipeline_creation_wizard.set_material_url_for(material, url)
 end	
 
+step 'Verify the stages are <stages>' do |stages|
+	pipeline_stages=pipeline_creation_wizard.get_pipeline_stages()
+	stages.split(',').each{|stage|
+		assert_true pipeline_stages.include?stage
+	}
+end
 
+step 'Verify <stage> has <type> trigger option with <jobs> jobs' do |stage,type,jobs|
+   assert_true pipeline_creation_wizard.stage_has_approval_type?stage,type
+   assert_true pipeline_creation_wizard.stage_has_jobs?stage,jobs
+end
+
+step 'Verify cannot move <stage> to <direction>' do |stage,direction|
+	assert_false pipeline_creation_wizard.can_move_stage?stage,direction
+end
+
+step 'Move stage <stage> to <direction>' do |stage,direction|
+	pipeline_creation_wizard.move_stage stage,direction
+end
+
+step 'Verify reset button exists' do ||
+	assert_true pipeline_creation_wizard.verify_reset_button_exist?
+end
+
+step 'Open tab <tab> - On Pipeline Creation Page' do |tab|
+	pipeline_creation_wizard.open_tab(tab)
+end
+
+step 'Select tracking tool as <tool>' do |tool|
+pipeline_creation_wizard.select_tracking_tool tool
+end
+
+step 'Set mingle URL as <url>' do |url|
+	pipeline_creation_wizard.mingle_URL.set url
+end
+
+step 'Set mingle project identifier as <identifier>' do |identifier|
+	pipeline_creation_wizard.mingle_identifier.set identifier
+end
+
+step 'Set MQA grouping conditions as <mqa>' do |mqa|
+	pipeline_creation_wizard.mingle_mqa.set  mqa
+end
+
+step 'Add new stage' do ||
+pipeline_creation_wizard.add_new_stage.click
+end
+
+step 'Set stage as <stage> - On Add new stage pop up' do |stage|
+	pipeline_creation_wizard.stage_on_popup.set stage
+end
+
+step 'Set job name as <job1> - on Job popup' do |job|
+	pipeline_creation_wizard.job_name_popup.set job
+end
+
+step 'Set command as <command> - On Job popup' do |command|
+	pipeline_creation_wizard.command_on_stage_popup.set command
+end

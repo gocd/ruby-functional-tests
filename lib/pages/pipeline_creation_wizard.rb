@@ -22,6 +22,7 @@ module Pages
     element :new_pipeline_name, '#pipeline_group_pipeline_name'
     element :pipeline_group, '#pipeline_group_group'
     element :next_to_settings, '#next_to_settings'
+    element :reset_button, '.reset_button'
 
     # pipeline materials
     element :material_type, '#material_type_options'
@@ -33,6 +34,8 @@ module Pages
     element :trigger_type_auto, '#auto'
     element :trigger_type_manual, '#manual'
     element :add_new_job, 'a.add_link'
+    element :add_new_stage, 'a.add_link'
+    element :stage_on_popup, "input[name='stage[name]']"
     
     #jobs
     element :job_name, "input[name='pipeline_group[pipeline][stage][jobs][][name]']"
@@ -41,7 +44,17 @@ module Pages
     element :job_name_on_popup, '#job_name'
     element :command_on_popup, "input[name='job[tasks][exec][command]']"
     element :resources_on_popup, '#job_resources'
+    element :job_name_popup, "input[name='stage[jobs][][name]']"
+    element :command_on_stage_popup, "input[name='stage[jobs][][tasks][exec][command]']"
     
+    #mingle project management
+    element :mingle_URL, '#pipeline_mingleConfig_baseUrl'
+    element :mingle_identifier, '#pipeline_mingleConfig_projectIdentifier'
+    element :mingle_mqa, '#pipeline_mingleConfig_mqlCriteria_mql'
+
+    
+
+
     
 
 
@@ -56,6 +69,42 @@ module Pages
     def set_material_url_for(material, url)
       page.find(".#{material}_url").set(url)
     end  
+
+    def get_pipeline_stages()
+
+      stages=[]
+      page.all('a.stage_name_link').each{|stage| 
+        stages.push(stage.text)}
+      stages
+    end
+
+    def can_move_stage?stage,direction
+      page.find(".stage_#{stage}").has_css?(".promote_#{direction}")
+    end
+
+    def move_stage stage,direction
+      page.find(".stage_#{stage}").find("button[title='Move #{direction.capitalize}']").click
+    end
+
+    def stage_has_approval_type?stage,type
+      page.find(".stage_#{stage}").has_css?(".approval_type",text:type)
+    end
+
+    def stage_has_jobs?stage,jobs
+      page.find(".stage_#{stage}").has_css?(".number_of_jobs",text:jobs)
+    end
+
+    def verify_reset_button_exist?
+       page.has_css?('.reset_button')
+    end
+
+    def open_tab(tab)
+      page.find('a',text:tab).click
+    end
+
+    def select_tracking_tool tool
+      page.find("input[title='#{tool.capitalize}']").click
+    end
 
   end
 end

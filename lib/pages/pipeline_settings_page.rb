@@ -43,6 +43,13 @@ module Pages
       add_variables.click
     end
 
+    def add_env(name, value)
+      env_row = page.find('#variables').all('tr').last
+      env_row.find("input[name='pipeline[variables][][name]']").set name
+      env_row.find("input[name='pipeline[variables][][valueForDisplay]']").set value
+      page.find('#variables').find('#add_variables').click
+    end
+
     def select_material(material_name)
       page.find('td a', text: material_name).click
     end

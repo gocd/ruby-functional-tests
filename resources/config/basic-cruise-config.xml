@@ -82,6 +82,50 @@
                 </jobs>
             </stage>
         </pipeline>
+        <pipeline name="edit-pipeline-with-3-stages">
+            <materials>
+                <git url="material-for-edit-pipeline-with-3-stages" dest="git" autoUpdate="false" materialName="git-material"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="sleep">
+                                <arg>5</arg>
+                                <runif status="passed"/>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+            <stage name="second">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="sleep">
+                                <arg>5</arg>
+                                <runif status="passed"/>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+            <stage name="third">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                           <exec command="sleep">
+                                <arg>5</arg>
+                                <runif status="passed"/>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>   
+        </pipeline>
     <pipeline name="pipeline-with-lock-all-manual" lockBehavior="lockOnFailure">
             <materials>
                 <git url="material-for-pipeline-with-lock-all-manual" dest="git" materialName="git" autoUpdate="false"/>

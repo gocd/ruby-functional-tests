@@ -22,7 +22,7 @@ tags: Clicky Admin
 * Looking at pipeline "hung-job-pipeline" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Verify stage "defaultStage" is "Building" on pipeline with label "1" - On Swift Dashboard page
-* Wait till "90" seconds for stage "defaultStage" shows status "Cancelled" - On Swift Dashboard page
+* Wait till "140" seconds for stage "defaultStage" shows status "Cancelled" - On Swift Dashboard page
 * On Job details page of pipeline "hung-job-pipeline" counter "1" stage "defaultStage" counter "1" job "defaultJob"
 * Verify console log contains message "Go cancelled this job as it has not generated any console output for more than 1 minute(s)"
 * Verify there are no warnings

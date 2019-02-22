@@ -95,26 +95,3 @@ step 'Enter Environment variable name <name> with value <value>' do |name,value|
   pipeline_settings_page.add_env(name, value)
 end
 
-step 'Verify that dirty check is invoked' do ||
-  assert_true pipeline_settings_page.unsaved_changes_dialog_box_is_exist?
-end
-
-step 'Cancel dirty check prompt' do ||
-  assert_true pipeline_settings_page.cancel_unsaved_changes_dialog_box
-end
-
-step 'Click reset' do ||
-  pipelineCreationWizard.reset_button.click
-end
-
-step 'Select automatic pipeline locking' do ||
-  pipeline_settings_page.pipeline_locking.click
-end
-
-step 'Proceed with dirty check prompt' do ||
-  pipeline_settings_page.proceed_unsaved_changes_dialog_box
-end
-
-step 'Verify heading <heading>' do |heading|
-  assert_true  pipeline_settings_page.heading_exist? heading
-end

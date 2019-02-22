@@ -11,9 +11,11 @@ Setup of contexts
 ConfigMergeGitConflict
 ----------------------
 
-tags: 7303, 7270, 7278
+tags: Config XML
 
 Merge Conflict
+* On Swift Dashboard Page
+* Looking at pipeline "middle-pipeline" - On Swift Dashboard page
 * On Admin page
 * Open "Config XML" tab
 
@@ -21,28 +23,30 @@ Merge Conflict
 * Delete pipeline "basic-pipeline" - Configure cruise using api
 
 * Change config to conflict
-* Save Changes
+* Click save - Already on config XML Tab
 * Verify that split pane appears
 * Verify error message "Configuration file has been modified by someone else." - Already On New Pipeline Group Popup
 
 
 Successfull merge
 * Rename pipeline "middle-pipeline" to "middle-pipeline-new"
-
-
-* Save Changes
+* Click save - Already on config XML Tab
 * Verify the message "Saved successfully. The configuration was modified by someone else, but your changes were merged successfully." is present
 
 Post validation failure
+* On Swift Dashboard Page
+* Looking at pipeline "upstream-pipeline" - On Swift Dashboard page
+* On Admin page
+* Open "Config XML" tab
 * Click edit Config XML
 * Delete pipeline "upstream-pipeline" - Configure cruise using api
-
 * Add downstream pipeline to create post validation conflict
-* Save Changes
+* Click save - Already on config XML Tab
 * Verify that split pane appears
-* Verify post validation error is shown with message "Pipeline \"${runtime_name:upstream-pipeline}\" does not exist. It is used from pipeline \"downstream-pipeline\"."
-* Click save - Already on Source Xml Tab
-* Verify config gets saved successfully
+* Verify post validation error is shown with message "Pipeline \"$upstream-pipeline$\" does not exist. It is used from pipeline \"downstream-pipeline\"."
+
+* Click save - Already on config XML Tab
+
 
 
 

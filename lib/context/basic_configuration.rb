@@ -351,11 +351,12 @@ module Context
     load_dom(current_config)
    end
 
-   def rename_pipeline pipeline, new_name
+   def rename_pipeline pipeline_name, new_name
     current_config = get_config_from_server
     current_config.xpath('//cruise/pipelines/pipeline').each{ |pipeline|
-      pipeline['name']=new_name if pipeline['name']==scenario_state.get(pipeline)
+      pipeline['name']=new_name if pipeline['name']==scenario_state.get(pipeline_name)
     }
+    load_dom(current_config)
    end
 
 

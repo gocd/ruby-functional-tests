@@ -93,21 +93,6 @@ module Pages
       page.find('td a', text:material).ancestor('tr').has_css?('td',text:url)
     end
 
-    def unsaved_changes_dialog_box_is_exist?
-      page.find('#ui-dialog-title-dirty_stopper_dialog',text:'Unsaved Changes')
-    end
-
-    def cancel_unsaved_changes_dialog_box
-      page.find("button[type='button']",text:Cancel)
-    end
-
-    def proceed_unsaved_changes_dialog_box
-      page.find("button[type='button']",text:Proceed)
-    end
-
-    def heading_exist? heading
-      page.has_css?("h3",text:heading)
-    end
     
 
   end

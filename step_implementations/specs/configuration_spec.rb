@@ -34,6 +34,10 @@ step 'ConflictingConfiguration - setup' do
   secure_configuration.setup 'conflict-cruise-config.xml', 'password.properties'
 end
 
+step 'ConflictingConfigurationForPipelineAdmin - setup' do
+  secure_configuration.setup 'conflict-cruise-config-for-pipelineAdmin.xml', 'password.properties'
+end
+
 step 'Template admin configuration - setup' do 
   secure_configuration.setup 'template-admin-cruise-config.xml', 'password.properties'
 end

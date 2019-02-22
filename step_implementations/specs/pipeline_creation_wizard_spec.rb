@@ -149,3 +149,11 @@ end
 step 'Set command as <command> - On Job popup' do |command|
 	pipeline_creation_wizard.command_on_stage_popup.set command
 end
+
+step 'Open stage <stage>' do |stage|
+	pipeline_creation_wizard.select_stage stage
+end
+
+step 'Select stage type as <type>' do |type|
+	pipeline_creation_wizard.select_approval_type type
+end

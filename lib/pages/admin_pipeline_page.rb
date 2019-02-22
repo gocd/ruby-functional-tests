@@ -29,6 +29,8 @@ module Pages
     element :set_group, '.ac_input'
     element :edit_group_name, 'input#group_group'
     element :save_server_configuration, '#submit_form'
+    element :edit_config_xml, '#edit_config'
+    
 
     def clone_pipeline(source_pipeline_name, new_pipeline_name, pipeline_group_name)
       click_on_clone_link_for(source_pipeline_name)
@@ -345,6 +347,28 @@ module Pages
     def set_hung_job_override_time time
       page.find("#hungjobs_overrideTimeout").click
       page.find("#server_configuration_form_jobTimeout").set time
+    end
+
+    def change_cofig_to_conflict
+      binding.pry
+      context=page.find('#content').text.gsub! 'replace-job', 'replace-job-conflict'
+      page.find('#content').set context
+    end
+
+    def verify_split_appears
+      assert_true page.has_css?('.conflicted_content')
+      assert_true pag.has_css?('.current_content')
+    end
+
+    def add_downstream_pipeline_to_create_post_validations
+     
+
+     context= "<pipeline name=downstream-pipeline>\n <materials>\n <pipeline pipelineName= \n #{scenarioState.pipelineNamed(upstream-pipeline)} \n
+                   stageName=defaultStage materialName=UP />\n </materials>\n <stage name=defaultStage>\n <approval type=manual/>\n <jobs>\n <job name=replace-job>
+                   \n <tasks>\n <exec command=ls/>\n </tasks>\n </job>\n </jobs>\n </stage>\n </pipeline>\n </pipelines>"
+                  
+       new_context=page.find('#content').text.sub! "</pipelines>", context
+       page.find('#content').set new_context        
     end
 
     private

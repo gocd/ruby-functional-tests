@@ -71,7 +71,6 @@ module Pages
     end  
 
     def get_pipeline_stages()
-
       stages=[]
       page.all('a.stage_name_link').each{|stage| 
         stages.push(stage.text)}
@@ -104,6 +103,14 @@ module Pages
 
     def select_tracking_tool tool
       page.find("input[title='#{tool.capitalize}']").click
+    end
+
+    def select_stage stage
+      page.find('a.stage_name_link',text:stage).click
+    end
+
+    def select_approval_type type
+      page.find("#{type}").click
     end
 
   end

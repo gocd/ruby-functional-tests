@@ -349,6 +349,15 @@ module Context
     approval_element= current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/stage[1]/approval")
     current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/stage[1]/approval").remove if !approval_element.empty?
     load_dom(current_config)
-  end
+   end
+
+   def rename_pipeline pipeline, new_name
+    current_config = get_config_from_server
+    current_config.xpath('//cruise/pipelines/pipeline').each{ |pipeline|
+      pipeline['name']=new_name if pipeline['name']==scenario_state.get(pipeline)
+    }
+   end
+
+
   end
 end

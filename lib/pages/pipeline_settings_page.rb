@@ -27,6 +27,7 @@ module Pages
     element :label_template, "input#pipeline_labelTemplate"
     element :material_name, "input[name='material[materialName]']"
     element :stage_name, "input[name='material[pipelineStageName]']"
+    element :pipeline_locking, "#pipeline_lockBehavior_lockonfailure"
 
     def message_displayed?(message)
       page.has_css?('.success', text: message, exact_text: true)
@@ -91,6 +92,23 @@ module Pages
     def url_exist_for_material? material,url
       page.find('td a', text:material).ancestor('tr').has_css?('td',text:url)
     end
+
+    def unsaved_changes_dialog_box_is_exist?
+      page.find('#ui-dialog-title-dirty_stopper_dialog',text:'Unsaved Changes')
+    end
+
+    def cancel_unsaved_changes_dialog_box
+      page.find("button[type='button']",text:Cancel)
+    end
+
+    def proceed_unsaved_changes_dialog_box
+      page.find("button[type='button']",text:Proceed)
+    end
+
+    def heading_exist? heading
+      page.has_css?("h3",text:heading)
+    end
+    
 
   end
 end

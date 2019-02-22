@@ -75,3 +75,15 @@ step 'Schedule should return code <status_code>' do |status_code|
     p "Schedule did not return #{status_code}"
   end
 end
+
+step 'Delete pipeline <pipeline> - Configure cruise using api' do |pipeline|
+  begin
+    p scenario_state.get(pipeline)
+    response =   RestClient.delete http_url("/api/admin/pipelines/#{scenario_state.get(pipeline)}"),
+    { content_type: :json, accept: 'application/vnd.go.cd.v6+json' }.merge(basic_configuration.header)
+    assert_true response.code == 200
+  rescue RestClient::ExceptionWithResponse => err
+    p "Delete Pipeline call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+  end
+    
+end

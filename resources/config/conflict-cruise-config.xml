@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *************************GO-LICENSE-START******************************
+ * Copyright 2017 ThoughtWorks, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *************************GO-LICENSE-END******************************* -->
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="115">
+  <server artifactsdir="artifacts" serverId="twist" tokenGenerationKey="token">
+    <security>
+      <roles>
+        <role name="admins">
+        <users>
+          <user>admin</user>
+          </users>
+        </role>
+        <role name="viewer">
+        <users>
+          <user>view</user>
+          <user>operate</user>
+          </users>
+        </role>
+        <role name="operator">
+        <users>
+          <user>operatorUser</user>
+          </users>
+        </role>
+       <role name="misc">
+        <users>
+          <user>group1View</user>
+          </users>
+        </role>
+      </roles>
+      <admins>
+        <role>admins</role>
+      </admins>
+        <authConfigs>
+            <authConfig id="abd33fcb-a1eb-4384-a255-025594538fd8" pluginId="cd.go.authentication.passwordfile">
+                <property>
+                    <key>PasswordFilePath</key>
+                    <value>$password_properties</value>
+                </property>
+            </authConfig>
+        </authConfigs>
+    </security>
+  </server>
+
+  <pipelines group="basic">
+	  <pipeline name="basic-pipeline">
+		<materials>
+			<git url="material-for-basic-pipeline" dest="git" autoUpdate="false"/>
+        </materials>
+        <stage name="defaultStage">
+        	<approval type="manual"/>
+        	<jobs>
+            	<job name="replace-job">
+                    <tasks>
+                        <exec command="ls"/>
+                    </tasks>
+                 </job>
+            </jobs>
+	  	</stage>
+	  </pipeline>
+	  <pipeline name="upstream-pipeline">
+		<materials>
+			<git url="material-for-basic-pipeline" dest="git" autoUpdate="false"/>
+        </materials>
+        <stage name="defaultStage">
+        	<approval type="manual"/>
+        	<jobs>
+            	<job name="defaultJob">
+                    <tasks>
+                        <exec command="ls"/>
+                    </tasks>
+                 </job>
+            </jobs>
+	  	</stage>
+	  </pipeline>
+	  <pipeline name="middle-pipeline">
+		<materials>
+			<git url="material-for-basic-pipeline" dest="git" autoUpdate="false"/>
+        </materials>
+        <stage name="defaultStage">
+        	<approval type="manual"/>
+        	<jobs>
+            	<job name="defaultJob">
+                    <tasks>
+                        <exec command="ls"/>
+                    </tasks>
+                 </job>
+            </jobs>
+	  	</stage>
+	  </pipeline>
+  </pipelines>
+
+</cruise>

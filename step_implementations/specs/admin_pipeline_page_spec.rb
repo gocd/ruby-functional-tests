@@ -335,3 +335,19 @@ end
 step 'Save Server Configuration' do ||
   admin_pipeline_page.save_server_configuration.click 
 end
+
+step 'Click edit Config XML' do ||
+  admin_pipeline_page.edit_config_xml.click
+end
+
+step 'Change config to conflict' do ||
+  admin_pipeline_page.change_cofig_to_conflict
+end
+
+step 'Verify that split pane appears' do ||
+  admin_pipeline_page.verify_split_appears
+end
+
+step 'Add downstream pipeline to create post validation conflict' do ||
+  admin_pipeline_page.add_downstream_pipeline_to_create_post_validations
+end

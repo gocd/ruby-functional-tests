@@ -30,8 +30,7 @@ step 'Verify plugin with identifier <id> is valid' do |id|
   assert_true plugins_spa_page.plugin_is_valid?(id)
 end
 
-step 'Verify plugin with identifier <id> has version <version> name <name> description <description> author <author> with enabled link to <link>' do |id, version, name, description, author, link|
-  assert_true plugins_spa_page.is_expected_version?(id, version)
+step 'Verify plugin with identifier <id> name <name> description <description> author <author> with enabled link to <link>' do |id, version, name, description, author, link|
   assert_true plugins_spa_page.is_expected_name?(id, name)
   plugins_spa_page.expand_plugin_config(id)
   assert_true plugins_spa_page.is_expected_description?(id, description)
@@ -40,8 +39,7 @@ step 'Verify plugin with identifier <id> has version <version> name <name> descr
   plugins_spa_page.collapse_plugin_config(id)
 end
 
-step 'Verify invalid plugin with identifier <id> has version <version> name <name> description <description> author <author> with enabled link to <link>' do |id, version, name, description, author, link|
-  assert_true plugins_spa_page.is_expected_version?(id, version)
+step 'Verify invalid plugin with identifier <id> name <name> description <description> author <author> with enabled link to <link>' do |id, version, name, description, author, link|
   assert_true plugins_spa_page.is_expected_name?(id, name)
   assert_true plugins_spa_page.is_expected_description?(id, description)
   assert_true plugins_spa_page.is_expected_author?(id, author)

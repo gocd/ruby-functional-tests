@@ -76,6 +76,7 @@ module Pages
     end
 
     def verify_scm_material_comment(material_type, comment)
+      
       comments = []
       pipeline_scm_material_modifications(material_type).each do |material|
         material.sibling('.list_table.material_modifications').all('.change').each { |change| comments.push(change.find('.comment').text) }

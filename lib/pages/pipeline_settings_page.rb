@@ -27,6 +27,7 @@ module Pages
     element :label_template, "input#pipeline_labelTemplate"
     element :material_name, "input[name='material[materialName]']"
     element :stage_name, "input[name='material[pipelineStageName]']"
+    element :pipeline_locking, "#pipeline_lockBehavior_lockonfailure"
 
     def message_displayed?(message)
       page.has_css?('.success', text: message, exact_text: true)
@@ -39,7 +40,7 @@ module Pages
     def add_parameter(name, value)
       params_row = page.find('.params.variables').find('.params').all('tr').last
       params_row.find("input[name='pipeline[params][][name]']").set name
-      params_row.find("input[name='pipeline[params][][valueForDisplay]']").set value
+      params_row.find("input[name='pipeline[params][][valueForDisplay]']").set new_pipeline_dashboard_page.sanitize_message(value)
       add_variables.click
     end
 

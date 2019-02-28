@@ -115,7 +115,6 @@ step 'Verify unlocking <pipeline> fails as pipeline is not found' do |pipeline|
   rescue RestClient::ExceptionWithResponse => err
     p err.response.body
   end
-  binding.pry
   assert_true JSON.parse(body).to_s.include?'resource you requested was not found'
 end
 

@@ -697,6 +697,21 @@
                 <pipeline pipelineName="fourth" stageName="defaultStage"/>
             </materials>
         </pipeline>
+         <pipeline name="another-sixth">
+            <materials>
+                <pipeline pipelineName="fourth" stageName="defaultStage"/>
+                <pipeline pipelineName="fifth" stageName="defaultStage"/>
+            </materials>
+            <stage name="defaultStage">
+                <jobs>
+                    <job name="job-of-last">
+                        <tasks>
+                            <exec command="ls"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
         <pipeline name="another-sixth-manual">
             <materials>
                 <pipeline pipelineName="fourth" stageName="defaultStage"/>

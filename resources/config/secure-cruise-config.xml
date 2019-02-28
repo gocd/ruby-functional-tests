@@ -532,7 +532,120 @@
                     </job>
                 </jobs>
             </stage>
-        </pipeline>
+        </pipeline>  
+    <pipeline name="pipeline-2-manual-stages-that-run-till-file-exists" lockBehavior="lockOnFailure">
+      <materials>
+        <git url="material-for-pipeline-2-manual-stages-that-run-till-file-exists" dest="git" autoUpdate="false" materialName="gitMaterial"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>   
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="secondStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+                  <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>    
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    </pipelines>
+    <pipelines group="lock-pipelines">
+        <pipeline name="basic-pipeline-slow" lockBehavior="lockOnFailure">
+      <materials>
+        <git url="material-for-basic-pipeline-slow" dest="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="sleep">
+                            <arg>60</arg>
+                            <runif status="passed"/>
+             </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="environment-pipeline">
+      <materials>
+        <git url="material-for-environment-pipeline" dest="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="short">
+            <tasks>
+              <exec command="sleep" args="12"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="secondStage">
+        <jobs>
+          <job name="long">
+            <tasks>
+              <exec command="sleep" args="40"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="lastStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="long">
+            <tasks>
+              <exec command="sleep" args="40"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="environment-pipeline-locked" lockBehavior="lockOnFailure">
+      <materials>
+        <git url="material-for-environment-pipeline-locked" dest="git-locked" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="short">
+            <tasks>
+              <exec command="sleep" args="12"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="secondStage">
+        <jobs>
+          <job name="long">
+            <tasks>
+              <exec command="sleep" args="40"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="lastStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="long">
+            <tasks>
+              <exec command="sleep" args="40"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
     </pipelines>
     <pipelines group="operable">
         <authorization>
@@ -677,6 +790,7 @@
             </stage>
         </pipeline>
 
+
         <pipeline name="pipeline-with-failing-stage" lockBehavior="lockOnFailure">
             <materials>
                 <git url="material-for-pipeline-with-failing-stage" dest="git" materialName="git" autoUpdate="false"/>
@@ -691,6 +805,19 @@
                 </job>
                 </jobs>
             </stage>
+            <stage name="secondStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="sleep">
+                            <arg>60</arg>
+                            <runif status="passed"/>
+                          </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
         </pipeline>
         <pipeline name="basic-pipeline">
             <materials>

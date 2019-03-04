@@ -335,3 +335,7 @@ end
 step 'Save Server Configuration' do ||
   admin_pipeline_page.save_server_configuration.click 
 end
+
+step 'Edit template <template>' do |template|
+  admin_pipeline_page.edit_template template
+end

@@ -347,6 +347,12 @@ module Pages
       page.find("#server_configuration_form_jobTimeout").set time
     end
 
+    def edit_template template
+      page.all('a.edit_icon').each{|edit|
+        edit.click if edit[:href].to_s.include?(template)
+      }
+    end
+
     private
 
     def row_for_pipeline(pipeline)

@@ -27,6 +27,7 @@ module Pages
     # pipeline materials
     element :material_type, '#material_type_options'
     element :pipeline_material, '#material_pipelineStageName'
+    element :branch_name, 'branch_name'
     element :next_to_materials, '#next_to_materials'
 
     # Stage details
@@ -104,6 +105,14 @@ module Pages
 
     def select_tracking_tool tool
       page.find("input[title='#{tool.capitalize}']").click
+    end
+
+    def select_stage stage
+      page.find('a.stage_name_link',text:stage).click
+    end
+
+    def unpause_pipeline
+      page.find("button[title='Unpause']").click
     end
 
   end

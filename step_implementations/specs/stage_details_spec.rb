@@ -218,3 +218,6 @@ step 'Click compare link - Already on stage Detail Page' do
   stage_details_page.compare.click
 end
 
+step 'Click on revision <revision> - Already On Stage Detail Materials Tab' do |revision|
+  stage_details_page.click_revision_link new_pipeline_dashboard_page.sanitize_message(revision)
+end

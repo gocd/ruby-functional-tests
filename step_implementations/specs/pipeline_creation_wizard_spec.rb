@@ -90,6 +90,10 @@ step 'Set url <url> for material  <material>' do |url,material|
 	pipeline_creation_wizard.set_material_url_for(material, url)
 end	
 
+step 'Set url <url> for material' do |url|
+	pipeline_creation_wizard.material_url.set(url)
+end	
+
 step 'Verify the stages are <stages>' do |stages|
 	pipeline_stages=pipeline_creation_wizard.get_pipeline_stages()
 	stages.split(',').each{|stage|

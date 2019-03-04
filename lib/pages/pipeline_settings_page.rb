@@ -40,7 +40,7 @@ module Pages
     def add_parameter(name, value)
       params_row = page.find('.params.variables').find('.params').all('tr').last
       params_row.find("input[name='pipeline[params][][name]']").set name
-      params_row.find("input[name='pipeline[params][][valueForDisplay]']").set value
+      params_row.find("input[name='pipeline[params][][valueForDisplay]']").set new_pipeline_dashboard_page.sanitize_message(value)
       add_variables.click
     end
 

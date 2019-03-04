@@ -28,6 +28,7 @@ module Pages
     element :material_type, '#material_type_options'
     element :pipeline_material, '#material_pipelineStageName'
     element :next_to_materials, '#next_to_materials'
+    element :material_url, "input[name='material[url]']"
 
     # Stage details
     element :stage_name, "input[name='pipeline_group[pipeline][stage][name]']"

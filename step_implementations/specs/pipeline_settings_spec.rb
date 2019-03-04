@@ -94,3 +94,4 @@ end
 step 'Enter Environment variable name <name> with value <value>' do |name,value|
   pipeline_settings_page.add_env(name, value)
 end
+

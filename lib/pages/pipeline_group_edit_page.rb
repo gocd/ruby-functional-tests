@@ -29,5 +29,8 @@ module Pages
     element :role_admin_privilege, "#adminPrivilege_ROLE_name"
     element :user_admin_privilege, "#adminPrivilege_USER_name"
 
+    def remove_permission_for_role permission,role
+      page.find("#{permission}Privilege_ROLE_#{role}").click if !page.find("#{permission}Privilege_ROLE_#{role}").checked?
+    end
   end
 end

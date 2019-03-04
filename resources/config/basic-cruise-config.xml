@@ -964,6 +964,24 @@
       </stage>
     </pipeline>
     </pipelines>
+    <pipelines group="params_group">
+    <pipeline name="template-params-pipeline-trunk" template="template-with-param">
+        	<params>
+                <param name="WORKING_DIR">trunk-dir</param>               
+            </params>  
+ 			<materials>
+                <git url="material-for-template-params-pipeline-trunk" materialName="git-trunk"/>
+            </materials>                      
+        </pipeline>
+        <pipeline name="template-params-pipeline-branch" template="template-with-param">
+        	<params>
+                <param name="WORKING_DIR">branch-dir</param>                
+            </params>
+ 			<materials>
+                    <git url="material-for-template-params-pipeline-branch" materialName="git-branch"/>
+            </materials>                        
+        </pipeline>
+    </pipelines>
     <templates>
             <pipeline name="dependency-pipeline-template">
             <stage name="defaultStage">
@@ -989,6 +1007,19 @@
                 </jobs>
             </stage>
         </pipeline>
+
+        <pipeline name="template-with-param">
+          <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="echo" args="#{WORKING_DIR}"/>
+                        </tasks>                       
+                    </job>
+                </jobs>
+            </stage>
+         </pipeline>
 
     </templates>
 

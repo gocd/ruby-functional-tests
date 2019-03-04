@@ -237,7 +237,6 @@ module Pages
    end
 
    def click_revision_link(rev)
-    binding.pry
     page.find('a', text: rev).click
    end
 

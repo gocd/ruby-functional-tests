@@ -623,6 +623,51 @@
                 </jobs>
             </stage>
         </pipeline>
+        <pipeline name="mingle-config-parent" labeltemplate="hello-world-${COUNT}">
+            <materials>
+                <git url="material-for-mingle-config-parent" dest="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="ls"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+        <pipeline name="pipeline-with-mingle-config">
+            <mingle baseUrl="https://some.mingle.machine:1000/mingle" projectIdentifier="some-go-branch">
+                <mqlGroupingConditions>foo != not(foo)</mqlGroupingConditions>
+            </mingle>
+            <materials>
+                <git url="material-for-pipeline-with-mingle-config1" dest="git0" autoUpdate="false" materialName="pipeline-git0"/>
+                <git url="material-for-pipeline-with-mingle-config2" dest="git" materialName="pipeline-git"/>
+                <pipeline pipelineName="mingle-config-parent" stageName="defaultStage"/> 
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="ls"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+            <stage name="secondStage">            
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="ls"/>
+                        </tasks>
+                      
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
     </pipelines>
     <pipelines group="dependency-group">
     <pipeline name="first" template="dependency-pipeline-template">
@@ -696,6 +741,21 @@
             <materials>
                 <pipeline pipelineName="fourth" stageName="defaultStage"/>
             </materials>
+        </pipeline>
+         <pipeline name="another-sixth">
+            <materials>
+                <pipeline pipelineName="fourth" stageName="defaultStage"/>
+                <pipeline pipelineName="fifth" stageName="defaultStage"/>
+            </materials>
+            <stage name="defaultStage">
+                <jobs>
+                    <job name="job-of-last">
+                        <tasks>
+                            <exec command="ls"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
         </pipeline>
         <pipeline name="another-sixth-manual">
             <materials>

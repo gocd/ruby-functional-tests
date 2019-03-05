@@ -29,6 +29,7 @@ module Pages
     element :pipeline_material, '#material_pipelineStageName'
     element :branch_name, 'branch_name'
     element :next_to_materials, '#next_to_materials'
+    element :material_url, "input[name='material[url]']"
 
     # Stage details
     element :stage_name, "input[name='pipeline_group[pipeline][stage][name]']"
@@ -72,7 +73,6 @@ module Pages
     end  
 
     def get_pipeline_stages()
-
       stages=[]
       page.all('a.stage_name_link').each{|stage| 
         stages.push(stage.text)}
@@ -111,8 +111,13 @@ module Pages
       page.find('a.stage_name_link',text:stage).click
     end
 
+
     def unpause_pipeline
       page.find("button[title='Unpause']").click
+    end
+
+    def select_approval_type type
+      page.find("#{type}").click
     end
 
   end

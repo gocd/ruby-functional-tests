@@ -46,6 +46,9 @@ step 'Create a <file> file and validate pipeline completed' do |file|
   go_agents.delete_stopjobs
 end
 
+step 'Delete stopjob file' do ||
+  go_agents.delete_stopjobs
+end
 
 step 'Wait for <duration> seconds' do |duration|
   sleep duration.to_i

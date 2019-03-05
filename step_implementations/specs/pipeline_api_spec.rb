@@ -76,9 +76,51 @@ step 'Schedule should return code <status_code>' do |status_code|
   end
 end
 
+step 'Verify can unlock <pipeline>' do |pipeline|
+ body= begin
+    response = RestClient.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"),'',
+        { content_type: :json, accept: 'application/vnd.go.cd.v1+json','X-GoCD-Confirm': 'true' }.merge(basic_configuration.header)  
+  rescue RestClient::ExceptionWithResponse => err
+    p err.response.body
+  end
+ 
+  assert_true JSON.parse(body).to_s.include?"Pipeline lock released for #{scenario_state.get(pipeline)}"
+end
+
+step 'Verify unauthorized to unlock <pipeline>' do |pipeline|
+  body=begin
+    response = RestClient.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"),'',
+        { content_type: :json, accept: 'application/vnd.go.cd.v1+json','X-GoCD-Confirm': 'true'}.merge(basic_configuration.header)    
+  rescue RestClient::ExceptionWithResponse => err
+    p err.response.body
+  end
+  assert_true JSON.parse(body).to_s.include?'You are not authorized to perform this action'
+end
+
+step 'Verify unlocking <pipeline> is not acceptable because <message>' do |pipeline,message|
+  body=begin
+    response = RestClient.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"),'',
+        { content_type: :json, accept: 'application/vnd.go.cd.v1+json','X-GoCD-Confirm': 'true' }.merge(basic_configuration.header)
+  rescue RestClient::ExceptionWithResponse => err
+    p err.response.body
+  end
+  assert_true JSON.parse(body).to_s.include?message
+end
+
+step 'Verify unlocking <pipeline> fails as pipeline is not found' do |pipeline|
+  body=begin
+    response = RestClient.post http_url("/api/pipelines/#{pipeline}/unlock"),'',
+        { content_type: :json, accept: 'application/vnd.go.cd.v1+json','X-GoCD-Confirm': 'true' }.merge(basic_configuration.header)
+       
+  rescue RestClient::ExceptionWithResponse => err
+    p err.response.body
+  end
+  assert_true JSON.parse(body).to_s.include?'resource you requested was not found'
+end
+
+
 step 'Delete pipeline <pipeline> - Configure cruise using api' do |pipeline|
   begin
-    p scenario_state.get(pipeline)
     response =   RestClient.delete http_url("/api/admin/pipelines/#{scenario_state.get(pipeline)}"),
     { content_type: :json, accept: 'application/vnd.go.cd.v6+json' }.merge(basic_configuration.header)
     assert_true response.code == 200
@@ -87,3 +129,4 @@ step 'Delete pipeline <pipeline> - Configure cruise using api' do |pipeline|
   end
     
 end
+

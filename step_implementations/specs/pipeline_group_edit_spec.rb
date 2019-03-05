@@ -31,3 +31,7 @@ end
 step "Save pipeline group permissions" do |i|
   pipeline_group_edit_page.save.click
 end
+
+step 'Remove permission <permission> for role <role>' do |permission,role|
+  pipeline_group_edit_page.remove_permission_for_role permission,role
+end

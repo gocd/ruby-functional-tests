@@ -235,3 +235,8 @@ end
 step 'Select never option' do ||
   job_settings_page.set_never.click
 end
+
+step 'set job resources as <resources>' do |resources|
+  resources.split(',').each{|resource|
+     job_settings_page.resources_on_popup.set resource}   
+end

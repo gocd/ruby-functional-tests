@@ -115,5 +115,13 @@ module Pages
       return users;
      end
 
+     def auto_selected?
+      page.find('#auto').checked?
+     end
+
+     def set_approval_type type
+      page.find("##{type}").click
+     end
+
     end
 end

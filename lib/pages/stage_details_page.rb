@@ -231,11 +231,14 @@ module Pages
      end
    end
 
-    def select_counter_from_history counter
+   def select_counter_from_history counter
       page.find('span.pipeline_label.wrapped_word',text:counter).hover
       page.find('span.pipeline_label.wrapped_word',text:counter).ancestor('.stage').find('.compare_pipeline a').click
-    end
+   end
 
+   def click_revision_link(rev)
+    page.find('a', text: rev).click
+   end
 
     private
 

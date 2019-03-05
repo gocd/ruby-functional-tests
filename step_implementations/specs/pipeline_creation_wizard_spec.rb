@@ -158,6 +158,15 @@ step 'Open stage <stage>' do |stage|
 	pipeline_creation_wizard.select_stage stage
 end
 
+
+step 'Set branch as <branch>' do |branch|
+	pipeline_creation_wizard.branch_name.set branch
+end
+
+step 'Unpause pipeline - On pipeline creation page' do ||
+	pipeline_creation_wizard.unpause_pipeline
+end
+
 step 'Select stage type as <type>' do |type|
 	pipeline_creation_wizard.select_approval_type type
 end

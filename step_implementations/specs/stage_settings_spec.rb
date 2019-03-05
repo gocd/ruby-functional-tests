@@ -89,4 +89,15 @@ step 'On Stage settings page of pipeline <pipeline_name> stage <stage_name>' do 
   step 'Verify message <message> shows up - On Permission tab' do |message|
     assert_true stage_settings_page.has_message?message
   end
-  
+
+  step 'Verify auto aproval type is selected' do ||
+    assert_true stage_settings_page.auto_selected?
+  end
+
+  step 'Change approval type to <type>' do |type|
+    stage_settings_page.set_approval_type type
+  end
+
+  step 'Open tab <tab> - On Template Page' do |tab|
+    stage_settings_page.open_tab
+  end

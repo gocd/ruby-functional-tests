@@ -350,6 +350,13 @@ module Pages
       page.find("#server_configuration_form_jobTimeout").set time
     end
 
+
+    def edit_template template
+      page.all('a.edit_icon').each{|edit|
+        edit.click if edit[:href].to_s.include?(template)
+      }
+    end
+
     def change_cofig_to_conflict
       context=page.find('#content').text.gsub! 'replace-job', 'replace-job-conflict'
       page.find('#content').set context

@@ -27,6 +27,7 @@ module Pages
     # pipeline materials
     element :material_type, '#material_type_options'
     element :pipeline_material, '#material_pipelineStageName'
+    element :branch_name, 'branch_name'
     element :next_to_materials, '#next_to_materials'
     element :material_url, "input[name='material[url]']"
 
@@ -108,6 +109,11 @@ module Pages
 
     def select_stage stage
       page.find('a.stage_name_link',text:stage).click
+    end
+
+
+    def unpause_pipeline
+      page.find("button[title='Unpause']").click
     end
 
     def select_approval_type type

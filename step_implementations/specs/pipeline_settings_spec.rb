@@ -47,6 +47,10 @@ step 'Check connectivity should be successful - Already on Git Material Creation
   assert_true  pipeline_settings_page.connection_ok?
 end
 
+step 'Check connectivity should be failed - Already on Git Material Creation Popup' do ||
+  pipeline_settings_page.check_connection.click 
+  assert_false pipeline_settings_page.connection_ok?
+end
 step 'Select add new material of type <type>' do |type|
   pipeline_settings_page.select_add_new_material type
 end
@@ -94,3 +98,4 @@ end
 step 'Enter Environment variable name <name> with value <value>' do |name,value|
   pipeline_settings_page.add_env(name, value)
 end
+

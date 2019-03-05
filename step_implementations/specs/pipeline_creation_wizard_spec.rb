@@ -90,6 +90,10 @@ step 'Set url <url> for material  <material>' do |url,material|
 	pipeline_creation_wizard.set_material_url_for(material, url)
 end	
 
+step 'Set url <url> for material' do |url|
+	pipeline_creation_wizard.material_url.set(url)
+end	
+
 step 'Verify the stages are <stages>' do |stages|
 	pipeline_stages=pipeline_creation_wizard.get_pipeline_stages()
 	stages.split(',').each{|stage|
@@ -148,4 +152,12 @@ end
 
 step 'Set command as <command> - On Job popup' do |command|
 	pipeline_creation_wizard.command_on_stage_popup.set command
+end
+
+step 'Open stage <stage>' do |stage|
+	pipeline_creation_wizard.select_stage stage
+end
+
+step 'Select stage type as <type>' do |type|
+	pipeline_creation_wizard.select_approval_type type
 end

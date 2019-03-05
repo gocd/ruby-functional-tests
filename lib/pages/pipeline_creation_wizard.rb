@@ -28,6 +28,7 @@ module Pages
     element :material_type, '#material_type_options'
     element :pipeline_material, '#material_pipelineStageName'
     element :next_to_materials, '#next_to_materials'
+    element :material_url, "input[name='material[url]']"
 
     # Stage details
     element :stage_name, "input[name='pipeline_group[pipeline][stage][name]']"
@@ -71,7 +72,6 @@ module Pages
     end  
 
     def get_pipeline_stages()
-
       stages=[]
       page.all('a.stage_name_link').each{|stage| 
         stages.push(stage.text)}
@@ -104,6 +104,14 @@ module Pages
 
     def select_tracking_tool tool
       page.find("input[title='#{tool.capitalize}']").click
+    end
+
+    def select_stage stage
+      page.find('a.stage_name_link',text:stage).click
+    end
+
+    def select_approval_type type
+      page.find("#{type}").click
     end
 
   end

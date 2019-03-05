@@ -335,3 +335,35 @@ end
 step 'Save Server Configuration' do ||
   admin_pipeline_page.save_server_configuration.click 
 end
+
+step 'Click edit Config XML' do ||
+  admin_pipeline_page.edit_config
+end
+
+step 'Change config to conflict' do ||
+  admin_pipeline_page.change_cofig_to_conflict
+end
+
+step 'Rename pipeline <pipeline> to <new_pipeline> - Already On Pipeline Group Xml' do |pipeline,new_pipeline|
+  admin_pipeline_page.rename_pipeline_on_config_xml_page pipeline, new_pipeline
+end
+
+step 'Verify that split pane appears' do ||
+  admin_pipeline_page.verify_split_appears
+end
+
+step 'Add downstream pipeline to create post validation conflict' do ||
+  admin_pipeline_page.add_downstream_pipeline_to_create_post_validations
+end
+
+step 'Verify post validation error is shown with message <message>' do |message|
+  assert_true admin_pipeline_page.post_validation_error_message_exist?message
+end
+
+step 'Click save - Already on config XML Tab' do
+  admin_pipeline_page.save_config.click
+end
+
+step 'Click Cancel - Already on group admin config XML Tab' do 
+  admin_pipeline_page.cancel_config.click
+end

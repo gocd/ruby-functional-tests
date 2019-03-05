@@ -30,6 +30,14 @@ step 'Secure Configuration - setup' do
   secure_configuration.setup 'secure-cruise-config.xml', 'password.properties'
 end
 
+step 'ConflictingConfiguration - setup' do
+  secure_configuration.setup 'conflict-cruise-config.xml', 'password.properties'
+end
+
+step 'ConflictingConfigurationForPipelineAdmin - setup' do
+  secure_configuration.setup 'conflict-cruise-config-for-pipelineAdmin.xml', 'password.properties'
+end
+
 step 'Template admin configuration - setup' do 
   secure_configuration.setup 'template-admin-cruise-config.xml', 'password.properties'
 end
@@ -122,4 +130,8 @@ end
 
 step 'Verify that role <role> is authorized to operate on the stage <stage> of pipeline <pipeline>' do |role,stage,pipeline|
   assert_true basic_configuration.stage_is_authorised_with_role?(role,stage,pipeline).include?role
+end
+
+step 'Rename pipeline <pipeline> to <new_pipeline>' do |pipeline,new_pipeline|
+  basic_configuration.rename_pipeline pipeline, new_pipeline
 end

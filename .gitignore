@@ -8,6 +8,5 @@ out/
 vendor/bundle/
 .bundle/config
 .gauge/
-*.lock
 .vscode
 screenshots/*.png

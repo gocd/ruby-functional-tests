@@ -10,7 +10,7 @@ Setup of contexts
 PauseNewPipelineAfterCreation
 -----------------------------
 
-tags: Clicky Admin
+tags: wip
 
 * Start add new pipeline in pipeline group "basic"
 * Enter new pipeline name as "newpipeline"

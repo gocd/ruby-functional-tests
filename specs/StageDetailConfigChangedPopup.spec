@@ -11,7 +11,7 @@ Setup of contexts
 StageDetailConfigChangedPopup
 -----------------------------
 
-tags: Stage Details
+tags: wip
 
 * On Swift Dashboard Page
 * Looking at pipeline "edit-pipeline" - On Swift Dashboard page
@@ -25,6 +25,7 @@ tags: Stage Details
 
 * On Swift Dashboard Page
 * Trigger pipeline - On Swift Dashboard page
+* Wait till pipeline start building - On Swift Dashboard page
 * Verify stage "defaultStage" is "Building" - On Swift Dashboard page
 * On stage details page "overview" tab for "edit-pipeline" label "2" stage name "defaultStage" counter "1"
 

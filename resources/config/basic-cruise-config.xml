@@ -775,6 +775,32 @@
         </pipeline>
     </pipelines>
     <pipelines group="artifact_md5_verification">
+    <pipeline name="artifact-md5-up">
+			<materials>
+                <git url="material-for-junit-failures" materialName="junit-failures-material" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <jobs>
+                    <job name="defaultJob">
+                        <artifacts>
+                            <artifact type="build" src="abc.txt"/>
+                            <artifact type="build" src="baz"/>
+                        </artifacts>
+                    </job>
+                </jobs>
+            </stage>
+            <stage name="secondStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                        	 <fetchartifact artifactOrigin="gocd" stage="defaultStage" job="defaultJob" srcfile="abc.txt" dest="xyz.txt"/>
+                        	 <fetchartifact artifactOrigin="gocd" stage="defaultStage" job="defaultJob" srcdir="baz" dest="foo/bar"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
         <pipeline name="artifact_md5_verification-pipeline-1">
             <materials>
                 <git url="material-for-artifact_md5_verification-pipeline-1" dest="git" materialName="git" autoUpdate="false"/>

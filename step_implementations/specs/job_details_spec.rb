@@ -14,6 +14,7 @@
 # limitations under the License.
 ##########################################################################
 step 'On Job details page of pipeline <pipeline_name> counter <counter> stage <stage_name> counter <counter> job <job_name>' do |pipeline_name, pipeline_counter, stage_name, stage_counter, job_name|
+ binding.pry
   job_details_page.load(pipeline_name: scenario_state.get(pipeline_name), pipeline_counter: pipeline_counter, stage_name: stage_name, stage_counter: stage_counter, job_name: job_name)
 end
 
@@ -141,3 +142,4 @@ message_2="Fetching artifact [#{artifact_name}] from [#{stage_locator}]"
 job_details_page.console_has_message?(message_1)
 job_details_page.console_has_message?(message_2)
 end
+

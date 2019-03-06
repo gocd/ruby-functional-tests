@@ -73,6 +73,7 @@ module Context
           materials['pipelineName'] = pipeline['name'] if materials['pipelineName'] == initial_name
         end
         config_dom.xpath('//fetchartifact').each do |fetch|
+         if fetch.attributes.include?'pipeline'
           if fetch['pipeline'].include?('/')
             fetch['pipeline'].split('/').each{|fetch_pipeline|
               if fetch_pipeline.eql?(initial_name)
@@ -83,7 +84,8 @@ module Context
           else
               fetch['pipeline'] = pipeline['name'] if fetch['pipeline'] == initial_name
           end
-            end
+         end 
+        end
         config_dom.xpath('//environments/environment/pipelines/pipeline').each do |env|
           env['name'] = pipeline['name'] if env['name'] == initial_name
         end

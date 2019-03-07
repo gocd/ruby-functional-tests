@@ -55,6 +55,11 @@
             </admins>
         </security>
     </server>
+    <config-repos>
+       <config-repo id="config-repo" pluginId="json.config.plugin">
+         <git url="material-for-pipeline-git-config-repo" />
+       </config-repo>
+    </config-repos>
     <pipelines group="VSM.Analytics">
      <authorization>
       <view>
@@ -532,7 +537,7 @@
                     </job>
                 </jobs>
             </stage>
-        </pipeline>  
+        </pipeline>
     <pipeline name="pipeline-2-manual-stages-that-run-till-file-exists" lockBehavior="lockOnFailure">
       <materials>
         <git url="material-for-pipeline-2-manual-stages-that-run-till-file-exists" dest="git" autoUpdate="false" materialName="gitMaterial"/>
@@ -542,7 +547,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>   
+              <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
             </tasks>
           </job>
         </jobs>
@@ -552,7 +557,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-                  <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>    
+                  <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
             </tasks>
           </job>
         </jobs>
@@ -858,6 +863,11 @@
         <git url="material-for-first-pipeline" dest="git" materialName="git-first-pipeline" autoUpdate="false"/>
       </materials>
     </pipeline>
+    <pipeline name="pipeline-in-environment" template="simple-pass">
+      <materials>
+        <git url="material-for-pipeline-in-environment" dest="git" materialName="git-pipeline-in-environment" autoUpdate="false"/>
+      </materials>
+    </pipeline>
   </pipelines>
 
   <pipelines group="group-for-dependency-walk-2">
@@ -918,13 +928,13 @@
   </templates>
     <environments>
   		<environment name="uat">
-  		    <environmentvariables>
-  		  		<variable name="ENV_LEVEL_VARIABLE"><value>environment</value></variable>
-  		  		<variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_PIPELINE"><value>does-not-matter</value></variable>
-  		  		<variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE"><value>does-not-matter</value></variable>
-  		  		<variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>does-not-matter</value></variable>
-  		  		<variable name="ENVIRONMENT_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
-			</environmentvariables>
+  		  <environmentvariables>
+          <variable name="ENV_LEVEL_VARIABLE"><value>environment</value></variable>
+          <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_PIPELINE"><value>does-not-matter</value></variable>
+          <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE"><value>does-not-matter</value></variable>
+          <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>does-not-matter</value></variable>
+          <variable name="ENVIRONMENT_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
+			  </environmentvariables>
   		</environment>
   	</environments>
 </cruise>

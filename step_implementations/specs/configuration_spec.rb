@@ -30,15 +30,7 @@ step 'Secure Configuration - setup' do
   secure_configuration.setup 'secure-cruise-config.xml', 'password.properties'
 end
 
-step 'ConflictingConfiguration - setup' do
-  secure_configuration.setup 'conflict-cruise-config.xml', 'password.properties'
-end
-
-step 'ConflictingConfigurationForPipelineAdmin - setup' do
-  secure_configuration.setup 'conflict-cruise-config-for-pipelineAdmin.xml', 'password.properties'
-end
-
-step 'Template admin configuration - setup' do 
+step 'Template admin configuration - setup' do
   secure_configuration.setup 'template-admin-cruise-config.xml', 'password.properties'
 end
 
@@ -58,7 +50,7 @@ step 'Config repo git repository - setup' do
   basic_configuration.setup 'with-config-repo-cruise-config.xml'
 end
 
-step 'AuthPluginsConfiguration - setup' do
+step 'Auth Plugins Configuration - setup' do
   secure_configuration.setup 'auth-plugins-config.xml', 'password.properties'
 end
 

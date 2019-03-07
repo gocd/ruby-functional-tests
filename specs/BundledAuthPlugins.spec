@@ -7,7 +7,7 @@ tags: bundled-auth-plugins
 
 Setup of contexts
 * Ldap server - start
-* AuthPluginsConfiguration - setup
+* Auth Plugins Configuration - setup
 * Login as "admin" - setup
 * Using pipeline "basic-pipeline" - setup
 * With "1" live agents - setup

@@ -8,7 +8,7 @@ tags: roles-spa, spa
 Setup of contexts
 * Ldap server - stop
 * Ldap server - start
-* AuthPluginsConfiguration - setup
+* Auth Plugins Configuration - setup
 * Login as "admin" - setup
 * Capture go state "BundledAuthPlugins" - setup
 

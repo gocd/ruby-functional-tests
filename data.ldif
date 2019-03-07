@@ -51,5 +51,29 @@ sn: LastName_perf_tester
 givenName: User_perf_tester
 cn: User_$user LastName_perf_tester
 displayName: User_perf_tester LastName_perf_tester
-userPassword: (W8{TsJq3frogv
+userPassword: badger
 
+
+dn: uid=group_user,ou=Groups,dc=tests,dc=com
+objectClass: top
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+uid: group_user
+sn: Group_user
+givenName: Group_user
+cn: Group_user
+displayName: Group_user1
+userPassword: badger
+
+dn: uid=group_user1,ou=Groups,dc=tests,dc=com
+objectClass: top
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+uid: group_user1
+sn: Group_user
+givenName: Group_user
+cn: Group_user
+displayName: Group_user
+userPassword: badger

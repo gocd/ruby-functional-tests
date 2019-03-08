@@ -85,6 +85,9 @@ step 'Try to delete artifact store <artifact_store_id>' do |artifact_store_id|
   try_api_call(method(:delete), artifact_store_id)
 end
 
+
+private
+
 def try_api_call(func, arg = nil)
   begin
     if arg

@@ -14,7 +14,6 @@
 # limitations under the License.
 ##########################################################################
 step 'On Job details page of pipeline <pipeline_name> counter <counter> stage <stage_name> counter <counter> job <job_name>' do |pipeline_name, pipeline_counter, stage_name, stage_counter, job_name|
- binding.pry
   job_details_page.load(pipeline_name: scenario_state.get(pipeline_name), pipeline_counter: pipeline_counter, stage_name: stage_name, stage_counter: stage_counter, job_name: job_name)
 end
 
@@ -142,4 +141,40 @@ message_2="Fetching artifact [#{artifact_name}] from [#{stage_locator}]"
 job_details_page.console_has_message?(message_1)
 job_details_page.console_has_message?(message_2)
 end
+
+step 'Verify in console that artifact <artifact> was uploaded to <dest>' do |artifact,dest|
+  job_details_page.console_has_message?("/#{artifact} to #{dest}")
+end
+
+step 'Verify artifacts tab contains file <file>' do |file|
+  assert_true job_details_page.file_exist_in_artifacts_tab? file
+end
+
+step 'Verify artifacts tab contains file <file> in dir <dir>' do |file,dir|
+ assert_true job_details_page.file_exist_in_dir_in_artifacts_tab? file,dir
+end
+
+step 'For pipeline <pipeline> label <pipeline_label> stage <stage> counter <counter> job <job>' do |pipeline,pipeline_label,stage,counter,job|
+scenario_state.put("locator","#{scenario_state.get(pipeline)}/#{pipeline_label}/#{stage}/#{counter}/#{job}")
+end
+
+step 'Append <text> to artifact <artifact> and Verify return code is <code> - Using Artifact Api' do |text,artifact,code|
+  f = File.new('test.txt', 'w')
+  f.write(text)
+  f.close  
+  payload={:upload => {:file => File.open(f, 'rb')} }.to_json
+  actual_code=RestClient.post http_url("/files/#{scenario_state.get('locator')}/#{artifact}"),payload ,
+  {content_type: :json }.merge(basic_configuration.header)
+  assert_true actual_code.code==code.to_i
+end
+
+step 'Create artifact <artifact> and Verify return code is <code> - Using Artifact Api' do |artifact,code|
+f = File.new(artifact, 'w')
+f = File.new(artifact, 'rb')
+payload = {:multipart => true, file:f}
+actual_code=RestClient.post http_url("/files/#{scenario_state.get('locator')}/#{artifact}"),payload ,
+{content_type: :json,Confirm: true }.merge(basic_configuration.header)
+assert_true actual_code.code==code.to_i
+end
+
 

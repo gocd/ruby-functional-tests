@@ -109,5 +109,18 @@ module Pages
       page.has_link?('a',:href => "/go/pipelines/value_stream_map/#{scenario_state.get(pipeline)}/#{label}")
     end
 
+    def file_exist_in_dir_in_artifacts_tab? file,dir
+     if page.has_css?(".opened_directory a",text:dir)
+      page.has_css?('.artifact a',text:file)
+     else 
+      page.find(".directory a",text:dir).click
+      page.has_css?('.artifact a',text:file)
+     end 
+    end
+
+    def file_exist_in_artifacts_tab? file
+      page.has_css?('.artifact a',text:file)
+    end
+
   end
 end

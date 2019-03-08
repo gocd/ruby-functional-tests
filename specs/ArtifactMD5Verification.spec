@@ -11,7 +11,7 @@ Setup of contexts
 ArtifactMD5Verification
 -----------------------
 
-tags: Agent, Artifacts, MD5, stage1
+tags: Artifacts, MD5
 
 
 
@@ -29,31 +29,25 @@ tags: Agent, Artifacts, MD5, stage1
 * On Job details page of pipeline "artifact-md5-up" counter "1" stage "defaultStage" counter "1" job "defaultJob"
 
 * Verify in console that artifact "abc.txt" was uploaded to "[defaultRoot]"
-* Verify artifacts tab contains file "abc.txt"
 * Verify in console that artifact "baz" was uploaded to "[defaultRoot]"
+* Open "Artifacts" tab - On Job details page
+* Verify artifacts tab contains file "abc.txt"
 * Verify artifacts tab contains file "new_artifact.txt" in dir "baz"
 * Verify artifacts tab contains file "another_artifact.txt"
 * Verify artifacts tab contains file "md5.checksum" in dir "cruise-output"
 
-* Navigate to stage "defaultStage" of run "1" having counter "1"
+* On stage details page "overview" tab for "artifact-md5-up" label "1" stage name "defaultStage" counter "1"
 
-* Trigger stage "secondStage"
 
-* On Pipeline Dashboard Page
-* Verify stage "2" is "Passed" on pipeline with label "1"
+* Trigger stage "secondStage" - On stage details page
 
-* Navigate to stage "secondStage" of run "1" having counter "1"
+* On Swift Dashboard Page
+* Verify stage "secondStage" is "passed" - On Swift Dashboard page
 
-* Go to jobs tab
-* Navigate to job "defaultJob"
-
-* Open console tab
+* On Job details page of pipeline "artifact-md5-up" counter "1" stage "secondStage" counter "1" job "defaultJob"
 * Verify console log contains message "abc.txt] after verifying the integrity of its contents."
 * Verify console log contains message "foo/bar] after verifying the integrity of its contents."
 * Verify console log does not contains message "Go could not verify the integrity of its contents."
-
-
-
 
 
 Teardown of contexts

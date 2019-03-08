@@ -87,6 +87,19 @@ module Context
       end
     end
 
+    def create_new_directory_and_add_file(filename,directory_name)
+      cd(@path.to_s) do 
+
+        mkdir_p(directory_name)
+         cd(directory_name) do 
+           sh "touch #{filename}"
+         end
+        Open3.popen3(%(git add . && git commit -m "Adding new file #{filename} in #{directory_name}")) do |_stdin, _stdout, stderr, wait_thr|
+          raise "Failed to commit to git repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
+        end
+      end
+    end
+
     def latest_revision
       cd(@path.to_s) do
         stdout, _stdeerr, _status = Open3.capture3(%(git rev-parse HEAD))

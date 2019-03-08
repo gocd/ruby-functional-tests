@@ -352,3 +352,7 @@ step 'Verify auto scheduling checkbox is disabled' do ||
 
   assert_true new_pipeline_dashboard_page.auto_sceduling_enabled?
 end
+step 'Commit file <file> to directory <dir>' do |file,dir|
+  Context::GitMaterials.new(scenario_state.get("current_material_url")).create_new_directory_and_add_file(file,dir )
+end
+

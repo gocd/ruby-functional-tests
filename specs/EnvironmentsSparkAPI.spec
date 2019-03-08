@@ -21,7 +21,7 @@ tags: environment_api
 
 * Get environment "from-api" should return entity "pipelines" with "name: pipeline-in-environment"
 * Get environment "from-api" should return entity "environment_variables" with "name: non-secured, value: non-secured-value"
-* Get environment "from-api" should return entity "environment_variables" with "name: secured, value: encryptedValue"
+ Get environment "from-api" should return entity "environment_variables" with "name: secured, value: encryptedValue"
 
 * Create a new config repo environment with name "config-repo-environment" on repo "1"
 * Verify environment "config-repo-environment" shows up on the environments page

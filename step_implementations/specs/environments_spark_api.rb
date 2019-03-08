@@ -45,9 +45,9 @@ step 'Get environment <name> should return entity <entity> with <values>' do |na
 end
 
 step 'Get all environments should have <envs>' do |envs|
-  actual = get_all_environments['_embedded']['environments'].map { |env| env['name'] }.sort
-  expected = envs.split(/[\s,]+/).sort
-  assert_true (actual == expected), "Assertion failed. Expected: #{expected}, Actual: #{actual}"
+  actual = JSON.parse(get_all_environments.body)['_embedded']['environments'].map { |env| env['name'] }.sort
+  expected = envs.split(/[\s,]+/).map{|exp| scenario_state.get(exp).nil? ? exp : scenario_state.get(exp)}.sort
+  assert_true (expected - actual).empty?, "Assertion failed. Expected: #{expected}, Actual: #{actual}"
 end
 
 private

@@ -14,11 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *************************GO-LICENSE-END******************************* -->
- 
-<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="115">
+
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="117">
   <server artifactsdir="artifacts" serverId="gauge" tokenGenerationKey="token">
       <security>
-      
+
       <roles>
         <role name="admins">
         <users>
@@ -103,7 +103,7 @@
             </jobs>
 	  	</stage>
 	  </pipeline>
-	  
+
   </pipelines>
   <pipelines group="group2">
       <authorization>
@@ -221,7 +221,7 @@
 	  	</stage>
 	  </pipeline>
 	</pipelines>
-	
+
   <templates>
 	  	<pipeline name="simple-pass">
 	        <stage name="defaultStage">
@@ -261,7 +261,7 @@
   			<pipelines>
   				<pipeline name="pipeline3"/>
   			</pipelines>
-  		</environment>  		
+  		</environment>
   	</environments>
   <agents>
     <agent hostname="missing-agent" ipaddress="10.232.3.1" uuid="missing">

@@ -16,7 +16,7 @@ tags: error_messages
 * Using timer with spec "* ? ? ? * ? 2012"
 * Trigger pipeline - On Swift Dashboard page
 * On Admin page
-* Verify there are "5" errors
+* Verify there are "6" errors
 * Open error messages popup
 
 * Verify error description contains "Failed to run git clone command"

@@ -15,7 +15,7 @@
  * limitations under the License.
  *************************GO-LICENSE-END******************************* -->
 
-<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="115">
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="117">
     <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="gauge" tokenGenerationKey="token"/>
     <pipelines group="basic">
      <pipeline name="pipeline-clean-working-dir">
@@ -174,7 +174,7 @@
                         </tasks>
                     </job>
                 </jobs>
-            </stage>   
+            </stage>
         </pipeline>
 
       <pipeline name="pipeline-with-lock-all-manual" lockBehavior="lockOnFailure">
@@ -190,7 +190,7 @@
                         </tasks>
                     </job>
                 </jobs>
-            </stage>        
+            </stage>
             <stage name="secondStage">
                 <approval type="manual"/>
                 <jobs>
@@ -597,7 +597,7 @@
                     </job>
                 </jobs>
             </stage>
-        </pipeline>     
+        </pipeline>
          <pipeline name="downstream-pipeline">
             <materials>
                 <pipeline pipelineName="basic-pipeline-fast" stageName="defaultStage" materialName="upstream-material"/>
@@ -611,14 +611,14 @@
                 <approval type="success"/>
                 <jobs>
                     <job name="defaultJob">
-                
+
                            <tasks>
                              <exec command="sleep">
                                 <arg>15</arg>
                                 <runif status="passed"/>
                             </exec>
                         </tasks>
-                        
+
                     </job>
                 </jobs>
             </stage>
@@ -645,7 +645,7 @@
             <materials>
                 <git url="material-for-pipeline-with-mingle-config1" dest="git0" autoUpdate="false" materialName="pipeline-git0"/>
                 <git url="material-for-pipeline-with-mingle-config2" dest="git" materialName="pipeline-git"/>
-                <pipeline pipelineName="mingle-config-parent" stageName="defaultStage"/> 
+                <pipeline pipelineName="mingle-config-parent" stageName="defaultStage"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -657,13 +657,13 @@
                     </job>
                 </jobs>
             </stage>
-            <stage name="secondStage">            
+            <stage name="secondStage">
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
                             <exec command="ls"/>
                         </tasks>
-                      
+
                     </job>
                 </jobs>
             </stage>
@@ -675,14 +675,14 @@
                 <git url="marerial-for-first" materialName="git-first" autoUpdate="true"/>
             </materials>
         </pipeline>
-        
+
         <pipeline name="child-of-first" template="dependency-pipeline-template">
             <materials>
                 <git url="material-for-child-of-first" materialName="git-child-of-first" autoUpdate="true"/>
                 <pipeline pipelineName="first" stageName="defaultStage"/>
             </materials>
         </pipeline>
-        
+
         <pipeline name="grandchild-of-first" template="dependency-pipeline-template">
             <materials>
                 <git url="material-for-grandchild-of-first" materialName="git-grandchild-of-first" autoUpdate="true"/>
@@ -807,7 +807,7 @@
             </materials>
             <stage name="defaultStage">
                 <jobs>
-                    <job name="defaultJob"/>                     	
+                    <job name="defaultJob"/>
                 </jobs>
             </stage>
             <stage name="secondStage">
@@ -1052,19 +1052,19 @@
     <pipelines group="params_group">
     <pipeline name="template-params-pipeline-trunk" template="template-with-param">
         	<params>
-                <param name="WORKING_DIR">trunk-dir</param>               
-            </params>  
+                <param name="WORKING_DIR">trunk-dir</param>
+            </params>
  			<materials>
                 <git url="material-for-template-params-pipeline-trunk" materialName="git-trunk"/>
-            </materials>                      
+            </materials>
         </pipeline>
         <pipeline name="template-params-pipeline-branch" template="template-with-param">
         	<params>
-                <param name="WORKING_DIR">branch-dir</param>                
+                <param name="WORKING_DIR">branch-dir</param>
             </params>
  			<materials>
                     <git url="material-for-template-params-pipeline-branch" materialName="git-branch"/>
-            </materials>                        
+            </materials>
         </pipeline>
     </pipelines>
     <templates>
@@ -1100,7 +1100,7 @@
                     <job name="defaultJob">
                         <tasks>
                             <exec command="echo" args="#{WORKING_DIR}"/>
-                        </tasks>                       
+                        </tasks>
                     </job>
                 </jobs>
             </stage>
@@ -1122,11 +1122,11 @@
   		  		<variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>does-not-matter</value></variable>
   		  		<variable name="ENVIRONMENT_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
 			    </environmentvariables>
-    			
+
   		</environment>
         <environment name="internal">
         </environment>
     </environments>
-     
+
 
 </cruise>

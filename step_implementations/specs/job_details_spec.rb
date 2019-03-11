@@ -133,16 +133,16 @@ step 'Click on pipeline bread crumb' do |_pipeline|
   job_details_page.breadcrumb_stage.click
 end
 
-step 'Verify console says that artifact <artifact_name> was fetched from <stage_locator> for path <path_from_ancestor> from <stage_job>' do |artifact_name,stage_locator,path_from_ancestor,stage_job|
-stage_locator=new_pipeline_dashboard_page.sanitize_message(stage_locator)
-path_from_ancestor=new_pipeline_dashboard_page.sanitize_message(path_from_ancestor)
-message_1="fetch artifact [#{artifact_name}] =&gt; [] from [#{path_from_ancestor}/#{stage_job}]"
-message_2="Fetching artifact [#{artifact_name}] from [#{stage_locator}]"
-job_details_page.console_has_message?(message_1)
-job_details_page.console_has_message?(message_2)
+step 'Verify console says that artifact <artifact_name> was fetched from <stage_locator> for path <path_from_ancestor> from <stage_job>' do |artifact_name, stage_locator, path_from_ancestor, stage_job|
+  stage_locator = new_pipeline_dashboard_page.sanitize_message(stage_locator)
+  path_from_ancestor = new_pipeline_dashboard_page.sanitize_message(path_from_ancestor)
+  message_1 = "fetch artifact [#{artifact_name}] =&gt; [] from [#{path_from_ancestor}/#{stage_job}]"
+  message_2 = "Fetching artifact [#{artifact_name}] from [#{stage_locator}]"
+  job_details_page.console_has_message?(message_1)
+  job_details_page.console_has_message?(message_2)
 end
 
-step 'Verify in console that artifact <artifact> was uploaded to <dest>' do |artifact,dest|
+step 'Verify in console that artifact <artifact> was uploaded to <dest>' do |artifact, dest|
   job_details_page.console_has_message?("/#{artifact} to #{dest}")
 end
 
@@ -150,31 +150,28 @@ step 'Verify artifacts tab contains file <file>' do |file|
   assert_true job_details_page.file_exist_in_artifacts_tab? file
 end
 
-step 'Verify artifacts tab contains file <file> in dir <dir>' do |file,dir|
- assert_true job_details_page.file_exist_in_dir_in_artifacts_tab? file,dir
+step 'Verify artifacts tab contains file <file> in dir <dir>' do |file, dir|
+  assert_true job_details_page.file_exist_in_dir_in_artifacts_tab? file, dir
 end
 
-step 'For pipeline <pipeline> label <pipeline_label> stage <stage> counter <counter> job <job>' do |pipeline,pipeline_label,stage,counter,job|
-scenario_state.put("locator","#{scenario_state.get(pipeline)}/#{pipeline_label}/#{stage}/#{counter}/#{job}")
+step 'For pipeline <pipeline> label <pipeline_label> stage <stage> counter <counter> job <job>' do |pipeline, pipeline_label, stage, counter, job|
+  scenario_state.put('locator', "#{scenario_state.get(pipeline)}/#{pipeline_label}/#{stage}/#{counter}/#{job}")
 end
 
-step 'Append <text> to artifact <artifact> and Verify return code is <code> - Using Artifact Api' do |text,artifact,code|
-  f = File.new('test.txt', 'w')
-  f.write(text)
-  f.close  
-  payload={:upload => {:file => File.open(f, 'rb')} }.to_json
-  actual_code=RestClient.post http_url("/files/#{scenario_state.get('locator')}/#{artifact}"),payload ,
-  {content_type: :json }.merge(basic_configuration.header)
-  assert_true actual_code.code==code.to_i
+step 'Append <text> to artifact <artifact> and Verify return code is <code> - Using Artifact Api' do |text, artifact, code|
+  File.new('test.txt', 'w') do |f|
+    f.write(text)
+  end
+  RestClient.put http_url("/files/#{scenario_state.get('locator')}/#{artifact}"), { multipart: true, file: File.new("test.txt", 'rb') }, { Confirm: 'true'} do |res, req, tmp|
+    assert_true res.body.eql? "File #{artifact} was appended successfully"
+  end
 end
 
-step 'Create artifact <artifact> and Verify return code is <code> - Using Artifact Api' do |artifact,code|
-f = File.new(artifact, 'w')
-f = File.new(artifact, 'rb')
-payload = {:multipart => true, file:f}
-actual_code=RestClient.post http_url("/files/#{scenario_state.get('locator')}/#{artifact}"),payload ,
-{content_type: :json,Confirm: true }.merge(basic_configuration.header)
-assert_true actual_code.code==code.to_i
+step 'Create artifact <artifact> and Verify return code is <code> - Using Artifact Api' do |artifact, code|
+  f = File.new(artifact, 'w')
+  f = File.new(artifact, 'rb')
+  payload = { multipart: true, file: f }
+  actual_code = RestClient.post http_url("/files/#{scenario_state.get('locator')}/#{artifact}"), payload,
+                                { content_type: :json, Confirm: true }.merge(basic_configuration.header)
+  assert_true actual_code.code == code.to_i
 end
-
-

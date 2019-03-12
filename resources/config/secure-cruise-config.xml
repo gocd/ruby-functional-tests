@@ -407,6 +407,91 @@
               <role>operator</role>
           </view>
       </authorization>
+        <pipeline name="pipeline-with-environment-variables">
+      <environmentvariables>
+        <variable name="PIPELINE_LEVEL_VARIABLE"><value>pipeline</value></variable>
+        <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_PIPELINE"><value>pipeline-overrides-env</value></variable>
+        <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE"><value>does-not-matter</value></variable>
+        <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>does-not-matter</value></variable>
+        <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
+        <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
+      </environmentvariables>
+      <materials>
+        <git url="material-for-environment-variables" dest="git" materialName="env-var-material" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <environmentvariables>
+          <variable name="STAGE_LEVEL_VARIABLE"><value>stage</value></variable>
+          <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE"><value>stage-overrides-pipeline</value></variable>
+          <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE"><value>stage-overrides-env</value></variable>
+          <variable name="STAGE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>does-not-matter</value></variable>
+          <variable name="STAGE_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
+        </environmentvariables>
+        <jobs>
+          <job name="pipeline-with-environment-variables-job">
+            <environmentvariables>
+              <variable name="JOB_LEVEL_VARIABLE"><value>pipeline-with-environment-variables-job</value></variable>
+              <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>job-overrides-pipeline</value></variable>
+              <variable name="STAGE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>job-overrides-stage</value></variable>
+              <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>job-overrides-env</value></variable>
+              <variable name="JOB_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
+            </environmentvariables>
+            <tasks>
+                <exec command="sleep">
+                    <arg>5</arg>
+                    <runif status="passed"/>
+                </exec>
+           </tasks>
+          </job>
+          <job name="another-job">
+            <environmentvariables>
+              <variable name="JOB_LEVEL_VARIABLE"><value>another-job</value></variable>
+            </environmentvariables>
+            <tasks>
+              <exec command="ls"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="secondStage">
+        <environmentvariables>
+          <variable name="STAGE_LEVEL_VARIABLE"><value>stage</value></variable>
+        </environmentvariables>
+        <jobs>
+          <job name="foo">
+            <environmentvariables>
+              <variable name="JOB_LEVEL_VARIABLE"><value>foo</value></variable>
+              <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>job-overrides-pipeline</value></variable>
+              <variable name="JOB_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
+            </environmentvariables>
+            <tasks>
+              <exec command="ls"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+      <pipeline name="downstream-pipeline">
+      <materials>
+        <pipeline pipelineName="basic-pipeline-fast" stageName="defaultStage"/>
+        <git url="material-for-downstream-pipeline" dest="git" materialName="downstream_git_material">
+          <filter>
+            <ignore pattern="**/*"/>
+          </filter>
+        </git>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ls"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
         <pipeline name="basic-pipeline-with-git-material">
             <materials>
                 <git url="material-for-basic-pipeline-with-git-material" dest="git" materialName="git" autoUpdate="false"/>
@@ -680,7 +765,7 @@
     <pipelines group="group.with.dot">
         <pipeline name="run.till.file.exists">
             <materials>
-                <hg url="material-for-pipeline" dest="hg" autoUpdate="false" materialName="hg.material"/>
+                <git url="material-for-pipeline" dest="git" autoUpdate="false" materialName="git.material"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>

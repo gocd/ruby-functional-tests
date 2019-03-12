@@ -15,6 +15,8 @@
 ##########################################################################
 
 require_relative '../../lib/helpers/go_url_helper.rb'
+variable=Hash.new
+material=Hash.new
 
 PIPELINE_CONFIG_API_VERSION = 'application/vnd.go.cd.v1+json'
 
@@ -148,4 +150,25 @@ step 'Verify can unlock <pipeline> using access token <token_id>' do |pipeline, 
     p err.response.body
   end
   assert_true JSON.parse(body).to_s.include?"Pipeline lock released for #{scenario_state.get(pipeline)}"
+step 'With variable <var> set to <value>' do |var,value|
+  variable={var=>value}
+  scenario_state.put('variables',variable)
+  scenario_state.put(updateMaterialBeforeSchedule,true)
+end
+
+step 'Attempt to get scheduled list of jobs should return with status <returnCode>' do |code|
+  body=begin
+    response = RestClient.get http_url("/api/jobs/scheduled.xml"), basic_configuration.header
+  rescue RestClient::ExceptionWithResponse => err
+    p "Pipeline Status call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+  end
+  assert_true response.code == 200
+end
+
+step 'Using latest revision of material of type <type> named <material> for pipeline <pipeline>' do |type,material,pipeline|
+  latest_revision = Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).latest_revision
+  current_material_url=basic_configuration.material_url(pipeline,material_type,material_name)
+  material={current_material_url=>latest_revision}
+  scenario_state.put(updateMaterialBeforeSchedule,false)
+  scenario_state.put('materials',material)
 end

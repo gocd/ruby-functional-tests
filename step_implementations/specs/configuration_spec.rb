@@ -30,6 +30,14 @@ step 'Secure Configuration - setup' do
   secure_configuration.setup 'secure-cruise-config.xml', 'password.properties'
 end
 
+step 'ConflictingConfiguration - setup' do
+  secure_configuration.setup 'conflict-cruise-config.xml', 'password.properties'
+end
+
+step 'ConflictingConfigurationForPipelineAdmin - setup' do
+  secure_configuration.setup 'conflict-cruise-config-for-pipelineAdmin.xml', 'password.properties'
+end
+
 step 'Template admin configuration - setup' do
   secure_configuration.setup 'template-admin-cruise-config.xml', 'password.properties'
 end
@@ -126,4 +134,8 @@ end
 
 step 'Rename pipeline <pipeline> to <new_pipeline>' do |pipeline,new_pipeline|
   basic_configuration.rename_pipeline pipeline, new_pipeline
+end
+
+step 'Enable auto update for pipeline <pipeline>' do |pipeline|
+  basic_configuration.enable_auto_updates pipeline
 end

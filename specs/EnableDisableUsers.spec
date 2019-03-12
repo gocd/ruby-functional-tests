@@ -24,7 +24,7 @@ Setup of contexts
 * Disable users "user2"
 * Verify users "user2" are disabled
 
-* Logout and Login as "user2" should fail with message "Your account has been disabled by the administrator Help Topic: Authentication"
+* Logout and Login as "user2" should fail with message "Your account has been disabled by the administrator"
 * Login as "admin"
 
 * On User Summary page

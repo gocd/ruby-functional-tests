@@ -27,6 +27,7 @@ require 'json'
 require 'json_builder'
 require 'deep_merge'
 require 'uri'
+require 'clipboard'
 Bundler.setup(:default)
 Bundler.require
 

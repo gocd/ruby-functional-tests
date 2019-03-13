@@ -33,6 +33,8 @@
                         <user>pwdadmin</user>
                     </users>
                 </role>
+                <role name="G1_View" />
+                <role name="G1_Operate" />
             </roles>
             <admins>
                 <role>admins</role>
@@ -58,5 +60,39 @@
         </pipeline>
     </pipelines>
     <pipelines group="G1">
+        <authorization>
+            <operate>
+                <role>G1_Operate</role>
+            </operate>
+            <view>
+                <role>G1_View</role>
+            </view>
+            </authorization>
+            <pipeline name="basic-pipeline-with-auth" lockBehavior="lockOnFailure">
+            <materials>
+                <git url="material-for-basic-pipeline-with-auth" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="firstStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="fail">
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+            <stage name="secondStage">
+                <jobs>
+                    <job name="firstJob">
+                        <tasks>
+                            <exec command="ls">
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
     </pipelines>
 </cruise>

@@ -15,33 +15,26 @@
 ##########################################################################
 
 module Pages
-  class PersonalAccessToken < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/access_tokens"
+  class AdminAccessToken < AppBase
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/admin_access_tokens"
 
-    element :btn_generate_token, "[data-test-id='generate-token-button']"
-    element :text_description, "[data-test-id='form-field-input-description']"
-    element :btn_submit, "[data-test-id='button-save']"
     element :tab_active_tokens, "[data-test-id='tab-header-0']"
     element :tab_revoked_tokens, "[data-test-id='tab-header-1']"
     element :table_access_tokens, "[data-test-id='table-body']"
+    element :text_revoke_reason, "[data-test-id='form-field-input-are-you-sure-you-want-to-revoke-this-token']"
+    element :btn_revoke, "[data-test-id='button-revoke-token']"
 
-    load_validation { has_generate_token? }
+    load_validation { has_tab_active_tokens? }
 
-    def generate_token(description = '')
-      btn_generate_token.click
-      text_description.set description
-      btn_submit.click
+    def revoke_token(user, description, reason)
+      table_access_tokens.all("[data-test-id='table-row']").each{ |row|
+        if row.has_css?('td', text: user) && row.has_css?('span', text: description)
+          row.find("[data-test-id='button-revoke']").click
+          text_revoke_reason.set reason
+          btn_revoke.click
+        end
+      }
     end
 
-    def remember_token_as(token_id)
-      page.find('button', text: 'Copy').click
-      scenario_state.put(token_id, Clipboard.paste)
-    end
-
-    def has_token_listed?(desc)
-      !table_access_tokens.all("[data-test-id='table-row']").collect{ |row|
-        row.has_css?('span', text: desc)
-      }.empty?
-    end
   end
 end

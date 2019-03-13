@@ -63,6 +63,8 @@ require 'pages/config_xml_page'
 require 'pages/ldap_authorization_plugin'
 require 'pages/maintenance_mode_spa'
 require 'pages/server_backup_page'
+require 'pages/personal_access_token_page'
+require 'pages/admin_access_token_page'
 
 
 
@@ -78,6 +80,14 @@ module Helpers
 
     def login_page
       Pages::Login.new
+    end
+
+    def personal_access_token_page
+      Pages::PersonalAccessToken.new
+    end
+
+    def admin_access_token_page
+      Pages::AdminAccessToken.new
     end
 
     def data_sharing_spa_page

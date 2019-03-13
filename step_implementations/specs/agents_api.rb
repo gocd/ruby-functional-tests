@@ -57,6 +57,10 @@ step 'Verify last job <pipeline_name> <stage_name> <job_name> <status> - Using A
   end
 end
 
+step 'Verify there are <num> agents with state <state>' do |num,state|
+  assert_equal agents_with_state(state).map.size,num.to_i
+end
+
 def all_agents_info
   RestClient.get http_url('/api/agents'),
                             { accept: GoConstants::AGENTS_API_VERSION }.merge(basic_configuration.header) do |response, _request, _result|

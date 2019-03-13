@@ -44,6 +44,7 @@ module Pages
     element :task_cancel, ".close_modalbox_control"
     element :job_name, "#job_name"
     element :set_never, "#jobTimeout_never"
+    element :resources_on_popup, '#job_resources'
 
     load_validation { has_add_new_task? }
 

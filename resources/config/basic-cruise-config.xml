@@ -75,6 +75,56 @@
             </stage>
      </pipeline>
 
+     <pipeline name="environment-pipeline">
+            <materials>
+                <git url="material-for-environment-pipeline" dest="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="short">
+                        <tasks>
+                            <exec command="sleep">
+                                <arg>30</arg>
+                                <runif status="passed"/>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+            <stage name="second">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="long">
+                        <tasks>
+                             <exec command="sleep">
+                                <arg>30</arg>
+                                <runif status="passed"/>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+
+         <pipeline name="basic-pipeline">
+            <materials>
+                <git url="material-for-basic-pipeline" dest="git" materialName="basic-git-material" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                           <exec command="sleep">
+                                <arg>30</arg>
+                                <runif status="passed"/>
+                        </exec></tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+
      <pipeline name="two-stage-pipeline">
             <materials>
                 <git url="material-for-two-stage-pipeline" dest="git" autoUpdate="false" materialName="git"/>

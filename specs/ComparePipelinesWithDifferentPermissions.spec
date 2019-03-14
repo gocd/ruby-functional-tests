@@ -42,11 +42,11 @@ tags:compare_pipeline, dependency_walk
 * Verify that there are "3" materials
 * Verify displays revision "$first-pipeline$/1/defaultStage/1" having label "1" under pipeline named "first-pipeline"
 * Verify displays revision "git-new1" having comment "Added git-new-file1" under "Git"
-* Verify displays revision "git-new2" having comment "Added git-new-file2" under "Git" 
+* Verify displays revision "git-new2" having comment "Added git-new-file2" under "Git"
 * Click on upstream pipeline revision "$first-pipeline$/1/defaultStage/1"
 
 * Verify that "$first-pipeline$/1/defaultStage/1" stage is displayed
-* Click compare link - Already on stage Detail Page 
+* Click compare link - Already on stage Detail Page
 
 * Verify that there are "1" materials
 * Verify displays revision "git-new2" having comment "Added git-new-file2" under "Git"
@@ -61,9 +61,7 @@ tags:compare_pipeline, dependency_walk
 * Verify that there are "2" materials
 * Verify displays revision "$first-pipeline$/1/defaultStage/1" having label "1" under pipeline named "$first-pipeline$"
 * Verify displays revision "git-new1" having comment "Added git-new-file1" under "Git"
-* Click on upstream pipeline revision "$first-pipeline$/1/defaultStage/1" 
-* Verify that unauthorized access message is shown
-* Wait for "60" seconds
+
 * Logout and login as "pavan"
 
 * Looking at pipeline "down-pipeline" - On Swift Dashboard page
@@ -79,7 +77,7 @@ tags:compare_pipeline, dependency_walk
 * Click compare link - Already on stage Detail Page
 
 * Verify that there are "1" materials
-* Verify displays revision "git-new2" having comment "Added git-new-file2" under "Git" 
+* Verify displays revision "git-new2" having comment "Added git-new-file2" under "Git"
 
 * Logout and login as "operatorUser"
 
@@ -89,7 +87,7 @@ tags:compare_pipeline, dependency_walk
 
 * Verify that there are "2" materials
 * Verify displays revision "$first-pipeline$/1/defaultStage/1" having label "1" under pipeline named "first-pipeline"
-* Verify displays revision "git-new1" having comment "Added git-new-file1" under "Git" 
+* Verify displays revision "git-new1" having comment "Added git-new-file1" under "Git"
 
 * Click on upstream pipeline revision "$first-pipeline$/1/defaultStage/1"
 * Verify that unauthorized access message is shown
@@ -102,15 +100,15 @@ tags:compare_pipeline, dependency_walk
 
 * Verify that there are "3" materials
 * Verify displays revision "$first-pipeline$/1/defaultStage/1" having label "1" under pipeline named "$first-pipeline$"
-* Verify displays revision "git-new1" having comment "Added git-new-file1" under "Git" 
-* Verify displays revision "git-new2" having comment "Added git-new-file2" under "Git" 
+* Verify displays revision "git-new1" having comment "Added git-new-file1" under "Git"
+* Verify displays revision "git-new2" having comment "Added git-new-file2" under "Git"
 * Click on upstream pipeline revision "$first-pipeline$/1/defaultStage/1"
 
 * Verify that "$first-pipeline$/1/defaultStage/1" stage is displayed
 * Click compare link - Already on stage Detail Page
 
 * Verify that there are "1" materials
-* Verify displays revision "git-new2" having comment "Added git-new-file2" under "Git" 
+* Verify displays revision "git-new2" having comment "Added git-new-file2" under "Git"
 
 
 
@@ -121,4 +119,3 @@ ____________________
 * Capture go state "ComparePipelinesWithDifferentPermissions" - teardown
 * With "1" live agents - teardown
 * Logout - from any page
-

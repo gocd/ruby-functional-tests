@@ -23,6 +23,7 @@ step 'Add user <user> - Using user API' do |user|
 end
 
 step 'Add user <user> using access token <token_id> - Using user API' do |user, token_id|
+  p "Using token id #{scenario_state.get(token_id)}"
   RestClient.post http_url('/api/users'), { login_name: user }.to_json,
                   { content_type: :json, accept: USERS_API_VERION, Authorization: "Bearer #{scenario_state.get(token_id)}" }
 end

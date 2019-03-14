@@ -49,11 +49,15 @@ step 'Verify flash message for artifact <message>' do |message|
 end
 
 step 'Verify if artifact store <artifact_store_id> is present' do |artifact_store_id|
-  assert_true artifacts_store_page.has_artifact_store(artifact_store_id)
+  wait_till_event_occurs_or_bomb 10, "Artifact store  #{artifact_store_id} creation failed" do
+    break if artifacts_store_page.has_artifact_store(artifact_store_id)
+  end
 end
 
 step 'Verify if artifact store <artifact_store_id> is not present' do |artifact_store_id|
-  assert_false artifacts_store_page.has_artifact_store(artifact_store_id)
+  wait_till_event_occurs_or_bomb 10, "Artifact store  #{artifact_store_id} delete failed" do
+    break if !artifacts_store_page.has_artifact_store(artifact_store_id)
+  end
 end
 
 step 'Edit artifact store <artifact_store_id>' do |artifact_store_id|

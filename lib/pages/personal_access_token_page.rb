@@ -34,8 +34,7 @@ module Pages
     end
 
     def remember_token_as(token_id)
-      page.find('button', text: 'Copy').click
-      scenario_state.put(token_id, Clipboard.paste)
+      scenario_state.put(token_id, page.find('input').value)
     end
 
     def has_token_listed?(desc)

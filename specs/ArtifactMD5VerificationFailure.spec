@@ -41,8 +41,7 @@ Failure Scenario - MD5 Mismatch
 * Trigger stage "secondStage" - On stage details page
 
 * On Swift Dashboard Page
-* Wait till "100" seconds for stage "secondStage" shows status "Failed" - On Swift Dashboard page
-* Verify stage "secondStage" is "failed" - On Swift Dashboard page
+* Wait till "120" seconds for stage "secondStage" shows status "Failed" - On Swift Dashboard page
 
 * On Job details page of pipeline "artifact-md5-mismatch" counter "1" stage "secondStage" counter "1" job "defaultJob"
 * Verify console log contains message "[ERROR] Verification of the integrity of the artifact [new_artifact.txt] failed. The artifact file on the server may have changed since its original upload."
@@ -52,5 +51,3 @@ Teardown of contexts
 ____________________
 * With "1" live agents - teardown
 * Capture go state "ArtifactMD5VerificationFailure" - teardown
-
-

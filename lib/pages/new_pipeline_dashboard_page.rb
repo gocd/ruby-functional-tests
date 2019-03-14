@@ -132,7 +132,7 @@ module Pages
     end
 
 
-    def verify_pipeline_stage_state_with_timeout pipeline, stage, state, wait_time
+    def wait_for_expected_stage_state pipeline, stage, state, wait_time
       wait_till_event_occurs_or_bomb wait_time, "Pipeline #{pipeline} stage #{stage} is not in #{state} state" do
         next if get_pipeline_stage_state(pipeline, stage).nil?
         break if get_pipeline_stage_state(pipeline, stage).include?(state)

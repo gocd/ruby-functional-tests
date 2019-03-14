@@ -41,5 +41,3 @@ Teardown of contexts
 ____________________
 * Capture go state "ComparePipelinesEntryPoints" - teardown
 * With "1" live agents - teardown
-
-

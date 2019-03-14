@@ -32,8 +32,8 @@ module Pages
     element :compare_pipeline_link, '#stage_run_details .compare_pipeline a'
     element :compare,"a[title='Compare with the previous build']"
 
-    
-   
+
+
 
 
     def verify_latest_revision_for_modification(modification_number)
@@ -91,31 +91,31 @@ module Pages
       page.has_selector?('span', text: "RERUN SELECTED")
     end
 
-    def check_pipeline_status(status) 
+    def check_pipeline_status(status)
       page_status_bar.find('.run_results').find('.result').text.include?(status)
     end
 
     def status_with_job?(status,job)
-      jobs_passed.text.include?status  and is_job_in_passed_list?(job)         
-    end      
-  
+      jobs_passed.text.include?status  and is_job_in_passed_list?(job)
+    end
+
     def is_job_in_passed_list?(job)
-      passed_job_list.each { |jobs| 
+      passed_job_list.each { |jobs|
         return true if jobs.text.include?job
-       }  
+       }
     end
 
     def  stage_trigger_is_enabled?(stage)
       page.has_selector?("#stage_bar_trigger_#{stage}")
-    end  
+    end
 
     def stage_has_no_actions?(stage)
       page.has_selector?("a#stage_bar_trigger_#{stage}") and page.has_selector?("a#stage_bar_rerun_#{stage}") and page.has_selector?("a#stage_bar_cancel_#{stage}")
-    end  
+    end
 
     def stage_has_action?(stage,action)
       page.has_selector?("a#stage_bar_#{action.downcase}_#{stage}")
-    end 
+    end
 
     def trigger_stage(stage)
       page.find("a#stage_bar_trigger_#{stage}").click
@@ -127,8 +127,8 @@ module Pages
     end
 
     def stage_has_other_runs?
-        page.has_css?('#other_stage_runs ul') 
-    end 
+        page.has_css?('#other_stage_runs ul')
+    end
 
     def job_status_in_collapsed_state
       all_status=[]
@@ -141,7 +141,7 @@ module Pages
 
     def open_jobs(job,status)
       page.find("#jobs_#{status.gsub(" ","_")}").find('ul.hidereveal_content').has_css?('span', text:job)
-    end 
+    end
 
     def history_runs
       all_history_runs=[]
@@ -150,10 +150,10 @@ module Pages
         all_history_runs.push(job.text)}
       return format_all_history_runs(all_history_runs)
       else
-      all_history_runs.push(page.all('.label_counter_wrapper span').text) 
+      all_history_runs.push(page.all('.label_counter_wrapper span').text)
       return all_history_runs
       end
-    end  
+    end
 
     def format_all_history_runs(all_history_runs)
       final_history_runs=[]
@@ -162,7 +162,7 @@ module Pages
           final_history_runs[i-1]= final_history_runs[i-1]+' '+all_history_runs[i]
         else
           final_history_runs[i]=all_history_runs[i]
-        end  
+        end
       end
       final_history_runs.compact
     end
@@ -177,12 +177,12 @@ module Pages
       else
           all_history_runs.push(page.find('a.selected.alert').find('span').text)
          return  all_history_runs
-        end  
-    end  
+        end
+    end
 
     def click_stage_history_of_page_number(number)
       page.find("#stage_history_#{number}").click
-    end  
+    end
 
     def verify_total_history_runs runs
       runs.split(',').each{|run|
@@ -191,7 +191,7 @@ module Pages
 
     def has_history_page_number?(page_number)
       page.has_css?("a#stage_history_#{page_number}")
-    end 
+    end
 
    def config_changed_marker_exists?pipeline_counter,stage_counter
     page.has_css?(".config_change.counter_#{pipeline_counter}_#{stage_counter} span a")
@@ -217,11 +217,11 @@ module Pages
     page.find('#stage_history').has_css?(".#{status}")
    end
 
-   def stage_bar_has_date? 
+   def stage_bar_has_date?
     page.has_css?(".schedule_info span.time")
    end
-  
-   def stage_bar_has_time? 
+
+   def stage_bar_has_time?
     page.has_css?(".duration span.time")
    end
 
@@ -233,7 +233,7 @@ module Pages
 
    def select_counter_from_history counter
       page.find('span.pipeline_label.wrapped_word',text:counter).hover
-      page.find('span.pipeline_label.wrapped_word',text:counter).ancestor('.stage').find('.compare_pipeline a').click
+      page.find('#stage_history').all('.compare_pipeline a')[counter.to_i - 1].click
    end
 
    def click_revision_link(rev)

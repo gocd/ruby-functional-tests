@@ -73,7 +73,7 @@ end
 step 'Verify stage <stage> is <state> on pipeline with label <label> and counter <counter> - On Swift Dashboard page' do |stage, state, label,counter|
   new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.self_pipeline, stage, state.downcase
   new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.self_pipeline, label
-  new_pipeline_dashboard_page.verify_stage_counter_on_pipeline scenario_state.self_pipeline, stage, label, counter 
+  new_pipeline_dashboard_page.verify_stage_counter_on_pipeline scenario_state.self_pipeline, stage, label, counter
 end
 
 step 'Verify stage <stage> is with label <label> - On Swift Dashboard page' do |_stage, label|
@@ -182,7 +182,7 @@ end
 step 'With material <material> of type <type> for pipeline <pipeline>' do |material_name,material_type,pipeline|
   current_material_url=basic_configuration.material_url(pipeline,material_type,material_name)
   scenario_state.put("current_material_url",current_material_url)
-end 
+end
 
 step 'Checkin file <filename> as user <user> with message <message> - On Swift Dashboard page' do |filename, user, message|
   Context::GitMaterials.new(scenario_state.get("current_material_url")).new_commit(filename, message, user)
@@ -327,13 +327,13 @@ end
 
 step 'Wait till pipeline start building - On Swift Dashboard page' do ||
   new_pipeline_dashboard_page.wait_till_pipeline_start_building
-end 
+end
 
 step 'Wait till pipeline start building for <seconds> seconds - On Swift Dashboard page' do |seconds|
   new_pipeline_dashboard_page.wait_till_pipeline_start_building seconds.to_i
 end
 step 'Wait till <seconds> seconds for stage <stage> shows status <status> - On Swift Dashboard page' do |seconds,stage,status|
-  new_pipeline_dashboard_page.verify_pipeline_stage_state_with_timeout scenario_state.self_pipeline, stage, status.downcase, seconds.to_i
+  new_pipeline_dashboard_page.wait_for_expected_stage_state scenario_state.self_pipeline, stage, status.downcase, seconds.to_i
 end
 
 step 'Set auto scheduling' do ||
@@ -355,4 +355,3 @@ end
 step 'Commit file <file> to directory <dir>' do |file,dir|
   Context::GitMaterials.new(scenario_state.get("current_material_url")).create_new_directory_and_add_file(file,dir )
 end
-

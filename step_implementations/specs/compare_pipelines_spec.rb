@@ -50,8 +50,9 @@ step 'Verify dropdown has labels <label_list>' do |label_list|
   }
 end
 
-step 'Verify that to pipeline textbox is populated with <label>' do |label|
-  assert_true compare_pipeline_page.to_pipeline.value == label
+step 'Verify that to pipeline textbox is populated with <label>' do |expected|
+  actual = compare_pipeline_page.to_pipeline(wait: 10).value
+  assert_true (actual == expected), "Actual value on to pipeline textbox #{actual}"
 end
 
 step 'Verify that from pipeline textbox is populated with <label>' do |label|
@@ -94,7 +95,7 @@ end
 end
  step 'Choose and select pipeline with label <label>' do |label|
   compare_pipeline_page.select_pipeline_with_label label
-end  
+end
 step 'Click on upstream pipeline revision <rev>' do |rev|
   compare_pipeline_page.click_revision rev
 end

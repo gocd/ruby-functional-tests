@@ -16,7 +16,7 @@ tags: diamond dependency, fanin
 * Looking at pipeline "grandparent-fast" - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
 
-* Looking at pipeline "parent-fast" - On Swift Dashboard page   
+* Looking at pipeline "parent-fast" - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
 
 * On Swift Dashboard Page
@@ -70,9 +70,11 @@ tags: diamond dependency, fanin
 
 
 * Looking at pipeline "parent-slow" - On Swift Dashboard page
+* Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" on pipeline with label "3" and counter "1" - On Swift Dashboard page
 
 * Looking at pipeline "child-fast" - On Swift Dashboard page
+* Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" on pipeline with label "3" and counter "1" - On Swift Dashboard page
 
 * Open changes section - On Swift Dashboard page
@@ -95,5 +97,3 @@ Teardown of contexts
 ____________________
 * Capture go state "FanInWithAllAutoPipelines" - teardown
 * With "4" live agents - teardown
-
-

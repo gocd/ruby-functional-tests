@@ -15,7 +15,7 @@ AllowOnlyKnownUsersToLogin
 tags: Allow_Users
 
 * Allow only known users to login
-* Logout and Login as "view" should fail with message "Please ask the administrator to add you to GoCD. Help Topic: Authentication"
+* Logout and Login as "view" should fail with message "Please ask the administrator to add you to GoCD"
 * Login as "admin"
 * Allow unknown users to login
 * Logout and login as "view"
@@ -25,5 +25,3 @@ Teardown of contexts
 ____________________
 * Capture go state "AllowOnlyKnownUsersToLogin" - teardown
 * Logout - from any page
-
-

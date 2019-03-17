@@ -35,7 +35,7 @@ tags: Admin, Security
 * Disable users "operate"
 * Verify users "operate" are disabled
 
-* Logout and Login as "operate" should fail with message "Your account has been disabled by the administrator Help Topic: Authentication"
+* Logout and Login as "operate" should fail with message "Your account has been disabled by the administrator"
 
 * As user "operate"
 

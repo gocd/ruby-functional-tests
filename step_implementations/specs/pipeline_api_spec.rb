@@ -139,6 +139,8 @@ step 'Verify can unlock <pipeline> using access token <token_id>' do |pipeline, 
     p err.response.body
   end
   assert_true JSON.parse(body).to_s.include?"Pipeline lock released for #{scenario_state.get(pipeline)}"
+end
+
 step 'Attempt to get scheduled list of jobs should return with status <return_code>' do |return_code|
  RestClient.get http_url("/api/jobs/scheduled.xml"), basic_configuration.header do |response|
   assert_true response.code == return_code.to_i
@@ -217,6 +219,5 @@ step 'Schedule should return code <status_code>' do |status_code|
        scenario_state.put('variables',nil)
        scenario_state.put('material_for_schedule',nil)
        scenario_state.put('update_materials_before_scheduling',true)
-
 
 end

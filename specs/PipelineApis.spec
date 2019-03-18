@@ -6,7 +6,7 @@ PipelineApis
 Setup of contexts
 * Secure Configuration - setup
 * Login as "admin" - setup
-* Using pipeline "basic-pipeline-fast,downstream-pipeline,run.till.file.exists,admin-pipeline,pipeline-with-environment-variables" - setup
+* Using pipeline "basic-pipeline-fast-api,downstream-pipeline-api,run.till.file.exists-api,admin-pipeline,pipeline-with-environment-variables" - setup
 * With "3" live agents - setup
 * Capture go state "PipelineApis" - setup
 
@@ -17,15 +17,17 @@ tags: 3351, automate, 3086, schedule, trigger, restful api, 3453, OOM
 
 
 * On Swift Dashboard Page
-* Looking at pipeline "downstream-pipeline" - On Swift Dashboard page
+* Looking at pipeline "downstream-pipeline-api" - On Swift Dashboard page
 * Setting first stage to auto approval
 
 * Add environment "uat" to any "2" Idle agents - Using Agents API
 
+* Looking at pipeline "admin-pipeline" - On Swift Dashboard page
 
 * With variable "VAR_NOT_CONFIGURED" set to "foo"
 * Schedule should return code "422"
 
+* Looking at pipeline "pipeline-with-environment-variables" - On Swift Dashboard page
 
 * Using latest revision of material of type "git" named "env-var-material" for pipeline "pipeline-with-environment-variables"
 * With variable "ENVIRONMENT_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER" set to "trigger-overrides-env"
@@ -37,11 +39,11 @@ tags: 3351, automate, 3086, schedule, trigger, restful api, 3453, OOM
 
 * On Swift Dashboard Page
 * Looking at pipeline "pipeline-with-environment-variables" - On Swift Dashboard page
-* Wait till "60" seconds for stage "defaultStage" shows status "passed" - On Swift Dashboard page
+* Wait till stage "defaultStage" completed - On Swift Dashboard page
+* Verify stage "defaultStage" is with label "1" - On Swift Dashboard page
 * On Job details page of pipeline "pipeline-with-environment-variables" counter "1" stage "defaultStage" counter "1" job "pipeline-with-environment-variables-job"
 
 
-* Verify console log contains message "Second task completed"
 * Verify console log contains message "setting environment variable 'ENVIRONMENT_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER' to value 'does-not-matter'"
 * Verify console log contains message "setting environment variable 'PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER' to value 'does-not-matter'"
 * Verify console log contains message "setting environment variable 'STAGE_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER' to value 'does-not-matter'"
@@ -56,7 +58,8 @@ tags: 3351, automate, 3086, schedule, trigger, restful api, 3453, OOM
 
 * On Swift Dashboard Page
 * Looking at pipeline "pipeline-with-environment-variables" - On Swift Dashboard page
-* Wait till "60" seconds for stage "defaultStage" shows status "passed" - On Swift Dashboard page
+* Wait till stage "defaultStage" completed - On Swift Dashboard page
+* Verify stage "defaultStage" is with label "1" - On Swift Dashboard page
 * On Job details page of pipeline "pipeline-with-environment-variables" counter "1" stage "defaultStage" counter "1" job "another-job"
 
 
@@ -102,47 +105,47 @@ tags: 3351, automate, 3086, schedule, trigger, restful api, 3453, OOM
 * Schedule should return code "403"
 * Looking at pipeline "doesnt-exist" - On Swift Dashboard page
 * Schedule should return code "404"
-* Looking at pipeline "basic-pipeline-fast" - On Swift Dashboard page
-* Using "foo" revision of "material-that-doesn't-exist"
+* Looking at pipeline "basic-pipeline-fast-api" - On Swift Dashboard page
+* Using "foo" revision of "material-that-doesn't-exist" of type "git" for pipeline "basic-pipeline-fast-api"
 * Schedule should return code "422"
-* Looking at pipeline "downstream-pipeline" - On Swift Dashboard page
-* Using stage "defaultStage" of upstream pipeline "run.till.file.exists" with counter "1"
+* Looking at pipeline "downstream-pipeline-api" - On Swift Dashboard page
+* Using stage "defaultStage" of upstream pipeline "run.till.file.exists-api" with counter "1"
 * Schedule should return code "422"
 
-* Looking at pipeline "basic-pipeline-fast" - On Swift Dashboard page
+* Looking at pipeline "basic-pipeline-fast-api" - On Swift Dashboard page
 * Schedule should return code "202"
 
 * On Swift Dashboard Page
-* Looking at pipeline "basic-pipeline-fast" - On Swift Dashboard page
-* Wait till "70" seconds for stage "defaultStage" shows status "Passsed" - On Swift Dashboard page
-* Looking at pipeline "downstream-pipeline" - On Swift Dashboard page
-* Wait till "70" seconds for stage "defaultStage" shows status "Passsed" - On Swift Dashboard page
+* Looking at pipeline "basic-pipeline-fast-api" - On Swift Dashboard page
+* Wait till stage "defaultStage" completed - On Swift Dashboard page
+* Verify stage "defaultStage" is with label "1" - On Swift Dashboard page
+* Looking at pipeline "downstream-pipeline-api" - On Swift Dashboard page
+* Wait till stage "defaultStage" completed - On Swift Dashboard page
+* Verify stage "defaultStage" is with label "1" - On Swift Dashboard page
 
-
-* Looking at pipeline "basic-pipeline-fast" - On Swift Dashboard page
+* Looking at pipeline "basic-pipeline-fast-api" - On Swift Dashboard page
 * Schedule should return code "202"
 
 * On Swift Dashboard Page
-* Looking at pipeline "basic-pipeline-fast" - On Swift Dashboard page
-* Wait till "70" seconds for stage "defaultStage" shows status "Passsed" - On Swift Dashboard page
-
-* Looking at pipeline "downstream-pipeline" - On Swift Dashboard page
-* Wait till "70" seconds for stage "defaultStage" shows status "Passsed" - On Swift Dashboard page
-
-* Using latest revision of material of type "git" named "downstream_git_material" for pipeline "downstream-pipeline"
+* Looking at pipeline "basic-pipeline-fast-api" - On Swift Dashboard page
+* Wait till stage "defaultStage" completed - On Swift Dashboard page
+* Verify stage "defaultStage" is with label "2" - On Swift Dashboard page
+* Looking at pipeline "downstream-pipeline-api" - On Swift Dashboard page
+* Wait till stage "defaultStage" completed - On Swift Dashboard page
+* Verify stage "defaultStage" is with label "2" - On Swift Dashboard page
+* Using latest revision of material of type "git" named "downstream_git_material" for pipeline "downstream-pipeline-api"
 * Schedule should return code "202"
 
 * On Swift Dashboard Page
-* Wait till "60" seconds for stage "defaultStage" shows status "passed" - On Swift Dashboard page
+* Wait till stage "defaultStage" completed - On Swift Dashboard page
+* Verify stage "defaultStage" is with label "3" - On Swift Dashboard page
 * Open changes section - On Swift Dashboard page
 
-* Looking at material of type "Pipeline" named "$basic-pipeline-fast$"
-* Verify modification "0" has revision "git-other" - On Build Cause popup
-* Verify modification "0" has revision "$basic-pipeline-fast$/1/defaultStage/1" - On Build Cause popup
+* Looking at material of type "Pipeline" named "$basic-pipeline-fast-api$"
+* Verify modification "0" has revision "$basic-pipeline-fast-api$/2/defaultStage/1" - On Build Cause popup
 
-* Looking at pipeline "run.till.file.exists" - On Swift Dashboard page
+* Looking at pipeline "run.till.file.exists-api" - On Swift Dashboard page
 * Schedule should return code "202"
-
 * On Swift Dashboard Page
 
 * Verify stage "defaultStage" is "Building" - On Swift Dashboard page

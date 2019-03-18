@@ -29,18 +29,23 @@ module Context
       @scenario_store.put key, value
     end
 
-   
+
 
     def self_pipeline
-      @scenario_store.get(@scenario_store.get('current_pipeline'))
+      current_pipeline=@scenario_store.get(@scenario_store.get('current_pipeline'))
+      if current_pipeline==nil
+       return current_pipeline=@scenario_store.get('current_pipeline')
+      else
+       return current_pipeline
+      end
     end
 
-    
+
 
     def material_revision(id)
       (@scenario_store.get id).nil? ? id : (@scenario_store.get id)
     end
 
-    
+
   end
 end

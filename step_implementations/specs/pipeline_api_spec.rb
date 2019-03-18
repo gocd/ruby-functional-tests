@@ -15,8 +15,7 @@
 ##########################################################################
 
 require_relative '../../lib/helpers/go_url_helper.rb'
-variable=Hash.new
-material=Hash.new
+
 
 PIPELINE_CONFIG_API_VERSION = 'application/vnd.go.cd.v1+json'
 
@@ -67,16 +66,6 @@ step 'Cancel stage <stage> of pipeline <pipeline>' do |stage, pipeline|
   end
 end
 
-step 'Schedule should return code <status_code>' do |status_code|
-  payload=   "{\"environment_variables\": [],\"materials\": [],\"update_materials_before_scheduling\": true}"
-  begin
-    response = RestClient.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/schedule"), payload,
-        { content_type: :json, accept: 'application/vnd.go.cd.v1+json' }.merge(basic_configuration.header)
-    assert_true response.code == status_code.to_i
-  rescue RestClient::ExceptionWithResponse => err
-    p "Schedule did not return #{status_code}"
-  end
-end
 
 step 'Verify can unlock <pipeline>' do |pipeline|
  body= begin
@@ -103,9 +92,9 @@ step 'Verify unlocking <pipeline> is not acceptable because <message>' do |pipel
   body=begin
     response = RestClient.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"),'',
         { content_type: :json, accept: 'application/vnd.go.cd.v1+json','X-GoCD-Confirm': 'true' }.merge(basic_configuration.header)
-  rescue RestClient::ExceptionWithResponse => err
-    p err.response.body
-  end
+    rescue RestClient::ExceptionWithResponse => err
+     p err.response.body
+   end
   assert_true JSON.parse(body).to_s.include?message
 end
 
@@ -150,25 +139,84 @@ step 'Verify can unlock <pipeline> using access token <token_id>' do |pipeline, 
     p err.response.body
   end
   assert_true JSON.parse(body).to_s.include?"Pipeline lock released for #{scenario_state.get(pipeline)}"
-step 'With variable <var> set to <value>' do |var,value|
-  variable={var=>value}
-  scenario_state.put('variables',variable)
-  scenario_state.put(updateMaterialBeforeSchedule,true)
-end
-
-step 'Attempt to get scheduled list of jobs should return with status <returnCode>' do |code|
-  body=begin
-    response = RestClient.get http_url("/api/jobs/scheduled.xml"), basic_configuration.header
-  rescue RestClient::ExceptionWithResponse => err
-    p "Pipeline Status call failed with response code #{err.response.code} and the response body - #{err.response.body}"
-  end
-  assert_true response.code == 200
+step 'Attempt to get scheduled list of jobs should return with status <return_code>' do |return_code|
+ RestClient.get http_url("/api/jobs/scheduled.xml"), basic_configuration.header do |response|
+  assert_true response.code == return_code.to_i
+ end
 end
 
 step 'Using latest revision of material of type <type> named <material> for pipeline <pipeline>' do |type,material,pipeline|
-  latest_revision = Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).latest_revision
-  current_material_url=basic_configuration.material_url(pipeline,material_type,material_name)
-  material={current_material_url=>latest_revision}
-  scenario_state.put(updateMaterialBeforeSchedule,false)
-  scenario_state.put('materials',material)
+if type=="git"
+  revision = Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).latest_revision
+  current_material_url=basic_configuration.material_url(pipeline,type,material)
+  new_pipeline_dashboard_page.set_fingerprint current_material_url
+  payload = %({ "fingerprint": #{scenario_state.get('fingerprint')}, "revision": #{revision}})
+  scenario_state.put('material_for_schedule',payload)
+  scenario_state.put('update_materials_before_scheduling',false)
+end
+end
+
+
+step 'Using stage <stage> of upstream pipeline <pipeline> with counter <counter>' do |stage,pipeline,counter|
+  current_material_url="#{scenario_state.get(pipeline)}/#{counter}/#{stage}"
+  new_pipeline_dashboard_page.set_fingerprint current_material_url
+  scenario_state.put('revision',current_material_url)
+  payload = %({ "fingerprint":"#{scenario_state.get('fingerprint')}", "revision":"#{scenario_state.get('revision')}"})
+  scenario_state.put('material_for_schedule',payload)
+  scenario_state.put('update_materials_before_scheduling',false)
+end
+
+step 'With variable <var> set to <value>' do |var,value|
+  variable={var=>value}
+  if scenario_state.get('variables').nil?
+    scenario_state.put('variables',variable)
+  else
+    scenario_state.put('variables',scenario_state.get('variables').merge(variable))
+  end
+  scenario_state.put('update_materials_before_scheduling',true)
+end
+
+step 'Using <rev> revision of <material> of type <git> for pipeline <pipeline>' do |rev,material,type,pipeline|
+  current_material_url=""
+
+    if rev.count("0-9")>0
+      rev=Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).nth_revision rev.delete('^0-9')
+      current_material_url=basic_configuration.material_url(pipeline,type,material)
+      new_pipeline_dashboard_page.set_fingerprint current_material_url
+      scenario_state.put('revision',rev)
+      payload = %({ "fingerprint": #{scenario_state.get('fingerprint')}, "revision": #{rev}})
+      scenario_state.put('material_for_schedule',payload)
+      scenario_state.put('update_materials_before_scheduling',true)
+    else
+      scenario_state.put('revision',rev)
+      payload = %({ "revision": #{rev}})
+      scenario_state.put('material_for_schedule',payload)
+      scenario_state.put('update_materials_before_scheduling',false)
+    end
+
+end
+
+step 'Schedule should return code <status_code>' do |status_code|
+  var=""
+  scenario_state.get('variables').to_h.each do |key, value|
+   var=var<<",{\"name\":\"#{key}\",\"value\":\"#{value}\"}"
+  end
+
+  var=',' if var.nil?
+  scenario_state.put('update_materials_before_scheduling',true) if scenario_state.get('update_materials_before_scheduling').nil?
+  payload = %({
+                  "environment_variables": [#{var.sub!(',','')}],
+                  "materials": [ #{scenario_state.get('material_for_schedule')}],
+                  "update_materials_before_scheduling": true
+             })
+
+   RestClient.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/schedule"), payload,
+      { content_type: :json, accept: 'application/vnd.go.cd.v1+json' }.merge(basic_configuration.header)do |response, _request, _result|
+        assert_true response.code == status_code.to_i
+      end
+       scenario_state.put('variables',nil)
+       scenario_state.put('material_for_schedule',nil)
+       scenario_state.put('update_materials_before_scheduling',true)
+
+
 end

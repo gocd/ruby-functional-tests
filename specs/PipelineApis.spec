@@ -13,7 +13,7 @@ Setup of contexts
 PipelineApis
 ------------
 
-tags: 3351, automate, 3086, schedule, trigger, restful api, 3453, OOM
+tags: schedule
 
 
 * On Swift Dashboard Page

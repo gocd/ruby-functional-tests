@@ -21,13 +21,14 @@ module Pages
     element :tabs, '.sub_tabs_container'
     element :console_output, '.buildoutput_pre'
     element :job_completed_time, 'span#build_completed_date'
-    element :rerun_seleced, "button[value='RERUN']" 
+    element :rerun_seleced, "button[value='RERUN']"
     element :breadcrumb_stage, '.stage_name a'
     element :property_tab, 'a#tab-link-of-properties'
     element :breadcrumb_pipeline, "a[title=\"View this pipeline's activity\"]"
     element :breadcrumb_pipeline_label, ".run_no"
-   
-   
+    element :artifact_content, '.pre'
+
+
 
     load_validation { has_add_new_task? }
 
@@ -45,11 +46,11 @@ module Pages
         wait_for_console_output
         break if console_output['innerHTML'].include? message
       end
-    end  
+    end
 
     def select_jobs(job)
       page.find("input[type='checkbox'][value=#{job}]").click
-    end  
+    end
 
     def rerun_button_is_enabled?
       wait_till_event_occurs_or_bomb 60, "RERUN SELECTED button is disabled" do
@@ -66,7 +67,7 @@ module Pages
         reload_page
         break if result== page.find("td.job_name a",text:job).ancestor('td.job_name').sibling('.job_result').text
           end
-    end 
+    end
     def job_has_state?(job,state)
         wait_till_event_occurs_or_bomb 60, "Job #{job} does not have state #{state}" do
         reload_page
@@ -77,16 +78,16 @@ module Pages
     def job_has_current_value?(value)
       if (page.has_css?("#build_list_#{value}"))
         page.find("#build_list_#{value}")[:class].include?'current'
-      else 
-        page.find(".entity_title.dropdown-arrow-icon").click 
+      else
+        page.find(".entity_title.dropdown-arrow-icon").click
         page.find("#build_list_#{value}")[:class].include?'current'
-      end  
+      end
     end
 
     def job_is_not_copied_job?(value)
       if (page.has_css?("#build_list_#{value} a div"))
         page.find("#build_list_#{value} a div")[:class].include?'copied_job'
-      else  
+      else
         page.find(".entity_title.dropdown-arrow-icon").click
         page.find("#build_list_#{value} a div")[:class].include?'copied_job'
       end
@@ -99,11 +100,11 @@ module Pages
 
     def job_rerun_failed_message(message)
       page.find('.error').text
-    end 
+    end
 
     def breadcrumb_contains_link_to_pipeline?(pipeline)
       page.find('a.icon16.setting')[:href].include?pipeline
-    end 
+    end
 
     def vsm_link_exist?(pipeline,label,counter)
       page.has_link?('a',:href => "/go/pipelines/value_stream_map/#{scenario_state.get(pipeline)}/#{label}")
@@ -112,14 +113,23 @@ module Pages
     def file_exist_in_dir_in_artifacts_tab? file,dir
      if page.has_css?(".opened_directory a",text:dir)
       page.has_css?('.artifact a',text:file)
-     else 
+     else
       page.find(".directory a",text:dir).click
       page.has_css?('.artifact a',text:file)
-     end 
+     end
     end
 
     def file_exist_in_artifacts_tab? file
       page.has_css?('.artifact a',text:file)
+    end
+
+    def click_artifact artifact
+      page.find('a',text:artifact).click
+    end
+
+    def artifact_contents
+      wait_for_artifact_content
+      artifact_content['innerHTML']
     end
 
   end

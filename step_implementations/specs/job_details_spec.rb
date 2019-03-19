@@ -150,6 +150,11 @@ step 'Verify artifacts tab contains file <file>' do |file|
   assert_true job_details_page.file_exist_in_artifacts_tab? file
 end
 
+step 'Verify artifacts tab does not contain file <file>' do |file|
+  assert_false job_details_page.file_exist_in_artifacts_tab? file
+end
+
+
 step 'Verify artifacts tab contains file <file> in dir <dir>' do |file, dir|
   assert_true job_details_page.file_exist_in_dir_in_artifacts_tab? file, dir
 end
@@ -159,10 +164,8 @@ step 'For pipeline <pipeline> label <pipeline_label> stage <stage> counter <coun
 end
 
 step 'Append <text> to artifact <artifact> and Verify return code is <code> - Using Artifact Api' do |text, artifact, code|
-  File.new('test.txt', 'w') do |f|
-    f.write(text)
-  end
-  RestClient.put http_url("/files/#{scenario_state.get('locator')}/#{artifact}"), { multipart: true, file: File.new("test.txt", 'rb') }, { Confirm: 'true'} do |res, req, tmp|
+  File.open('test.txt', 'w') {|f|  f.write(text) }
+  RestClient.put http_url("/files/#{scenario_state.get('locator')}/#{artifact}"), { multipart: true, file: File.open("test.txt", 'rb') }, {content_type: :json,Confirm: 'true'}.merge(basic_configuration.header) do |res, req, tmp|
     assert_true res.body.eql? "File #{artifact} was appended successfully"
   end
 end
@@ -174,4 +177,17 @@ step 'Create artifact <artifact> and Verify return code is <code> - Using Artifa
   actual_code = RestClient.post http_url("/files/#{scenario_state.get('locator')}/#{artifact}"), payload,
                                 { content_type: :json, Confirm: true }.merge(basic_configuration.header)
   assert_true actual_code.code == code.to_i
+end
+
+step 'Verify artifact <artifact> contains text <text>' do |artifact,text|
+  job_details_page.click_artifact artifact
+  assert_true job_details_page.artifact_contents? text
+end
+
+step 'verify property <property> with value <value> for pipeline <pipeline> stage <stage> label <label> counter <counter> job <job> cannot be added' do ||
+
+end
+
+step 'Set value <prop_value_api_1> in property <prop_name_api_1>' do |prop_value_api_1,prop_name_api_1|
+
 end

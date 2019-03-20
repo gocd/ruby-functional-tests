@@ -108,14 +108,11 @@ step 'Verify unlocking <pipeline> is not acceptable because <message>' do |pipel
 end
 
 step 'Verify unlocking <pipeline> fails as pipeline is not found' do |pipeline|
-  body=begin
-    response = RestClient.post http_url("/api/pipelines/#{pipeline}/unlock"),'',
-        { content_type: :json, accept: 'application/vnd.go.cd.v1+json','X-GoCD-Confirm': 'true' }.merge(basic_configuration.header)
-
-  rescue RestClient::ExceptionWithResponse => err
-    p err.response.body
+  RestClient.post http_url("/api/pipelines/#{pipeline}/unlock"),'',
+        { content_type: :json, accept: 'application/vnd.go.cd.v1+json', "X-GoCD-Confirm": 'true' }
+        .merge(basic_configuration.header) do |response, _request, _result|
+    assert_true response.code.eql? 404
   end
-  assert_true JSON.parse(body).to_s.include?'resource you requested was not found'
 end
 
 

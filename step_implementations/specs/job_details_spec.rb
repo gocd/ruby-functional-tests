@@ -228,3 +228,7 @@ step 'Verify property <prop_name_api_6> does not exist' do |property|
   assert_true res.body.include?"Property '#{property}' not found."
   end
 end
+
+step 'OnPropertiesTab <table> |table|
+
+end

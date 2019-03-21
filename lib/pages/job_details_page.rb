@@ -26,7 +26,10 @@ module Pages
     element :property_tab, 'a#tab-link-of-properties'
     element :breadcrumb_pipeline, "a[title=\"View this pipeline's activity\"]"
     element :breadcrumb_pipeline_label, ".run_no"
+<<<<<<< HEAD
     element :artifact_content, 'pre'
+=======
+>>>>>>> intermiadiate commit 1
 
 
 
@@ -124,15 +127,16 @@ module Pages
     end
 
     def click_artifact artifact
-
       page.find('a',text:artifact).click
     end
 
     def artifact_contents
-
       wait_for_artifact_content
       artifact_content['innerHTML']
     end
 
-  end
+    def property_exists? property
+      page.has_css?("#property-of-#{property}")
+    end
+
 end

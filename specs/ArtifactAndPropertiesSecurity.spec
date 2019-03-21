@@ -82,9 +82,8 @@ View user cannot add/edit artifacts and add properties using api
 
 * Verify artifacts tab does not contain file "another_artifact.txt"
 
- verify property "quux" with value "baz" for pipeline "viewable-pipeline" stage "defaultStage" label "1" counter "1" job "defaultJob" cannot be added
-|
 
+* verify property "quux" with value "baz" for pipeline "viewable-pipeline" stage "defaultStage" label "1" counter "1" job "defaultJob" cannot be added
 
 
 

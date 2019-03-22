@@ -14,7 +14,7 @@ AddNewPipelineGroupAdmin
 tags: Clicky Admin
 
 * On Admin page
-* Click to create a new pipeline to group "groupWithStageSecurity"
+* Click to create a new pipeline to group "group_with_no_pipelines"
 
 make sure group admins don't see autocomplete for group
 * Enter new pipeline name as "some_pipeline_name"
@@ -32,16 +32,6 @@ make sure group admins don't see autocomplete for group
 * Save pipeline "some_pipeline_name" successfully
 
 * Verify "Pipeline successfully created." message is displayed
-* On Admin page
-* Verify "group3" has pipelines "pipeline3"
-* Open "Materials" tab - On Pipeline settings page
-* Verify material "pipeline_material" is exist with URL "http://git.url"
-* On Job settings page of pipeline "some_pipeline_name" stage "some_stage" job "some_job"
-
-* verifyTask
-|Order_no|Task Type         |Run If Conditions |Properties                                                               |On Cancel     |
-|--------|------------------|------------------|-------------------------------------------------------------------------|--------------|
-|1       |Rake              |Passed            |Build File: Rakefile Target: wait_for_stopjob_file Working Directory: src|No            |
 
 * On Admin page
 * Open "Pipelines" tab
@@ -57,9 +47,9 @@ make sure group admins don't see autocomplete for group
 * On Admin page
 * Open "Pipelines" tab
 
-* Verify "group1" has pipelines "some_pipeline_name, cloned-some-pipeline-name"
+* Verify "group_with_no_pipelines" has pipelines "some_pipeline_name, cloned-some-pipeline-name"
 * Delete "cloned-some-pipeline-name"
-* Verify "group1" has pipelines "some_pipeline_name"
+* Verify "group_with_no_pipelines" has pipelines "some_pipeline_name"
 
 
 

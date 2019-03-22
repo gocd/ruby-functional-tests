@@ -23,7 +23,7 @@ step 'Clone pipeline <pipeline_name> to <new_pipeline_name> in pipeline group <t
 end
 
 step 'Delete <pipeline_name>' do |pipeline|
-  admin_pipeline_page.delete_pipeline(scenario_state.get(pipeline))
+  admin_pipeline_page.delete_pipeline(scenario_state.get(pipeline).nil? ? pipeline : scenario_state.get(pipeline))
 end
 
 step 'Move pipeline <pipeline_name> from group <source_group> to group <destination_group>' do |pipeline, source_group, destination_group|
@@ -38,7 +38,7 @@ step 'Verify there are <number_of_warnings> warnings' do |number_of_warnings|
   admin_pipeline_page.verify_number_of_warnings number_of_warnings
 end
 
-step 'Wait till error message popup appears' do ||
+step 'Wait till error message popup appears' do
   admin_pipeline_page.wait_till_error_popup_appears
 end
 
@@ -58,7 +58,7 @@ step 'Verify there are no warnings' do
   admin_pipeline_page.verify_there_are_no_warnings
 end
 
-step 'Verify there are no error and warnings' do 
+step 'Verify there are no error and warnings' do
   assert_false admin_pipeline_page.verify_there_are_no_errors_and_warnings
 end
 
@@ -91,7 +91,7 @@ step 'Verify that extract template is disabled for <pipeline>' do |pipeline|
   assert_true admin_pipeline_page.pipeline_extraction_disabled? scenario_state.self_pipeline
 end
 
-step 'Add new pipeline group' do ||
+step 'Add new pipeline group' do
   admin_pipeline_page.add_pipeline_group
 end
 step 'Enter pipeline group name <group> - Already On New Pipeline Group Popup' do |group|
@@ -103,46 +103,40 @@ step 'Enter pipeline group name <group> - Already On Clone Pipeline pop up' do |
 end
 
 step 'Verify error message <message> - Already On New Pipeline Group Popup' do |message|
-  assert_true job_settings_page.error_messages.include?message
+  assert_true job_settings_page.error_messages.include? message
 end
 
 step 'Verify groups <groups> are visible - on Admin Pipelines tab' do |groups|
-   group_names=admin_pipeline_page.total_pipeline_groups
-  groups.split(',').each{|group|
-  assert_true group_names.include?group
- }  
+  group_names = admin_pipeline_page.total_pipeline_groups
+  groups.split(',').each do |group|
+    assert_true group_names.include? group
+  end
 end
 
-step 'Verify <group> has pipelines <pipelines>' do |group,pipelines|
-  pipelines_from_groups=admin_pipeline_page.get_pipelines_from(group)
-  pipeline_names=[]
-  pipelines.split(',').each{ |pipeline|
-    if scenario_state.get(pipeline)==nil ? pipeline_names.push(pipeline) : pipeline_names.push(scenario_state.get(pipeline))
-    end
-    }
-  pipeline_names.each{|pipeline|
-  assert_true pipelines_from_groups.include?pipeline
-  }
+step 'Verify <group> has pipelines <pipelines>' do |group, pipelines|
+  pipelines_from_groups = admin_pipeline_page.get_pipelines_from(group)
+  p = pipelines.split(',').map { |pipeline| scenario_state.get(pipeline.strip).nil? ? pipeline.strip : scenario_state.get(pipeline) }
+  assert_true (p & pipelines_from_groups) == p
 end
 
 step 'Verify delete link is disabled for <group>' do |group|
- assert_true admin_pipeline_page.delete_link_is_disabled? group
-end 
+  assert_true admin_pipeline_page.delete_link_is_disabled? group
+end
 
 step 'Delete group <group>' do |group|
   admin_pipeline_page.delete_group(group)
 end
 
 step 'Verify groups <groups> are not visible - on Admin Pipelines tab' do |groups|
-  group_names=admin_pipeline_page.total_pipeline_groups
-  groups.split(',').each{|group|
-   assert_false group_names.include?group
-  }  
- end
+  group_names = admin_pipeline_page.total_pipeline_groups
+  groups.split(',').each do |group|
+    assert_false group_names.include? group
+  end
+end
 
 step 'Delete pipeline <pipeline_name>' do |pipeline|
   admin_pipeline_page.delete_pipeline_from_group(pipeline)
- end
+end
 
 step 'Verify error message <message> - Already On Clone Pipeline Popup' do |message|
   assert_equal message, admin_pipeline_page.error_message_on_clone_window.text
@@ -162,92 +156,92 @@ step 'Verify pipeline <pipeline> is paused with message <message>' do |pipeline,
 end
 
 step 'Click clone button for pipeline <pipeline>' do |pipeline|
-  pipeline_name=scenario_state.get(pipeline) || pipeline
+  pipeline_name = scenario_state.get(pipeline) || pipeline
   admin_pipeline_page.click_clone_button(pipeline_name)
 end
 
 step 'Verify can delete <pipelines>' do |pipelines|
-  pipelines.split(',').each{|pipeline|
-  assert_true admin_pipeline_page.delete_button_enabled?(scenario_state.get(pipeline))
-  }
+  pipelines.split(',').each do |pipeline|
+    assert_true admin_pipeline_page.delete_button_enabled?(scenario_state.get(pipeline))
+  end
 end
 
 step 'Verify cannot delete <pipelines>' do |pipelines|
-  pipelines.split(',').each{|pipeline|
-  assert_false admin_pipeline_page.delete_button_enabled?(scenario_state.get(pipeline))
-  }
+  pipelines.split(',').each do |pipeline|
+    assert_false admin_pipeline_page.delete_button_enabled?(scenario_state.get(pipeline))
+  end
 end
 
-step 'Verify <group> does not have pipelines <pipelines>' do |group,pipelines|
-  pipelines_from_groups=admin_pipeline_page.get_pipelines_from(group)
-  pipeline_names=[]
-  pipelines.split(',').each{ |pipeline|
-    ppl=scenario_state.get(pipeline)|| pipeline
-    pipeline_names=pipeline_names.push(ppl)
-  }
-  pipeline_names.each{|pipeline|
-  assert_false pipelines_from_groups.include?pipeline
-  }
+step 'Verify <group> does not have pipelines <pipelines>' do |group, pipelines|
+  pipelines_from_groups = admin_pipeline_page.get_pipelines_from(group)
+  pipeline_names = []
+  pipelines.split(',').each do |pipeline|
+    ppl = scenario_state.get(pipeline) || pipeline
+    pipeline_names = pipeline_names.push(ppl)
+  end
+  pipeline_names.each do |pipeline|
+    assert_false pipelines_from_groups.include? pipeline
+  end
 end
 
-step 'Verify <group> has message <message>' do |group,message|
-assert_true admin_pipeline_page.group_has_message?(group,message)
+step 'Verify <group> has message <message>' do |group, message|
+  assert_true admin_pipeline_page.group_has_message?(group, message)
 end
 
-step 'Verify that template <template> has message <message>' do |template,message|
-  assert_true admin_pipeline_page.template_has_message?(template,message)
- end
+step 'Verify that template <template> has message <message>' do |template, message|
+  assert_true admin_pipeline_page.template_has_message?(template, message)
+end
 
 step 'Click to create a new pipeline to group <group>' do |group|
   admin_pipeline_page.add_new_pipeline_in_group(group)
 end
 
 step 'Verify that the edit button for pipeline <pipeline> is a link for edit pipeline' do |pipeline|
-assert_true admin_pipeline_page.edit_link_exist_for_pipeline?(pipeline)
+  assert_true admin_pipeline_page.edit_link_exist_for_pipeline?(pipeline)
 end
 
 step 'Verify that move button is not present for <pipeline>' do |pipeline|
   assert_false admin_pipeline_page.move_button_exist_for_pipeline?(pipeline)
 end
 
-step 'Verify that <pipeline> cannot be moved to group <group>' do |pipeline,group|
-  assert_false admin_pipeline_page.pipeline_moved_to_group_list(scenario_state.get(pipeline)).include?scenario_state.get(pipeline)
-end 
-
-step 'Adding <user> as a <type> user for group <group>' do |user,type,group|
-  admin_pipeline_page.add_user_to_group(user,type,group)
+step 'Verify that <pipeline> cannot be moved to group <group>' do |pipeline, _group|
+  assert_false admin_pipeline_page.pipeline_moved_to_group_list(scenario_state.get(pipeline)).include? scenario_state.get(pipeline)
 end
 
-step 'Adding <user> as a <type> role for group <group>' do |user,type,group|
-  admin_pipeline_page.add_role_to_group(user,type,group)
+step 'Adding <user> as a <type> user for group <group>' do |user, type, group|
+  admin_pipeline_page.add_user_to_group(user, type, group)
 end
 
-step 'Verify pipeline group <group> has user <user> with <permissions> permissions' do |group,user,permissions|
-  users=admin_pipeline_page.users_in_group()
-  permissions=admin_pipeline_page.users_permissions_in_group(user)
-  assert_true users.include?user
-  permissions.each{|permission|
-  assert_true permissions.include?permission
-  }
+step 'Adding <user> as a <type> role for group <group>' do |user, type, group|
+  admin_pipeline_page.add_role_to_group(user, type, group)
 end
 
-step 'Verify pipeline group <group> has role <role> with <permission> permissions' do |group,role,permissions|
-  roles=admin_pipeline_page.roles_in_group()
-  permissions=admin_pipeline_page.roles_permissions_in_group(role)
-  assert_true roles.include?role
-  permissions.each{|permission|
-  assert_true permissions.include?permission
-  }
+step 'Verify pipeline group <group> has user <user> with <permissions> permissions' do |_group, user, permissions|
+  users = admin_pipeline_page.users_in_group
+  permissions = admin_pipeline_page.users_permissions_in_group(user)
+  assert_true users.include? user
+  permissions.each do |permission|
+    assert_true permissions.include? permission
+  end
 end
 
-step 'Verify pipeline group <group> does not have user <user>' do |group,user|
-  users=admin_pipeline_page.users_in_group()
-  assert_false users.include?user 
+step 'Verify pipeline group <group> has role <role> with <permission> permissions' do |_group, role, permissions|
+  roles = admin_pipeline_page.roles_in_group
+  permissions = admin_pipeline_page.roles_permissions_in_group(role)
+  assert_true roles.include? role
+  permissions.each do |permission|
+    assert_true permissions.include? permission
+  end
 end
 
-step 'Verify pipeline group <group> does not have role <role>' do |group,role|
-  roles=admin_pipeline_page.roles_in_group()
-  assert_false roles.include?role
+step 'Verify pipeline group <group> does not have user <user>' do |_group, user|
+  users = admin_pipeline_page.users_in_group
+  assert_false users.include? user
+end
+
+step 'Verify pipeline group <group> does not have role <role>' do |_group, role|
+  roles = admin_pipeline_page.roles_in_group
+  assert_false roles.include? role
 end
 
 step 'Delete user <user> -on edit group page' do |user|
@@ -263,38 +257,38 @@ step 'Set group name as <group>' do |group|
 end
 
 step 'Verify tabs <tabs> are visible' do |tabs|
-  tabs.split(',').each { |tab|
-  assert_true admin_pipeline_page.tab_is_visible?(tab)
-  }
+  tabs.split(',').each do |tab|
+    assert_true admin_pipeline_page.tab_is_visible?(tab)
+  end
 end
 
 step 'Verify tabs <tabs> are not visible' do |tabs|
-  tabs.split(',').each { |tab|
-  assert_false admin_pipeline_page.tab_is_visible?(tab)
-  }
-end  
+  tabs.split(',').each do |tab|
+    assert_false admin_pipeline_page.tab_is_visible?(tab)
+  end
+end
 
 step 'Open <tab> tab' do |tab|
   admin_pipeline_page.open_tab tab
 end
 
 step 'Verify that templates <tmplates> are present - on Admin Templates tab' do |templates|
-  template_names=admin_pipeline_page.total_templates
-  templates.split(',').each{|template|
- assert_true template_names.include?template
-}  
+  template_names = admin_pipeline_page.total_templates
+  templates.split(',').each do |template|
+    assert_true template_names.include? template
+  end
 end
 
-step 'Verify that template <template> is used by pipelines <pipeline>' do |template,pipelines|
-  pipelines_from_template=admin_pipeline_page.get_pipelines_from_templates(template)
-  pipeline_names=[]
-  pipelines.split(',').each{ |pipeline|
-    if scenario_state.get(pipeline)==nil ? pipeline_names.push(pipeline) : pipeline_names.push(scenario_state.get(pipeline))
+step 'Verify that template <template> is used by pipelines <pipeline>' do |template, pipelines|
+  pipelines_from_template = admin_pipeline_page.get_pipelines_from_templates(template)
+  pipeline_names = []
+  pipelines.split(',').each do |pipeline|
+    if scenario_state.get(pipeline).nil? ? pipeline_names.push(pipeline) : pipeline_names.push(scenario_state.get(pipeline))
     end
-    }
-  pipeline_names.each{|pipeline|
-  assert_true pipelines_from_template.include?pipeline
-  }
+  end
+  pipeline_names.each do |pipeline|
+    assert_true pipelines_from_template.include? pipeline
+  end
 end
 
 step 'Verify that edit pipeline <pipeline> lands on pipeline edit page' do |pipeline|
@@ -303,28 +297,28 @@ step 'Verify that edit pipeline <pipeline> lands on pipeline edit page' do |pipe
 end
 
 step 'Verify cannot delete templates <templates>' do |templates|
-  templates.split(',').each{ |template|
+  templates.split(',').each do |template|
     assert_true admin_pipeline_page.delete_link_is_disabled_for_template? template
-  }
+  end
 end
 
 step 'Verify can delete templates <templates>' do |templates|
-  templates.split(',').each{ |template|
+  templates.split(',').each do |template|
     assert_false admin_pipeline_page.delete_link_is_disabled_for_template? template
-  }
-end 
+  end
+end
 
 step 'Delete template <template>' do |template|
   admin_pipeline_page.delete_template template
 end
 step 'Verify that templates <tmplates> are not present - on Admin Templates tab' do |templates|
-  template_names=admin_pipeline_page.total_templates
-  templates.split(',').each{|template|
- assert_false template_names.include?template
-}  
+  template_names = admin_pipeline_page.total_templates
+  templates.split(',').each do |template|
+    assert_false template_names.include? template
+  end
 end
 
-step 'Verify templates tab is visible' do ||
+step 'Verify templates tab is visible' do
   admin_pipeline_page.template_tab_is_visible?
 end
 
@@ -332,42 +326,42 @@ step 'Set cancel job after <time> minutes' do |time|
   admin_pipeline_page.set_hung_job_override_time time
 end
 
-step 'Save Server Configuration' do ||
-  admin_pipeline_page.save_server_configuration.click 
+step 'Save Server Configuration' do
+  admin_pipeline_page.save_server_configuration.click
 end
 
 step 'Edit template <template>' do |template|
   admin_pipeline_page.edit_template template
 end
 
-step 'Click edit Config XML' do ||
+step 'Click edit Config XML' do
   admin_pipeline_page.edit_config
 end
 
-step 'Change config to conflict' do ||
+step 'Change config to conflict' do
   admin_pipeline_page.change_cofig_to_conflict
 end
 
-step 'Rename pipeline <pipeline> to <new_pipeline> - Already On Pipeline Group Xml' do |pipeline,new_pipeline|
+step 'Rename pipeline <pipeline> to <new_pipeline> - Already On Pipeline Group Xml' do |pipeline, new_pipeline|
   admin_pipeline_page.rename_pipeline_on_config_xml_page pipeline, new_pipeline
 end
 
-step 'Verify that split pane appears' do ||
+step 'Verify that split pane appears' do
   admin_pipeline_page.verify_split_appears
 end
 
-step 'Add downstream pipeline to create post validation conflict' do ||
+step 'Add downstream pipeline to create post validation conflict' do
   admin_pipeline_page.add_downstream_pipeline_to_create_post_validations
 end
 
 step 'Verify post validation error is shown with message <message>' do |message|
-  assert_true admin_pipeline_page.post_validation_error_message_exist?message
+  assert_true admin_pipeline_page.post_validation_error_message_exist? message
 end
 
 step 'Click save - Already on config XML Tab' do
   admin_pipeline_page.save_config.click
 end
 
-step 'Click Cancel - Already on group admin config XML Tab' do 
+step 'Click Cancel - Already on group admin config XML Tab' do
   admin_pipeline_page.cancel_config.click
 end

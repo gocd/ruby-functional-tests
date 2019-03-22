@@ -424,7 +424,9 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="ls">
+                            <exec command="sleep">
+                                <arg>20</arg>
+                                <runif status="passed"/>
                             </exec>
                         </tasks>
                     </job>

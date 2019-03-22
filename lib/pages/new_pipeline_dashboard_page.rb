@@ -406,6 +406,19 @@ module Pages
       page.has_css?('ul li a', text:'Admin')
     end
 
+    def set_fingerprint current_material_url
+      body= begin
+            response = RestClient.get http_url("/api/config/materials"), basic_configuration.header
+            rescue RestClient::ExceptionWithResponse => err
+            p "Get All Material call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+            end
+          JSON.parse(body).map{|material|
+            if material['description'].include?current_material_url
+               scenario_state.put('fingerprint',material['fingerprint'])
+            end
+          }
+        end
+
     private
 
     def revisions(pipeline)

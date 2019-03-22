@@ -84,7 +84,7 @@ module Context
           else
               fetch['pipeline'] = pipeline['name'] if fetch['pipeline'] == initial_name
           end
-         end 
+         end
         end
         config_dom.xpath('//environments/environment/pipelines/pipeline').each do |env|
           env['name'] = pipeline['name'] if env['name'] == initial_name
@@ -360,6 +360,16 @@ module Context
     }
     load_dom(current_config)
    end
+
+   def enable_auto_updates pipeline
+    current_config = get_config_from_server
+    current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/materials/*").each { |material|
+    material.remove_attribute("autoUpdate") if(material.has_attribute?("autoUpdate"))
+   }
+   load_dom(current_config)
+   end
+
+
 
 
   end

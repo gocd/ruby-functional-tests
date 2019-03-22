@@ -30,8 +30,8 @@ Setting a timer that will never actually trigger the pipeline. (Assuming time tr
 
 Setting a timer that will constantly trigger the pipeline.
 
-* Using timer with spec "0/60 * * * * ? *"
-* Wait till pipeline start building - On Swift Dashboard page
+* Using timer with spec "0/30 * * * * ? *"
+* Wait till pipeline start building for "90" seconds - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
 * Pause pipeline with reason "prevent another timer trigger before verification" - On Swift Dashboard page
 * Verify pipeline is paused with reason "prevent another timer trigger before verification" by "anonymous" - On Swift Dashboard page

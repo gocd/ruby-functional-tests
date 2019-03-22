@@ -10,7 +10,7 @@ Setup of contexts
 SecureVariables
 ---------------
 
-tags: #5668, Clicky Admin, stage1, 6797, 6798, 6825
+tags: secure_variables
 
 * Add environment "uat" to any "1" Idle agents - Using Agents API
 
@@ -84,7 +84,7 @@ tags: #5668, Clicky Admin, stage1, 6797, 6798, 6825
 * Trigger pipeline with options - On Swift Dashboard page
 
 * On Swift Dashboard Page
-* Looking at pipeline "pipeline-with-environment-variables" - On Swift Dashboard page
+* Looking at pipeline "edit-pipeline" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "passed" on pipeline with label "2" - On Swift Dashboard page
 * On Job details page of pipeline "edit-pipeline" counter "2" stage "defaultStage" counter "1" job "defaultJob"

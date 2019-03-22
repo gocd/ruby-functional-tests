@@ -32,7 +32,7 @@ module Pages
     element :edit_config_xml, '#edit_config'
     element :save_config, '#save_config'
     element :cancel_config, '.cancel'
-    
+
 
     def clone_pipeline(source_pipeline_name, new_pipeline_name, pipeline_group_name)
       click_on_clone_link_for(source_pipeline_name)
@@ -60,7 +60,7 @@ module Pages
       end
     end
 
-    
+
 
     def verify_number_of_warnings(number_of_warning_msg)
       wait_till_event_occurs_or_bomb 90, "Total number of Warnings are not equal to #{number_of_warning_msg}" do
@@ -78,9 +78,9 @@ module Pages
         assert_true true
       elsif page.has_css?("[data-test-id='server-health-messages-count']", wait: 10)
         assert_true !error_and_warning_count.text.include?('warning')
-      else 
+      else
         assert_true false
-      end  
+      end
     end
 
     def verify_there_are_no_errors_and_warnings
@@ -179,7 +179,7 @@ module Pages
       page.find('h2.group_name', text: template).sibling('.title_action_wrapper').has_css?('.delete_icon_disabled')
     end
 
-    def delete_template template 
+    def delete_template template
       page.find("span#trigger_delete_#{template}").click
       page.find("button[value='Proceed']").click
     end
@@ -247,7 +247,7 @@ module Pages
     def add_user_to_group(user,type,group)
       if page.has_css?("tr#USER_#{user}")
         page.find("tr#USER_#{user} td input##{type}Privilege_USER_#{user}").click
-        general_settings_page.task_save.click  
+        general_settings_page.task_save.click
         return
       elsif page.all('input.permissions_USER_name').each{ |input_element|
         if input_element.value.blank?
@@ -256,14 +256,14 @@ module Pages
            element.click
            general_settings_page.task_save.click
         end
-       }   
-      end 
+       }
+      end
     end
 
     def add_role_to_group(user,type,group)
        if page.has_css?("tr#ROLE_#{user}")
          page.find("tr#ROLE_#{user} td input##{type}Privilege_ROLE_#{user}").click
-         general_settings_page.task_save.click  
+         general_settings_page.task_save.click
          return
        elsif page.all('input.permissions_ROLE_name').each{ |input_element|
          if input_element.value.blank?
@@ -272,10 +272,10 @@ module Pages
           element.click
           general_settings_page.task_save.click
           return
-        end    
-        }  
+        end
+        }
       end
-    end 
+    end
 
     def users_in_group()
       users=[]
@@ -299,7 +299,7 @@ module Pages
         permissions.push(element[:name]) if !element.checked?
       }
       return permissions
-    end 
+    end
 
     def roles_permissions_in_group(role)
       permissions=[]
@@ -307,20 +307,20 @@ module Pages
         permissions.push(element[:name]) if !element.checked?
       }
       return permissions
-    end 
+    end
 
     def delete_user_on_edit_group(user)
     page.find("tr#USER_#{user} td span.remove_icon").click
-    end  
+    end
 
     def delete_role_on_edit_group(role)
       page.find("tr#ROLE_#{role} td span.remove_icon").click
-    end  
+    end
 
     def tab_is_visible?(tab)
       page.has_css?('.sub_tabs_container ul li a', text: tab)
     end
-    
+
     def open_tab tab
       page.find('.sub_tabs_container').find('a', text:tab).click
     end
@@ -332,7 +332,7 @@ module Pages
       end
       total_templates
     end
-    
+
     def click_edit_pipeline pipeline
       page.find('td a',text:pipeline).ancestor('tr').find('td a.action_icon.edit_icon').click
     end
@@ -375,13 +375,13 @@ module Pages
     def add_downstream_pipeline_to_create_post_validations
      context= %Q(<pipeline name="downstream-pipeline">\n <materials>\n <pipeline pipelineName= "#{scenario_state.get('upstream-pipeline')}"
                    stageName="defaultStage" materialName="UP" />\n </materials>\n <stage name="defaultStage">\n <approval type="manual"/>\n <jobs>\n <job name="replace-job">
-                   \n <tasks>\n <exec command="ls"/>\n </tasks>\n </job>\n </jobs>\n </stage>\n </pipeline>\n </pipelines>)         
+                   \n <tasks>\n <exec command="ls"/>\n </tasks>\n </job>\n </jobs>\n </stage>\n </pipeline>\n </pipelines>)
        new_context=page.find('#content').text.sub! "</pipelines>", context
-       page.find('#content').set new_context        
+       page.find('#content').set new_context
     end
 
     def post_validation_error_message_exist?message
-      
+
      errors=[]
      page.all('.error').each{|error|
        errors.push(error.text)}

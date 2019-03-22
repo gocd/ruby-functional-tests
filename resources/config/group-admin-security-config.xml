@@ -221,6 +221,14 @@
 	  	</stage>
 	  </pipeline>
 	</pipelines>
+  <pipelines group="group_with_no_pipelines">
+	 <authorization>
+	   <admins>
+       <role>group1AdminRole</role>
+	   </admins>
+	 </authorization>
+
+	</pipelines>
 
   <templates>
 	  	<pipeline name="simple-pass">

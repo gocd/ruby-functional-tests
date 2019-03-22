@@ -422,8 +422,7 @@
               <role>operator</role>
           </view>
       </authorization>
-
-      <pipeline name="downstream-pipeline">
+     <pipeline name="downstream-pipeline">
       <materials>
         <pipeline pipelineName="basic-pipeline-fast" stageName="defaultStage"/>
         <git url="material-for-downstream-pipeline" dest="git" materialName="downstream_git_material">
@@ -438,6 +437,48 @@
           <job name="defaultJob">
             <tasks>
               <exec command="ls"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+      <pipeline name="pipeline-artifacts">
+      <materials>
+        <git url="material-for-pipeline-artifacts" materialName="junit-pipeline-artifacts" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="Job1">
+            <tasks>
+              <exec command="mkdir" args="subfolder"/>
+              <exec command="touch" args="subfolder/file"/>
+              <exec command="touch" args="something.jar"/>
+              <exec command="touch" args="some.txt.thing"/>
+              <exec command="touch" args="something.zip"/>
+              <exec command="touch" args="subfolder/another.zip"/>
+            </tasks>
+            <artifacts>
+              <artifact type="build" src="subfolder/*.*" dest="file-with-dot-in-subfolder"/>
+              <artifact type="build" src="*.jar" dest="jarfolder"/>
+              <artifact type="build" src="*.txt.*" dest="zipfolder"/>
+              <artifact type="build" src="subfolder/*" dest="all-in-subfolder"/>
+              <artifact type="build" src="**/*.zip" dest="allzip"/>
+              <artifact type="build" src="**/*.not-exists" dest="not-exists"/>
+            </artifacts>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="second">
+        <approval type="manual"/>
+        <jobs>
+          <job name="Job2">
+            <tasks>
+              <fetchartifact artifactOrigin="gocd" stage="defaultStage" job="Job1" srcdir="file-with-dot-in-subfolder" dest="file-with-dot-in-subfolder-new"/>
+              <fetchartifact artifactOrigin="gocd" stage="defaultStage" job="Job1" srcdir="jarfolder" dest="jarfolder-new"/>
+              <fetchartifact artifactOrigin="gocd" stage="defaultStage" job="Job1" srcdir="zipfolder" dest="zipfolder-new"/>
+              <fetchartifact artifactOrigin="gocd" stage="defaultStage" job="Job1" srcdir="all-in-subfolder" dest="all-in-subfolder-new"/>
+              <fetchartifact artifactOrigin="gocd" stage="defaultStage" job="Job1" srcdir="allzip" dest="allzip-new"/>
             </tasks>
           </job>
         </jobs>

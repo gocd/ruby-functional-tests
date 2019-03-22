@@ -1,0 +1,7 @@
+
+
+
+#verify property <prop_name_api_6> with value <prop_value_api_6> for pipeline <P6> stage <secondStage> label <1> counter <1> job <secondJob> cannot be added
+*For pipeline <P6> label <1> stage <secondStage> counter <1> job <secondJob>
+*Set value <prop_value_api_6> in property <prop_name_api_6> and Verify return code is "403" - Using Properties Api
+*Verify property <prop_name_api_6> does not exist

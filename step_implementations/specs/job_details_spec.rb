@@ -139,6 +139,7 @@ end
 step 'Verify breadcrumb contains link to value stream map on pipeline label <label> for pipeline <pipeline> for counter <counter>' do |label, pipeline, counter|
   assert_true job_details_page.vsm_link_exist?(pipeline, label, counter)
 end
+
 step 'Click on pipeline bread crumb' do |_pipeline|
   job_details_page.breadcrumb_stage.click
 end
@@ -160,6 +161,11 @@ step 'Verify artifacts tab contains file <file>' do |file|
   assert_true job_details_page.file_exist_in_artifacts_tab? file
 end
 
+step 'Verify artifacts tab does not contain file <file>' do |file|
+  assert_false job_details_page.file_exist_in_artifacts_tab? file
+end
+
+
 step 'Verify artifacts tab contains file <file> in dir <dir>' do |file, dir|
   assert_true job_details_page.file_exist_in_dir_in_artifacts_tab? file, dir
 end
@@ -169,11 +175,15 @@ step 'For pipeline <pipeline> label <pipeline_label> stage <stage> counter <coun
 end
 
 step 'Append <text> to artifact <artifact> and Verify return code is <code> - Using Artifact Api' do |text, artifact, code|
-  File.new('test.txt', 'w') do |f|
-    f.write(text)
-  end
-  RestClient.put http_url("/files/#{scenario_state.get('locator')}/#{artifact}"), { multipart: true, file: File.new("test.txt", 'rb') }, { Confirm: 'true'} do |res, req, tmp|
+  File.open('test.txt', 'w') {|f|  f.write(text) }
+  if code.to_i==200 || code.to_i==201
+  RestClient.put http_url("/files/#{scenario_state.get('locator')}/#{artifact}"), { multipart: true, file: File.open("test.txt", 'rb') }, {content_type: :json,Confirm: 'true'}.merge(basic_configuration.header) do |res, req, tmp|
     assert_true res.body.eql? "File #{artifact} was appended successfully"
+  end
+  else
+  RestClient.put http_url("/files/#{scenario_state.get('locator')}/#{artifact}"), { multipart: true, file: File.open("test.txt", 'rb') }, {content_type: :json,Confirm: 'true'}.merge(basic_configuration.header) do |res, req, tmp|
+       assert_true res.code.to_i==code.to_i
+  end
   end
 end
 
@@ -181,7 +191,40 @@ step 'Create artifact <artifact> and Verify return code is <code> - Using Artifa
   f = File.new(artifact, 'w')
   f = File.new(artifact, 'rb')
   payload = { multipart: true, file: f }
-  actual_code = RestClient.post http_url("/files/#{scenario_state.get('locator')}/#{artifact}"), payload,
-                                { content_type: :json, Confirm: true }.merge(basic_configuration.header)
-  assert_true actual_code.code == code.to_i
+  RestClient.post http_url("/files/#{scenario_state.get('locator')}/#{artifact}"), payload,
+                                { content_type: :json, Confirm: true }.merge(basic_configuration.header) do |res,req,err|
+     assert_true res.code == code.to_i
+  end
+end
+
+step 'Verify artifact <artifact> contains text <text>' do |artifact,text|
+  job_details_page.click_artifact artifact
+  assert_true job_details_page.artifact_contents.include? text
+end
+
+
+step 'Set value <prop_value_api_1> in property <prop_name_api_1> and Verify return code is <201> - Using Properties Api' do |value,property,code|
+  url="/properties/#{scenario_state.get('locator')}/#{property}"
+  payload = "value=#{value}"
+  RestClient.post http_url("#{url}"), payload,
+  { Confirm: 'true' }.merge(basic_configuration.header) do |res,req,tmp|
+  assert_true res.code == code.to_i
+  end
+end
+
+step 'Verify property <property> has value <value>' do |property,value|
+  url="/properties/#{scenario_state.get('locator')}/#{property}"
+
+  RestClient.get http_url("#{url}"),
+  {Confirm: 'true' }.merge(basic_configuration.header) do |res,req,tmp|
+  assert_true res.body.include?value
+  end
+end
+
+step 'Verify property <prop_name_api_6> does not exist' do |property|
+  url="/properties/#{scenario_state.get('locator')}/#{property}"
+  RestClient.get http_url("#{url}"),
+  {Confirm: 'true' }.merge(basic_configuration.header) do |res,req,tmp|
+  assert_true res.body.include?"Property '#{property}' not found."
+  end
 end

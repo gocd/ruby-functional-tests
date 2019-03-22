@@ -229,6 +229,7 @@ step 'Verify property <prop_name_api_6> does not exist' do |property|
   end
 end
 
-step 'OnPropertiesTab <table> |table|
 
+step 'Verify property <property> exist' do |property|
+ assert_true job_details_page.property_exists?property
 end

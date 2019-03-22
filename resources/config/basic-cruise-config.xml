@@ -18,6 +18,30 @@
 <cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="118">
     <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="gauge" tokenGenerationKey="token"/>
     <pipelines group="basic">
+    <pipeline name="basic-pipeline-fast-with-job-properties">
+            <materials>
+                <git url="material-for-basic-pipeline-fast-with-job-properties" autoUpdate="false" materialName="materialWithJobProperties"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="sleep">
+                                <arg>20</arg>
+                                <runif status="passed"/>
+                            </exec></tasks>
+                        <properties>
+                            <property name="illegal.file" src="not-present" xpath="string(/testsuite/@errors)"/>
+                            <property name="illegal.xpath" src="junit-output/TEST-cruise.testing.JUnit.xml" xpath="!@"/>
+                            <property name="xpath.not.found" src="junit-output/TEST-cruise.testing.JUnit.xml" xpath="buhao"/>
+                            <property name="src.is.folder" src="junit-output" xpath="string(//testsuite/@time)"/>
+                            <property name="suite.time" src="junit-output/TEST-cruise.testing.JUnit.xml" xpath="string(//testsuite/@time)"/>
+                        </properties>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
      <pipeline name="pipeline-clean-working-dir">
             <materials>
                 <git url="material-for-clean-working-dir" materialName="basic-git-material" autoUpdate="false"/>

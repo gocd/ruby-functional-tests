@@ -30,12 +30,12 @@ module Context
     end
 
     def get_material_type_count(pipeline)
-      current_configuration = basic_configuration.get_config_from_server  
+      current_configuration = basic_configuration.get_config_from_server
       current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{@material_type}/@url").count
     end
 
     def get_material_url(pipeline,count)
-      current_configuration = basic_configuration.get_config_from_server 
+      current_configuration = basic_configuration.get_config_from_server
       return current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{@material_type}/@url")[count].value
     end
 
@@ -88,10 +88,10 @@ module Context
     end
 
     def create_new_directory_and_add_file(filename,directory_name)
-      cd(@path.to_s) do 
+      cd(@path.to_s) do
 
         mkdir_p(directory_name)
-         cd(directory_name) do 
+         cd(directory_name) do
            sh "touch #{filename}"
          end
         Open3.popen3(%(git add . && git commit -m "Adding new file #{filename} in #{directory_name}")) do |_stdin, _stdout, stderr, wait_thr|
@@ -106,6 +106,14 @@ module Context
         return stdout.delete("\n")
       end
     end
+
+    def nth_revision rev
+      cd(@path.to_s) do
+        stdout, _stdeerr, _status = Open3.capture3(%(git rev-parse HEAD~#{rev}))
+        return stdout.delete("\n")
+      end
+    end
+
   end
 
   class SVNMaterials < Materials

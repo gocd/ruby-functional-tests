@@ -33,6 +33,7 @@ class GoConstants
   CONFIG_PATH = 'resources/config'.freeze
   FILE_BASED_PLUGIN_ID = 'cd.go.authentication.passwordfile'.freeze
   AGENTS_API_VERSION = 'application/vnd.go.cd.v4+json'.freeze
+  ELASTIC_AGENTS_PROFILE_API_VERSION = 'application/vnd.go.cd.v1+json'.freeze
 
   OWASP_ZAP_PATH = '/opt/homebrew-cask/Caskroom/owasp-zap/2.5.0/OWASP-ZAP.app/Contents/MacOS/OWASP-ZAP.sh'.freeze
 

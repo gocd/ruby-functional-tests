@@ -65,6 +65,7 @@ require 'pages/maintenance_mode_spa'
 require 'pages/server_backup_page'
 require 'pages/personal_access_token_page'
 require 'pages/admin_access_token_page'
+require 'pages/elastic_agent_profiles_page'
 
 
 
@@ -84,6 +85,10 @@ module Helpers
 
     def personal_access_token_page
       Pages::PersonalAccessToken.new
+    end
+
+    def elastic_agents_profiles_page
+      Pages::ElasticAgentsProfiles.new
     end
 
     def admin_access_token_page

@@ -210,7 +210,7 @@ module Pages
 
     def pipeline_in_group?(group)
       wait_till_event_occurs_or_bomb 10, "Pipeline not in group #{group}" do
-        selected_pipeline_group = pipeline_group.select { |grp| grp.find('.dashboard-group_title').text == group }.first
+        selected_pipeline_group = pipeline_group.select { |grp| grp.find('.dashboard-group_name').text == group }.first
         unless selected_pipeline_group.nil?
           pipelines = selected_pipeline_group.all('.pipeline_name')
           return pipelines.select { |pipeline| pipeline.text == scenario_state.self_pipeline }.any?

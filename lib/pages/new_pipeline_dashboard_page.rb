@@ -23,7 +23,7 @@ module Pages
 
     element :pipeline_name, '.pipeline_name'
     elements :pipeline_group, '.dashboard-group'
-    elements :pipeline_group_title, '.dashboard-group_title'
+    elements :pipeline_group_title, '.dashboard-group_name'
     element :material_for_trigger, '.material-for-trigger'
     iframe :build_time_chart, PipelineBuildTime, 0
     element :stage_name, '.stage_name'

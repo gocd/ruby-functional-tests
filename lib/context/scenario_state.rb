@@ -19,6 +19,7 @@ module Context
     def initialize
       @scenario_store = Gauge::DataStoreFactory.scenario_datastore
       @scenario_store.put 'non-existing-pipeline', 'ghost-pipeline'
+      @scenario_store.put 'server_ip', GoConstants::HOSTNAME
     end
 
     def get(key)

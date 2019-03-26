@@ -71,6 +71,21 @@
         <user>group1Admin</user>
       </admins>
      </authorization>
+     <pipeline name="pipeline-with-elastic-agent-profile">
+            <materials>
+                 <git url="material-for-pipeline-with-elastic-agent-profile" dest="git" materialName="git" autoUpdate="true"/>
+            </materials>
+            <stage name="defaultStage">
+                 <jobs>
+                  <job name="defaultJob">
+                     <tasks>
+                          <exec command="ls">
+                          </exec>
+                     </tasks>
+                 </job>
+                </jobs>
+            </stage>
+       </pipeline>
         <pipeline name="VSM1">
             <materials>
                 <git url="material-for-pipeline_VSM1" dest="git" materialName="git" autoUpdate="true"/>

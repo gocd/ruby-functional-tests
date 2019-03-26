@@ -24,15 +24,7 @@ tags: stage-locking
 * Schedule should return code "202"
 
 
-
-
-
-
-
-
 Teardown of contexts
 ____________________
 * Capture go state "StageLocking" - teardown
 * With "1" live agents - teardown
-
-

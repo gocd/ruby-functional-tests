@@ -35,6 +35,7 @@ LOAD_BALANCED    = GO_JOB_RUN_COUNT && GO_JOB_RUN_INDEX
 DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
 USE_POSTGRESQL   = !ENV['USE_POSTGRESQL'].nil?
 
+DOCKER_EA_PLUGIN_RELEASE_URL                = ENV['DOCKER_EA_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/docker-elastic-agents/releases/latest'
 DOCKER_SWARM_EA_PLUGIN_RELEASE_URL          = ENV['DOCKER_SWARM_EA_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/docker-swarm-elastic-agents/releases/latest'
 ELASTICAGENTS_PLUGIN_RELEASE_URL            = ENV['ELASTICAGENTS_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/elastic-agent-skeleton-plugin/releases/latest'
 JSON_CONFIG_PLUGIN_RELEASE_URL              = ENV['JSON_CONFIG_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/tomzo/gocd-json-config-plugin/releases/latest'
@@ -147,6 +148,8 @@ namespace :plugins do
     sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-registry-artifact-plugin.jar"
     url = JSON.parse(open(DOCKER_SWARM_EA_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
     sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-swarm-ealstic-agents-plugin.jar"
+    url = JSON.parse(open(DOCKER_EA_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
+    sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-ealstic-agents-plugin.jar"
   end
 
   desc 'task for preparing anlytics plugin'

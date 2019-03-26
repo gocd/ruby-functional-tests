@@ -133,10 +133,8 @@ namespace :plugins do
   desc 'copy the plugins in the go server'
   task :prepare do
     mkdir_p "target/go-server-#{VERSION_NUMBER}/plugins/external"
-    mkdir_p "target/go-server-#{VERSION_NUMBER}/addons"
     if DEVELOPMENT_MODE
       cp_r "../#{GO_PLUGINS_DIRNAME}/target/go-plugins-dist/.", "target/go-server-#{VERSION_NUMBER}/plugins/external"
-      cp_r "../#{GO_TRUNK_DIRNAME}/test/test-addon/target/libs/.", "target/go-server-#{VERSION_NUMBER}/addons"
     else
       cp_r 'target/go-plugins-dist/.', "target/go-server-#{VERSION_NUMBER}/plugins/external"
 

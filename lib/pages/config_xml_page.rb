@@ -22,9 +22,9 @@ module Pages
     element :save, '#save_config'
 
     def verify_group_links_visible(groups)
-      page.find('#modifiable_groups').all('.modifiable_group_link').each do |links|
-        assert_true groups.split(',').include? links.text
-      end
+      actual = page.find('#modifiable_groups').all('.modifiable_group_link').collect(&:text)
+      expected = groups.split(',').collect(&:strip)
+      assert_true (expected - actual).empty?
     end
 
     def verify_selected_group_is(group)
@@ -44,13 +44,13 @@ module Pages
     end
 
     def save_successful?
-      wait_till_event_occurs_or_bomb 20, "Expected config xml save successful message by now" do
+      wait_till_event_occurs_or_bomb 20, 'Expected config xml save successful message by now' do
         break if page.find('#message_pane', wait: 10).has_css?('.success', text: 'Saved configuration successfully.')
       end
     end
 
     def error_message_displayed?(message)
-      wait_till_event_occurs_or_bomb 20, "Expected config xml save error message by now" do
+      wait_till_event_occurs_or_bomb 20, 'Expected config xml save error message by now' do
         break if page.find('#message_pane', wait: 10).has_css?('.error', text: message)
       end
     end
@@ -59,6 +59,5 @@ module Pages
       hover_on_admin
       page.find('#app-menu').find('a', text: 'Config XML').click
     end
-
   end
 end

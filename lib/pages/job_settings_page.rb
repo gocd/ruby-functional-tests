@@ -45,6 +45,8 @@ module Pages
     element :job_name, "#job_name"
     element :set_never, "#jobTimeout_never"
     element :resources_on_popup, '#job_resources'
+    element :task_source_file, "input[name='task[src]']"
+    element :is_source_a_file, "#is_source_a_file"
 
     load_validation { has_add_new_task? }
 

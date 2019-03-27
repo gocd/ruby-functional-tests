@@ -190,6 +190,33 @@
                 </jobs>
             </stage>
     </pipeline>
+    <pipeline name="pipeline.with.runif">
+            <materials>
+                <git url="material-for-pipeline-with-runif" dest="git" autoUpdate="false"/>
+            </materials>
+            <stage name="default.stage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="job.with.runif">
+                        <tasks>
+                           <exec command="fail" />
+                           <exec command="sleep">
+                            <arg>30</arg>
+                            <runif status="passed" />
+                           </exec>
+                           <exec command="sleep">
+                             <arg>6</arg>
+                             <runif status="failed" />
+                           </exec>
+                           <exec command="echo">
+                            <arg>"Hello"</arg>
+                            <runif status="failed" />
+                           </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
     <pipeline name="hung-job-pipeline">
             <materials>
                 <git url="material-for-hung-job-pipeline" dest="git" autoUpdate="false" materialName="git-material"/>

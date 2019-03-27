@@ -22,9 +22,9 @@ module Pages
     element :save, '#save_config'
 
     def verify_group_links_visible(groups)
-      page.find('#modifiable_groups').all('.modifiable_group_link').each do |links|
-        assert_true groups.split(',').include? links.text
-      end
+      actual = page.find('#modifiable_groups').all('.modifiable_group_link').collect{|links| links.text}
+      expected = groups.split(',').collect{|item| item.strip}
+      assert_true (expected - actual).empty?
     end
 
     def verify_selected_group_is(group)

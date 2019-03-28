@@ -398,7 +398,7 @@ module Pages
       page.find('a',text:'ADD NEW TEMPLATE').click
     end
 
-    def pipeline_can_be_extracted?
+    def extractable_pipelines
       page.find('#pipeline_selectedPipelineName').all('option').collect(&:text)
     end
 

@@ -366,7 +366,7 @@ step 'Click Cancel - Already on group admin config XML Tab' do
   admin_pipeline_page.cancel_config.click
 end
 
-step 'Add new template' do ||
+step 'Add new template' do
   admin_pipeline_page.click_add_new_template
 end
 
@@ -374,15 +374,15 @@ step 'Enter template name <template>' do |template|
   admin_pipeline_page.template_name.set template
 end
 
-step 'Select extract template from a existing pipeline' do ||
+step 'Select extract template from a existing pipeline' do
   admin_pipeline_page.extract_from_pipeline.click
 end
 
 step 'Verify template can be extracted only from pipelines <pipelines>' do |pipelines|
-  actual_pipelines=admin_pipeline_page.pipeline_can_be_extracted?
-  pipelines.split(',').each {|pipeline|
-  assert_true admin_pipeline_page.pipeline_can_be_extracted?.include? scenario_state.get(pipeline)
-  }
+  actual_pipelines = admin_pipeline_page.extractable_pipelines
+  pipelines.split(',').each do |pipeline|
+    assert_true actual_pipelines.include? scenario_state.get(pipeline)
+  end
 end
 
 step 'Select pipeline <pipeline> for template' do |pipeline|
@@ -393,9 +393,9 @@ step 'Verify pipeline uses template <template>' do |template|
   assert_true admin_pipeline_page.has_template? template
 end
 
-step 'Verify extract template checkbox is disabled & not checked' do ||
- assert_true !admin_pipeline_page.extract_from_pipeline.checked?
- assert_true admin_pipeline_page.extract_from_pipeline.disabled?
+step 'Verify extract template checkbox is disabled & not checked' do
+  assert_true !admin_pipeline_page.extract_from_pipeline.checked?
+  assert_true admin_pipeline_page.extract_from_pipeline.disabled?
 end
 
 step 'Enter template name <template> - On template popup' do |template|

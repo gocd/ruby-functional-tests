@@ -28,7 +28,7 @@ step 'Using pipeline <pipeline> - setup' do |pipelines|
   basic_configuration.remove_pipelines_except pipelines.split(',').map(&:strip)
 end
 
-step 'Using pipeline with nonexisting material <pipeline> - setup' do |pipelines|
+step 'Using pipeline with specific material <pipeline> - setup' do |pipelines|
   basic_configuration.remove_pipelines_except pipelines.split(',').map(&:strip)
 end
 

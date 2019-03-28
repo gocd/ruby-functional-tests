@@ -4,7 +4,7 @@ PipelineUsingElasticAgent
 Setup of contexts
 * Secure Configuration - setup
 * Login as "admin" - setup
-* Using pipeline "pipeline-with-elastic-agent-profile" - setup
+* Using pipeline with specific material "pipeline-with-elastic-agent-profile" - setup
 * Capture go state "PipelineUsingElasticAgent" - setup
 
 PipelineUsingElasticAgent
@@ -14,7 +14,7 @@ tags: elastic_agent
 
 * On Plugins page
 * Open "Docker Elastic Agent Plugin" plugins settings page
-* Set GoServer URL as "https://$server_ip$:8154/go"
+* Set GoServer URL as "https://$server_ip$:8254/go"
 * Set auto register timeout as "5"
 * Set max containers as "2"
 
@@ -26,7 +26,7 @@ tags: elastic_agent
 
 * Add new profile for plugin "Docker Elastic Agent Plugin"
 * Set profile name as "docker_ea"
-* Set image as "gocddev/gocd-dev-build:centos-7-v2.0.27"
+* Set image as "rajiesh/gocd-agent-centos-7-test:v19.2.0"
 * Save the elastic agent profile
 
 * Verify profile "docker_ea" listed
@@ -37,7 +37,7 @@ tags: elastic_agent
 * Looking at pipeline "pipeline-with-elastic-agent-profile" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 
-* Wait till pipeline completed - On Swift Dashboard page
+* Wait for "180" seconds till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" - On Swift Dashboard page
 
 

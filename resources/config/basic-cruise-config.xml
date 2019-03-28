@@ -125,6 +125,44 @@
             </stage>
         </pipeline>
 
+        <pipeline name="simple-pipeline">
+            <params>
+                <param name="name">value</param>
+            </params>
+            <environmentvariables>
+                <variable name="NAME">
+                	<value>hucha_raghuveer</value>
+                </variable>
+            </environmentvariables>
+
+            <materials>
+                <git url="material-forsimple-pipeline" dest="git" autoUpdate="false"/>
+            </materials>
+            <stage name="first">
+                <approval type="manual"/>
+                <environmentvariables>
+	                <variable name="STAGE_LEVEL_VARIABLE">
+	                	<value>stage</value>
+	                </variable>
+	                <variable name="PARAM_VALUE_ENV_VAR">
+	                	<value>#{name}</value>
+	                </variable>
+            	</environmentvariables>
+                <jobs>
+                    <job name="job">
+		                <environmentvariables>
+			                <variable name="JOB_LEVEL_VARIABLE">
+			                	<value>job</value>
+			                </variable>
+		            	</environmentvariables>
+                        <tasks>
+                            <exec command="sleep" args="5"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+
      <pipeline name="two-stage-pipeline">
             <materials>
                 <git url="material-for-two-stage-pipeline" dest="git" autoUpdate="false" materialName="git"/>

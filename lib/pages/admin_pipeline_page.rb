@@ -32,7 +32,9 @@ module Pages
     element :edit_config_xml, '#edit_config'
     element :save_config, '#save_config'
     element :cancel_config, '.cancel'
-
+    element :template_name, '#admin_pipeline_page'
+    element :extract_from_pipeline, '#pipeline_useExistingPipeline'
+    element :template_name_on_popup, '#pipeline_template_name'
 
     def clone_pipeline(source_pipeline_name, new_pipeline_name, pipeline_group_name)
       click_on_clone_link_for(source_pipeline_name)
@@ -390,6 +392,22 @@ module Pages
 
     def edit_config
       page.find('a.link_as_button',text:'EDIT').click
+    end
+
+    def click_add_new_template
+      page.find('a',text:'ADD NEW TEMPLATE').click
+    end
+
+    def pipeline_can_be_extracted?
+      page.find('#pipeline_selectedPipelineName').all('option').collect(&:text)
+    end
+
+    def select_pipeline_for_template pipeline
+      find('#pipeline_selectedPipelineName option', :text => pipeline).click
+    end
+
+    def has_template? template
+    page.has_css?('a.edit_template',text: template )
     end
 
     private

@@ -22,7 +22,6 @@ step 'Open <tab_id> tab - On Job details page' do |tab_id|
 end
 
 step 'Verify console log contains message <message>' do |message|
-  binding.pry
   job_details_page.console_has_message?(message)
 end
 

@@ -40,15 +40,15 @@ end
 
 step 'Copy over material url from material url as <material-url>' do |material_url|
   pipeline_settings_page.set_material_url scenario_state.get(material_url)
-end 
+end
 
 step 'Check connectivity should be successful - Already on Git Material Creation Popup' do ||
-  pipeline_settings_page.check_connection.click 
+  pipeline_settings_page.check_connection.click
   assert_true  pipeline_settings_page.connection_ok?
 end
 
 step 'Check connectivity should be failed - Already on Git Material Creation Popup' do ||
-  pipeline_settings_page.check_connection.click 
+  pipeline_settings_page.check_connection.click
   assert_false pipeline_settings_page.connection_ok?
 end
 step 'Select add new material of type <type>' do |type|
@@ -99,3 +99,10 @@ step 'Enter Environment variable name <name> with value <value>' do |name,value|
   pipeline_settings_page.add_env(name, value)
 end
 
+step 'Verify that material <material> can be deleted' do |material|
+  assert_true pipeline_settings_page.can_material_be_deleted?new_pipeline_dashboard_page.sanitize_message(material)
+end
+
+step 'Verify that material <material> can not be deleted' do |material|
+  assert_false pipeline_settings_page.can_material_be_deleted?new_pipeline_dashboard_page.sanitize_message(material)
+end

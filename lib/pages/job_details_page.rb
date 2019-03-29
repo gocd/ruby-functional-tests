@@ -124,15 +124,16 @@ module Pages
     end
 
     def click_artifact artifact
-
       page.find('a',text:artifact).click
     end
 
     def artifact_contents
-
       wait_for_artifact_content
       artifact_content['innerHTML']
     end
 
+    def property_exists? property
+      page.has_css?("#property-of-#{property}")
+    end
   end
 end

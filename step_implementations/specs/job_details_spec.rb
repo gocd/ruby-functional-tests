@@ -228,3 +228,8 @@ step 'Verify property <prop_name_api_6> does not exist' do |property|
   assert_true res.body.include?"Property '#{property}' not found."
   end
 end
+
+
+step 'Verify property <property> exist' do |property|
+ assert_true job_details_page.property_exists?property
+end

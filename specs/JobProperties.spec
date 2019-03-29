@@ -25,8 +25,9 @@ tags: job properties
 * Verify console log contains message "Start to create properties"
 * Verify console log contains message "Failed to create property illegal.file. File"
 * Verify console log contains message "Failed to create property illegal.xpath. Illegal xpath: \"!@\""
-* Verify console log contains message "Failed to create property xpath.not.found. Illegal xpath: \"buhao\""
+* Verify console log contains message "Failed to create property xpath.not.found. Nothing matched xpath \"buhao\" in the file"
 * Verify console log contains message "Failed to create property src.is.folder."
+* Verify console log contains message "Property suite.time = 2.0 created"
 
 * Open "Properties" tab - On Job details page
 * Verify property "cruise_agent" exist

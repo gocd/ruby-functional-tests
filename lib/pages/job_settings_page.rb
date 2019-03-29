@@ -84,6 +84,7 @@ module Pages
          when "Run If Conditions"
           return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(3)").text.eql?(header_name)
          when "Properties"
+          binding.pry
           return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(4)").text.gsub("\n", ' ').eql?(new_pipeline_dashboard_page.sanitize_message(header_name))
          when "On Cancel"
           return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(5)").text.eql?(header_name)
@@ -209,6 +210,10 @@ module Pages
 
     def total_tasks
        page.all('tbody tr').count
+    end
+
+    def uncheck_source_file_option
+      source_file_option.click
     end
 
   end

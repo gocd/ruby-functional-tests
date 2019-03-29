@@ -18,7 +18,7 @@ tags: Fetch Artifact
 
 
 * Add task "Fetch Artifact"
-* Set task pipeline as "basic-pipeline-fast"
+* Set task pipeline as "$basic-pipeline-fast$"
 * Set task stage as "defaultStage"
 * Set task job as "defaultJob"
 * Set task source file as "source_file"
@@ -42,7 +42,7 @@ tags: Fetch Artifact
 * verifyTask
 |Order_no|Task Type         |Run If Conditions |Properties                                                                                                                            |On Cancel     |
 |--------|------------------|------------------|--------------------------------------------------------------------------------------------------------------------------------------|--------------|
-|2       |Fetch Artifact    |Passed            |Pipeline Name: $basic-pipeline-fast$ Stage Name: defaultStage Job Name: defaultJob Source File: source_dir Destination: dest_dir2       |No            |
+|2       |Fetch Artifact    |Passed            |Pipeline Name: $basic-pipeline-fast$ Stage Name: defaultStage Job Name: defaultJob Source Directory: source_dir Destination: dest_dir2     |No            |
 
 * Add task "Fetch Artifact"
 * Set task stage as "defaultStage"

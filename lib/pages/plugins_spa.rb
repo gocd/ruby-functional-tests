@@ -105,11 +105,18 @@ module Pages
     end
 
     def is_plugins_settings_disabled?(id)
-      plugin_to_test(id).has_css?('[data-test-disabled-element]')
+        plugin_to_test(id).find('[data-test-disabled-element]')
+        true
+      rescue
+        false
     end
 
     def is_plugins_settings_displayed?(id)
-      plugin_to_test(id).has_css?('[data-test-id="edit-plugin-settings"]')
+      # Using hass_css? in this method results in true even for plugins without settings button, so using find and weird logic of rescue on failure
+        plugin_to_test(id).find('[data-test-id="edit-plugin-settings"]')
+        true
+      rescue
+        false
     end
 
     def open_plugin_setings(id)

@@ -39,7 +39,7 @@ Below steps fail becuase new plugins page do not show values as "Unknown" if the
 
 * Verify plugin with identifier "JSON Configuration Plugin" has settings enabled
 * Verify plugin with identifier "Example Elastic Agent Plugin" has settings enabled
-* Verify plugin with identifier "test-valid-innerclass-plugin.jar" do not show settings option
+* Verify plugin with identifier "Valid innerclass plugin" do not show settings option
 
 * On Swift Dashboard Page
 * Logout and login as "group1Admin"

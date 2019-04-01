@@ -71,6 +71,7 @@
         <user>group1Admin</user>
       </admins>
      </authorization>
+
         <pipeline name="VSM1">
             <materials>
                 <git url="material-for-pipeline_VSM1" dest="git" materialName="git" autoUpdate="true"/>
@@ -422,6 +423,22 @@
               <role>operator</role>
           </view>
       </authorization>
+           <pipeline name="pipeline-with-elastic-agent-profile">
+            <materials>
+                 <git url="https://github.com/gocd/ruby-functional-tests.git" shallowClone="true" dest="git" materialName="git" autoUpdate="true"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual" />
+                 <jobs>
+                  <job name="defaultJob">
+                     <tasks>
+                          <exec command="ls">
+                          </exec>
+                     </tasks>
+                 </job>
+                </jobs>
+            </stage>
+       </pipeline>
      <pipeline name="downstream-pipeline">
       <materials>
         <pipeline pipelineName="basic-pipeline-fast" stageName="defaultStage"/>

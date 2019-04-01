@@ -73,3 +73,27 @@ end
 step 'Verify plugin with identifier <plugin_id> do not show settings option' do |id|
   assert_false plugins_spa_page.is_plugins_settings_displayed?(id)
 end
+
+step 'Open <plugin_id> plugins settings page' do |plugin_id|
+  plugins_spa_page.open_plugin_setings(plugin_id)
+end
+
+step 'Set GoServer URL as <url>' do |url|
+  plugins_spa_page.go_server_url.set app_base_page.sanitize_message(url)
+end
+
+step 'Set auto register timeout as <timeout>' do |timeout|
+  plugins_spa_page.auto_register_timeout.set timeout
+end
+
+step 'Set max containers as <max_containers>' do |max_containers|
+  plugins_spa_page.max_docker_containers.set max_containers
+end
+
+step 'Set docker URI as <uri>' do |uri|
+  plugins_spa_page.docker_uri.set uri
+end
+
+step 'Save plugin settings' do ||
+	plugins_spa_page.save_settings
+end

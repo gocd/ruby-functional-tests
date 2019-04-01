@@ -5,7 +5,7 @@ CruiseErrorMessages
 Setup of contexts
 * Secure Configuration - setup
 * Login as "admin" - setup
-* Using pipeline with nonexisting material "basic-pipeline-with-all-materials" - setup
+* Using pipeline with specific material "basic-pipeline-with-all-materials" - setup
 * Capture go state "CruiseErrorMessages" - setup
 
 CruiseErrorMessages

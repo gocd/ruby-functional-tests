@@ -49,6 +49,10 @@ step 'Wait till pipeline completed - On Swift Dashboard page' do |_stage|
   new_pipeline_dashboard_page.wait_till_pipeline_complete
 end
 
+step 'Wait for <secs> seconds till pipeline completed - On Swift Dashboard page' do |secs|
+  new_pipeline_dashboard_page.wait_till_pipeline_complete(secs.to_i)
+end
+
 step 'Verify stage <stage> is <state> - On Swift Dashboard page' do |stage, state|
   new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.get('current_pipeline'), stage, state.downcase
 end

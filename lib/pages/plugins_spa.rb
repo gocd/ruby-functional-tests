@@ -19,6 +19,10 @@ module Pages
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/plugins"
 
     element :plugin_list_wrapper, '[data-test-id="plugins-list"]'
+    element :go_server_url, "input[ng-model='go_server_url']"
+    element :auto_register_timeout, "input[ng-model='auto_register_timeout']"
+    element :max_docker_containers, "input[ng-model='max_docker_containers']"
+    element :docker_uri, "input[ng-model='docker_uri']"
 
     load_validation {has_plugin_settings?}
 
@@ -101,17 +105,19 @@ module Pages
     end
 
     def is_plugins_settings_disabled?(id)
-      plugin_to_test(id).find('[data-test-disabled-element]')
-      true
-    rescue
-      false
+      plugin_to_test(id).has_css?('[data-test-disabled-element]')
     end
 
     def is_plugins_settings_displayed?(id)
-      plugin_to_test(id).find('[data-test-id="edit-plugin-settings"]')
-      true
-    rescue
-      false
+      plugin_to_test(id).has_css?('[data-test-id="edit-plugin-settings"]')
+    end
+
+    def open_plugin_setings(id)
+      plugin_to_test(id).find('[data-test-id="edit-plugin-settings"]').click
+    end
+
+    def save_settings
+      page.find('button', text: 'Save').click
     end
   end
 end

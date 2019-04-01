@@ -88,12 +88,13 @@ module Context
     end
 
     def create_new_directory_and_add_file(filename,directory_name)
-      cd(@path.to_s) do
-
-        mkdir_p(directory_name)
-         cd(directory_name) do
-           sh "touch #{filename}"
-         end
+        mkdir_p("#{@path.to_s}/#{directory_name}")
+          if File.exist?("resources/#{filename}")
+            cp_r "resources/#{filename}" ,"#{@path.to_s}/#{directory_name}"
+          else
+            sh "touch #{@path.to_s}/#{directory_name}/#{filename}"
+          end
+        cd ("#{@path.to_s}/#{directory_name}") do
         Open3.popen3(%(git add . && git commit -m "Adding new file #{filename} in #{directory_name}")) do |_stdin, _stdout, stderr, wait_thr|
           raise "Failed to commit to git repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
         end

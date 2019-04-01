@@ -238,5 +238,9 @@ end
 
 step 'set job resources as <resources>' do |resources|
   resources.split(',').each{|resource|
-     job_settings_page.resources_on_popup.set resource}   
+     job_settings_page.resources_on_popup.set resource}
+end
+
+step 'Verify no tasks exists' do ||
+  assert_equal 1, job_settings_page.total_tasks
 end

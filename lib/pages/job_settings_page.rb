@@ -198,11 +198,15 @@ module Pages
     def move_up_task_number number
       page.find(".task_#{number} .promote_up").click
     end
-    
+
     def override_job_time_out(time)
       page.find("#jobTimeout_override").click
       page.find("#job_timeout").set time
     end
-    
+
+    def total_tasks
+       page.all('tbody tr').count
+    end
+
   end
 end

@@ -21,6 +21,12 @@ module Helpers
       msg.gsub(/\$(.*?)\$/) {|name| scenario_state.get(name.delete! '$') }
     end
 
+    def running_server_full_version
+      res = RestClient.get http_url('/api/version'),
+                            { accept: GoConstants::VERSIONS_API_VERSION }.merge(basic_configuration.header)
+      JSON.parse(res.body)['full_version']
+    end
+
 
   end
 end

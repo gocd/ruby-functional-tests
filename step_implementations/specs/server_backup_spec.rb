@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2018 ThoughtWorks, Inc.
+# Copyright 2019 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,16 +14,38 @@
 # limitations under the License.
 ##########################################################################
 
-step 'Perform server backup' do |user|
+step 'Perform server backup' do
   server_backup_page.perform_backup
 end
 
-step "On server backup page" do
+step 'On server backup page' do
   server_backup_page.load
 end
 
 step 'Verify back up completed with message <msg>' do |msg|
-  actual_msg = server_backup_page.backup_message
-  assert_true server_backup_page.backup_message.eql?(msg), "Expected #{msg}, Actual #{actual_msg}"
+  assert_true server_backup_page.backup_successful?(msg), "Expected #{msg}, But its not shown"
 end
 
+step 'Verify the location of the backup store is at <location>' do |location|
+  actual_location = server_backup_page.backup_location
+  assert_true actual_location.include?(location), "Expected location #{location}, actual #{actual_location}"
+end
+
+step 'Verify the last performed backup message contains <msg>' do |msg|
+	assert_true server_backup_page.last_backup_message.include? msg
+end
+
+step 'Verify the <dir> directory exists' do |dir|
+	assert_true Dir.exist? "#{GoConstants::SERVER_DIR}/artifacts/#{dir}"
+end
+
+step 'Verify the <dir> directory contains <file> file in the tree' do |dir, file|
+	assert_true !Dir.glob("#{GoConstants::SERVER_DIR}/artifacts/#{dir}/**/#{file}").empty?
+end
+
+step 'Verify the <dir> directory contains file named <file> which has running go version' do |dir, file|
+  assert_true !Dir.glob("#{GoConstants::SERVER_DIR}/artifacts/#{dir}/**/#{file}").empty?
+  version_on_backupfile = File.read(Dir.glob("#{GoConstants::SERVER_DIR}/artifacts/#{dir}/**/#{file}").first)
+  actual_version = server_backup_page.running_server_full_version
+  assert_true version_on_backupfile.eql?(actual_version), "Expected #{version_on_backupfile}, Actual #{actual_version}"
+end

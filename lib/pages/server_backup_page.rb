@@ -18,18 +18,25 @@ module Pages
   class BackUpPage < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/backup"
 
-    element :btn_perform_backup, '#backup_server'
-    element :btn_confirm_backup, 'button[type="submit"]'
+    element :btn_confirm_backup, '[data-test-id="button-save"]'
 
     load_validation { has_perform_backup? }
 
     def perform_backup()
-      btn_perform_backup.click(wait: 10)
+      page.find('button', text: 'Perform Backup').click(wait: 10)
       btn_confirm_backup.click(wait: 5)
     end
 
-    def backup_message
-      page.find('#message_pane', wait: 30).text
+    def backup_successful? msg
+      page.has_css?('p', text: msg)
+    end
+
+    def backup_location
+      page.find('p', text: 'Backups are stored in ').find('strong').text
+    end
+
+    def last_backup_message
+      page.find('p', text:"Last backup was taken by ").text
     end
   end
 end

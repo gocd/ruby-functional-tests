@@ -4,7 +4,7 @@ GlobalMessages
 
 Setup of contexts
 * Basic Configuration - setup
-* Using pipeline with nonexisting material "basic-pipeline-fast" - setup
+* Using pipeline with specific material "basic-pipeline-fast" - setup
 * Capture go state "GlobalMessages" - setup
 
 GlobalMessages
@@ -41,6 +41,3 @@ tags: error_messages
 Teardown of contexts
 ____________________
 * Capture go state "GlobalMessages" - teardown
-
-
-

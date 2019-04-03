@@ -33,5 +33,6 @@ end
 step 'Get all plugins info should return info for <plugins_count> valid plugins' do |plugins_count|
   res = RestClient.get http_url('/api/admin/plugin_info'),
                        { accept: GoConstants::PLUGIN_INFO_API_VERSION }.merge(basic_configuration.header)
-  assert_true JSON.parse(res.body)['_embedded']['plugin_info'].size == plugins_count.to_i
+  actual_size = JSON.parse(res.body)['_embedded']['plugin_info'].size
+  assert_true (actual_size == plugins_count.to_i), "Actual number of plugins #{actual_size}"
 end

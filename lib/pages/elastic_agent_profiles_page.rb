@@ -22,21 +22,18 @@ module Pages
     element :plugin_id, "[data-test-id='form-field-input-plugin-id']"
     element :btn_save, "[data-test-id='button-ok']"
     element :image, "input[ng-model='Image']"
-    element :list_profile_id, "[data-test-id='key-value-value-profile-id']"
+    element :profile_id, "[data-test-id='elastic-profile-id']"
     element :add_new_profile, "[data-test-id='pageActions']"
 
     load_validation { has_add_new_profile? }
 
-    def profile_displayed? name
-      list_profile_id.has_css?('pre', text: name)
+    def profile_displayed?(name)
+      !(profile_id text: name).nil?
     end
 
-    def edit_profile name
-      list_profile_id.find('pre', text: name).ancestor("[data-test-id='collapse-header']")
-        .find("[data-test-id='edit-elastic-profile']").click
+    def edit_profile(name)
+      (profile_id text: name).ancestor("[data-test-id='collapse-header']")
+                             .find("[data-test-id='edit-elastic-profile']").click
     end
-
-
-
   end
 end

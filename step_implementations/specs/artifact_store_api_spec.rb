@@ -115,16 +115,20 @@ def create(artifact_store_id)
       :plugin_id => "cd.go.artifact.docker.registry",
       :properties => [
           {
-              :key => "RegistryURL",
-              :value => "http://example.com"
+              key: "RegistryType",
+              value: "other"
           },
           {
-              :key => "Username",
-              :value => "username"
+              key: "RegistryURL",
+              value: "http://example.com"
           },
           {
-              :key => "Password",
-              :value => "passw0rd"
+              key: "Username",
+              value: "username"
+          },
+          {
+              key: "Password",
+              value: "passw0rd"
           }
       ]
   }
@@ -137,18 +141,22 @@ def update(artifact_store_id)
       :id => artifact_store_id.to_s,
       :plugin_id => "cd.go.artifact.docker.registry",
       :properties => [
-          {
-              :key => "RegistryURL",
-              :value => "http://example.com/updated"
-          },
-          {
-              :key => "Username",
-              :value => "username-new"
-          },
-          {
-              :key => "Password",
-              :value => "passw0rd"
-          }
+        {
+          key: "RegistryType",
+          value: "other"
+      },
+      {
+          key: "RegistryURL",
+          value: "http://example.com/updated"
+      },
+      {
+          key: "Username",
+          value: "username-new"
+      },
+      {
+          key: "Password",
+          value: "passw0rd"
+      }
       ]
   }
   response = RestClient.get http_url("/api/admin/artifact_stores/#{artifact_store_id}"), {accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)

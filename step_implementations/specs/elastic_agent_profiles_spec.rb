@@ -37,7 +37,7 @@ step 'Save the elastic agent profile' do
 end
 
 step 'Verify profile <profile_name> listed' do |profile_name|
-  elastic_agents_profiles_page.profile_displayed? profile_name
+  assert_true elastic_agents_profiles_page.profile_displayed? profile_name
 end
 
 step 'Edit elastic agent profile <name>' do |name|

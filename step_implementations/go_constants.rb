@@ -35,7 +35,7 @@ class GoConstants
   AGENTS_API_VERSION = 'application/vnd.go.cd.v4+json'.freeze
   ELASTIC_AGENTS_PROFILE_API_VERSION = 'application/vnd.go.cd.v1+json'.freeze
   VERSIONS_API_VERSION = 'application/vnd.go.cd.v1+json'.freeze
-  PLUGIN_INFO_API_VERSION = 'application/vnd.go.cd.v4+json'.freeze
+  PLUGIN_INFO_API_VERSION = 'application/vnd.go.cd.v5+json'.freeze
 
   OWASP_ZAP_PATH = '/opt/homebrew-cask/Caskroom/owasp-zap/2.5.0/OWASP-ZAP.app/Contents/MacOS/OWASP-ZAP.sh'.freeze
 

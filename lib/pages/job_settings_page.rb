@@ -45,6 +45,9 @@ module Pages
     element :job_name, "#job_name"
     element :set_never, "#jobTimeout_never"
     element :resources_on_popup, '#job_resources'
+    element :task_source_file, "input[name='task[src]']"
+    element :task_dest_dir,"input[name='task[dest]']"
+    element :source_file_option,"#is_source_a_file"
 
     load_validation { has_add_new_task? }
 
@@ -81,7 +84,7 @@ module Pages
          when "Run If Conditions"
           return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(3)").text.eql?(header_name)
          when "Properties"
-          return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(4)").text.gsub("\n", ' ').eql?(header_name)
+          return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(4)").text.gsub("\n", ' ').eql?(new_pipeline_dashboard_page.sanitize_message(header_name))
          when "On Cancel"
           return page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(5)").text.eql?(header_name)
         end
@@ -206,6 +209,10 @@ module Pages
 
     def total_tasks
        page.all('tbody tr').count
+    end
+
+    def uncheck_source_file_option
+      source_file_option.click
     end
 
   end

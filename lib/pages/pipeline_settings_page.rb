@@ -87,13 +87,16 @@ module Pages
 
     def set_only_on_changes_checkbox
       page.find("input#pipeline_timer_onlyOnChanges").set(true)
-    end  
+    end
 
     def url_exist_for_material? material,url
       page.find('td a', text:material).ancestor('tr').has_css?('td',text:url)
     end
 
-    
+    def can_material_be_deleted?material
+      page.find("tbody tr:nth-child(#{page.find('.material_name', text: material, exact_text: true).ancestor('tr').path[-2].to_i})").has_css?('span.delete_parent')
+    end
+
 
   end
 end

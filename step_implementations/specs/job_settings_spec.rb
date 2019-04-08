@@ -69,6 +69,7 @@ step 'Select artifact type <a_type> pipeline <p_name> stage <s_name> job <j_name
   job_settings_page.task_configuration_path.set path
 end
 
+
 step 'Save task details' do
   job_settings_page.task_save.click
 end
@@ -241,6 +242,34 @@ step 'set job resources as <resources>' do |resources|
      job_settings_page.resources_on_popup.set resource}
 end
 
+
 step 'Verify no tasks exists' do ||
   assert_equal 1, job_settings_page.total_tasks
+end
+step 'Set task pipeline as <pipeline>' do |pipeline|
+  job_settings_page.task_pipeline.set new_pipeline_dashboard_page.sanitize_message(pipeline)
+end
+
+step 'Set task job as <job>' do |job|
+  job_settings_page.task_job.set job
+end
+
+step 'Set task stage as <stage>' do |stage|
+  job_settings_page.task_stage.set stage
+end
+
+step 'Set task source file as <source_file>' do |source_file|
+  job_settings_page.task_source_file.set source_file
+end
+
+step 'Check source is a file option' do ||
+  job_settings_page.source_file_option.click
+end
+
+step 'Set task destination  as <dest_dir>' do |dest_dir|
+  job_settings_page.task_dest_dir.set dest_dir
+end
+
+step 'Uncheck source is a file option' do ||
+  job_settings_page.uncheck_source_file_option
 end

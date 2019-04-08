@@ -38,8 +38,9 @@ step 'Get environment <name> should return entity <entity> with <values>' do |na
   JSON.parse(get_environment(name).body)[entity].each do |e|
     h = change_to_hash(values)
     h.each do |key, value|
-      assert_true e.key?(key), "Environments API response do not have expected values. Expected: #{key} => #{h[key]}"
-      assert_true e[key].eql?(value), "Environments API response do not have expected values. Expected: #{key} => #{h[key]}"
+      assert_true e.key?(key), "Environments API response do not have expected values. Expected: key to be rpesent: #{key}"
+      expected_value = scenario_state.get(value).nil? ? value : scenario_state.get(value)
+      assert_true e[key].eql?(expected_value), "Environments API response do not have expected values. Expected: #{key} => #{expected_value}"
     end
   end
 end

@@ -18,6 +18,7 @@ require 'socket'
 
 class GoConstants
   HOSTNAME = Socket.gethostname
+  IPADDRESS = Socket::getaddrinfo(Socket.gethostname,"echo",Socket::AF_INET)[0][3]
   GO_VERSION = ENV['GO_VERSION'] || '16.11.0'
   SERVER_PORT = ENV['GO_SERVER_PORT'] || '8253'
   SERVER_SSL_PORT = ENV['GO_SERVER_SSL_PORT'] || '8254'

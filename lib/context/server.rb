@@ -18,19 +18,24 @@ module Context
   class Server
     include FileUtils
 
-    START_COMMAND = OS.windows? ? %w(cmd /c start-server.bat) : './server.sh'
-    STOP_COMMAND = OS.windows? ? %w(cmd /c stop-server.bat) : './stop-server.sh'
+    START_COMMAND = OS.windows? ? %w[cmd /c start-server.bat] : './server.sh'
+    STOP_COMMAND = OS.windows? ? %w[cmd /c stop-server.bat] : './stop-server.sh'
     DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
 
+
     def start
-     return if DEVELOPMENT_MODE && server_running?
-       system_properties =  if (ENV['FANINOFF']=="true")
-      "#{GoConstants::GO_SERVER_SYSTEM_PROPERTIES} -Dresolve.fanin.revisions=N"
-      else
-         GoConstants::GO_SERVER_SYSTEM_PROPERTIES 
+      if GoConstants::RUN_ON_DOCKER
+        run_server_on_docker
+        return
       end
+      return if DEVELOPMENT_MODE && server_running?
+      system_properties = if ENV['FANINOFF'] == 'true'
+                            "#{GoConstants::GO_SERVER_SYSTEM_PROPERTIES} -Dresolve.fanin.revisions=N"
+                          else
+                            GoConstants::GO_SERVER_SYSTEM_PROPERTIES
+                          end
       cp 'resources/with-java.sh', GoConstants::SERVER_DIR
-      chmod 0755, "#{GoConstants::SERVER_DIR}/with-java.sh"
+      chmod 0o755, "#{GoConstants::SERVER_DIR}/with-java.sh"
       Bundler.with_clean_env do
         process = ChildProcess.build('./with-java.sh', START_COMMAND)
         process.detach = true
@@ -51,7 +56,7 @@ module Context
 
     def stop
       if DEVELOPMENT_MODE
-       puts 'Running test in development mode so not stopping the server........'
+        puts 'Running test in development mode so not stopping the server........'
       else
         Bundler.with_clean_env do
           process = ChildProcess.build('./with-java.sh', STOP_COMMAND)
@@ -68,15 +73,14 @@ module Context
     end
 
     def server_running?
-        sleep 5
-        ping_server.code == 200
-      rescue => e
-        false
+      sleep 5
+      ping_server.code == 200
+    rescue StandardError => e
+      false
     end
 
     def ping_server
       RestClient.get("#{GoConstants::GO_SERVER_BASE_URL}/about")
-
     end
 
     def wait_to_start
@@ -89,6 +93,41 @@ module Context
           end
         end
       end
+    end
+
+    def run_server_on_docker
+      manifest = DockerManifestParser.new('target/docker-gocd-server')
+      manifest.centos
+      sh %(docker load < "target/docker-gocd-server/#{manifest.file}")
+      sh %(docker run -d -p #{GoConstants::SERVER_PORT}:#{GoConstants::SERVER_PORT} \
+        -p #{GoConstants::SERVER_SSL_PORT}:#{GoConstants::SERVER_SSL_PORT} \
+        -v #{File.expand_path("#{GoConstants::CONFIG_PATH}")}:/test-config -v #{File.expand_path("godata")}:/godata \
+        -e GO_SERVER_SYSTEM_PROPERTIES='#{GoConstants::GO_SERVER_SYSTEM_PROPERTIES}' \
+        -e GO_SERVER_PORT='#{GoConstants::SERVER_PORT}' \
+        -e GO_SERVER_SSL_PORT='#{GoConstants::SERVER_SSL_PORT}' \
+        -e SERVER_MEM='#{GoConstants::SERVER_MEM}' \
+        -e SERVER_MAX_MEM='#{GoConstants::SERVER_MAX_MEM}' \
+        #{manifest.image}:#{manifest.tag})
+    end
+  end
+
+  class DockerManifestParser
+
+    attr_reader :image
+    attr_reader :tag
+    attr_reader :file
+
+    def initialize(fldr)
+      @fldr = fldr
+    end
+
+    def centos
+      raise "Docker image manifest file not available at #{@fldr}" unless File.exist?("#{@fldr}/manifest.json")
+      manifest = JSON.parse(File.read("#{@fldr}/manifest.json"))
+      centos = manifest.select { |image| image['imageName'].include? 'centos-7' }.first
+      @image = centos['imageName']
+      @tag = centos['tag']
+      @file = centos['file']
     end
   end
 end

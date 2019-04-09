@@ -22,7 +22,8 @@ class GoConstants
   GO_VERSION = ENV['GO_VERSION'] || '16.11.0'
   SERVER_PORT = ENV['GO_SERVER_PORT'] || '8253'
   SERVER_SSL_PORT = ENV['GO_SERVER_SSL_PORT'] || '8254'
-  SERVER_DIR = Dir["target/go-server-#{GO_VERSION}"].find {|f| File.directory?(f)}
+  RUN_ON_DOCKER = ENV['RUN_ON_DOCKER']
+  SERVER_DIR = RUN_ON_DOCKER ? 'godata' : Dir["target/go-server-#{GO_VERSION}"].find {|f| File.directory?(f)}
   AGENT_DIR = Dir["target/go-agent-#{GO_VERSION}"].find {|f| File.directory?(f)}
   SERVER_MEM = ENV['GAUGE_GO_SERVER_MEM'] || '512m'
   SERVER_MAX_MEM = ENV['GAUGE_GO_SERVER_MAX_MEM'] || '1024m'

@@ -116,6 +116,8 @@ zips.each do |package, file|
       if package == 'server'
         mkdir_p "target/go-server-#{VERSION_NUMBER}/config"
         cp "config-files/server-logback.xml", "target/go-server-#{VERSION_NUMBER}/config/logback.xml"
+        rm_rf 'godata' if Dir.exist? 'godata' # this folder is needed for only when running on docker
+        mkdir_p 'godata'
       end
     end
 

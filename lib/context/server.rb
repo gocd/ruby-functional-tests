@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2016 ThoughtWorks, Inc.
+# Copyright 2019 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -101,7 +101,8 @@ module Context
       sh %(docker load < "target/docker-gocd-server/#{manifest.file}")
       sh %(docker run -d -p #{GoConstants::SERVER_PORT}:#{GoConstants::SERVER_PORT} \
         -p #{GoConstants::SERVER_SSL_PORT}:#{GoConstants::SERVER_SSL_PORT} \
-        -v #{File.expand_path("#{GoConstants::CONFIG_PATH}")}:/test-config -v #{File.expand_path("godata")}:/godata \
+        -v #{File.expand_path(GoConstants::CONFIG_PATH.to_s)}:/test-config -v #{File.expand_path("godata")}:/godata \
+        -v #{GoConstants::TEMP_DIR}:/materials \
         -e GO_SERVER_SYSTEM_PROPERTIES='#{GoConstants::GO_SERVER_SYSTEM_PROPERTIES}' \
         -e GO_SERVER_PORT='#{GoConstants::SERVER_PORT}' \
         -e GO_SERVER_SSL_PORT='#{GoConstants::SERVER_SSL_PORT}' \

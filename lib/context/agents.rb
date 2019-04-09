@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2016 ThoughtWorks, Inc.
+# Copyright 2019 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ module Context
 
     def start_an_agent_in(dir)
       rm_rf(dir)
-
       mkdir_p dir
       cp_r "#{GoConstants::AGENT_DIR}/.", "#{dir}/"
       cp 'resources/with-java.sh', "#{dir}/"
@@ -77,7 +76,24 @@ module Context
     end
 
     private
+
+    def run_agent_on_docker
+      manifest = DockerManifestParser.new('target/docker-gocd-agent')
+      manifest.centos
+      sh %(docker load < "target/docker-gocd-agent/#{manifest.file}")
+      sh %(docker run -d \
+        -v #{GoConstants::TEMP_DIR}:/materials \
+        -e GO_AGENT_SYSTEM_PROPERTIES='#{GoConstants::GO_AGENT_SYSTEM_PROPERTIES}' \
+        -e GO_SERVER_URL='https://#{GoConstants::IPADDRESS}:#{GoConstants::SERVER_SSL_PORT}/go' \
+        -e AGENT_AUTO_REGISTER_KEY='functional-tests' \
+        #{manifest.image}:#{manifest.tag})
+    end
+
     def create_agent(n)
+      if GoConstants::RUN_ON_DOCKER
+        run_agent_on_docker
+        return
+      end
       agent_directory = "#{GoConstants::GAUGE_AGENT_DIR}/agent-#{n}"
       if File.exist?("#{agent_directory}/.agent-bootstrapper.running")
         destroy_agent(n)

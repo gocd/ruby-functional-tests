@@ -21,7 +21,7 @@ module Context
 
     def has_material_config?(pipeline_name)
       return material_config(pipeline_name).first.value.start_with?('material-for') unless material_config(pipeline_name).empty?
-      return false
+      false
     end
 
     def material_config(pipeline)
@@ -34,11 +34,10 @@ module Context
       current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{@material_type}/@url").count
     end
 
-    def get_material_url(pipeline,count)
+    def get_material_url(pipeline, count)
       current_configuration = basic_configuration.get_config_from_server
-      return current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{@material_type}/@url")[count].value
+      current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{@material_type}/@url")[count].value
     end
-
   end
 
   class GitMaterials < Materials
@@ -49,7 +48,7 @@ module Context
       @material_type = type
     end
 
-    def setup_material_for(pipeline,material_url)
+    def setup_material_for(pipeline, material_url)
       if !scenario_state.get(material_url).nil?
         material_path = scenario_state.get(material_url)
       else
@@ -61,10 +60,14 @@ module Context
           end
         end
         initial_commit
-        material_path = "#{@path}/sample.git"
+        material_path = if GoConstants::RUN_ON_DOCKER
+                          "/materials/#{@path.split('/')[3]}/sample.git"
+                        else
+                          "#{@path}/sample.git"
+                        end
         scenario_state.put(material_url, material_path)
       end
-      basic_configuration.set_material_path_for_pipeline('git', pipeline, material_path,material_url)
+      basic_configuration.set_material_path_for_pipeline('git', pipeline, material_path, material_url)
     rescue StandardError => e
       raise "The Pipeline #{pipeline} setup for GIT material failed. #{e.message}"
     end
@@ -87,14 +90,14 @@ module Context
       end
     end
 
-    def create_new_directory_and_add_file(filename,directory_name)
-        mkdir_p("#{@path.to_s}/#{directory_name}")
-          if File.exist?("resources/#{filename}")
-            cp_r "resources/#{filename}" ,"#{@path.to_s}/#{directory_name}"
-          else
-            sh "touch #{@path.to_s}/#{directory_name}/#{filename}"
-          end
-        cd ("#{@path.to_s}/#{directory_name}") do
+    def create_new_directory_and_add_file(filename, directory_name)
+      mkdir_p("#{@path}/#{directory_name}")
+      if File.exist?("resources/#{filename}")
+        cp_r "resources/#{filename}", "#{@path}/#{directory_name}"
+      else
+        sh "touch #{@path}/#{directory_name}/#{filename}"
+      end
+      cd ("#{@path}/#{directory_name}") do
         Open3.popen3(%(git add . && git commit -m "Adding new file #{filename} in #{directory_name}")) do |_stdin, _stdout, stderr, wait_thr|
           raise "Failed to commit to git repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
         end
@@ -108,7 +111,7 @@ module Context
       end
     end
 
-    def nth_revision rev
+    def nth_revision(rev)
       cd(@path.to_s) do
         stdout, _stdeerr, _status = Open3.capture3(%(git rev-parse HEAD~#{rev}))
         return stdout.delete("\n")

@@ -211,7 +211,8 @@ module Context
 
     def enable_security_with_admin_rights(pwd_file, adminUsers)
       current_config = get_config_from_server
-      password_file_path = File.expand_path("#{GoConstants::CONFIG_PATH}/#{pwd_file}")
+      password_file_path = GoConstants::RUN_ON_DOCKER ? "/test-config/#{pwd_file}" : File.expand_path("#{GoConstants::CONFIG_PATH}/#{pwd_file}")
+
       admin_users = adminUsers.split(',')
       admin_user_tag = ''
       admin_users.each { |admin| admin_user_tag += "<user>#{admin}</user>" }

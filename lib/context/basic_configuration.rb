@@ -242,7 +242,7 @@ module Context
 
     def enable_security_with_password_file(pwd_file)
       current_config = get_config_from_server
-      password_file_path = File.expand_path("#{GoConstants::CONFIG_PATH}/#{pwd_file}")
+      password_file_path = GoConstants::RUN_ON_DOCKER ? "/test-config/#{pwd_file}" : File.expand_path("#{GoConstants::CONFIG_PATH}/#{pwd_file}")
 
       password_file_authentication_config = "<security>
           <authConfigs>

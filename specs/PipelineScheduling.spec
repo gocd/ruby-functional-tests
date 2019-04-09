@@ -16,18 +16,18 @@ tags: scheduling
 * On Swift Dashboard Page
 * Looking at pipeline "pipeline-2-manual-stages-that-run-till-file-exists" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
- Verify stage "defaultStage" is "Building" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Building" - On Swift Dashboard page
 * On stage details page "overview" tab for "pipeline-2-manual-stages-that-run-till-file-exists" label "1" stage name "defaultStage" counter "1"
 
 * Verify stage "defaultStage" has action "Cancel"
 * Verify stage "defaultStage" does not have action "Rerun"
 
-* Schedule should return code "404"
+* Schedule should return code "409"
 
 * Create a "stopjob" file
-
 * On Swift Dashboard Page
 * Verify stage "defaultStage" is "passed" on pipeline with label "1" - On Swift Dashboard page
+* Delete stopjob file
 * On stage details page "overview" tab for "pipeline-2-manual-stages-that-run-till-file-exists" label "1" stage name "defaultStage" counter "1"
 * Trigger stage "secondStage" - On stage details page
 
@@ -39,7 +39,7 @@ tags: scheduling
 * Verify stage "secondStage" does not have action "Rerun"
 
 
-* Schedule should return code "404"
+* Schedule should return code "409"
 
 
 

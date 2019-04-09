@@ -632,7 +632,10 @@
                 </jobs>
             </stage>
         </pipeline>
-    <pipeline name="pipeline-2-manual-stages-that-run-till-file-exists" lockBehavior="lockOnFailure">
+
+    </pipelines>
+    <pipelines group="lock-pipelines">
+     <pipeline name="pipeline-2-manual-stages-that-run-till-file-exists" lockBehavior="lockOnFailure">
       <materials>
         <git url="material-for-pipeline-2-manual-stages-that-run-till-file-exists" dest="git" autoUpdate="false" materialName="gitMaterial"/>
       </materials>
@@ -657,8 +660,6 @@
         </jobs>
       </stage>
     </pipeline>
-    </pipelines>
-    <pipelines group="lock-pipelines">
      <pipeline name="pipeline-with-environment-variables">
          <environmentvariables>
           <variable name="PIPELINE_LEVEL_VARIABLE"><value>pipeline</value></variable>

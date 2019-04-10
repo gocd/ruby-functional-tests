@@ -10,12 +10,11 @@ Setup of contexts
 PassEnvironmentVariablesToAJob
 ------------------------------
 
-tags: 3285, environment, automate, 3314, 3344, environment variables, stage1, 6794, 6795, 6796, 6799, 6800, 6801, 6802, 6811, 6823
+tags: environment,environment variables
 
 This is to verify that only the agents associated with an evironment are used to build the pipeline
 * Add environment "uat" to any "1" Idle agents - Using Agents API
 
-Note- Environment Variable 'VNC' is set as part of twist-agent startup by AgentLauncher.java
 * Looking at environment "uat"
 * Open Environment edit page for environment "uat"
 * Edit environment variables
@@ -99,10 +98,6 @@ Verify console of second stage
 * Verify console log contains message "PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE=secondstage-overrides-pipeline."
 * Verify console log contains message "PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB=second-job-overrides-pipeline."
 * Verify console log contains message "PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_STAGE_ONLY=value-set-by-pipeline."
-
-
-
-
 
 Teardown of contexts
 ____________________

@@ -10,7 +10,7 @@ Setup of contexts
 PassEnvironmentVariablesToAJob
 ------------------------------
 
-tags: environment,environment variables
+tags: environment,environment variables,WIP
 
 This is to verify that only the agents associated with an evironment are used to build the pipeline
 * Add environment "test-env" to any "1" Idle agents - Using Agents API

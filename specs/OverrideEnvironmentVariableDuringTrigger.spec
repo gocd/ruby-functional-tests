@@ -12,7 +12,7 @@ Setup of contexts
 * With "1" live agents - setup
 * Capture go state "OverrideEnvironmentVariableDuringTrigger" - setup
 
-* Add environment "uat" to any "1" Idle agents - Using Agents API
+* Add environment "test-env" to any "1" Idle agents - Using Agents API
 * On Swift Dashboard Page
 * Looking at pipeline "pipeline-with-environment-variables" - On Swift Dashboard page
 * Open trigger with options - On Swift Dashboard page

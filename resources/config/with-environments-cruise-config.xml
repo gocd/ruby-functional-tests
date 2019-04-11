@@ -262,7 +262,7 @@
          </pipeline>
     </pipelines>
     <environments>
-        <environment name="uat">
+        <environment name="test-env">
   		    <environmentvariables>
   		  		<variable name="ENV_LEVEL_VARIABLE"><value>environment</value></variable>
   		  		<variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_PIPELINE"><value>does-not-matter</value></variable>

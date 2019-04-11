@@ -13,14 +13,14 @@ PassEnvironmentVariablesToAJob
 tags: environment,environment variables
 
 This is to verify that only the agents associated with an evironment are used to build the pipeline
-* Add environment "uat" to any "1" Idle agents - Using Agents API
+* Add environment "test-env" to any "1" Idle agents - Using Agents API
 
-* Looking at environment "uat"
-* Open Environment edit page for environment "uat"
+* Looking at environment "test-env"
+* Open Environment edit page for environment "test-env"
 * Edit environment variables
 * For variable at row "5" set name "VARIABLE_TEST" value "variable test value"
 * Add new variable
-* Open Environment edit page for environment "uat"
+* Open Environment edit page for environment "test-env"
 * Edit environment variables
 * For variable at row "6" set name "GO_ENVIRONMENT_NAME" value "overriden value"
 * Add new variable
@@ -37,7 +37,7 @@ Pipeline with environment variables
 * Verify stage "defaultStage" is "passed" on pipeline with label "1" - On Swift Dashboard page
 * On Job details page of pipeline "pipeline-with-environment-variables" counter "1" stage "defaultStage" counter "1" job "pipeline-with-environment-variables-job"
 
-* Verify console log contains message "setting environment variable 'GO_ENVIRONMENT_NAME' to value 'uat'"
+* Verify console log contains message "setting environment variable 'GO_ENVIRONMENT_NAME' to value 'test-env'"
 * Verify console log contains message "overriding environment variable 'GO_ENVIRONMENT_NAME' with value 'overriden value'"
 * Verify console log contains message "setting environment variable 'VARIABLE_TEST' to value 'variable test value'"
 * Verify console log contains message "setting environment variable 'ENV_LEVEL_VARIABLE' to value 'environment'"

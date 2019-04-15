@@ -84,8 +84,8 @@
                 <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_PIPELINE"><value>pipeline-overrides-env</value></variable>
                 <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE"><value>does-not-matter</value></variable>
                 <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>does-not-matter</value></variable>
-                <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
-                <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
+                <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_JOB_ONLY"><value>value-set-by-pipeline</value></variable>
+                <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_STAGE_ONLY"><value>value-set-by-pipeline</value></variable>
             </environmentvariables>
             <materials>
                 <git url="material-for-pipeline-with-environment-variables" dest="git" materialName="git" autoUpdate="true"/>
@@ -97,22 +97,26 @@
                     <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE"><value>stage-overrides-pipeline</value></variable>
                     <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE"><value>stage-overrides-env</value></variable>
                     <variable name="STAGE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>does-not-matter</value></variable>
-                    <variable name="STAGE_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
+                    <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_STAGE_ONLY"><value>stage-overrides-pipeline</value></variable>
                 </environmentvariables>
                 <jobs>
                     <job name="pipeline-with-environment-variables-job">
                         <environmentvariables>
-                            <variable name="JOB_LEVEL_VARIABLE"><value>pipeline-with-environment-variables-job</value></variable>
+                            <variable name="JOB_LEVEL_VARIABLE"><value>job</value></variable>
                             <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>job-overrides-pipeline</value></variable>
                             <variable name="STAGE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>job-overrides-stage</value></variable>
                             <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>job-overrides-env</value></variable>
-                            <variable name="JOB_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
+                            <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_JOB_ONLY"><value>job-overrides-pipeline</value></variable>
                         </environmentvariables>
                         <tasks>
                             <exec command="sleep" args="5"/>
                             <exec command="/bin/bash">
                 				<arg>-c</arg>
                 				<arg>echo JOB_LEVEL_VARIABLE=$JOB_LEVEL_VARIABLE.</arg>
+              				</exec>
+                            <exec command="/bin/bash">
+                				<arg>-c</arg>
+                				<arg>echo STAGE_LEVEL_VARIABLE=$STAGE_LEVEL_VARIABLE.</arg>
               				</exec>
               				<exec command="/bin/bash">
                 				<arg>-c</arg>
@@ -138,31 +142,85 @@
                 				<arg>-c</arg>
                 				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_JOB_ONLY=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_JOB_ONLY.</arg>
               				</exec>
+                            <exec command="/bin/bash">
+                				<arg>-c</arg>
+                				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_STAGE_ONLY=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_STAGE_ONLY.</arg>
+              				</exec>
                         </tasks>
                     </job>
                     <job name="another-job">
                         <environmentvariables>
                             <variable name="JOB_LEVEL_VARIABLE"><value>another-job</value></variable>
+                            <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>another-job-overrides-env</value></variable>
+                            <variable name="STAGE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>another-job-overrides-stage</value></variable>
+                            <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>another-job-overrides-pipeline</value></variable>
                         </environmentvariables>
                         <tasks>
-                            <exec command="ls"/>
+                            <exec command="sleep" args="5"/>
+                            <exec command="/bin/bash">
+                				<arg>-c</arg>
+                				<arg>echo JOB_LEVEL_VARIABLE=$JOB_LEVEL_VARIABLE.</arg>                				
+              				</exec>
+              				<exec command="/bin/bash">
+                				<arg>-c</arg>
+                				<arg>echo ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB=$ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB.</arg>                				
+              				</exec>
+              				<exec command="/bin/bash">
+                				<arg>-c</arg>
+                				<arg>echo ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE=$ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE.</arg>                				
+              				</exec>
+              				<exec command="/bin/bash">
+                				<arg>-c</arg>
+                				<arg>echo STAGE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB=$STAGE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB.</arg>                				
+              				</exec>
+              				<exec command="/bin/bash">
+                				<arg>-c</arg>
+                				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE.</arg>                				
+              				</exec>
+              				<exec command="/bin/bash">
+                				<arg>-c</arg>
+                				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB.</arg>                				
+              				</exec>
+              				<exec command="/bin/bash">
+                				<arg>-c</arg>
+                				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_JOB_ONLY=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_JOB_ONLY.</arg>                				
+              				</exec>
                         </tasks>
                     </job>
                 </jobs>
             </stage>
             <stage name="secondStage">
                 <environmentvariables>
-                    <variable name="STAGE_LEVEL_VARIABLE"><value>stage</value></variable>
+                    <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE"><value>secondstage-overrides-env</value></variable>
+                	<variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE"><value>secondstage-overrides-pipeline</value></variable>
                 </environmentvariables>
                 <jobs>
-                    <job name="foo">
+                    <job name="job">
                         <environmentvariables>
-                            <variable name="JOB_LEVEL_VARIABLE"><value>foo</value></variable>
-                            <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>job-overrides-pipeline</value></variable>
-                            <variable name="JOB_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
+                            <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>second-job-overrides-env</value></variable>
+                        	<variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>second-job-overrides-pipeline</value></variable>
                         </environmentvariables>
                         <tasks>
-                            <exec command="ls"/>
+                            <exec command="/bin/bash">
+                				<arg>-c</arg>
+                				<arg>echo ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE=$ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE.</arg>                				
+              				</exec>
+              				<exec command="/bin/bash">
+                				<arg>-c</arg>
+                				<arg>echo ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB=$ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB.</arg>                				
+              				</exec>
+              				<exec command="/bin/bash">
+                				<arg>-c</arg>
+                				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE.</arg>                				
+              				</exec>
+              				<exec command="/bin/bash">
+                				<arg>-c</arg>
+                				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB.</arg>                				
+              				</exec>
+							<exec command="/bin/bash">
+                				<arg>-c</arg>
+                				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_STAGE_ONLY=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_STAGE_ONLY.</arg>                				
+              				</exec>
                         </tasks>
                     </job>
                 </jobs>
@@ -204,7 +262,7 @@
          </pipeline>
     </pipelines>
     <environments>
-        <environment name="uat">
+        <environment name="test-env">
   		    <environmentvariables>
   		  		<variable name="ENV_LEVEL_VARIABLE"><value>environment</value></variable>
   		  		<variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_PIPELINE"><value>does-not-matter</value></variable>

@@ -23,7 +23,7 @@ Badge](https://cdn.rawgit.com/getgauge/getgauge.github.io/master/Gauge_Badge.svg
 
 * Build GoCD server and agent zip installers - cd to ```gocd``` and run: ```./gradlew clean installers:agentGenericZip installers:serverGenericZip test:test-addon:assemble```
 * Build GoCD plugins api - cd to ```gocd``` and run :
-```./gradlew -PfastBuild --parallel --max-workers 2 clean plugin-infra:go-plugin-api:install plugin-infra:go-plugin-api-internal:install installers:versionFile```
+```./gradlew -PfastBuild --parallel --max-workers 2 plugin-infra:go-plugin-api:install plugin-infra:go-plugin-api-internal:install installers:versionFile```
 * Build go plugins - cd to ```go-plugins``` and run: ```./gradlew clean assemble copyJarsToOnePlace -PgoVersion=$(jq '.go_full_version' -r ../gocd/installers/target/distributions/meta/version.json)```
 * cd to ```ruby-functional-tests``` and run : ```$ bundle install --path=vendor/bundle```
 * To clean, prepare server and agent for functional test execute this command ```bundle exec rake GO_VERSION='X.x.x' clean_test server:prepare agent:prepare```

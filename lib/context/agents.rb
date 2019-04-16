@@ -77,11 +77,13 @@ module Context
 
     private
 
-    def run_agent_on_docker
+    def run_agent_on_docker(identifier)
       manifest = DockerManifestParser.new('target/docker-gocd-agent')
-      manifest.image_info_of('centos-7')
+      manifest.image_info_of('alpine-3.9')
       sh %(docker load < "target/docker-gocd-agent/#{manifest.file}")
+      sh %(docker rm -f agent_#{identifier} || true)
       sh %(docker run -d \
+        --name agent_#{identifier} \
         -v #{GoConstants::TEMP_DIR}:/materials \
         -e GO_AGENT_SYSTEM_PROPERTIES='#{GoConstants::GO_AGENT_SYSTEM_PROPERTIES}' \
         -e GO_SERVER_URL='https://#{GoConstants::IPADDRESS}:#{GoConstants::SERVER_SSL_PORT}/go' \
@@ -91,7 +93,7 @@ module Context
 
     def create_agent(n)
       if GoConstants::RUN_ON_DOCKER
-        run_agent_on_docker
+        run_agent_on_docker(n)
         return
       end
       agent_directory = "#{GoConstants::GAUGE_AGENT_DIR}/agent-#{n}"
@@ -103,6 +105,10 @@ module Context
     end
 
     def destroy_agent(n)
+      if GoConstants::RUN_ON_DOCKER
+        sh %(docker rm -f agent_#{n} || true)
+        return
+      end
       Bundler.with_clean_env do
         process = ChildProcess.build('./with-java.sh', STOP_COMMAND)
         process.detach = true

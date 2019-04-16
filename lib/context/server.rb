@@ -58,6 +58,10 @@ module Context
       if DEVELOPMENT_MODE
         puts 'Running test in development mode so not stopping the server........'
       else
+        if GoConstants::RUN_ON_DOCKER
+          sh %(docker rm -f gauge_server || true)
+          return
+        end
         Bundler.with_clean_env do
           process = ChildProcess.build('./with-java.sh', STOP_COMMAND)
           process.detach = true
@@ -97,9 +101,9 @@ module Context
 
     def run_server_on_docker
       manifest = DockerManifestParser.new('target/docker-gocd-server')
-      manifest.image_info_of('centos-7')
+      manifest.alpine
       sh %(docker load < "target/docker-gocd-server/#{manifest.file}")
-      sh %(docker run -d -p #{GoConstants::SERVER_PORT}:#{GoConstants::SERVER_PORT} \
+      sh %(docker run -d --name gauge_server -p #{GoConstants::SERVER_PORT}:#{GoConstants::SERVER_PORT} \
         -p #{GoConstants::SERVER_SSL_PORT}:#{GoConstants::SERVER_SSL_PORT} \
         -v #{File.expand_path(GoConstants::CONFIG_PATH.to_s)}:/test-config -v #{File.expand_path("godata")}:/godata \
         -v #{GoConstants::TEMP_DIR}:/materials \
@@ -126,6 +130,16 @@ module Context
       raise "Docker image manifest file not available at #{@fldr}" unless File.exist?("#{@fldr}/manifest.json")
       manifest = JSON.parse(File.read("#{@fldr}/manifest.json"))
       image_info = manifest.select { |image| image['imageName'].include? os }
+      raise "No image for OS #{os} available" if image_info.nil?
+      @image = image_info.first['imageName']
+      @tag = image_info.first['tag']
+      @file = image_info.first['file']
+    end
+
+    def alpine
+      raise "Docker image manifest file not available at #{@fldr}" unless File.exist?("#{@fldr}/manifest.json")
+      manifest = JSON.parse(File.read("#{@fldr}/manifest.json"))
+      image_info = manifest.reject { |image| image['imageName'].include? 'centos-7' }
       raise "No image for OS #{os} available" if image_info.nil?
       @image = image_info.first['imageName']
       @tag = image_info.first['tag']

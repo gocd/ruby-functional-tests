@@ -97,7 +97,7 @@ module Context
 
     def run_server_on_docker
       manifest = DockerManifestParser.new('target/docker-gocd-server')
-      manifest.centos
+      manifest.image_info_of('centos-7')
       sh %(docker load < "target/docker-gocd-server/#{manifest.file}")
       sh %(docker run -d -p #{GoConstants::SERVER_PORT}:#{GoConstants::SERVER_PORT} \
         -p #{GoConstants::SERVER_SSL_PORT}:#{GoConstants::SERVER_SSL_PORT} \
@@ -122,13 +122,16 @@ module Context
       @fldr = fldr
     end
 
-    def centos
+    def image_info_of(os)
       raise "Docker image manifest file not available at #{@fldr}" unless File.exist?("#{@fldr}/manifest.json")
       manifest = JSON.parse(File.read("#{@fldr}/manifest.json"))
-      centos = manifest.select { |image| image['imageName'].include? 'centos-7' }.first
-      @image = centos['imageName']
-      @tag = centos['tag']
-      @file = centos['file']
+      image_info = manifest.select { |image| image['imageName'].include? os }
+      raise "No image for OS #{os} available" if image_info.nil?
+      @image = image_info.first['imageName']
+      @tag = image_info.first['tag']
+      @file = image_info.first['file']
     end
+
+
   end
 end

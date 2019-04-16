@@ -79,7 +79,7 @@ module Context
 
     def run_agent_on_docker
       manifest = DockerManifestParser.new('target/docker-gocd-agent')
-      manifest.centos
+      manifest.image_info_of('centos-7')
       sh %(docker load < "target/docker-gocd-agent/#{manifest.file}")
       sh %(docker run -d \
         -v #{GoConstants::TEMP_DIR}:/materials \

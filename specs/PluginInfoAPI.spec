@@ -16,7 +16,7 @@ Setup of contexts
 * Plugin info response should have "extensions" with "auth_config_settings"
 * Plugin info response should have "extensions" with "capabilities"
 
-* Get all plugins info should return info for "16" valid plugins
+* Get all plugins info should return info for "17" valid plugins
 
 
 teardown

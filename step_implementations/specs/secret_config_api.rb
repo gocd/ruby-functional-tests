@@ -63,7 +63,7 @@ step 'Add secret config <config_id> should return code <code>', 'Adding duplicat
   req_body = %({
     "id": "#{secret_config_id}",
     "description": "This is used to lookup for secrets for the team Dev team.",
-    "plugin_id": "cd.go.secrets.file",
+    "plugin_id": "cd.go.secrets.file-based-plugin",
     "properties": [
       {
         "key": "secrets_file_path",
@@ -101,7 +101,7 @@ step 'Update secret config <config_id> to <directive> usage only in pipeline gro
   req_body = %({
     "id": "#{config_id}",
     "description": "This is used to lookup for secrets for the team Dev team.",
-    "plugin_id": "cd.go.secrets.file",
+    "plugin_id": "cd.go.secrets.file-based-plugin",
     "properties": [
       {
         "key": "secrets_file_path",

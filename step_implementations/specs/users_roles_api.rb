@@ -14,7 +14,7 @@
 # limitations under the License.
 ##########################################################################
 
-USERS_API_VERION = 'application/vnd.go.cd.v2+json'.freeze
+USERS_API_VERION = 'application/vnd.go.cd.v3+json'.freeze
 ROLES_API_VERION = 'application/vnd.go.cd.v2+json'.freeze
 
 step 'Add user <user> - Using user API' do |user|

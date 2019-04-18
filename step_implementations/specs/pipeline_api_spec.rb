@@ -218,3 +218,40 @@ step 'Schedule should return code <status_code>' do |status_code|
        scenario_state.put('update_materials_before_scheduling',true)
 
 end
+
+
+step 'Verify pipeline instance <pipeline> is not found' do |pipeline|
+  RestClient.get http_url("/api/pipelines/#{scenario_state.get(pipeline)}/stages.xml"), basic_configuration.header do |response|
+    assert_true response.code.to_i == 400
+   end
+end
+
+step 'Verify shows first instance of <stage> of <pipeline>' do |stage, pipeline|
+  RestClient.get http_url("/api/pipelines/#{scenario_state.get(pipeline)}/stages.xml"), basic_configuration.header do |response|
+    assert_true response.body.to_s.include? "#{scenario_state.get(pipeline)}(1) stage #{stage}(1) Passed"
+    doc = Nokogiri::XML(response)
+    pipeline_instance_element=doc.xpath("//xmlns:feed/xmlns:entry/xmlns:title[.=\"#{scenario_state.get(pipeline)}(1) stage #{stage}(1) Passed\"]")
+    pipeline_link=pipeline_instance_element.xpath("//xmlns:link[@rel='http://www.thoughtworks-studios.com/ns/relations/go/pipeline'][@type='application/vnd.go+xml']")
+    scenario_state.put("#{scenario_state.get(pipeline)}",pipeline_link.attribute("href").value[/\/api.+/im])
+  end
+end
+
+step 'Verify loads <pipeline> instance with file <file>' do |pipeline,file|
+  RestClient.get http_url(scenario_state.get(scenario_state.get(pipeline))), basic_configuration.header do |response|
+   doc = Nokogiri::XML(response)
+
+  assert_equal file, doc.xpath("//file/@name").first.value
+  end
+end
+
+step 'Verify unauthorized to load <pipeline>' do |pipeline|
+  RestClient.get http_url(scenario_state.get(scenario_state.get(pipeline))), basic_configuration.header do |response|
+    assert_true response.code.to_i == 403
+   end
+end
+
+step 'Verify fails to find <pipeline> with bad id' do |pipeline|
+  RestClient.get http_url("/api/pipelines/#{scenario_state.get(pipeline)}/0.xml"), basic_configuration.header do |response|
+    assert_true response.code.to_i == 404
+   end
+end

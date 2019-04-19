@@ -115,6 +115,13 @@ module Context
       end
     end
 
+    def auther_name rev
+      cd(@path.to_s) do
+        stdout, _stdeerr, _status = Open3.capture3(%(git --no-pager show -s --format='%an <%ae>' #{rev}))
+        return stdout.delete("\n")
+      end
+    end
+
   end
 
   class SVNMaterials < Materials

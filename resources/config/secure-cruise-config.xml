@@ -409,6 +409,29 @@
                 </jobs>
             </stage>
         </pipeline>
+        <pipeline name="basic-pipeline-for-cctray">
+         <materials>
+          <git url="material-for-basic-pipeline-for-cctray" dest="git" autoUpdate="false" materialName="git-material"/>
+         </materials>
+         <stage name="defaultStage">
+            <approval type="manual"/>
+            <jobs>
+              <job name="basic-pipeline-for-cctray-job">
+               <tasks>
+                    <exec command="rake" args="wait_or_fail" workingdir="git"/>
+               </tasks>
+              </job>
+              <job name="passing-job">
+                <tasks>
+                    <exec command="sleep">
+                      <arg>15</arg>
+                      <runif status="passed"/>
+                    </exec>
+                </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
     </pipelines>
     <pipelines group="basic">
       <authorization>

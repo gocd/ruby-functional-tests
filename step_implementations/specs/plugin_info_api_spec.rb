@@ -30,9 +30,10 @@ step 'Plugin info response should have <entity> with <key>' do |entity, key|
   assert_true JSON.parse(response)[entity].first.key?(key)
 end
 
-step 'Get all plugins info should return info for <plugins_count> valid plugins' do |plugins_count|
-  res = RestClient.get http_url('/api/admin/plugin_info'),
+step 'Get all plugins info should return info for details of <plugins_list>' do |plugins_list|
+	res = RestClient.get http_url('/api/admin/plugin_info'),
                        { accept: GoConstants::PLUGIN_INFO_API_VERSION }.merge(basic_configuration.header)
-  actual_size = JSON.parse(res.body)['_embedded']['plugin_info'].size
-  assert_true (actual_size == plugins_count.to_i), "Actual number of plugins #{actual_size}"
+  expected_plugin_ids = plugins_list.split(',').collect(&:strip)
+  actual_plugins_ids = JSON.parse(res.body)['_embedded']['plugin_info'].collect{|info| info['id']}
+  assert_true (expected_plugin_ids - actual_plugins_ids).empty?
 end

@@ -16,7 +16,12 @@ Setup of contexts
 * Plugin info response should have "extensions" with "auth_config_settings"
 * Plugin info response should have "extensions" with "capabilities"
 
-* Get all plugins info should return info for "17" valid plugins
+* Get plugins info for plugin "json.config.plugin"
+* Plugin info response should have "extensions" of "type" value "configrepo"
+* Plugin info response should have "extensions" with "plugin_settings"
+* Plugin info response should have "extensions" with "capabilities"
+
+* Get all plugins info should return info for details of "test.donothing.plugin, test.valid.innerclass.plugin"
 
 
 teardown

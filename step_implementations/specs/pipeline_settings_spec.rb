@@ -38,6 +38,10 @@ step 'Edit material <material_name>' do |material_name|
 	pipeline_settings_page.select_material material_name
 end
 
+step 'Enter destination directory <dest>' do |dest|
+  pipeline_settings_page.material_dest_directory.set dest
+end
+
 step 'Copy over material url from material url as <material-url>' do |material_url|
   pipeline_settings_page.set_material_url scenario_state.get(material_url)
 end
@@ -105,4 +109,21 @@ end
 
 step 'Verify that material <material> can not be deleted' do |material|
   assert_false pipeline_settings_page.can_material_be_deleted?new_pipeline_dashboard_page.sanitize_message(material)
+end
+
+step 'Make autoupdate to be <flag> - Already on edit material popup' do |flag|
+  if(flag=="true")
+    flag=true
+  else
+    flag=false
+  end
+  pipeline_settings_page.make_material_auto_update flag
+end
+
+step 'Invert material' do ||
+  pipeline_settings_page.invert_material
+end
+
+step 'Select Clean working directory' do ||
+  pipeline_settings_page.clean_work_dir
 end

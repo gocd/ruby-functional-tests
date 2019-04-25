@@ -276,3 +276,13 @@ task :test do
   end
 end
 task default: %w[kill clean_all build_all prepare test]
+
+task :setup_tfs_cli do
+  mkdir_p "tfs-tool"
+  sh "wget --quiet https://maven-mirrors.gocd.org/repository/s3-mirrors/local/TEE-CLC-14.0.3.zip -O tfs-tool/TEE-CLC-14.0.3.zip"
+  sh "unzip tfs-tool/TEE-CLC-14.0.3.zip -d tfs-tool"
+  sh "mv tfs-tool/TEE-CLC-14.0.3/* tfs-tool/"
+  cd "tfs-tool" do
+    sh "yes | ./tf eula; true"
+  end
+end

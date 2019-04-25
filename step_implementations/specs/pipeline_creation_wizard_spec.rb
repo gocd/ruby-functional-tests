@@ -76,23 +76,27 @@ end
 
 step 'Set job name as <job> - Already on Add New Job popup' do |job|
 	pipeline_creation_wizard.job_name_on_popup.set job
-end	
+end
 
 step 'Set command as <command> - Already on Add New Job popup' do |command|
 	pipeline_creation_wizard.command_on_popup.set command
-end	
+end
 
 step 'Set resources as <windows> - Already on Add New Job popup' do |resource|
 	pipeline_creation_wizard.resources_on_popup.set resource
-end	
+end
 
 step 'Set url <url> for material  <material>' do |url,material|
 	pipeline_creation_wizard.set_material_url_for(material, url)
-end	
+end
 
 step 'Set url <url> for material' do |url|
 	pipeline_creation_wizard.material_url.set(url)
-end	
+end
+
+step 'Enter project path as <path>' do |path|
+	pipeline_creation_wizard.project_path.set(path)
+end
 
 step 'Verify the stages are <stages>' do |stages|
 	pipeline_stages=pipeline_creation_wizard.get_pipeline_stages()

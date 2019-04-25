@@ -14,10 +14,61 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *************************GO-LICENSE-END******************************* -->
-<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="119">
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="120">
     <server artifactsdir="artifacts" serverId="twist" tokenGenerationKey="token">
     </server>
     <pipelines group="basic">
+		<pipeline name="tfs_artifact_in_child_directory">
+	      <materials>
+	        <tfs url="$tfsurl" username="$tfsuser"  password="$tfspassword" projectPath="$/MyFirstProject" materialName="tfs_mat" autoUpdate="false"/>
+	      </materials>
+	      <stage name="defaultStage">
+	       	<approval type="manual"/>
+	        <jobs>
+	          <job name="defaultJob">
+	            <tasks>
+	              <exec command="mkdir">
+	              	<arg>child</arg>
+	              </exec>
+	              <exec command="/bin/bash">
+	                <arg>create_file.sh</arg>
+	                <arg>child/artifact.file</arg>
+	                <runif status="passed"/>
+	              </exec>
+	            </tasks>
+	            <artifacts>
+	              <artifact type="build" src="child/artifact.file"/>
+	            </artifacts>
+	          </job>
+	        </jobs>
+	      </stage>
+	    </pipeline>
+		<pipeline name="tfs_generated_file_gets_deleted">
+	      <materials>
+	        <tfs url="$tfsurl" username="$tfsuser"  password="$tfspassword" projectPath="$/MyFirstProject" materialName="tfs_mat" autoUpdate="false"/>
+	      </materials>
+	      <stage name="defaultStage">
+	       	<approval type="manual"/>
+	        <jobs>
+	          <job name="defaultJob">
+	            <tasks>
+	              <exec command="/bin/bash">
+	                <arg>create_file.sh</arg>
+	                <arg>artifact.file</arg>
+	                <runif status="passed"/>
+	              </exec>
+	              <exec command="rm">
+	              	<arg>-rf</arg>
+	              	<arg>artifact.file</arg>
+	              </exec>
+	            </tasks>
+	            <artifacts>
+	              <artifact type="build" src="artifact.file"/>
+	            </artifacts>
+	          </job>
+	        </jobs>
+	      </stage>
+	    </pipeline>
 		<pipeline name="tfs-pipeline-with-multiple-stages">
 	      <materials>
 		    <tfs url="$tfsurl" username="$tfsuser" password="$tfspassword" projectPath="$/MyFirstProject" materialName="tfs_mat" autoUpdate="false"/>

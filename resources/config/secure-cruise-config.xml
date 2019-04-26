@@ -462,6 +462,44 @@
                 </jobs>
             </stage>
        </pipeline>
+        <pipeline name="pipeline-with-elastic-agent-profile-1">
+            <materials>
+                <git url="https://github.com/gocd/ruby-functional-tests.git" shallowClone="true" dest="git" materialName="git" autoUpdate="true"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual" />
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="/bin/bash">
+                                <arg>-c</arg>
+                                <arg>echo CLUSTER_NAME=$CLUSTER_NAME</arg>
+                                <runif status="passed"/>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+        <pipeline name="pipeline-with-elastic-agent-profile-2">
+            <materials>
+                <git url="https://github.com/gocd/ruby-functional-tests.git" shallowClone="true" dest="git" materialName="git" autoUpdate="true"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual" />
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="/bin/bash">
+                                <arg>-c</arg>
+                                <arg>echo CLUSTER_NAME=$CLUSTER_NAME</arg>
+                                <runif status="passed"/>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
      <pipeline name="downstream-pipeline">
       <materials>
         <pipeline pipelineName="basic-pipeline-fast" stageName="defaultStage"/>

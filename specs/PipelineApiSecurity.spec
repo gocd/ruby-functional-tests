@@ -135,6 +135,7 @@ tags: API Security
 * Looking at pipeline "viewable-pipeline" - On Swift Dashboard page
 * Using "2nd" revision of "git" of type "git" for pipeline "viewable-pipeline"
 * Schedule should return code "202"
+* Wait till stage "defaultStage" completed - On Swift Dashboard page
 * Looking at pipeline "admin-pipeline-api" - On Swift Dashboard page
 * Using "2nd" revision of "git" of type "git" for pipeline "admin-pipeline-api"
 * Schedule should return code "403"

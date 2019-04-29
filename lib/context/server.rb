@@ -100,9 +100,9 @@ module Context
     end
 
     def run_server_on_docker
-      manifest = DockerManifestParser.new('target/docker-gocd-server')
+      manifest = DockerManifestParser.new('target/docker-server')
       manifest.image_info_of('centos-7')
-      sh %(docker load < "target/docker-gocd-server/#{manifest.file}")
+      sh %(docker load < "target/docker-server/#{manifest.file}")
       sh %(docker run -d --name gauge_server -p #{GoConstants::SERVER_PORT}:#{GoConstants::SERVER_PORT} \
         -p #{GoConstants::SERVER_SSL_PORT}:#{GoConstants::SERVER_SSL_PORT} \
         -v #{File.expand_path(GoConstants::CONFIG_PATH.to_s)}:/test-config -v /efs:/godata \

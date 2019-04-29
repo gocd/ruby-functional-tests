@@ -79,7 +79,7 @@ module Context
 
     def run_agent_on_docker(identifier)
       manifest = DockerManifestParser.new('target/docker-gocd-agent')
-      manifest.image_info_of('alpine-3.9')
+      manifest.image_info_of('centos-7')
       sh %(docker load < "target/docker-gocd-agent/#{manifest.file}")
       sh %(docker rm -f agent_#{identifier} || true)
       sh %(docker run -d \

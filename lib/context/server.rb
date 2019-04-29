@@ -105,7 +105,7 @@ module Context
       sh %(docker load < "target/docker-gocd-server/#{manifest.file}")
       sh %(docker run -d --name gauge_server -p #{GoConstants::SERVER_PORT}:#{GoConstants::SERVER_PORT} \
         -p #{GoConstants::SERVER_SSL_PORT}:#{GoConstants::SERVER_SSL_PORT} \
-        -v #{File.expand_path(GoConstants::CONFIG_PATH.to_s)}:/test-config -v #{File.expand_path("godata")}:/godata \
+        -v #{File.expand_path(GoConstants::CONFIG_PATH.to_s)}:/test-config -v /efs:/godata \
         -v #{GoConstants::TEMP_DIR}:/materials \
         -e GO_SERVER_SYSTEM_PROPERTIES='#{GoConstants::GO_SERVER_SYSTEM_PROPERTIES}' \
         -e GO_SERVER_PORT='#{GoConstants::SERVER_PORT}' \

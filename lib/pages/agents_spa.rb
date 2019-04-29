@@ -115,7 +115,7 @@ module Pages
     end
 
     def wait_till_agents_are_idle(count)
-      wait_till_event_occurs_or_bomb 120, "Expected #{count} agents be regsitered by now" do
+      wait_till_event_occurs_or_bomb 3600, "Expected #{count} agents be regsitered by now" do
         reload_page
         wait_for_agents_menu(5)
         break if get_agents_count('Idle') == count.to_i

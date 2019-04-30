@@ -95,6 +95,11 @@ end
 module GoCDInitialize
 
   before_suite do
+    if GoConstants::USE_EFS
+      %w(addons artifacts config db logs plugins).each do |fldr|
+        FileUtils.rm_rf("/efs/#{fldr}")
+      end
+    end
     go_server.start
     go_server.wait_to_start
     if ZAP_PROXY && ['localhost', '127.0.0.1'].include?(ZAP_PROXY)
@@ -110,7 +115,7 @@ module GoCDInitialize
 
   after_suite do
     go_server.stop
-    if GoConstants::RUN_ON_DOCKER
+    if GoConstants::USE_EFS
       %w(addons artifacts config db logs plugins).each do |fldr|
         FileUtils.rm_rf("/efs/#{fldr}")
       end

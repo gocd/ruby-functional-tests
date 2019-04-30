@@ -18,16 +18,23 @@ require 'socket'
 
 class GoConstants
   HOSTNAME = Socket.gethostname
-  IPADDRESS = Socket::getaddrinfo(Socket.gethostname,"echo",Socket::AF_INET)[0][3]
+  IPADDRESS = Socket.getaddrinfo(Socket.gethostname, 'echo', Socket::AF_INET)[0][3]
   GO_VERSION = ENV['GO_VERSION'] || '16.11.0'
   SERVER_PORT = ENV['GO_SERVER_PORT'] || '8253'
   SERVER_SSL_PORT = ENV['GO_SERVER_SSL_PORT'] || '8254'
   RUN_ON_DOCKER = ENV['RUN_ON_DOCKER']
-  SERVER_DIR = RUN_ON_DOCKER ? '/efs' : Dir["target/go-server-#{GO_VERSION}"].find {|f| File.directory?(f)}
-  AGENT_DIR = Dir["target/go-agent-#{GO_VERSION}"].find {|f| File.directory?(f)}
+  USE_EFS = ENV['USE_EFS']
+  SERVER_DIR = if USE_EFS
+                 '/efs'
+               elsif RUN_ON_DOCKER
+                 'godata'
+               else
+                 Dir["target/go-server-#{GO_VERSION}"].find { |f| File.directory?(f) }
+               end
+  AGENT_DIR = Dir["target/go-agent-#{GO_VERSION}"].find { |f| File.directory?(f) }
   SERVER_MEM = ENV['GAUGE_GO_SERVER_MEM'] || '512m'
   SERVER_MAX_MEM = ENV['GAUGE_GO_SERVER_MAX_MEM'] || '1024m'
-  LDAP_SERVER_IP = 'localhost:10389'
+  LDAP_SERVER_IP = 'localhost:10389'.freeze
   ANALYTICS_LICENSE_KEY = ENV['ANALYTICS_LICENSE_KEY'] || 'no_license_key'
   GO_PIPELINE_COUNTER = ENV['GO_PIPELINE_COUNTER'] || '0'
   TEMP_DIR = '/tmp/materials'.freeze

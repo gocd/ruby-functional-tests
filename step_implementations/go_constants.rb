@@ -27,7 +27,7 @@ class GoConstants
   SERVER_DIR = if USE_EFS
                  '/efs'
                elsif RUN_ON_DOCKER
-                 'godata'
+                 File.expand_path('godata')
                else
                  Dir["target/go-server-#{GO_VERSION}"].find { |f| File.directory?(f) }
                end

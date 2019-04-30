@@ -50,6 +50,8 @@ task :clean_all do
   rm_rf 'target'
   rm_rf 'reports'
   mkdir_p 'target'
+  rm_rf 'godata' if Dir.exist? 'godata' # this folder is needed for only when running on docker
+  mkdir_p 'godata'
   if DEVELOPMENT_MODE
     cd "../#{GO_TRUNK_DIRNAME}" do
       sh './gradlew -q clean'
@@ -116,8 +118,6 @@ zips.each do |package, file|
       if package == 'server'
         mkdir_p "target/go-server-#{VERSION_NUMBER}/config"
         cp "config-files/server-logback.xml", "target/go-server-#{VERSION_NUMBER}/config/logback.xml"
-        rm_rf 'godata' if Dir.exist? 'godata' # this folder is needed for only when running on docker
-        mkdir_p 'godata'
       end
     end
 

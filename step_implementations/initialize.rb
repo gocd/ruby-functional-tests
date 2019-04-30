@@ -93,6 +93,8 @@ RestClient::Request.class_eval do
 end
 
 module GoCDInitialize
+  include FileUtils
+
   before_suite do
     go_server.start
     go_server.wait_to_start

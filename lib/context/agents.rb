@@ -79,7 +79,8 @@ module Context
 
     def run_agent_on_docker(identifier)
       manifest = DockerManifestParser.new('target/docker-agent')
-      manifest.image_info_of('centos-7')
+      image_index = ENV['GO_JOB_RUN_INDEX'] ? 0 : ENV['GO_JOB_RUN_INDEX']
+      manifest.image_info_at(image_index)
       sh %(docker load < "target/docker-agent/#{manifest.file}")
       sh %(docker rm -f agent_#{identifier} || true)
       sh %(docker run -d \

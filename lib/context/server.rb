@@ -138,5 +138,14 @@ module Context
       @file = image_info.first['file']
     end
 
+    def image_info_at(position)
+      raise "Docker image manifest file not available at #{@fldr}" unless File.exist?("#{@fldr}/manifest.json")
+      manifest = JSON.parse(File.read("#{@fldr}/manifest.json"))
+      image_info = manifest[position]
+      @image = image_info['imageName']
+      @tag = image_info['tag']
+      @file = image_info['file']
+    end
+
   end
 end

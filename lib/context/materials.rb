@@ -52,7 +52,7 @@ module Context
       if !scenario_state.get(material_url).nil?
         material_path = scenario_state.get(material_url)
       else
-        rm_rf(@path)
+        rm_rf(@path) if Dir.exist? @path
         mkdir_p(@path)
         cd(@path) do
           Open3.popen3('git init sample.git') do |_stdin, _stdout, stderr, wait_thr|

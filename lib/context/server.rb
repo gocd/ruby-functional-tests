@@ -137,16 +137,5 @@ module Context
       @file = image_info.first['file']
     end
 
-    def alpine
-      raise "Docker image manifest file not available at #{@fldr}" unless File.exist?("#{@fldr}/manifest.json")
-      manifest = JSON.parse(File.read("#{@fldr}/manifest.json"))
-      image_info = manifest.reject { |image| image['imageName'].include? 'centos-7' }
-      raise "No image for OS #{os} available" if image_info.nil?
-      @image = image_info.first['imageName']
-      @tag = image_info.first['tag']
-      @file = image_info.first['file']
-    end
-
-
   end
 end

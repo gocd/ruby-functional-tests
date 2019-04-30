@@ -109,6 +109,11 @@ module GoCDInitialize
 
   after_suite do
     go_server.stop
+    if GoConstants::RUN_ON_DOCKER
+      %w(addons artifacts config db logs plugins).each do |fldr|
+        rm_rf("/efs/#{fldr}")
+      end
+    end
     %x(rm -rf target/go_state) unless ENV['GO_PIPELINE_NAME']
     if $zap
       response = RestClient.get 'http://localhost:8081/OTHER/core/other/htmlreport'

@@ -93,7 +93,6 @@ RestClient::Request.class_eval do
 end
 
 module GoCDInitialize
-  include FileUtils
 
   before_suite do
     go_server.start
@@ -113,7 +112,7 @@ module GoCDInitialize
     go_server.stop
     if GoConstants::RUN_ON_DOCKER
       %w(addons artifacts config db logs plugins).each do |fldr|
-        rm_rf("/efs/#{fldr}")
+        FileUtils.rm_rf("/efs/#{fldr}")
       end
     end
     %x(rm -rf target/go_state) unless ENV['GO_PIPELINE_NAME']

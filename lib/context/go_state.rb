@@ -19,7 +19,7 @@ module Context
     include FileUtils
 
     def capture_logs(path)
-      cp_r "#{GoConstants::SERVER_DIR}/logs/go-server.out.log" , path
+      #cp_r "#{GoConstants::SERVER_DIR}/logs/go-server.out.log" , path
       cp_r "#{GoConstants::SERVER_DIR}/logs/go-server.log" , path
     end
 

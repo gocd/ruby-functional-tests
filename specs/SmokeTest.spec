@@ -3,7 +3,7 @@ SmokeTest
 
 SmokeTest
 -------------------
-tags: smoke
+tags: smoke, run-on-docker
 
 Setup of contexts
 * Smoke Configuration - setup

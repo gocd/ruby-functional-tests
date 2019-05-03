@@ -20,12 +20,11 @@ Note: This spec will use 2 elastic agent(Docker and K8s plguins) plugins and set
 * Add new Elastic agent profile for cluster id "Docker-Cluster"
 
 * Set agent profile name as "Profile-Using-Docker-Cluster"
-* Check cluster id is selected as "Docker-Cluster" wiht plugin "Docker Elastic Agent Plugin"
+* Check cluster id is selected as "Docker-Cluster" with plugin "Docker Elastic Agent Plugin"
 * Set docker image as "rajiesh/gocd-agent-centos-7-test:v19.2.0"
 * Save elastic agent profile
 
-* Clone Elastic agent profile "Profile-Using-Docker-Cluster" by name "Cloned-Docker"
-* Save elastic agent profile
+* Clone Elastic agent profile "Profile-Using-Docker-Cluster" of cluster "Docker-Cluster" by name "Cloned-Docker"
 
 * Verify elastic agent profiles "Profile-Using-Docker-Cluster, Cloned-Docker" listed
 
@@ -33,7 +32,8 @@ Note: This spec will use 2 elastic agent(Docker and K8s plguins) plugins and set
 * Add new Elastic agent profile for cluster id "K8s-Cluster"
 
 * Set agent profile name as "Profile-Using-K8s-Cluster"
-* Check cluster id is selected as "K8s-Cluster" wiht plugin "Kubernetes Elastic Agent Plugin"
+* Select Configuration properties for kubernetes cluster
+* Check cluster id is selected as "K8s-Cluster" with plugin "Kubernetes Elastic Agent Plugin"
 * Set docker image as "rajiesh/gocd-agent-centos-7-test:v19.2.0"
 * Save elastic agent profile
 
@@ -45,9 +45,9 @@ Note: This spec will use 2 elastic agent(Docker and K8s plguins) plugins and set
 * Set maximum memory limit as "100M"
 * Save elastic agent profile
 
-* Verify "max_memory_limit" is "100M" for elastic agent profile "Profile-Using-K8s-Cluster" - Using elastic agent profile API
+* Verify "MaxMemory" is "100M" for elastic agent profile "Profile-Using-K8s-Cluster" - Using elastic agent profile API
 
-* Delete elastic agent profile "Profile-Using-Docker-Cluster"
+* Delete elastic agent profile "Profile-Using-Docker-Cluster" of cluster "Docker-Cluster"
 * Verify elastic agent profile "Cloned-Docker" listed
 
 * Verify "2" elastic agent profiles "Cloned-Docker, Profile-Using-K8s-Cluster" are only returned  - Using get all elastic agent profile API

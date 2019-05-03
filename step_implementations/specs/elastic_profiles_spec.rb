@@ -62,7 +62,7 @@ step 'Set agent profile name as <elastic_agent_profile_name>' do |elastic_agent_
   elastic_profiles_page.elastic_agent_profile_id.set elastic_agent_profile_name
 end
 
-step 'Check cluster id is selected as <cluster_profile_id> wiht plugin <plugin_name>' do |cluster_profile_id, plugin_name|
+step 'Check cluster id is selected as <cluster_profile_id> with plugin <plugin_name>' do |cluster_profile_id, plugin_name|
   elastic_profiles_page.has_selected_cluster_profile_id(cluster_profile_id, plugin_name)
 end
 
@@ -96,7 +96,7 @@ end
 step 'Delete cluster profile <cluster_profile_id> should fail with error <display_message>' do |cluster_profile_id, display_message|
   elastic_profiles_page.delete_cluster_profile(cluster_profile_id)
   elastic_profiles_page.click_confirm_delete
-  assert_true elastic_profiles_page.verify_display_message === display_message
+  assert_true elastic_profiles_page.banner_message.eql? display_message
 end
 
 step 'Clone cluster profile <cluster_profile_id> by name <new_cluster_profile_id>' do |cluster_profile_id, new_cluster_profile_id|
@@ -113,9 +113,13 @@ end
 
 step 'Edit elastic agent profile <elastic_agent_profile_id> of cluster profile <cluster_profile_id>' do |elastic_agent_profile_id, cluster_profile_id|
   elastic_profiles_page.expand_cluster_profile_header(cluster_profile_id)
-  elastic_profiles_page.edit_elastic_agent_profile(elastic_agent_profile_id)
+  elastic_profiles_page.edit_elastic_agent_profile(cluster_profile_id, elastic_agent_profile_id)
 end
 
 step 'Select cluster as <cluster_profile_id>' do |cluster_profile_id|
   elastic_profiles_page.selected_cluster_profile_id.select cluster_profile_id
+end
+
+step 'Select Configuration properties for kubernetes cluster' do ||
+	elastic_profiles_page.k8s_config_properties.click
 end

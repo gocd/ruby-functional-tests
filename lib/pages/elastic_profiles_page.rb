@@ -33,8 +33,10 @@ module Pages
     element :selected_cluster_profile_id, "[data-test-id='form-field-input-cluster-profile-id']"
     element :image, "input[ng-model='Image']"
     element :save_elastic_agent_profile_btn, "button[data-test-id='button-ok']"
+    element :max_memory, "input[ng-model='MaxMemory']"
 
     element :confirm_delete, "button[data-test-id='button-delete']"
+    element :k8s_config_properties, "#properties"
 
     def save_cluster_profile
       save_cluster_profile_btn.click
@@ -49,11 +51,7 @@ module Pages
     end
 
     def add_elastic_agent_profile(cluster_profile_id)
-      selected_header = find_collapsible_header(cluster_profile_id)
-
-      if selected_header
-        selected_header.find("button[data-test-id='new-elastic-agent-profile-button']").click
-      end
+      cluster_profile_header(cluster_profile_id).find("button[data-test-id='new-elastic-agent-profile-button']").click
     end
 
     def has_selected_cluster_profile_id(cluster_profile_id, plugin_name)
@@ -67,62 +65,55 @@ module Pages
     end
 
     def edit_cluster_profile(cluster_profile_id)
-      selected_header = find_collapsible_header(cluster_profile_id)
-
-      if selected_header
-        selected_header.find("button[data-test-id='edit-cluster-profile']").click
-      end
+      cluster_profile_header(cluster_profile_id).find("button[data-test-id='edit-cluster-profile']").click
     end
 
     def delete_cluster_profile(cluster_profile_id)
-      selected_header = find_collapsible_header(cluster_profile_id)
-
-      if selected_header
-        selected_header.find("button[data-test-id='delete-cluster-profile']").click
-      end
+      cluster_profile_header(cluster_profile_id).find("button[data-test-id='delete-cluster-profile']").click
     end
 
     def clone_cluster_profile(cluster_profile_id)
-      selected_header = find_collapsible_header(cluster_profile_id)
-
-      if selected_header
-        selected_header.find("button[data-test-id='clone-cluster-profile']").click
-      end
+      cluster_profile_header(cluster_profile_id).find("button[data-test-id='clone-cluster-profile']").click
     end
 
-    def edit_elastic_agent_profile(elastic_agent_profile_id)
-      selected_header = find_elastic_agent_profile_collapsible_header(elastic_agent_profile_id)
+    def clone_elastic_agent_profile(cluster_id, elastic_agent_profile_id)
+      expand_cluster_profile_header(cluster_id)
+      elastic_agent_profile_header(cluster_id, elastic_agent_profile_id).find("button[data-test-id='clone-elastic-profile']").click
+    end
 
-      if selected_header
-        selected_header.find("button[data-test-id='edit-elastic-profile']").click
-      end
+    def edit_elastic_agent_profile(cluster_id, elastic_agent_profile_id)
+      expand_cluster_profile_header(cluster_id)
+      elastic_agent_profile_header(cluster_id, elastic_agent_profile_id).find("button[data-test-id='edit-elastic-profile']").click
+    end
+
+    def delete_elastic_agent_profile(cluster_id, elastic_agent_profile_id)
+      expand_cluster_profile_header(cluster_id)
+      elastic_agent_profile_header(cluster_id, elastic_agent_profile_id).find("button[data-test-id='delete-elastic-profile']").click
     end
 
     def expand_cluster_profile_header(cluster_profile_id)
-      find_collapsible_header(cluster_profile_id).click
+      cluster_profile_header(cluster_profile_id).click
     end
 
     def cluster_profiles_exists?(cluster_profile)
-      page.find("[data-test-id='cluster-profile-list']").text.include?(cluster_profile)
+      page.has_css?("[data-test-id='cluster-profile-list']", text: cluster_profile)
     end
 
-    def elastic_agent_profile_exists?(elastic_agent_profile)
-      !page.all("[data-test-id='elastic-profile-id']")
-           .select{ |elastic_agent_profile_name| elastic_agent_profile_name.text.eql? elastic_agent_profile}.empty?
+    def elastic_agent_profile_exist?(elastic_agent_profile_id)
+      page.has_css?("div[data-test-id='elastic-profile-id']", text: elastic_agent_profile_id)
     end
 
-    def verify_display_message
-      page.find("div[data-test-id='flash-message-alert']").text
+    def banner_message
+      page.find("div[data-test-id='flash-message-alert']", wait: 20).text
     end
 
-    def find_collapsible_header(cluster_profile_id)
-      page.all("div[data-test-id='cluster-profile-panel'] div[data-test-id='collapse-header']")
-          .find {|div| div.find("div[data-test-id='cluster-profile-name']").text === cluster_profile_id}
+    def cluster_profile_header(cluster_profile_id)
+      page.find("div[data-test-id='cluster-profile-name']", text: cluster_profile_id).ancestor("div[data-test-id='cluster-profile-panel']")
     end
 
-    def find_elastic_agent_profile_collapsible_header(elastic_agent_profile_id)
-      page.all("div[data-test-id='elastic-profile-header'] div[data-test-id='collapse-header']")
-          .find {|div| div.find("div[data-test-id='elastic-profile-id']").text === elastic_agent_profile_id}
+    def elastic_agent_profile_header(cluster_profile_id, elastic_agent_profile_id)
+      elastic_profile = cluster_profile_header(cluster_profile_id).find("div[data-test-id='elastic-profile-list']").find("div[data-test-id='elastic-profile-id']", text: elastic_agent_profile_id)
+      elastic_profile.ancestor("[data-test-id='elastic-profile-header']")
     end
 
   end

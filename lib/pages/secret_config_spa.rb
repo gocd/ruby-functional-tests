@@ -43,8 +43,8 @@ module Pages
       input_id.set(value)
     end
 
-    def plugin_id(value)
-      plugin_id.select_option(value)
+    def plugin_value(value)
+      plugin_id.set value
     end
 
     def filepath(value)

@@ -23,7 +23,7 @@ step "Create new secret config <id> with <filepath>" do |id, filepath|
   secret_management_page.load
   secret_management_page.click_add
   secret_management_page.config_id(id)
-  secret_management_page.plugin_id(plugin_id)
+  secret_management_page.plugin_value(plugin_id)
   secret_management_page.filepath(filepath)
 end
 
@@ -39,26 +39,30 @@ step "Verify if secret config <secret_config> is added" do |secret_config|
   assert_true secret_management_page.has_secret_config(secret_config)
 end
 
-# step "Verify if role <role_name> is not present" do |role_name|
-#   assert_false secret_management_page.has_role(role_name)
-# end
-#
-# step 'Edit role <role_name>' do |role_name|
-#   secret_management_page.edit_role(role_name)
-# end
-#
-# step 'Clone role <role_name>' do |role_name|
-#   secret_management_page.clone_role(role_name)
-# end
-#
-# step 'Set role name as <role_name>' do |role_name|
-#   secret_management_page.role_name.set role_name
-# end
-#
-# step 'Delete role <role_name>' do |role_name|
-#   secret_management_page.delete_role(role_name)
-# end
-#
-# step 'Confirm delete role' do |i|
-#   secret_management_page.click_confirm_delete
-# end
+step 'Clone secret config <secret_config>' do |secret_config|
+  secret_management_page.clone_secret_config(secret_config)
+end
+
+step 'Set secret config id as <id>' do |id|
+  secret_management_page.config_id(id)
+end
+
+step 'Set filepath as <filepath>' do |filepath|
+  secret_management_page.filepath(filepath)
+end
+
+step 'Edit secret config <secret_config>' do |secret_config|
+  secret_management_page.edit_secret_config(secret_config)
+end
+
+step "Verify if secret config <secret_config> is not present" do |secret_config|
+  assert_false secret_management_page.has_secret_config(secret_config)
+end
+
+step 'Delete secret config <secret_config>' do |secret_config|
+  secret_management_page.delete_secret_config(secret_config)
+end
+
+step 'Confirm delete secret config' do |i|
+  secret_management_page.click_confirm_delete
+end

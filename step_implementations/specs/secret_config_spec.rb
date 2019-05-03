@@ -19,40 +19,26 @@ step "Go to Secret Management page" do |i|
 end
 
 step "Create new secret config <id> with <filepath>" do |id, filepath|
+  plugin_id = 'cd.go.secrets.file-based-plugin'
   secret_management_page.load
   secret_management_page.click_add
-  secret_management_page.config_id.set id
-  secret_management_page.plugin_id.set 'cd.go.secrets.file'
-  secret_management_page.filepath.set filepath
+  secret_management_page.config_id(id)
+  secret_management_page.plugin_id(plugin_id)
+  secret_management_page.filepath(filepath)
 end
 
+step "Save secret config" do |i|
+  secret_management_page.save_secret_conig
+end
 
-# step "Create a new gocd role <name>" do |name|
-#   role_config_page.click_add
-#   role_config_page.gocd_role = (true)
-#   role_config_page.role_name.set name
-# end
-#
-#
-# step "Add user <names> to the role" do |names|
-#   names.split(',').each {|name|
-#     role_config_page.role_users.set name.strip
-#     role_config_page.add_role.click
-#   }
-# end
-#
-# step "Save role" do |i|
-#   role_config_page.save_role
-# end
-#
-# step 'Verify flash message for role <message>' do |message|
-#   assert_true secret_management_page.flash_message.text.include? message
-# end
-#
-# step "Verify if role <role_name> is added" do |role_name|
-#   assert_true secret_management_page.has_role(role_name)
-# end
-#
+step 'Verify flash message for secret config <message>' do |message|
+  assert_true secret_management_page.flash_message.text.include? message
+end
+
+step "Verify if secret config <secret_config> is added" do |secret_config|
+  assert_true secret_management_page.has_secret_config(secret_config)
+end
+
 # step "Verify if role <role_name> is not present" do |role_name|
 #   assert_false secret_management_page.has_role(role_name)
 # end

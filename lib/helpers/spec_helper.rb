@@ -67,6 +67,8 @@ require 'pages/personal_access_token_page'
 require 'pages/admin_access_token_page'
 require 'pages/elastic_agent_profiles_page'
 require 'pages/elastic_profiles_page'
+require 'pages/secret_config_spa'
+
 
 
 module Helpers
@@ -149,6 +151,10 @@ module Helpers
 
     def role_config_page
       Pages::RoleConfigSPA.new
+    end
+
+    def secret_management_page
+      Pages::SecretConfigSPA.new
     end
 
     def preferences_page

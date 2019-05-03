@@ -173,7 +173,7 @@
 	                </variable>
             	</environmentvariables>
                 <jobs>
-                    <job name="job">
+                    <job name="job1">
 		                <environmentvariables>
 			                <variable name="JOB_LEVEL_VARIABLE">
 			                	<value>job</value>

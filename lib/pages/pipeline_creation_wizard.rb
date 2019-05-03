@@ -38,7 +38,7 @@ module Pages
     element :add_new_job, 'a.add_link'
     element :add_new_stage, 'a.add_link'
     element :stage_on_popup, "input[name='stage[name]']"
-    
+
     #jobs
     element :job_name, "input[name='pipeline_group[pipeline][stage][jobs][][name]']"
     element :task_type, '#job_task_options'
@@ -48,16 +48,16 @@ module Pages
     element :resources_on_popup, '#job_resources'
     element :job_name_popup, "input[name='stage[jobs][][name]']"
     element :command_on_stage_popup, "input[name='stage[jobs][][tasks][exec][command]']"
-    
+
     #mingle project management
     element :mingle_URL, '#pipeline_mingleConfig_baseUrl'
     element :mingle_identifier, '#pipeline_mingleConfig_projectIdentifier'
     element :mingle_mqa, '#pipeline_mingleConfig_mqlCriteria_mql'
 
-    
 
 
-    
+
+
 
 
     def set_task_field(task_name, field, value)
@@ -66,15 +66,15 @@ module Pages
 
     def add_new_task(task)
       page.find('#job_task_options').find(:option, task).select_option
-    end  
+    end
 
     def set_material_url_for(material, url)
       page.find(".#{material}_url").set(url)
-    end  
+    end
 
     def get_pipeline_stages()
       stages=[]
-      page.all('a.stage_name_link').each{|stage| 
+      page.all('a.stage_name_link').each{|stage|
         stages.push(stage.text)}
       stages
     end
@@ -108,7 +108,7 @@ module Pages
     end
 
     def select_stage stage
-      page.find('a.stage_name_link',text:stage).click
+      page.find('a',text:stage).click
     end
 
 

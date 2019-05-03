@@ -327,6 +327,10 @@ module Pages
       page.find('.sub_tabs_container').find('a', text:tab).click
     end
 
+    def open_template template
+      page.find('a.edit_template', text:template).click
+    end
+
     def total_templates
       total_templates = []
       page.all('.template_group h2.group_name').each do |template|
@@ -402,12 +406,20 @@ module Pages
       page.find('#pipeline_selectedPipelineName').all('option').collect(&:text)
     end
 
+    def extractable_disabled_pipeline
+      page.find('select#pipeline_pipelineNames').all('option').collect(&:text)
+    end
+
     def select_pipeline_for_template pipeline
       find('#pipeline_selectedPipelineName option', :text => pipeline).click
     end
 
     def has_template? template
     page.has_css?('a.edit_template',text: template )
+    end
+
+    def click_extract_template pipeline
+      page.find(".extract_template_for_pipeline_#{pipeline} a").click
     end
 
     private

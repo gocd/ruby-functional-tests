@@ -47,7 +47,6 @@ module Pages
     element :resources_on_popup, '#job_resources'
     element :task_source_file, "input[name='task[src]']"
     element :task_dest_dir,"input[name='task[dest]']"
-    element :source_file_option,"#is_source_a_file"
 
     load_validation { has_add_new_task? }
 
@@ -211,8 +210,9 @@ module Pages
        page.all('tbody tr').count
     end
 
-    def uncheck_source_file_option
-      source_file_option.click
+    def toggle_source_file_option
+      page.execute_script("document.getElementById('is_source_a_file').scrollIntoView(true)")
+      page.find('.is_source_a_file').click
     end
 
   end

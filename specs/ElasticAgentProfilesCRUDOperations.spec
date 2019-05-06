@@ -9,7 +9,7 @@ Setup of contexts
 ElasticAgentsProfileCRUDOperations
 ----------------------------
 
-tags: elastic_agent_profiles
+tags: elastic_agent_profile
 
 Note: This spec will use 2 elastic agent(Docker and K8s plguins) plugins and setup multiple elastic agents for them
 

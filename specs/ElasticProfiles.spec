@@ -10,7 +10,7 @@ Setup of contexts
 ElasticProfiles
 ---------------
 
-tags: elastic_profiles
+tags: elastic_agent_profile
 
 * On Elastic profiles page
 * Add new cluster profile

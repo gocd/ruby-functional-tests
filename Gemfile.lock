@@ -92,7 +92,7 @@ GEM
       rest-client
     parser (2.5.1.2)
       ast (~> 2.4.0)
-    power_assert (1.1.3)
+    power_assert (1.1.4)
     procto (0.0.3)
     pry (0.11.0)
       coderay (~> 1.1.0)
@@ -127,7 +127,7 @@ GEM
       capybara (~> 3.2)
     sys-proctable (1.2.1)
       ffi
-    test-unit (3.2.8)
+    test-unit (3.3.2)
       power_assert
     thread_safe (0.3.6)
     tzinfo (1.2.5)

@@ -37,6 +37,7 @@ tags: Clicky Admin, template, #5785, 6821
 
 * Open tab "General Options" - On Pipeline Creation Page
 * Open template "template_from_pipeline"
+* Open tab "Stages" - On Pipeline Creation Page
 * Open stage "first"
 * Open "Jobs" tab - On Stage settings page
 

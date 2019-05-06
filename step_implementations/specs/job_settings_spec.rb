@@ -263,7 +263,7 @@ step 'Set task source file as <source_file>' do |source_file|
 end
 
 step 'Check source is a file option' do ||
-  job_settings_page.source_file_option.click
+  job_settings_page.toggle_source_file_option
 end
 
 step 'Set task destination  as <dest_dir>' do |dest_dir|
@@ -271,5 +271,5 @@ step 'Set task destination  as <dest_dir>' do |dest_dir|
 end
 
 step 'Uncheck source is a file option' do ||
-  job_settings_page.uncheck_source_file_option
+  job_settings_page.toggle_source_file_option
 end

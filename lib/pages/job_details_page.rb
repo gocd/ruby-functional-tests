@@ -37,13 +37,13 @@ module Pages
     end
 
     def console_content
-      wait_for_console_output
+      wait_until_console_output_visible(wait: 20)
       console_output['innerHTML']
     end
 
     def console_has_message?(message)
-      wait_till_event_occurs_or_bomb 20, "Console does not have message #{message}" do
-        wait_for_console_output
+      wait_till_event_occurs_or_bomb 40, "Console does not have message #{message}" do
+        wait_until_console_output_visible(wait: 20)
         break if console_output['innerHTML'].include? message
       end
     end
@@ -128,7 +128,7 @@ module Pages
     end
 
     def artifact_contents
-      wait_for_artifact_content
+      wait_until_artifact_content_visible(wait: 10)
       artifact_content['innerHTML']
     end
 

@@ -71,7 +71,7 @@ module Pages
     end
 
     def unlock_pipeline
-      wait_for_locked_instance(5)
+      wait_until_locked_instance_visible(wait: 5)
       locked_instance.click
     end
 

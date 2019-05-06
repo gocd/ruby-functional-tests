@@ -54,10 +54,6 @@ Gauge.configure do |config|
   }
 end
 
-SitePrism.configure do |config|
-  config.use_implicit_waits = true
-end
-
 Capybara.configure do |config|
   config.save_path = 'screenshots'
   config.default_max_wait_time = 20

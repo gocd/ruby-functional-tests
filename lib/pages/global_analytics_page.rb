@@ -61,7 +61,7 @@ module Pages
 
     def visit_pipelines_tab
       dashboard_tabs.find('li', :text => 'Pipeline').click
-      wait_for_pipelines_selector
+      wait_until_pipelines_selector_visible(wait: 10)
     end
 
     def pipeline_listed(pipeline)

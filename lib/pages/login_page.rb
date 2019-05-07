@@ -44,7 +44,7 @@ module Pages
     end
 
     def signin_failure(message)
-      wait_until_login_error_visible 10
+      wait_until_login_error_visible(wait: 10)
       assert_true login_error.text.include?(message), "Actual message on login error : #{login_error.text}"
     end
   end

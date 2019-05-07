@@ -27,13 +27,10 @@ module Pages
     load_validation { has_tab_active_tokens? }
 
     def revoke_token(user, description, reason)
-      table_access_tokens.all("[data-test-id='table-row']").each{ |row|
-        if row.has_css?('td', text: user) && row.has_css?('span', text: description)
-          row.find("[data-test-id='button-revoke']").click
-          text_revoke_reason.set reason
-          btn_revoke.click
-        end
-      }
+      token_row = table_access_tokens.all("[data-test-id='table-row']").select{|row| row.has_css?('td', text: user) && row.has_css?('span', text: description) }
+      token_row.first.find("[data-test-id='button-revoke']").click
+      text_revoke_reason.set reason
+      btn_revoke.click
     end
 
   end

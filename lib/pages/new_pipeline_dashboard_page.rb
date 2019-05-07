@@ -23,6 +23,7 @@ module Pages
 
     element :pipeline_name, '.pipeline_name'
     elements :pipeline_group, '.dashboard-group'
+    element :dashboard_container, '.dashboard-container'
     elements :pipeline_group_title, '.dashboard-group_name'
     element :material_for_trigger, '.material-for-trigger'
     iframe :build_time_chart, PipelineBuildTime, 0
@@ -31,7 +32,7 @@ module Pages
     element :environment_variables_key_value, '.environment-variables.plain.key-value-pair'
     element :environment_variables_secure_key_value, '.environment-variables.secure.key-value-pair'
 
-    load_validation { has_pipeline_group? }
+    load_validation { has_dashboard_container? }
 
     def admin?
       menu_item_visible('admin')

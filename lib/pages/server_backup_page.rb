@@ -19,8 +19,9 @@ module Pages
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/backup"
 
     element :btn_confirm_backup, '[data-test-id="button-save"]'
+    element :btn_perform_backup, '[data-test-id="perform-backup"]'
 
-    load_validation { has_perform_backup? }
+    load_validation { has_btn_perform_backup? }
 
     def perform_backup()
       page.find('button', text: 'Perform Backup').click(wait: 10)

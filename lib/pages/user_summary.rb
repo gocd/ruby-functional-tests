@@ -92,7 +92,7 @@ module Pages
 
     def admin?(user, expected='Yes')
       (username text: user ,exact_text: true).ancestor('.user').find('.is_admin')['title'].eql?expected
-    end  
+    end
 
     def error_msg_displayed? message
       page.find('.error').text.eql? message
@@ -128,9 +128,9 @@ module Pages
     end
 
     def get_user_roles(user)
-      (username text: user,exact_text: true).ancestor('.user').find('.selector').sibling('.roles').find('span').text  
+      (username text: user,exact_text: true).ancestor('.user').find('.selector').sibling('.roles').find('span').text
     end
-    
+
     def add_new_roles_to_users(new_role,users)
       users.split(',').each { |user| select_user(user)
       }
@@ -138,13 +138,13 @@ module Pages
       add_new_role.set(new_role)
       add_role.click
     end
-  
+
     def delete_users_from_db(users)
       payload="{\"enabled\":\"false\"}"
       users.split(',').each{|user|
         RestClient.patch http_url("/api/users/#{user}"), payload,
         { content_type: :json, accept: 'application/vnd.go.cd.v3+json' }.merge(basic_configuration.header)
-      
+
         RestClient.delete http_url("/api/users/#{user}"),
         { content_type: :json, accept: 'application/vnd.go.cd.v3+json' }.merge(basic_configuration.header)
       }

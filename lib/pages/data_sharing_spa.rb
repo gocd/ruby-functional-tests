@@ -18,7 +18,7 @@ module Pages
   class DataSharingSPA < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/data_sharing/settings"
 
-    element :data_sharing_toggle, '#consentSwitch'
+    element :data_sharing_toggle, '.consent-toggle'
     element :switch_paddle, '.switch-paddle'
     element :save_button, '.update-consent'
     element :reset_button, '.reset-consent'

@@ -29,8 +29,7 @@ module Pages
     element :artifact_content, 'pre'
 
 
-
-    load_validation { has_add_new_task? }
+    load_validation { has_tabs? }
 
     def on_tab(type)
       tabs.find('a', text: type).click

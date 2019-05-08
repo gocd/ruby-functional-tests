@@ -9,7 +9,6 @@ tags: admin_permissions, with_security
 Setup of contexts
 * Basic Configuration - setup
 * With "1" live agents - setup
-* Update toggle "users_page_using_rails" to value "on"
 * Capture go state "AdminPermissionsNewUsers" - setup
 
 * Enable security with password file
@@ -34,4 +33,3 @@ _______________
 * Capture go state "AdminPermissionsNewUsers" - teardown
 * With "1" live agents - teardown
 * Logout - from any page
-* Update toggle "users_page_using_rails" to value "off"

@@ -5,13 +5,14 @@ Setup of contexts
 * With no users - setup
 * Secure Configuration - setup
 * Login as "admin" - setup
-* Update toggle "users_page_using_rails" to value "on"
 * Capture go state "SystemAdminPrivilegeToggling" - setup
 
 SystemAdminPrivilegeToggling
 ----------------------------
 
-tags: admin, role, user_summary
+tags: admin, role, user_summary, WIP
+
+This spec needs to be modified accrding to the changes in admin privilege toggle using the switch paddle on new user management page
 
 * Add user "pavan" - Using user API
 * Add user "raghu" - Using user API
@@ -19,7 +20,7 @@ tags: admin, role, user_summary
 * On User Summary page
 
 * Add Roles as "admins" to users "pavan"
-* Verify message displayed as "Role(s)/Admin-Privilege modified for" after applying roles to users.
+* Verify message displayed as "Roles are updated successfully!" after applying roles to users.
 * Verify users "pavan" are assigned role "admins"
 
 * Select users "pavan"
@@ -29,7 +30,7 @@ tags: admin, role, user_summary
 * Open roles menu
 * Add roles "Go System Administrator, viewer"
 * Apply changes to roles
-* Verify message displayed as "Role(s)/Admin-Privilege modified for" after applying roles to users.
+* Verify message displayed as "Roles are updated successfully!" after applying roles to users.
 * Verify users "raghu" are assigned role "viewer"
 * Verify users "pavan,raghu" are administrators
 
@@ -41,7 +42,7 @@ tags: admin, role, user_summary
 * Verify role state "Go System Administrator" is enabled
 * Remove roles "Go System Administrator"
 * Apply changes to roles
-* Verify message displayed as "Role(s)/Admin-Privilege modified for" after applying roles to users.
+* Verify message displayed as "Roles are updated successfully!" after applying roles to users.
 * Verify users "raghu" are assigned role "viewer"
 * Verify users "pavan" are assigned role "admins"
 * Verify users "raghu" are not administrators
@@ -52,7 +53,7 @@ tags: admin, role, user_summary
 * Remove roles "admins"
 * Add roles "viewer"
 * Apply changes to roles
-* Verify message displayed as "Role(s)/Admin-Privilege modified for" after applying roles to users.
+* Verify message displayed as "Roles are updated successfully!" after applying roles to users.
 * Verify users "pavan,raghu" are assigned role "viewer"
 * Verify users "pavan,raghu" are not administrators
 
@@ -62,7 +63,7 @@ tags: admin, role, user_summary
 * Remove roles "viewer"
 * Add roles "admins"
 * Apply changes to roles
-* Verify message displayed as "Role(s)/Admin-Privilege modified for" after applying roles to users.
+* Verify message displayed as "Roles are updated successfully!" after applying roles to users.
 * Verify users "pavan, raghu" are assigned role "admins"
 
 
@@ -71,4 +72,3 @@ ____________________
 * As user "admin" for teardown
 * Capture go state "SystemAdminPrivilegeToggling" - teardown
 * Logout - from any page
-* Update toggle "users_page_using_rails" to value "off"

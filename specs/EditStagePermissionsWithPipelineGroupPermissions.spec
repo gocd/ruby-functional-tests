@@ -6,7 +6,6 @@ Setup of contexts
 * Secure Configuration - setup
 * Login as "admin" - setup
 * Using pipeline "edit-pipeline" - setup
-* Update toggle "users_page_using_rails" to value "on"
 * Capture go state "EditStagePermissionsWithPipelineGroupPermissions" - setup
 
 EditStagePermissionsWithPipelineGroupPermissions
@@ -62,5 +61,4 @@ Teardown of contexts
 ____________________
 * Delete users "user3,user4" from DB
 * Capture go state "EditStagePermissionsWithPipelineGroupPermissions" - teardown
-* Update toggle "users_page_using_rails" to value "off"
 * Logout - from any page

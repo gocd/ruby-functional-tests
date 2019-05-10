@@ -90,6 +90,9 @@ module Context
         -e GO_SERVER_URL='https://#{GoConstants::IPADDRESS}:#{GoConstants::SERVER_SSL_PORT}/go' \
         -e AGENT_AUTO_REGISTER_KEY='functional-tests' \
         #{manifest.image}:#{manifest.tag})
+        # This is done to save space on the EA container
+        # Will have to remove it if we want to start multiple agents for single spec
+        sh %(rm -rf target/docker-agent/#{manifest.file})
     end
 
     def create_agent(n)

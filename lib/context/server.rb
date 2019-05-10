@@ -114,6 +114,8 @@ module Context
         -e SERVER_MEM='#{GoConstants::SERVER_MEM}' \
         -e SERVER_MAX_MEM='#{GoConstants::SERVER_MAX_MEM}' \
         #{manifest.image}:#{manifest.tag})
+      # This is done to save space on the EA container
+      sh %(rm -rf target/docker-server)
     end
 
   end

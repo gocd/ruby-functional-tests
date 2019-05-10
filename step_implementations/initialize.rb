@@ -112,9 +112,7 @@ module GoCDInitialize
   after_suite do
     go_server.stop
     if GoConstants::USE_EFS
-      FileUtils.mkdir_p "backup_from_efs"
       %w(addons artifacts config db logs plugins).each do |fldr|
-        FileUtils.cp_r("/efs/#{fldr}" , "backup_from_efs/")
         FileUtils.rm_rf("/efs/#{fldr}")
       end
     end

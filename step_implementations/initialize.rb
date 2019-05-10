@@ -114,7 +114,7 @@ module GoCDInitialize
     if GoConstants::USE_EFS
       FileUtils.mkdir_p "backup_from_efs"
       %w(config db logs).each do |fldr|
-        FileUtils.mv("/efs/#{fldr}", "backup_from_efs/")
+        sh("sudo mv /efs/#{fldr} backup_from_efs/")
       end
       %w(addons artifacts config db logs plugins).each do |fldr|
         FileUtils.rm_rf("/efs/#{fldr}")

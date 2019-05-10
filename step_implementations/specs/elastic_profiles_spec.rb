@@ -50,6 +50,10 @@ step 'Set docker URI as <docker_uri> for cluster profile' do |docker_uri|
   elastic_profiles_page.docker_uri.set docker_uri
 end
 
+step 'Expand cluster profile <id>' do |id|
+  elastic_profiles_page.expand_cluster_profile_header(id)
+end
+
 step 'Save cluster profile' do
   elastic_profiles_page.save_cluster_profile
 end
@@ -63,7 +67,7 @@ step 'Set agent profile name as <elastic_agent_profile_name>' do |elastic_agent_
 end
 
 step 'Check cluster id is selected as <cluster_profile_id> with plugin <plugin_name>' do |cluster_profile_id, plugin_name|
-  elastic_profiles_page.has_selected_cluster_profile_id(cluster_profile_id, plugin_name)
+  assert_true elastic_profiles_page.has_selected_cluster_profile_id?(cluster_profile_id, plugin_name)
 end
 
 step 'Set docker image as <image>' do |image|
@@ -72,10 +76,6 @@ end
 
 step 'Save elastic agent profile' do
   elastic_profiles_page.save_elastic_agent_profile
-end
-
-step 'Verify elastic agent profile <elastic_agent_profile_id> listed' do |elastic_agent_profile_id|
-  elastic_profiles_page.has_elastic_agent(elastic_agent_profile_id)
 end
 
 step 'Edit cluster profile <cluster_profile_id>' do |cluster_profile_id|
@@ -112,7 +112,6 @@ step 'Clusters <cluster_profiles> should be listed on the SPA' do |cluster_profi
 end
 
 step 'Edit elastic agent profile <elastic_agent_profile_id> of cluster profile <cluster_profile_id>' do |elastic_agent_profile_id, cluster_profile_id|
-  elastic_profiles_page.expand_cluster_profile_header(cluster_profile_id)
   elastic_profiles_page.edit_elastic_agent_profile(cluster_profile_id, elastic_agent_profile_id)
 end
 

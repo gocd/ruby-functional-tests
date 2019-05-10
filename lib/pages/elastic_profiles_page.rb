@@ -54,14 +54,12 @@ module Pages
       cluster_profile_header(cluster_profile_id).find("button[data-test-id='new-elastic-agent-profile-button']").click
     end
 
-    def has_selected_cluster_profile_id(cluster_profile_id, plugin_name)
-      page.all("div[data-test-id='form-field-input-cluster-profile-id']")
-          .find {|select| select.value === `#{cluster_profile_id} (#{plugin_name})`} != nil
+    def has_selected_cluster_profile_id?(cluster_profile_id, plugin_name)
+      page.has_css?("[data-test-id='form-field-input-cluster-profile-id']", text: "#{cluster_profile_id} (#{plugin_name})")
     end
 
-    def has_elastic_agent(elastic_agent_profile_id)
-      page.all("div[data-test-id='elastic_profile_id']")
-          .find {|div| div.text === elastic_agent_profile_id} != nil
+    def has_elastic_agent?(elastic_agent_profile_id)
+      page.has_css?("[data-test-id='elastic_profile_id']", text: elastic_agent_profile_id)
     end
 
     def edit_cluster_profile(cluster_profile_id)
@@ -92,7 +90,8 @@ module Pages
     end
 
     def expand_cluster_profile_header(cluster_profile_id)
-      cluster_profile_header(cluster_profile_id).click
+      cluster_panel = cluster_profile_header(cluster_profile_id)
+      cluster_panel.find("[data-test-id='plugin-icon']").click if cluster_panel[:'data-test-element-state'].eql? "collapsed"
     end
 
     def cluster_profiles_exists?(cluster_profile)

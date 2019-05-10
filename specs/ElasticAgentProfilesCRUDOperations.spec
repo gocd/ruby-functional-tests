@@ -26,6 +26,7 @@ Note: This spec will use 2 elastic agent(Docker and K8s plguins) plugins and set
 
 * Clone Elastic agent profile "Profile-Using-Docker-Cluster" of cluster "Docker-Cluster" by name "Cloned-Docker"
 
+* Expand cluster profile "Docker-Cluster"
 * Verify elastic agent profiles "Profile-Using-Docker-Cluster, Cloned-Docker" listed
 
 * On Elastic profiles page
@@ -37,7 +38,8 @@ Note: This spec will use 2 elastic agent(Docker and K8s plguins) plugins and set
 * Set docker image as "rajiesh/gocd-agent-centos-7-test:v19.2.0"
 * Save elastic agent profile
 
-* Verify elastic agent profile "Profile-Using-Docker-Cluster" listed
+* Expand cluster profile "K8s-Cluster"
+* Verify elastic agent profiles "Profile-Using-K8s-Cluster" listed
 
 * Edit elastic agent profile "Profile-Using-K8s-Cluster" of cluster profile "K8s-Cluster"
 * Set maximum memory limit as "100"
@@ -48,7 +50,8 @@ Note: This spec will use 2 elastic agent(Docker and K8s plguins) plugins and set
 * Verify "MaxMemory" is "100M" for elastic agent profile "Profile-Using-K8s-Cluster" - Using elastic agent profile API
 
 * Delete elastic agent profile "Profile-Using-Docker-Cluster" of cluster "Docker-Cluster"
-* Verify elastic agent profile "Cloned-Docker" listed
+* Expand cluster profile "Docker-Cluster"
+* Verify elastic agent profiles "Cloned-Docker" listed
 
 * Verify "2" elastic agent profiles "Cloned-Docker, Profile-Using-K8s-Cluster" are only returned  - Using get all elastic agent profile API
 

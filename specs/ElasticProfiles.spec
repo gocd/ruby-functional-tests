@@ -32,7 +32,8 @@ tags: elastic_agent_profile
 * Set docker image as "rajiesh/gocd-agent-centos-7-test:v19.2.0"
 * Save the elastic agent profile
 
-* Verify elastic agent profile "Profile-Using-Cluster-1" listed
+* Expand cluster profile "Cluster-1"
+* Verify elastic agent profiles "Profile-Using-Cluster-1" listed
 
 * Update pipeline "pipeline-with-elastic-agent-profile-1" stage "defaultStage" job "defaultJob" with elastic profile id "Profile-Using-Cluster-1" - Using pipeline config API
 
@@ -78,7 +79,8 @@ tags: elastic_agent_profile
 * Set docker image as "rajiesh/gocd-agent-centos-7-test:v19.2.0"
 * Save the elastic agent profile
 
-* Verify elastic agent profile "Profile-Using-Cluster-2" listed
+* Expand cluster profile "Cluster-2"
+* Verify elastic agent profiles "Profile-Using-Cluster-2" listed
 
 * Update pipeline "pipeline-with-elastic-agent-profile-2" stage "defaultStage" job "defaultJob" with elastic profile id "Profile-Using-Cluster-2" - Using pipeline config API
 

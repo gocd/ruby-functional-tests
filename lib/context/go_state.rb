@@ -30,7 +30,14 @@ module Context
     end
 
     def capture_agents(path)
-      cp_r "#{GoConstants::GAUGE_AGENT_DIR}/.", path if Dir.exist?(GoConstants::GAUGE_AGENT_DIR.to_s)
+      return unless Dir.exist?(GoConstants::GAUGE_AGENT_DIR.to_s)
+      Dir.foreach("#{GoConstants::GAUGE_AGENT_DIR}") do |item|
+        next if %w(. ..).include? item
+        mkdir_p "#{path}/#{item}"
+        cp_r "#{GoConstants::GAUGE_AGENT_DIR}/#{item}/config", "#{path}/#{item}"
+        cp_r "#{GoConstants::GAUGE_AGENT_DIR}/#{item}/logs", "#{path}/#{item}"
+        cp_r "#{GoConstants::GAUGE_AGENT_DIR}/#{item}/pipelines", "#{path}/#{item}"
+      end
     end
 
     def capture_healthstate(path)

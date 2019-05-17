@@ -18,12 +18,13 @@ step "Go to Secret Management page" do |i|
   secret_management_page.load
 end
 
-step "Create new secret config <id> with <filepath>" do |id, filepath|
-  plugin_id = 'cd.go.secrets.file-based-plugin'
+step "Create new secret config <id> with <filepath> and resource as <entity>" do |id, filepath, entity|
+  plugin_id = 'File based secrets plugin for GoCD'
   secret_management_page.load
   secret_management_page.click_add
   secret_management_page.config_id(id)
   secret_management_page.plugin_value(plugin_id)
+  secret_management_page.rule_resource(entity)
   secret_management_page.filepath(filepath)
 end
 
@@ -65,4 +66,8 @@ end
 
 step 'Confirm delete secret config' do |i|
   secret_management_page.click_confirm_delete
+end
+
+step 'Add new rule with directive <directive>, type <type> and resource <resource>' do |directive, type, resource|
+  secret_management_page.add_rule(directive, type, resource)
 end

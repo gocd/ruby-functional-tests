@@ -22,7 +22,10 @@ module Pages
     element :save, "button[data-test-id='button-save']"
     element :input_id, "input[data-test-id='form-field-input-id']"
     element :plugin_id, "select[data-test-id='form-field-input-plugin']"
+    element :rule_table_body, "tbody[data-test-id='table-body']"
+    element :rule_resource_entity, "input[data-test-id='rule-resource']"
     element :file_path, "input[ng-model='SecretsFilePath']"
+    element :add_rule_button, "button[data-test-id='add-rule-button']"
 
     element :flash_message, "div[data-test-id='flash-message-success']"
     element :confirm_delete, "button[data-test-id='button-delete']"
@@ -44,11 +47,15 @@ module Pages
     end
 
     def plugin_value(value)
-      plugin_id.set value
+      plugin_id.select value
     end
 
     def filepath(value)
       file_path.set(value)
+    end
+
+    def rule_resource(value)
+      rule_resource_entity.set(value)
     end
 
     def has_secret_config(id)
@@ -76,6 +83,17 @@ module Pages
       if (selected_header)
         selected_header.find("button[data-test-id='secret-config-clone']").click
       end
+    end
+
+    def add_rule(directive, type, resource)
+      add_rule_button.click
+      rule_table_body.all("select[data-test-id='rule-directive']")[1].select directive
+      rule_table_body.all("select[data-test-id='rule-type']")[1].select type
+      rule_table_body.all("input[data-test-id='rule-resource']")[1].set(resource)
+    end
+
+    def rearrange_rules
+      rule_table_body.find("tr[data-id='0']")
     end
 
     private

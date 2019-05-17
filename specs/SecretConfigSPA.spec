@@ -6,17 +6,18 @@ SecretConfigSPA
 tags: secret-config-spa, spa
 
 Setup of contexts
-* Ldap server - start
+* Smoke Configuration - setup
 * Login as "admin" - setup
 
 * Go to Secret Management page
-* Create new secret config "demo" with "/path/to/file.db"
+* Create new secret config "demo" with "/path/to/file.db" and resource as "first"
 * Save secret config
 * Verify flash message for secret config "The secret configuration demo was created successfully!"
 * Verify if secret config "demo" is added
 
 * Clone secret config "demo"
 * Set secret config id as "clone_demo"
+* Add new rule with directive "Deny", type "Pipeline Group" and resource "second"
 * Save secret config
 * Verify flash message for secret config "The secret configuration clone_demo was created successfully!"
 * Verify if secret config "clone_demo" is added
@@ -36,4 +37,3 @@ _______________
 * As user "admin" for teardown
 * With "1" live agents - teardown
 * Logout - from any page
-* Ldap server - stop

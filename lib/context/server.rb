@@ -35,10 +35,14 @@ module Context
                             GoConstants::GO_SERVER_SYSTEM_PROPERTIES
                           end
       cp 'resources/with-java.sh', GoConstants::SERVER_DIR
+      mkdir_p "#{GoConstants::SERVER_DIR}/logs"
+      out = File.open("#{GoConstants::SERVER_DIR}/logs/output.log", 'w')
+      out.sync = true
       chmod 0o755, "#{GoConstants::SERVER_DIR}/with-java.sh"
       Bundler.with_clean_env do
         process = ChildProcess.build('./with-java.sh', START_COMMAND)
         process.detach = true
+        process.io.stdout = process.io.stderr = out
         process.environment.merge!('GO_SERVER_SYSTEM_PROPERTIES' => system_properties,
                                    'GO_SERVER_PORT' => GoConstants::SERVER_PORT,
                                    'GO_SERVER_SSL_PORT' => GoConstants::SERVER_SSL_PORT,

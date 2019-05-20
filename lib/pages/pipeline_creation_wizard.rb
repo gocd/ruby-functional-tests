@@ -30,6 +30,7 @@ module Pages
     element :branch_name, '.branch'
     element :next_to_materials, '#next_to_materials'
     element :material_url, "input[name='material[url]']"
+    element :project_path,"input[name='material[projectPath]']"
 
     # Stage details
     element :stage_name, "input[name='pipeline_group[pipeline][stage][name]']"

@@ -139,3 +139,7 @@ end
 step 'Enable auto update for pipeline <pipeline>' do |pipeline|
   basic_configuration.enable_auto_updates pipeline
 end
+
+step 'Tfs configuration - setup' do ||
+  basic_configuration.setup 'tfs-cruise-config.xml'
+end

@@ -57,10 +57,26 @@ module Context
       current_config
     end
 
+    def has_material_of_type type,pipeline
+      current_configuration = basic_configuration.get_config_from_server
+      flag= true if current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{type}").count>0
+      flag
+    end
+
     def set_material_path_for_pipeline(material_type, pipeline, material_path,material_url)
       current_config = get_config_from_server
       current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{material_type}[@url='#{material_url}']").each do |material|
         material['url'] = material_path
+      end
+      load_dom(current_config)
+    end
+
+    def set_material_path_for_tfs_pipeline pipeline,tfs_url,tfs_username,tfs_password
+      current_config = get_config_from_server
+      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/tfs").each do |material|
+        material['url'] = tfs_url
+        material['username'] = tfs_username
+        material['password'] = tfs_password
       end
       load_dom(current_config)
     end

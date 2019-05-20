@@ -56,6 +56,10 @@ step 'Verify modification <modification_number> is checked in by <user_name> wit
   assert_true stage_details_page.verify_modification_triggered_by(modification_number, user_name)
 end
 
+step 'Verify modification <modification_number> is checked with comment <comment>' do |modification_number,comment|
+  assert_true stage_details_page.verify_comment_in_modification(modification_number, comment)
+end
+
 step 'Verify the lock status is <status> - On Stage Details page' do |status|
   assert_true stage_details_page.locked_status?(status)
 end
@@ -191,7 +195,7 @@ step 'Verify stage history shows current stage as <status>' do |status|
 end
 
 step 'Verify stage bar triggered at shows a date' do ||
-  assert_true stage_details_page.stage_bar_has_date? 
+  assert_true stage_details_page.stage_bar_has_date?
 end
 
 step 'Verify stage bar does not have other runs' do ||
@@ -210,14 +214,18 @@ step 'Click compare link for pipeline counter <counter>' do |counter|
   stage_details_page.select_counter_from_history counter
 end
 
-step 'Click Compare pipeline link - Already on stage details page' do || 
+step 'Click Compare pipeline link - Already on stage details page' do ||
   stage_details_page.compare_pipeline_link.click
 end
 
-step 'Click compare link - Already on stage Detail Page' do 
+step 'Click compare link - Already on stage Detail Page' do
   stage_details_page.compare.click
 end
 
 step 'Click on revision <revision> - Already On Stage Detail Materials Tab' do |revision|
   stage_details_page.click_revision_link new_pipeline_dashboard_page.sanitize_message(revision)
+end
+
+step 'Verify current pipeline has label with counter <counter> concatenated with material revision of modification <modification_number>' do |counter,modification_number|
+  assert_true stage_details_page.material_rev_concatinated_label?counter,modification_number
 end

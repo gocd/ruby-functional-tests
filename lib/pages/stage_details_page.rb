@@ -34,8 +34,6 @@ module Pages
 
 
 
-
-
     def verify_latest_revision_for_modification(modification_number)
       latest_revision = Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).latest_revision
       latest_revision == getRevisionForModification(modification_number)
@@ -238,6 +236,11 @@ module Pages
 
    def click_revision_link(rev)
     page.find('a', text: rev).click
+   end
+
+
+   def material_rev_concatinated_label?counter,modification_number
+    page.has_css?('a.selected.alert span.pipeline_label', text: "#{counter}-#{getRevisionForModification modification_number}")
    end
 
     private

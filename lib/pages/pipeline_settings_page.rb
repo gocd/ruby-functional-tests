@@ -22,6 +22,7 @@ module Pages
     element :add_variables, '#add_variables'
     element :save, "button[value='SAVE']"
     element :material_url_field, '.url'
+    element :material_dest_directory,"input[name='material[folder]']"
     element :check_connection, "button[value='CHECK CONNECTION']"
     element :cron_timer, "input#pipeline_timer_timerSpec"
     element :label_template, "input#pipeline_labelTemplate"
@@ -97,6 +98,17 @@ module Pages
       page.find("tbody tr:nth-child(#{page.find('.material_name', text: material, exact_text: true).ancestor('tr').path[-2].to_i})").has_css?('span.delete_parent')
     end
 
+    def make_material_auto_update flag
+      page.find('#material_autoUpdate').set(flag)
+    end
+
+    def invert_material
+      page.find('#material_invertFilter').set(true)
+    end
+
+    def clean_work_dir
+      page.find('#stage_cleanWorkingDir').set(true)
+    end
 
   end
 end

@@ -38,6 +38,21 @@ module Context
       current_configuration = basic_configuration.get_config_from_server
       current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{@material_type}/@url")[count].value
     end
+
+    def modify_and_checkin_tfs_file(file_name,message)
+      cd(scenario_state.get('repository_directory')) do
+        Open3.popen3("#{scenario_state.get('tfs_tool_path')} checkout * -recursive -login:#{ENV['TFS_SERVER_USERNAME']},#{ENV['TFS_SERVER_PASSWORD']}") do |_stdin, _stdout, stderr, wait_thr|
+          raise "checkout of tfs material Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
+         end
+      end
+      cd(scenario_state.get('repository_directory')) do
+        File.open(file_name, 'w') { |file| file.write("adding text  #{Time.now.to_i}-#{SecureRandom.hex(4)}") }
+        Open3.popen3("#{scenario_state.get('tfs_tool_path')} checkin -comment:\"#{message}\" -noprompt -login:#{ENV['TFS_SERVER_USERNAME']},#{ENV['TFS_SERVER_PASSWORD']}") do |_stdin, _stdout, stderr, wait_thr|
+          raise "checkin Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
+         end
+      end
+    end
+
   end
 
   class GitMaterials < Materials
@@ -191,65 +206,48 @@ module Context
   end
 
   class TFSMaterials < Materials
+    attr_reader :workspace_name
+    attr_reader :material_type
     attr_reader :repository_directory
-    attr_reader :working_copy
-    attr_reader :repo_uuid
-
-    def initialize(repo_dir = "#{GoConstants::TEMP_DIR}/svn_repo_dir-#{Time.now.to_i}",
-                   working_copy = "#{GoConstants::TEMP_DIR}/svn_wrk_copy-#{Time.now.to_i}",
-                   type = 'svn')
-      @repository_directory = repo_dir
-      @working_copy = working_copy
-      @material_type = type
+    attr_reader :tfs_tool_path
+    def initialize(workspace = "test_workspace_#{Time.now.to_i}-#{SecureRandom.hex(4)}",
+      repo_folder_path="#{GoConstants::TEMP_DIR}/test_tfs_Folder_#{Time.now.to_i}-#{SecureRandom.hex(4)}",
+      tfs_tool=File.expand_path("tfs-tool/tf"),
+      type='tfs')
+       @workspace_name = workspace
+       @repository_directory = repo_folder_path
+       @material_type = type
+       @tfs_tool_path=tfs_tool
     end
 
     def setup_material_for(pipeline)
-      material_url = material_config(pipeline).first.value
-      if !scenario_state.get(material_url).nil?
-        material_path = scenario_state.get(material_url)
-      else
-        rm_rf(@repository_directory)
-        mkdir_p(@repository_directory)
-        cp_r('test-repos/svn_repos/end2end/', @repository_directory)
-        cd(@repository_directory) do
-          Open3.popen3("svn checkout file://#{@repository_directory}/end2end #{@working_copy}") do |_stdin, _stdout, stderr, wait_thr|
-            raise "SVN Material Checkout to working directory Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
-          end
-          stdout, _stdeerr, _status = Open3.capture3(%(svnlook uuid #{@repository_directory}))
-          @repo_uuid = stdout.delete("\n")
-        end
-        initial_commit
-        material_path = "file://#{@repository_directory}/end2end"
-        scenario_state.put(material_url, material_path)
-      end
-      basic_configuration.set_material_path_for_pipeline('svn', pipeline, material_path)
-    rescue StandardError => e
-      raise "The Pipeline #{pipeline} setup for SVN material failed. #{e.message}"
-    end
-
-    def initial_commit
-      cp_r 'resources/Rakefile', "#{@working_copy}/"
-      cd(@working_copy) do
-        Open3.popen3(%(svn add Rakefile && svn ci --non-interactive --username gouser -m "Commit the test rakefile")) do |_stdin, _stdout, stderr, wait_thr|
-          raise "Failed to commit to SVN repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
-        end
-      end
-    end
-
-    def new_commit(filename, commit, author = 'gouser')
-      cd(@working_copy.to_s) do
-        sh "touch #{filename}"
-        Open3.popen3(%(svn add #{filename} && svn ci --non-interactive --username "#{author} <user@go>" -m "#{commit}")) do |_stdin, _stdout, stderr, wait_thr|
-          raise "Failed to commit to SVN repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
-        end
-      end
-    end
-
-    def latest_revision
-      cd(@working_copy.to_s) do
-        stdout, _stdeerr, _status = Open3.capture3(%(svn info -r HEAD))
-        return stdout.delete("\n")
-      end
+      current_configuration = basic_configuration.get_config_from_server
+      tfs_url=current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/tfs/@url")
+      tfs_username=current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/tfs/@username")
+      tfs_password=current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/tfs/@password")
+      tfs_project_path=current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/tfs/@projectPath")
+      rm_rf(@repository_directory)
+      mkdir_p(@repository_directory)
+       cd(@repository_directory) do
+        chmod 0755,@tfs_tool_path
+         Open3.popen3("#{@tfs_tool_path} workspace -new -noprompt -server:#{ENV['TFS_SERVER_URL'] } -login:#{ENV['TFS_SERVER_USERNAME']},#{ENV['TFS_SERVER_PASSWORD']}  #{@workspace_name}") do |_stdin, _stdout, stderr, wait_thr|
+          raise "Initialization of tfs workspece Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
+         end
+         Open3.popen3("#{@tfs_tool_path} workfold -map -workspace:#{@workspace_name} -server:#{ENV['TFS_SERVER_URL'] } -login:#{ENV['TFS_SERVER_USERNAME']},#{ENV['TFS_SERVER_PASSWORD']}  #{tfs_project_path} #{@repository_directory}") do |_stdin, _stdout, stderr, wait_thr|
+          raise "Mapping of tfs workspece Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
+         end
+         Open3.popen3("#{@tfs_tool_path} get #{@repository_directory} -recursive -noprompt -all -server:#{ENV['TFS_SERVER_URL'] } -login:#{ENV['TFS_SERVER_USERNAME']},#{ENV['TFS_SERVER_PASSWORD']}  #{tfs_project_path}") do |_stdin, _stdout, stderr, wait_thr|
+          raise "Getting of tfs material Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
+         end
+         Open3.popen3("#{@tfs_tool_path} checkout * -recursive -login:#{ENV['TFS_SERVER_USERNAME']},#{ENV['TFS_SERVER_PASSWORD']}") do |_stdin, _stdout, stderr, wait_thr|
+          raise "checkoutf of tfs material Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
+         end
+         basic_configuration.set_material_path_for_tfs_pipeline(pipeline, ENV['TFS_SERVER_URL'],ENV['TFS_SERVER_USERNAME'],ENV['TFS_SERVER_PASSWORD'])
+         scenario_state.put('workspace',@workspace_name)
+         scenario_state.put('repository_directory',@repository_directory)
+         scenario_state.put('tfs_tool_path',@tfs_tool_path)
+         scenario_state.put('tfs_project_path',tfs_project_path)
+       end
     end
   end
 

@@ -105,7 +105,8 @@ module Context
 
     def run_server_on_docker
       manifest = DockerManifestParser.new('target/docker-server')
-      manifest.image_info_of('centos-7')
+      image_index = ENV['GO_JOB_RUN_INDEX'] ? ENV['GO_JOB_RUN_INDEX'].to_i - 1 : 0
+      manifest.image_info_at(image_index)
       mkdir_p(GoConstants::TEMP_DIR)
       sh %(docker load < "target/docker-server/#{manifest.file}")
       sh %(docker run -d --name gauge_server -p #{GoConstants::SERVER_PORT}:#{GoConstants::SERVER_PORT} \

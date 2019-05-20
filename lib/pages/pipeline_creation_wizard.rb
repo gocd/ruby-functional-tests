@@ -109,7 +109,7 @@ module Pages
     end
 
     def select_stage stage
-      page.find('a.stage_name_link',text:stage).click
+      page.find('.stage_name_link',text:stage).click
     end
 
 

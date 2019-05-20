@@ -21,7 +21,7 @@ module Pages
     element :health_messages, '[data-test-id="modal-body"]'
 
     def verify_message_notifier_showsup
-      wait_until_message_notifier_visible(60)
+      wait_until_message_notifier_visible(wait: 60)
     end
 
     def verify_message_displayed(msg)

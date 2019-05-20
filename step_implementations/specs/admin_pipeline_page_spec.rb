@@ -272,6 +272,10 @@ step 'Open <tab> tab' do |tab|
   admin_pipeline_page.open_tab tab
 end
 
+step 'Open template <template>'do |template|
+admin_pipeline_page.open_template template
+end
+
 step 'Verify that templates <tmplates> are present - on Admin Templates tab' do |templates|
   template_names = admin_pipeline_page.total_templates
   templates.split(',').each do |template|
@@ -385,6 +389,10 @@ step 'Verify template can be extracted only from pipelines <pipelines>' do |pipe
   end
 end
 
+step 'Verify pipeline selection dropdown is disabled and has value <pipeline>' do |pipeline|
+  assert_true admin_pipeline_page.extractable_disabled_pipeline.include? scenario_state.get(pipeline)
+end
+
 step 'Select pipeline <pipeline> for template' do |pipeline|
   admin_pipeline_page.select_pipeline_for_template scenario_state.get(pipeline)
 end
@@ -398,6 +406,16 @@ step 'Verify extract template checkbox is disabled & not checked' do
   assert_true admin_pipeline_page.extract_from_pipeline.disabled?
 end
 
+step 'Verify extract template checkbox is disabled & checked' do
+  assert_true admin_pipeline_page.extract_from_pipeline.checked?
+  assert_true admin_pipeline_page.extract_from_pipeline.disabled?
+end
+
+
 step 'Enter template name <template> - On template popup' do |template|
   admin_pipeline_page.template_name_on_popup.set template
+end
+
+step 'Extract template for pipeline <pipeline>' do |pipeline|
+  admin_pipeline_page.click_extract_template scenario_state.get(pipeline)
 end

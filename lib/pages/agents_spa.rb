@@ -30,11 +30,12 @@ module Pages
     load_validation { has_filter_agent? }
 
     def select_all_agents
+      wait_until_agents_menu_visible(wait: 5)
       agents_head.find('input[type="checkbox"]').set(true)
     end
 
     def select_agent_at(row)
-      wait_for_agents_row
+      wait_until_agents_menu_visible(wait: 5)
       agents_row[row].find('input[type="checkbox"]').set(true)
     end
 
@@ -44,7 +45,7 @@ module Pages
 
     def listed_agents_count
       reload_page
-      wait_for_agents_menu(5)
+      wait_until_agents_menu_visible(wait: 5)
       agents_row.size
     end
 
@@ -72,7 +73,7 @@ module Pages
 
     def click_on(action)
       agents_menu[0].find('button', text: action).click
-      wait_for_agents_menu(5)
+      wait_until_agents_menu_visible(wait: 5)
     end
 
     def summary_count(label)
@@ -95,13 +96,13 @@ module Pages
 
     def filter_by(search_string)
       filter_agent.set(search_string)
-      wait_for_agents_summary(5)
+      wait_until_agents_summary_visible(wait: 5)
     end
 
     def wait_till_agent_status_is(status, row)
       wait_till_event_occurs_or_bomb 120, "Expected agent at #{row} to move to status #{status} by now" do
         reload_page
-        wait_for_agents_menu(5)
+        wait_until_agents_menu_visible(wait: 5)
         break if agents_spa_page.get_listed_agents('Status')[row.to_i-1] == status
       end
     end
@@ -109,7 +110,7 @@ module Pages
     def wait_till_agents_are_pending(count)
       wait_till_event_occurs_or_bomb 120, "Expected #{count} agents be regsitered by now" do
         reload_page
-        wait_for_agents_menu(5)
+        wait_until_agents_menu_visible(wait: 5)
         break if get_agents_count('Pending') == count.to_i
       end
     end
@@ -117,7 +118,7 @@ module Pages
     def wait_till_agents_are_idle(count)
       wait_till_event_occurs_or_bomb 120, "Expected #{count} agents be regsitered by now" do
         reload_page
-        wait_for_agents_menu(5)
+        wait_until_agents_menu_visible(wait: 5)
         break if get_agents_count('Idle') == count.to_i
       end
     end

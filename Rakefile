@@ -36,6 +36,7 @@ DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
 USE_POSTGRESQL   = !ENV['USE_POSTGRESQL'].nil?
 
 DOCKER_EA_PLUGIN_RELEASE_URL                = ENV['DOCKER_EA_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/docker-elastic-agents/releases/latest'
+K8S_EA_PLUGIN_RELEASE_URL                   = ENV['K8S_EA_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd/kubernetes-elastic-agents/releases/latest'
 DOCKER_SWARM_EA_PLUGIN_RELEASE_URL          = ENV['DOCKER_SWARM_EA_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/docker-swarm-elastic-agents/releases/latest'
 ELASTICAGENTS_PLUGIN_RELEASE_URL            = ENV['ELASTICAGENTS_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/elastic-agent-skeleton-plugin/releases/latest'
 JSON_CONFIG_PLUGIN_RELEASE_URL              = ENV['JSON_CONFIG_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/tomzo/gocd-json-config-plugin/releases/latest'
@@ -50,6 +51,8 @@ task :clean_all do
   rm_rf 'target'
   rm_rf 'reports'
   mkdir_p 'target'
+  rm_rf 'godata' if Dir.exist? 'godata' # this folder is needed for only when running on docker
+  mkdir_p 'godata'
   if DEVELOPMENT_MODE
     cd "../#{GO_TRUNK_DIRNAME}" do
       sh './gradlew -q clean'
@@ -153,6 +156,8 @@ namespace :plugins do
     sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-ealstic-agents-plugin.jar"
     url = JSON.parse(open(FILE_BASED_SECRET_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
     sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/gocd-file-based-secrets-plugin.jar"
+    url = JSON.parse(open(K8S_EA_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
+    sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/k8s-elastic-agents.jar"
   end
 
   desc 'task for preparing anlytics plugin'

@@ -19,29 +19,40 @@ module Context
     include FileUtils
 
     def capture_logs(path)
-      cp_r "#{GoConstants::SERVER_DIR}/logs/go-server.out.log" , path
-      cp_r "#{GoConstants::SERVER_DIR}/logs/go-server.log" , path
-    end
-
-    def capture_agents(path)
-      cp_r "#{GoConstants::GAUGE_AGENT_DIR}/." , path if Dir.exist?("#{GoConstants::GAUGE_AGENT_DIR}")
-    end
-
-    def capture_healthstate(path)
-      begin
-        response = RestClient.get health_message_url, basic_configuration.header
-        File.open("#{path}/health_message.json", 'w') { |file| file.write(response.body) }
-      rescue => e
-        File.open("#{path}/health_message.json", 'w') { |file| file.write(e.message) }
+      # cp_r "#{GoConstants::SERVER_DIR}/logs/go-server.out.log" , path
+      cp_r "#{GoConstants::SERVER_DIR}/logs/go-server.log", path
+      if GoConstants::USE_EFS
+        mkdir_p 'target/go_state/backup_from_efs'
+        %w[config logs].each do |fldr|
+          cp_r("/efs/#{fldr}", 'target/go_state/backup_from_efs/')
+        end
       end
     end
 
+    def capture_agents(path)
+      return unless Dir.exist?(GoConstants::GAUGE_AGENT_DIR.to_s)
+      Dir.foreach("#{GoConstants::GAUGE_AGENT_DIR}") do |item|
+        next if %w(. ..).include? item
+        mkdir_p "#{path}/#{item}"
+        cp_r "#{GoConstants::GAUGE_AGENT_DIR}/#{item}/config", "#{path}/#{item}"
+        cp_r "#{GoConstants::GAUGE_AGENT_DIR}/#{item}/logs", "#{path}/#{item}"
+        cp_r "#{GoConstants::GAUGE_AGENT_DIR}/#{item}/pipelines", "#{path}/#{item}"
+      end
+    end
+
+    def capture_healthstate(path)
+      response = RestClient.get health_message_url, basic_configuration.header
+      File.open("#{path}/health_message.json", 'w') { |file| file.write(response.body) }
+    rescue StandardError => e
+      File.open("#{path}/health_message.json", 'w') { |file| file.write(e.message) }
+    end
+
     def capture_cruise_config(path)
-      cp_r "#{GoConstants::SERVER_DIR}/config/cruise-config.xml" , path
+      cp_r "#{GoConstants::SERVER_DIR}/config/cruise-config.xml", path
     end
 
     def capture_database(path)
-      cp_r "#{GoConstants::SERVER_DIR}/db" , path
+      cp_r "#{GoConstants::SERVER_DIR}/db", path
     end
 
     def capture_all(path)
@@ -52,6 +63,5 @@ module Context
       capture_cruise_config(path)
       capture_database(path)
     end
-
   end
 end

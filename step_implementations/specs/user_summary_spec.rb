@@ -45,7 +45,7 @@ step 'Disable users <users>' do |users|
   users.split(',').each do |user|
     user_summary_page.select_user(user.strip)
   end
-  user_summary_page.btn_disable.click
+  user_summary_page.disable
 end
 
 step 'Promote <user> an admin user' do |user|
@@ -85,8 +85,12 @@ step 'Verify message displayed as <message> after applying roles to users.' do |
 end
 
 step 'Verify users <users> are assigned role <roles>' do |users, roles|
+  expected_roles = roles.split(',').collect(&:strip)
   users.split(',').each do |user|
-    assert_true user_summary_page.get_user_roles(user.strip).include? roles
+    actual_roles = user_summary_page.get_user_roles(user.strip)
+    expected_roles.each do |role|
+      assert_true actual_roles.include? role
+    end
   end
 end
 

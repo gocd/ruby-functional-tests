@@ -15,7 +15,7 @@
  * limitations under the License.
  *************************GO-LICENSE-END******************************* -->
 
-<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="120">
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="122">
     <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="gauge" tokenGenerationKey="token">
         <security>
           <authConfigs>
@@ -462,6 +462,44 @@
                 </jobs>
             </stage>
        </pipeline>
+        <pipeline name="pipeline-with-elastic-agent-profile-1">
+            <materials>
+                <git url="https://github.com/gocd/ruby-functional-tests.git" shallowClone="true" dest="git" materialName="git" autoUpdate="true"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual" />
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="/bin/bash">
+                                <arg>-c</arg>
+                                <arg>echo CLUSTER_NAME=$CLUSTER_NAME</arg>
+                                <runif status="passed"/>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+        <pipeline name="pipeline-with-elastic-agent-profile-2">
+            <materials>
+                <git url="https://github.com/gocd/ruby-functional-tests.git" shallowClone="true" dest="git" materialName="git" autoUpdate="true"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual" />
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="/bin/bash">
+                                <arg>-c</arg>
+                                <arg>echo CLUSTER_NAME=$CLUSTER_NAME</arg>
+                                <runif status="passed"/>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
      <pipeline name="downstream-pipeline">
       <materials>
         <pipeline pipelineName="basic-pipeline-fast" stageName="defaultStage"/>
@@ -655,7 +693,10 @@
                 </jobs>
             </stage>
         </pipeline>
-    <pipeline name="pipeline-2-manual-stages-that-run-till-file-exists" lockBehavior="lockOnFailure">
+
+    </pipelines>
+    <pipelines group="lock-pipelines">
+     <pipeline name="pipeline-2-manual-stages-that-run-till-file-exists" lockBehavior="lockOnFailure">
       <materials>
         <git url="material-for-pipeline-2-manual-stages-that-run-till-file-exists" dest="git" autoUpdate="false" materialName="gitMaterial"/>
       </materials>
@@ -680,8 +721,6 @@
         </jobs>
       </stage>
     </pipeline>
-    </pipelines>
-    <pipelines group="lock-pipelines">
      <pipeline name="pipeline-with-environment-variables">
          <environmentvariables>
           <variable name="PIPELINE_LEVEL_VARIABLE"><value>pipeline</value></variable>

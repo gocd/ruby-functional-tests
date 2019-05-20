@@ -54,10 +54,6 @@ Gauge.configure do |config|
   }
 end
 
-SitePrism.configure do |config|
-  config.use_implicit_waits = true
-end
-
 Capybara.configure do |config|
   config.save_path = 'screenshots'
   config.default_max_wait_time = 20
@@ -93,7 +89,13 @@ RestClient::Request.class_eval do
 end
 
 module GoCDInitialize
+
   before_suite do
+    if GoConstants::USE_EFS
+      %w(addons artifacts config db logs plugins).each do |fldr|
+        FileUtils.rm_rf("/efs/#{fldr}")
+      end
+    end
     go_server.start
     go_server.wait_to_start
     if ZAP_PROXY && ['localhost', '127.0.0.1'].include?(ZAP_PROXY)
@@ -109,6 +111,11 @@ module GoCDInitialize
 
   after_suite do
     go_server.stop
+    if GoConstants::USE_EFS
+      %w(addons artifacts config db logs plugins).each do |fldr|
+        FileUtils.rm_rf("/efs/#{fldr}")
+      end
+    end
     %x(rm -rf target/go_state) unless ENV['GO_PIPELINE_NAME']
     if $zap
       response = RestClient.get 'http://localhost:8081/OTHER/core/other/htmlreport'

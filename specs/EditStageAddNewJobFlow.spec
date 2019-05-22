@@ -10,7 +10,7 @@ Setup of contexts
 EditStageAddNewJobFlow
 ----------------------
 
-tags: Clicky Admin, 4699, smoke
+tags: smoke, run-on-docker
 
 * On Stage settings page of pipeline "edit-pipeline" stage "defaultStage"
 * Open "Jobs" tab - On Stage settings page
@@ -68,6 +68,3 @@ Testing autocomplete on Resources
 Teardown of contexts
 ____________________
 * Capture go state "EditStageAddNewJobFlow" - teardown
-
-
-

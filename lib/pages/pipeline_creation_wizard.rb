@@ -27,7 +27,7 @@ module Pages
     # pipeline materials
     element :material_type, '#material_type_options'
     element :pipeline_material, '#material_pipelineStageName'
-    element :branch_name, '.branch'
+    element :branch_name, '.git_branch'
     element :next_to_materials, '#next_to_materials'
     element :material_url, "input[name='material[url]']"
     element :project_path,"input[name='material[projectPath]']"

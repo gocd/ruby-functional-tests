@@ -45,6 +45,7 @@ class GoConstants
   ELASTIC_AGENTS_PROFILE_API_VERSION = 'application/vnd.go.cd.v1+json'.freeze
   VERSIONS_API_VERSION = 'application/vnd.go.cd.v1+json'.freeze
   PLUGIN_INFO_API_VERSION = 'application/vnd.go.cd.v5+json'.freeze
+  BITBUCKET_PASSWORD = ENV['BITBUCKET_PASSWORD'] || 'password'
 
   OWASP_ZAP_PATH = '/opt/homebrew-cask/Caskroom/owasp-zap/2.5.0/OWASP-ZAP.app/Contents/MacOS/OWASP-ZAP.sh'.freeze
 

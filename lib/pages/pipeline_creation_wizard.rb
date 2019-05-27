@@ -27,10 +27,10 @@ module Pages
     # pipeline materials
     element :material_type, '#material_type_options'
     element :pipeline_material, '#material_pipelineStageName'
-    element :branch_name, '.git_branch'
     element :next_to_materials, '#next_to_materials'
     element :material_url, "input[name='material[url]']"
     element :project_path,"input[name='material[projectPath]']"
+    element :check_connection, "button[value='CHECK CONNECTION']"
 
     # Stage details
     element :stage_name, "input[name='pipeline_group[pipeline][stage][name]']"
@@ -56,10 +56,8 @@ module Pages
     element :mingle_mqa, '#pipeline_mingleConfig_mqlCriteria_mql'
 
 
-
-
-
-
+    ##task-details
+    element :exec_tas_command, '.exec-task-command'
 
     def set_task_field(task_name, field, value)
       page.find("#pipeline_group_pipeline_stage_jobs__tasks_#{task_name}_#{field}").set value
@@ -119,6 +117,30 @@ module Pages
 
     def select_approval_type type
       page.find("#{type}").click
+    end
+
+    def connection_ok?
+      page.has_css?('.ok_message')
+    end
+
+    def set_polling_off (material_type)
+      page.find("#pipeline_group_pipeline_materials_#{material_type}Material_autoUpdate").click
+    end
+
+    def git_error_message_present?(error_message,material_type)
+      page.find("#vcsconnection-message_#{material_type}").text.include? error_message
+    end
+
+    def set_username(material_type,username)
+      page.find(".#{material_type}_username").set username
+    end
+
+    def set_password(material_type,password)
+      page.find(".#{material_type}_password").set password
+    end
+
+    def set_branch(branch,material_type)
+      page.find(".#{material_type}_branch").set branch
     end
 
   end

@@ -110,7 +110,7 @@ end
 step 'Delete pipeline <pipeline> - Configure cruise using api' do |pipeline|
   begin
     response =   RestClient.delete http_url("/api/admin/pipelines/#{scenario_state.get(pipeline)}"),
-    { content_type: :json, accept: 'application/vnd.go.cd.v6+json' }.merge(basic_configuration.header)
+    { content_type: :json, accept: 'application/vnd.go.cd.v7+json' }.merge(basic_configuration.header)
     assert_true response.code == 200
   rescue RestClient::ExceptionWithResponse => err
     p "Delete Pipeline call failed with response code #{err.response.code} and the response body - #{err.response.body}"

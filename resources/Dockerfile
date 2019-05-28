@@ -1,5 +1,5 @@
-FROM gocd/gocd-agent-centos-7:v19.3.0
+FROM gocddev/gocd-dev-build:centos-7-v2.0.67
 
 COPY gcp.repo /etc/yum.repos.d/gcp.repo
 
-RUN yum install -y google-cloud-sdk kubectl
+RUN sudo yum install -y google-cloud-sdk kubectl

@@ -43,7 +43,7 @@ module Helpers
         project_id: @project.to_s,
         client_email: ENV['GCP_SA_CLIENT_EMAIL'],
         client_id: ENV['GCP_CLIENT_ID'],
-        private_key: ENV['GCP_PRIVATE_KEY'],
+        private_key: eval(%Q("#{ENV['GCP_PRIVATE_KEY']}")),
         private_key_id: ENV['GCP_PRIVATE_KEY_ID'],
         auth_uri: 'https://accounts.google.com/o/oauth2/auth',
         token_uri: 'https://oauth2.googleapis.com/token',
@@ -51,7 +51,6 @@ module Helpers
         client_x509_cert_url: 'https://www.googleapis.com/robot/v1/metadata/x509/performance-tester%40studios-gcp-gocd.iam.gserviceaccount.com'
       }
       File.open('/go/.config/gcloud/key_file.json', 'w') { |file| file.write(gcloud_key.to_json) }
-      sleep 3600
       run_or_bomb %(gcloud auth activate-service-account #{ENV['GCP_SA_CLIENT_EMAIL']} --key-file='/go/.config/gcloud/key_file.json')
     end
 

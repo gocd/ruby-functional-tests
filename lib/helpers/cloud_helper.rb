@@ -51,6 +51,7 @@ module Helpers
         client_x509_cert_url: 'https://www.googleapis.com/robot/v1/metadata/x509/performance-tester%40studios-gcp-gocd.iam.gserviceaccount.com'
       }
       File.open('/go/.config/gcloud/key_file.json', 'w') { |file| file.write(gcloud_key.to_json) }
+      sleep 3600
       run_or_bomb %(gcloud auth activate-service-account #{ENV['GCP_SA_CLIENT_EMAIL']} --key-file='/go/.config/gcloud/key_file.json')
     end
 

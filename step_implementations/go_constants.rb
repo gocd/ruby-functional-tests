@@ -27,7 +27,7 @@ class GoConstants
   USE_GCP_FILESTORE = ENV['USE_GCP_FILESTORE']
   SERVER_DIR = if USE_EFS
                  '/efs'
-               elsif USE_GCP_FILESHARE
+               elsif USE_GCP_FILESTORE
                  '/filestore'
                elsif RUN_ON_DOCKER
                  File.expand_path('godata')

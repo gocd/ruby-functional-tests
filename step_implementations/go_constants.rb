@@ -24,8 +24,11 @@ class GoConstants
   SERVER_SSL_PORT = ENV['GO_SERVER_SSL_PORT'] || '8254'
   RUN_ON_DOCKER = ENV['RUN_ON_DOCKER']
   USE_EFS = ENV['USE_EFS']
+  USE_GCP_FILESTORE = ENV['USE_GCP_FILESTORE']
   SERVER_DIR = if USE_EFS
                  '/efs'
+               elsif USE_GCP_FILESHARE
+                 '/filestore'
                elsif RUN_ON_DOCKER
                  File.expand_path('godata')
                else

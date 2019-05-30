@@ -11,3 +11,4 @@ vendor/bundle/
 .vscode
 screenshots/*.png
 godata/*
+resources/studios-gcp-gocd-*.json

@@ -22,6 +22,7 @@ require 'os'
 require 'pry'
 require 'json'
 require 'open-uri'
+require_relative 'lib/helpers/cloud_helper.rb'
 include Sys
 
 GO_TRUNK_DIRNAME   = ENV['GO_TRUNK_DIR'] || 'gocd'
@@ -290,5 +291,20 @@ task :setup_tfs_cli do
   sh "mv tfs-tool/TEE-CLC-14.0.3/* tfs-tool/"
   cd "tfs-tool" do
     sh "yes | ./tf eula; true"
+  end
+end
+
+['GCP'].each do |cloud|
+  namespace cloud.to_s do
+    desc "Setup all resources needed for tests to run on #{cloud}"
+    task :setup do
+      provider = Helpers.const_get("#{cloud}Client").new
+      provider.setup
+    end
+
+    task :teardown do
+      provider = Helpers.const_get("#{cloud}Client").new
+      provider.teardown
+    end
   end
 end

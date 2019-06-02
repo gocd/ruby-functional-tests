@@ -25,7 +25,6 @@ tags: smoke, run-on-docker
 * Set command as "ls" - Already on Add New Job popup
 * Save Changes
 
-* Verify the message "Saved successfully." is present
 * Verify job "second-job" with resources as "windows" and run on all as "No"
 * Open job "second-job"
 
@@ -33,7 +32,6 @@ tags: smoke, run-on-docker
 * Set resources as "windows,win-xp,linux,win7" - Already on Add New Job popup
 * set run type as "Run on all agents"
 * Save Changes
-* Verify the message "Saved successfully." is present
 
 * On Stage settings page of pipeline "edit-pipeline" stage "defaultStage"
 
@@ -41,7 +39,7 @@ tags: smoke, run-on-docker
 
 Testing autocomplete on Resources
 
-*  Add new Job
+* Add new Job
 * Set job name as "third-Job" - Already on Add New Job popup
 * Add task "More.." - Already on Add New Job popup
 * Set command as "ls" - Already on Add New Job popup
@@ -60,9 +58,6 @@ Testing autocomplete on Resources
 * Delete job "defaultJob"
 * Verify "second-job" job is present
 * Verify "defaultJob" job is not present
-
-
-
 
 
 Teardown of contexts

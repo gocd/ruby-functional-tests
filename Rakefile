@@ -154,8 +154,6 @@ namespace :plugins do
     sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-swarm-elastic-agents-plugin.jar"
     url = JSON.parse(open(DOCKER_EA_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
     sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-elastic-agents-plugin.jar"
-    url = JSON.parse(open(FILE_BASED_SECRET_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
-    sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/gocd-file-based-secrets-plugin.jar"
     url = JSON.parse(open(K8S_EA_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
     sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/k8s-elastic-agents.jar"
   end

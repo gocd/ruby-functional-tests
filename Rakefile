@@ -45,7 +45,7 @@ DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL = ENV['DOCKER_REGISTRY_ARTIFACT_PLUG
 TEST_EXTERNAL_ARTIFACTS_PLUGIN_RELEASE_URL  = ENV['TEST_EXTERNAL_ARTIFACTS_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/test-external-artifacts-plugin/releases/latest'
 ANALYTICS_PLUGIN_DOWNLOAD_URL               = ENV['ANALYTICS_PLUGIN_DOWNLOAD_URL']
 LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL      = ENV['LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL']
-FILE_BASED_SECRET_PLUGIN_RELEASE_URL        = ENV['FILE_BASED_SECRET_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd/gocd-file-based-secrets-plugin/releases/16812414'
+FILE_BASED_SECRET_PLUGIN_RELEASE_URL        = ENV['FILE_BASED_SECRET_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd/gocd-file-based-secrets-plugin/releases/17414282'
 
 desc 'cleans all directories'
 task :clean_all do
@@ -152,11 +152,9 @@ namespace :plugins do
     url = JSON.parse(open(DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL).read)[0]['assets'][0]['browser_download_url']
     sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-registry-artifact-plugin.jar"
     url = JSON.parse(open(DOCKER_SWARM_EA_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
-    sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-swarm-ealstic-agents-plugin.jar"
+    sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-swarm-elastic-agents-plugin.jar"
     url = JSON.parse(open(DOCKER_EA_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
-    sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-ealstic-agents-plugin.jar"
-    url = JSON.parse(open(FILE_BASED_SECRET_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
-    sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/gocd-file-based-secrets-plugin.jar"
+    sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-elastic-agents-plugin.jar"
     url = JSON.parse(open(K8S_EA_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
     sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/k8s-elastic-agents.jar"
   end

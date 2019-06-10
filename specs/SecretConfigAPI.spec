@@ -8,7 +8,7 @@ Setup of contexts
 
 SecretConfigAPI
 ----------------
-tags: secret_config, admin, api
+tags: secret_config, admin, api, secret_management
 
 * Add secret config "secret_config_1" should return code "200"
 * Update secret config "secret_config_1" to "allow" usage only in pipeline group "DevPipeline"
@@ -31,4 +31,3 @@ _______________
 * As user "admin" for teardown
 * Capture go state "SecretConfigAPI" - teardown
 * Logout - from any page
-

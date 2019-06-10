@@ -3,7 +3,7 @@ SecretConfigSPA
 
 SecretConfigSPA
 -----------
-tags: secret-config-spa, spa
+tags: secret-config-spa, spa, secret_management
 
 Setup of contexts
 * Smoke Configuration - setup

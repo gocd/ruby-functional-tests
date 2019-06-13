@@ -7,10 +7,11 @@ tags: secret-config-spa, spa, secret_management
 
 Setup of contexts
 * Smoke Configuration - setup
+* Prepare secret config json "secrets.json" with secrets "password: secret"
 * Login as "admin" - setup
 
 * Go to Secret Management page
-* Create new secret config "demo" with "/path/to/file.db" and resource as "first"
+* Create new secret config "demo" with "secrets.json" and resource as "first"
 * Save secret config
 * Verify flash message for secret config "The secret configuration demo was created successfully!"
 * Verify if secret config "demo" is added
@@ -23,7 +24,7 @@ Setup of contexts
 * Verify if secret config "clone_demo" is added
 
 * Edit secret config "clone_demo"
-* Set filepath as "updated/path/to/file.db"
+* Set filepath as "secrets.json"
 * Save secret config
 * Verify flash message for secret config "The secret configuration clone_demo was updated successfully!"
 

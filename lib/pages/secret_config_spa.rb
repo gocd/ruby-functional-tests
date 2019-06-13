@@ -87,9 +87,9 @@ module Pages
 
     def add_rule(directive, type, resource)
       add_rule_button.click
-      rule_table_body.all("select[data-test-id='rule-directive']")[1].select directive
-      rule_table_body.all("select[data-test-id='rule-type']")[1].select type
-      rule_table_body.all("input[data-test-id='rule-resource']")[1].set(resource)
+      rule_table_body.all("select[data-test-id='rule-directive']", wait: 10).last.select directive
+      rule_table_body.all("select[data-test-id='rule-type']").last.select type
+      rule_table_body.all("input[data-test-id='rule-resource']").last.set(resource)
     end
 
     def rearrange_rules

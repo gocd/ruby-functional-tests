@@ -14,7 +14,7 @@ Setup of contexts
 SecretManagement
 -------
 
-tags: secret_management, WIP
+tags: secret_management
 
 * Select agent "2"
 * Set environments "PROD_ENV"

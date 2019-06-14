@@ -298,11 +298,6 @@
         </admins>
       </authorization>
       <pipeline name="In-env-PROD">
-        <environmentvariables>
-          <variable name="ENV_KEY">
-            <value>{{SECRET:[PROD][prod-password]}}</value>
-          </variable>
-        </environmentvariables>
         <materials>
           <git url="material-for-In-env-PROD" dest="git" materialName="git" autoUpdate="true" />
         </materials>
@@ -313,7 +308,7 @@
               <tasks>
                 <exec command="/bin/bash">
                   <arg>-c</arg>
-                  <arg>echo "Using env var : $ENV_KEY"</arg>
+                  <arg>echo "Using environment level var : $ENV_LEVEL_VARIABLE"</arg>
                 </exec>
               </tasks>
             </job>
@@ -1317,7 +1312,10 @@
        <pipeline name="pipeline-with-environment-variables"/>
       </pipelines>
       </environment>
-      <environment name="PROD">
+      <environment name="PROD_ENV">
+      <environmentvariables>
+          <variable name="ENV_LEVEL_VARIABLE"><value>{{SECRET:[PROD][prod-password]}}</value></variable>
+			  </environmentvariables>
         <pipelines>
           <pipeline name="In-env-PROD"/>
         </pipelines>

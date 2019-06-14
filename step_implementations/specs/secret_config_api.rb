@@ -135,7 +135,7 @@ step 'Create secret config <name> for secret file <file_name> rules <rules> - Us
                   { content_type: :json, accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
 end
 
-step 'Update secret config <name> for secret file <file_name> rules <rules> - Using Secret Config API' do |_name, file_name, rules|
+step 'Update secret config <name> for secret file <file_name> rules <rules> - Using Secret Config API' do |name, file_name, rules|
   etag = get_secret_config(name).headers[:etag]
   req_body = secret_config(name, file_name, rules_derective(rules))
 

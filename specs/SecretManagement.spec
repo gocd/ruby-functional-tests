@@ -17,8 +17,8 @@ SecretManagement
 tags: secret_management, WIP
 
 * Select agent "2"
-* Set environments "PROD"
-* Verify agent "2" assigned environments "PROD"
+* Set environments "PROD_ENV"
+* Verify agent "2" assigned environments "PROD_ENV"
 
 * Create secret config "DEV" for secret file "dev_secrets.json" rules "allow:*:DEV_*, deny:*:TEST_*, deny:*:PROD_*" - Using Secret Config API
 * Looking at pipeline "In-group-DEV" - On Swift Dashboard page
@@ -36,7 +36,7 @@ tags: secret_management, WIP
 * On Job details page of pipeline "In-group-TEST" counter "1" stage "defaultStage" counter "1" job "defaultJob"
 * Verify console log contains message "Using env var : ******"
 
-* Create secret config "PROD" for secret file "prod_secrets.json" rules "allow:*:PROD*, deny:*:DEV_*, deny:*:TEST_*" - Using Secret Config API
+* Create secret config "PROD" for secret file "prod_secrets.json" rules "allow:*:PROD_*, deny:*:DEV_*, deny:*:TEST_*" - Using Secret Config API
 * Looking at pipeline "In-group-PROD" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
@@ -49,30 +49,30 @@ tags: secret_management, WIP
 * Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "passed" - On Swift Dashboard page
 * On Job details page of pipeline "In-env-PROD" counter "1" stage "defaultStage" counter "1" job "defaultJob"
-* Verify console log contains message "Using env var : ******"
+* Verify console log contains message "Using environment level var : ******"
 
 * Update secret config "TEST" for secret file "test_secrets.json" rules "allow:*:DEV_*, deny:*:TEST_*, deny:*:PROD_*" - Using Secret Config API
 * Looking at pipeline "In-group-TEST" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "failed" - On Swift Dashboard page
-* On Job details page of pipeline "In-group-TEST" counter "1" stage "defaultStage" counter "1" job "defaultJob"
+* On Job details page of pipeline "In-group-TEST" counter "2" stage "defaultStage" counter "1" job "defaultJob"
 * Verify console log contains message "does not have permission to refer to secrets using SecretConfig: 'TEST'"
 
-* Update secret config "PROD" for secret file "prod_secrets.json" rules "deny:*:DEV_*, deny:*:TEST_*, allow:environment:PROD" - Using Secret Config API
+* Update secret config "PROD" for secret file "prod_secrets.json" rules "deny:*:DEV_*, deny:*:TEST_*, allow:environment:PROD_ENV" - Using Secret Config API
 * Looking at pipeline "In-group-PROD" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "failed" - On Swift Dashboard page
-* On Job details page of pipeline "In-group-PROD" counter "1" stage "defaultStage" counter "1" job "defaultJob"
+* On Job details page of pipeline "In-group-PROD" counter "2" stage "defaultStage" counter "1" job "defaultJob"
 * Verify console log contains message "does not have permission to refer to secrets using SecretConfig: 'PROD'"
 
 * Looking at pipeline "In-env-PROD" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "passed" - On Swift Dashboard page
-* On Job details page of pipeline "In-env-PROD" counter "1" stage "defaultStage" counter "1" job "defaultJob"
-* Verify console log contains message "Using env var : ******"
+* On Job details page of pipeline "In-env-PROD" counter "2" stage "defaultStage" counter "1" job "defaultJob"
+* Verify console log contains message "Using environment level var : ******"
 
 
 Teardown of contexts
@@ -80,3 +80,4 @@ ____________________
 * As user "admin" for teardown
 * Capture go state "SecretManagement" - teardown
 * Logout - from any page
+* With "2" live agents - teardown

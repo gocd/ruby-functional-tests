@@ -128,25 +128,25 @@ step 'Prepare secret config json <file_name> with secrets <secrets>' do |file_na
   end
 end
 
-step 'Create secret config <name> for secret file <file_name> rules <rules> - Using Secret Config API' do |_name, file_name, rules|
-  secret_config(name, file_name, rules_derective(rules))
+step 'Create secret config <name> for secret file <file_name> rules <rules> - Using Secret Config API' do |name, file_name, rules|
+  req_body = secret_config(name, file_name, rules_derective(rules))
 
-  RestClient.post http_url(SECRET_CONFIG_API_BASE.to_s), secret_config.to_json,
+  RestClient.post http_url(SECRET_CONFIG_API_BASE.to_s), req_body.to_json,
                   { content_type: :json, accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
 end
 
-step 'Update secret config <name> for secret file <file_name> rules <rules> - Using Secret Config API' do |_name, file_name, rules|
+step 'Update secret config <name> for secret file <file_name> rules <rules> - Using Secret Config API' do |name, file_name, rules|
   etag = get_secret_config(name).headers[:etag]
-  secret_config(name, file_name, rules_derective(rules))
+  req_body = secret_config(name, file_name, rules_derective(rules))
 
-  RestClient.put http_url("#{SECRET_CONFIG_API_BASE}/#{name}"), secret_config.to_json,
+  RestClient.put http_url("#{SECRET_CONFIG_API_BASE}/#{name}"), req_body.to_json,
                  { content_type: :json, accept: SECRET_CONFIG_ACCEPT_HEADER, if_match: etag }.merge(basic_configuration.header)
 end
 
 def rules_derective(rules)
   rules.split(',').collect(&:strip).collect do |rule|
     rule_entities = rule.split(':').collect(&:strip)
-    { directive: (rule_entities[0]).to_s, action: refer, type: (rule_entities[1]).to_s, resource: (rule_entities[2]).to_s }
+    { directive: (rule_entities[0]).to_s, action: "refer", type: (rule_entities[1]).to_s, resource: (rule_entities[2]).to_s }
   end
 end
 

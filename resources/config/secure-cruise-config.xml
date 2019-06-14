@@ -60,6 +60,82 @@
          <git url="material-for-pipeline-git-config-repo" />
        </config-repo>
     </config-repos>
+    <pipelines group="DEV_GROUP">
+      <pipeline name="In-group-DEV">
+        <environmentvariables>
+          <variable name="ENV_KEY">
+            <value>{{SECRET:[DEV][dev-password]}}</value>
+          </variable>
+        </environmentvariables>
+        <materials>
+          <git url="material-for-In-group-DEV" dest="git" materialName="git" autoUpdate="true" />
+        </materials>
+        <stage name="defaultStage">
+          <approval type="manual"/>
+          <jobs>
+            <job name="defaultJob">
+              <tasks>
+                <exec command="/bin/bash">
+                  <arg>-c</arg>
+                  <arg>echo "Using env var : $ENV_KEY"</arg>
+                </exec>
+              </tasks>
+            </job>
+          </jobs>
+        </stage>
+      </pipeline>
+    </pipelines>
+    <pipelines group="TEST_GROUP">
+      <pipeline name="In-group-TEST">
+        <environmentvariables>
+          <variable name="ENV_KEY">
+            <value>{{SECRET:[TEST][test-password]}}</value>
+          </variable>
+        </environmentvariables>
+        <materials>
+          <git url="material-for-In-group-TEST" dest="git" materialName="git" autoUpdate="true" />
+        </materials>
+        <stage name="defaultStage">
+          <approval type="manual"/>
+          <jobs>
+            <job name="defaultJob">
+              <tasks>
+                <exec command="/bin/bash">
+                  <arg>-c</arg>
+                  <arg>echo "Using env var : $ENV_KEY"</arg>
+                </exec>
+              </tasks>
+            </job>
+          </jobs>
+        </stage>
+      </pipeline>
+    </pipelines>
+    <pipelines group="PROD_GROUP">
+      <pipeline name="In-group-PROD">
+        <environmentvariables>
+          <variable name="ENV_KEY">
+            <value>{{SECRET:[PROD][prod-password]}}</value>
+          </variable>
+        </environmentvariables>
+        <materials>
+          <git url="material-for-In-group-PROD" dest="git" materialName="git" autoUpdate="true" />
+        </materials>
+        <stage name="defaultStage">
+          <approval type="manual"/>
+          <jobs>
+            <job name="defaultJob">
+              <tasks>
+                <exec command="/bin/bash">
+                  <arg>-c</arg>
+                  <arg>echo "Using env var : $ENV_KEY"</arg>
+                </exec>
+              </tasks>
+            </job>
+          </jobs>
+        </stage>
+      </pipeline>
+
+    </pipelines>
     <pipelines group="VSM.Analytics">
      <authorization>
       <view>
@@ -221,6 +297,24 @@
           <user>group1Admin</user>
         </admins>
       </authorization>
+      <pipeline name="In-env-PROD">
+        <materials>
+          <git url="material-for-In-env-PROD" dest="git" materialName="git" autoUpdate="true" />
+        </materials>
+        <stage name="defaultStage">
+          <approval type="manual"/>
+          <jobs>
+            <job name="defaultJob">
+              <tasks>
+                <exec command="/bin/bash">
+                  <arg>-c</arg>
+                  <arg>echo "Using environment level var : $ENV_LEVEL_VARIABLE"</arg>
+                </exec>
+              </tasks>
+            </job>
+          </jobs>
+        </stage>
+      </pipeline>
       <pipeline name="admin-pipeline-api">
             <materials>
                 <git url="material-for-admin-pipeline-api" dest="git" materialName="git" autoUpdate="false"/>
@@ -1217,6 +1311,14 @@
        <pipelines>
        <pipeline name="pipeline-with-environment-variables"/>
       </pipelines>
+      </environment>
+      <environment name="PROD_ENV">
+      <environmentvariables>
+          <variable name="ENV_LEVEL_VARIABLE"><value>{{SECRET:[PROD][prod-password]}}</value></variable>
+			  </environmentvariables>
+        <pipelines>
+          <pipeline name="In-env-PROD"/>
+        </pipelines>
       </environment>
   	</environments>
 </cruise>

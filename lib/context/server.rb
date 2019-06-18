@@ -18,10 +18,9 @@ module Context
   class Server
     include FileUtils
 
-    START_COMMAND = OS.windows? ? %w[cmd /c start-server.bat] : './server.sh'
-    STOP_COMMAND = OS.windows? ? %w[cmd /c stop-server.bat] : './stop-server.sh'
+    START_COMMAND = OS.windows? ? %w[cmd /c bin/start-go-server-service.bat start] : 'bin/go-server'
+    STOP_COMMAND = OS.windows? ? %w[cmd /c bin/stop-go-server-service.bat stop] : 'bin/go-server'
     DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
-
 
     def start
       if GoConstants::RUN_ON_DOCKER
@@ -30,30 +29,17 @@ module Context
         return
       end
       return if DEVELOPMENT_MODE && server_running?
-      system_properties = if ENV['FANINOFF'] == 'true'
-                            "#{GoConstants::GO_SERVER_SYSTEM_PROPERTIES} -Dresolve.fanin.revisions=N"
-                          else
-                            GoConstants::GO_SERVER_SYSTEM_PROPERTIES
-                          end
       cp 'resources/with-java.sh', GoConstants::SERVER_DIR
       mkdir_p "#{GoConstants::SERVER_DIR}/logs"
       out = File.open("#{GoConstants::SERVER_DIR}/logs/output.log", 'w')
       out.sync = true
       chmod 0o755, "#{GoConstants::SERVER_DIR}/with-java.sh"
+      prepare_wrapper_conf(GoConstants::GO_SERVER_SYSTEM_PROPERTIES)
       Bundler.with_clean_env do
-        process = ChildProcess.build('./with-java.sh', START_COMMAND)
+        process = ChildProcess.build('./with-java.sh', START_COMMAND, 'start')
         process.detach = true
         process.io.stdout = process.io.stderr = out
-        process.environment.merge!('GO_SERVER_SYSTEM_PROPERTIES' => system_properties,
-                                   'GO_SERVER_PORT' => GoConstants::SERVER_PORT,
-                                   'GO_SERVER_SSL_PORT' => GoConstants::SERVER_SSL_PORT,
-                                   'SERVER_MEM' => GoConstants::SERVER_MEM,
-                                   'SERVER_MAX_MEM' => GoConstants::SERVER_MAX_MEM,
-                                   'GO_PIPELINE_COUNTER' => GoConstants::GO_PIPELINE_COUNTER,
-                                   'MANUAL_SETTING' => 'Y',
-                                   'DAEMON' => 'Y',
-                                   'PRODUCTION_MODE' => 'N')
-
+        process.environment['GO_PIPELINE_COUNTER'] = GoConstants::GO_PIPELINE_COUNTER
         process.cwd = GoConstants::SERVER_DIR
         process.start
       end
@@ -77,6 +63,14 @@ module Context
           rescue ChildProcess::TimeoutError
             process.stop
           end
+        end
+      end
+    end
+
+    def prepare_wrapper_conf(properties)
+      File.open("#{GoConstants::SERVER_DIR}/wrapper-config/wrapper-properties.conf", 'w') do |file|
+        properties.each_with_index  do |item, index|
+          file.puts("wrapper.java.additional.#{index.to_i + 100}=#{item}")
         end
       end
     end
@@ -111,11 +105,7 @@ module Context
         -p #{GoConstants::SERVER_SSL_PORT}:#{GoConstants::SERVER_SSL_PORT} \
         -v #{File.expand_path(GoConstants::CONFIG_PATH.to_s)}:/test-config --mount type=bind,source=#{GoConstants::SERVER_DIR},target=/godata \
         -v #{GoConstants::TEMP_DIR}:/materials \
-        -e GO_SERVER_SYSTEM_PROPERTIES='#{GoConstants::GO_SERVER_SYSTEM_PROPERTIES}' \
-        -e GO_SERVER_PORT='#{GoConstants::SERVER_PORT}' \
-        -e GO_SERVER_SSL_PORT='#{GoConstants::SERVER_SSL_PORT}' \
-        -e SERVER_MEM='#{GoConstants::SERVER_MEM}' \
-        -e SERVER_MAX_MEM='#{GoConstants::SERVER_MAX_MEM}' \
+        -e GOCD_SERVER_JVM_OPTS='#{GoConstants::GO_SERVER_SYSTEM_PROPERTIES}' \
         #{image.image}:#{image.tag})
       # This is done to save space on the EA container
       sh %(rm -rf target/docker-server)
@@ -131,11 +121,9 @@ module Context
       end
       manifest
     end
-
   end
 
   class DockerManifestParser
-
     attr_reader :image
     attr_reader :tag
     attr_reader :file
@@ -162,6 +150,5 @@ module Context
       @tag = image_info['tag']
       @file = image_info['file']
     end
-
   end
 end

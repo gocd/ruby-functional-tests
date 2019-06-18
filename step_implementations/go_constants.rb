@@ -55,29 +55,31 @@ class GoConstants
   GO_SERVER_BASE_URL = "http://#{HOSTNAME}:#{SERVER_PORT}/go".freeze
   GO_SERVER_BASE_SSL_URL = "https://#{HOSTNAME}:#{SERVER_SSL_PORT}/go".freeze
   GO_CONFIG_SCHEMA_VERSION = '84'.freeze
-  GO_AGENT_SYSTEM_PROPERTIES = " -Dagent.get.work.delay=500 \
-                                -Dagent.get.work.interval=500 \
-                                -Dagent.ping.delay=500 \
-                                -Dagent.ping.interval=500 \
-                                -Dgo.gauge.agent=true".freeze
+  GO_AGENT_SYSTEM_PROPERTIES = %w[ -Dagent.get.work.delay=500
+                                   -Dagent.get.work.interval=500
+                                   -Dagent.ping.delay=500
+                                   -Dagent.ping.interval=500
+                                   -Dgo.gauge.agent=true].freeze
 
-  GO_SERVER_SYSTEM_PROPERTIES = "-Dalways.reload.config.file=true \
-                          -Dcruise.buildCause.producer.interval=1000 \
-                          -Dcruise.material.update.interval=3000 \
-                          -Dcruise.material.update.delay=1000 \
-                          -Dcruise.produce.build.cause.interval=1000 \
-                          -Dcruise.produce.build.cause.delay=1000 \
-                          -Dmaterial.update.idle.interval=1000 \
-                          -Dcruise.xmpp.port=61221 \
-                          -Dcruise.agent.service.refresh.interval=5000 \
-                          -Dcruise.shine.sparql.url=http://localhost:8253/go/shine/sparql.xml \
-                          -Dcruise.shine.stage.feed=http://localhost:8253/go/api/feeds/stages.xml \
-                          -Dagent.connection.timeout=50 \
-                          -Dcruise.unresponsive.job.warning=1 \
-                          -Dcruise.pipelineStatus.cache.interval=800 \
-                          -Dcommand.repo.warning.timeout=30000 \
-                          -Dnew.plugins.framework.enabled=Y \
-                          -Dgo.gauge.server=true \
-                          -DDB_DEBUG_MODE=true \
-  #{ENV['ADDITIONAL_SERVER_SYSTEM_PROPERITES']}".freeze
+  GO_SERVER_SYSTEM_PROPERTIES = %W[-Dalways.reload.config.file=true
+                                   -Dcruise.buildCause.producer.interval=1000
+                                   -Dcruise.material.update.interval=3000
+                                   -Dcruise.material.update.delay=1000
+                                   -Dcruise.produce.build.cause.interval=1000
+                                   -Dcruise.produce.build.cause.delay=1000
+                                   -Dmaterial.update.idle.interval=1000
+                                   -Dcruise.xmpp.port=61221
+                                   -Dcruise.agent.service.refresh.interval=5000
+                                   -Dagent.connection.timeout=50
+                                   -Dcruise.unresponsive.job.warning=1
+                                   -Dcruise.pipelineStatus.cache.interval=800
+                                   -Dcommand.repo.warning.timeout=30000
+                                   -Dnew.plugins.framework.enabled=Y
+                                   -Dgo.gauge.server=true
+                                   -DDB_DEBUG_MODE=true
+                                   -Dcruise.server.port=#{SERVER_PORT}
+                                   -Dcruise.server.ssl.port=#{SERVER_SSL_PORT}
+                                   -Xms#{SERVER_MEM}
+                                   -Xmx#{SERVER_MAX_MEM}
+                                   #{ENV['ADDITIONAL_SERVER_SYSTEM_PROPERITES']}].freeze
 end

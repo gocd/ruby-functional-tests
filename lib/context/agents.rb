@@ -18,8 +18,8 @@ module Context
     include FileUtils
     include Singleton
 
-    START_COMMAND = OS.windows? ? %w[cmd /c start-agent.bat] : './agent.sh'
-    STOP_COMMAND = OS.windows? ? %w[cmd /c stop-agent.bat] : './stop-agent.sh'
+    START_COMMAND = OS.windows? ? %w[cmd /c start-go-agent-service.bat] : 'bin/go-agent'
+    STOP_COMMAND = OS.windows? ? %w[cmd /c stop-go-agent-service.bat] : 'bin/go-agent'
     attr_accessor :agent_wrk_dirs
 
     def initialize
@@ -32,19 +32,21 @@ module Context
       cp_r "#{GoConstants::AGENT_DIR}/.", "#{dir}/"
       cp 'resources/with-java.sh', "#{dir}/"
       chmod 0755, "#{dir}/with-java.sh"
+      prepare_wrapper_conf(dir.to_s, GoConstants::GO_AGENT_SYSTEM_PROPERTIES)
       Bundler.with_clean_env do
-        process = ChildProcess.build('./with-java.sh', START_COMMAND)
+        process = ChildProcess.build('./with-java.sh', START_COMMAND, 'start', '-serverUrl', "https://127.0.0.1:#{GoConstants::SERVER_SSL_PORT}/go")
         process.detach = true
-        process.environment['GO_AGENT_SYSTEM_PROPERTIES'] = GoConstants::GO_AGENT_SYSTEM_PROPERTIES
-        process.environment['GO_SERVER_URL'] = "https://127.0.0.1:#{GoConstants::SERVER_SSL_PORT}/go"
-        process.environment['VNC'] = 'N'
-        process.environment['STOP_BEFORE_STARTUP'] = 'N'
-        process.environment['PRODUCTION_MODE'] = 'N'
-        process.environment['MANUAL_SETTING'] = 'Y'
-        process.environment['DAEMON'] = 'Y'
         process.environment['GO_PIPELINE_COUNTER'] = GoConstants::GO_PIPELINE_COUNTER
         process.cwd = dir
         process.start
+      end
+    end
+
+    def prepare_wrapper_conf(agent_loc, properties)
+      File.open("#{agent_loc}/wrapper-config/wrapper-properties.conf", 'w') do |file|
+        properties.each_with_index{|item, index|
+          file.puts("wrapper.java.additional.#{index.to_i + 100}=#{item}")
+        }
       end
     end
 
@@ -114,7 +116,7 @@ module Context
         return
       end
       Bundler.with_clean_env do
-        process = ChildProcess.build('./with-java.sh', STOP_COMMAND)
+        process = ChildProcess.build('./with-java.sh', STOP_COMMAND, 'stop')
         process.detach = true
         process.environment['PID_FILE'] = 'go-agent.pid'
         process.environment['MANUAL_SETTING'] = 'Y'

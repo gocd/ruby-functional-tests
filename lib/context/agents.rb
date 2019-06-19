@@ -88,7 +88,7 @@ module Context
       sh %(docker run -d \
         --name agent_#{identifier} \
         -v #{GoConstants::TEMP_DIR}:/materials \
-        -e GO_AGENT_SYSTEM_PROPERTIES='#{GoConstants::GO_AGENT_SYSTEM_PROPERTIES}' \
+        -e GO_AGENT_SYSTEM_PROPERTIES='#{GoConstants::GO_AGENT_SYSTEM_PROPERTIES.join(" ")}' \
         -e GO_SERVER_URL='https://#{GoConstants::IPADDRESS}:#{GoConstants::SERVER_SSL_PORT}/go' \
         -e AGENT_AUTO_REGISTER_KEY='functional-tests' \
         #{manifest.image}:#{manifest.tag})

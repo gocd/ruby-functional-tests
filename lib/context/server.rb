@@ -75,7 +75,7 @@ module Context
           file.puts("wrapper.java.additional.#{index.to_i + 100}=#{item}")
         end
         if ENV['FANINOFF'] == 'true'
-          file.puts("wrapper.java.additional.#{index.to_i + 101}=-Dresolve.fanin.revisions=N")
+          file.puts("wrapper.java.additional.#{properties.size + 101}=-Dresolve.fanin.revisions=N")
         end
       end
     end

@@ -31,10 +31,6 @@ module Context
 
       return if DEVELOPMENT_MODE && server_running?
 
-      if ENV['FANINOFF'] == 'true'
-        GoConstants::GO_SERVER_SYSTEM_PROPERTIES << "-Dresolve.fanin.revisions=N"
-      end
-
       cp 'resources/with-java.sh', GoConstants::SERVER_DIR
       mkdir_p "#{GoConstants::SERVER_DIR}/logs"
       out = File.open("#{GoConstants::SERVER_DIR}/logs/output.log", 'w')
@@ -77,6 +73,9 @@ module Context
       File.open("#{GoConstants::SERVER_DIR}/wrapper-config/wrapper-properties.conf", 'w') do |file|
         properties.each_with_index  do |item, index|
           file.puts("wrapper.java.additional.#{index.to_i + 100}=#{item}")
+        end
+        if ENV['FANINOFF'] == 'true'
+          file.puts("wrapper.java.additional.#{index.to_i + 101}=-Dresolve.fanin.revisions=N")
         end
       end
     end

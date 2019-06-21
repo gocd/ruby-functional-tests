@@ -28,7 +28,13 @@ module Context
         run_server_on_docker
         return
       end
+
       return if DEVELOPMENT_MODE && server_running?
+
+      if ENV['FANINOFF'] == 'true'
+        GoConstants::GO_SERVER_SYSTEM_PROPERTIES << "-Dresolve.fanin.revisions=N"
+      end
+
       cp 'resources/with-java.sh', GoConstants::SERVER_DIR
       mkdir_p "#{GoConstants::SERVER_DIR}/logs"
       out = File.open("#{GoConstants::SERVER_DIR}/logs/output.log", 'w')

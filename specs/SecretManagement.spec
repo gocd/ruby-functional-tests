@@ -57,7 +57,7 @@ tags: secret_management
 * Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "failed" - On Swift Dashboard page
 * On Job details page of pipeline "In-group-TEST" counter "2" stage "defaultStage" counter "1" job "defaultJob"
-* Verify console log contains message "does not have permission to refer to secrets using SecretConfig: 'TEST'"
+* Verify console log contains message "does not have permission to refer to secrets using secret config 'TEST'"
 
 * Update secret config "PROD" for secret file "prod_secrets.json" rules "deny:*:DEV_*, deny:*:TEST_*, allow:environment:PROD_ENV" - Using Secret Config API
 * Looking at pipeline "In-group-PROD" - On Swift Dashboard page
@@ -65,7 +65,7 @@ tags: secret_management
 * Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "failed" - On Swift Dashboard page
 * On Job details page of pipeline "In-group-PROD" counter "2" stage "defaultStage" counter "1" job "defaultJob"
-* Verify console log contains message "does not have permission to refer to secrets using SecretConfig: 'PROD'"
+* Verify console log contains message "does not have permission to refer to secrets using secret config 'PROD'"
 
 * Looking at pipeline "In-env-PROD" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page

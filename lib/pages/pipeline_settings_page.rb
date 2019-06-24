@@ -87,7 +87,7 @@ module Pages
     end
 
     def set_only_on_changes_checkbox
-      page.find("input#pipeline_timer_onlyOnChanges").set(true)
+      page.find("input#pipeline_timer_onlyOnChanges", wait: 10).set(true)
     end
 
     def url_exist_for_material? material,url

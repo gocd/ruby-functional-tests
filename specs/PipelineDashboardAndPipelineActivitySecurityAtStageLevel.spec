@@ -24,7 +24,7 @@ tags: Permissions, long_running, pipeline_dashboard_stage_permissions, pipeline_
 * Login as "raghu"
 
 Pipeline Visibility
-* PipelineVisibility 
+* PipelineVisibility
      |Pipeline Name|visible?|can operate using ui?|can operate using Api?|can pause using ui?|can pause using api?|
      |-------------|--------|---------------------|----------------------|-------------------|--------------------|
      |P5           |true    |true                 |true                  |true               |true                |
@@ -41,7 +41,7 @@ Pipeline Visibility
 * verify user does not have stage "firstStage" operate permissions for pipleine "P7" on pipeline activity page
 * Verify "secondStage" can be approved on Pipeline Activity Page
 * Approve stage "secondStage" on Pipeline Activity Page
- 
+
 * Logout - from any page
 
 * Login as "pavan"
@@ -49,7 +49,7 @@ Pipeline Visibility
 
 Behavior of P7 is similar for user 'pavan' and 'raghu', hence not verified
 Pipeline Visibility
-* PipelineVisibility 
+* PipelineVisibility
      |Pipeline Name|visible?|can operate using ui?|can operate using Api?|can pause using ui?|can pause using api?|
      |-------------|--------|---------------------|----------------------|-------------------|--------------------|
      |P5           |true    |false                |false                 |true               |true                |
@@ -78,12 +78,14 @@ Pipeline Visibility
 * Looking at pipeline with label "2"
 * Verify "secondStage" cannot be approved on Pipeline Activity Page
 
+* Wait for "180" seconds till pipeline completed - On Swift Dashboard page
+
 * Logout - from any page
 
 * Login as "group1View"
 
 Pipeline Visibility
-* PipelineVisibility 
+* PipelineVisibility
      |Pipeline Name|visible?|can operate using ui?|can operate using Api?|can pause using ui?|can pause using api?|
      |-------------|--------|---------------------|----------------------|-------------------|--------------------|
      |P5           |true    |true                 |true                  |true               |true                |
@@ -108,5 +110,3 @@ ____________________
 * Capture go state "PipelineDashboardAndPipelineActivitySecurityAtStageLevel" - teardown
 * With "2" live agents - teardown
 * Logout - from any page
-
-

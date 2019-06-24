@@ -141,7 +141,7 @@ module Pages
     end
 
     def wait_to_check_pipeline_do_not_start(wait_time = 20)
-      wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
+      wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.self_pipeline} started building when it was expected not to" do
         return if get_all_stages(scenario_state.self_pipeline).nil?
         break unless get_all_stages(scenario_state.self_pipeline).first['class'].include?('building')
       end

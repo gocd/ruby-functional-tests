@@ -69,7 +69,7 @@ module Helpers
                       --zone=#{@zone} \
                       --tier=STANDARD \
                       --file-share=name="NFSvol",capacity=1TB \
-                      --network=name="default",reserved-ip-range="10.4.0.0/29")
+                      --network=name="default",reserved-ip-range="10.5.0.0/29")
       end
     end
 

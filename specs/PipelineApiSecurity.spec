@@ -46,9 +46,6 @@ tags: API Security
 * Checkin file "file1" as user "user" with message "commiting file1" - On Swift Dashboard page
 * Checkin file "file2" as user "user2" with message "commiting file2" - On Swift Dashboard page
 
-
-
-
 * Looking at pipeline "basic-pipeline-fast-api" - On Swift Dashboard page
 * Using "2nd" revision of "git" of type "git" for pipeline "basic-pipeline-fast-api"
 * Schedule should return code "202"
@@ -56,6 +53,7 @@ tags: API Security
 * Using "2nd" revision of "git" of type "git" for pipeline "viewable-pipeline"
 * Schedule should return code "202"
 * Looking at pipeline "admin-pipeline-api" - On Swift Dashboard page
+* Wait till stage "defaultStage" completed - On Swift Dashboard page
 * Using "2nd" revision of "git" of type "git" for pipeline "admin-pipeline-api"
 
 * Schedule should return code "202"
@@ -63,7 +61,6 @@ tags: API Security
 * Looking at pipeline "basic-pipeline-fast-api" - On Swift Dashboard page
 * Wait till stage "defaultStage" completed - On Swift Dashboard page
 * On Job details page of pipeline "basic-pipeline-fast-api" counter "2" stage "defaultStage" counter "1" job "defaultJob"
-
 
 
 * Verify console shows "2nd" commit for material "git" for "basic-pipeline-fast-api"

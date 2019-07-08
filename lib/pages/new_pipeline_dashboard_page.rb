@@ -197,7 +197,7 @@ module Pages
     def mttr_displayed?
       build_time_chart do |frame|
         frame.find('#chart-container').has_css?('.mttr') &&
-          !frame.find('#chart-container').find('.mttr').find('.metric-value').text.match(/[1-9][0-9].*[ms]/)[0].nil?
+          !frame.find('#chart-container').find('.mttr').find('.metric-value').text.match(/[1-9][0-9]*[ms]/)[0].nil?
       end
     end
 

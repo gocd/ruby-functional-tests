@@ -26,6 +26,10 @@ step 'Create a partial config repo environment with name <environment> on repo <
   Context::ConfigRepoEnvironment.new.setup_existing(environment, repo.to_i)
 end
 
+step 'On Config repo page' do ||
+  config_repos_page.load
+end
+
 step 'Wait for config repo changes to sync' do
   sleep 30
 end

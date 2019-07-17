@@ -68,6 +68,7 @@ require 'pages/admin_access_token_page'
 require 'pages/elastic_agent_profiles_page'
 require 'pages/elastic_profiles_page'
 require 'pages/secret_config_spa'
+require 'pages/config_repos_page'
 
 
 
@@ -265,5 +266,8 @@ module Helpers
       Pages::ParametersPage.new
     end
 
+    def config_repos_page
+       Pages::ConfigReposPage.new
+    end
   end
 end

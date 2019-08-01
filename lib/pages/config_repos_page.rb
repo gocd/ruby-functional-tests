@@ -23,22 +23,14 @@ module Pages
 
 
       def verify_config_repo(repo, pipeline)
-      puts "***********************repo*******************"
-      puts (page.find_all("[data-test-id='config-repo-details-panel'] > div > div h4")[0].text)
-      puts repo
       assert_true(page.find_all("[data-test-id='config-repo-details-panel'] > div > div h4")[0].text.include?(repo))
       sleep 5
 
       page.find("div.index__collapse___NdWzo:nth-child(1) > div:nth-child(1)").click
 
-      puts "***********************Pipeline*******************"
-      puts page.find(".defined_structs__pipeline-datum___uBHjV > a:nth-child(1)").text
-      puts pipeline
       assert_true(page.find(".defined_structs__pipeline-datum___uBHjV > a:nth-child(1)").text.include?(pipeline))
       page.find(".defined_structs__pipeline-datum___uBHjV > a:nth-child(1)").click
       sleep 5
-
-
 
     end
 

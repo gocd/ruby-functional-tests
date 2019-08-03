@@ -31,7 +31,7 @@ module Pages
     element :pipeline_locking, '#pipeline_lockBehavior_lockonfailure'
     element :project_path, "input[name='material[projectPath]']"
 
-    #mingle project management
+    # mingle project management
     element :mingle_URL, '#pipeline_mingleConfig_baseUrl'
     element :mingle_identifier, '#pipeline_mingleConfig_projectIdentifier'
     element :mingle_mqa, '#pipeline_mingleConfig_mqlCriteria_mql'
@@ -42,6 +42,14 @@ module Pages
 
     def partial_message_displayed?(message)
       page.find('.success').text.include?(message)
+    end
+
+    def get_pipeline_stages
+      stages = []
+      page.all('a.stage_name_link').each do |stage|
+        stages.push(stage.text)
+      end
+      stages
     end
 
     def add_parameter(name, value)
@@ -123,5 +131,14 @@ module Pages
     def move_stage(stage, direction)
       page.find(".stage_#{stage}").find("button[title='Move #{direction.capitalize}']").click
     end
+
+    def select_tracking_tool(tool)
+      page.find("input[title='#{tool.capitalize}']").click
+    end
+
+    def select_stage(stage)
+      page.find('.stage_name_link', text: stage).click
+    end
+
   end
 end

@@ -20,7 +20,6 @@ module Pages
 
     # Pipeline name and group
     element :new_pipeline_name, "[data-test-id='form-field-input-pipeline-name']"
-    element :reset_button, '.reset_button'
 
     # pipeline materials
     element :material_type, "[data-test-id='form-field-input-material-type']"
@@ -29,57 +28,65 @@ module Pages
     element :material_url, "[data-test-id='form-field-input-repository-url']"
     element :project_path, "[data-test-id='form-field-input-project-path']"
     element :check_connection, "[data-test-id='test-connection-button']"
+    element :material_branch, "[data-test-id='form-field-input-repository-branch']"
+    element :material_username, "[data-test-id='form-field-input-username']"
+    element :material_password, "[data-test-id='form-field-input-password']"
+    element :material_checkout_path, "[data-test-id='form-field-input-alternate-checkout-path']"
+    element :material_name, "[data-test-id='form-field-input-material-name']"
 
     # Stage details
     element :stage_name, "[data-test-id='form-field-input-stage-name']"
     element :auto_trigger_switch, "[data-test-id='switch-paddle']"
 
-    #jobs
+    # jobs
     element :job_name, "[data-test-id='form-field-input-job-name']"
     element :task_command, "[data-test-id='form-field-label-type-your-tasks-below-at-the-prompt'] > code > pre"
 
+    # #task-details
+    element :exec_tas_command, '.exec-task-command'
 
-    def set_task_field(task_name, field, value)
-      page.find("#pipeline_group_pipeline_stage_jobs__tasks_#{task_name}_#{field}").set value
+    def set_task_field(task_with_args)
+      task_command.set task_with_args
     end
 
-
-
-    def set_material_url_for(material, url)
+    def set_material_url(url)
       material_url.set(url)
     end
 
-
-
-
-
-    def select_approval_type type
-      page.find("#{type}").click
+    def select_approval_type(_type)
+      auto_trigger_switch.click
     end
 
     def connection_ok?
       page.has_css?('.ok_message')
     end
 
-    def set_polling_off (material_type)
-      auto_trigger_switch.click
+    def set_polling_off(_material_type)
+      raise 'Needs implementation as new pipeline creation wizard misses this option'
     end
 
-    def git_error_message_present?(error_message,material_type)
+    def git_error_message_present?(error_message, material_type)
       page.find("#vcsconnection-message_#{material_type}").text.include? error_message
     end
 
-    def set_username(material_type,username)
-      page.find(".#{material_type}_username").set username
+    def set_username(username)
+      material_username.set username
     end
 
-    def set_password(material_type,password)
-      page.find(".#{material_type}_password").set password
+    def set_password(password)
+      material_password.set password
     end
 
-    def set_branch(branch,material_type)
-      page.find(".#{material_type}_branch").set branch
+    def set_branch(branch)
+      material_branch.set branch
     end
 
+    def save_and_edit
+      page.find('button', text: 'Save + Edit Full Config').click
+    end
+
+    def save_and_run
+      page.find('button', text: 'Save + Run This Pipeline').click
+    end
   end
 end

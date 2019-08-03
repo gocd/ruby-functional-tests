@@ -66,7 +66,15 @@ module Pages
 
     def verify_reset_button_exist?
         page.has_css?('.reset_button')
-     end
+    end
+
+    def unpause_pipeline
+      page.find("button[title='Unpause']").click
+    end
+
+    def open_tab(tab)
+      page.find('a', text: tab).click
+    end
 
   end
 end

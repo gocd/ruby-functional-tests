@@ -18,11 +18,9 @@ tags: Clicky Admin
 
 make sure group admins don't see autocomplete for group
 * Enter new pipeline name as "some_pipeline_name"
-* Go next from settings
 * Select material type as "Git"
 * Set url "http://git.url" for material  "git"
 * Set branch as "some_branch" for material "git"
-* Go next from materials
 * Set stage name as "some_stage"
 * Set job name as "some_job"
 * Select task type as "Rake"

@@ -151,3 +151,14 @@ end
 step 'Enter project path as <path>' do |path|
   pipeline_settings_page.project_path.set(path)
 end
+
+step 'Verify the stages are <stages>' do |stages|
+  pipeline_stages = pipeline_settings_page.get_pipeline_stages
+  stages.split(',').each do |stage|
+    assert_true pipeline_stages.include? stage
+  end
+end
+
+step 'Open stage <stage>' do |stage|
+  pipeline_settings_page.select_stage stage
+end

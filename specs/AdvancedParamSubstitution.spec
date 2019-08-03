@@ -15,10 +15,8 @@ tags: Parameters_subsitution, wip
 * Start add new pipeline in pipeline group "basic"
 
 * Enter new pipeline name as "child_pipeline"
-* Go next from settings
 * Select material type as "Pipeline"
 * Set pipeline and stage "parent_pipeline" "second_stage"
-* Go next from materials
 * Set stage name as "stage_for_rake_target"
 * Mark stage manual - On new pipeline wizard
 * Set job name as "job_for_rake_target"

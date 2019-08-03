@@ -22,14 +22,12 @@ step 'Enter new pipeline name as <name>' do |name|
   pipeline_creation_wizard.new_pipeline_name.set name
 end
 
-
 step 'Select material type as <type>' do |type|
   pipeline_creation_wizard.select type
 end
 
-
 step 'Set url <url> for material  <material>' do |url, material|
-  pipeline_creation_wizard.set_material_url_for(material, new_pipeline_dashboard_page.sanitize_message(url))
+  pipeline_creation_wizard.set_material_url(new_pipeline_dashboard_page.sanitize_message(url))
 end
 
 step 'Set pipeline and stage <pipeline> <stage>' do |pipeline, stage|
@@ -52,33 +50,18 @@ step 'Select task type as <task_type>' do |task_type|
   pipeline_creation_wizard.task_type.select task_type
 end
 
-step 'Set task as <task_name> <field> name <value>' do |task_name, field, value|
-  pipeline_creation_wizard.set_task_field(task_name, field, value)
+step 'Set task as <task_with_args>' do |task_with_args|
+  pipeline_creation_wizard.set_task_field(task_with_args)
 end
 
 step 'Save pipeline <arg0> successfully' do |_arg0|
-  pipeline_creation_wizard.finish.click
-end
-
-
-
-
-
-step 'Verify the stages are <stages>' do |stages|
-  pipeline_stages = pipeline_creation_wizard.get_pipeline_stages
-  stages.split(',').each do |stage|
-    assert_true pipeline_stages.include? stage
-  end
+  pipeline_creation_wizard.save_and_edit
 end
 
 step 'Verify <stage> has <type> trigger option with <jobs> jobs' do |stage, type, jobs|
   assert_true pipeline_creation_wizard.stage_has_approval_type? stage, type
   assert_true pipeline_creation_wizard.stage_has_jobs? stage, jobs
 end
-
-
-
-
 
 step 'Verify reset button exists' do
   assert_true pipeline_creation_wizard.verify_reset_button_exist?
@@ -104,12 +87,8 @@ step 'Set command as <command> - On Job popup' do |command|
   pipeline_creation_wizard.command_on_stage_popup.set command
 end
 
-step 'Open stage <stage>' do |stage|
-  pipeline_creation_wizard.select_stage stage
-end
-
 step 'Set branch as <branch> for material <material_type>' do |branch, material_type|
-  pipeline_creation_wizard.set_branch(branch, material_type)
+  pipeline_creation_wizard.set_branch(branch)
 end
 
 step 'Unpause pipeline - On pipeline creation page' do
@@ -130,11 +109,11 @@ step 'Set exec command as <command>' do |command|
 end
 
 step 'Set <material_type> username as <username>' do |material_type, username|
-  pipeline_creation_wizard.set_username(material_type, username)
+  pipeline_creation_wizard.set_username(username)
 end
 
 step 'Set <material_type> password as <password>' do |material_type, password|
-  pipeline_creation_wizard.set_password(material_type, new_pipeline_dashboard_page.sanitize_message(password))
+  pipeline_creation_wizard.set_password(new_pipeline_dashboard_page.sanitize_message(password))
 end
 
 step 'Turn off Poll for new changes for <material_type> material' do |material_type|

@@ -22,6 +22,8 @@ module Pages
     element :permission_user_name, 'input.permissions_user_name'
     element :permission_role_name, 'input.permissions_role_name'
 
+    element :add_new_job, 'a.add_link'
+
     element :job_name_on_popup, '#job_name'
     element :command_on_popup, "input[name='job[tasks][exec][command]']"
     element :resources_on_popup, '#job_resources'

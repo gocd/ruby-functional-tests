@@ -7,19 +7,20 @@ Setup of contexts
 * Using pipeline "edit-pipeline" - setup
 * Capture go state "PauseNewPipelineAfterCreation" - setup
 
+
 PauseNewPipelineAfterCreation
 -----------------------------
 
 tags: pipeline,pause_pipeline
 
 * Start add new pipeline in pipeline group "basic"
-* Enter new pipeline name as "newpipeline"
 
-* Go next from settings
+
 * Select material type as "Git"
 * Set url "http://git.url" for material  "git"
 * Set branch as "some_branch" for material "git"
-* Go next from materials
+
+* Enter new pipeline name as "newpipeline"
 
 * Set stage name as "defaultStage"
 * Set job name as "defaultJob"
@@ -53,11 +54,6 @@ tags: pipeline,pause_pipeline
 * Verify pipeline is unpaused - Using API
 
 
-
-
 Teardown of contexts
 ____________________
 * Capture go state "PauseNewPipelineAfterCreation" - teardown
-
-
-

@@ -68,6 +68,7 @@ require 'pages/admin_access_token_page'
 require 'pages/elastic_agent_profiles_page'
 require 'pages/elastic_profiles_page'
 require 'pages/secret_config_spa'
+require 'pages/edit_pipeline_wizard'
 
 
 
@@ -215,6 +216,11 @@ module Helpers
 
     def pipeline_creation_wizard
       Pages::PipelineCreationWizard.new
+    end
+
+
+    def edit_pipeline_wizard
+      Pages::EditPipelineWizard.new
     end
 
     def stage_settings_page

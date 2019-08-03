@@ -22,181 +22,126 @@ step 'Enter new pipeline name as <name>' do |name|
   pipeline_creation_wizard.new_pipeline_name.set name
 end
 
-step 'Go next from settings' do
-  pipeline_creation_wizard.next_to_settings.click
-end
 
 step 'Select material type as <type>' do |type|
   pipeline_creation_wizard.select type
+end
+
+
+step 'Set url <url> for material  <material>' do |url, material|
+  pipeline_creation_wizard.set_material_url_for(material, new_pipeline_dashboard_page.sanitize_message(url))
 end
 
 step 'Set pipeline and stage <pipeline> <stage>' do |pipeline, stage|
   pipeline_creation_wizard.pipeline_material.set "#{scenario_state.get(pipeline)} [#{stage}]"
 end
 
-step 'Go next from materials' do ||
-	pipeline_creation_wizard.next_to_materials.click
-end
-
 step 'Set stage name as <stage_name>' do |stage_name|
-	pipeline_creation_wizard.stage_name.set stage_name
+  pipeline_creation_wizard.stage_name.set stage_name
 end
 
-step 'Mark stage manual - On new pipeline wizard' do ||
-	pipeline_creation_wizard.trigger_type_manual.click
+step 'Mark stage manual - On new pipeline wizard' do
+  pipeline_creation_wizard.trigger_type_manual.click
 end
 
 step 'Set job name as <job_name>' do |job_name|
-	pipeline_creation_wizard.job_name.set job_name
+  pipeline_creation_wizard.job_name.set job_name
 end
 
 step 'Select task type as <task_type>' do |task_type|
-	pipeline_creation_wizard.task_type.select task_type
+  pipeline_creation_wizard.task_type.select task_type
 end
 
 step 'Set task as <task_name> <field> name <value>' do |task_name, field, value|
-	pipeline_creation_wizard.set_task_field(task_name, field, value)
+  pipeline_creation_wizard.set_task_field(task_name, field, value)
 end
 
-step 'Save pipeline <arg0> successfully' do |arg0|
-	pipeline_creation_wizard.finish.click
+step 'Save pipeline <arg0> successfully' do |_arg0|
+  pipeline_creation_wizard.finish.click
 end
 
-step 'Enter material url for parameter <arg0> name <arg1> and material name <arg2> associated with pipeline <arg3>' do |arg0, arg1, arg2, arg3|
-	raise 'Unimplemented Step'
-end
 
-step 'Add new Job' do ||
-pipeline_creation_wizard.add_new_job.click
-end
 
-step 'Add task <task> - Already on Add New Job popup' do |task|
-	pipeline_creation_wizard.add_new_task(task)
-end
 
-step 'Set job name as <job> - Already on Add New Job popup' do |job|
-	pipeline_creation_wizard.job_name_on_popup.set job
-end
-
-step 'Set command as <command> - Already on Add New Job popup' do |command|
-	pipeline_creation_wizard.command_on_popup.set command
-end
-
-step 'Set resources as <windows> - Already on Add New Job popup' do |resource|
-	pipeline_creation_wizard.resources_on_popup.set resource
-end
-
-step 'Set url <url> for material  <material>' do |url,material|
-	pipeline_creation_wizard.set_material_url_for(material, new_pipeline_dashboard_page.sanitize_message(url))
-end	
-
-step 'Set url <url> for material' do |url|
-	pipeline_creation_wizard.material_url.set(url)
-end
-
-step 'Enter project path as <path>' do |path|
-	pipeline_creation_wizard.project_path.set(path)
-end
 
 step 'Verify the stages are <stages>' do |stages|
-	pipeline_stages=pipeline_creation_wizard.get_pipeline_stages()
-	stages.split(',').each{|stage|
-		assert_true pipeline_stages.include?stage
-	}
+  pipeline_stages = pipeline_creation_wizard.get_pipeline_stages
+  stages.split(',').each do |stage|
+    assert_true pipeline_stages.include? stage
+  end
 end
 
-step 'Verify <stage> has <type> trigger option with <jobs> jobs' do |stage,type,jobs|
-   assert_true pipeline_creation_wizard.stage_has_approval_type?stage,type
-   assert_true pipeline_creation_wizard.stage_has_jobs?stage,jobs
+step 'Verify <stage> has <type> trigger option with <jobs> jobs' do |stage, type, jobs|
+  assert_true pipeline_creation_wizard.stage_has_approval_type? stage, type
+  assert_true pipeline_creation_wizard.stage_has_jobs? stage, jobs
 end
 
-step 'Verify cannot move <stage> to <direction>' do |stage,direction|
-	assert_false pipeline_creation_wizard.can_move_stage?stage,direction
-end
 
-step 'Move stage <stage> to <direction>' do |stage,direction|
-	pipeline_creation_wizard.move_stage stage,direction
-end
 
-step 'Verify reset button exists' do ||
-	assert_true pipeline_creation_wizard.verify_reset_button_exist?
+
+
+step 'Verify reset button exists' do
+  assert_true pipeline_creation_wizard.verify_reset_button_exist?
 end
 
 step 'Open tab <tab> - On Pipeline Creation Page' do |tab|
-	pipeline_creation_wizard.open_tab(tab)
+  pipeline_creation_wizard.open_tab(tab)
 end
 
-step 'Select tracking tool as <tool>' do |tool|
-pipeline_creation_wizard.select_tracking_tool tool
-end
-
-step 'Set mingle URL as <url>' do |url|
-	pipeline_creation_wizard.mingle_URL.set url
-end
-
-step 'Set mingle project identifier as <identifier>' do |identifier|
-	pipeline_creation_wizard.mingle_identifier.set identifier
-end
-
-step 'Set MQA grouping conditions as <mqa>' do |mqa|
-	pipeline_creation_wizard.mingle_mqa.set  mqa
-end
-
-step 'Add new stage' do ||
-pipeline_creation_wizard.add_new_stage.click
+step 'Add new stage' do
+  pipeline_creation_wizard.add_new_stage.click
 end
 
 step 'Set stage as <stage> - On Add new stage pop up' do |stage|
-	pipeline_creation_wizard.stage_on_popup.set stage
+  pipeline_creation_wizard.stage_on_popup.set stage
 end
 
 step 'Set job name as <job1> - on Job popup' do |job|
-	pipeline_creation_wizard.job_name_popup.set job
+  pipeline_creation_wizard.job_name_popup.set job
 end
 
 step 'Set command as <command> - On Job popup' do |command|
-	pipeline_creation_wizard.command_on_stage_popup.set command
+  pipeline_creation_wizard.command_on_stage_popup.set command
 end
 
 step 'Open stage <stage>' do |stage|
-	pipeline_creation_wizard.select_stage stage
+  pipeline_creation_wizard.select_stage stage
 end
 
-
-step 'Set branch as <branch> for material <material_type>' do |branch,material_type|
-	pipeline_creation_wizard.set_branch(branch,material_type)
+step 'Set branch as <branch> for material <material_type>' do |branch, material_type|
+  pipeline_creation_wizard.set_branch(branch, material_type)
 end
 
-step 'Unpause pipeline - On pipeline creation page' do ||
-	pipeline_creation_wizard.unpause_pipeline
+step 'Unpause pipeline - On pipeline creation page' do
+  pipeline_creation_wizard.unpause_pipeline
 end
 
 step 'Select stage type as <type>' do |type|
-	pipeline_creation_wizard.select_approval_type type
+  pipeline_creation_wizard.select_approval_type type
 end
 
-step 'Check connectivity should be successful' do ||
-	pipeline_creation_wizard.check_connection.click
-	assert_true  pipeline_creation_wizard.connection_ok?
+step 'Check connectivity should be successful' do
+  pipeline_creation_wizard.check_connection.click
+  assert_true pipeline_creation_wizard.connection_ok?
 end
 
 step 'Set exec command as <command>' do |command|
-	pipeline_creation_wizard.exec_tas_command.set command
+  pipeline_creation_wizard.exec_tas_command.set command
 end
 
 step 'Set <material_type> username as <username>' do |material_type, username|
-	pipeline_creation_wizard.set_username(material_type,username)
+  pipeline_creation_wizard.set_username(material_type, username)
 end
 
-step 'Set <material_type> password as <password>' do |material_type,password|
-	pipeline_creation_wizard.set_password(material_type,new_pipeline_dashboard_page.sanitize_message(password))
+step 'Set <material_type> password as <password>' do |material_type, password|
+  pipeline_creation_wizard.set_password(material_type, new_pipeline_dashboard_page.sanitize_message(password))
 end
 
 step 'Turn off Poll for new changes for <material_type> material' do |material_type|
-	pipeline_creation_wizard.set_polling_off material_type
+  pipeline_creation_wizard.set_polling_off material_type
 end
 
 step 'Check connectivity should be failed with message <error_message> for <material_type>' do |error_message, material_type|
-	pipeline_creation_wizard.check_connection.click
-	pipeline_creation_wizard.git_error_message_present?(error_message,material_type)
+  pipeline_creation_wizard.check_connection.click
+  pipeline_creation_wizard.git_error_message_present?(error_message, material_type)
 end

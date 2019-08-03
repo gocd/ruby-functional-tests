@@ -15,43 +15,74 @@
 ##########################################################################
 
 module Pages
-  class PipelineCreationWizard < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipeline/create{?group*}"
+  class EditPipelineWizard < AppBase
 
-    # Pipeline name and group
-    element :new_pipeline_name, "[data-test-id='form-field-input-pipeline-name']"
-    element :reset_button, '.reset_button'
 
     # pipeline materials
-    element :material_type, "[data-test-id='form-field-input-material-type']"
-    element :upstream_pipeline, "[data-test-id='form-field-input-upstream-pipeline']"
-    element :upstream_stage, "[data-test-id='form-field-input-upstream-stage']]"
-    element :material_url, "[data-test-id='form-field-input-repository-url']"
-    element :project_path, "[data-test-id='form-field-input-project-path']"
-    element :check_connection, "[data-test-id='test-connection-button']"
+    element :material_type, '#material_type_options'
+    element :pipeline_material, '#material_pipelineStageName'
+    element :next_to_materials, '#next_to_materials'
+    element :material_url, "input[name='material[url]']"
+    
+    element :check_connection, "button[value='CHECK CONNECTION']"
 
     # Stage details
-    element :stage_name, "[data-test-id='form-field-input-stage-name']"
-    element :auto_trigger_switch, "[data-test-id='switch-paddle']"
+    element :stage_name, "input[name='pipeline_group[pipeline][stage][name]']"
+    element :trigger_type_auto, '#auto'
+    element :trigger_type_manual, '#manual'
+    element :add_new_job, 'a.add_link'
+    element :add_new_stage, 'a.add_link'
+    element :stage_on_popup, "input[name='stage[name]']"
 
     #jobs
-    element :job_name, "[data-test-id='form-field-input-job-name']"
-    element :task_command, "[data-test-id='form-field-label-type-your-tasks-below-at-the-prompt'] > code > pre"
+    element :job_name, "input[name='pipeline_group[pipeline][stage][jobs][][name]']"
+    element :task_type, '#job_task_options'
+    element :finish, "button[value='Finish']"
 
+
+
+
+
+    ##task-details
+    element :exec_tas_command, '.exec-task-command'
 
     def set_task_field(task_name, field, value)
       page.find("#pipeline_group_pipeline_stage_jobs__tasks_#{task_name}_#{field}").set value
     end
 
+    def add_new_task(task)
+      page.find('#job_task_options').find(:option, task).select_option
+    end
 
-
-    def set_material_url_for(material, url)
-      material_url.set(url)
+    def get_pipeline_stages()
+      stages=[]
+      page.all('a.stage_name_link').each{|stage|
+        stages.push(stage.text)}
+      stages
     end
 
 
 
+    def verify_reset_button_exist?
+       page.has_css?('.reset_button')
+    end
 
+    def open_tab(tab)
+      page.find('a',text:tab).click
+    end
+
+    def select_tracking_tool tool
+      page.find("input[title='#{tool.capitalize}']").click
+    end
+
+    def select_stage stage
+      page.find('.stage_name_link',text:stage).click
+    end
+
+
+    def unpause_pipeline
+      page.find("button[title='Unpause']").click
+    end
 
     def select_approval_type type
       page.find("#{type}").click
@@ -62,7 +93,7 @@ module Pages
     end
 
     def set_polling_off (material_type)
-      auto_trigger_switch.click
+      page.find("#pipeline_group_pipeline_materials_#{material_type}Material_autoUpdate").click
     end
 
     def git_error_message_present?(error_message,material_type)

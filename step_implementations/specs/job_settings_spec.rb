@@ -273,3 +273,23 @@ end
 step 'Uncheck source is a file option' do ||
   job_settings_page.toggle_source_file_option
 end
+
+step 'Add new Job' do
+  pipeline_creation_wizard.add_new_job.click
+end
+
+step 'Add task <task> - Already on Add New Job popup' do |task|
+  pipeline_creation_wizard.add_new_task(task)
+end
+
+step 'Set job name as <job> - Already on Add New Job popup' do |job|
+  pipeline_creation_wizard.job_name_on_popup.set job
+end
+
+step 'Set command as <command> - Already on Add New Job popup' do |command|
+  pipeline_creation_wizard.command_on_popup.set command
+end
+
+step 'Set resources as <windows> - Already on Add New Job popup' do |resource|
+  pipeline_creation_wizard.resources_on_popup.set resource
+end

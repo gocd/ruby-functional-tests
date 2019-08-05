@@ -63,9 +63,7 @@ step 'Verify reset button exists' do
   assert_true pipeline_creation_wizard.verify_reset_button_exist?
 end
 
-step 'Open tab <tab> - On Pipeline Creation Page' do |tab|
-  pipeline_creation_wizard.open_tab(tab)
-end
+
 
 step 'Add new stage' do
   pipeline_creation_wizard.add_new_stage.click

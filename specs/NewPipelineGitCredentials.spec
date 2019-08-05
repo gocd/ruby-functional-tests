@@ -21,11 +21,10 @@ tags: create pipeline,git credentials
 * Check connectivity should be successful
 
 * Set stage name as "defaultStage"
+* Set task as "ls"
 * Set job name as "defaultJob"
-* Select task type as "More..."
-* Set exec command as "ls"
 * Save pipeline "git-cred-url" successfully
-* Verify "Pipeline successfully created." message is displayed
+ Verify "Pipeline successfully created." message is displayed
 * Looking at pipeline "git-cred-url" - On Swift Dashboard page
 * Unpause pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
@@ -43,11 +42,10 @@ tags: create pipeline,git credentials
 * Check connectivity should be successful
 
 * Set stage name as "defaultStage"
+* Set task as "ls"
 * Set job name as "defaultJob"
-* Select task type as "More..."
-* Set exec command as "ls"
 * Save pipeline "git-cred-attr" successfully
-* Verify "Pipeline successfully created." message is displayed
+ Verify "Pipeline successfully created." message is displayed
 * Looking at pipeline "git-cred-attr" - On Swift Dashboard page
 * Unpause pipeline - On Swift Dashboard page
 * Verify pipeline does not get triggered

@@ -162,3 +162,7 @@ end
 step 'Open stage <stage>' do |stage|
   pipeline_settings_page.select_stage stage
 end
+
+step 'Unpause pipeline - On pipeline edit page' do
+  pipeline_settings_page.unpause_pipeline
+end

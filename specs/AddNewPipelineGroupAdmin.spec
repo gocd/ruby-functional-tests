@@ -22,14 +22,11 @@ make sure group admins don't see autocomplete for group
 * Set url "http://git.url" for material  "git"
 * Set branch as "some_branch" for material "git"
 * Set stage name as "some_stage"
+* Set task as "rake wait_for_stopjob_file"
 * Set job name as "some_job"
-* Select task type as "Rake"
-* Set task as "rake" "buildFile" name "Rakefile"
-* Set task as "rake" "target" name "wait_for_stopjob_file"
-* Set task as "rake" "workingDirectory" name "src"
 * Save pipeline "some_pipeline_name" successfully
 
-* Verify "Pipeline successfully created." message is displayed
+ Verify "Pipeline successfully created." message is displayed
 
 * On Admin page
 * Open "Pipelines" tab

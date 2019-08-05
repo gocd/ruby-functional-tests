@@ -20,9 +20,6 @@ tags: Parameters_subsitution, wip
 * Set stage name as "stage_for_rake_target"
 * Mark stage manual - On new pipeline wizard
 * Set job name as "job_for_rake_target"
-* Select task type as "Rake"
-* Set task as "rake" "buildFile" name "Rakefile"
-* Set task as "rake" "target" name "wait_for_stopjob_file"
 * Save pipeline "child_pipeline" successfully
 
 * Verify pipeline created successfully
@@ -46,10 +43,6 @@ tags: Parameters_subsitution, wip
 * Add parameter name "subversion_user_name" and value "first_user"
 * Add parameter name "subversion_password" and value "password"
 * Add parameter name "subversion_destination_directory" and value "svn"
-* Enter material url for parameter "19" name "hg_material_url" and material name "hg" associated with pipeline "parent_pipeline"
-* Add parameter name "hg_destination_directory" and value "hg"
-* Enter material url for parameter "21" name "git_material_url" and material name "git" associated with pipeline "parent_pipeline"
-* Add parameter name "git_destination_directory" and value "git"
 * Add parameter name "value_to_be_used_by_env_variable" and value "substituted value"
 * Save Pipeline settings
  Verify saved successfully

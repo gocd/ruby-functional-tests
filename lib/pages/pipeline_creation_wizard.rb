@@ -16,7 +16,7 @@
 
 module Pages
   class PipelineCreationWizard < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipeline/create{?group*}"
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines/create{?group*}"
 
     # Pipeline name and group
     element :new_pipeline_name, "[data-test-id='form-field-input-pipeline-name']"
@@ -46,7 +46,7 @@ module Pages
     element :exec_tas_command, '.exec-task-command'
 
     def set_task_field(task_with_args)
-      task_command.set task_with_args
+      page.find("[data-test-id='form-field-label-type-your-tasks-below-at-the-prompt']").sibling('code').find('pre').set task_with_args
     end
 
     def set_material_url(url)
@@ -54,6 +54,7 @@ module Pages
     end
 
     def select_approval_type(_type)
+      page.all('dt', text: 'Advanced Settings')[2].click
       auto_trigger_switch.click
     end
 
@@ -78,11 +79,12 @@ module Pages
     end
 
     def set_branch(branch)
+      page.all('dt', text: 'Advanced Settings').first.click
       material_branch.set branch
     end
 
     def save_and_edit
-      page.find('button', text: 'Save + Edit Full Config').click
+      page.find('button', text: 'Save + Edit Full Config', wait: 10).click
     end
 
     def save_and_run

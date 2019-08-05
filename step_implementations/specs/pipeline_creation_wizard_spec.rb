@@ -23,7 +23,7 @@ step 'Enter new pipeline name as <name>' do |name|
 end
 
 step 'Select material type as <type>' do |type|
-  pipeline_creation_wizard.select type
+  pipeline_creation_wizard.material_type.select type
 end
 
 step 'Set url <url> for material  <material>' do |url, material|
@@ -44,10 +44,6 @@ end
 
 step 'Set job name as <job_name>' do |job_name|
   pipeline_creation_wizard.job_name.set job_name
-end
-
-step 'Select task type as <task_type>' do |task_type|
-  pipeline_creation_wizard.task_type.select task_type
 end
 
 step 'Set task as <task_with_args>' do |task_with_args|
@@ -91,9 +87,7 @@ step 'Set branch as <branch> for material <material_type>' do |branch, material_
   pipeline_creation_wizard.set_branch(branch)
 end
 
-step 'Unpause pipeline - On pipeline creation page' do
-  pipeline_creation_wizard.unpause_pipeline
-end
+
 
 step 'Select stage type as <type>' do |type|
   pipeline_creation_wizard.select_approval_type type

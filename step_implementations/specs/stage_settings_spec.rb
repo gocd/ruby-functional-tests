@@ -121,3 +121,7 @@ end
 step 'Set resources as <windows> - Already on Add New Job popup' do |resource|
   stage_settings_page.resources_on_popup.set resource
 end
+
+step 'Mark stage manual - On new pipeline wizard' do
+  stage_settings_page.trigger_type_manual.click
+end

@@ -166,3 +166,7 @@ end
 step 'Unpause pipeline - On pipeline edit page' do
   pipeline_settings_page.unpause_pipeline
 end
+
+step 'Set url <url> for material <material> - On material popup' do |url, material|
+  pipeline_settings_page.set_material_url new_pipeline_dashboard_page.sanitize_message(url)
+end

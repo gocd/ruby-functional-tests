@@ -21,7 +21,7 @@ module Pages
     element :message, '#success'
     element :add_variables, '#add_variables'
     element :save, "button[value='SAVE']"
-    element :material_url_field, '.url'
+    element :material_url_field, "input[name='material[url]']"
     element :material_dest_directory, "input[name='material[folder]']"
     element :check_connection, "button[value='CHECK CONNECTION']"
     element :cron_timer, 'input#pipeline_timer_timerSpec'

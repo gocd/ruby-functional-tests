@@ -15,7 +15,7 @@ tags:pipeline group
 
 * On Admin page
 
-* Verify groups "group_name_to_be_changed,group2,groupWithStageSecurity" are visible - on Admin Pipelines tab 
+* Verify groups "group_name_to_be_changed,group2,groupWithStageSecurity" are visible - on Admin Pipelines tab
 * Verify "group_name_to_be_changed" has pipelines "pipeline1,pipeline4"
 * Verify "group2" has pipelines "pipeline2,pipeline-down"
 * Verify "group4" has pipelines "pipeline5"
@@ -28,10 +28,11 @@ tags:pipeline group
 * Verify "group4" has message "No pipelines associated with this group"
 * Click to create a new pipeline to group "groupWithStageSecurity"
 * Enter new pipeline name as "new-pipeline"
-* Go next from settings
 * Select material type as "Git"
 * Set url "http://git.url" for material  "git"
-* Go next from materials
+* Set stage name as "defaultStage"
+* Set task as "rake wait_for_stopjob_file"
+* Set job name as "defaultJob"
 * Save pipeline "new-pipeline" successfully
 
 * On Admin page
@@ -45,8 +46,8 @@ Verify Edit button
 * On Admin page
 
 
-* Verify groups "group_name_to_be_changed" are visible - on Admin Pipelines tab 
-* Verify groups "group2,groupWithStageSecurity" are not visible - on Admin Pipelines tab 
+* Verify groups "group_name_to_be_changed" are visible - on Admin Pipelines tab
+* Verify groups "group2,groupWithStageSecurity" are not visible - on Admin Pipelines tab
 * Verify that move button is not present for "pipeline1"
 
 
@@ -69,5 +70,3 @@ Teardown of contexts
 ____________________
 * Capture go state "EditPipelineGroups" - teardown
 * Logout - from any page
-
-

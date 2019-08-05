@@ -9,18 +9,16 @@ Setup of contexts
 NewPipelineHgCredentials
 -----------------------------
 
-tags: create pipeline,hg credentials 
+tags: create pipeline,hg credentials
 
 
 * Start add new pipeline in pipeline group "basic"
 * Enter new pipeline name as "hg-cred-url"
 
-* Go next from settings
 * Select material type as "Mercurial"
 * Set url "https://gocd_qa:$BITBUCKET_PASSWORD$@bitbucket.org/gocd_qa/hg-functional-tests" for material  "hg"
 * Set branch as "default" for material "hg"
 * Check connectivity should be successful
-* Go next from materials
 
 * Set stage name as "defaultStage"
 * Set job name as "defaultJob"
@@ -36,7 +34,6 @@ tags: create pipeline,hg credentials
 * Start add new pipeline in pipeline group "basic"
 * Enter new pipeline name as "hg-cred-attr"
 
-* Go next from settings
 * Select material type as "Mercurial"
 * Set url "https://bitbucket.org/gocd_qa/hg-functional-tests" for material  "hg"
 * Set "hg" username as "gocd_qa"
@@ -44,7 +41,6 @@ tags: create pipeline,hg credentials
 * Set branch as "default" for material "hg"
 * Turn off Poll for new changes for "Hg" material
 * Check connectivity should be successful
-* Go next from materials
 
 * Set stage name as "defaultStage"
 * Set job name as "defaultJob"
@@ -55,12 +51,11 @@ tags: create pipeline,hg credentials
 * Looking at pipeline "hg-cred-attr" - On Swift Dashboard page
 * Unpause pipeline - On Swift Dashboard page
 * Verify pipeline does not get triggered
-* Trigger and wait for stage "defaultStage" is "Passed" with label "1" - On Swift Dashboard page 
+* Trigger and wait for stage "defaultStage" is "Passed" with label "1" - On Swift Dashboard page
 
 * Start add new pipeline in pipeline group "basic"
 * Enter new pipeline name as "hg-ambiguous-attr"
 
-* Go next from settings
 * Select material type as "Mercurial"
 * Set url "https://foo:bar@hg-functional-tests" for material  "hg"
 * Set "hg" username as "foo"
@@ -71,7 +66,6 @@ tags: create pipeline,hg credentials
 * Start add new pipeline in pipeline group "basic"
 * Enter new pipeline name as "hg-ambiguous-attr"
 
-* Go next from settings
 * Select material type as "Mercurial"
 * Set url "https://foo:bar@hg-functional-testssoo##default" for material  "hg"
 * Set branch as "default" for material "hg"

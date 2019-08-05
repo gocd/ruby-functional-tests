@@ -22,13 +22,19 @@ module Pages
     element :add_variables, '#add_variables'
     element :save, "button[value='SAVE']"
     element :material_url_field, '.url'
-    element :material_dest_directory,"input[name='material[folder]']"
+    element :material_dest_directory, "input[name='material[folder]']"
     element :check_connection, "button[value='CHECK CONNECTION']"
-    element :cron_timer, "input#pipeline_timer_timerSpec"
-    element :label_template, "input#pipeline_labelTemplate"
+    element :cron_timer, 'input#pipeline_timer_timerSpec'
+    element :label_template, 'input#pipeline_labelTemplate'
     element :material_name, "input[name='material[materialName]']"
     element :stage_name, "input[name='material[pipelineStageName]']"
-    element :pipeline_locking, "#pipeline_lockBehavior_lockonfailure"
+    element :pipeline_locking, '#pipeline_lockBehavior_lockonfailure'
+    element :project_path, "input[name='material[projectPath]']"
+
+    # mingle project management
+    element :mingle_URL, '#pipeline_mingleConfig_baseUrl'
+    element :mingle_identifier, '#pipeline_mingleConfig_projectIdentifier'
+    element :mingle_mqa, '#pipeline_mingleConfig_mqlCriteria_mql'
 
     def message_displayed?(message)
       page.has_css?('.success', text: message, exact_text: true)
@@ -36,6 +42,14 @@ module Pages
 
     def partial_message_displayed?(message)
       page.find('.success').text.include?(message)
+    end
+
+    def get_pipeline_stages
+      stages = []
+      page.all('a.stage_name_link').each do |stage|
+        stages.push(stage.text)
+      end
+      stages
     end
 
     def add_parameter(name, value)
@@ -83,22 +97,22 @@ module Pages
     end
 
     def only_on_changes_checkbox_disabled?
-      page.find("input#pipeline_timer_onlyOnChanges").disabled?
+      page.find('input#pipeline_timer_onlyOnChanges').disabled?
     end
 
     def set_only_on_changes_checkbox
-      page.find("input#pipeline_timer_onlyOnChanges", wait: 10).set(true)
+      page.find('input#pipeline_timer_onlyOnChanges', wait: 10).set(true)
     end
 
-    def url_exist_for_material? material,url
-      page.find('td a', text:material).ancestor('tr').has_css?('td',text:url)
+    def url_exist_for_material?(material, url)
+      page.find('td a', text: material).ancestor('tr').has_css?('td', text: url)
     end
 
-    def can_material_be_deleted?material
+    def can_material_be_deleted?(material)
       page.find("tbody tr:nth-child(#{page.find('.material_name', text: material, exact_text: true).ancestor('tr').path[-2].to_i})").has_css?('span.delete_parent')
     end
 
-    def make_material_auto_update flag
+    def make_material_auto_update(flag)
       page.find('#material_autoUpdate').set(flag)
     end
 
@@ -108,6 +122,22 @@ module Pages
 
     def clean_work_dir
       page.find('#stage_cleanWorkingDir').set(true)
+    end
+
+    def can_move_stage?(stage, direction)
+      page.find(".stage_#{stage}").has_css?(".promote_#{direction}")
+    end
+
+    def move_stage(stage, direction)
+      page.find(".stage_#{stage}").find("button[title='Move #{direction.capitalize}']").click
+    end
+
+    def select_tracking_tool(tool)
+      page.find("input[title='#{tool.capitalize}']").click
+    end
+
+    def select_stage(stage)
+      page.find('.stage_name_link', text: stage).click
     end
 
   end

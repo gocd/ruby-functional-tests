@@ -39,10 +39,12 @@ tags: Clicky admin
 * Open "Materials" tab - On Pipeline settings page
 * Edit material "git"
 
-* Set url "#{url}" for material  "git"
-* Check connectivity should be successful - Already on Git Material Creation Popup
-* Set url "foo" for material  "git"
+* Set url "foo" for material "git" - On material popup
 * Check connectivity should be failed - Already on Git Material Creation Popup
+
+* Set url "#{url}" for material "git" - On material popup
+* Check connectivity should be successful - Already on Git Material Creation Popup
+
 
 
 Teardown of contexts

@@ -30,6 +30,9 @@ module Pages
     element :job_name_popup, "input[name='stage[jobs][][name]']"
     element :command_on_stage_popup, "input[name='stage[jobs][][tasks][exec][command]']"
 
+    element :trigger_type_auto, '#auto'
+    element :trigger_type_manual, '#manual'
+
     def job_resources(job)
       page.find('td a', text: job).ancestor('tr').find('td:nth-child(2)').text
     end

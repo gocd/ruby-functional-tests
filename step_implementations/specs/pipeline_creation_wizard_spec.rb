@@ -38,10 +38,6 @@ step 'Set stage name as <stage_name>' do |stage_name|
   pipeline_creation_wizard.stage_name.set stage_name
 end
 
-step 'Mark stage manual - On new pipeline wizard' do
-  pipeline_creation_wizard.trigger_type_manual.click
-end
-
 step 'Set job name as <job_name>' do |job_name|
   pipeline_creation_wizard.job_name.set job_name
 end
@@ -61,10 +57,6 @@ end
 
 step 'Verify reset button exists' do
   assert_true pipeline_creation_wizard.verify_reset_button_exist?
-end
-
-step 'Open tab <tab> - On Pipeline Creation Page' do |tab|
-  pipeline_creation_wizard.open_tab(tab)
 end
 
 step 'Add new stage' do

@@ -170,3 +170,7 @@ end
 step 'Set url <url> for material <material> - On material popup' do |url, material|
   pipeline_settings_page.set_material_url new_pipeline_dashboard_page.sanitize_message(url)
 end
+
+step 'Open tab <tab> - On Pipeline Creation Page' do |tab|
+  pipeline_settings_page.open_tab(tab)
+end

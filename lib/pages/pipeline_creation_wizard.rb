@@ -59,7 +59,7 @@ module Pages
     end
 
     def connection_ok?
-      page.has_css?('.ok_message')
+      page.has_css?("[data-test-id='flash-message-success']")
     end
 
     def set_polling_off(_material_type)

@@ -79,7 +79,6 @@ module Pages
     end
 
     def set_branch(branch)
-      page.all('dt', text: 'Advanced Settings').first.click
       material_branch.set branch
     end
 

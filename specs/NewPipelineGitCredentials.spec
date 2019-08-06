@@ -40,7 +40,9 @@ tags: create pipeline,git credentials
 * Set "git" username as "gocd_qa"
 * Set "git" password as "$BITBUCKET_PASSWORD$"
 * Set branch as "master" for material "git"
-* Turn off Poll for new changes for "Git" material
+Removing the below step for polling of new changes - This option is removed from the new pipeline creation wizard
+To bring it back after discussion and decide to provide the option on creation wizard
+ Turn off Poll for new changes for "Git" material
 * Check connectivity should be successful
 
 * Set stage name as "defaultStage"
@@ -50,8 +52,8 @@ tags: create pipeline,git credentials
  Verify "Pipeline successfully created." message is displayed
 * Looking at pipeline "git-cred-attr" - On Swift Dashboard page
 * Unpause pipeline - On Swift Dashboard page
-* Verify pipeline does not get triggered
-* Trigger and wait for stage "defaultStage" is "Passed" with label "1" - On Swift Dashboard page
+* Wait for "180" seconds till pipeline completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "passed" - On Swift Dashboard page
 
 * Start add new pipeline in pipeline group "basic"
 * Enter new pipeline name as "git-ambiguous-attr"

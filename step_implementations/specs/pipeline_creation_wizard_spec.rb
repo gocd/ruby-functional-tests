@@ -94,6 +94,6 @@ step 'Turn off Poll for new changes for <material_type> material' do |material_t
 end
 
 step 'Check connectivity should be failed with message <error_message> for <material_type>' do |error_message, material_type|
-  pipeline_creation_wizard.check_connection.click
+  pipeline_creation_wizard.check_connection(wait: 10).click
   pipeline_creation_wizard.git_error_message_present?(error_message, material_type)
 end

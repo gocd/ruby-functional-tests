@@ -17,6 +17,7 @@ tags: pipeline,pause_pipeline
 
 * Select material type as "Git"
 * Set url "http://git.url" for material  "git"
+* Open Materials advanced settings
 * Set branch as "some_branch" for material "git"
 
 * Enter new pipeline name as "newpipeline"

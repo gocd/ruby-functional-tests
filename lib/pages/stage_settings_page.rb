@@ -24,7 +24,9 @@ module Pages
 
     element :add_new, 'a.add_link'
 
-    element :job_name_on_popup, "input[name='stage[jobs][][name]']"
+    element :job_name_on_popup, '#job_name'
+    element :job_name_on_stage_popup, "input[name='stage[jobs][][name]']"
+
     element :command_on_popup, "input[name='job[tasks][exec][command]']"
     element :resources_on_popup, '#job_resources'
     element :job_name_popup, "input[name='stage[jobs][][name]']"

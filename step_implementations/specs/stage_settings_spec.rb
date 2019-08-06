@@ -139,6 +139,14 @@ step 'Set stage as <stage> - On Add new stage pop up' do |stage|
   stage_settings_page.stage_on_popup.set stage
 end
 
+step 'Add task <task> - Already on Add New stage popup' do |task|
+  stage_settings_page.add_new_task(task)
+end
+
 step 'Set command as <command> - Already on Add New stage popup' do |command|
   stage_settings_page.command_on_stage_popup.set command
+end
+
+step 'Set job name as <job> - Already on Add New stage popup' do |job|
+  stage_settings_page.job_name_on_stage_popup.set job
 end

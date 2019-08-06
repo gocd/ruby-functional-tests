@@ -17,6 +17,7 @@ tags: create pipeline,git credentials
 
 * Select material type as "Git"
 * Set url "https://gocd_qa:$BITBUCKET_PASSWORD$@bitbucket.org/gocd_qa/git-functional-tests.git" for material  "git"
+* Open Materials advanced settings
 * Set branch as "master" for material "git"
 * Check connectivity should be successful
 
@@ -35,6 +36,7 @@ tags: create pipeline,git credentials
 
 * Select material type as "Git"
 * Set url "https://bitbucket.org/gocd_qa/git-functional-tests.git" for material  "git"
+* Open Materials advanced settings
 * Set "git" username as "gocd_qa"
 * Set "git" password as "$BITBUCKET_PASSWORD$"
 * Set branch as "master" for material "git"
@@ -56,6 +58,7 @@ tags: create pipeline,git credentials
 
 * Select material type as "Git"
 * Set url "https://foo:bar@git-functional-tests.git" for material  "git"
+* Open Materials advanced settings
 * Set "git" username as "foo"
 * Set "git" password as "bar"
 * Set branch as "master" for material "git"

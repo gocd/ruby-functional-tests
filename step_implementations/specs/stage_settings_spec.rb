@@ -103,7 +103,7 @@ step 'Open tab <tab> - On Template Page' do |_tab|
 end
 
 step 'Add new Job' do
-  stage_settings_page.add_new_job.click
+  stage_settings_page.add_new.click
 end
 
 step 'Add task <task> - Already on Add New Job popup' do |task|
@@ -124,4 +124,21 @@ end
 
 step 'Mark stage manual - On new pipeline wizard' do
   stage_settings_page.trigger_type_manual.click
+end
+
+step 'Verify <stage> has <type> trigger option with <jobs> jobs' do |stage, type, jobs|
+  assert_true stage_settings_page.stage_has_approval_type? stage, type
+  assert_true stage_settings_page.stage_has_jobs? stage, jobs
+end
+
+step 'Add new stage' do
+  stage_settings_page.add_new.click
+end
+
+step 'Set stage as <stage> - On Add new stage pop up' do |stage|
+  stage_settings_page.stage_on_popup.set stage
+end
+
+step 'Set command as <command> - Already on Add New stage popup' do |command|
+  stage_settings_page.command_on_stage_popup.set command
 end

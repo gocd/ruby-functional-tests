@@ -174,3 +174,7 @@ end
 step 'Open tab <tab> - On Pipeline Creation Page' do |tab|
   pipeline_settings_page.open_tab(tab)
 end
+
+step 'Verify reset button exists' do
+  assert_true pipeline_settings_page.verify_reset_button_exist?
+end

@@ -50,23 +50,6 @@ step 'Save pipeline <arg0> successfully' do |_arg0|
   pipeline_creation_wizard.save_and_edit
 end
 
-step 'Verify <stage> has <type> trigger option with <jobs> jobs' do |stage, type, jobs|
-  assert_true pipeline_creation_wizard.stage_has_approval_type? stage, type
-  assert_true pipeline_creation_wizard.stage_has_jobs? stage, jobs
-end
-
-step 'Verify reset button exists' do
-  assert_true pipeline_creation_wizard.verify_reset_button_exist?
-end
-
-step 'Add new stage' do
-  pipeline_creation_wizard.add_new_stage.click
-end
-
-step 'Set stage as <stage> - On Add new stage pop up' do |stage|
-  pipeline_creation_wizard.stage_on_popup.set stage
-end
-
 step 'Set job name as <job1> - on Job popup' do |job|
   pipeline_creation_wizard.job_name_popup.set job
 end

@@ -83,6 +83,10 @@ module Pages
       material_branch.set branch
     end
 
+    def open_material_advanced_settings
+      page.all('dt', text: 'Advanced Settings').first.click
+    end
+
     def save_and_edit
       page.find('button', text: 'Save + Edit Full Config', wait: 10).click
     end

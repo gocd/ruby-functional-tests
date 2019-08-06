@@ -94,6 +94,10 @@ step 'Set exec command as <command>' do |command|
   pipeline_creation_wizard.exec_tas_command.set command
 end
 
+step 'Open Materials advanced settings' do ||
+  pipeline_creation_wizard.open_material_advanced_settings
+end
+
 step 'Set <material_type> username as <username>' do |material_type, username|
   pipeline_creation_wizard.set_username(username)
 end

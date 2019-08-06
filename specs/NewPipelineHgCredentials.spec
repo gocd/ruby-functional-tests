@@ -17,6 +17,7 @@ tags: create pipeline,hg credentials
 
 * Select material type as "Mercurial"
 * Set url "https://gocd_qa:$BITBUCKET_PASSWORD$@bitbucket.org/gocd_qa/hg-functional-tests" for material  "hg"
+* Open Materials advanced settings
 * Set branch as "default" for material "hg"
 * Check connectivity should be successful
 
@@ -35,6 +36,7 @@ tags: create pipeline,hg credentials
 
 * Select material type as "Mercurial"
 * Set url "https://bitbucket.org/gocd_qa/hg-functional-tests" for material  "hg"
+* Open Materials advanced settings
 * Set "hg" username as "gocd_qa"
 * Set "hg" password as "$BITBUCKET_PASSWORD$"
 * Set branch as "default" for material "hg"
@@ -56,6 +58,7 @@ tags: create pipeline,hg credentials
 
 * Select material type as "Mercurial"
 * Set url "https://foo:bar@hg-functional-tests" for material  "hg"
+* Open Materials advanced settings
 * Set "hg" username as "foo"
 * Set "hg" password as "bar"
 * Set branch as "default" for material "hg"
@@ -66,6 +69,7 @@ tags: create pipeline,hg credentials
 
 * Select material type as "Mercurial"
 * Set url "https://foo:bar@hg-functional-testssoo##default" for material  "hg"
+* Open Materials advanced settings
 * Set branch as "default" for material "hg"
 * Check connectivity should be failed with message "- url: Ambiguous branch, must be provided either in URL or as an attribute." for "hg"
 

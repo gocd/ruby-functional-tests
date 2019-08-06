@@ -40,7 +40,9 @@ tags: create pipeline,hg credentials
 * Set "hg" username as "gocd_qa"
 * Set "hg" password as "$BITBUCKET_PASSWORD$"
 * Set branch as "default" for material "hg"
-* Turn off Poll for new changes for "Hg" material
+Removing the below step for polling of new changes - This option is removed from the new pipeline creation wizard
+To bring it back after discussion and decide to provide the option on creation wizard
+  Turn off Poll for new changes for "Hg" material
 * Check connectivity should be successful
 
 * Set stage name as "defaultStage"
@@ -50,8 +52,8 @@ tags: create pipeline,hg credentials
  Verify "Pipeline successfully created." message is displayed
 * Looking at pipeline "hg-cred-attr" - On Swift Dashboard page
 * Unpause pipeline - On Swift Dashboard page
-* Verify pipeline does not get triggered
-* Trigger and wait for stage "defaultStage" is "Passed" with label "1" - On Swift Dashboard page
+* Wait for "180" seconds till pipeline completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "passed" - On Swift Dashboard page
 
 * Start add new pipeline in pipeline group "basic"
 * Enter new pipeline name as "hg-ambiguous-attr"

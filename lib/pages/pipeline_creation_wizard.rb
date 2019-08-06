@@ -67,7 +67,7 @@ module Pages
     end
 
     def git_error_message_present?(error_message, material_type)
-      page.find("#vcsconnection-message_#{material_type}").text.include? error_message
+      page.find("[data-test-id='flash-message-alert']").text.include? error_message
     end
 
     def set_username(username)
@@ -79,7 +79,7 @@ module Pages
     end
 
     def set_branch(branch)
-      material_branch.set branch
+      material_branch(wait: 10).set branch
     end
 
     def open_material_advanced_settings

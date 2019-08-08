@@ -18,12 +18,13 @@ require_relative '../../lib/representers/template.rb'
 require_relative '../../lib/helpers/go_url_helper.rb'
 
 TEMPLATE_API_VERSION = 'application/vnd.go.cd.v4+json'.freeze
+TEMPLATE_AUTH_API_VERSION = 'application/vnd.go.cd.v1+json'.freeze
 
 step 'Create template <template>' do |template|
   tmp = Representers::Template.new(name: template.to_s,
                                    stages: [Representers::Stage.new(name: 'Stage1',
-                                                      jobs: [Representers::Job.new(name: 'Job1',
-                                                                     tasks: [Representers::Task.new(name: 'Task1', attributes: Representers::Attributes.new)])])])
+                                                                    jobs: [Representers::Job.new(name: 'Job1',
+                                                                                                 tasks: [Representers::Task.new(name: 'Task1', attributes: Representers::Attributes.new)])])])
   begin
     response = RestClient.post http_url('/api/admin/templates'), Representers::TemplateRepresenter.new(tmp).to_json,
                                { content_type: :json, accept: TEMPLATE_API_VERSION }.merge(basic_configuration.header)
@@ -54,8 +55,8 @@ end
 step 'Update template <template>' do |template|
   tmp = Representers::Template.new(name: template.to_s,
                                    stages: [Representers::Stage.new(name: 'updated-stage-name',
-                                                      jobs: [Representers::Job.new(name: 'updated-job-name',
-                                                                     tasks: [Representers::Task.new(name: 'updated-task-name', attributes: Representers::Attributes.new)])])])
+                                                                    jobs: [Representers::Job.new(name: 'updated-job-name',
+                                                                                                 tasks: [Representers::Task.new(name: 'updated-task-name', attributes: Representers::Attributes.new)])])])
   begin
     response = RestClient.get http_url("/api/admin/templates/#{template}"), { accept: TEMPLATE_API_VERSION }.merge(basic_configuration.header)
     update_response = RestClient.put http_url("/api/admin/templates/#{template}"), Representers::TemplateRepresenter.new(tmp).to_json,
@@ -63,6 +64,35 @@ step 'Update template <template>' do |template|
     scenario_state.put 'api_response', update_response
   rescue RestClient::ExceptionWithResponse => err
     scenario_state.put 'api_response', err.response
+  end
+end
+
+step 'Get Template autorization for template <template_name>' do |template_name|
+  begin
+    response = RestClient.get http_url("/api/admin/templates/#{template_name}/authorization"), { accept: TEMPLATE_AUTH_API_VERSION }.merge(basic_configuration.header)
+    scenario_state.put 'api_response', response
+  rescue RestClient::ExceptionWithResponse => err
+    raise "Failed to get templatae authorization. Returned response code - #{err.response.code}"
+  end
+end
+
+step 'Update Template autorization for template <template_name> - Add user <user> as admin' do |template_name, user|
+  begin
+    temp_auth_response = scenario_state.get('api_response')
+    template_auth_body = JSON.parse(temp_auth_response.body)
+    template_auth_body['admin']['users'] << user
+    response = RestClient.put http_url("/api/admin/templates/#{template_name}/authorization"), template_auth_body.to_json,
+                              { content_type: :json, if_match: temp_auth_response.headers[:etag], accept: TEMPLATE_AUTH_API_VERSION }.merge(basic_configuration.header)
+    scenario_state.put 'api_response', response
+  rescue RestClient::ExceptionWithResponse => err
+    raise "Failed to get templatae authorization. Returned response code - #{err.response.code}"
+  end
+end
+
+step 'Verify users <users_list> are template admins' do |users_list|
+  temp_auth_response = JSON.parse(scenario_state.get('api_response').body)
+  users_list.split(',').collect(&:strip).each do |user|
+    assert_true temp_auth_response['admin']['users'].include? user
   end
 end
 

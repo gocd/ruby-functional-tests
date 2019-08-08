@@ -42,6 +42,12 @@ Setup of contexts
 * As user "admin"
 * Get all templates should return templates "T1,T2,Template-With-Admin"
 
+* Get Template autorization for template "Template-With-Admin"
+* Update Template autorization for template "Template-With-Admin" - Add user "user1" as admin
+
+* Get Template autorization for template "Template-With-Admin"
+* Verify users "templateadmin, user1" are template admins
+
 
 teardown
 _______________

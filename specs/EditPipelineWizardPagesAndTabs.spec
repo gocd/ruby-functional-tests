@@ -49,9 +49,9 @@ tags: Clicky Admin
 * Verify "defaultStage" has "Manual" trigger option with "1" jobs
 * Add new stage
 * Set stage as "defaultStage2" - On Add new stage pop up
-* Set job name as "job1" - on Job popup
-* Add task "More.." - Already on Add New Job popup
-* Set command as "ls" - On Job popup
+* Set job name as "job1" - Already on Add New stage popup
+* Add task "More.." - Already on Add New stage popup
+* Set command as "ls" - Already on Add New stage popup
 * Save Changes
 
 * Open tab "Stages" - On Pipeline Creation Page
@@ -64,6 +64,3 @@ tags: Clicky Admin
 Teardown of contexts
 ____________________
 * Capture go state "EditPipelineWizardPagesAndTabs" - teardown
-
-
-

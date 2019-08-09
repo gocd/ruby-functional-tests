@@ -68,7 +68,7 @@ module Pages
     end
 
     def triggered_by?(pipeline_name, label, user)
-      page.find('.pipeline-label', text: label).ancestor('.pipeline-name').find('.pipeline-info', text: /Triggered by/).text.equal? "Triggered by #{user}"
+      page.find('.pipeline-label', text: label).ancestor('.pipeline-name').all('.pipeline-info', text: /Triggered by/).first.text.equal? "Triggered by #{user}"
     end
 
     def pause_pipeline
@@ -105,7 +105,7 @@ module Pages
 
     def triggered_by_on_history_page? user
       page.find('.pipeline-label',text:"#{scenario_state.get('current_label')}").ancestor('.pipeline-name').has_css?('a',text:"Triggered by #{user}")
-    end 
+    end
 
   end
 end

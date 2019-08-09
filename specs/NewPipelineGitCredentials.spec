@@ -9,25 +9,23 @@ Setup of contexts
 NewPipelineGitCredentials
 -----------------------------
 
-tags: create pipeline,git credentials 
+tags: create pipeline,git credentials
 
 
 * Start add new pipeline in pipeline group "basic"
 * Enter new pipeline name as "git-cred-url"
 
-* Go next from settings
 * Select material type as "Git"
 * Set url "https://gocd_qa:$BITBUCKET_PASSWORD$@bitbucket.org/gocd_qa/git-functional-tests.git" for material  "git"
+* Open Materials advanced settings
 * Set branch as "master" for material "git"
 * Check connectivity should be successful
-* Go next from materials
 
 * Set stage name as "defaultStage"
+* Set task as "ls"
 * Set job name as "defaultJob"
-* Select task type as "More..."
-* Set exec command as "ls"
 * Save pipeline "git-cred-url" successfully
-* Verify "Pipeline successfully created." message is displayed
+ Verify "Pipeline successfully created." message is displayed
 * Looking at pipeline "git-cred-url" - On Swift Dashboard page
 * Unpause pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
@@ -36,33 +34,33 @@ tags: create pipeline,git credentials
 * Start add new pipeline in pipeline group "basic"
 * Enter new pipeline name as "git-cred-attr"
 
-* Go next from settings
 * Select material type as "Git"
 * Set url "https://bitbucket.org/gocd_qa/git-functional-tests.git" for material  "git"
+* Open Materials advanced settings
 * Set "git" username as "gocd_qa"
 * Set "git" password as "$BITBUCKET_PASSWORD$"
 * Set branch as "master" for material "git"
-* Turn off Poll for new changes for "Git" material
+Removing the below step for polling of new changes - This option is removed from the new pipeline creation wizard
+To bring it back after discussion and decide to provide the option on creation wizard
+ Turn off Poll for new changes for "Git" material
 * Check connectivity should be successful
-* Go next from materials
 
 * Set stage name as "defaultStage"
+* Set task as "ls"
 * Set job name as "defaultJob"
-* Select task type as "More..."
-* Set exec command as "ls"
 * Save pipeline "git-cred-attr" successfully
-* Verify "Pipeline successfully created." message is displayed
+ Verify "Pipeline successfully created." message is displayed
 * Looking at pipeline "git-cred-attr" - On Swift Dashboard page
 * Unpause pipeline - On Swift Dashboard page
-* Verify pipeline does not get triggered
-* Trigger and wait for stage "defaultStage" is "Passed" with label "1" - On Swift Dashboard page 
+* Wait for "180" seconds till pipeline completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "passed" - On Swift Dashboard page
 
 * Start add new pipeline in pipeline group "basic"
 * Enter new pipeline name as "git-ambiguous-attr"
 
-* Go next from settings
 * Select material type as "Git"
 * Set url "https://foo:bar@git-functional-tests.git" for material  "git"
+* Open Materials advanced settings
 * Set "git" username as "foo"
 * Set "git" password as "bar"
 * Set branch as "master" for material "git"

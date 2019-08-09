@@ -16,132 +16,82 @@
 
 module Pages
   class PipelineCreationWizard < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipeline/new{?group*}"
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines/create{?group*}"
 
     # Pipeline name and group
-    element :new_pipeline_name, '#pipeline_group_pipeline_name'
-    element :pipeline_group, '#pipeline_group_group'
-    element :next_to_settings, '#next_to_settings'
-    element :reset_button, '.reset_button'
+    element :new_pipeline_name, "[data-test-id='form-field-input-pipeline-name']"
 
     # pipeline materials
-    element :material_type, '#material_type_options'
-    element :pipeline_material, '#material_pipelineStageName'
-    element :next_to_materials, '#next_to_materials'
-    element :material_url, "input[name='material[url]']"
-    element :project_path,"input[name='material[projectPath]']"
-    element :check_connection, "button[value='CHECK CONNECTION']"
+    element :material_type, "[data-test-id='form-field-input-material-type']"
+    element :upstream_pipeline, "[data-test-id='form-field-input-upstream-pipeline']"
+    element :upstream_stage, "[data-test-id='form-field-input-upstream-stage']]"
+    element :material_url, "[data-test-id='form-field-input-repository-url']"
+    element :project_path, "[data-test-id='form-field-input-project-path']"
+    element :check_connection, "[data-test-id='test-connection-button']"
+    element :material_branch, "[data-test-id='form-field-input-repository-branch']"
+    element :material_username, "[data-test-id='form-field-input-username']"
+    element :material_password, "[data-test-id='form-field-input-password']"
+    element :material_checkout_path, "[data-test-id='form-field-input-alternate-checkout-path']"
+    element :material_name, "[data-test-id='form-field-input-material-name']"
 
     # Stage details
-    element :stage_name, "input[name='pipeline_group[pipeline][stage][name]']"
-    element :trigger_type_auto, '#auto'
-    element :trigger_type_manual, '#manual'
-    element :add_new_job, 'a.add_link'
-    element :add_new_stage, 'a.add_link'
-    element :stage_on_popup, "input[name='stage[name]']"
+    element :stage_name, "[data-test-id='form-field-input-stage-name']"
+    element :auto_trigger_switch, "[data-test-id='switch-paddle']"
 
-    #jobs
-    element :job_name, "input[name='pipeline_group[pipeline][stage][jobs][][name]']"
-    element :task_type, '#job_task_options'
-    element :finish, "button[value='Finish']"
-    element :job_name_on_popup, '#job_name'
-    element :command_on_popup, "input[name='job[tasks][exec][command]']"
-    element :resources_on_popup, '#job_resources'
-    element :job_name_popup, "input[name='stage[jobs][][name]']"
-    element :command_on_stage_popup, "input[name='stage[jobs][][tasks][exec][command]']"
+    # jobs
+    element :job_name, "[data-test-id='form-field-input-job-name']"
+    element :task_command, "[data-test-id='form-field-label-type-your-tasks-below-at-the-prompt'] > code > pre"
 
-    #mingle project management
-    element :mingle_URL, '#pipeline_mingleConfig_baseUrl'
-    element :mingle_identifier, '#pipeline_mingleConfig_projectIdentifier'
-    element :mingle_mqa, '#pipeline_mingleConfig_mqlCriteria_mql'
-
-
-    ##task-details
+    # #task-details
     element :exec_tas_command, '.exec-task-command'
 
-    def set_task_field(task_name, field, value)
-      page.find("#pipeline_group_pipeline_stage_jobs__tasks_#{task_name}_#{field}").set value
+    def set_task_field(task_with_args)
+      page.find("[data-test-id='form-field-label-type-your-tasks-below-at-the-prompt']").sibling('code').find('pre').set task_with_args
     end
 
-    def add_new_task(task)
-      page.find('#job_task_options').find(:option, task).select_option
+    def set_material_url(url)
+      material_url.set(url)
     end
 
-    def set_material_url_for(material, url)
-      page.find(".#{material}_url").set(url)
-    end
-
-    def get_pipeline_stages()
-      stages=[]
-      page.all('a.stage_name_link').each{|stage|
-        stages.push(stage.text)}
-      stages
-    end
-
-    def can_move_stage?stage,direction
-      page.find(".stage_#{stage}").has_css?(".promote_#{direction}")
-    end
-
-    def move_stage stage,direction
-      page.find(".stage_#{stage}").find("button[title='Move #{direction.capitalize}']").click
-    end
-
-    def stage_has_approval_type?stage,type
-      page.find(".stage_#{stage}").has_css?(".approval_type",text:type)
-    end
-
-    def stage_has_jobs?stage,jobs
-      page.find(".stage_#{stage}").has_css?(".number_of_jobs",text:jobs)
-    end
-
-    def verify_reset_button_exist?
-       page.has_css?('.reset_button')
-    end
-
-    def open_tab(tab)
-      page.find('a',text:tab).click
-    end
-
-    def select_tracking_tool tool
-      page.find("input[title='#{tool.capitalize}']").click
-    end
-
-    def select_stage stage
-      page.find('.stage_name_link',text:stage).click
-    end
-
-
-    def unpause_pipeline
-      page.find("button[title='Unpause']").click
-    end
-
-    def select_approval_type type
-      page.find("#{type}").click
+    def select_approval_type(_type)
+      page.all('dt', text: 'Advanced Settings')[2].click
+      auto_trigger_switch.click
     end
 
     def connection_ok?
-      page.has_css?('.ok_message')
+      page.has_css?("[data-test-id='flash-message-success']")
     end
 
-    def set_polling_off (material_type)
-      page.find("#pipeline_group_pipeline_materials_#{material_type}Material_autoUpdate").click
+    def set_polling_off(_material_type)
+      raise 'Needs implementation as new pipeline creation wizard misses this option'
     end
 
-    def git_error_message_present?(error_message,material_type)
-      page.find("#vcsconnection-message_#{material_type}").text.include? error_message
+    def git_error_message_present?(error_message, material_type)
+      page.find("[data-test-id='flash-message-alert']").text.include? error_message
     end
 
-    def set_username(material_type,username)
-      page.find(".#{material_type}_username").set username
+    def set_username(username)
+      material_username.set username
     end
 
-    def set_password(material_type,password)
-      page.find(".#{material_type}_password").set password
+    def set_password(password)
+      material_password.set password
     end
 
-    def set_branch(branch,material_type)
-      page.find(".#{material_type}_branch").set branch
+    def set_branch(branch)
+      material_branch(wait: 10).set branch
     end
 
+    def open_material_advanced_settings
+      page.all('dt', text: 'Advanced Settings').first.click
+    end
+
+    def save_and_edit
+      page.find('button', text: 'Save + Edit Full Config', wait: 10).click
+    end
+
+    def save_and_run
+      page.find('button', text: 'Save + Run This Pipeline').click
+    end
   end
 end

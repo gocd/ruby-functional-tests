@@ -34,6 +34,7 @@ tags:  automate
 * Logout and login as "admin"
 * Looking at pipeline "basic-pipeline-fast" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
+* Wait till pipeline completed - On Swift Dashboard page
 * Looking at pipeline "admin-pipeline-api" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page

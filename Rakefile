@@ -36,6 +36,14 @@ LOAD_BALANCED    = GO_JOB_RUN_COUNT && GO_JOB_RUN_INDEX
 DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
 USE_POSTGRESQL   = !ENV['USE_POSTGRESQL'].nil?
 
+AZ_SP_USERNAME           = ENV['AZ_SP_USERNAME']
+AZ_SP_PASSWORD           = ENV['AZ_SP_PASSWORD']
+AZ_TENANT_ID             = ENV['AZ_TENANT_ID']
+AZ_RESOURCE_GROUP        = ENV['AZ_RESOURCE_GROUP']
+AZ_STORAGE_ACCOUNT_NAME  = ENV['AZ_STORAGE_ACCOUNT_NAME'] || 'gocdsa'
+AZ_FILE_SHARE_NAME       = ENV['AZ_FILE_SHARE_NAME'] || 'gocdfs'
+
+
 DOCKER_EA_PLUGIN_RELEASE_URL                = ENV['DOCKER_EA_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/docker-elastic-agents/releases/latest'
 K8S_EA_PLUGIN_RELEASE_URL                   = ENV['K8S_EA_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd/kubernetes-elastic-agents/releases/latest'
 DOCKER_SWARM_EA_PLUGIN_RELEASE_URL          = ENV['DOCKER_SWARM_EA_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/docker-swarm-elastic-agents/releases/latest'
@@ -305,4 +313,14 @@ end
       provider.teardown
     end
   end
+end
+
+task :setup_azure_resources do
+  sh "az login --service-principal --username '#{AZ_SP_USERNAME}' --password '#{AZ_SP_PASSWORD}' --tenant '#{AZ_TENANT_ID}'"
+  sh "az group deployment create --name gocdstorageaccount --resource-group '#{AZ_RESOURCE_GROUP}' --template-file resources/template.json --parameters resources/parameters.json"
+  sh "current_env_conn_string=$(az storage account show-connection-string -n '#{AZ_STORAGE_ACCOUNT_NAME}' -g '#{AZ_RESOURCE_GROUP}' --query 'connectionString' -o tsv) &&
+    az storage share create --name '#{AZ_FILE_SHARE_NAME}' --quota 4096 --connection-string $current_env_conn_string > /dev/null"
+  sh "az_storage_account_key=$(az storage account keys list -g gocd-resource-group -n '#{AZ_STORAGE_ACCOUNT_NAME}' --query "[0].value" | xargs) &&
+  sudo mount -t cifs //https://gocdsa.file.core.windows.net/gocdfs  target -o vers=3.0,username=gocdsa,password=$az_storage_account_key,dir_mode=0777,file_mode=0777,serverino"
+
 end

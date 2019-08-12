@@ -39,9 +39,9 @@ USE_POSTGRESQL   = !ENV['USE_POSTGRESQL'].nil?
 AZ_SP_USERNAME           = ENV['AZ_SP_USERNAME']
 AZ_SP_PASSWORD           = ENV['AZ_SP_PASSWORD']
 AZ_TENANT_ID             = ENV['AZ_TENANT_ID']
-AZ_RESOURCE_GROUP        = ENV['AZ_RESOURCE_GROUP']
+AZ_RESOURCE_GROUP        = ENV['AZ_RESOURCE_GROUP'] || 'gocd-resource-group'
 AZ_STORAGE_ACCOUNT_NAME  = ENV['AZ_STORAGE_ACCOUNT_NAME'] || 'gocdsa'
-AZ_FILE_SHARE_NAME       = ENV['AZ_FILE_SHARE_NAME'] || 'gocdfs'
+AZ_FILE_SHARE_NAME       = ENV['AZ_FILE_SHARE_NAME'] || 'gocdfs'  
 
 
 DOCKER_EA_PLUGIN_RELEASE_URL                = ENV['DOCKER_EA_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/docker-elastic-agents/releases/latest'

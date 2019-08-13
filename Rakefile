@@ -320,6 +320,6 @@ task :setup_azure_resources do
   sh "az group deployment create --name gocdstorageaccount --resource-group #{AZ_RESOURCE_GROUP} --template-file resources/template.json --parameters resources/parameters.json"
   STORAGE_ACCOUNT_CONNECTION_STRING=`az storage account show-connection-string -n #{AZ_STORAGE_ACCOUNT_NAME} -g #{AZ_RESOURCE_GROUP} --query 'connectionString' -o tsv`
   sh "az storage share create --name #{AZ_FILE_SHARE_NAME} --quota 4096 --connection-string '#{STORAGE_ACCOUNT_CONNECTION_STRING}'"
-  STORAGE_ACCOUNT_KEY=`az storage account keys list -g gocd-resource-group -n #{AZ_STORAGE_ACCOUNT_NAME} --query "[0].value" | xargs`
-  sh "mount -t cifs //#{AZ_STORAGE_ACCOUNT_NAME}.file.core.windows.net/gocdfs  target -o vers=3.0,username=#{AZ_STORAGE_ACCOUNT_NAME},password=#{STORAGE_ACCOUNT_KEY},dir_mode=0777,file_mode=0777,serverino"
+  STORAGE_ACCOUNT_KEY=`az storage account keys list -g gocd-resource-group -n #{AZ_STORAGE_ACCOUNT_NAME} --query "[0].value"`
+  sh "mount -t cifs //#{AZ_STORAGE_ACCOUNT_NAME}.file.core.windows.net/gocdfs  target -o vers=3.0,dir_mode=0777,file_mode=0777,serverino,username=#{AZ_STORAGE_ACCOUNT_NAME},password=#{STORAGE_ACCOUNT_KEY}"
 end

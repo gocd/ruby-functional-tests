@@ -316,11 +316,10 @@ end
 end
 
 task :setup_azure_resources do
-  sh "az login --service-principal --username '#{AZ_SP_USERNAME}' --password '#{AZ_SP_PASSWORD}' --tenant '#{AZ_TENANT_ID}'"
-  sh "az group deployment create --name gocdstorageaccount --resource-group '#{AZ_RESOURCE_GROUP}' --template-file resources/template.json --parameters resources/parameters.json"
-  sh "current_env_conn_string=$(az storage account show-connection-string -n '#{AZ_STORAGE_ACCOUNT_NAME}' -g '#{AZ_RESOURCE_GROUP}' --query 'connectionString' -o tsv) &&
-    az storage share create --name '#{AZ_FILE_SHARE_NAME}' --quota 4096 --connection-string $current_env_conn_string > /dev/null"
-  sh "az_storage_account_key=$(az storage account keys list -g gocd-resource-group -n '#{AZ_STORAGE_ACCOUNT_NAME}' --query "[0].value" | xargs) &&
-  sudo mount -t cifs //https://gocdsa.file.core.windows.net/gocdfs  target -o vers=3.0,username=gocdsa,password=$az_storage_account_key,dir_mode=0777,file_mode=0777,serverino"
-
+  sh "az login --service-principal --username #{AZ_SP_USERNAME} --password #{AZ_SP_PASSWORD} --tenant #{AZ_TENANT_ID}"
+  sh "az group deployment create --name gocdstorageaccount --resource-group #{AZ_RESOURCE_GROUP} --template-file resources/template.json --parameters resources/parameters.json"
+  STORAGE_ACCOUNT_CONNECTION_STRING=`az storage account show-connection-string -n #{AZ_STORAGE_ACCOUNT_NAME} -g #{AZ_RESOURCE_GROUP} --query 'connectionString' -o tsv)`
+  sh "az storage share create --name #{AZ_FILE_SHARE_NAME} --quota 4096 --connection-string #{STORAGE_ACCOUNT_CONNECTION_STRING} > /dev/null"
+  STORAGE_ACCOUNT_KEY=`az_storage_account_key=$(az storage account keys list -g gocd-resource-group -n #{AZ_STORAGE_ACCOUNT_NAME} --query "[0].value" | xargs)`
+  sh "sudo mount -t cifs //https://gocdsa.file.core.windows.net/gocdfs  target -o vers=3.0,username=gocdsa,password=#{STORAGE_ACCOUNT_KEY},dir_mode=0777,file_mode=0777,serverino"
 end

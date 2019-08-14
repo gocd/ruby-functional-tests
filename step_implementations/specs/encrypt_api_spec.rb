@@ -16,7 +16,7 @@
 
 require_relative '../../lib/helpers/go_url_helper.rb'
 
-ENCRYPT_API_VERSION = 'application/vnd.go.cd.v1+json'.freeze
+ENCRYPT_API_VERSION = 'application/vnd.go.cd+json'.freeze
 
 step 'Encrypt value <value> and store encrypted value as <identifier>' do |value, identifier|
   begin

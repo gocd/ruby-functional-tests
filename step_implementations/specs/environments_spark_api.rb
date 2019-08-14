@@ -16,7 +16,7 @@
 
 require_relative '../../lib/helpers/go_url_helper.rb'
 
-ENVIRONMENT_API_VERSION = 'application/vnd.go.cd+json'.freeze
+ENVIRONMENT_API_VERSION = 'application/vnd.go.cd.v2+json'.freeze
 
 step 'Create environment <name>' do |name|
   assert_true create_environment(name).code == 200

@@ -58,7 +58,7 @@ end
 
 step 'Attempt to delete <user> user and should return <code>' do |user, response_code|
   RestClient.delete http_url("/api/users/#{user}"),
-                    { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header) do |response, _request, _result|
+                    { accept: 'application/vnd.go.cd.v3+json' }.merge(basic_configuration.header) do |response, _request, _result|
     assert_true response.code == response_code.to_i
   end
 end

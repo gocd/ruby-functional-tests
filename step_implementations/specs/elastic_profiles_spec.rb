@@ -84,7 +84,7 @@ end
 
 step 'Verify <field> for <cluster_profile> as <value> - Using cluster profile API' do |field, cluster_profile, value|
   begin
-    response = RestClient.get http_url("/api/admin/elastic/cluster_profiles/#{cluster_profile}"), { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
+    response = RestClient.get http_url("/api/admin/elastic/cluster_profiles/#{cluster_profile}"), { accept: 'application/vnd.go.cd.v1+json' }.merge(basic_configuration.header)
     expected_property = JSON.parse(response.body)['properties'].select{|property| property['key'].eql? field}
     assert_true expected_property.first['value'].eql? value
   rescue RestClient::ExceptionWithResponse => err

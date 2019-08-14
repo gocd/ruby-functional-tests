@@ -123,7 +123,7 @@ module Context
         hash
       end
       RestClient.post http_url('/api/admin/plugin_settings'), settings.to_json,
-                      { content_type: :json, accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
+                      { content_type: :json, accept: 'application/vnd.go.cd.v1+json' }.merge(basic_configuration.header)
     end
 
     def reset_config
@@ -178,7 +178,7 @@ module Context
     end
 
     def remove_all_users
-      RestClient.get http_url("/api/users"), { accept: 'application/vnd.go.cd+json' }.merge(header)  do |response, _request, _result|
+      RestClient.get http_url("/api/users"), { accept: 'application/vnd.go.cd.v3+json' }.merge(header)  do |response, _request, _result|
         if response.code == 200
           disabled_users = JSON.parse(response.body)['_embedded']['users'].collect{ |user|
             user['login_name'] if user['enabled'].eql? true
@@ -189,10 +189,10 @@ module Context
           users_to_be_removed = enabled_users.concat(disabled_users).delete_if{ |user| user.eql?'admin'}
           RestClient.patch http_url("/api/users/operations/state"),
                     { "operations": { "enable": false }, "users": enabled_users }.to_json,
-                    { content_type: :json, accept: 'application/vnd.go.cd+json' }.merge(header) unless enabled_users.empty?
+                    { content_type: :json, accept: 'application/vnd.go.cd.v3+json' }.merge(header) unless enabled_users.empty?
           RestClient::Request.execute(method: 'delete',
                     url: http_url("/api/users"), payload: { "users": users_to_be_removed }.to_json,
-                    headers: { content_type: :json, accept: 'application/vnd.go.cd+json' }.merge(header)) unless users_to_be_removed.empty?
+                    headers: { content_type: :json, accept: 'application/vnd.go.cd.v3+json' }.merge(header)) unless users_to_be_removed.empty?
         end
       end
     end

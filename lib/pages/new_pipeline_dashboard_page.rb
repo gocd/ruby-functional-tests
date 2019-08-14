@@ -352,7 +352,7 @@ module Pages
     end
 
     def can_operate_using_api?
-      response = RestClient.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/schedule"), {}, { accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
+      response = RestClient.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/schedule"), {}, { accept: 'application/vnd.go.cd.v1+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
       (response.code == 202)
     rescue RestClient::ExceptionWithResponse => err
       p "Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
@@ -372,7 +372,7 @@ module Pages
     end
 
     def unpause_using_api?
-      response = RestClient.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/unpause"), {}, { accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
+      response = RestClient.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/unpause"), {}, { accept: 'application/vnd.go.cd.v1+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
       (response.code == 200)
     rescue RestClient::ExceptionWithResponse => err
       p "Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
@@ -380,7 +380,7 @@ module Pages
     end
 
     def pause_using_api?
-      response = RestClient.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/pause"), {}, { accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
+      response = RestClient.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/pause"), {}, { accept: 'application/vnd.go.cd.v1+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
       (response.code == 200)
     rescue RestClient::ExceptionWithResponse => err
       p "Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"

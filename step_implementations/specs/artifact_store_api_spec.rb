@@ -15,7 +15,7 @@
 ##########################################################################
 require_relative '../../lib/helpers/go_url_helper.rb'
 
-ARTIFACT_STORE_API_VERSION = 'application/vnd.go.cd+json'.freeze
+ARTIFACT_STORE_API_VERSION = 'application/vnd.go.cd.v1+json'.freeze
 
 step 'Create artifact store <artifact_store_id>' do |artifact_store_id|
   begin

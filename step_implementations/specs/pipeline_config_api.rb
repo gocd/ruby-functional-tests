@@ -14,7 +14,7 @@
 # limitations under the License.
 ##########################################################################
 
-PIPELINE_API_VERSION = 'application/vnd.go.cd+json'.freeze
+PIPELINE_API_VERSION = 'application/vnd.go.cd.v7+json'.freeze
 
 step 'Update pipeline <pipeline> stage <stage_name> job <job_name> with elastic profile id <ea_profile> - Using pipeline config API' do |pipeline, stage_name, job_name, ea_profile|
   response = get_pipeline(scenario_state.get(pipeline))

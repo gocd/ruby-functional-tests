@@ -324,7 +324,7 @@ task :setup_azure_resources do
   sh "mount -t cifs //#{AZ_STORAGE_ACCOUNT_NAME}.file.core.windows.net/gocdfs  target -o vers=3.0,dir_mode=0777,file_mode=0777,serverino,username=#{AZ_STORAGE_ACCOUNT_NAME},password=#{STORAGE_ACCOUNT_KEY}"
   sh "touch /root/.gitconfig"
   sh "tee /root/.gitconfig >/dev/null <<EOF
-  [core]
-          supportsatomicfilecreation = true
-  EOF"
+[core]
+        supportsatomicfilecreation = true
+EOF"
 end

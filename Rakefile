@@ -322,7 +322,7 @@ task :setup_azure_resources do
   sh "az storage share create --name #{AZ_FILE_SHARE_NAME} --quota 4096 --connection-string '#{STORAGE_ACCOUNT_CONNECTION_STRING}'"
   STORAGE_ACCOUNT_KEY=`az storage account keys list -g gocd-resource-group -n #{AZ_STORAGE_ACCOUNT_NAME} --query "[0].value"`
   sh "mount -t cifs //#{AZ_STORAGE_ACCOUNT_NAME}.file.core.windows.net/gocdfs  target -o vers=3.0,dir_mode=0777,file_mode=0777,serverino,username=#{AZ_STORAGE_ACCOUNT_NAME},password=#{STORAGE_ACCOUNT_KEY}"
-  mkdir_p "~/.gitconfig"
+  touch "~/.gitconfig"
   sh "tee ~/.gitconfig >/dev/null <<EOF \
   [core] \
           supportsatomicfilecreation = true \

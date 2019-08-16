@@ -45,13 +45,13 @@ Gauge.configure do |config|
   config.include Helpers::SpecHelper
   config.include Helpers::GoUrlHelper
   config.include Helpers::Wait
-  config.screengrabber = -> {
+#  config.screengrabber = -> {
 #    Capybara.page.save_screenshot
 #    file = File.open(Dir.glob('screenshots/*.png').first, 'rb')
 #    file_content = File.binread(file.path)
 #    #FileUtils.rm_r 'screenshots', force: true
 #    return file_content
- }
+# }
 end
 
 Capybara.configure do |config|

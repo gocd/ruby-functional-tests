@@ -49,7 +49,7 @@ end
 
 step 'Trigger stage <stage> run <run>' do |stage, run|
   begin
-    response = RestClient.post http_url("/run/#{scenario_state.self_pipeline}/#{run}/#{stage}"), '', basic_configuration.header
+    response = RestClient.post http_url("/api/stages/#{scenario_state.self_pipeline}/#{run}/#{stage}/run"), '', { accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
     assert_true response.code == 200
   rescue RestClient::ExceptionWithResponse => err
     p "Trigger stage call failed with response code #{err.response.code} and the response body - #{err.response.body}"

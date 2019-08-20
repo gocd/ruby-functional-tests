@@ -17,8 +17,8 @@
 require_relative '../../lib/representers/template.rb'
 require_relative '../../lib/helpers/go_url_helper.rb'
 
-TEMPLATE_API_VERSION = 'application/vnd.go.cd.v4+json'.freeze
-TEMPLATE_AUTH_API_VERSION = 'application/vnd.go.cd.v1+json'.freeze
+TEMPLATE_API_VERSION = 'application/vnd.go.cd+json'.freeze
+TEMPLATE_AUTH_API_VERSION = 'application/vnd.go.cd+json'.freeze
 
 step 'Create template <template>' do |template|
   tmp = Representers::Template.new(name: template.to_s,

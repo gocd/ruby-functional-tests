@@ -15,7 +15,7 @@
 ##########################################################################
 require 'json'
 
-SECRET_CONFIG_ACCEPT_HEADER = 'application/vnd.go.cd.v1+json'.freeze
+SECRET_CONFIG_ACCEPT_HEADER = 'application/vnd.go.cd+json'.freeze
 SECRET_CONFIG_API_BASE = '/api/admin/secret_configs'.freeze
 
 def get_all_secret_configs
@@ -146,7 +146,7 @@ end
 def rules_derective(rules)
   rules.split(',').collect(&:strip).collect do |rule|
     rule_entities = rule.split(':').collect(&:strip)
-    { directive: (rule_entities[0]).to_s, action: "refer", type: (rule_entities[1]).to_s, resource: (rule_entities[2]).to_s }
+    { directive: (rule_entities[0]).to_s, action: 'refer', type: (rule_entities[1]).to_s, resource: (rule_entities[2]).to_s }
   end
 end
 

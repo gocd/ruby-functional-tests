@@ -17,7 +17,7 @@
 require_relative '../../lib/helpers/go_url_helper.rb'
 
 
-PIPELINE_CONFIG_API_VERSION = 'application/vnd.go.cd.v1+json'
+PIPELINE_CONFIG_API_VERSION = 'application/vnd.go.cd+json'
 
 step 'Verify pipeline <pipeline> is locked and not schedulable - Using api' do |pipeline|
   begin
@@ -49,8 +49,8 @@ end
 
 step 'Trigger stage <stage> run <run>' do |stage, run|
   begin
-    response = RestClient.post http_url("/run/#{scenario_state.self_pipeline}/#{run}/#{stage}"), '', basic_configuration.header
-    assert_true response.code == 200
+    response = RestClient.post http_url("/api/stages/#{scenario_state.self_pipeline}/#{run}/#{stage}/run"), '', { accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
+    assert_true response.code == 202
   rescue RestClient::ExceptionWithResponse => err
     p "Trigger stage call failed with response code #{err.response.code} and the response body - #{err.response.body}"
   end
@@ -70,7 +70,7 @@ end
 step 'Verify can unlock <pipeline>' do |pipeline|
  body= begin
     response = RestClient.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"),'',
-        { content_type: :json, accept: 'application/vnd.go.cd.v1+json','X-GoCD-Confirm': 'true' }.merge(basic_configuration.header)
+        { content_type: :json, accept: 'application/vnd.go.cd+json','X-GoCD-Confirm': 'true' }.merge(basic_configuration.header)
   rescue RestClient::ExceptionWithResponse => err
     p err.response.body
   end
@@ -81,7 +81,7 @@ end
 step 'Verify unauthorized to unlock <pipeline>' do |pipeline|
   body=begin
     response = RestClient.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"),'',
-        { content_type: :json, accept: 'application/vnd.go.cd.v1+json','X-GoCD-Confirm': 'true'}.merge(basic_configuration.header)
+        { content_type: :json, accept: 'application/vnd.go.cd+json','X-GoCD-Confirm': 'true'}.merge(basic_configuration.header)
   rescue RestClient::ExceptionWithResponse => err
     p err.response.body
   end
@@ -91,7 +91,7 @@ end
 step 'Verify unlocking <pipeline> is not acceptable because <message>' do |pipeline,message|
   body=begin
     response = RestClient.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"),'',
-        { content_type: :json, accept: 'application/vnd.go.cd.v1+json','X-GoCD-Confirm': 'true' }.merge(basic_configuration.header)
+        { content_type: :json, accept: 'application/vnd.go.cd+json','X-GoCD-Confirm': 'true' }.merge(basic_configuration.header)
     rescue RestClient::ExceptionWithResponse => err
      p err.response.body
    end
@@ -100,7 +100,7 @@ end
 
 step 'Verify unlocking <pipeline> fails as pipeline is not found' do |pipeline|
   RestClient.post http_url("/api/pipelines/#{pipeline}/unlock"),'',
-        { content_type: :json, accept: 'application/vnd.go.cd.v1+json', "X-GoCD-Confirm": 'true' }
+        { content_type: :json, accept: 'application/vnd.go.cd+json', "X-GoCD-Confirm": 'true' }
         .merge(basic_configuration.header) do |response, _request, _result|
     assert_true response.code.eql? 404
   end
@@ -110,7 +110,7 @@ end
 step 'Delete pipeline <pipeline> - Configure cruise using api' do |pipeline|
   begin
     response =   RestClient.delete http_url("/api/admin/pipelines/#{scenario_state.get(pipeline)}"),
-    { content_type: :json, accept: 'application/vnd.go.cd.v7+json' }.merge(basic_configuration.header)
+    { content_type: :json, accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
     assert_true response.code == 200
   rescue RestClient::ExceptionWithResponse => err
     p "Delete Pipeline call failed with response code #{err.response.code} and the response body - #{err.response.body}"
@@ -121,7 +121,7 @@ end
 step 'Verify unauthorized to unlock <pipeline> using access token <token_id>' do |pipeline, token_id|
 	body=begin
     response = RestClient.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"),'',
-        { content_type: :json, accept: 'application/vnd.go.cd.v1+json','X-GoCD-Confirm': 'true', Authorization: "Bearer #{scenario_state.get(token_id)}"}
+        { content_type: :json, accept: 'application/vnd.go.cd+json','X-GoCD-Confirm': 'true', Authorization: "Bearer #{scenario_state.get(token_id)}"}
   rescue RestClient::ExceptionWithResponse => err
     p err.response.body
   end
@@ -131,7 +131,7 @@ end
 step 'Verify can unlock <pipeline> using access token <token_id>' do |pipeline, token_id|
 	body= begin
     response = RestClient.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"),'',
-        { content_type: :json, accept: 'application/vnd.go.cd.v1+json','X-GoCD-Confirm': 'true', Authorization: "Bearer #{scenario_state.get(token_id)}"}
+        { content_type: :json, accept: 'application/vnd.go.cd+json','X-GoCD-Confirm': 'true', Authorization: "Bearer #{scenario_state.get(token_id)}"}
   rescue RestClient::ExceptionWithResponse => err
     p err.response.body
   end
@@ -210,7 +210,7 @@ step 'Schedule should return code <status_code>' do |status_code|
              })
 
    RestClient.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/schedule"), payload,
-      { content_type: :json, accept: 'application/vnd.go.cd.v1+json' }.merge(basic_configuration.header)do |response, _request, _result|
+      { content_type: :json, accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)do |response, _request, _result|
         assert_true response.code == status_code.to_i
       end
        scenario_state.put('variables',nil)

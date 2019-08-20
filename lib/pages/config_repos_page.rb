@@ -19,17 +19,17 @@ module Pages
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/config_repos"
 
     element :panel_config_repo, "[data-test-id='config-repo-details-panel']"
-    element :panel_config_repo1,"[data-test-id='collapse-header']"
-
+    element :header_config_repo, "[data-test-id='config-repo-header']"
 
       def verify_config_repo(repo, pipeline)
-      assert_true(page.find_all("[data-test-id='config-repo-details-panel'] > div > div h4")[0].text.include?(repo))
+      assert_true(page.find('[data-test-id="config-repo-header"]', text: repo, exact_text: true).text.eql?(repo))
       sleep 5
 
-      page.find("div.index__collapse___NdWzo:nth-child(1) > div:nth-child(1)").click
+      page.find('[data-test-id="config-repo-header"]', text: repo, exact_text: true).click
 
-      assert_true(page.find(".defined_structs__pipeline-datum___uBHjV > a:nth-child(1)").text.include?(pipeline))
-      page.find(".defined_structs__pipeline-datum___uBHjV > a:nth-child(1)").click
+      assert_true(page.find('[data-test-id="config-repo-header"]', text: repo, exact_text: true).ancestor('[data-test-id="config-repo-details-panel"]').find("[data-test-id^='pipeline_#{pipeline.underscore}']").text.include?(pipeline))
+
+      page.find('[data-test-id="config-repo-header"]', text: repo, exact_text: true).ancestor('[data-test-id="config-repo-details-panel"]').find("[data-test-id^='pipeline_#{pipeline.underscore}']").click
       sleep 5
 
     end

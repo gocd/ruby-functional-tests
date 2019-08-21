@@ -9,13 +9,10 @@
             "value": "gocdsa"
         },
         "accountType": {
-            "value": "Standard_RAGRS"
+            "value": "Premium_LRS"
         },
         "kind": {
-            "value": "StorageV2"
-        },
-        "accessTier": {
-            "value": "Hot"
+            "value": "FileStorage"
         },
         "supportsHttpsTrafficOnly": {
             "value": true

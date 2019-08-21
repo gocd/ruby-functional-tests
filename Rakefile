@@ -41,7 +41,8 @@ AZ_SP_PASSWORD           = ENV['AZ_SP_PASSWORD']
 AZ_TENANT_ID             = ENV['AZ_TENANT_ID']
 AZ_RESOURCE_GROUP        = ENV['AZ_RESOURCE_GROUP'] || 'gocd-resource-group'
 AZ_STORAGE_ACCOUNT_NAME  = ENV['AZ_STORAGE_ACCOUNT_NAME'] || 'gocdsa'
-AZ_FILE_SHARE_NAME       = ENV['AZ_FILE_SHARE_NAME'] || 'gocdfs'  
+AZ_FILE_SHARE_NAME       = ENV['AZ_FILE_SHARE_NAME'] || 'gocdfs'
+AZ_FILE_SHARE_QUOTA      = ENV['AZ_FILE_SHARE_QUOTA'] || 100
 
 
 DOCKER_EA_PLUGIN_RELEASE_URL                = ENV['DOCKER_EA_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/docker-elastic-agents/releases/latest'
@@ -319,7 +320,7 @@ task :setup_azure_resources do
   sh "az login --service-principal --username #{AZ_SP_USERNAME} --password #{AZ_SP_PASSWORD} --tenant #{AZ_TENANT_ID}"
   sh "az group deployment create --name gocdstorageaccount --resource-group #{AZ_RESOURCE_GROUP} --template-file resources/template.json --parameters resources/parameters.json"
   STORAGE_ACCOUNT_CONNECTION_STRING=`az storage account show-connection-string -n #{AZ_STORAGE_ACCOUNT_NAME} -g #{AZ_RESOURCE_GROUP} --query 'connectionString' -o tsv`
-  sh "az storage share create --name #{AZ_FILE_SHARE_NAME} --quota 4096 --connection-string '#{STORAGE_ACCOUNT_CONNECTION_STRING}'"
+  sh "az storage share create --name #{AZ_FILE_SHARE_NAME} --quota #{AZ_FILE_SHARE_QUOTA} --connection-string '#{STORAGE_ACCOUNT_CONNECTION_STRING}'"
   STORAGE_ACCOUNT_KEY=`az storage account keys list -g #{AZ_RESOURCE_GROUP} -n #{AZ_STORAGE_ACCOUNT_NAME} --query "[0].value"`
   sh "mount -t cifs //#{AZ_STORAGE_ACCOUNT_NAME}.file.core.windows.net/gocdfs  target -o vers=3.0,dir_mode=0777,file_mode=0777,serverino,username=#{AZ_STORAGE_ACCOUNT_NAME},password=#{STORAGE_ACCOUNT_KEY}"
   sh "touch /root/.gitconfig"

@@ -25,12 +25,15 @@ class GoConstants
   RUN_ON_DOCKER = ENV['RUN_ON_DOCKER']
   USE_EFS = ENV['USE_EFS']
   USE_GCP_FILESTORE = ENV['USE_GCP_FILESTORE']
+  USE_AFS = ENV['USE_AFS']
   SERVER_DIR = if USE_EFS
                  '/efs'
                elsif USE_GCP_FILESTORE
                  '/filestore'
                elsif RUN_ON_DOCKER
                  File.expand_path('godata')
+               elsif USE_AFS
+                 File.expand_path('/mnt/AzureFileShare')
                else
                  Dir["target/go-server-#{GO_VERSION}"].find { |f| File.directory?(f) }
                end

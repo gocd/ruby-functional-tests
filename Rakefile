@@ -43,7 +43,7 @@ AZ_RESOURCE_GROUP        = ENV['AZ_RESOURCE_GROUP'] || 'gocd-resource-group'
 AZ_STORAGE_ACCOUNT_NAME  = ENV['AZ_STORAGE_ACCOUNT_NAME'] || 'gocdsa'
 AZ_FILE_SHARE_NAME       = ENV['AZ_FILE_SHARE_NAME'] || 'gocdfs'
 AZ_FILE_SHARE_QUOTA      = ENV['AZ_FILE_SHARE_QUOTA'] || 100
-AZ_STORAGE_DEPLOYMENT_NAME = ENV['AZ_STORAGE_DEPLOYMENT_NAME'] || gocdstorageaccount
+AZ_STORAGE_DEPLOYMENT_NAME = ENV['AZ_STORAGE_DEPLOYMENT_NAME'] || 'gocdstorageaccount'
 
 
 DOCKER_EA_PLUGIN_RELEASE_URL                = ENV['DOCKER_EA_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/docker-elastic-agents/releases/latest'

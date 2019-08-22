@@ -331,6 +331,6 @@ end
 
 task :cleanup_azure_resources do
 
-  sh "az storage account delete -n #{AZ_STORAGE_ACCOUNT_NAME} --resource-group #{AZ_RESOURCE_GROUP}--yes"
+  sh "az storage account delete -n #{AZ_STORAGE_ACCOUNT_NAME} --resource-group #{AZ_RESOURCE_GROUP} --yes"
   sh "az group deployment delete --verbose --name #{AZ_STORAGE_DEPLOYMENT_NAME} --resource-group #{AZ_RESOURCE_GROUP}"
 end

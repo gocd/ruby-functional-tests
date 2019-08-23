@@ -51,7 +51,7 @@ Gauge.configure do |config|
     file_content = File.binread(file.path)
     #FileUtils.rm_r 'screenshots', force: true
     return file_content
-  }
+ }
 end
 
 Capybara.configure do |config|

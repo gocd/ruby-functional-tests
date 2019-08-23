@@ -107,6 +107,8 @@ module Context
       image = server_image_to_use
       sh %(docker load < "target/docker-server/#{image.file}")
 
+      # The if-else block is added to accomodate the mount of .gitconfig. This is needed to avoid a bug with jgit where it does not by default support atomic link creation
+      
       if ENV['USE_AFS']
         sh %(docker run -d --name gauge_server -p #{GoConstants::SERVER_PORT}:#{GoConstants::SERVER_PORT} \
           -p #{GoConstants::SERVER_SSL_PORT}:#{GoConstants::SERVER_SSL_PORT} \

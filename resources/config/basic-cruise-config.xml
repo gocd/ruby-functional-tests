@@ -15,7 +15,7 @@
  * limitations under the License.
  *************************GO-LICENSE-END******************************* -->
 
-<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="126">
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="127">
     <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="gauge" tokenGenerationKey="token"/>
     <pipelines group="basic">
     <pipeline name="basic-pipeline-fast-with-job-properties">
@@ -793,18 +793,11 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="ls"/>
+                            <exec command="sleep">
+                                <arg>10</arg>
+                                <runif status="passed"/>
+                            </exec>
                         </tasks>
-                    </job>
-                </jobs>
-            </stage>
-            <stage name="secondStage">
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                            <exec command="ls"/>
-                        </tasks>
-
                     </job>
                 </jobs>
             </stage>

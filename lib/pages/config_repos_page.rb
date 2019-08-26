@@ -23,14 +23,10 @@ module Pages
 
       def verify_config_repo(repo, pipeline)
       assert_true(page.find('[data-test-id="config-repo-header"]', text: repo, exact_text: true).text.eql?(repo))
-      sleep 5
 
       page.find('[data-test-id="config-repo-header"]', text: repo, exact_text: true).click
 
       assert_true(page.find('[data-test-id="config-repo-header"]', text: repo, exact_text: true).ancestor('[data-test-id="config-repo-details-panel"]').find("[data-test-id^='pipeline_#{pipeline.underscore}']").text.include?(pipeline))
-
-      page.find('[data-test-id="config-repo-header"]', text: repo, exact_text: true).ancestor('[data-test-id="config-repo-details-panel"]').find("[data-test-id^='pipeline_#{pipeline.underscore}']").click
-      sleep 5
 
     end
 

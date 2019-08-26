@@ -129,7 +129,7 @@ GEM
       capybara (~> 3.3)
       site_prism-all_there (~> 0.2.0)
     site_prism-all_there (0.2.1)
-    sys-proctable (1.2.1)
+    sys-proctable (1.2.2)
       ffi
     test-unit (3.3.3)
       power_assert

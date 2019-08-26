@@ -71,7 +71,6 @@
                     <value>bar</value>
                 </variable>
             </environmentvariables>
-            <agents></agents>
             <pipelines></pipelines>
         </environment>
     </environments>

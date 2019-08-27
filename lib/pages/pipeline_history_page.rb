@@ -68,7 +68,7 @@ module Pages
     end
 
     def triggered_by?(pipeline_name, label, user)
-      page.find('.pipeline-label', text: label).ancestor('.pipeline-name').all('.pipeline-info', text: /Triggered by/).first.text.equal? "Triggered by #{user}"
+      page.find('.pipeline-label', text: label).ancestor('.pipeline-name').all('.pipeline-info', text: /Triggered by/).first.text == "Triggered by #{user}"
     end
 
     def pause_pipeline

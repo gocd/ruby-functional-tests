@@ -334,3 +334,10 @@ task :cleanup_azure_resources do
   sh "az storage account delete -n #{AZ_STORAGE_ACCOUNT_NAME} --resource-group #{AZ_RESOURCE_GROUP} --yes"
   sh "az group deployment delete --verbose --name #{AZ_STORAGE_DEPLOYMENT_NAME} --resource-group #{AZ_RESOURCE_GROUP}"
 end
+
+task :prepare_azure_vm do
+
+  sh "chmod 0755 resources/azure-vm-setup-script.sh"
+  sh "./azure-vm-setup-script.sh" 
+
+end

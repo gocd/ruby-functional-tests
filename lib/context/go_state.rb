@@ -52,7 +52,7 @@ module Context
     end
 
     def capture_database(path)
-      cp_r "#{GoConstants::SERVER_DIR}/db", path
+      cp_r "#{GoConstants::SERVER_DIR}/db", path unless GoConstants::USE_AFS
     end
 
     def capture_all(path)

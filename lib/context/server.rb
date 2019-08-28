@@ -95,7 +95,7 @@ module Context
     end
 
     def wait_to_start
-      Timeout.timeout(180) do
+      Timeout.timeout(300) do
         loop do
           begin
             break if server_running?

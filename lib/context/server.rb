@@ -84,7 +84,6 @@ module Context
       sleep 5
       ping_server.code == 200
     rescue StandardError => e
-      p "server ping request failed with error #{e.message}"
       false
     end
 

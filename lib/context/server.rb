@@ -88,7 +88,7 @@ module Context
     end
 
     def ping_server
-      RestClient.get("#{GoConstants::GO_SERVER_BASE_URL}/about") do |response, _request, _result|
+      RestClient.get "#{GoConstants::GO_SERVER_BASE_URL}/about", basic_configuration.header do |response, _request, _result|
         p "Server ping failed with response code #{response.code} and message #{response.body}" unless response.code == 200
         return response
       end

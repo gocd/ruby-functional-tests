@@ -20,7 +20,7 @@ module Context
 
     START_COMMAND = OS.windows? ? %w[cmd /c bin/start-go-server-service.bat start] : 'bin/go-server'
     STOP_COMMAND = OS.windows? ? %w[cmd /c bin/stop-go-server-service.bat stop] : 'bin/go-server'
-    DEVELOPMENT_MODE = false #!ENV['GO_PIPELINE_NAME']
+    DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
 
     def start
       if GoConstants::RUN_ON_DOCKER

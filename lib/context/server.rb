@@ -20,7 +20,7 @@ module Context
 
     START_COMMAND = OS.windows? ? %w[cmd /c bin/start-go-server-service.bat start] : 'bin/go-server'
     STOP_COMMAND = OS.windows? ? %w[cmd /c bin/stop-go-server-service.bat stop] : 'bin/go-server'
-    DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
+    DEVELOPMENT_MODE = false #!ENV['GO_PIPELINE_NAME']
 
     def start
       if GoConstants::RUN_ON_DOCKER
@@ -88,7 +88,7 @@ module Context
     end
 
     def ping_server
-      RestClient.get("#{GoConstants::GO_SERVER_BASE_URL}/about") do |response, _request, _result|
+      RestClient.get "#{GoConstants::GO_SERVER_BASE_URL}/about", basic_configuration.header do |response, _request, _result|
         p "Server ping failed with response code #{response.code} and message #{response.body}" unless response.code == 200
         return response
       end

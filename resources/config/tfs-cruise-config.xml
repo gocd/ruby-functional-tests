@@ -87,7 +87,7 @@
 		      <job name="defaultJob">
 		        <tasks>
 		        	<exec command="sleep">
-		        		<arg>20</arg>
+		        		<arg>1</arg>
 		        	</exec>
 		        </tasks>
 		      </job>

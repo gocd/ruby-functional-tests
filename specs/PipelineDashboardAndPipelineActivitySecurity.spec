@@ -26,7 +26,7 @@ Verify that super-admin has all view and operate permissions
 
 
 Pipeline Visibility
-* PipelineVisibility 
+* PipelineVisibility
      |Pipeline Name|Visible?|Can Operate Using Ui?|Can Pause Using Api?|Can Pause Using Ui?|Can Operate Using API?|
      |-------------|--------|---------------------|--------------------|-------------------|----------------------|
      |P1           |true    |true                 |true                |true               |true                  |
@@ -36,7 +36,7 @@ Pipeline Visibility
 
 
 * verify user has operate permissions on "defaultStage" for pipeline "P1" on Pipeline Activity Page
-* Verify pipeline with label "1" is triggered by "admin"
+* Verify pipeline is triggered by "admin" - On History page
 
 * verify user has operate permissions on "defaultStage" for pipeline "P2" on Pipeline Activity Page
 
@@ -51,7 +51,7 @@ Pipeline Visibility
 
 
 Pipeline Visibility
-* PipelineVisibility 
+* PipelineVisibility
      |Pipeline Name|Visible?|Can Operate Using Ui?|Can Pause Using Api?|Can Pause Using Ui?|Can Operate Using API?|
      |-------------|--------|---------------------|--------------------|-------------------|----------------------|
      |P1           |true    |false                |false               |false              |false                 |
@@ -72,7 +72,7 @@ Pipeline Visibility
 
 
 Pipeline Visibility
-* PipelineVisibility 
+* PipelineVisibility
      |Pipeline Name|Visible?|Can Operate Using Ui?|Can Pause Using Api?|Can Pause Using Ui?|Can Operate Using API?|
      |-------------|--------|---------------------|--------------------|-------------------|----------------------|
      |P1           |true    |false                |false               |false              |false                 |
@@ -92,7 +92,7 @@ Pipeline Visibility
 
 
 Pipeline Visibility
-* PipelineVisibility 
+* PipelineVisibility
      |Pipeline Name|Visible?|Can Operate Using Ui?|Can Pause Using Api?|Can Pause Using Ui?|Can Operate Using API?|
      |-------------|--------|---------------------|--------------------|-------------------|----------------------|
      |P1           |false   |false                |true                |false              |true                  |
@@ -112,5 +112,3 @@ ____________________
 * Capture go state "PipelineDashboardAndPipelineActivitySecurity" - teardown
 * With "2" live agents - teardown
 * Logout - from any page
-
-

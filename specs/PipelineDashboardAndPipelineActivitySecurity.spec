@@ -24,6 +24,11 @@ Verify that super-admin has all view and operate permissions
 * Looking at pipeline "P4" - On Swift Dashboard page
 * Trigger and wait for stage "defaultStage" is "Passed" with label "1" - On Swift Dashboard page
 
+* Looking at pipeline "P1" - On Swift Dashboard page
+* Click on history - On Swift Dashboard page
+* Verify pipeline is triggered by "admin" - On History page
+
+* On Swift Dashboard Page
 
 Pipeline Visibility
 * PipelineVisibility
@@ -36,7 +41,6 @@ Pipeline Visibility
 
 
 * verify user has operate permissions on "defaultStage" for pipeline "P1" on Pipeline Activity Page
-* Verify pipeline is triggered by "admin" - On History page
 
 * verify user has operate permissions on "defaultStage" for pipeline "P2" on Pipeline Activity Page
 
@@ -64,7 +68,6 @@ Pipeline Visibility
 * verify user does not have operate permissions on "defaultStage" for pipleine "P1" on pipeline activity page
 * verify user has operate permissions on "defaultStage" for pipeline "P2" on Pipeline Activity Page
 * verify user has operate permissions on "defaultStage" for pipeline "P3" on Pipeline Activity Page
-
 
 * Logout - from any page
 

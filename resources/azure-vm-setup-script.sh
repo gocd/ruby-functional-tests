@@ -12,7 +12,7 @@ AZ_REPO=$(lsb_release -cs) && echo "deb [arch=amd64] https://packages.microsoft.
 curl -L https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 apt-get update && apt-get install -y azure-cli
 apt-key adv --keyserver hkp://pool.sks-keyservers.net --recv-keys 023EDB0B
-echo deb https://dl.bintray.com/gauge/gauge-deb nightly main | tee -a /etc/apt/sources.list
+echo deb https://dl.bintray.com/gauge/gauge-deb stable main | tee -a /etc/apt/sources.list
 apt-get update && apt-get install -y gauge
 apt-get install -y docker.io
 wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz

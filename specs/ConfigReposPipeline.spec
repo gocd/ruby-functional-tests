@@ -11,12 +11,15 @@ Setup of contexts
 * With "1" live agents - setup
 * Capture go state "ConfigReposPipeline" - setup
 
+
 * Looking at pipeline "simple-upstream" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" - On Swift Dashboard page
 
+
 * Create a new config repo pipeline with name "first-pipeline" on repo "1" as downstream of "simple-upstream"
+
 * Verify pipeline "first-pipeline" shows up - On Swift Dashboard page
 * Looking at pipeline "first-pipeline" - On Swift Dashboard page
 * Verify pipeline is not editable - On Swift Dashboard page
@@ -24,6 +27,10 @@ Setup of contexts
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" - On Swift Dashboard page
+
+* On Config repo page
+* Wait for config repo changes to sync
+* Verify config repo with name "config-repo" has pipeline with name "first-pipeline"
 
 * Create a new config repo pipeline with name "second-pipeline" on repo "2" as downstream of "first-pipeline"
 * Verify pipeline "second-pipeline" shows up - On Swift Dashboard page

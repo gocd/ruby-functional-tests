@@ -167,7 +167,7 @@ module Pages
 
     def get_pipelines_from_templates(template)
       pipelines = []
-      page.find('h2.group_name', text: template).ancestor('.template_group').all('td.name a').each do |pipeline|
+      page.find('h2.group_name', text: template).ancestor('.template_group').sibling('.grouping_content_wrapper').all('td.name a').each do |pipeline|
         pipelines.push(pipeline.text)
       end
       pipelines

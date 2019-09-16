@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *************************GO-LICENSE-END******************************* -->
+
 <cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="128">
     <server artifactsdir="artifacts" serverId="twist" tokenGenerationKey="token">
     </server>
@@ -87,7 +88,7 @@
 		      <job name="defaultJob">
 		        <tasks>
 		        	<exec command="sleep">
-		        		<arg>20</arg>
+		        		<arg>1</arg>
 		        	</exec>
 		        </tasks>
 		      </job>

@@ -58,24 +58,23 @@ module Pages
       label_filter_clear.click
     end
 
-    def open_build_cause(pipeline_name, label)
+    def open_build_cause(_pipeline_name, label)
       page.find('.pipeline-label', text: label).ancestor('.pipeline-name').find('.pipeline-info', text: /Triggered by/).click
-
     end
 
     def shows_build_cause_message?(message)
       build_cause_summary.text.include? message
     end
 
-    def triggered_by?(pipeline_name, label, user)
-      page.find('.pipeline-label', text: label).ancestor('.pipeline-name').all('.pipeline-info', text: /Triggered by/).first.text.equal? "Triggered by #{user}"
+    def triggered_by?(_pipeline_name, label, user)
+      page.find('.pipeline-label', text: label).ancestor('.pipeline-name').all('.pipeline-info', text: /Triggered by/).first.text == "Triggered by #{user}"
     end
 
     def pause_pipeline
-      accept_confirm do page.find("#pause-#{scenario_state.self_pipeline}").click end
+      accept_confirm { page.find("#pause-#{scenario_state.self_pipeline}").click }
     end
 
-    def verify_stage_can_rerun?(pipeline_name ,label, stage_name )
+    def verify_stage_can_rerun?(pipeline_name, label, stage_name)
       page.has_selector?("#rerun-#{pipeline_name}-#{label}-#{stage_name}", visible: false) # visibility is set to false for on-hover functionality of the button
     end
 
@@ -84,10 +83,10 @@ module Pages
     end
 
     def approve_stage(stage_name, label)
-      accept_confirm do page.find("#approve-#{label}-#{stage_name}").click end # visibility is set to false for on-hover functionality of the button
+      accept_confirm { page.find("#approve-#{label}-#{stage_name}").click } # visibility is set to false for on-hover functionality of the button
     end
 
-    def verify_stage_cannot_rerun?(pipeline_name ,label, stage_name )
+    def verify_stage_cannot_rerun?(pipeline_name, label, stage_name)
       page.has_no_selector?("#rerun-#{pipeline_name}-#{label}-#{stage_name}", visible: false) # visibility is set to false for on-hover functionality of the button
     end
 
@@ -99,13 +98,12 @@ module Pages
       page.has_no_selector?("#approve-#{label}-#{stage_name}", visible: false)
     end
 
-    def stage_rerun(pipeline ,current_label, stage_name)
-      page.find("#rerun-#{pipeline_name}-#{label}-#{stage_name}", visible: false)
+    def stage_rerun(pipeline, current_label, stage_name)
+      page.find("#rerun-#{pipeline}-#{current_label}-#{stage_name}", visible: false)
     end
 
-    def triggered_by_on_history_page? user
-      page.find('.pipeline-label',text:"#{scenario_state.get('current_label')}").ancestor('.pipeline-name').has_css?('a',text:"Triggered by #{user}")
+    def triggered_by_on_history_page?(user)
+      page.find('.pipeline-label', text: scenario_state.get('current_label').to_s).ancestor('.pipeline-name').has_css?('a', text: "Triggered by #{user}")
     end
-
   end
 end

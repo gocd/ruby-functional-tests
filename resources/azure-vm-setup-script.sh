@@ -3,7 +3,7 @@
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 apt-get update
-apt-get -y install openjdk-8-jdk
+apt-get -y install openjdk-12-jdk
 apt-get update
 apt-get install -y apt-transport-https
 apt-get install -y ruby ruby-ffi ruby-dev build-essential ruby-bundler zlib1g-dev firefox libgconf-2-4 xvfb
@@ -17,4 +17,3 @@ wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodrive
 sh -c 'tar -x geckodriver -zf geckodriver-v0.24.0-linux64.tar.gz -O > /usr/bin/geckodriver'
 chmod +x /usr/bin/geckodriver
 rm geckodriver-v0.24.0-linux64.tar.gz
-

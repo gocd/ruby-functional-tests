@@ -15,7 +15,7 @@
  * limitations under the License.
  *************************GO-LICENSE-END******************************* -->
 
-<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="127">
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="128">
   <server artifactsdir="artifacts" serverId="gauge" tokenGenerationKey="token">
       <security>
 
@@ -258,29 +258,15 @@
   	</templates>
   	<environments>
   		<environment name="environment1">
-  			<agents/>
   			<pipelines>
   				<pipeline name="pipeline1"/>
   				<pipeline name="pipeline2"/>
   			</pipelines>
   		</environment>
   		<environment name="environment2">
-  			<agents/>
   			<pipelines>
   				<pipeline name="pipeline3"/>
   			</pipelines>
   		</environment>
   	</environments>
-  <agents>
-    <agent hostname="missing-agent" ipaddress="10.232.3.1" uuid="missing">
-      <resources>
-        <resource>missing</resource>
-      </resources>
-    </agent>
-    <agent hostname="denied-agent" ipaddress="10.232.3.2" uuid="denied" isDisabled="true">
-      <resources>
-        <resource>denied</resource>
-      </resources>
-    </agent>
-  </agents>
 </cruise>

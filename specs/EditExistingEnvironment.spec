@@ -20,12 +20,6 @@ Setup of contexts
 * Verify pipelines "environment-failing-pipeline" are available on "test-env" edit page
 * Verify pipelines "environment-pipeline,environment-pipeline-locked" are not available on "test-env" edit page
 
-
-* Edit Agents
-* Add agent "missing-agent" and save environment
-* Expand environment "test-env"
-* Verify agents "missing-agent (10.232.3.1)" are available on "test-env" edit page
-
 * Edit Agents
 * Select all agents and verify all are selected
 * Save environment

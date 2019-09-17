@@ -16,9 +16,7 @@ SecretManagement
 
 tags: secret_management
 
-* Select agent "2"
-* Set environments "PROD_ENV"
-* Verify agent "2" assigned environments "PROD_ENV"
+* Add environment "PROD_ENV" to any "1" Idle agents - Using Agents API
 
 * Create secret config "DEV" for secret file "dev_secrets.json" rules "allow:*:DEV_*, deny:*:TEST_*, deny:*:PROD_*" - Using Secret Config API
 * Looking at pipeline "In-group-DEV" - On Swift Dashboard page

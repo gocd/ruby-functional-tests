@@ -15,7 +15,7 @@
  * limitations under the License.
  *************************GO-LICENSE-END******************************* -->
 
-<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="127">
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="128">
     <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="gauge" tokenGenerationKey="token"/>
     <pipelines group="basic">
 
@@ -159,31 +159,31 @@
                             <exec command="sleep" args="5"/>
                             <exec command="/bin/bash">
                 				<arg>-c</arg>
-                				<arg>echo JOB_LEVEL_VARIABLE=$JOB_LEVEL_VARIABLE.</arg>                				
+                				<arg>echo JOB_LEVEL_VARIABLE=$JOB_LEVEL_VARIABLE.</arg>
               				</exec>
               				<exec command="/bin/bash">
                 				<arg>-c</arg>
-                				<arg>echo ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB=$ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB.</arg>                				
+                				<arg>echo ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB=$ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB.</arg>
               				</exec>
               				<exec command="/bin/bash">
                 				<arg>-c</arg>
-                				<arg>echo ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE=$ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE.</arg>                				
+                				<arg>echo ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE=$ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE.</arg>
               				</exec>
               				<exec command="/bin/bash">
                 				<arg>-c</arg>
-                				<arg>echo STAGE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB=$STAGE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB.</arg>                				
+                				<arg>echo STAGE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB=$STAGE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB.</arg>
               				</exec>
               				<exec command="/bin/bash">
                 				<arg>-c</arg>
-                				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE.</arg>                				
+                				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE.</arg>
               				</exec>
               				<exec command="/bin/bash">
                 				<arg>-c</arg>
-                				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB.</arg>                				
+                				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB.</arg>
               				</exec>
               				<exec command="/bin/bash">
                 				<arg>-c</arg>
-                				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_JOB_ONLY=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_JOB_ONLY.</arg>                				
+                				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_JOB_ONLY=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_JOB_ONLY.</arg>
               				</exec>
                         </tasks>
                     </job>
@@ -203,23 +203,23 @@
                         <tasks>
                             <exec command="/bin/bash">
                 				<arg>-c</arg>
-                				<arg>echo ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE=$ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE.</arg>                				
+                				<arg>echo ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE=$ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE.</arg>
               				</exec>
               				<exec command="/bin/bash">
                 				<arg>-c</arg>
-                				<arg>echo ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB=$ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB.</arg>                				
+                				<arg>echo ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB=$ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB.</arg>
               				</exec>
               				<exec command="/bin/bash">
                 				<arg>-c</arg>
-                				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE.</arg>                				
+                				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE.</arg>
               				</exec>
               				<exec command="/bin/bash">
                 				<arg>-c</arg>
-                				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB.</arg>                				
+                				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB.</arg>
               				</exec>
 							<exec command="/bin/bash">
                 				<arg>-c</arg>
-                				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_STAGE_ONLY=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_STAGE_ONLY.</arg>                				
+                				<arg>echo PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_STAGE_ONLY=$PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_STAGE_ONLY.</arg>
               				</exec>
                         </tasks>
                     </job>
@@ -280,11 +280,4 @@
         <environment name="internal">
         </environment>
     </environments>
-     <agents>
-    <agent hostname="missing-agent" ipaddress="10.232.3.1" uuid="missing">
-      <resources>
-        <resource>missing</resource>
-      </resources>
-    </agent>
-  </agents>
 </cruise>

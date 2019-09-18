@@ -61,6 +61,11 @@ step 'Verify there are <num> agents with state <state>' do |num,state|
   assert_equal agents_with_state(state).map.size,num.to_i
 end
 
+step 'With <count> live agents - teardown' do |count|
+  go_agents.destroy_agents count
+  delete_all_agents
+end
+
 def all_agents_info
   RestClient.get http_url('/api/agents'),
                             { accept: GoConstants::AGENTS_API_VERSION }.merge(basic_configuration.header) do |response, _request, _result|
@@ -68,8 +73,30 @@ def all_agents_info
   end
 end
 
+def delete_all_agents
+  all_agents = JSON.parse(all_agents_info.body)['_embedded']['agents']
+  all_agents.map! do |agents|
+    agents['uuid']
+  end
+  bulk_update_agent(%({"uuids": #{all_agents}, "agent_config_state" : "disabled"}))
+  RestClient::Request.execute(method: :delete, url: http_url("/api/agents"),
+    payload: %({"uuids": #{all_agents}}), headers: { accept: GoConstants::AGENTS_API_VERSION, content_type: :json }
+    .merge(basic_configuration.header)) do |response, _request, _result|
+    response
+  end
+end
+
 def patch_agent(agent_uuid, patch_request)
   RestClient.patch http_url("/api/agents/#{agent_uuid}"),
+                                  patch_request,
+                                  { accept: GoConstants::AGENTS_API_VERSION, content_type: :json }
+                                  .merge(basic_configuration.header) do |response, _request, _result|
+    response
+  end
+end
+
+def bulk_update_agent(patch_request)
+  RestClient.patch http_url("/api/agents"),
                                   patch_request,
                                   { accept: GoConstants::AGENTS_API_VERSION, content_type: :json }
                                   .merge(basic_configuration.header) do |response, _request, _result|

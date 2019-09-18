@@ -32,9 +32,7 @@ step 'With <count> live agents - setup' do |count|
   agents_spa_page.wait_till_agents_are_idle count
 end
 
-step 'With <count> live agents - teardown' do |count|
-  go_agents.destroy_agents count
-end
+
 
 step 'Create a <file> file' do |file|
   go_agents.create_stopjob(file)

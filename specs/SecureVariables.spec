@@ -58,7 +58,7 @@ tags: secure_variables
 * On Swift Dashboard Page
 * Looking at pipeline "edit-pipeline-with-secure-vars" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Wait till pipeline completed - On Swift Dashboard page
+* Wait for "240" seconds till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "passed" on pipeline with label "1" - On Swift Dashboard page
 * On Job details page of pipeline "edit-pipeline-with-secure-vars" counter "1" stage "defaultStage" counter "1" job "defaultJob"
 
@@ -85,7 +85,7 @@ tags: secure_variables
 
 * On Swift Dashboard Page
 * Looking at pipeline "edit-pipeline-with-secure-vars" - On Swift Dashboard page
-* Wait till pipeline completed - On Swift Dashboard page
+* Wait for "240" seconds till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "passed" on pipeline with label "2" - On Swift Dashboard page
 * On Job details page of pipeline "edit-pipeline-with-secure-vars" counter "2" stage "defaultStage" counter "1" job "defaultJob"
 

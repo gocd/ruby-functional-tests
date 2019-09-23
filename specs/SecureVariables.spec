@@ -3,7 +3,7 @@ SecureVariables
 
 Setup of contexts
 * Basic Configuration - setup
-* Using pipeline "edit-pipeline" - setup
+* Using pipeline "edit-pipeline-with-secure-vars" - setup
 * With "1" live agents - setup
 * Capture go state "SecureVariables" - setup
 
@@ -19,19 +19,19 @@ tags: secure_variables
 * Edit environment variables
 * For variable at row "1" set name "env_level_variable_made_secure_at_pipeline_level" value "env_insecure_key_value"
 * Add new variable
-* On Job settings page of pipeline "edit-pipeline" stage "defaultStage" job "defaultJob"
+* On Job settings page of pipeline "edit-pipeline-with-secure-vars" stage "defaultStage" job "defaultJob"
 * Open "Environment Variables" tab - On Job settings page
 * Add environment variable "secure_variable_made_insecure_by_job" with value "secure_variable_made_insecure_by_job"
 * Save Changes
-* On Stage settings page of pipeline "edit-pipeline" stage "defaultStage"
+* On Stage settings page of pipeline "edit-pipeline-with-secure-vars" stage "defaultStage"
 * Open "Environment Variables" tab - On Stage settings page
 * Add environment variable "secure_variable_made_insecure_by_stage" with value "secure_variable_made_insecure_by_stage"
 * Save Changes
 * Open Environment edit page for environment "uat"
 * Edit pipelines
-* Add pipeline "edit-pipeline" and save environment
+* Add pipeline "edit-pipeline-with-secure-vars" and save environment
 
-* On Pipeline settings page of pipeline "edit-pipeline"
+* On Pipeline settings page of pipeline "edit-pipeline-with-secure-vars"
 * Open "Environment Variables" tab - On Pipeline settings page
 
 * Add environment variable "plain_key" with value "plain_value"
@@ -50,17 +50,17 @@ tags: secure_variables
 * Verify secure environment variable with name "secure_variable_made_insecure_by_stage" is present
 * Verify secure environment variable with name "secure_variable_made_insecure_by_job" is present
 
-* On Job settings page of pipeline "edit-pipeline" stage "defaultStage" job "defaultJob"
+* On Job settings page of pipeline "edit-pipeline-with-secure-vars" stage "defaultStage" job "defaultJob"
 * Add task "Rake"
 * Set target to "\"string_reverse[secure_key secure_key_overridden_by_trigger env_level_variable_made_secure_at_pipeline_level secure_variable_made_insecure_by_stage secure_variable_made_insecure_by_job]\"" with working directory "git"
 * Save Changes
 
 * On Swift Dashboard Page
-* Looking at pipeline "edit-pipeline" - On Swift Dashboard page
+* Looking at pipeline "edit-pipeline-with-secure-vars" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "passed" on pipeline with label "1" - On Swift Dashboard page
-* On Job details page of pipeline "edit-pipeline" counter "1" stage "defaultStage" counter "1" job "defaultJob"
+* On Job details page of pipeline "edit-pipeline-with-secure-vars" counter "1" stage "defaultStage" counter "1" job "defaultJob"
 
 * Verify console log contains message "setting environment variable 'plain_key' to value 'plain_value'"
 * Verify console log contains message "setting environment variable 'secure_key' to value '********'"
@@ -84,10 +84,10 @@ tags: secure_variables
 * Trigger pipeline with options - On Swift Dashboard page
 
 * On Swift Dashboard Page
-* Looking at pipeline "edit-pipeline" - On Swift Dashboard page
+* Looking at pipeline "edit-pipeline-with-secure-vars" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "passed" on pipeline with label "2" - On Swift Dashboard page
-* On Job details page of pipeline "edit-pipeline" counter "2" stage "defaultStage" counter "1" job "defaultJob"
+* On Job details page of pipeline "edit-pipeline-with-secure-vars" counter "2" stage "defaultStage" counter "1" job "defaultJob"
 
 * Verify console log contains message "setting environment variable 'plain_key' to value 'plain_value'"
 * Verify console log contains message "setting environment variable 'secure_key' to value '********'"

@@ -1029,6 +1029,22 @@
                 </jobs>
             </stage>
         </pipeline>
+        <pipeline name="edit-pipeline-with-secure-vars">
+            <materials>
+                <git url="material-for-edit-pipeline-with-secure-vars" dest="git" materialName="git" autoUpdate="false"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                           <exec command="ls">
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
         <pipeline name="parent_pipeline">
       <materials>
         <svn url="svn-url-svn-pipeline" dest="svn" autoUpdate="false" materialName="svn">

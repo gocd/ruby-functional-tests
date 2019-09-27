@@ -12,7 +12,7 @@ SecureVariables
 
 tags: secure_variables
 
-* Add environment "uat" to any "1" Idle agents - Using Agents API
+* Add environment "uat" to all Idle agents - Using Agents API
 
 * Looking at environment "uat"
 * Open Environment edit page for environment "uat"

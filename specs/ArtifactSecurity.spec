@@ -1,6 +1,6 @@
 
 
-ArtifactAndPropertiesSecurity
+ArtifactSecurity
 =============================
 
 Setup of contexts
@@ -8,14 +8,14 @@ Setup of contexts
 * Login as "admin" - setup
 * Using pipeline "viewable-pipeline, 2-stage-viewable" - setup
 * With "1" live agents - setup
-* Capture go state "ArtifactAndPropertiesSecurity" - setup
+* Capture go state "ArtifactSecurity" - setup
 
-ArtifactAndPropertiesSecurity
+ArtifactSecurity
 -----------------------------
 
 tags: #2400, #2786, security, authorisation, authentication, #2514, automate, 6786
 
-Admin can add/edit artifacts and add/view job properties
+Admin can add/edit artifacts
 
 * Looking at pipeline "viewable-pipeline" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
@@ -46,10 +46,7 @@ Admin can add/edit artifacts and add/view job properties
 * Verify artifacts tab contains file "new_artifact.txt"
 * Verify artifact "new_artifact.txt" contains text "foo bar baz"
 
-* verify property "foo" with value "bar" for pipeline "viewable-pipeline" stage "defaultStage" label "1" counter "1" job "defaultJob" can be added
-
-
-Operate user can add/edit artifacts and view/add properties using api
+Operate user can add/edit artifacts
 * Logout and login as "operate"
 
 * For pipeline "viewable-pipeline" label "1" stage "defaultStage" counter "1" job "defaultJob"
@@ -57,15 +54,12 @@ Operate user can add/edit artifacts and view/add properties using api
 
 
 
-* verify property "prop_name_by_operate" with value "prop_value_by_operate" for pipeline "viewable-pipeline" stage "defaultStage" label "1" counter "1" job "defaultJob" can be added
-
-View user cannot add/edit artifacts and add properties using api
+View user cannot add/edit artifacts
 
 * Logout and login as "view"
 
 * For pipeline "viewable-pipeline" label "1" stage "defaultStage" counter "1" job "defaultJob"
 * Create artifact "another_artifact.txt" and Verify return code is "403" - Using Artifact Api
-
 
 
 * Looking at pipeline "viewable-pipeline" - On Swift Dashboard page
@@ -81,11 +75,6 @@ View user cannot add/edit artifacts and add properties using api
 
 
 * Verify artifacts tab does not contain file "another_artifact.txt"
-
-
-* verify property "quux" with value "baz" for pipeline "viewable-pipeline" stage "defaultStage" label "1" counter "1" job "defaultJob" cannot be added
-
-
 
 
 

@@ -201,35 +201,3 @@ step 'Verify artifact <artifact> contains text <text>' do |artifact,text|
   job_details_page.click_artifact artifact
   assert_true job_details_page.artifact_contents.include? text
 end
-
-
-step 'Set value <prop_value_api_1> in property <prop_name_api_1> and Verify return code is <201> - Using Properties Api' do |value,property,code|
-  url="/properties/#{scenario_state.get('locator')}/#{property}"
-  payload = "value=#{value}"
-  RestClient.post http_url("#{url}"), payload,
-  { Confirm: 'true' }.merge(basic_configuration.header) do |res,req,tmp|
-  assert_true res.code == code.to_i
-  end
-end
-
-step 'Verify property <property> has value <value>' do |property,value|
-  url="/properties/#{scenario_state.get('locator')}/#{property}"
-
-  RestClient.get http_url("#{url}"),
-  {Confirm: 'true' }.merge(basic_configuration.header) do |res,req,tmp|
-  assert_true res.body.include?value
-  end
-end
-
-step 'Verify property <prop_name_api_6> does not exist' do |property|
-  url="/properties/#{scenario_state.get('locator')}/#{property}"
-  RestClient.get http_url("#{url}"),
-  {Confirm: 'true' }.merge(basic_configuration.header) do |res,req,tmp|
-  assert_true res.body.include?"Property '#{property}' not found."
-  end
-end
-
-
-step 'Verify property <property> exist' do |property|
- assert_true job_details_page.property_exists?property
-end

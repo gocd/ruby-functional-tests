@@ -1229,9 +1229,7 @@
       </admins>
     </authorization>
     <pipeline name="first-pipeline" template="simple-pass">
-      <mingle baseUrl="https://mingle-different.example.com" projectIdentifier="my_project">
-        <mqlGroupingConditions>status &gt; 'In Dev'</mqlGroupingConditions>
-      </mingle>
+      <trackingtool link="https://github.com/bob/my-project/issues/${ID}" regex="##(\d+)" />
       <materials>
         <git url="material-for-first-pipeline" dest="git" materialName="git-first-pipeline" autoUpdate="false"/>
       </materials>
@@ -1257,9 +1255,7 @@
       </operate>
     </authorization>
     <pipeline name="down-pipeline" template="simple-pass">
-      <mingle baseUrl="https://mingle-different.example.com" projectIdentifier="my_project">
-        <mqlGroupingConditions>status &gt; 'Dev Complete'</mqlGroupingConditions>
-      </mingle>
+      <trackingtool link="https://github.com/alice/my-project/issues/${ID}" regex="##(\d+)" />
       <materials>
         <git url="material-for-down-pipeline" dest="git" autoUpdate="false" materialName="git-down-pipeline"/>
         <pipeline pipelineName="first-pipeline" stageName="defaultStage"/>

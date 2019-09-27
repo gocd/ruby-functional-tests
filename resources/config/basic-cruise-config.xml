@@ -773,9 +773,7 @@
             </stage>
         </pipeline>
         <pipeline name="pipeline-with-mingle-config">
-            <mingle baseUrl="https://some.mingle.machine:1000/mingle" projectIdentifier="some-go-branch">
-                <mqlGroupingConditions>foo != not(foo)</mqlGroupingConditions>
-            </mingle>
+            <trackingtool link="https://github.com/bob/my-project/issues/${ID}" regex="##(\d+)" />
             <materials>
                 <git url="material-for-pipeline-with-mingle-config1" dest="git0" autoUpdate="false" materialName="pipeline-git0"/>
                 <git url="material-for-pipeline-with-mingle-config2" dest="git" materialName="pipeline-git"/>

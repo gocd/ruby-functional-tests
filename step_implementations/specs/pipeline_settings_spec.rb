@@ -132,22 +132,6 @@ step 'Move stage <stage> to <direction>' do |stage, direction|
   pipeline_settings_page.move_stage stage, direction
 end
 
-step 'Select tracking tool as <tool>' do |tool|
-  pipeline_settings_page.select_tracking_tool tool
-end
-
-step 'Set mingle URL as <url>' do |url|
-  pipeline_settings_page.mingle_URL.set url
-end
-
-step 'Set mingle project identifier as <identifier>' do |identifier|
-  pipeline_settings_page.mingle_identifier.set identifier
-end
-
-step 'Set MQA grouping conditions as <mqa>' do |mqa|
-  pipeline_settings_page.mingle_mqa.set mqa
-end
-
 step 'Enter project path as <path>' do |path|
   pipeline_settings_page.project_path.set(path)
 end

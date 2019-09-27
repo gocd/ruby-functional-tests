@@ -22,14 +22,6 @@ tags: Clicky Admin
 * Enter "0 0 22 ? * MON-FRI" for cron time specifier
 * Save Changes
 * Verify "Saved successfully." message is displayed
-* Open tab "Project Management" - On Pipeline Creation Page
-
-* Verify reset button exists
-* Select tracking tool as "mingle"
-* Set mingle URL as "https://mingle09.thoughtworks.com"
-* Set mingle project identifier as "go"
-* Set MQA grouping conditions as "select from CARD"
-* Save Changes
 * Open tab "Materials" - On Pipeline Creation Page
 * Verify "Add Material" link is present
 

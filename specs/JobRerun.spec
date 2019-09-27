@@ -45,16 +45,14 @@ tags: job-rerun
 * Verify breadcrumb contains stage run "defaultStage / 2"
 * Verify displaying job "1"
 * Verify historical job "1" is not a copy
-* Verify properties tab shows value "2" for property "cruise_stage_counter"
 
 * On Job details page of pipeline "pipeline-with-3-jobs" counter "1" stage "defaultStage" counter "2" job "third"
 
 * Verify console log does not contains message "GO_RERUN_OF_STAGE_COUNTER"
-* Verify console has environment variable "GO_STAGE_COUNTER" set to value "1" 
+* Verify console has environment variable "GO_STAGE_COUNTER" set to value "1"
 * Verify console log contains pipeline "pipeline-with-3-jobs" with "1/defaultStage/1/third"
 * Verify breadcrumb contains stage run "defaultStage / 1"
 * Verify displaying job "1"
-* Verify properties tab shows value "1" for property "cruise_stage_counter"
 
 
 Teardown of contexts

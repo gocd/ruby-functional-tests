@@ -99,10 +99,6 @@ step 'Verify historical job <value> is not a copy' do |value|
   assert_false job_details_page.job_is_not_copied_job?(value)
 end
 
-step 'Verify properties tab shows value <value> for property <property>' do |value, property|
-  assert_equal value, job_details_page.get_value_of_property(property)
-end
-
 step 'Remove job <job> from stage <stage> in pipeline <pipeline>' do |job, stage, pipeline|
   basic_configuration.remove_job_from_stage(job, stage, pipeline)
 end

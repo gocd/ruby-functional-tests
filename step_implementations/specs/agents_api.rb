@@ -25,6 +25,17 @@ step 'Add environment <env> to any <count> Idle agents - Using Agents API' do |_
   end
 end
 
+step 'Add environment <env> to all Idle agents - Using Agents API' do |_environment, _count|
+  agents_with_state('Idle').each do |agent|
+    begin
+      patch_agent(agent['uuid'], "{\"environments\": [\"#{_environment}\"]}")
+    rescue RestClient::ExceptionWithResponse => err
+      scenario_state.put('api_response', err.response)
+      raise "Patch agents info call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+    end
+  end
+end
+
 step 'Verify <label_count> instances of <pipeline_name> <stage_name> <job_name> <status> - Using Agents Api' do |label_count, _pipeline_name, stage_name, job_name, status|
   offset = 0
   while (label_count.to_i - offset) > 0

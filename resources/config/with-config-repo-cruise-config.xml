@@ -16,7 +16,11 @@
  *************************GO-LICENSE-END******************************* -->
 
 <cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="132">
-    <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="gauge" tokenGenerationKey="token"/>
+    <server commandRepositoryLocation="default" serverId="gauge" tokenGenerationKey="token">
+       <artifacts>
+         <artifactsDir>artifacts</artifactsDir>
+       </artifacts>
+    </server>
     <config-repos>
        <config-repo id="config-repo" pluginId="json.config.plugin">
          <git url="material-for-pipeline-git-config-repo" />

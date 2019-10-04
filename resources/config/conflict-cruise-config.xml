@@ -16,7 +16,10 @@
  *************************GO-LICENSE-END******************************* -->
 
 <cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="132">
-  <server artifactsdir="artifacts" serverId="twist" tokenGenerationKey="token">
+  <server serverId="twist" tokenGenerationKey="token">
+    <artifacts>
+      <artifactsDir>artifacts</artifactsDir>
+    </artifacts>
     <security>
       <roles>
         <role name="admins">

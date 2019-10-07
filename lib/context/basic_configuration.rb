@@ -277,8 +277,13 @@ module Context
 
     def set_artifact_location(artifact_location)
       current_config = get_config_from_server
-      current_config.xpath('//cruise/server').each do |server|
-        server['artifactsdir'] = artifact_location
+      artifactsDir_tag="<artifactsDir>#{artifact_location}</artifactsDir>"
+      current_config.at('artifactsDir')['text'] = artifact_location
+      if !current_config.xpath("//cruise/server/artifacts/artifactsDir").empty?
+        current_config.xpath("//cruise/server/artifacts/artifactsDir").remove
+        current_config.xpath("//cruise/server/artifacts").children.first.add_previous_sibling artifactsDir_tag
+      else
+        current_config.xpath("//cruise/server/artifacts").children.first.add_previous_sibling artifactsDir_tag
       end
       load_dom(current_config)
     end

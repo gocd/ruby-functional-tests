@@ -1258,7 +1258,7 @@
       </operate>
     </authorization>
     <pipeline name="down-pipeline" template="simple-pass">
-      <trackingtool link="https://github.com/alice/my-project/issues/${ID}" regex="##(\d+)" />
+      <trackingtool link="https://github.com/bob/my-project/issues/${ID}" regex="##(\d+)" />
       <materials>
         <git url="material-for-down-pipeline" dest="git" autoUpdate="false" materialName="git-down-pipeline"/>
         <pipeline pipelineName="first-pipeline" stageName="defaultStage"/>

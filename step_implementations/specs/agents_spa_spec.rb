@@ -49,6 +49,11 @@ step 'Verify agent <row> assigned resources <resources>' do |row, resources|
   assert_equal resources.split(',').map(&:strip).sort, agents_spa_page.get_listed_agents('Resources')[row.to_i - 1].split(',').map(&:strip), 'Mismatch in agent assigned resources'
 end
 
+step 'Sort and verify agent <row> assigned resources <resources>' do |row, resources|
+  agents_spa_page.sort_by 'Sandbox'
+  assert_equal resources.split(',').map(&:strip).sort, agents_spa_page.get_listed_agents('Resources')[row.to_i - 1].split(',').map(&:strip), 'Mismatch in agent assigned resources'
+end
+
 step 'Remove environments <envs>' do |envs|
   agents_spa_page.click_on('ENVIRONMENTS')
   envs.split(',').map(&:strip).each { |env| agents_spa_page.set_environment env, false }
@@ -63,6 +68,11 @@ step 'Set environments <envs>' do |envs|
 end
 
 step 'Verify agent <row> assigned environments <envs>' do |row, envs|
+  assert_equal envs.split(',').map(&:strip).sort, agents_spa_page.get_listed_agents('Environments')[row.to_i - 1].split(',').map(&:strip), 'Mismatch in agent assigned environments'
+end
+
+step 'Sort and verify agent <row> assigned environments <envs>' do |row, envs|
+  agents_spa_page.sort_by 'Sandbox'
   assert_equal envs.split(',').map(&:strip).sort, agents_spa_page.get_listed_agents('Environments')[row.to_i - 1].split(',').map(&:strip), 'Mismatch in agent assigned environments'
 end
 

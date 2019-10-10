@@ -18,13 +18,13 @@ module Pages
   class AgentsSPA < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/agents"
 
-    element :agents_head, '#agents > div > div.agents-table-body > div > table > thead > tr'
+    element :agents_head, "div[data-test-id='tab-content-0'] table[data-test-id='table'] > thead > tr"
     element :agents_table, '.agents-table.stack'
-    elements :agents_row, '#agents > div > div.agents-table-body > div > table > tbody > tr'
-    elements :agents_column, '#agents > div > div.agents-table-body > div > table > tbody > tr > td'
-    elements :agents_menu, '#agents div div.header-panel header div div.columns.medium-7.large-7 ul'
+    elements :agents_row, "div[data-test-id='tab-content-0'] table[data-test-id='table'] > tbody > tr"
+    elements :agents_column, "div[data-test-id='tab-content-0'] table[data-test-id='table'] > tbody > tr > td"
+    elements :agents_menu, "div[data-test-id='tab-content-0'] > div > div > div > div"
     element :agent_menu, '#agents div header div div.columns.medium-7.large-7 ul'
-    element :filter_agent, '#filter-agent'
+    element :filter_agent, "[data-test-id='form-field-input-search-for-agents']"
     elements :agents_summary, '#agents > div > div.header-panel > div.agents-search-panel > div.show-for-large > ul > li'
 
     load_validation { has_filter_agent? }
@@ -54,20 +54,20 @@ module Pages
     end
 
     def add_resource(resource)
-      agents_menu[0].find('li.has-dropdown.is-open').find('input[type="text"]').set resource
-      agents_menu[0].find('li.has-dropdown.is-open').find('button', text: 'Add').click
+      agents_menu[0].find("div[data-test-id='association']").find('input[type="text"]').set resource
+      agents_menu[0].find("div[data-test-id='association']").find('button', text: 'Add').click
     end
 
     def set_resource(resource, value)
-      agents_menu[0].all('li.has-dropdown.is-open > div > ul > li').each { |res| res.find('input[type="checkbox"]').set(value) if res.text == resource }
+      agents_menu[0].find("div[data-test-id='association'] input[type='checkbox'][data-test-id='form-field-input-#{slugify(resource)}']").set(value)
     end
 
     def set_environment(environment, value)
-      agents_menu[0].all('li.has-dropdown.is-open > div > ul > li').each { |env| env.find('input[type="checkbox"]').set(value) if env.text == environment }
+      agents_menu[0].find("div[data-test-id='association'] input[type='checkbox'][data-test-id='form-field-input-#{environment}']").set(value)
     end
 
     def apply_changes
-      agents_menu[0].find('li.has-dropdown.is-open').find('button', text: 'Apply').click
+      agents_menu[0].find("div[data-test-id='association']").find('button', text: 'Apply').click
       reload_page
     end
 
@@ -91,7 +91,7 @@ module Pages
     end
 
     def sort_by(column)
-      agents_head.find('label', text: column.upcase).click
+      agents_head.find('th', text: column.upcase).find('span').click
     end
 
     def filter_by(search_string)
@@ -121,6 +121,10 @@ module Pages
         wait_until_agents_menu_visible(wait: 5)
         break if get_agents_count('Idle') == count.to_i
       end
+    end
+
+    def slugify(value)
+      value.downcase.strip.gsub(/[ _]+/, '-').gsub(/[^\w-]/, '')
     end
   end
 end

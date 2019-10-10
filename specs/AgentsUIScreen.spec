@@ -13,27 +13,29 @@ Setup of contexts
 
 Resource Assignment
 
+* Sort by "Sandbox"
 * Select agent "1"
 * Add resources "linux, java, ruby"
-* Verify agent "1" assigned resources "linux, java, ruby"
+* Sort and verify agent "1" assigned resources "linux, java, ruby"
 * Select agent "1"
 * Remove resources "ruby"
-* Verify agent "1" assigned resources "linux, java"
+* Sort and verify agent "1" assigned resources "linux, java"
 * Select agent "2, 3"
 * Set resources "linux, java"
-* Verify agent "2" assigned resources "linux, java"
+* Sort and verify agent "2" assigned resources "linux, java"
 * Verify agent "3" assigned resources "linux, java"
 * Select agent "1, 2, 3"
 * Remove resources "linux, java"
+* Sort by "Sandbox"
 * Select agent "1"
 * Add resources "linux"
-* Verify agent "1" assigned resources "linux"
+* Sort and verify agent "1" assigned resources "linux"
 * Select agent "2"
 * Add resources "java"
-* Verify agent "2" assigned resources "java"
+* Sort and verify agent "2" assigned resources "java"
 * Select agent "3"
 * Add resources "ruby"
-* Verify agent "3" assigned resources "ruby"
+* Sort and verify agent "3" assigned resources "ruby"
 
 Sort by Resources
 
@@ -47,26 +49,27 @@ Sort by Resources
 
 Environment assignment
 
+* Sort by "Sandbox"
 * Select agent "1"
 * Set environments "uat, internal"
-* Verify agent "1" assigned environments "uat, internal"
+* Sort and verify agent "1" assigned environments "uat, internal"
 * Select agent "1"
 * Remove environments "internal"
-* Verify agent "1" assigned environments "uat"
+* Sort and verify agent "1" assigned environments "uat"
 * Select agent "2, 3"
 * Set environments "prod, internal"
-* Verify agent "2" assigned environments "prod, internal"
+* Sort and verify agent "2" assigned environments "prod, internal"
 * Verify agent "3" assigned environments "prod, internal"
 * Verify agent "4" assigned environments "none specified"
 * Select agent "2, 3"
 * Remove environments "prod, internal"
-* Verify agent "2" assigned environments "none specified"
+* Sort and verify agent "2" assigned environments "none specified"
 * Select agent "2"
 * Set environments "internal"
-* Verify agent "2" assigned environments "internal"
+* Sort and verify agent "2" assigned environments "internal"
 * Select agent "3"
 * Set environments "prod"
-* Verify agent "3" assigned environments "prod"
+* Sort and verify agent "3" assigned environments "prod"
 
 Sort by environments
 

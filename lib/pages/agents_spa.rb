@@ -26,6 +26,9 @@ module Pages
     element :agent_menu, '#agents div header div div.columns.medium-7.large-7 ul'
     element :filter_agent, "[data-test-id='form-field-input-search-for-agents']"
     elements :agents_summary, '#agents > div > div.header-panel > div.agents-search-panel > div.show-for-large > ul > li'
+    element :elastic_agents_tab, "a[data-test-id='tab-header-1']"
+    element :elastic_agents_info_panel, "div[data-test-id='tab-content-1'] > div div > div"
+    elements :elastic_agents_row, "div[data-test-id='tab-content-1'] table[data-test-id='table'] > tbody > tr"
 
     load_validation {has_filter_agent?}
 
@@ -47,6 +50,13 @@ module Pages
       reload_page
       wait_until_agents_menu_visible(wait: 5)
       agents_row.size
+    end
+
+    def listed_elastic_agents_count
+      reload_page
+      switch_to_elastic_agents_tab
+      wait_until_elastic_agents_info_panel_visible(wait: 5)
+      elastic_agents_row.size
     end
 
     def get_agents_count(state)
@@ -129,6 +139,10 @@ module Pages
 
     def slugify(value)
       value.downcase.strip.gsub(/[ _]+/, '-').gsub(/[^\w-]/, '')
+    end
+
+    def switch_to_elastic_agents_tab
+      elastic_agents_tab.click
     end
   end
 end

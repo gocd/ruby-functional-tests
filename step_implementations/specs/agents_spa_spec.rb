@@ -104,6 +104,10 @@ step 'Verify listed agents count is <count>' do |count|
   assert_equal count.to_i, agents_spa_page.listed_agents_count, "Listed agents count expected to be #{count}"
 end
 
+step 'Verify listed elastic agents count is <count>' do |count|
+  assert_equal count.to_i, agents_spa_page.listed_elastic_agents_count, "Listed elastic agents count expected to be #{count}"
+end
+
 step 'Enter filter value <search>' do |search|
   agents_spa_page.filter_by(search)
 end

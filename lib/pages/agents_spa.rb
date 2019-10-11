@@ -18,16 +18,19 @@ module Pages
   class AgentsSPA < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/agents"
 
-    element :agents_head, '#agents > div > div.agents-table-body > div > table > thead > tr'
+    element :agents_head, "div[data-test-id='tab-content-0'] table[data-test-id='table'] > thead > tr"
     element :agents_table, '.agents-table.stack'
-    elements :agents_row, '#agents > div > div.agents-table-body > div > table > tbody > tr'
-    elements :agents_column, '#agents > div > div.agents-table-body > div > table > tbody > tr > td'
-    elements :agents_menu, '#agents div div.header-panel header div div.columns.medium-7.large-7 ul'
+    elements :agents_row, "div[data-test-id='tab-content-0'] table[data-test-id='table'] > tbody > tr"
+    elements :agents_column, "div[data-test-id='tab-content-0'] table[data-test-id='table'] > tbody > tr > td"
+    elements :agents_menu, "div[data-test-id='tab-content-0'] > div > div > div > div"
     element :agent_menu, '#agents div header div div.columns.medium-7.large-7 ul'
-    element :filter_agent, '#filter-agent'
+    element :filter_agent, "[data-test-id='form-field-input-search-for-agents']"
     elements :agents_summary, '#agents > div > div.header-panel > div.agents-search-panel > div.show-for-large > ul > li'
+    element :elastic_agents_tab, "a[data-test-id='tab-header-1']"
+    element :elastic_agents_info_panel, "div[data-test-id='tab-content-1'] > div div > div"
+    elements :elastic_agents_row, "div[data-test-id='tab-content-1'] table[data-test-id='table'] > tbody > tr"
 
-    load_validation { has_filter_agent? }
+    load_validation {has_filter_agent?}
 
     def select_all_agents
       wait_until_agents_menu_visible(wait: 5)
@@ -49,25 +52,36 @@ module Pages
       agents_row.size
     end
 
+    def listed_elastic_agents_count
+      reload_page
+      switch_to_elastic_agents_tab
+      wait_until_elastic_agents_info_panel_visible(wait: 5)
+      elastic_agents_row.size
+    end
+
     def get_agents_count(state)
       (agents_column text: state).size
     end
 
     def add_resource(resource)
-      agents_menu[0].find('li.has-dropdown.is-open').find('input[type="text"]').set resource
-      agents_menu[0].find('li.has-dropdown.is-open').find('button', text: 'Add').click
+      agents_menu[0].find("div[data-test-id='association']").find('input[type="text"]').set resource
+      agents_menu[0].find("div[data-test-id='association']").find('button', text: 'Add').click
     end
 
     def set_resource(resource, value)
-      agents_menu[0].all('li.has-dropdown.is-open > div > ul > li').each { |res| res.find('input[type="checkbox"]').set(value) if res.text == resource }
+      agents_menu[0].find("div[data-test-id='association'] input[type='checkbox'][data-test-id='form-field-input-#{slugify(resource)}']").set(value)
+    end
+
+    def verify_column(row_number, column_name, collection, error_message)
+      assert_equal collection.split(',').map(&:strip).sort, agents_spa_page.get_listed_agents(column_name)[row_number.to_i - 1].split(',').map(&:strip), error_message
     end
 
     def set_environment(environment, value)
-      agents_menu[0].all('li.has-dropdown.is-open > div > ul > li').each { |env| env.find('input[type="checkbox"]').set(value) if env.text == environment }
+      agents_menu[0].find("div[data-test-id='association'] input[type='checkbox'][data-test-id='form-field-input-#{environment}']").set(value)
     end
 
     def apply_changes
-      agents_menu[0].find('li.has-dropdown.is-open').find('button', text: 'Apply').click
+      agents_menu[0].find("div[data-test-id='association']").find('button', text: 'Apply').click
       reload_page
     end
 
@@ -91,7 +105,7 @@ module Pages
     end
 
     def sort_by(column)
-      agents_head.find('label', text: column.upcase).click
+      agents_head.find('th', text: column.upcase).find('span').click
     end
 
     def filter_by(search_string)
@@ -103,7 +117,7 @@ module Pages
       wait_till_event_occurs_or_bomb 120, "Expected agent at #{row} to move to status #{status} by now" do
         reload_page
         wait_until_agents_menu_visible(wait: 5)
-        break if agents_spa_page.get_listed_agents('Status')[row.to_i-1] == status
+        break if agents_spa_page.get_listed_agents('Status')[row.to_i - 1] == status
       end
     end
 
@@ -121,6 +135,14 @@ module Pages
         wait_until_agents_menu_visible(wait: 5)
         break if get_agents_count('Idle') == count.to_i
       end
+    end
+
+    def slugify(value)
+      value.downcase.strip.gsub(/[ _]+/, '-').gsub(/[^\w-]/, '')
+    end
+
+    def switch_to_elastic_agents_tab
+      elastic_agents_tab.click
     end
   end
 end

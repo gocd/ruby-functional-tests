@@ -41,7 +41,13 @@ tags: elastic_agent_profile
 * Looking at pipeline "pipeline-with-elastic-agent-profile-1" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 
-* Wait for "180" seconds till pipeline completed - On Swift Dashboard page
+// waiting so that agent can spin up
+* Wait for "30" seconds 
+* On Agents page
+* Verify listed elastic agents count is "1"
+
+* On Swift Dashboard Page
+* Wait for "150" seconds till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" - On Swift Dashboard page
 
 * On Job details page of pipeline "pipeline-with-elastic-agent-profile-1" counter "1" stage "defaultStage" counter "1" job "defaultJob"

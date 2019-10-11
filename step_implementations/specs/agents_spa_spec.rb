@@ -46,7 +46,12 @@ step 'Set resources <resources>' do |resources|
 end
 
 step 'Verify agent <row> assigned resources <resources>' do |row, resources|
-  assert_equal resources.split(',').map(&:strip).sort, agents_spa_page.get_listed_agents('Resources')[row.to_i - 1].split(',').map(&:strip), 'Mismatch in agent assigned resources'
+  agents_spa_page.verify_column row, 'Resources', resources, 'Mismatch in agent assigned resources'
+end
+
+step 'Sort and verify agent <row> assigned resources <resources>' do |row, resources|
+  agents_spa_page.sort_by 'Sandbox'
+  agents_spa_page.verify_column row, 'Resources', resources, 'Mismatch in agent assigned resources'
 end
 
 step 'Remove environments <envs>' do |envs|
@@ -63,7 +68,12 @@ step 'Set environments <envs>' do |envs|
 end
 
 step 'Verify agent <row> assigned environments <envs>' do |row, envs|
-  assert_equal envs.split(',').map(&:strip).sort, agents_spa_page.get_listed_agents('Environments')[row.to_i - 1].split(',').map(&:strip), 'Mismatch in agent assigned environments'
+  agents_spa_page.verify_column row, 'Environments', envs, 'Mismatch in agent assigned environments'
+end
+
+step 'Sort and verify agent <row> assigned environments <envs>' do |row, envs|
+  agents_spa_page.sort_by 'Sandbox'
+  agents_spa_page.verify_column row, 'Environments', envs, 'Mismatch in agent assigned environments'
 end
 
 step 'Verify message <message>' do |message|
@@ -92,6 +102,10 @@ end
 
 step 'Verify listed agents count is <count>' do |count|
   assert_equal count.to_i, agents_spa_page.listed_agents_count, "Listed agents count expected to be #{count}"
+end
+
+step 'Verify listed elastic agents count is <count>' do |count|
+  assert_equal count.to_i, agents_spa_page.listed_elastic_agents_count, "Listed elastic agents count expected to be #{count}"
 end
 
 step 'Enter filter value <search>' do |search|

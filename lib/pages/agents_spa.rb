@@ -27,7 +27,7 @@ module Pages
     element :filter_agent, "[data-test-id='form-field-input-search-for-agents']"
     elements :agents_summary, '#agents > div > div.header-panel > div.agents-search-panel > div.show-for-large > ul > li'
 
-    load_validation { has_filter_agent? }
+    load_validation {has_filter_agent?}
 
     def select_all_agents
       wait_until_agents_menu_visible(wait: 5)
@@ -60,6 +60,10 @@ module Pages
 
     def set_resource(resource, value)
       agents_menu[0].find("div[data-test-id='association'] input[type='checkbox'][data-test-id='form-field-input-#{slugify(resource)}']").set(value)
+    end
+
+    def verify_column(row_number, column_name, collection, error_message)
+      assert_equal collection.split(',').map(&:strip).sort, agents_spa_page.get_listed_agents(column_name)[row_number.to_i - 1].split(',').map(&:strip), error_message
     end
 
     def set_environment(environment, value)
@@ -103,7 +107,7 @@ module Pages
       wait_till_event_occurs_or_bomb 120, "Expected agent at #{row} to move to status #{status} by now" do
         reload_page
         wait_until_agents_menu_visible(wait: 5)
-        break if agents_spa_page.get_listed_agents('Status')[row.to_i-1] == status
+        break if agents_spa_page.get_listed_agents('Status')[row.to_i - 1] == status
       end
     end
 

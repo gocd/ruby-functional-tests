@@ -33,7 +33,6 @@ module Pages
 
     def fill_form(key_value)
       f = key_value.split(':', 2)
-      binding.pry
       external_artifacts_form[0].find(:xpath, instance_eval(f[0])[0].path).set("#{f[1].strip}")
     end
 

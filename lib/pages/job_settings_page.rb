@@ -29,7 +29,7 @@ module Pages
     element :publish_artifact_type, '#select_artifact_type'
     element :add_artifact, '#add_artifact'
     element :artifact_source, '.artifact_source'
-    element :store_id, "input[name='job[artifactConfigs][][storeId]']"
+    element :store_id, "input[name='job[artifactTypeConfigs][][storeId]']"
     element :task_configuration_path, "input[name='task[configuration][Path]']"
     element :task_working_directory, "input[name='task[workingDirectory]']"
     element :task_target, "input[name='task[target]']"

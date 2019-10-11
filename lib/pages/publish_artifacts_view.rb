@@ -19,20 +19,21 @@ module Pages
   class PublishArtifactsView < AppBase
 
     elements :external_artifacts_form, '.dirtyform'
-    elements :external_artifacts_id, '#job_artifactConfigs__id'
-    elements :external_artifacts_store_id, '#job_artifactConfigs__storeId'
-    elements :source, "input[name='job[artifactConfigs][][source]']"
-    elements :destination, "input[name='job[artifactConfigs][][destination]']"
-    elements :external_source, "input[name='job[artifactConfigs][][configuration][Source]']"
-    elements :external_destination, "input[name='job[artifactConfigs][][configuration][Destination]']"
+    elements :external_artifacts_id, '#job_artifactTypeConfigs__id'
+    elements :external_artifacts_store_id, '#job_artifactTypeConfigs__storeId'
+    elements :source, "input[name='job[artifactTypeConfigs][][source]']"
+    elements :destination, "input[name='job[artifactTypeConfigs][][destination]']"
+    elements :external_source, "input[name='job[artifactTypeConfigs][][configuration][Source]']"
+    elements :external_destination, "input[name='job[artifactTypeConfigs][][configuration][Destination]']"
     element  :save_publish_artifacts, "button[value='SAVE']"
     element  :delete_artifact, "span.delete_artifact"
     element  :save_status, ".flash>p"
-    element  :single_source, "input[name='job[artifactConfigs][][source]']"
-    element  :single_destination, "input[name='job[artifactConfigs][][destination]']"
+    element  :single_source, "input[name='job[artifactTypeConfigs][][source]']"
+    element  :single_destination, "input[name='job[artifactTypeConfigs][][destination]']"
 
     def fill_form(key_value)
       f = key_value.split(':', 2)
+      binding.pry
       external_artifacts_form[0].find(:xpath, instance_eval(f[0])[0].path).set("#{f[1].strip}")
     end
 

@@ -125,6 +125,6 @@ step 'Wait till agent <row> status is <status>' do |row, status|
 end
 
 step 'Approve a pending agent' do |_count|
-  agents_spa_page.select_agent_with_status('pending')
+  agents_spa_page.select_agent_with_status('Pending')
   agents_spa_page.click_on 'ENABLE'
 end

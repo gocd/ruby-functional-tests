@@ -42,7 +42,7 @@ tags: elastic_agent_profile
 * Trigger pipeline - On Swift Dashboard page
 
 // waiting so that agent can spin up
-* Wait for "30" seconds 
+* Wait for "90" seconds
 * On Agents page
 * Verify listed elastic agents count is "1"
 

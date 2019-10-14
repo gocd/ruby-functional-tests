@@ -19,7 +19,7 @@ module Pages
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/agents"
 
     element :agents_head, "div[data-test-id='tab-content-0'] table[data-test-id='table'] > thead > tr"
-    element :agents_table, '.agents-table.stack'
+    element :agents_table, "[data-test-id='table']"
     elements :agents_row, "div[data-test-id='tab-content-0'] table[data-test-id='table'] > tbody > tr"
     elements :agents_column, "div[data-test-id='tab-content-0'] table[data-test-id='table'] > tbody > tr > td"
     elements :agents_menu, "div[data-test-id='tab-content-0'] > div > div > div > div"
@@ -43,7 +43,7 @@ module Pages
     end
 
     def select_agent_with_status(status)
-      agents_table.all(".#{status}").first.find('input[type="checkbox"]').set(true)
+      page.find("[data-test-id='table']").all('td', text: status).first.ancestor("[data-test-id='table-row']").find('input[type="checkbox"]').set(true)
     end
 
     def listed_agents_count
@@ -91,7 +91,7 @@ module Pages
     end
 
     def summary_count(label)
-      agents_summary.select { |summary| summary.find('label').text == label }.first.find('span').text
+      page.find("[data-test-id='key-value-value-#{label.downcase}']").find('span').text
     end
 
     def get_listed_agents(column_name)

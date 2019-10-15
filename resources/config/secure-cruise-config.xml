@@ -573,6 +573,10 @@
                                 <arg>echo CLUSTER_NAME=$CLUSTER_NAME</arg>
                                 <runif status="passed"/>
                             </exec>
+                            <exec command="sleep">
+                                <arg>30</arg>
+                                <runif status="passed"/>
+                            </exec>
                         </tasks>
                     </job>
                 </jobs>

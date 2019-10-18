@@ -162,8 +162,10 @@ module Pages
     end
 
     def editable?
-      !(pipeline_name text: scenario_state.self_pipeline)
-        .ancestor('.pipeline').has_css?('.edit_config.disabled')
+      !((pipeline_name text: scenario_state.self_pipeline)
+        .ancestor('.pipeline').has_css?('.edit_config.disabled') ||
+        (pipeline_name text: scenario_state.self_pipeline)
+        .ancestor('.pipeline').has_css?('.has-tip.info_config.disabled'))
     end
 
     def edit_pipeline(_pipeline)

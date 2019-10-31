@@ -855,6 +855,13 @@
                 <pipeline pipelineName="autoFirst" stageName="defaultStage"/>
             </materials>
         </pipeline>
+        <pipeline name="child-of-autoFirst-ignoring-scheduling-for-upstream" template="autoStagePipelineTemplate">
+            <materials>
+                <git url="material-for-child-of-autoFirst" materialName="git-first" dest="gitfolder">
+                </git>
+                <pipeline pipelineName="autoFirst" stageName="defaultStage" ignoreForScheduling="true"/>
+            </materials>
+        </pipeline>
         <pipeline name="grandchild-of-autoFirst" template="autoStagePipelineTemplate">
             <materials>
                 <git url="material-for-grandchild-of-autoFirst" materialName="git-first" dest="gitfolder"/>

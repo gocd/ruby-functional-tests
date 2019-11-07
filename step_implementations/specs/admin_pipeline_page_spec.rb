@@ -326,14 +326,6 @@ step 'Verify templates tab is visible' do
   admin_pipeline_page.template_tab_is_visible?
 end
 
-step 'Set cancel job after <time> minutes' do |time|
-  admin_pipeline_page.set_hung_job_override_time time
-end
-
-step 'Save Server Configuration' do
-  admin_pipeline_page.save_server_configuration.click
-end
-
 step 'Edit template <template>' do |template|
   admin_pipeline_page.edit_template template
 end

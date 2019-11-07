@@ -12,10 +12,11 @@ Setup of contexts
 HungJobZeroTimeOutForJob
 ------------------------
 
-tags: Clicky Admin
+tags: server configuration
 
-* On Admin page
-* Open "Server Configuration" tab
+* On Server Configuration page
+
+* On Job timeout configuration
 
 * Set cancel job after "2" minutes
 * Save Server Configuration
@@ -39,6 +40,3 @@ Teardown of contexts
 ____________________
 * Capture go state "HungJobZeroTimeOutForJob" - teardown
 * With "1" live agents - teardown
-
-
-

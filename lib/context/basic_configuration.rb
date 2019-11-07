@@ -323,8 +323,8 @@ module Context
 
     def allow_known_user_to_login(value)
       current_config = get_config_from_server
-      current_config.xpath('//cruise/server/security').each do |security|
-        security['allowOnlyKnownUsersToLogin'] = value
+      current_config.xpath('//cruise/server/security/authConfigs/authConfig').each do |authconfig|
+        authconfig['allowOnlyKnownUsersToLogin'] = value
       end
       load_dom(current_config)
     end

@@ -351,11 +351,6 @@ module Pages
       page.has_css?('#tab-link-of-templates')
     end
 
-    def set_hung_job_override_time time
-      page.find("#hungjobs_overrideTimeout").click
-      page.find("#server_configuration_form_jobTimeout").set time
-    end
-
 
     def edit_template template
       page.all('a.edit_icon').each{|edit|

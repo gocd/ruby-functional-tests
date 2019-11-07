@@ -69,6 +69,7 @@ require 'pages/elastic_agent_profiles_page'
 require 'pages/elastic_profiles_page'
 require 'pages/secret_config_spa'
 require 'pages/config_repos_page'
+require 'pages/server_configuration_page'
 
 
 
@@ -268,6 +269,10 @@ module Helpers
 
     def config_repos_page
        Pages::ConfigReposPage.new
+    end
+
+    def server_configuration_page
+      Pages::ServerConfigurationPage.new
     end
   end
 end

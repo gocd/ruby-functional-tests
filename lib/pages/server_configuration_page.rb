@@ -25,6 +25,17 @@ module Pages
     element :never_job_timeout_checkbox, "[data-test-id='checkbox-for-job-timeout']"
     element :job_timeout_input, "[data-test-id='form-field-input-default-job-timeout']"
 
+    element :smtp_hostname, "[data-test-id='form-field-input-smtp-hostname']"
+    element :smtp_port, "[data-test-id='form-field-input-smtp-port']"
+
+    element :use_smtps_checkbox, "[data-test-id='form-field-input-use-smtps']"
+    element :smtp_username, "[data-test-id='form-field-input-smtp-username']"
+    element :smtp_password, "[data-test-id='form-field-input-smtp-password']"
+    element :sender_email_address, "[data-test-id='form-field-input-send-email-using-address']"
+    element :admin_email_address, "[data-test-id='form-field-input-administrator-email']"
+
+    element :flash_message, "div[data-test-id='flash-message-success']"
+
     element :save_button, "[data-test-id='save']"
 
   end

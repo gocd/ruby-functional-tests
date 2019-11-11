@@ -26,7 +26,7 @@ tags: Clicky Admin
 
 * Verify stage "defaultStage" is "building" on pipeline with label "1" - On Swift Dashboard page
 * On stage details page "jobs" tab for "hung-job-pipeline" label "1" stage name "defaultStage" counter "1"
-* Cancel stage "defaultStage" of pipeline "hung-job-pipeline"
+* Cancel stage "defaultStage" counter "1" of pipeline "hung-job-pipeline" instance "1"
 * Verify job "defaultJob" has state "Completed" and result "Cancelled"
 
 
@@ -36,4 +36,3 @@ Teardown of contexts
 ____________________
 * Capture go state "HungJobWarning" - teardown
 * With "1" live agents - teardown
-

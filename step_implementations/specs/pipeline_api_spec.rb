@@ -57,9 +57,11 @@ step 'Trigger stage <stage> run <run>' do |stage, run|
   new_pipeline_dashboard_page.verify_pipeline_stage_state(scenario_state.self_pipeline, stage, 'building')
 end
 
-step 'Cancel stage <stage> of pipeline <pipeline>' do |stage, pipeline|
+step 'Cancel stage <stage> counter <counter> of pipeline <pipeline> instance <instance>' do |stage, counter, pipeline, instance|
   begin
-    response = RestClient.post http_url("/api/stages/#{scenario_state.get(pipeline)}/#{stage}/cancel"), '', basic_configuration.header
+    response = RestClient.post http_url("/api/stages/#{scenario_state.get(pipeline)}/#{instance}/#{stage}/#{counter}/cancel"), '',
+               { accept: 'application/vnd.go.cd+json','X-GoCD-Confirm': 'true' }.merge(basic_configuration.header)
+
     assert_true response.code == 200
   rescue RestClient::ExceptionWithResponse => err
     p "Cancel stage call failed with response code #{err.response.code} and the response body - #{err.response.body}"

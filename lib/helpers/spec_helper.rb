@@ -70,6 +70,7 @@ require 'pages/elastic_profiles_page'
 require 'pages/secret_config_spa'
 require 'pages/config_repos_page'
 require 'pages/server_configuration_page'
+require 'pages/new_admin_pipeline_page'
 
 
 
@@ -273,6 +274,10 @@ module Helpers
 
     def server_configuration_page
       Pages::ServerConfigurationPage.new
+    end
+
+    def new_admin_pipeline_page
+      Pages::NewAdminPipelinePage.new
     end
   end
 end

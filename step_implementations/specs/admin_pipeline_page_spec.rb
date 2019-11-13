@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2018 ThoughtWorks, Inc.
+# Copyright 2019 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ step 'On Admin page' do |_tmp|
 end
 
 step 'Clone pipeline <pipeline_name> to <new_pipeline_name> in pipeline group <target_group>' do |pipeline_name, new_pipeline_name, pipeline_group_name|
-  admin_pipeline_page.clone_pipeline(pipeline_name, new_pipeline_name, pipeline_group_name)
+  admin_pipeline_page.clone_pipeline(scenario_state.get(pipeline_name), new_pipeline_name, pipeline_group_name)
 end
 
 step 'Delete <pipeline_name>' do |pipeline|
@@ -38,45 +38,6 @@ step 'Verify there are <number_of_warnings> warnings' do |number_of_warnings|
   admin_pipeline_page.verify_number_of_warnings number_of_warnings
 end
 
-step 'Wait till error message popup appears' do
-  admin_pipeline_page.wait_till_error_popup_appears
-end
-
-step 'Verify message contains <message>' do |message|
-  admin_pipeline_page.verify_error_message(message)
-end
-
-step 'Verify error description contains <message>' do |message|
-  admin_pipeline_page.verify_error_description(message)
-end
-
-step 'Open error messages popup' do
-  admin_pipeline_page.error_and_warning_count.click
-end
-
-step 'Verify there are no warnings' do
-  admin_pipeline_page.verify_there_are_no_warnings
-end
-
-step 'Verify there are no error and warnings' do
-  assert_false admin_pipeline_page.verify_there_are_no_errors_and_warnings
-end
-
-step 'Verify there are no error messages' do
-  admin_pipeline_page.verify_there_are_no_error_messages
-end
-
-step 'Verify message do not contain <message>' do |message|
-  admin_pipeline_page.verify_message_do_not_contains message
-end
-
-step 'Verify error description does not contain <message>' do |message|
-  admin_pipeline_page.verify_error_description_do_not_contains message
-end
-
-step 'Close the error popup' do
-  admin_pipeline_page.error_popup_ok_button.click
-end
 step 'Open config tab as group admin' do
   admin_pipeline_page.navigate_to('Config XML')
 end
@@ -197,11 +158,11 @@ step 'Click to create a new pipeline to group <group>' do |group|
 end
 
 step 'Verify that the edit button for pipeline <pipeline> is a link for edit pipeline' do |pipeline|
-  assert_true admin_pipeline_page.edit_link_exist_for_pipeline?(pipeline)
+  assert_true admin_pipeline_page.edit_link_exist_for_pipeline?(scenario_state.get(pipeline))
 end
 
 step 'Verify that move button is not present for <pipeline>' do |pipeline|
-  assert_false admin_pipeline_page.move_button_exist_for_pipeline?(pipeline)
+  assert_false admin_pipeline_page.move_button_exist_for_pipeline?(scenario_state.get(pipeline))
 end
 
 step 'Verify that <pipeline> cannot be moved to group <group>' do |pipeline, _group|
@@ -339,7 +300,7 @@ step 'Change config to conflict' do
 end
 
 step 'Rename pipeline <pipeline> to <new_pipeline> - Already On Pipeline Group Xml' do |pipeline, new_pipeline|
-  admin_pipeline_page.rename_pipeline_on_config_xml_page pipeline, new_pipeline
+  admin_pipeline_page.rename_pipeline_on_config_xml_page scenario_state.get(pipeline), new_pipeline
 end
 
 step 'Verify that split pane appears' do

@@ -18,6 +18,11 @@ step 'On Admin page' do |_tmp|
   admin_pipeline_page.load
 end
 
+
+step 'On Admin pipeline page' do |_tmp|
+  admin_pipeline_page.load
+end
+
 step 'Clone pipeline <pipeline_name> to <new_pipeline_name> in pipeline group <target_group>' do |pipeline_name, new_pipeline_name, pipeline_group_name|
   admin_pipeline_page.clone_pipeline(scenario_state.get(pipeline_name), new_pipeline_name, pipeline_group_name)
 end
@@ -56,11 +61,11 @@ step 'Add new pipeline group' do
   admin_pipeline_page.add_pipeline_group
 end
 step 'Enter pipeline group name <group> - Already On New Pipeline Group Popup' do |group|
-  admin_pipeline_page.add_group_name.set group
+  admin_pipeline_page.pipeline_group_name.set group
 end
 
 step 'Enter pipeline group name <group> - Already On Clone Pipeline pop up' do |group|
-  admin_pipeline_page.set_group.set(group)
+  admin_pipeline_page.pipeline_group_name.set(group)
 end
 
 step 'Verify error message <message> - Already On New Pipeline Group Popup' do |message|
@@ -68,9 +73,9 @@ step 'Verify error message <message> - Already On New Pipeline Group Popup' do |
 end
 
 step 'Verify groups <groups> are visible - on Admin Pipelines tab' do |groups|
-  group_names = admin_pipeline_page.total_pipeline_groups
+  group_names = admin_pipeline_page.all_pipeline_groups
   groups.split(',').each do |group|
-    assert_true group_names.include? group
+    assert_true group_names.include? group.downcase
   end
 end
 
@@ -89,7 +94,7 @@ step 'Delete group <group>' do |group|
 end
 
 step 'Verify groups <groups> are not visible - on Admin Pipelines tab' do |groups|
-  group_names = admin_pipeline_page.total_pipeline_groups
+  group_names = admin_pipeline_page.all_pipeline_groups
   groups.split(',').each do |group|
     assert_false group_names.include? group
   end
@@ -100,11 +105,11 @@ step 'Delete pipeline <pipeline_name>' do |pipeline|
 end
 
 step 'Verify error message <message> - Already On Clone Pipeline Popup' do |message|
-  assert_equal message, admin_pipeline_page.error_message_on_clone_window.text
+  assert_true admin_pipeline_page.error_message_on_clone_window(message)
 end
 
 step 'Enter pipeline name <pipeline>' do |pipeline|
-  admin_pipeline_page.set_pipeline.set(pipeline)
+  admin_pipeline_page.new_pipeline_name.set(pipeline)
 end
 
 step 'Verify <message> message is displayed' do |message|
@@ -121,6 +126,14 @@ step 'Click clone button for pipeline <pipeline>' do |pipeline|
   admin_pipeline_page.click_clone_button(pipeline_name)
 end
 
+step 'Save Cloning' do ||
+  admin_pipeline_page.button_clone.click
+end
+
+step 'Save group create' do ||
+  admin_pipeline_page.button_create.click
+end
+
 step 'Verify can delete <pipelines>' do |pipelines|
   pipelines.split(',').each do |pipeline|
     assert_true admin_pipeline_page.delete_button_enabled?(scenario_state.get(pipeline))
@@ -129,6 +142,7 @@ end
 
 step 'Verify cannot delete <pipelines>' do |pipelines|
   pipelines.split(',').each do |pipeline|
+    binding.pry
     assert_false admin_pipeline_page.delete_button_enabled?(scenario_state.get(pipeline))
   end
 end
@@ -162,6 +176,7 @@ step 'Verify that the edit button for pipeline <pipeline> is a link for edit pip
 end
 
 step 'Verify that move button is not present for <pipeline>' do |pipeline|
+  
   assert_false admin_pipeline_page.move_button_exist_for_pipeline?(scenario_state.get(pipeline))
 end
 

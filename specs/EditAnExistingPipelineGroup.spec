@@ -15,7 +15,7 @@ tags: 4369, Clicky Admin, pipeline group
 
 * On Admin page
 
-* Verify groups "group_name_to_be_changed,group4" are visible - on Admin Pipelines tab
+* Verify groups "group-name-to-be-changed,group4" are visible - on Admin Pipelines tab
 * Edit pipeline group "group4"
 
 * Set group name as "group5"
@@ -25,7 +25,7 @@ tags: 4369, Clicky Admin, pipeline group
 * On Admin page
 
 
-* Verify groups "group_name_to_be_changed,group5" are visible - on Admin Pipelines tab
+* Verify groups "group-name-to-be-changed,group5" are visible - on Admin Pipelines tab
 * Edit pipeline group "group5"
 
 
@@ -78,5 +78,3 @@ Teardown of contexts
 ____________________
 * Capture go state "EditPipelineGroups" - teardown
 * Logout - from any page
-
-

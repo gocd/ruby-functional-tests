@@ -13,19 +13,19 @@ EditPipelineGroups
 
 tags:pipeline group
 
-* On Admin page
+* On Admin pipeline page
 
-* Verify groups "group_name_to_be_changed,group2,groupWithStageSecurity" are visible - on Admin Pipelines tab
-* Verify "group_name_to_be_changed" has pipelines "pipeline1,pipeline4"
+* Verify groups "group-name-to-be-changed,group2,groupWithStageSecurity" are visible - on Admin Pipelines tab
+* Verify "group-name-to-be-changed" has pipelines "pipeline1,pipeline4"
 * Verify "group2" has pipelines "pipeline2,pipeline-down"
 * Verify "group4" has pipelines "pipeline5"
 * Verify "groupWithStageSecurity" has pipelines "pipeline-with-group-and-stage-security"
 * Verify can delete "pipeline4,pipeline5,pipeline-with-group-and-stage-security,pipeline-down"
-* Verify cannot delete "pipeline1,pipeline2"
+ Verify cannot delete "pipeline1,pipeline2"
 * Delete "pipeline4"
-* Verify "group_name_to_be_changed" does not have pipelines "pipeline4"
+* Verify "group-name-to-be-changed" does not have pipelines "pipeline4"
 * Delete "pipeline5"
-* Verify "group4" has message "No pipelines associated with this group"
+* Verify "group4" has message "There are no pipelines defined in this pipeline group."
 * Click to create a new pipeline to group "groupWithStageSecurity"
 * Enter new pipeline name as "new-pipeline"
 * Select material type as "Git"
@@ -35,7 +35,7 @@ tags:pipeline group
 * Set job name as "defaultJob"
 * Save pipeline "new-pipeline" successfully
 
-* On Admin page
+* On Admin pipeline page
 
 Verify Edit button
 * Verify "groupWithStageSecurity" has pipelines "new-pipeline"
@@ -43,24 +43,24 @@ Verify Edit button
 
 * Logout and login as "group1Admin"
 
-* On Admin page
+* On Admin pipeline page
 
 
-* Verify groups "group_name_to_be_changed" are visible - on Admin Pipelines tab
+* Verify groups "group-name-to-be-changed" are visible - on Admin Pipelines tab
 * Verify groups "group2,groupWithStageSecurity" are not visible - on Admin Pipelines tab
-* Verify that move button is not present for "pipeline1"
+ Verify that move button is not present for "pipeline1"
 
 
 Move pipeline  from one group to another
 
 * Logout and login as "admin"
 
-* On Admin page
+* On Admin pipeline page
 
 * Verify that "pipeline2" cannot be moved to group "group2"
-* Move pipeline "pipeline2" from group "group2" to group "group_name_to_be_changed"
+* Move pipeline "pipeline2" from group "group2" to group "group-name-to-be-changed"
 * Verify "group2" has pipelines "pipeline-down"
-* Verify "group_name_to_be_changed" has pipelines "pipeline1,pipeline2"
+* Verify "group-name-to-be-changed" has pipelines "pipeline1,pipeline2"
 
 
 

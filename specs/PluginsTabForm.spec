@@ -25,7 +25,7 @@ tags: plugins-tests, plugins_spa, SPA
 * Verify plugin with identifier "Example Elastic Agent Plugin" name "Example Elastic Agent Plugin" description "Some longer description of your plugin goes here" author "Acme Corp" with enabled link to "https://github.com/user/repository"
 * Verify plugin with identifier "Example Elastic Agent Plugin" has path "/plugins/external/elastic-agent-skeleton-plugin.jar" supported OS "No restrictions" target go version "18.2.0" and bundled status as "No"
 
-* Verify plugin with identifier "test-plugin-xml" is marked as invalid with message "Plugin with ID (test-plugin-xml) is not valid: Incompatible with current operating system 'Linux'. Valid operating systems are: [Windows]."
+* Verify plugin with identifier "test-plugin-xml" is marked as invalid with message "Plugin with ID ([test-plugin-xml]) is not valid: Incompatible with current operating system 'Linux'. Valid operating systems are: [Windows]."
 
 Below steps fail becuase new plugins page do not show values as "Unknown" if they dont exists, need to check where fix is needed
 
@@ -59,6 +59,9 @@ Below steps fail becuase new plugins page do not show values as "Unknown" if the
 * Verify plugin with identifier "Example Elastic Agent Plugin" is valid
 * Verify plugin with identifier "Example Elastic Agent Plugin" name "Example Elastic Agent Plugin" description "Some longer description of your plugin goes here" author "Acme Corp" with enabled link to "https://github.com/user/repository"
 * Verify plugin with identifier "Example Elastic Agent Plugin" has path "/plugins/external/elastic-agent-skeleton-plugin.jar" supported OS "No restrictions" target go version "18.2.0" and bundled status as "No"
+
+* Verify plugin "cd.go.qa.bundle.plugin1" is loaded from the bundle "/plugins/external/test-plugin-bundle.jar"
+* Verify plugin "cd.go.qa.bundle.plugin2" is loaded from the bundle "/plugins/external/test-plugin-bundle.jar"
 
 Below steps fail becuase new plugins page do not show values as "Unknown" if they dont exists
 

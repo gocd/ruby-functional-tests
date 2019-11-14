@@ -95,5 +95,10 @@ step 'Set docker URI as <uri>' do |uri|
 end
 
 step 'Save plugin settings' do ||
-	plugins_spa_page.save_settings
+  plugins_spa_page.save_settings
+end
+
+step 'Verify plugin <plugin_id> is loaded from the bundle <bundle_path>' do |plugin_id, bundle_path|
+  plugins_spa_page.plugin_to_test(plugin_id)
+  assert_true plugins_spa_page.is_expected_installed_path?(plugin_id, bundle_path)
 end

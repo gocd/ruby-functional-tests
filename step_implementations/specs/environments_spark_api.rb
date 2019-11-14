@@ -22,6 +22,15 @@ step 'Create environment <name>' do |name|
   assert_true create_environment(name).code == 200
 end
 
+step 'Create environment <name> should return forbidden' do |name|
+  begin
+    create_environment(name)
+    raise 'Expected create environment to fail'
+  rescue RestClient::ExceptionWithResponse => e
+    raise 'Response Code is not 403' unless e.response.code == 403
+  end
+end
+
 step 'Update environment <environment> to add pipeline <pipeline>' do |environment, pipeline|
   assert_true update_environment(environment,  name: scenario_state.get(pipeline)).code == 200
 end
@@ -42,6 +51,45 @@ step 'Get environment <name> should return entity <entity> with <values>' do |na
       expected_value = scenario_state.get(value).nil? ? value : scenario_state.get(value)
       assert_true e[key].eql?(expected_value), "Environments API response do not have expected values. Expected: #{key} => #{expected_value}"
     end
+  end
+end
+
+step 'Get environment <name> should return success' do |name|
+  assert_true get_environment(name).code == 200
+end
+
+step 'Get environment <name> should return forbidden' do |name|
+  begin
+    get_environment(name)
+    raise 'Expected get environment to fail'
+  rescue RestClient::ExceptionWithResponse => e
+    raise 'Response Code is not 403' unless e.response.code == 403
+  end
+end
+
+step 'Update environment <name> should return success' do |name|
+  assert_true update_environment(name).code == 200
+end
+
+step 'Update environment <name> should return forbidden' do |name|
+  begin
+    update_environment(name)
+    raise 'Expected update environment to fail'
+  rescue RestClient::ExceptionWithResponse => e
+    raise 'Response Code is not 403' unless e.response.code == 403
+  end
+end
+
+step 'Delete environment <name> should return success' do |name|
+  assert_true delete_environment(name).code == 200
+end
+
+step 'Delete environment <name> should return forbidden' do |name|
+  begin
+    delete_environment(name)
+    raise 'Expected delete environment to fail'
+  rescue RestClient::ExceptionWithResponse => e
+    raise 'Response Code is not 403' unless e.response.code == 403
   end
 end
 
@@ -87,6 +135,11 @@ def update_environment(name, pipelines = nil, agents = nil, environment_variable
   RestClient.put http_url("/api/admin/environments/#{name}"), request_body(name, pipelines, agents, environment_variables),
                  { content_type: :json, accept: ENVIRONMENT_API_VERSION, if_match: etag }
     .merge(basic_configuration.header)
+end
+
+def delete_environment(name)
+  RestClient.delete http_url("/api/admin/environments/#{name}"),
+                    { content_type: :json, accept: ENVIRONMENT_API_VERSION}.merge(basic_configuration.header)
 end
 
 def request_body(name, pipelines = nil, agents = nil, environment_variables = nil)

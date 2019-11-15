@@ -70,6 +70,10 @@ require 'pages/elastic_profiles_page'
 require 'pages/secret_config_spa'
 require 'pages/config_repos_page'
 require 'pages/server_configuration_page'
+require 'pages/new_admin_pipeline_page'
+require 'pages/admin_config_xml_page'
+require 'pages/config_xml_snippets_page'
+require 'pages/admin_templates_page'
 
 
 
@@ -274,5 +278,23 @@ module Helpers
     def server_configuration_page
       Pages::ServerConfigurationPage.new
     end
+
+    def new_admin_pipeline_page
+      Pages::NewAdminPipelinePage.new
+    end
+
+    def admin_config_xml_page
+      Pages::AdminConfigXMLPage.new
+    end
+
+    def config_xml_snippets_page
+      Pages::ConfigXMLSnippetsPage.new
+    end
+
+    def admin_templates_page
+      Pages::AdminTemplatesPage.new
+    end
+
+
   end
 end

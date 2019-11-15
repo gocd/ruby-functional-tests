@@ -27,19 +27,14 @@ Pipeline Visibility
      |pipeline2    |true       |true                  |
      |pipeline3    |true       |true                  |
 
-* On Admin page
+* On Admin pipeline page
 
-* Verify tabs "Pipelines,Templates,Config XML,Users Management" are visible
-
-* Verify groups "group_name_to_be_changed,group2,group3" are visible - on Admin Pipelines tab
-* Verify "group_name_to_be_changed" has pipelines "pipeline1"
+* Verify groups "group-name-to-be-changed,group2,group3" are visible - on Admin Pipelines tab
+* Verify "group-name-to-be-changed" has pipelines "pipeline1"
 * Verify "group2" has pipelines "pipeline2"
 * Verify "group3" has pipelines "pipeline3"
 
 * Verify any operation on agents return code "200" - Using Agents Api
-
-
-
 
 
 Teardown of contexts

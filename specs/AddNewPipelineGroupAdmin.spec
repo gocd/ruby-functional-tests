@@ -13,11 +13,11 @@ AddNewPipelineGroupAdmin
 
 tags: Clicky Admin
 
-* On Admin page
-* Click to create a new pipeline to group "group_with_no_pipelines"
+* On Admin pipeline page
+* Click to create a new pipeline to group "group-with-no-pipelines"
 
 make sure group admins don't see autocomplete for group
-* Enter new pipeline name as "some_pipeline_name"
+* Enter new pipeline name as "some-pipeline-name"
 * Select material type as "Git"
 * Set url "http://git.url" for material  "git"
 * Open Materials advanced settings
@@ -25,27 +25,25 @@ make sure group admins don't see autocomplete for group
 * Set stage name as "some_stage"
 * Set task as "rake wait_for_stopjob_file"
 * Set job name as "some_job"
-* Save pipeline "some_pipeline_name" successfully
+* Save pipeline "some-pipeline-name" successfully
 
  Verify "Pipeline successfully created." message is displayed
 
-* On Admin page
-* Open "Pipelines" tab
+* On Admin pipeline page
 
-* Click clone button for pipeline "some_pipeline_name"
+* Click clone button for pipeline "some-pipeline-name"
 
 * Enter pipeline name "cloned-some-pipeline-name"
-* Save Changes
+* Enter pipeline group name "group-with-no-pipelines" - Already On Clone Pipeline pop up
+* Save Cloning
 
-* Verify "Cloned successfully." message is displayed
 * Verify pipeline "cloned-some-pipeline-name" is paused with message "Paused by group1Admin"
 
-* On Admin page
-* Open "Pipelines" tab
+* On Admin pipeline page
 
-* Verify "group_with_no_pipelines" has pipelines "some_pipeline_name, cloned-some-pipeline-name"
+* Verify "group-with-no-pipelines" has pipelines "some-pipeline-name, cloned-some-pipeline-name"
 * Delete "cloned-some-pipeline-name"
-* Verify "group_with_no_pipelines" has pipelines "some_pipeline_name"
+* Verify "group-with-no-pipelines" has pipelines "some-pipeline-name"
 
 
 

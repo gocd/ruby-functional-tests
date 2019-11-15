@@ -16,8 +16,7 @@ tags: Config XML
 Merge Conflict
 * On Swift Dashboard Page
 * Looking at pipeline "middle-pipeline" - On Swift Dashboard page
-* On Admin page
-* Open "Config XML" tab
+* On Admin Config XML page
 
 * Click edit Config XML
 * Delete pipeline "basic-pipeline" - Configure cruise using api
@@ -36,8 +35,7 @@ Successfull merge
 Post validation failure
 * On Swift Dashboard Page
 * Looking at pipeline "upstream-pipeline" - On Swift Dashboard page
-* On Admin page
-* Open "Config XML" tab
+* On Admin Config XML page
 * Click edit Config XML
 * Delete pipeline "upstream-pipeline" - Configure cruise using api
 * Add downstream pipeline to create post validation conflict
@@ -59,5 +57,3 @@ ____________________
 
 * Capture go state "ConfigMergeGitConflict" - teardown
 * Logout - from any page
-
-

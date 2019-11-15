@@ -24,7 +24,7 @@ In this case, the user should have all group admin permissions on group 1 , shou
 * Login as "group1Admin"
 
 Pipeline Visibility
-* PipelineVisibility 
+* PipelineVisibility
 
      |Pipeline Name|Visible?   |Can Operate Using API?|
      |-------------|-----------|----------------------|
@@ -33,15 +33,12 @@ Pipeline Visibility
      |pipeline3    |true       |false                 |
 
 
-* On Admin page
-
-* Verify tabs "Server Configuration,Users Management" are not visible
-* Verify tabs "Templates" are visible
+* On Admin pipeline page
 
 
 * Verify groups "group2" are not visible - on Admin Pipelines tab
-* Verify groups "group_name_to_be_changed" are visible - on Admin Pipelines tab
-* Verify "group_name_to_be_changed" has pipelines "pipeline1"
+* Verify groups "group-name-to-be-changed" are visible - on Admin Pipelines tab
+* Verify "group-name-to-be-changed" has pipelines "pipeline1"
 
 * On Swift Dashboard Page
 * Looking at pipeline "pipeline1" - On Swift Dashboard page
@@ -53,13 +50,6 @@ Pipeline Visibility
 
 * Verify any operation on agents return code "403" - Using Agents Api
 
-Implement these once the sahi issue is sorted out.
-
-edit pipeline "pipeline1"
-rename job to "renamedJob"
-save
-verify the save was successful
-
 
 
 
@@ -69,4 +59,3 @@ ____________________
 * Capture go state "PipelineGroupPermissionsForUserWithOperateViewAndAdmin" - teardown
 * With "1" live agents - teardown
 * Logout - from any page
-

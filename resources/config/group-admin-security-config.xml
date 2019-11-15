@@ -69,7 +69,7 @@
       </security>
   </server>
 
-  <pipelines group="group_name_to_be_changed">
+  <pipelines group="group-name-to-be-changed">
 	 <authorization>
 	   <admins>
 	     <role>group1AdminRole</role>
@@ -224,7 +224,7 @@
 	  	</stage>
 	  </pipeline>
 	</pipelines>
-  <pipelines group="group_with_no_pipelines">
+  <pipelines group="group-with-no-pipelines">
 	 <authorization>
 	   <admins>
        <role>group1AdminRole</role>

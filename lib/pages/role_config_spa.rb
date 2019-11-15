@@ -33,6 +33,10 @@ module Pages
     element :confirm_delete, "button[data-test-id='button-delete']"
     element :delete_user, "span[class*='role-user-delete-icon']"
 
+    element :policy_table_body, "tbody[data-test-id='table-body']"
+    element :add_permission_button, "button[data-test-id='add-permission-button']"
+    element :remove_permission_button, "button[data-test-id='permission-delete']"
+
     def click_add
       add.click
     end
@@ -86,6 +90,25 @@ module Pages
       if (selected_header)
         selected_header.find("button[data-test-id='role-clone']").click
       end
+    end
+
+    def add_permission
+      add_permission_button.click
+    end
+
+    def remove_permission
+      remove_permission_button.click
+    end
+
+    def update_permission(permission, action, type, resource)
+      policy_table_body.all("select[data-test-id='permission-permission']", wait: 10).last.select permission
+      policy_table_body.all("select[data-test-id='permission-action']").last.select action
+      policy_table_body.all("select[data-test-id='permission-type']").last.select type
+      policy_table_body.all("input[data-test-id='permission-resource']").last.set(resource)
+    end
+
+    def update_permission_type(type)
+      policy_table_body.all("select[data-test-id='permission-type']").last.select type
     end
 
     private

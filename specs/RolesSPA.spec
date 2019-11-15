@@ -15,18 +15,22 @@ Setup of contexts
 * Go to roles page
 * Create a new gocd role "gocd"
 * Add user "view_user" to the role
+* Add permission
+* Update permission with "Allow", action "View", type "All" and resource "env*"
 * Save role
 * Verify flash message for role "The role gocd was created successfully!"
 * Verify if role "gocd" is added
 
 * Edit role "gocd"
 * Add user "user 2" to the role
+* Update permission: type "Environment"
 * Save role
 * Verify flash message for role "The role gocd was updated successfully!"
 
 * Clone role "gocd"
 * Set role name as "cloned_gocd"
 * Add user "user1" to the role
+* Remove permission
 * Save role
 * Verify flash message for role "The role cloned_gocd was created successfully!"
 * Verify if role "cloned_gocd" is added

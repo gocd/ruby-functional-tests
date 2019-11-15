@@ -99,6 +99,12 @@ step 'Get all environments should have <envs>' do |envs|
   assert_true (expected - actual).empty?, "Assertion failed. Expected: #{expected}, Actual: #{actual}"
 end
 
+step 'Get all environments should not have <envs>' do |envs|
+  actual = JSON.parse(get_all_environments.body)['_embedded']['environments'].map { |env| env['name'] }.sort
+  expected = envs.split(/[\s,]+/).map{|exp| scenario_state.get(exp).nil? ? exp : scenario_state.get(exp)}.sort
+  assert_true actual.none? { |n| expected.include?(n) }, "Assertion failed. Expected: #{expected} not to be in: #{actual}"
+end
+
 private
 
 def change_to_hash(str, arr_sep = ',', key_sep = ':')

@@ -67,6 +67,28 @@ tags: environment_api, policy
 * Get environment "backend_env_2" should return success
 
 
+~~~~~~~~ get all environments ~~~~~~~~
+
+* As user "view"
+* Get all environments should have "from-api, frontend_env_1, backend_env_1, devops_env_1, env_1, frontend_env_2, backend_env_2"
+
+* As user "frontend"
+* Get all environments should have "frontend_env_1, frontend_env_2"
+* Get all environments should not have "from-api, backend_env_1, devops_env_1, env_1, backend_env_2"
+
+* As user "backend"
+* Get all environments should have "backend_env_1, backend_env_2"
+* Get all environments should not have "from-api, frontend_env_1, devops_env_1, env_1, frontend_env_2"
+
+* As user "devops"
+* Get all environments should have "devops_env_1"
+* Get all environments should not have "from-api, frontend_env_1, backend_env_1, backend_env_2, env_1, frontend_env_2"
+
+* As user "developer"
+* Get all environments should have "from-api, frontend_env_1, backend_env_1, env_1, frontend_env_2, backend_env_2"
+* Get all environments should not have "devops_env_1"
+
+
 ~~~~~~~~ update environment ~~~~~~~~
 
 * As user "admin"

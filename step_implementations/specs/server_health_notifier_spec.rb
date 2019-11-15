@@ -36,7 +36,7 @@ step 'Verify error description contains <message>' do |message|
 end
 
 step 'Open error messages popup' do
-  server_health_message.error_and_warning_count.click
+  server_health_message.message_notifier.click
 end
 
 step 'Verify there are no warnings' do
@@ -61,4 +61,12 @@ end
 
 step 'Close the error popup' do
   server_health_message.error_popup_ok_button.click
+end
+
+step 'Verify there are <number_of_warnings> warnings' do |number_of_warnings|
+  server_health_message.verify_number_of_warnings number_of_warnings
+end
+
+step 'Verify there are <number_of_errors> errors' do |number_of_errors|
+  server_health_message.verify_number_of_error_message number_of_errors
 end

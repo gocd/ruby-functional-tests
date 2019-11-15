@@ -35,13 +35,9 @@ step 'Move pipeline <pipeline_name> from group <source_group> to group <destinat
   admin_pipeline_page.move_pipeline(scenario_state.get(pipeline), source_group, destination_group)
 end
 
-step 'Verify there are <number_of_errors> errors' do |number_of_errors|
-  admin_pipeline_page.verify_number_of_error_message number_of_errors
-end
 
-step 'Verify there are <number_of_warnings> warnings' do |number_of_warnings|
-  admin_pipeline_page.verify_number_of_warnings number_of_warnings
-end
+
+
 
 step 'Open config tab as group admin' do
   admin_pipeline_page.navigate_to('Config XML')

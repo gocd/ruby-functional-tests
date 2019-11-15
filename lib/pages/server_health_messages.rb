@@ -19,6 +19,9 @@ module Pages
 
     element :message_notifier, '[data-test-id="server-health-messages-count"]'
     element :health_messages, '[data-test-id="modal-body"]'
+    elements :error_messages, "[data-test-class='server-health-message_message']"
+    elements :error_discription, "[data-test-class='server-health-message_detail']"
+    element :error_popup_ok_button, "[data-test-id='button-ok']"
 
     def verify_message_notifier_showsup
       wait_until_message_notifier_visible(wait: 60)
@@ -32,7 +35,7 @@ module Pages
     def verify_number_of_error_message(number_of_err_msg)
       wait_till_event_occurs_or_bomb 60, "Total number of errors are not equal to #{number_of_err_msg}" do
         reload_page
-        break if number_of_err_msg.to_i == error_and_warning_count.text.split('and')[0].scan(/\d+/)[0].to_i
+        break if number_of_err_msg.to_i == message_notifier.text.split('and')[0].scan(/\d+/)[0].to_i
       end
     end
 
@@ -41,7 +44,7 @@ module Pages
     def verify_number_of_warnings(number_of_warning_msg)
       wait_till_event_occurs_or_bomb 90, "Total number of Warnings are not equal to #{number_of_warning_msg}" do
         reload_page
-        break if number_of_warning_msg.to_i == error_and_warning_count.text.match('\d warning').to_s.scan(/\d+/)[0].to_i
+        break if number_of_warning_msg.to_i == message_notifier.text.match('\d warning').to_s.scan(/\d+/)[0].to_i
       end
     end
 
@@ -53,7 +56,7 @@ module Pages
       if page.has_no_css?("[data-test-id='server-health-messages-count']",wait: 10)
         assert_true true
       elsif page.has_css?("[data-test-id='server-health-messages-count']", wait: 10)
-        assert_true !error_and_warning_count.text.include?('warning')
+        assert_true !message_notifier.text.include?('warning')
       else
         assert_true false
       end
@@ -68,7 +71,7 @@ module Pages
     end
 
     def verify_there_are_no_error_messages
-      assert_true !error_and_warning_count.text.include?('error')
+      assert_true !message_notifier.text.include?('error')
     end
 
     def verify_error_message(error_message)

@@ -32,8 +32,7 @@ Automatic pipeline scheduling for general pipelines
 * Verify auto scheduling is selected
 * Verify auto scheduling checkbox is disabled
 
-* On Admin page
-* Open "Templates" tab
+* On Admin Templates page
 
 * Edit template "autoStagePipelineTemplate"
 
@@ -54,6 +53,3 @@ Automatic pipeline scheduling for general pipelines
 Teardown of contexts
 ____________________
 * Capture go state "PipelineApprovalConfigurations" - teardown
-
-
-

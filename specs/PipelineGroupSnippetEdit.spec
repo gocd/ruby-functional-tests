@@ -11,8 +11,7 @@ PipelineGroupSnippetEdit
 
 tags: pipeline_group_admin
 
-* On Admin page
-* Open config tab as group admin
+* On Config XML snippets page
 
 Happy Path
 * Verify group list has "group-name-to-be-changed,group5"

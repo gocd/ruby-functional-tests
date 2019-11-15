@@ -33,10 +33,7 @@ Pipeline Visibility
      |pipeline3    |true       |false                 |
 
 
-* On Admin page
-
-* Verify tabs "Server Configuration,Users Management" are not visible
-* Verify tabs "Templates" are visible
+* On Admin pipeline page
 
 
 * Verify groups "group2" are not visible - on Admin Pipelines tab
@@ -52,13 +49,6 @@ Pipeline Visibility
 
 
 * Verify any operation on agents return code "403" - Using Agents Api
-
-Implement these once the sahi issue is sorted out.
-
-edit pipeline "pipeline1"
-rename job to "renamedJob"
-save
-verify the save was successful
 
 
 

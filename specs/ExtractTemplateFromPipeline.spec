@@ -13,15 +13,11 @@ ExtractTemplateFromPipeline
 tags: Clicky Admin, template, #5785, 6821
 
 * Looking at pipeline "simple-pipeline" - On Swift Dashboard page
-* On Admin page
+* On Admin pipeline page
 
 * Extract template for pipeline "simple-pipeline"
 * Enter template name "template_from_pipeline" - On template popup
-* Verify extract template checkbox is disabled & checked
-* Verify pipeline selection dropdown is disabled and has value "simple-pipeline"
-* Save Changes
-
-
+* Save template
 
 * On Swift Dashboard Page
 * Edit pipeline "simple-pipeline"
@@ -52,10 +48,7 @@ tags: Clicky Admin, template, #5785, 6821
 * Open "Environment Variables" tab
 * Verify environment variable with name "JOB_LEVEL_VARIABLE" and value "job" is present
 
-
-
-* On Admin page
-* Open "Pipelines" tab
+* On Admin pipeline page
 
 * Verify that extract template is disabled for "template-params-pipeline-trunk"
 

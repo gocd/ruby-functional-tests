@@ -13,16 +13,15 @@ EditAnExistingPipelineGroup
 
 tags: 4369, Clicky Admin, pipeline group
 
-* On Admin page
+* On Admin pipeline page
 
 * Verify groups "group-name-to-be-changed,group4" are visible - on Admin Pipelines tab
 * Edit pipeline group "group4"
 
-* Set group name as "group5"
+* Set group name as "group5" - on edit group page
 * Save Changes
-* Verify the message "Saved successfully." is present
 
-* On Admin page
+* On Admin pipeline page
 
 
 * Verify groups "group-name-to-be-changed,group5" are visible - on Admin Pipelines tab
@@ -39,7 +38,7 @@ tags: 4369, Clicky Admin, pipeline group
 
 * Logout and login as "pavan"
 
-* On Admin page
+* On Admin pipeline page
 
 * Verify groups "group5" are visible - on Admin Pipelines tab
 * Edit pipeline group "group5"
@@ -59,7 +58,7 @@ tags: 4369, Clicky Admin, pipeline group
 * Verify pipeline group "group5" has role "operator" with "operate" permissions
 * Verify pipeline group "group5" has role "viewer" with "view" permissions
 
-* On Admin page
+* On Admin pipeline page
 
 * Edit pipeline group "group5"
 

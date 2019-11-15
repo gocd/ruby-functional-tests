@@ -13,7 +13,7 @@ CreateAndDeletePipelineGroups
 
 tags: pipeline group
 
-* On Admin page
+* On Admin pipeline page
 * Add new pipeline group
 * Enter pipeline group name "some_funky_group" - Already On New Pipeline Group Popup
 * Save group create

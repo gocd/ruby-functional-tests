@@ -61,11 +61,11 @@ step 'Add new pipeline group' do
   admin_pipeline_page.add_pipeline_group
 end
 step 'Enter pipeline group name <group> - Already On New Pipeline Group Popup' do |group|
-  admin_pipeline_page.pipeline_group_name.set group
+  admin_pipeline_page.input_pipeline_group_name.set group
 end
 
 step 'Enter pipeline group name <group> - Already On Clone Pipeline pop up' do |group|
-  admin_pipeline_page.pipeline_group_name.set(group)
+  admin_pipeline_page.input_pipeline_group_name.set(group)
 end
 
 step 'Verify error message <message> - Already On New Pipeline Group Popup' do |message|
@@ -101,7 +101,7 @@ step 'Verify groups <groups> are not visible - on Admin Pipelines tab' do |group
 end
 
 step 'Delete pipeline <pipeline_name>' do |pipeline|
-  admin_pipeline_page.delete_pipeline_from_group(pipeline)
+  admin_pipeline_page.delete_pipeline_from_group(scenario_state.get(pipeline))
 end
 
 step 'Verify error message <message> - Already On Clone Pipeline Popup' do |message|
@@ -109,7 +109,7 @@ step 'Verify error message <message> - Already On Clone Pipeline Popup' do |mess
 end
 
 step 'Enter pipeline name <pipeline>' do |pipeline|
-  admin_pipeline_page.new_pipeline_name.set(pipeline)
+  admin_pipeline_page.input_new_pipeline_name.set(pipeline)
 end
 
 step 'Verify <message> message is displayed' do |message|
@@ -130,6 +130,10 @@ step 'Save Cloning' do ||
   admin_pipeline_page.button_clone.click
 end
 
+step 'Save template' do ||
+  admin_pipeline_page.button_extract_template.click
+end
+
 step 'Save group create' do ||
   admin_pipeline_page.button_create.click
 end
@@ -142,7 +146,6 @@ end
 
 step 'Verify cannot delete <pipelines>' do |pipelines|
   pipelines.split(',').each do |pipeline|
-    binding.pry
     assert_false admin_pipeline_page.delete_button_enabled?(scenario_state.get(pipeline))
   end
 end
@@ -176,7 +179,6 @@ step 'Verify that the edit button for pipeline <pipeline> is a link for edit pip
 end
 
 step 'Verify that move button is not present for <pipeline>' do |pipeline|
-  
   assert_false admin_pipeline_page.move_button_exist_for_pipeline?(scenario_state.get(pipeline))
 end
 
@@ -228,8 +230,8 @@ step 'Delete role <user> -on edit group page' do |role|
   admin_pipeline_page.delete_role_on_edit_group(role)
 end
 
-step 'Set group name as <group>' do |group|
-  admin_pipeline_page.edit_group_name.set group
+step 'Set group name as <group> - on edit group page' do |group|
+  pipeline_group_edit_page.set_group_name group
 end
 
 step 'Verify tabs <tabs> are visible' do |tabs|
@@ -271,10 +273,6 @@ step 'Verify that template <template> is used by pipelines <pipeline>' do |templ
   end
 end
 
-step 'Verify that edit pipeline <pipeline> lands on pipeline edit page' do |pipeline|
-  admin_pipeline_page.click_edit_pipeline scenario_state.get(pipeline)
-  assert_true admin_pipeline_page.landed_on_pipeline_edit_page? scenario_state.get(pipeline)
-end
 
 step 'Verify cannot delete templates <templates>' do |templates|
   templates.split(',').each do |template|
@@ -330,13 +328,7 @@ step 'Verify post validation error is shown with message <message>' do |message|
   assert_true admin_pipeline_page.post_validation_error_message_exist? message
 end
 
-step 'Click save - Already on config XML Tab' do
-  admin_pipeline_page.save_config.click
-end
 
-step 'Click Cancel - Already on group admin config XML Tab' do
-  admin_pipeline_page.cancel_config.click
-end
 
 step 'Add new template' do
   admin_pipeline_page.click_add_new_template
@@ -344,10 +336,6 @@ end
 
 step 'Enter template name <template>' do |template|
   admin_pipeline_page.template_name.set template
-end
-
-step 'Select extract template from a existing pipeline' do
-  admin_pipeline_page.extract_from_pipeline.click
 end
 
 step 'Verify template can be extracted only from pipelines <pipelines>' do |pipelines|
@@ -369,10 +357,7 @@ step 'Verify pipeline uses template <template>' do |template|
   assert_true admin_pipeline_page.has_template? template
 end
 
-step 'Verify extract template checkbox is disabled & not checked' do
-  assert_true !admin_pipeline_page.extract_from_pipeline.checked?
-  assert_true admin_pipeline_page.extract_from_pipeline.disabled?
-end
+
 
 step 'Verify extract template checkbox is disabled & checked' do
   assert_true admin_pipeline_page.extract_from_pipeline.checked?
@@ -381,7 +366,7 @@ end
 
 
 step 'Enter template name <template> - On template popup' do |template|
-  admin_pipeline_page.template_name_on_popup.set template
+  admin_pipeline_page.enter_template_name template
 end
 
 step 'Extract template for pipeline <pipeline>' do |pipeline|

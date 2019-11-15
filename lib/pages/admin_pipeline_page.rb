@@ -20,21 +20,22 @@ module Pages
 
     element :create_new_pipeline_group, "[data-test-id='create-new-pipeline-group']"
     element :all_pipeline_groups, "[data-test-id='pipeline-groups']"
-    element :new_pipeline_name, "[data-test-id='form-field-input-new-pipeline-name']"
-    element :pipeline_group_name, "[data-test-id='form-field-input-pipeline-group-name']"
+    element :input_new_pipeline_name, "[data-test-id='form-field-input-new-pipeline-name']"
+    element :input_pipeline_group_name, "[data-test-id='form-field-input-pipeline-group-name']"
     element :button_clone, "[data-test-id='button-clone']"
     element :pipeline_group_selection, "[data-test-id='move-pipeline-group-selection']"
     element :button_move, "[data-test-id='button-move']"
     element :button_delete, "[data-test-id='button-delete']"
     element :button_create, "[data-test-id='button-create']"
+    element :button_extract_template, "[data-test-id='button-extract-template']"
     element :flash_message, "[data-test-id='flash-message-success']"
 
     load_validation { has_create_new_pipeline_group? }
 
     def clone_pipeline(source_pipeline_name, new_pipeline_name, pipeline_group_name)
       click_on_clone_link_for(source_pipeline_name)
-      new_pipeline_name.set new_pipeline_name
-      pipeline_group_name.set pipeline_group_name
+      input_new_pipeline_name.set new_pipeline_name
+      input_pipeline_group_name.set pipeline_group_name
       button_clone.click
     end
 
@@ -54,11 +55,11 @@ module Pages
     end
 
     def pipeline_can_be_extracted?(pipeline)
-      !page.find("[data-test-id='extract-template-from-pipeline-#{pipeline}']").disabled?
+      !page.find("[data-test-id='extract-template-from-pipeline-#{pipeline.downcase}']").disabled?
     end
 
     def pipeline_extraction_disabled?(pipeline)
-      page.find("[data-test-id='extract-template-from-pipeline-#{pipeline}']").disabled?
+      page.find("[data-test-id='extract-template-from-pipeline-#{pipeline.downcase}']").disabled?
     end
 
     def add_pipeline_group
@@ -90,7 +91,7 @@ module Pages
     end
 
     def delete_link_is_disabled?(group)
-      page.find("[data-test-id='delete-pipeline-group-#{group}']").disabled?
+      page.find("[data-test-id='delete-pipeline-group-#{group.downcase}']").disabled?
     end
 
     def delete_link_is_disabled_for_template? template
@@ -103,21 +104,21 @@ module Pages
     end
 
     def delete_group(group)
-      page.find("[data-test-id='delete-pipeline-group-#{group}']").click
+      page.find("[data-test-id='delete-pipeline-group-#{group.downcase}']").click
       button_delete.click
     end
 
     def delete_pipeline_from_group(pipeline)
-      page.find("[data-test-id='delete-pipeline-#{pipeline}']").click
+      page.find("[data-test-id='delete-pipeline-#{pipeline.downcase}']").click
       button_delete.click
     end
 
     def verify_group_has_pipeline(group, pipeline)
-      page.find("[data-test-id='pipeline-group-#{group}']").has_css?("[data-test-id='pipeline-#{pipeline}']")
+      page.find("[data-test-id='pipeline-group-#{group.downcase}']").has_css?("[data-test-id='pipeline-#{pipeline.downcase}']")
     end
 
     def click_clone_button(pipeline)
-      page.find("[data-test-id='clone-pipeline-#{pipeline}']").click
+      page.find("[data-test-id='clone-pipeline-#{pipeline.downcase}']").click
     end
 
     def error_message_on_clone_window(message)
@@ -133,11 +134,11 @@ module Pages
     end
 
     def delete_button_enabled?(pipeline)
-      !page.find("[data-test-id='delete-pipeline-#{pipeline}']").disabled?
+      !page.find("[data-test-id='delete-pipeline-#{pipeline.downcase}']").disabled?
     end
 
     def group_has_message?(group, message)
-      page.find("[data-test-id='pipeline-group-#{group}']").has_css?("[data-test-id='flash-message-info'] p", text: message)
+      page.find("[data-test-id='pipeline-group-#{group.downcase}']").has_css?("[data-test-id='flash-message-info'] p", text: message)
     end
 
     def template_has_message?(template,message)
@@ -149,15 +150,15 @@ module Pages
     end
 
     def edit_link_exist_for_pipeline?(pipeline)
-      page.has_css?("[data-test-id='edit-pipeline-#{pipeline}']")
+      page.has_css?("[data-test-id='edit-pipeline-#{pipeline.downcase}']")
     end
 
     def move_button_exist_for_pipeline?(pipeline)
-      page.has_css?("[data-test-id='move-pipeline-#{pipeline}']")
+      page.has_css?("[data-test-id='move-pipeline-#{pipeline.downcase}']")
     end
 
     def pipeline_moved_to_group_list(pipeline)
-      page.find("[data-test-id='move-pipeline-#{pipeline}']").click
+      page.find("[data-test-id='move-pipeline-#{pipeline.downcase}']").click
       groups = page.find("[data-test-id='move-pipeline-group-selection']").all('option').collect(&:text)
       page.all("button").select{|btn| btn['class'].include? 'overlay-close'}.first.click
       groups
@@ -257,7 +258,7 @@ module Pages
     end
 
     def click_edit_pipeline pipeline
-      page.find("[data-test-id='edit-pipeline-#{pipeline}']").click
+      page.find("[data-test-id='edit-pipeline-#{pipeline.downcase}']").click
     end
 
     def landed_on_pipeline_edit_page? pipeline
@@ -331,7 +332,11 @@ module Pages
     end
 
     def click_extract_template pipeline
-      page.find(".extract_template_for_pipeline_#{pipeline} a").click
+      page.find("[data-test-id='extract-template-from-pipeline-#{pipeline.downcase}']").click
+    end
+
+    def enter_template_name name
+      page.find("[data-test-id='form-field-input-new-template-name']").set name
     end
 
     private

@@ -15,8 +15,7 @@ tags:Config XML
 Merge Conflict
 * On Swift Dashboard Page
 * Looking at pipeline "P1" - On Swift Dashboard page
-* On Admin page
-* Open "Config XML" tab
+* On Config XML snippets page
 
 * Click edit Config XML
 
@@ -55,5 +54,3 @@ Teardown of contexts
 ____________________
 * Capture go state "ConfigMergeGitConflictForPipelineAdmin" - teardown
 * Logout - from any page
-
-

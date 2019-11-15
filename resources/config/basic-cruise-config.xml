@@ -981,9 +981,9 @@
                 </jobs>
             </stage>
         </pipeline>
-        <pipeline name="artifact_md5_verification-pipeline-1">
+        <pipeline name="artifact-md5-verification-pipeline-1">
             <materials>
-                <git url="material-for-artifact_md5_verification-pipeline-1" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="material-for-artifact-md5-verification-pipeline-1" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>

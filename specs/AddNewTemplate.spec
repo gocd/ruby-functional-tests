@@ -42,9 +42,9 @@ Story: 5105 -  Create template from an existing pipeline
 * Select extract template from a existing pipeline
 * Verify template can be extracted only from pipelines "pipeline-ls,simple-pipeline"
 * Select pipeline "simple-pipeline" for template
-* Save Changes
+* Save Template create
 
-* On Admin page
+* On Admin pipeline page
 
 * On Swift Dashboard Page
 * Looking at pipeline "simple-pipeline" - On Swift Dashboard page

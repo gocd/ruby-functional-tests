@@ -12,7 +12,7 @@ Setup of contexts
 TemplatesListing
 ----------------
 
-tags:  Clicky Admin
+tags:  templates
 
 * On Admin Templates page
 
@@ -30,9 +30,6 @@ tags:  Clicky Admin
 * Verify that templates "unused-template" are not present - on Admin Templates tab
 * Logout and login as "group1Admin"
 * On Admin Templates page
-
-
-
 
 
 

@@ -67,23 +67,23 @@ module Pages
 
     def get_pipelines_from_template(template)
       pipelines = []
-      page.find("[data-test-id='template-name-#{template.downcase}']").all("[data-test-id^='pipeline-']").each do |pipeline|
-        pipelines << pipeline['data-test-id'].gsub('pipeline-', '')
+      page.find("[data-test-id='template-#{template.downcase}']").all("[data-test-id ^='pipeline-']").each do |pipeline|
+        pipelines << pipeline['data-test-id'].sub('pipeline-', '')
       end
       pipelines
     end
 
     def template_has_message?(template,message)
-      page.find("[data-test-id='template-name-#{template.downcase}]").has_css?('flash-message-info', text: message)
+      page.find("[data-test-id='template-#{template.downcase}']").has_css?("[data-test-id='flash-message-info']", text: message)
     end
 
 
     def delete_link_is_disabled_for_template? template
-      page.find("[data-test-id='template-name-#{template.downcase}']").disabled?
+      page.find("[data-test-id='delete-template-#{template.downcase}']").disabled?
     end
 
     def delete_template template
-      page.find("[data-test-id='template-name-#{template.downcase}']").click
+      page.find("[data-test-id='delete-template-#{template.downcase}']").click
       page.find("[data-test-id='button-delete']").click
     end
 

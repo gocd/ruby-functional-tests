@@ -247,7 +247,7 @@ module Pages
 
 
     def edit_template template
-      page.find("[data-test-id='edit-template-#{template.downcase}]").click
+      page.find("[data-test-id='edit-template-#{template.downcase}']").click
     end
 
     def change_cofig_to_conflict

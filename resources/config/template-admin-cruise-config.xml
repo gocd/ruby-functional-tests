@@ -92,7 +92,7 @@
 			<git url="material-for-pipeline3" dest="hg" autoUpdate="false"/>
         </materials>
 	  </pipeline>
-      <pipeline name="pipeline-down" template="default.pipeline">
+      <pipeline name="pipeline-down" template="default-pipeline">
 		<materials>
 			<pipeline pipelineName="pipeline1" stageName="defaultStage"/>
         </materials>
@@ -122,7 +122,7 @@
 	            </jobs>
 		  	</stage>
 	  	</pipeline>
-	  	<pipeline name="default.pipeline">
+	  	<pipeline name="default-pipeline">
 	        <stage name="default.stage">
 	        	<approval type="manual"/>
 	        	<jobs>

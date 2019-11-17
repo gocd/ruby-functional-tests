@@ -16,10 +16,10 @@ tags: template
 
 * Add new template
 
-* Save Changes
-* Verify error message "Invalid template name ''. This must be alphanumeric and can contain underscores and periods (however, it cannot start with a period). The maximum allowed length is 255 characters." - Already On New Pipeline Group Popup
-* Enter template name "some_funky_template" - On template page
-* Save Changes
+* Enter template name "some-funky-template" - On template page
+* Save Template create
+
+* Edit template "some-funky-template"
 
 * Open tab "General Options" - On Pipeline Creation Page
 * Open "Stages" tab
@@ -57,17 +57,6 @@ Story: 5105 -  Create template from an existing pipeline
 
 * Open "Environment Variables" tab
 * Verify environment variable with name "NAME" and value "hucha_raghuveer" is present
-
-
-* On Admin pipeline page
-
-* Delete pipeline "pipeline-ls"
-
-* On Admin Templates page
-
-* Add new template
-
-* Verify extract template checkbox is disabled & not checked
 
 
 

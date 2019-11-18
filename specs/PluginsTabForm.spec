@@ -60,8 +60,8 @@ Below steps fail becuase new plugins page do not show values as "Unknown" if the
 * Verify plugin with identifier "Example Elastic Agent Plugin" name "Example Elastic Agent Plugin" description "Some longer description of your plugin goes here" author "Acme Corp" with enabled link to "https://github.com/user/repository"
 * Verify plugin with identifier "Example Elastic Agent Plugin" has path "/plugins/external/elastic-agent-skeleton-plugin.jar" supported OS "No restrictions" target go version "18.2.0" and bundled status as "No"
 
-* Verify plugin "Plugin1" is loaded from the bundle "/plugins/external/test-plugin-bundle.jar"
-* Verify plugin "Plugin2" is loaded from the bundle "/plugins/external/test-plugin-bundle.jar"
+* Verify plugin "Plugin 1" is loaded from the bundle "/plugins/external/test-plugin-bundle.jar"
+* Verify plugin "Plugin 2" is loaded from the bundle "/plugins/external/test-plugin-bundle.jar"
 
 Below steps fail becuase new plugins page do not show values as "Unknown" if they dont exists
 

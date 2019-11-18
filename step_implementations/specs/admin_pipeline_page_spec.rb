@@ -162,9 +162,7 @@ step 'Verify <group> has message <message>' do |group, message|
   assert_true admin_pipeline_page.group_has_message?(group, message)
 end
 
-step 'Verify that template <template> has message <message>' do |template, message|
-  assert_true admin_pipeline_page.template_has_message?(template, message)
-end
+
 
 step 'Click to create a new pipeline to group <group>' do |group|
   admin_pipeline_page.add_new_pipeline_in_group(group)
@@ -250,47 +248,8 @@ step 'Open template <template>'do |template|
 admin_pipeline_page.open_template template
 end
 
-step 'Verify that templates <tmplates> are present - on Admin Templates tab' do |templates|
-  template_names = admin_pipeline_page.total_templates
-  templates.split(',').each do |template|
-    assert_true template_names.include? template
-  end
-end
-
-step 'Verify that template <template> is used by pipelines <pipeline>' do |template, pipelines|
-  pipelines_from_template = admin_pipeline_page.get_pipelines_from_templates(template)
-  pipeline_names = []
-  pipelines.split(',').each do |pipeline|
-    if scenario_state.get(pipeline).nil? ? pipeline_names.push(pipeline) : pipeline_names.push(scenario_state.get(pipeline))
-    end
-  end
-  pipeline_names.each do |pipeline|
-    assert_true pipelines_from_template.include? pipeline
-  end
-end
 
 
-step 'Verify cannot delete templates <templates>' do |templates|
-  templates.split(',').each do |template|
-    assert_true admin_pipeline_page.delete_link_is_disabled_for_template? template
-  end
-end
-
-step 'Verify can delete templates <templates>' do |templates|
-  templates.split(',').each do |template|
-    assert_false admin_pipeline_page.delete_link_is_disabled_for_template? template
-  end
-end
-
-step 'Delete template <template>' do |template|
-  admin_pipeline_page.delete_template template
-end
-step 'Verify that templates <tmplates> are not present - on Admin Templates tab' do |templates|
-  template_names = admin_pipeline_page.total_templates
-  templates.split(',').each do |template|
-    assert_false template_names.include? template
-  end
-end
 
 step 'Verify templates tab is visible' do
   admin_pipeline_page.template_tab_is_visible?
@@ -325,29 +284,11 @@ step 'Verify post validation error is shown with message <message>' do |message|
 end
 
 
-
-step 'Add new template' do
-  admin_pipeline_page.click_add_new_template
-end
-
-step 'Enter template name <template>' do |template|
-  admin_pipeline_page.template_name.set template
-end
-
-step 'Verify template can be extracted only from pipelines <pipelines>' do |pipelines|
-  actual_pipelines = admin_pipeline_page.extractable_pipelines
-  pipelines.split(',').each do |pipeline|
-    assert_true actual_pipelines.include? scenario_state.get(pipeline)
-  end
-end
-
 step 'Verify pipeline selection dropdown is disabled and has value <pipeline>' do |pipeline|
   assert_true admin_pipeline_page.extractable_disabled_pipeline.include? scenario_state.get(pipeline)
 end
 
-step 'Select pipeline <pipeline> for template' do |pipeline|
-  admin_pipeline_page.select_pipeline_for_template scenario_state.get(pipeline)
-end
+
 
 step 'Verify pipeline uses template <template>' do |template|
   assert_true admin_pipeline_page.has_template? template

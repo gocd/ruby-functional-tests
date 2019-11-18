@@ -246,7 +246,7 @@
 	            </jobs>
 		  	</stage>
 	  	</pipeline>
-	  	<pipeline name="default.pipeline">
+	  	<pipeline name="default-pipeline">
 	        <stage name="default.stage">
 	        	<approval type="manual"/>
 	        	<jobs>

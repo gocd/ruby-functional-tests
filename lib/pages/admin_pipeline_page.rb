@@ -82,26 +82,11 @@ module Pages
       pipelines
     end
 
-    def get_pipelines_from_templates(template)
-      pipelines = []
-      page.find('h2.group_name', text: template).ancestor('.template_group').sibling('.grouping_content_wrapper').all('td.name a').each do |pipeline|
-        pipelines.push(pipeline.text)
-      end
-      pipelines
-    end
 
     def delete_link_is_disabled?(group)
       page.find("[data-test-id='delete-pipeline-group-#{group.downcase}']").disabled?
     end
 
-    def delete_link_is_disabled_for_template? template
-      page.find('h2.group_name', text: template).sibling('.title_action_wrapper').has_css?('.delete_icon_disabled')
-    end
-
-    def delete_template template
-      page.find("span#trigger_delete_#{template}").click
-      page.find("button[value='Proceed']").click
-    end
 
     def delete_group(group)
       page.find("[data-test-id='delete-pipeline-group-#{group.downcase}']").click
@@ -141,9 +126,7 @@ module Pages
       page.find("[data-test-id='pipeline-group-#{group.downcase}']").has_css?("[data-test-id='flash-message-info'] p", text: message)
     end
 
-    def template_has_message?(template,message)
-      page.find('h2.group_name', text: template).ancestor('.template').has_css?('.information', text: message)
-    end
+
 
     def add_new_pipeline_in_group(group)
       page.find("[data-test-id='pipeline-group-#{group.downcase}']").find("[data-test-id='create-pipeline-in-group-#{group.downcase}']").click
@@ -249,13 +232,6 @@ module Pages
       page.find('a.edit_template', text:template).click
     end
 
-    def total_templates
-      total_templates = []
-      page.all('.template_group h2.group_name').each do |template|
-        total_templates.push(template.text)
-      end
-      total_templates
-    end
 
     def click_edit_pipeline pipeline
       page.find("[data-test-id='edit-pipeline-#{pipeline.downcase}']").click
@@ -271,9 +247,7 @@ module Pages
 
 
     def edit_template template
-      page.all('a.edit_icon').each{|edit|
-        edit.click if edit[:href].to_s.include?(template)
-      }
+      page.find("[data-test-id='edit-template-#{template.downcase}']").click
     end
 
     def change_cofig_to_conflict
@@ -311,21 +285,11 @@ module Pages
       page.find('a.link_as_button',text:'EDIT').click
     end
 
-    def click_add_new_template
-      page.find('a',text:'ADD NEW TEMPLATE').click
-    end
-
-    def extractable_pipelines
-      page.find('#pipeline_selectedPipelineName').all('option').collect(&:text)
-    end
 
     def extractable_disabled_pipeline
       page.find('select#pipeline_pipelineNames').all('option').collect(&:text)
     end
 
-    def select_pipeline_for_template pipeline
-      find('#pipeline_selectedPipelineName option', :text => pipeline).click
-    end
 
     def has_template? template
       page.has_css?('a.edit_template',text: template )

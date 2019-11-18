@@ -73,6 +73,22 @@
                         <user>developer</user>
                     </users>
                 </role>
+                <role name="allow-permission-to-all-environments-for-multiple-role-user">
+                    <policy>
+                        <allow type="environment" action="administer">*</allow>
+                    </policy>
+                    <users>
+                        <user>multiple.role.user</user>
+                    </users>
+                </role>
+                <role name="deny-permission-to-all-environments-for-multiple-role-user">
+                    <policy>
+                        <deny type="environment" action="administer">*</deny>
+                    </policy>
+                    <users>
+                        <user>multiple.role.user</user>
+                    </users>
+                </role>
             </roles>
             <admins>
                 <user>admin</user>

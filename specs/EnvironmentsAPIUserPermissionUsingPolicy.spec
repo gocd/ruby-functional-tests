@@ -115,6 +115,15 @@ tags: environment_api, policy
 * Update environment "backend_env_2" should return success
 * Update environment "devops_env_2" should return forbidden
 
+~~~~~~~~ multiple role user ~~~~~~~~
+
+* As user "multiple.role.user"
+* Create environment "env_1" should return forbidden
+* Get environment "env_1" should return forbidden
+* Get all environments should not have "from-api, frontend_env_1, backend_env_1, devops_env_1, env_1, frontend_env_2, backend_env_2"
+* Update environment "env_1" should return forbidden
+* Delete environment "env_1" should return forbidden
+
 
 ~~~~~~~~ delete environment ~~~~~~~~
 

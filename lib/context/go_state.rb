@@ -52,7 +52,12 @@ module Context
     end
 
     def capture_database(path)
-      cp_r "#{GoConstants::SERVER_DIR}/db", path unless GoConstants::USE_AFS
+      begin
+        cp_r "#{GoConstants::SERVER_DIR}/db", path unless GoConstants::USE_AFS
+      rescue => exception
+        p "Failed to capture DB as part of teardown. Ignore. Not failing the test for this"
+      end
+
     end
 
     def capture_all(path)

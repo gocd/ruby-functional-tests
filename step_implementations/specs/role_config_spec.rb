@@ -19,7 +19,7 @@ step "Start to add a GoCD config role <name>" do |name|
   role_config_page.click_add
   role_config_page.gocd_role = (true)
   role_config_page.role_name.set name
-  end
+end
 
 step "Create a new gocd role <name>" do |name|
   role_config_page.click_add
@@ -72,4 +72,22 @@ end
 
 step 'Confirm delete role' do |i|
   role_config_page.click_confirm_delete
+end
+
+step 'Add permission' do |i|
+  role_config_page.add_permission
+end
+
+step 'Remove permission' do |i|
+  role_config_page.remove_permission
+end
+
+# use the text value of the required option
+step 'Update permission with <permission>, action <action>, type <type> and resource <res>' do |permission, action, type, res|
+  role_config_page.update_permission(permission, action, type, res)
+end
+
+# use the text value of the required option
+step 'Update permission: type <type>' do |type|
+  role_config_page.update_permission_type(type)
 end

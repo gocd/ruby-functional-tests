@@ -21,13 +21,44 @@ module Pages
     element :panel_config_repo, "[data-test-id='config-repo-details-panel']"
     element :header_config_repo, "[data-test-id='config-repo-header']"
 
-      def verify_config_repo(repo, pipeline)
+    def verify_config_repo(repo, pipeline)
       assert_true(page.find('[data-test-id="config-repo-header"]', text: repo, exact_text: true).text.eql?(repo))
 
       page.find('[data-test-id="config-repo-header"]', text: repo, exact_text: true).click
 
       assert_true(page.find('[data-test-id="config-repo-header"]', text: repo, exact_text: true).ancestor('[data-test-id="config-repo-details-panel"]').find("[data-test-id^='pipeline_#{pipeline.underscore}']").text.include?(pipeline))
 
+    end
+
+    def has_config_repo(repo)
+      assert_true(page.find('[data-test-id="config-repo-header"]', text: repo, exact_text: true).text.eql?(repo))
+    end
+
+    def does_not_have_config_repo(repo)
+      assert_false(page.find('[data-test-id="config-repo-header"]', text: repo, exact_text: true).text.eql?(repo))
+    end
+
+    def has_enabled_action_buttons(repo)
+      panel_header = find_collapsible_header(repo)
+
+      assert_false(panel_header.find('[data-test-id="config-repo-refresh"').disabled?)
+      assert_false(panel_header.find('[data-test-id="config-repo-edit"').disabled?)
+      assert_false(panel_header.find('[data-test-id="config-repo-delete"').disabled?)
+    end
+
+    def has_disabled_action_buttons(repo)
+      panel_header = find_collapsible_header(repo)
+
+      assert_true(panel_header.find('[data-test-id="config-repo-refresh"').disabled?)
+      assert_true(panel_header.find('[data-test-id="config-repo-edit"').disabled?)
+      assert_true(panel_header.find('[data-test-id="config-repo-delete"').disabled?)
+    end
+
+    private
+
+    def find_collapsible_header(id)
+      page.all("div[data-test-id='collapse-header']")
+          .find {|widget| widget.find("h4[data-test-id='config-repo-header']").text === id}
     end
 
   end

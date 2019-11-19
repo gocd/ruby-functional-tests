@@ -15,7 +15,7 @@
  * limitations under the License.
  *************************GO-LICENSE-END******************************* -->
 
-<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="132">
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="134">
     <server commandRepositoryLocation="default" serverId="gauge" tokenGenerationKey="token">
         <artifacts>
             <artifactsDir>artifacts</artifactsDir>
@@ -981,9 +981,9 @@
                 </jobs>
             </stage>
         </pipeline>
-        <pipeline name="artifact_md5_verification-pipeline-1">
+        <pipeline name="artifact-md5-verification-pipeline-1">
             <materials>
-                <git url="material-for-artifact_md5_verification-pipeline-1" dest="git" materialName="git" autoUpdate="false"/>
+                <git url="material-for-artifact-md5-verification-pipeline-1" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>

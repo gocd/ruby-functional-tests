@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *************************GO-LICENSE-START******************************
+ * Copyright 2017 ThoughtWorks, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *************************GO-LICENSE-END******************************* -->
+
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd"
+        schemaVersion="134">
+    <server commandRepositoryLocation="default" serverId="gauge" agentAutoRegisterKey="functional-tests"
+            tokenGenerationKey="token">
+        <artifacts>
+            <artifactsDir>artifacts</artifactsDir>
+        </artifacts>
+        <security>
+            <authConfigs>
+                <authConfig id="61f10215-9fba-4962-a2f4-d6c8944ade32" pluginId="cd.go.authentication.passwordfile">
+                    <property>
+                        <key>PasswordFilePath</key>
+                        <value>$password_properties</value>
+                    </property>
+                </authConfig>
+            </authConfigs>
+            <roles>
+                <role name="view-only-permission-to-all-environments">
+                    <policy>
+                        <allow type="environment" action="view">*</allow>
+                    </policy>
+                    <users>
+                        <user>view</user>
+                    </users>
+                </role>
+                <role name="administer-permission-to-frontend-environment">
+                    <policy>
+                        <allow type="environment" action="administer">frontend_*</allow>
+                    </policy>
+                    <users>
+                        <user>frontend</user>
+                    </users>
+                </role>
+                <role name="administer-permission-to-backend-environment">
+                    <policy>
+                        <allow type="environment" action="administer">backend_*</allow>
+                    </policy>
+                    <users>
+                        <user>backend</user>
+                    </users>
+                </role>
+                <role name="administer-permission-to-devops-environment">
+                    <policy>
+                        <allow type="environment" action="administer">devops_*</allow>
+                    </policy>
+                    <users>
+                        <user>devops</user>
+                    </users>
+                </role>
+                <role name="administer-permission-except-devops-environment">
+                    <policy>
+                        <deny type="environment" action="administer">devops_*</deny>
+                        <allow type="environment" action="administer">*</allow>
+                    </policy>
+                    <users>
+                        <user>developer</user>
+                    </users>
+                </role>
+                <role name="allow-permission-to-all-environments-for-multiple-role-user">
+                    <policy>
+                        <allow type="environment" action="administer">*</allow>
+                    </policy>
+                    <users>
+                        <user>multiple.role.user</user>
+                    </users>
+                </role>
+                <role name="deny-permission-to-all-environments-for-multiple-role-user">
+                    <policy>
+                        <deny type="environment" action="administer">*</deny>
+                    </policy>
+                    <users>
+                        <user>multiple.role.user</user>
+                    </users>
+                </role>
+            </roles>
+            <admins>
+                <user>admin</user>
+            </admins>
+        </security>
+    </server>
+    <pipelines>
+        <pipeline name="pipeline-in-environment">
+            <materials>
+                <git url="material-for-basic-pipeline-fast-with-job-properties" autoUpdate="false" materialName="materialWithJobProperties"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="sleep">
+                                <arg>1</arg>
+                                <runif status="passed"/>
+                            </exec></tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+    </pipelines>
+</cruise>

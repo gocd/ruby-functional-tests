@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2018 ThoughtWorks, Inc.
+# Copyright 2019 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,8 +18,13 @@ step 'On Admin page' do |_tmp|
   admin_pipeline_page.load
 end
 
+
+step 'On Admin pipeline page' do |_tmp|
+  admin_pipeline_page.load
+end
+
 step 'Clone pipeline <pipeline_name> to <new_pipeline_name> in pipeline group <target_group>' do |pipeline_name, new_pipeline_name, pipeline_group_name|
-  admin_pipeline_page.clone_pipeline(pipeline_name, new_pipeline_name, pipeline_group_name)
+  admin_pipeline_page.clone_pipeline(scenario_state.get(pipeline_name), new_pipeline_name, pipeline_group_name)
 end
 
 step 'Delete <pipeline_name>' do |pipeline|
@@ -30,53 +35,10 @@ step 'Move pipeline <pipeline_name> from group <source_group> to group <destinat
   admin_pipeline_page.move_pipeline(scenario_state.get(pipeline), source_group, destination_group)
 end
 
-step 'Verify there are <number_of_errors> errors' do |number_of_errors|
-  admin_pipeline_page.verify_number_of_error_message number_of_errors
-end
 
-step 'Verify there are <number_of_warnings> warnings' do |number_of_warnings|
-  admin_pipeline_page.verify_number_of_warnings number_of_warnings
-end
 
-step 'Wait till error message popup appears' do
-  admin_pipeline_page.wait_till_error_popup_appears
-end
 
-step 'Verify message contains <message>' do |message|
-  admin_pipeline_page.verify_error_message(message)
-end
 
-step 'Verify error description contains <message>' do |message|
-  admin_pipeline_page.verify_error_description(message)
-end
-
-step 'Open error messages popup' do
-  admin_pipeline_page.error_and_warning_count.click
-end
-
-step 'Verify there are no warnings' do
-  admin_pipeline_page.verify_there_are_no_warnings
-end
-
-step 'Verify there are no error and warnings' do
-  assert_false admin_pipeline_page.verify_there_are_no_errors_and_warnings
-end
-
-step 'Verify there are no error messages' do
-  admin_pipeline_page.verify_there_are_no_error_messages
-end
-
-step 'Verify message do not contain <message>' do |message|
-  admin_pipeline_page.verify_message_do_not_contains message
-end
-
-step 'Verify error description does not contain <message>' do |message|
-  admin_pipeline_page.verify_error_description_do_not_contains message
-end
-
-step 'Close the error popup' do
-  admin_pipeline_page.error_popup_ok_button.click
-end
 step 'Open config tab as group admin' do
   admin_pipeline_page.navigate_to('Config XML')
 end
@@ -95,11 +57,11 @@ step 'Add new pipeline group' do
   admin_pipeline_page.add_pipeline_group
 end
 step 'Enter pipeline group name <group> - Already On New Pipeline Group Popup' do |group|
-  admin_pipeline_page.add_group_name.set group
+  admin_pipeline_page.input_pipeline_group_name.set group
 end
 
 step 'Enter pipeline group name <group> - Already On Clone Pipeline pop up' do |group|
-  admin_pipeline_page.set_group.set(group)
+  admin_pipeline_page.input_pipeline_group_name.set(group)
 end
 
 step 'Verify error message <message> - Already On New Pipeline Group Popup' do |message|
@@ -107,9 +69,9 @@ step 'Verify error message <message> - Already On New Pipeline Group Popup' do |
 end
 
 step 'Verify groups <groups> are visible - on Admin Pipelines tab' do |groups|
-  group_names = admin_pipeline_page.total_pipeline_groups
+  group_names = admin_pipeline_page.all_pipeline_groups
   groups.split(',').each do |group|
-    assert_true group_names.include? group
+    assert_true group_names.include? group.downcase
   end
 end
 
@@ -128,22 +90,22 @@ step 'Delete group <group>' do |group|
 end
 
 step 'Verify groups <groups> are not visible - on Admin Pipelines tab' do |groups|
-  group_names = admin_pipeline_page.total_pipeline_groups
+  group_names = admin_pipeline_page.all_pipeline_groups
   groups.split(',').each do |group|
     assert_false group_names.include? group
   end
 end
 
 step 'Delete pipeline <pipeline_name>' do |pipeline|
-  admin_pipeline_page.delete_pipeline_from_group(pipeline)
+  admin_pipeline_page.delete_pipeline_from_group(scenario_state.get(pipeline))
 end
 
 step 'Verify error message <message> - Already On Clone Pipeline Popup' do |message|
-  assert_equal message, admin_pipeline_page.error_message_on_clone_window.text
+  assert_true admin_pipeline_page.error_message_on_clone_window(message)
 end
 
 step 'Enter pipeline name <pipeline>' do |pipeline|
-  admin_pipeline_page.set_pipeline.set(pipeline)
+  admin_pipeline_page.input_new_pipeline_name.set(pipeline)
 end
 
 step 'Verify <message> message is displayed' do |message|
@@ -158,6 +120,18 @@ end
 step 'Click clone button for pipeline <pipeline>' do |pipeline|
   pipeline_name = scenario_state.get(pipeline) || pipeline
   admin_pipeline_page.click_clone_button(pipeline_name)
+end
+
+step 'Save Cloning' do ||
+  admin_pipeline_page.button_clone.click
+end
+
+step 'Save template' do ||
+  admin_pipeline_page.button_extract_template.click
+end
+
+step 'Save group create' do ||
+  admin_pipeline_page.button_create.click
 end
 
 step 'Verify can delete <pipelines>' do |pipelines|
@@ -188,20 +162,18 @@ step 'Verify <group> has message <message>' do |group, message|
   assert_true admin_pipeline_page.group_has_message?(group, message)
 end
 
-step 'Verify that template <template> has message <message>' do |template, message|
-  assert_true admin_pipeline_page.template_has_message?(template, message)
-end
+
 
 step 'Click to create a new pipeline to group <group>' do |group|
   admin_pipeline_page.add_new_pipeline_in_group(group)
 end
 
 step 'Verify that the edit button for pipeline <pipeline> is a link for edit pipeline' do |pipeline|
-  assert_true admin_pipeline_page.edit_link_exist_for_pipeline?(pipeline)
+  assert_true admin_pipeline_page.edit_link_exist_for_pipeline?(scenario_state.get(pipeline))
 end
 
 step 'Verify that move button is not present for <pipeline>' do |pipeline|
-  assert_false admin_pipeline_page.move_button_exist_for_pipeline?(pipeline)
+  assert_false admin_pipeline_page.move_button_exist_for_pipeline?(scenario_state.get(pipeline))
 end
 
 step 'Verify that <pipeline> cannot be moved to group <group>' do |pipeline, _group|
@@ -252,8 +224,8 @@ step 'Delete role <user> -on edit group page' do |role|
   admin_pipeline_page.delete_role_on_edit_group(role)
 end
 
-step 'Set group name as <group>' do |group|
-  admin_pipeline_page.edit_group_name.set group
+step 'Set group name as <group> - on edit group page' do |group|
+  pipeline_group_edit_page.set_group_name group
 end
 
 step 'Verify tabs <tabs> are visible' do |tabs|
@@ -276,62 +248,11 @@ step 'Open template <template>'do |template|
 admin_pipeline_page.open_template template
 end
 
-step 'Verify that templates <tmplates> are present - on Admin Templates tab' do |templates|
-  template_names = admin_pipeline_page.total_templates
-  templates.split(',').each do |template|
-    assert_true template_names.include? template
-  end
-end
 
-step 'Verify that template <template> is used by pipelines <pipeline>' do |template, pipelines|
-  pipelines_from_template = admin_pipeline_page.get_pipelines_from_templates(template)
-  pipeline_names = []
-  pipelines.split(',').each do |pipeline|
-    if scenario_state.get(pipeline).nil? ? pipeline_names.push(pipeline) : pipeline_names.push(scenario_state.get(pipeline))
-    end
-  end
-  pipeline_names.each do |pipeline|
-    assert_true pipelines_from_template.include? pipeline
-  end
-end
 
-step 'Verify that edit pipeline <pipeline> lands on pipeline edit page' do |pipeline|
-  admin_pipeline_page.click_edit_pipeline scenario_state.get(pipeline)
-  assert_true admin_pipeline_page.landed_on_pipeline_edit_page? scenario_state.get(pipeline)
-end
-
-step 'Verify cannot delete templates <templates>' do |templates|
-  templates.split(',').each do |template|
-    assert_true admin_pipeline_page.delete_link_is_disabled_for_template? template
-  end
-end
-
-step 'Verify can delete templates <templates>' do |templates|
-  templates.split(',').each do |template|
-    assert_false admin_pipeline_page.delete_link_is_disabled_for_template? template
-  end
-end
-
-step 'Delete template <template>' do |template|
-  admin_pipeline_page.delete_template template
-end
-step 'Verify that templates <tmplates> are not present - on Admin Templates tab' do |templates|
-  template_names = admin_pipeline_page.total_templates
-  templates.split(',').each do |template|
-    assert_false template_names.include? template
-  end
-end
 
 step 'Verify templates tab is visible' do
   admin_pipeline_page.template_tab_is_visible?
-end
-
-step 'Set cancel job after <time> minutes' do |time|
-  admin_pipeline_page.set_hung_job_override_time time
-end
-
-step 'Save Server Configuration' do
-  admin_pipeline_page.save_server_configuration.click
 end
 
 step 'Edit template <template>' do |template|
@@ -347,7 +268,7 @@ step 'Change config to conflict' do
 end
 
 step 'Rename pipeline <pipeline> to <new_pipeline> - Already On Pipeline Group Xml' do |pipeline, new_pipeline|
-  admin_pipeline_page.rename_pipeline_on_config_xml_page pipeline, new_pipeline
+  admin_pipeline_page.rename_pipeline_on_config_xml_page scenario_state.get(pipeline), new_pipeline
 end
 
 step 'Verify that split pane appears' do
@@ -362,49 +283,18 @@ step 'Verify post validation error is shown with message <message>' do |message|
   assert_true admin_pipeline_page.post_validation_error_message_exist? message
 end
 
-step 'Click save - Already on config XML Tab' do
-  admin_pipeline_page.save_config.click
-end
-
-step 'Click Cancel - Already on group admin config XML Tab' do
-  admin_pipeline_page.cancel_config.click
-end
-
-step 'Add new template' do
-  admin_pipeline_page.click_add_new_template
-end
-
-step 'Enter template name <template>' do |template|
-  admin_pipeline_page.template_name.set template
-end
-
-step 'Select extract template from a existing pipeline' do
-  admin_pipeline_page.extract_from_pipeline.click
-end
-
-step 'Verify template can be extracted only from pipelines <pipelines>' do |pipelines|
-  actual_pipelines = admin_pipeline_page.extractable_pipelines
-  pipelines.split(',').each do |pipeline|
-    assert_true actual_pipelines.include? scenario_state.get(pipeline)
-  end
-end
 
 step 'Verify pipeline selection dropdown is disabled and has value <pipeline>' do |pipeline|
   assert_true admin_pipeline_page.extractable_disabled_pipeline.include? scenario_state.get(pipeline)
 end
 
-step 'Select pipeline <pipeline> for template' do |pipeline|
-  admin_pipeline_page.select_pipeline_for_template scenario_state.get(pipeline)
-end
+
 
 step 'Verify pipeline uses template <template>' do |template|
   assert_true admin_pipeline_page.has_template? template
 end
 
-step 'Verify extract template checkbox is disabled & not checked' do
-  assert_true !admin_pipeline_page.extract_from_pipeline.checked?
-  assert_true admin_pipeline_page.extract_from_pipeline.disabled?
-end
+
 
 step 'Verify extract template checkbox is disabled & checked' do
   assert_true admin_pipeline_page.extract_from_pipeline.checked?
@@ -413,7 +303,7 @@ end
 
 
 step 'Enter template name <template> - On template popup' do |template|
-  admin_pipeline_page.template_name_on_popup.set template
+  admin_pipeline_page.enter_template_name template
 end
 
 step 'Extract template for pipeline <pipeline>' do |pipeline|

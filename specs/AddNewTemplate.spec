@@ -12,15 +12,14 @@ AddNewTemplate
 
 tags: template
 
-* On Admin page
-* Open "Templates" tab
+* On Admin Templates page
 
 * Add new template
 
-* Save Changes
-* Verify error message "Invalid template name ''. This must be alphanumeric and can contain underscores and periods (however, it cannot start with a period). The maximum allowed length is 255 characters." - Already On New Pipeline Group Popup
-* Enter template name "some_funky_template" - On template popup
-* Save Changes
+* Enter template name "some-funky-template" - On template page
+* Save Template create
+
+* Edit template "some-funky-template"
 
 * Open tab "General Options" - On Pipeline Creation Page
 * Open "Stages" tab
@@ -36,18 +35,16 @@ tags: template
 
 Story: 5105 -  Create template from an existing pipeline
 
-* On Admin page
-
-* Open "Templates" tab
+* On Admin Templates page
 
 * Add new template
-* Enter template name "template_from_pipeline" - On template popup
+* Enter template name "template_from_pipeline" - On template page
 * Select extract template from a existing pipeline
 * Verify template can be extracted only from pipelines "pipeline-ls,simple-pipeline"
 * Select pipeline "simple-pipeline" for template
-* Save Changes
+* Save Template create
 
-* On Admin page
+* On Admin pipeline page
 
 * On Swift Dashboard Page
 * Looking at pipeline "simple-pipeline" - On Swift Dashboard page
@@ -60,19 +57,6 @@ Story: 5105 -  Create template from an existing pipeline
 
 * Open "Environment Variables" tab
 * Verify environment variable with name "NAME" and value "hucha_raghuveer" is present
-
-
-* On Admin page
-
-* Open "Pipelines" tab
-
-* Delete pipeline "pipeline-ls"
-
-* Open "Templates" tab
-
-* Add new template
-
-* Verify extract template checkbox is disabled & not checked
 
 
 

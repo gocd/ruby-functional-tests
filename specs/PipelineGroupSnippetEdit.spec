@@ -11,14 +11,13 @@ PipelineGroupSnippetEdit
 
 tags: pipeline_group_admin
 
-* On Admin page
-* Open config tab as group admin
+* On Config XML snippets page
 
 Happy Path
-* Verify group list has "group_name_to_be_changed,group5"
-* Verify selected group is "group_name_to_be_changed"
+* Verify group list has "group-name-to-be-changed,group5"
+* Verify selected group is "group-name-to-be-changed"
 * Edit config xml
-* Change group name of "group_name_to_be_changed" to "new_group"
+* Change group name of "group-name-to-be-changed" to "new_group"
 * Verify config save is successfull
 * Verify group list has "new_group,group5"
 * Verify that xml snippet contains "<pipelines group=\"new_group\">"
@@ -38,5 +37,3 @@ Verify navigation
 Teardown of contexts
 ____________________
 * Capture go state "PipelineGroupSnippetEdit" - teardown
-
-

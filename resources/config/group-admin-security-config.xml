@@ -15,7 +15,7 @@
  * limitations under the License.
  *************************GO-LICENSE-END******************************* -->
 
-<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="132">
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="134">
   <server serverId="gauge" tokenGenerationKey="token">
 	  <artifacts>
 		  <artifactsDir>artifacts</artifactsDir>
@@ -69,7 +69,7 @@
       </security>
   </server>
 
-  <pipelines group="group_name_to_be_changed">
+  <pipelines group="group-name-to-be-changed">
 	 <authorization>
 	   <admins>
 	     <role>group1AdminRole</role>
@@ -224,7 +224,7 @@
 	  	</stage>
 	  </pipeline>
 	</pipelines>
-  <pipelines group="group_with_no_pipelines">
+  <pipelines group="group-with-no-pipelines">
 	 <authorization>
 	   <admins>
        <role>group1AdminRole</role>
@@ -246,7 +246,7 @@
 	            </jobs>
 		  	</stage>
 	  	</pipeline>
-	  	<pipeline name="default.pipeline">
+	  	<pipeline name="default-pipeline">
 	        <stage name="default.stage">
 	        	<approval type="manual"/>
 	        	<jobs>

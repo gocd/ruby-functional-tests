@@ -28,9 +28,14 @@ module Pages
     element :user_view_privilege, "#viewPrivilege_USER_name"
     element :role_admin_privilege, "#adminPrivilege_ROLE_name"
     element :user_admin_privilege, "#adminPrivilege_USER_name"
+    element :edit_group_name, "#group_group"
 
     def remove_permission_for_role permission,role
       page.find("#{permission}Privilege_ROLE_#{role}").click if !page.find("#{permission}Privilege_ROLE_#{role}").checked?
+    end
+
+    def set_group_name group
+      edit_group_name.set group
     end
   end
 end

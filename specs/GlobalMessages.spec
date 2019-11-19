@@ -16,7 +16,7 @@ tags: error_messages
 * Looking at pipeline "basic-pipeline-fast" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 
-* On Admin page
+* On Admin pipeline page
 
 * Verify there are "2" errors
 * Verify there are "1" warnings

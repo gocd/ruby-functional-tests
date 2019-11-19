@@ -12,11 +12,13 @@ Setup of contexts
 HungJobServerTagTimeOut
 -----------------------
 
-tags: admin-page
+tags: server configuration
 
 * On Admin page
 
-* Open "Server Configuration" tab
+* On Server Configuration page
+
+* On Job timeout configuration
 
 * Set cancel job after "3" minutes
 * Save Server Configuration
@@ -43,5 +45,3 @@ Teardown of contexts
 ____________________
 * Capture go state "HungJobServerTagTimeOut" - teardown
 * With "1" live agents - teardown
-
-

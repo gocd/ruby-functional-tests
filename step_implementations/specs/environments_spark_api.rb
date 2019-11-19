@@ -22,6 +22,15 @@ step 'Create environment <name>' do |name|
   assert_true create_environment(name).code == 200
 end
 
+step 'Create environment <name> should return forbidden' do |name|
+  begin
+    create_environment(name)
+    raise 'Expected create environment to fail'
+  rescue RestClient::ExceptionWithResponse => e
+    raise 'Response Code is not 403' unless e.response.code == 403
+  end
+end
+
 step 'Update environment <environment> to add pipeline <pipeline>' do |environment, pipeline|
   assert_true update_environment(environment,  name: scenario_state.get(pipeline)).code == 200
 end
@@ -45,10 +54,55 @@ step 'Get environment <name> should return entity <entity> with <values>' do |na
   end
 end
 
+step 'Get environment <name> should return success' do |name|
+  assert_true get_environment(name).code == 200
+end
+
+step 'Get environment <name> should return forbidden' do |name|
+  begin
+    get_environment(name)
+    raise 'Expected get environment to fail'
+  rescue RestClient::ExceptionWithResponse => e
+    raise 'Response Code is not 403' unless e.response.code == 403
+  end
+end
+
+step 'Update environment <name> should return success' do |name|
+  assert_true update_environment(name).code == 200
+end
+
+step 'Update environment <name> should return forbidden' do |name|
+  begin
+    update_environment(name)
+    raise 'Expected update environment to fail'
+  rescue RestClient::ExceptionWithResponse => e
+    raise 'Response Code is not 403' unless e.response.code == 403
+  end
+end
+
+step 'Delete environment <name> should return success' do |name|
+  assert_true delete_environment(name).code == 200
+end
+
+step 'Delete environment <name> should return forbidden' do |name|
+  begin
+    delete_environment(name)
+    raise 'Expected delete environment to fail'
+  rescue RestClient::ExceptionWithResponse => e
+    raise 'Response Code is not 403' unless e.response.code == 403
+  end
+end
+
 step 'Get all environments should have <envs>' do |envs|
   actual = JSON.parse(get_all_environments.body)['_embedded']['environments'].map { |env| env['name'] }.sort
   expected = envs.split(/[\s,]+/).map{|exp| scenario_state.get(exp).nil? ? exp : scenario_state.get(exp)}.sort
   assert_true (expected - actual).empty?, "Assertion failed. Expected: #{expected}, Actual: #{actual}"
+end
+
+step 'Get all environments should not have <envs>' do |envs|
+  actual = JSON.parse(get_all_environments.body)['_embedded']['environments'].map { |env| env['name'] }.sort
+  expected = envs.split(/[\s,]+/).map{|exp| scenario_state.get(exp).nil? ? exp : scenario_state.get(exp)}.sort
+  assert_true actual.none? { |n| expected.include?(n) }, "Assertion failed. Expected: #{expected} not to be in: #{actual}"
 end
 
 private
@@ -87,6 +141,11 @@ def update_environment(name, pipelines = nil, agents = nil, environment_variable
   RestClient.put http_url("/api/admin/environments/#{name}"), request_body(name, pipelines, agents, environment_variables),
                  { content_type: :json, accept: ENVIRONMENT_API_VERSION, if_match: etag }
     .merge(basic_configuration.header)
+end
+
+def delete_environment(name)
+  RestClient.delete http_url("/api/admin/environments/#{name}"),
+                    { content_type: :json, accept: ENVIRONMENT_API_VERSION}.merge(basic_configuration.header)
 end
 
 def request_body(name, pipelines = nil, agents = nil, environment_variables = nil)

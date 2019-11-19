@@ -44,7 +44,7 @@ Setup of contexts
 * Verify pipeline "pipeline-unlock-onComplete" is locked and not schedulable - Using api
 
 * Verify pipeline is locked - On Swift Dashboard page
-* Cancel stage "lastStage" of pipeline "pipeline-unlock-onComplete"
+* Cancel stage "lastStage" counter "1" of pipeline "pipeline-unlock-onComplete" instance "1"
 * Verify stage "lastStage" is "Cancelled" - On Swift Dashboard page
 
 * Verify pipeline "pipeline-unlock-onComplete" is not locked and is schedulable - Using api

@@ -35,7 +35,7 @@ module Pages
     load_validation { has_dashboard_container? }
 
     def admin?
-      menu_item_visible('admin')
+      page.has_css?("[data-is-user-admin='true']")
     end
 
     def trigger_pipeline(name: scenario_state.self_pipeline, wait_to_build: false)

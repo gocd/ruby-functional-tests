@@ -19,7 +19,7 @@ module Pages
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/security/auth_configs"
 
     element :add, "button[data-test-id='add-auth-config-button']"
-    element :id, "input[aria-label='Id']"
+    element :id, "[data-test-id='form-field-input-id']"
     element :plugin_id, 'select[data-test-id="form-field-input-plugin"]'
     element :pwd_file_path, "input[ng-model='PasswordFilePath']"
     element :ldap_url, "input[ng-model='Url']"

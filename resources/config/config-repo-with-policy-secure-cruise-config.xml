@@ -73,29 +73,26 @@
                         <user>user4</user>
                     </users>
                 </role>
+                <role name="allow-permission-to-all-config-repos-for-multiple-role-user">
+                    <policy>
+                        <allow type="config_repo" action="administer">*</allow>
+                    </policy>
+                    <users>
+                        <user>multiple.role.user</user>
+                    </users>
+                </role>
+                <role name="deny-permission-to-all-config-repos-for-multiple-role-user">
+                    <policy>
+                        <deny type="config_repo" action="administer">*</deny>
+                    </policy>
+                    <users>
+                        <user>multiple.role.user</user>
+                    </users>
+                </role>
             </roles>
             <admins>
                 <user>admin</user>
             </admins>
         </security>
     </server>
-    <pipelines>
-        <pipeline name="pipeline-in-environment">
-            <materials>
-                <git url="material-for-basic-pipeline-fast-with-job-properties" autoUpdate="false" materialName="materialWithJobProperties"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                            <exec command="sleep">
-                                <arg>1</arg>
-                                <runif status="passed"/>
-                            </exec></tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
-    </pipelines>
 </cruise>

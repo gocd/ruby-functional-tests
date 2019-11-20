@@ -32,8 +32,7 @@ module Context
     def create_new_repo_as(name)
         remove_repo(name)
         mkdir_p "#{YUM_REPO_DIRECTORY_PATH}/#{name}"
-        cp_r "#{YUM_FILES_DIRECTORY}/revision-one/*.rpm", "#{YUM_REPO_DIRECTORY_PATH}/#{name}"
-        binding.pry
+        cp_r Dir.glob("#{YUM_FILES_DIRECTORY}/revision-one/*.rpm"), "#{YUM_REPO_DIRECTORY_PATH}/#{name}"
         cd("#{YUM_REPO_DIRECTORY_PATH}/#{name}") do
             sh '/usr/bin/createrepo .'
         end

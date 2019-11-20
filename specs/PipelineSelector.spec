@@ -60,12 +60,18 @@ Enable security
 
 //create new pipeline in group 'basic'
 * On Admin pipeline page
-* Clone pipeline "basic-pipeline-fast" to "admin-test-basic" in pipeline group "basic"
+* Click clone button for pipeline "basic-pipeline-fast"
+* Enter pipeline name "admin-test-basic"
+* Enter pipeline group name "basic" - Already On Clone Pipeline pop up
+* Save Cloning
 * Verify pipeline "admin-test-basic" is paused with message "Paused by pipelineSelectorAdmin"
 
 //create new pipeline in group 'dependency-group'
 * On Admin pipeline page
-* Clone pipeline "basic-pipeline-fast" to "admin-test-dependency" in pipeline group "dependency-group"
+* Click clone button for pipeline "basic-pipeline-fast"
+* Enter pipeline name "admin-test-dependency"
+* Enter pipeline group name "dependency-group" - Already On Clone Pipeline pop up
+* Save Cloning
 * Verify pipeline "admin-test-dependency" is paused with message "Paused by pipelineSelectorAdmin"
 
 * On Swift Dashboard Page
@@ -97,12 +103,18 @@ Enable security
 
 //create new pipeline in group 'basic'
 * On Admin pipeline page
-* Clone pipeline "basic-pipeline-fast" to "pavan-test-basic" in pipeline group "basic"
+* Click clone button for pipeline "basic-pipeline-fast"
+* Enter pipeline name "pavan-test-basic"
+* Enter pipeline group name "basic" - Already On Clone Pipeline pop up
+* Save Cloning
 * Verify pipeline "pavan-test-basic" is paused with message "Paused by pavan"
 
 //create new pipeline in group 'dependency-group'
 * On Admin pipeline page
-* Clone pipeline "basic-pipeline-fast" to "pavan-test-dependency" in pipeline group "dependency-group"
+* Click clone button for pipeline "basic-pipeline-fast"
+* Enter pipeline name "pavan-test-dependency"
+* Enter pipeline group name "dependency-group" - Already On Clone Pipeline pop up
+* Save Cloning
 * Verify pipeline "pavan-test-dependency" is paused with message "Paused by pavan"
 
 * On Swift Dashboard Page

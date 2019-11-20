@@ -34,7 +34,7 @@ module Context
         mkdir_p "#{YUM_REPO_DIRECTORY_PATH}/#{name}"
         cp_r Dir.glob("#{YUM_FILES_DIRECTORY}/revision-one/*.rpm"), "#{YUM_REPO_DIRECTORY_PATH}/#{name}"
         cd("#{YUM_REPO_DIRECTORY_PATH}/#{name}") do
-            sh '/usr/bin/createrepo .'
+            sh '/usr/bin/createrepo . > /dev/null 2>&1'
         end
     end
 
@@ -47,12 +47,12 @@ module Context
     def publish_new_artifact_to(repo)
         cp_r "#{YUM_FILES_DIRECTORY}/revision-two/*.rpm" "#{YUM_REPO_DIRECTORY_PATH}/#{repo}"
         cd("#{YUM_REPO_DIRECTORY_PATH}/#{name}") do
-            sh '/usr/bin/createrepo --update .'
+            sh '/usr/bin/createrepo --update . > /dev/null 2>&1'
         end
     end
 
     def stop_jetty_server
-        sh "kill -9 $(lsof -i :8081 -t) 2> /dev/null"
+        sh "kill -9 $(lsof -i :8081 -t) > /dev/null 2>&1"
     end
 
     def remove_repo(repo_name)

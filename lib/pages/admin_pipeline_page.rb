@@ -36,7 +36,7 @@ module Pages
       click_on_clone_link_for(source_pipeline_name)
       input_new_pipeline_name.set new_pipeline_name
       input_pipeline_group_name.set pipeline_group_name
-      button_clone.click
+      button_clone.click(wait: 10)
     end
 
     def delete_pipeline(pipeline)

@@ -66,6 +66,10 @@ Enable security
 * On Admin pipeline page
 * Clone pipeline "basic-pipeline-fast" to "admin-test-dependency" in pipeline group "dependency-group"
 
+* On Swift Dashboard Page
+* Verify pipeline "admin-test-basic" do not show up - On Swift Dashboard page
+* Verify pipeline "admin-test-dependency" do not show up - On Swift Dashboard page
+
 * Logout and login as "pavan"
 
 //Verify that user 'pavan' sees all pipelines created when no security was setup + the newly added pipelines by 'admin'
@@ -96,6 +100,10 @@ Enable security
 //create new pipeline in group 'dependency-group'
 * On Admin pipeline page
 * Clone pipeline "basic-pipeline-fast" to "pavan-test-dependency" in pipeline group "dependency-group"
+
+* On Swift Dashboard Page
+* Verify pipeline "pavan-test-basic" shows up - On Swift Dashboard page
+* Verify pipeline "pavan-test-dependency" shows up - On Swift Dashboard page
 
 //Verify 'admin' sees his own selections
 * Logout and login as "pipelineSelectorAdmin"

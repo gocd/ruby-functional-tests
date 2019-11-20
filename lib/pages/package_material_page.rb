@@ -20,16 +20,10 @@ module Pages
     element :package_repo_name, "#repository"
     element :add_new_package, "#addNew"
     element :package_material_name, "#material_package_definition_name"
-    element :package_material_id, "#material_package_definition_configuration_0_configurationValue_value"
+    element :package_material_spec, "#material_package_definition_configuration_0_configurationValue_value"
     element :package_material_save, "button[value='SAVE']"
 
-    def package_repo_listed? repo_name
-      page.find('a', text: repo_name)
-    end
 
-    def edit_package_repo repo_name
-      page.find('a', text: repo_name).click
-    end
 
   end
 end

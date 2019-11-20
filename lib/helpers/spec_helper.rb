@@ -75,6 +75,8 @@ require 'pages/new_admin_pipeline_page'
 require 'pages/admin_config_xml_page'
 require 'pages/config_xml_snippets_page'
 require 'pages/admin_templates_page'
+require 'pages/package_repository_page'
+require 'pages/package_material_page'
 
 
 
@@ -298,6 +300,14 @@ module Helpers
 
     def yum_repo
       Context::YumRepo.new
+    end
+
+    def package_repository_page
+      Context::packageRepositoryPage.new
+    end
+
+    def package_material_page
+      Context::packageMaterialPage.new
     end
 
 

@@ -29,10 +29,10 @@ tags: package repository
 * Open "Materials" tab - On Pipeline settings page
 * Select add new material of type "Package"
 
- Select repository "repo-1"
- Select option "addNew" - AlreadyOnPackageMaterialCreationPopup
- Enter package name "go-server" and spec "go-server"
- Verify check package gives message containing "HTTP/1.1 401 Unauthorized"
+* Select repository "repo-1"
+* Select option "addNew" - On Package Material Creation Popup
+* Enter package name "go-agent" and spec "go-agent"
+* Save package material
 
 
 Teardown of contexts

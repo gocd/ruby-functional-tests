@@ -15,13 +15,11 @@
 ##########################################################################
 
 step 'Setup http based yum repo - setup' do
-    # Setup some yum repos based on what is there in the cruise config
-    # Cruise config will be updated with some random names like `http://localhost:8081/pkgrepo-<rnd_value>`
-    # So need to read from cruise config how many repos are needed - whats the random names given to them
-    # and create repos according to that name
-    yumrepo.create_new_repo_as("name_got_from_cruise_config")
+    yum_repo.create_new_repo_as("http_repo")
+    yum_repo.start_jetty_server
 end
 
 step 'Setup http based yum repo - teardown' do
-    # Remove all the repos setup as per the values in cruise config xml
+    yum_repo.stop_jetty_server
+    yum_repo.remove_repo "http_repo"
 end

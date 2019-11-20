@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2018 ThoughtWorks, Inc.
+# Copyright 2019 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,10 +16,12 @@
 module Context
   class YumRepo
 
-    def initialize(yum_repo_directory_path='tools/jetty-8/webapps',
-                   jetty_root_directory='tools/jetty-8',
-                   yum_files_directory='test-repos/yumrepo')
-    end
+    include FileUtils
+
+    YUM_REPO_DIRECTORY_PATH = 'tools/jetty-8/webapps'
+    JETTY_ROOT_DIRECTORY = 'tools/jetty-8'
+    YUM_FILES_DIRECTORY = 'test-repos/yumrepo'
+
 
     def run_or_bomb(command)
       stdout, stdeerr, status = Open3.capture3(command)
@@ -29,23 +31,24 @@ module Context
 
     def create_new_repo_as(name)
         remove_repo(name)
-        mkdir_p "#{yum_repo_directory_path}/#{name}"
-        cp_r "#{yum_files_directory}/revision-one" "#{yum_repo_directory_path}/#{name}"
-        cd("#{yum_repo_directory_path}/#{name}") do
-            sh '/usr/bin/crearerepo .'
+        mkdir_p "#{YUM_REPO_DIRECTORY_PATH}/#{name}"
+        cp_r "#{YUM_FILES_DIRECTORY}/revision-one/*.rpm", "#{YUM_REPO_DIRECTORY_PATH}/#{name}"
+        binding.pry
+        cd("#{YUM_REPO_DIRECTORY_PATH}/#{name}") do
+            sh '/usr/bin/createrepo .'
         end
     end
 
     def start_jetty_server
-        cd (jetty_root_directory) do
+        cd (JETTY_ROOT_DIRECTORY) do
             run_or_bomb "java -jar start.jar jetty.port=8081"
         end
     end
 
     def publish_new_artifact_to(repo)
-        cp_r "#{yum_files_directory}/revision-one" "#{yum_repo_directory_path}/#{repo}"
-        cd("#{yum_repo_directory_path}/#{name}") do
-            sh '/usr/bin/crearerepo --update .'
+        cp_r "#{YUM_FILES_DIRECTORY}/revision-two/*.rpm" "#{YUM_REPO_DIRECTORY_PATH}/#{repo}"
+        cd("#{YUM_REPO_DIRECTORY_PATH}/#{name}") do
+            sh '/usr/bin/createrepo --update .'
         end
     end
 
@@ -54,7 +57,7 @@ module Context
     end
 
     def remove_repo(repo_name)
-        rm_rf("#{yum_repo_directory_path}/#{name}") if dir.exists("#{yum_repo_directory_path}/#{name}")
+        rm_rf("#{YUM_REPO_DIRECTORY_PATH}/#{repo_name}") if Dir.exist?("#{YUM_REPO_DIRECTORY_PATH}/#{repo_name}")
     end
 
     def clean_repo_query_cache_directory

@@ -29,6 +29,7 @@ require 'context/secure_configuration'
 require 'context/server'
 require 'context/pipeline'
 require 'context/ldap'
+require 'context/yum_repository'
 require 'pages/app_base'
 require 'pages/login_page'
 require 'pages/data_sharing_spa'
@@ -293,6 +294,10 @@ module Helpers
 
     def admin_templates_page
       Pages::AdminTemplatesPage.new
+    end
+
+    def yum_repo
+      Context::YumRepo.new
     end
 
 

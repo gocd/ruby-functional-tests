@@ -47,11 +47,7 @@ step 'Update config repo pipeline with name <pipeline> as downstream of <upstrea
 end
 
 step 'Verify that the page contains <repos>' do |repos|
-  repos.split(',').each {|repo| config_repos_page.has_config_repo(repo.strip)}
-end
-
-step 'Verify that the page does not contains <repos>' do |repos|
-  repos.split(',').each {|repo| config_repos_page.does_not_have_config_repo(repo.strip)}
+  config_repos_page.has_config_repos(repos)
 end
 
 step 'Verify that the config repos <repos> have enabled action buttons' do |repos|

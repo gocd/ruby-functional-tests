@@ -98,7 +98,7 @@ end
 
 def create_config_repo(id)
   RestClient.post http_url(CONFIG_REPO_BASE_URL),
-                  request_body(id),
+                  request_body_for_repo(id),
                   {content_type: :json, accept: CONFIG_REPO_API_VERSION}
                       .merge(basic_configuration.header)
 end
@@ -112,12 +112,12 @@ end
 def update_config_repo(id)
   etag = get_config_repo(id).headers[:etag]
   RestClient.put http_url("#{CONFIG_REPO_BASE_URL}/#{id}"),
-                 request_body(id),
+                 request_body_for_repo(id),
                  {content_type: :json, accept: CONFIG_REPO_API_VERSION, if_match: etag}
                      .merge(basic_configuration.header)
 end
 
-def request_body(id, plugin_id = 'json.config.plugin', material = Context::GitMaterials.new, configuration = [])
+def request_body_for_repo(id, plugin_id = 'json.config.plugin', material = Context::GitMaterials.new, configuration = [])
   tmp = {
       :id            => id,
       :plugin_id     => plugin_id,

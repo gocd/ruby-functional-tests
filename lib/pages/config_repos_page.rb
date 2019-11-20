@@ -30,12 +30,10 @@ module Pages
 
     end
 
-    def has_config_repo(repo)
-      assert_true(page.find('[data-test-id="config-repo-header"]', text: repo, exact_text: true).text.eql?(repo))
-    end
-
-    def does_not_have_config_repo(repo)
-      assert_false(page.find('[data-test-id="config-repo-header"]', text: repo, exact_text: true).text.eql?(repo))
+    def has_config_repos(repos)
+      actual   = find_all_config_repos.sort
+      expected = repos.split(/[\s,]+/).map(&:strip).sort
+      assert_true (expected - actual).empty?, "Assertion failed. Expected: #{expected}, Actual: #{actual}"
     end
 
     def has_enabled_action_buttons(repo)
@@ -59,6 +57,11 @@ module Pages
     def find_collapsible_header(id)
       page.all("div[data-test-id='collapse-header']")
           .find {|widget| widget.find("h4[data-test-id='config-repo-header']").text === id}
+    end
+
+    def find_all_config_repos
+      page.all('[data-test-id="config-repo-header"]')
+          .collect(&:text)
     end
 
   end

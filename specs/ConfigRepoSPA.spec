@@ -34,7 +34,6 @@ Setup of contexts
 * Logout and login as "user1"
 * On Config repo page
 * Verify that the page contains "cr1_1"
-* Verify that the page does not contains "cr, cr2_2, cr3_3, cr4_4"
 * Verify that the config repos "cr1_1" have enabled action buttons
 
 ~~~~~~~~~~~~~ as user2 ~~~~~~~~~~~~~~~~~
@@ -42,7 +41,6 @@ Setup of contexts
 * Logout and login as "user2"
 * On Config repo page
 * Verify that the page contains "cr2_2"
-* Verify that the page does not contains "cr, cr1_1, cr3_3, cr4_4"
 * Verify that the config repos "cr2_2" have enabled action buttons
 
 ~~~~~~~~~~~~~ as user3 ~~~~~~~~~~~~~~~~~
@@ -50,7 +48,6 @@ Setup of contexts
 * Logout and login as "user3"
 * On Config repo page
 * Verify that the page contains "cr3_3"
-* Verify that the page does not contains "cr, cr1_1, cr2_2, cr4_4"
 * Verify that the config repos "cr3_3" have enabled action buttons
 
 ~~~~~~~~~~~~~ as user4 ~~~~~~~~~~~~~~~~~
@@ -58,14 +55,13 @@ Setup of contexts
 * Logout and login as "user4"
 * On Config repo page
 * Verify that the page contains "cr, cr1_1, cr2_2, cr4_4"
-* Verify that the page does not contains "cr3_3"
 * Verify that the config repos "cr, cr1_1, cr2_2, cr4_4" have enabled action buttons
 
 ~~~~~~~~~~~~~ as multiple.role.user ~~~~~~~~~~~~~~~~~
 
 * Logout and login as "multiple.role.user"
 * On Config repo page
-* Verify that the page does not contains "cr, cr1_1, cr2_2, cr3_3, cr4_4"
+* Verify that the page contains ""
 
 Teardown of contexts
 ____________________

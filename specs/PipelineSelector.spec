@@ -61,10 +61,12 @@ Enable security
 //create new pipeline in group 'basic'
 * On Admin pipeline page
 * Clone pipeline "basic-pipeline-fast" to "admin-test-basic" in pipeline group "basic"
+* Verify pipeline "admin-test-basic" is paused with message "Paused by pipelineSelectorAdmin"
 
 //create new pipeline in group 'dependency-group'
 * On Admin pipeline page
 * Clone pipeline "basic-pipeline-fast" to "admin-test-dependency" in pipeline group "dependency-group"
+* Verify pipeline "admin-test-dependency" is paused with message "Paused by pipelineSelectorAdmin"
 
 * On Swift Dashboard Page
 * Verify pipeline "admin-test-basic" do not show up - On Swift Dashboard page
@@ -96,10 +98,12 @@ Enable security
 //create new pipeline in group 'basic'
 * On Admin pipeline page
 * Clone pipeline "basic-pipeline-fast" to "pavan-test-basic" in pipeline group "basic"
+* Verify pipeline "pavan-test-basic" is paused with message "Paused by pavan"
 
 //create new pipeline in group 'dependency-group'
 * On Admin pipeline page
 * Clone pipeline "basic-pipeline-fast" to "pavan-test-dependency" in pipeline group "dependency-group"
+* Verify pipeline "pavan-test-dependency" is paused with message "Paused by pavan"
 
 * On Swift Dashboard Page
 * Verify pipeline "pavan-test-basic" shows up - On Swift Dashboard page

@@ -13,19 +13,16 @@ PackageRepositoryTabForm
 tags: package repository
 
 
-* Open "Package Repositories" tab
+* Open Package repositories page
 
- Enter repository name as "repo-1"
- Select "yum" plugin
- Enter repo url as "http://localhost:8081/${runtime_package_http_repo_name:http_repo1}"
- Verify check connection gives message containing "401"
- Click save - Already on Package Repositories tab
- Verify repository listing contains "repo-1"
+* Enter repository name as "repo-1"
+* Select "yum" plugin
+* Enter repo url as "http://localhost:8081/http_repo1"
+* Click save - Already on Package Repositories tab
+* Verify repository listing contains "repo-1"
 
-* On Admin page
-* Open "Package Repositories" tab
+* Open Package repositories page
 
- Verify add new repository form is shown
  Click on "repo-1" in repository listing
  Verify repo details are filled with name "repo-1" plugin "yum" and non secure configuration "http://localhost:8081/${runtime_package_http_repo_name:http_repo1}"
  Enter username as "user"

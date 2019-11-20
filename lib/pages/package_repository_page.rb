@@ -22,12 +22,17 @@ module Pages
     element :package_repo_url, "#package_repository_configuration_0_configurationValue_value"
     element :package_repo_username, "#package_repository_configuration_1_configurationValue_value"
     element :package_repo_password, "#secure_field_2"
-    element :save_package_repo, "#submit_form"
+    element :package_repo_save, "#submit_form"
+    element :package_repo_plugin, "package_repository_pluginConfiguration_id"
 
     load_validation { has_create_new_template? }
 
     def landed_on_pipeline_edit_page? pipeline
       page.find('.pipeline_header').has_css?('a', text:pipeline)
+    end
+
+    def package_repo_listed? repo_name
+      page.find('a', text: repo_name)
     end
 
     def click_edit_pipeline pipeline

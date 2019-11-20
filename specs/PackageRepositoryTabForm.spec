@@ -10,7 +10,7 @@ Setup of contexts
 PackageRepositoryTabForm
 ------------------------
 
-tags: package repository
+tags: package-repository
 
 
 * Open Package repositories page

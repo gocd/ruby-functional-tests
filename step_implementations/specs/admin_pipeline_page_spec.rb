@@ -25,7 +25,6 @@ end
 
 step 'Clone pipeline <pipeline_name> to <new_pipeline_name> in pipeline group <target_group>' do |pipeline_name, new_pipeline_name, pipeline_group_name|
   admin_pipeline_page.clone_pipeline(scenario_state.get(pipeline_name), new_pipeline_name, pipeline_group_name)
-  admin_pipeline_page.verify_group_has_pipeline(pipeline_group_name, new_pipeline_name)
 end
 
 step 'Delete <pipeline_name>' do |pipeline|

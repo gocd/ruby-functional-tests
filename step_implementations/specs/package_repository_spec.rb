@@ -40,3 +40,15 @@ end
 step "Verify repository listing contains <repo_name>" do |repo_name|
   assert_true package_repository_page.package_repo_listed? repo_name
 end
+
+step "Click on <repo_name> in repository listing" do |repo_name|
+  package_repository_page.edit_package_repo repo_name
+end
+
+step "Enter username as <username>" do |username|
+  package_repository_page.package_repo_username username
+end
+
+step "Enter password as <password>" do |password|
+  package_repository_page.package_repo_password username
+end

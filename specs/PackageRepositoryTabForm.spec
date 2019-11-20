@@ -18,28 +18,16 @@ tags: package repository
 * Enter repository name as "repo-1"
 * Select "yum" plugin
 * Enter repo url as "http://localhost:8081/http_repo1"
+* Enter username as "user"
+* Enter password as "password"
 * Click save - Already on Package Repositories tab
 * Verify repository listing contains "repo-1"
 
-* Open Package repositories page
-
- Click on "repo-1" in repository listing
- Verify repo details are filled with name "repo-1" plugin "yum" and non secure configuration "http://localhost:8081/${runtime_package_http_repo_name:http_repo1}"
- Enter username as "user"
- Enter password as "password"
- Verify check connection gives message containing "Connection OK"
- Click save - Already on Package Repositories tab
- Verify repo details are filled with name "repo-1" plugin "yum" and non secure configuration "http://localhost:8081/${runtime_package_http_repo_name:http_repo1},user"
-
-
-* On Admin page
-* Open "Pipelines" tab
-
+* On Swift Dashboard Page
 * Edit pipeline "pipeline1"
 
- Open material listing page
-
- Open new package material creation popup
+* Open "Materials" tab - On Pipeline settings page
+* Select add new material of type "Package"
 
  Select repository "repo-1"
  Select option "addNew" - AlreadyOnPackageMaterialCreationPopup

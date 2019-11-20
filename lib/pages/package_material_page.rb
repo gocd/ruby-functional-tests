@@ -15,18 +15,13 @@
 ##########################################################################
 
 module Pages
-  class PackageRepositoryPage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/package_repositories/new"
+  class PackageMaterialPage < AppBase
 
-    element :package_repo_name, "#package_repository_name"
-    element :package_repo_url, "#package_repository_configuration_0_configurationValue_value"
-    element :package_repo_username, "#package_repository_configuration_1_configurationValue_value"
-    element :package_repo_password, "#secure_field_2"
-    element :package_repo_save, "#submit_form"
-    element :package_repo_plugin, "package_repository_pluginConfiguration_id"
-
-    load_validation { has_package_repo_name? }
-
+    element :package_repo_name, "#repository"
+    element :add_new_package, "#addNew"
+    element :package_material_name, "#material_package_definition_name"
+    element :package_material_id, "#material_package_definition_configuration_0_configurationValue_value"
+    element :package_material_save, "button[value='SAVE']"
 
     def package_repo_listed? repo_name
       page.find('a', text: repo_name)

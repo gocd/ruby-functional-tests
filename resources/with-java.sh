@@ -13,7 +13,10 @@ function use_jdk() {
     jabba use "$1"
 }
 
-if  [ "$mod" = "0" ]; then
+
+if  [ "$OSTYPE" = "darwin18" ]; then
+  echo "Running on Mac OS so using system Java, not modifying it. Please ensure Java 11/12/13 is installed"
+elif [ "$mod" = "0" ]; then
   use_jdk "openjdk@1.11.0-28" "tgz+https://nexus.gocd.io/repository/s3-mirrors/local/jdk/openjdk-11-28_linux-x64_bin.tar.gz"
 elif [ "$mod" = "1" ]; then
   use_jdk "openjdk@1.12.0" "tgz+https://download.java.net/java/GA/jdk12/GPL/openjdk-12_linux-x64_bin.tar.gz"

@@ -4,7 +4,7 @@ PackageRepositoryTabForm
 Setup of contexts
 * Setup http based yum repo - setup
 * Package Repository configuration - setup
-* Using pipeline "pipeline1" - setup
+* Using pipeline "pipeline_with_yum_repo_package_as_material" - setup
 * Capture go state "PackageRepositoryTabForm" - setup
 
 PackageRepositoryTabForm

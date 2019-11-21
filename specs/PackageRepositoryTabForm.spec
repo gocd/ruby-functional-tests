@@ -22,7 +22,7 @@ tags: package-repository
 * Verify repository listing contains "repo-1"
 
 * On Swift Dashboard Page
-* Edit pipeline "pipeline1"
+* Edit pipeline "pipeline_with_yum_repo_package_as_material"
 
 * Open "Materials" tab - On Pipeline settings page
 * Select add new material of type "Package"
@@ -31,6 +31,12 @@ tags: package-repository
 * Select option "addNew" - On Package Material Creation Popup
 * Enter package name "go-agent" and spec "go-agent"
 * Save package material
+
+* On Swift Dashboard Page
+* Looking at pipeline "pipeline_with_yum_repo_package_as_material" - On Swift Dashboard page
+* Trigger pipeline - On Swift Dashboard page
+* Wait for "180" seconds till pipeline completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "passed" - On Swift Dashboard page
 
 
 Teardown of contexts

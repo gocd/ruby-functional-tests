@@ -68,7 +68,7 @@ module Context
     end
 
     def stop_jetty_server
-        sh "kill -9 $(lsof -i :8081 -t) > /dev/null 2>&1"
+        sh "pkill -f jetty"
     end
 
     def remove_repo(repo_name)

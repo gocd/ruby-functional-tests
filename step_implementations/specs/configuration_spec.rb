@@ -121,7 +121,7 @@ step 'Group admin security configuration - setup' do
 end
 
 step 'Package Repository configuration - setup' do
-  secure_configuration.setup 'package-repo-config.xml'
+  basic_configuration.setup 'package-repo-config.xml'
 end
 
 step 'Allow only known users to login' do |_tmp|

@@ -45,6 +45,7 @@ module Context
     end
 
     def start_jetty_server
+        out = File.open("#{GoConstants::SERVER_DIR}/logs/output.log", 'w')
         Bundler.with_clean_env do
             process = ChildProcess.build('java', '-jar', 'start.jar', 'jetty.port=8081')
             process.detach = true

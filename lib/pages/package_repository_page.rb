@@ -29,7 +29,7 @@ module Pages
 
 
     def package_repo_listed? repo_name
-      page.find('a', text: repo_name)
+      page.has_css?('a', text: repo_name)
     end
 
     def edit_package_repo repo_name

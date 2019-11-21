@@ -45,8 +45,12 @@ module Context
     end
 
     def start_jetty_server
-        cd (JETTY_ROOT_DIRECTORY) do
-            run_or_bomb "java -jar start.jar jetty.port=8081"
+        Bundler.with_clean_env do
+            process = ChildProcess.build('java', '-jar', 'start.jar', 'jetty.port=8081')
+            process.detach = true
+            process.io.stdout = process.io.stderr = out
+            process.cwd = '/go/pipelines/regression-run-on-docker/tools/jetty-8/'
+            process.start
         end
     end
 

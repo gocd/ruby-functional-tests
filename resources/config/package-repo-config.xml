@@ -26,14 +26,6 @@
 	          <key>REPO_URL</key>
 	          <value>file:///tmp/packagerepo/file_repo</value>
 	        </property>
-	        <property>
-	          <key>USERNAME</key>
-	          <value>user</value>
-	        </property>
-	        <property>
-	          <key>PASSWORD</key>
-	          <value>password</value>
-	        </property>
 	      </configuration>
 	      <packages>
 	        <package id="package-id" name="go-agent">

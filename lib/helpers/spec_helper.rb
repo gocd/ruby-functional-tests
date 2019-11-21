@@ -303,11 +303,11 @@ module Helpers
     end
 
     def package_repository_page
-      Context::PackageRepositoryPage.new
+      Pages::PackageRepositoryPage.new
     end
 
     def package_material_page
-      Context::PackageMaterialPage.new
+      Pages::PackageMaterialPage.new
     end
 
 

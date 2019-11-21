@@ -30,6 +30,11 @@ step 'Secure Configuration - setup' do
   secure_configuration.setup 'secure-cruise-config.xml', 'password.properties'
 end
 
+
+step 'Environment Configuration - setup' do
+  secure_configuration.setup 'new-environments-cruise-config.xml', 'password.properties'
+end
+
 step 'Secure Configuration with policy - setup' do
   secure_configuration.setup 'with-policy-secure-cruise-config.xml', 'policy-password.properties'
 end

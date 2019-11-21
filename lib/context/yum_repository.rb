@@ -34,12 +34,12 @@ module Context
         mkdir_p "#{YUM_REPO_DIRECTORY_PATH}/#{name}"
         cp_r Dir.glob("#{YUM_FILES_DIRECTORY}/revision-one/*.rpm"), "#{YUM_REPO_DIRECTORY_PATH}/#{name}"
         out = File.open("#{GoConstants::SERVER_DIR}/logs/output.log", 'w')
-        cwd = Dir["#{YUM_REPO_DIRECTORY_PATH}/#{name}"].find { |f| File.directory?(f) }
+        #cwd = Dir["#{YUM_REPO_DIRECTORY_PATH}/#{name}"].find { |f| File.directory?(f) }
         Bundler.with_clean_env do
-            process = ChildProcess.build('/usr/bin/createrepo', ".")
+            process = ChildProcess.build('/usr/bin/createrepo', "/go/pipelines/regression-run-on-docker/tools/jetty-8/webapps/")
             process.detach = true
             process.io.stdout = process.io.stderr = out
-            process.cwd = cwd
+            process.cwd = '/go/pipelines/regression-run-on-docker/tools/jetty-8/webapps/'
             process.start
         end
     end

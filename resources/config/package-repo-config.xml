@@ -18,33 +18,10 @@
     <server serverId="gauge" tokenGenerationKey="token">
     </server>
 
-	<repositories>
-	    <repository id="repo-id" name="tw-repo">
-	      <pluginConfiguration id="yum" version="1"/>
-	      <configuration>
-	        <property>
-	          <key>REPO_URL</key>
-	          <value>file:///tmp/packagerepo/file_repo</value>
-	        </property>
-	      </configuration>
-	      <packages>
-	        <package id="package-id" name="go-agent">
-	          <configuration>
-	            <property>
-	              <key>PACKAGE_SPEC</key>
-	              <value>go-agent</value>
-	            </property>
-	          </configuration>
-	        </package>
-	      </packages>
-	    </repository>
-
-  </repositories>
-
   <pipelines group="defaultGroup">
     <pipeline name="pipeline_with_yum_repo_package_as_material">
       <materials>
-        <package ref="package-id"/>
+        <git url="material-for-pipeline_with_yum_repo_package_as_material" dest="git" materialName="git" autoUpdate="false"/>
       </materials>
       <stage name="defaultStage">
         <jobs>

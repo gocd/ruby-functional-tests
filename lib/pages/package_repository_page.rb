@@ -23,7 +23,7 @@ module Pages
     element :package_repo_username, "#package_repository_configuration_1_configurationValue_value"
     element :package_repo_password, "#secure_field_2"
     element :package_repo_save, "#submit_form"
-    element :package_repo_plugin, "package_repository_pluginConfiguration_id"
+    element :package_repo_plugin, "#package_repository_pluginConfiguration_id"
 
     load_validation { has_package_repo_name? }
 

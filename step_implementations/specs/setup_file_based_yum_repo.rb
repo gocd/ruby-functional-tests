@@ -14,13 +14,10 @@
 # limitations under the License.
 ##########################################################################
 
-step 'Setup http based yum repo - setup' do
-    yum_repo.create_new_repo_as("http_repo")
-    p 'Created teh repo going to start the jetty server'
-    yum_repo.start_jetty_server
+step 'Setup file based yum repo - setup' do
+    yum_repo.create_new_repo_as("file_repo")
 end
 
-step 'Setup http based yum repo - teardown' do
-    yum_repo.stop_jetty_server
-    yum_repo.remove_repo "http_repo"
+step 'Setup file based yum repo - teardown' do
+    yum_repo.remove_repo "file_repo"
 end

@@ -2,7 +2,7 @@ PackageRepositoryTabForm
 ========================
 
 Setup of contexts
-* Setup http based yum repo - setup
+* Setup file based yum repo - setup
 * Package Repository configuration - setup
 * Using pipeline "pipeline_with_yum_repo_package_as_material" - setup
 * Capture go state "PackageRepositoryTabForm" - setup
@@ -17,9 +17,7 @@ tags: package-repository
 
 * Enter repository name as "repo-1"
 * Select "yum" plugin
-* Enter repo url as "http://localhost:8081/http_repo1"
-* Enter username as "user"
-* Enter password as "password"
+* Enter repo url as "file:///tmp/packagerepo/file_repo"
 * Click save - Already on Package Repositories tab
 * Verify repository listing contains "repo-1"
 
@@ -39,4 +37,4 @@ Teardown of contexts
 ____________________
 * Capture go state "PackageRepositoryTabForm" - teardown
 * Logout - from any page
-* Setup http based yum repo - teardown
+* Setup file based yum repo - teardown

@@ -24,7 +24,7 @@
 	      <configuration>
 	        <property>
 	          <key>REPO_URL</key>
-	          <value>http://localhost:8081/http_repo1</value>
+	          <value>file:///tmp/packagerepo/file_repo</value>
 	        </property>
 	        <property>
 	          <key>USERNAME</key>

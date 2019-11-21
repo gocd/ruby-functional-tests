@@ -18,7 +18,7 @@ module Context
 
     include FileUtils
 
-    YUM_REPO_DIRECTORY_PATH = 'tools/jetty-8/webapps'
+    YUM_REPO_DIRECTORY_PATH = '/tmp/packagerepo'
     JETTY_ROOT_DIRECTORY = 'tools/jetty-8'
     YUM_FILES_DIRECTORY = 'test-repos/yumrepo'
 
@@ -36,23 +36,29 @@ module Context
         out = File.open("#{GoConstants::SERVER_DIR}/logs/output.log", 'w')
         #cwd = Dir["#{YUM_REPO_DIRECTORY_PATH}/#{name}"].find { |f| File.directory?(f) }
         Bundler.with_clean_env do
-            process = ChildProcess.build('/usr/bin/createrepo', "/go/pipelines/regression-run-on-docker/tools/jetty-8/webapps/")
+            process = ChildProcess.build('/usr/bin/createrepo', "#{YUM_REPO_DIRECTORY_PATH}/#{name}")
             process.detach = true
             process.io.stdout = process.io.stderr = out
-            process.cwd = '/go/pipelines/regression-run-on-docker/tools/jetty-8/webapps/'
+            process.cwd = "#{YUM_REPO_DIRECTORY_PATH}/#{name}"
             process.start
         end
     end
 
+    # This method is not need, use it if thinking of adding spec for http based repo
+    # For basic test a file based repo is good enough
     def start_jetty_server
         out = File.open("#{GoConstants::SERVER_DIR}/logs/output.log", 'w')
         Bundler.with_clean_env do
             process = ChildProcess.build('java', '-jar', 'start.jar', 'jetty.port=8081')
             process.detach = true
             process.io.stdout = process.io.stderr = out
-            process.cwd = '/go/pipelines/regression-run-on-docker/tools/jetty-8/'
+            process.cwd = JETTY_ROOT_DIRECTORY
             process.start
         end
+    end
+
+    def stop_jetty_server
+        sh "pkill -f jetty" # Not a good way to kill the process, if using it better update this
     end
 
     def publish_new_artifact_to(repo)
@@ -67,9 +73,7 @@ module Context
         end
     end
 
-    def stop_jetty_server
-        sh "pkill -f jetty"
-    end
+
 
     def remove_repo(repo_name)
         rm_rf("#{YUM_REPO_DIRECTORY_PATH}/#{repo_name}") if Dir.exist?("#{YUM_REPO_DIRECTORY_PATH}/#{repo_name}")

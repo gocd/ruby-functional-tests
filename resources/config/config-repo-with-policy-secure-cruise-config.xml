@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *************************GO-LICENSE-START******************************
+ * Copyright 2017 ThoughtWorks, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *************************GO-LICENSE-END******************************* -->
+
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd"
+        schemaVersion="134">
+    <server commandRepositoryLocation="default" serverId="gauge" agentAutoRegisterKey="functional-tests"
+            tokenGenerationKey="token">
+        <artifacts>
+            <artifactsDir>artifacts</artifactsDir>
+        </artifacts>
+        <security>
+            <authConfigs>
+                <authConfig id="61f10215-9fba-4962-a2f4-d6c8944ade32" pluginId="cd.go.authentication.passwordfile">
+                    <property>
+                        <key>PasswordFilePath</key>
+                        <value>$password_properties</value>
+                    </property>
+                </authConfig>
+            </authConfigs>
+            <roles>
+                <role name="view-only-permission-to-all-config-repos">
+                    <policy>
+                        <allow type="config_repo" action="view">*</allow>
+                    </policy>
+                    <users>
+                        <user>view</user>
+                    </users>
+                </role>
+                <role name="administer-permission-to-cr1">
+                    <policy>
+                        <allow type="config_repo" action="administer">cr1*</allow>
+                    </policy>
+                    <users>
+                        <user>user1</user>
+                    </users>
+                </role>
+                <role name="administer-permission-to-cr2">
+                    <policy>
+                        <allow type="config_repo" action="administer">cr2*</allow>
+                    </policy>
+                    <users>
+                        <user>user2</user>
+                    </users>
+                </role>
+                <role name="administer-permission-to-cr3">
+                    <policy>
+                        <allow type="config_repo" action="administer">cr3*</allow>
+                    </policy>
+                    <users>
+                        <user>user3</user>
+                    </users>
+                </role>
+                <role name="administer-permission-except-cr3">
+                    <policy>
+                        <deny type="config_repo" action="administer">cr3*</deny>
+                        <allow type="config_repo" action="administer">*</allow>
+                    </policy>
+                    <users>
+                        <user>user4</user>
+                    </users>
+                </role>
+                <role name="allow-permission-to-all-config-repos-for-multiple-role-user">
+                    <policy>
+                        <allow type="config_repo" action="administer">*</allow>
+                    </policy>
+                    <users>
+                        <user>multiple.role.user</user>
+                    </users>
+                </role>
+                <role name="deny-permission-to-all-config-repos-for-multiple-role-user">
+                    <policy>
+                        <deny type="config_repo" action="administer">*</deny>
+                    </policy>
+                    <users>
+                        <user>multiple.role.user</user>
+                    </users>
+                </role>
+            </roles>
+            <admins>
+                <user>admin</user>
+            </admins>
+        </security>
+    </server>
+</cruise>

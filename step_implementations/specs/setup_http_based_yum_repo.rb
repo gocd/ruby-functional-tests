@@ -16,6 +16,7 @@
 
 step 'Setup http based yum repo - setup' do
     yum_repo.create_new_repo_as("http_repo")
+    p 'Created teh repo going to start the jetty server'
     yum_repo.start_jetty_server
 end
 

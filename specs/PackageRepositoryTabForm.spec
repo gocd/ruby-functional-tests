@@ -5,6 +5,7 @@ Setup of contexts
 * Setup file based yum repo - setup
 * Package Repository configuration - setup
 * Using pipeline "pipeline_with_yum_repo_package_as_material" - setup
+* With "1" live agents - setup
 * Capture go state "PackageRepositoryTabForm" - setup
 
 PackageRepositoryTabForm
@@ -43,4 +44,5 @@ Teardown of contexts
 ____________________
 * Capture go state "PackageRepositoryTabForm" - teardown
 * Logout - from any page
+* With "1" live agents - teardown
 * Setup file based yum repo - teardown

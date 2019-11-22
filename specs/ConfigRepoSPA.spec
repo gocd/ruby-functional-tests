@@ -3,7 +3,7 @@ ConfigRepoSPA
 
 ConfigRepoSPA
 -------------------
-tags: config-repo-spa, spa
+tags: config-repo-spa, spa, wip
 
 Setup of contexts
 * Secure Configuration with policy for config repo - setup

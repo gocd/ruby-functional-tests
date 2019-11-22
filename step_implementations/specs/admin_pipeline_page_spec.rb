@@ -123,7 +123,7 @@ step 'Click clone button for pipeline <pipeline>' do |pipeline|
 end
 
 step 'Save Cloning' do ||
-  admin_pipeline_page.button_clone.click
+  admin_pipeline_page.save_clone
 end
 
 step 'Save template' do ||

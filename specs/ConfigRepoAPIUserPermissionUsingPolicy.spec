@@ -8,7 +8,7 @@ Setup of contexts
 ConfigRepoAPI
 ----------------------------
 
-tags: config_repo_api, policy
+tags: config_repo_api, policy, wip
 
 ~~~~~~~~ create config repo ~~~~~~~~
 

@@ -39,9 +39,21 @@ step 'Wait for config repo changes to sync' do
 end
 
 step 'Add pipelines <pipelines> to config repo environment <environment>' do |pipelines, environment|
-  pipelines.split(',').each { |p| scenario_state.get("#{environment}-configrepo").add_pipeline(scenario_state.get(p.strip)) }
+  pipelines.split(',').each {|p| scenario_state.get("#{environment}-configrepo").add_pipeline(scenario_state.get(p.strip))}
 end
 
 step 'Update config repo pipeline with name <pipeline> as downstream of <upstream>' do |pipeline, upstream|
   scenario_state.get("#{pipeline}-configrepo").update_pipeline(upstream)
+end
+
+step 'Verify that the page contains <repos>' do |repos|
+  config_repos_page.has_config_repos(repos)
+end
+
+step 'Verify that the config repos <repos> have enabled action buttons' do |repos|
+  repos.split(',').each {|repo| config_repos_page.has_enabled_action_buttons(repo.strip)}
+end
+
+step 'Verify that the config repos <repo> have disabled action buttons' do |repos|
+  repos.split(',').each {|repo| config_repos_page.has_disabled_action_buttons(repo.strip)}
 end

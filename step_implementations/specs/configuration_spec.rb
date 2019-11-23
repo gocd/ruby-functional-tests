@@ -39,6 +39,10 @@ step 'Secure Configuration with policy - setup' do
   secure_configuration.setup 'with-policy-secure-cruise-config.xml', 'policy-password.properties'
 end
 
+step 'Secure Configuration with policy for config repo - setup' do
+  secure_configuration.setup 'config-repo-with-policy-secure-cruise-config.xml', 'policy-password.properties'
+end
+
 step 'ConflictingConfiguration - setup' do
   secure_configuration.setup 'conflict-cruise-config.xml', 'password.properties'
 end
@@ -117,7 +121,7 @@ step 'set timer with spec <spec> on server' do |spec|
 basic_configuration.set_timer_spec spec
 end
 
-step 'Make cruise config file invalid' do ||
+step 'Make cruise config file invalid' do |_tmp|
   basic_configuration.change_cruise_config_file_to 'invalid-cruise-config.xml'
 end
 
@@ -125,11 +129,15 @@ step 'Group admin security configuration - setup' do
   secure_configuration.setup 'group-admin-security-config.xml','password.properties'
 end
 
-step 'Allow only known users to login' do ||
+step 'Package Repository configuration - setup' do
+  basic_configuration.setup 'package-repo-config.xml'
+end
+
+step 'Allow only known users to login' do |_tmp|
   basic_configuration.allow_known_user_to_login("true")
 end
 
-step 'Allow unknown users to login' do ||
+step 'Allow unknown users to login' do |_tmp|
   basic_configuration.allow_known_user_to_login("false")
 end
 

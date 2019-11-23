@@ -10,7 +10,7 @@ Setup of contexts
 
 NewEnvironmentsSPA
 -------------------
-tags: new-environments-spa, spa
+tags: new-environments-spa, spa, wip
 
 * On new environments page
 * Verify no environments present message

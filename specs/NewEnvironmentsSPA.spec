@@ -11,7 +11,7 @@ Setup of contexts
 
 NewEnvironmentsSPA
 -------------------
-tags: new-environments-spa, spa, wip
+tags: new-environments-spa, spa
 
 * On new environments page
 * Verify no environments present message

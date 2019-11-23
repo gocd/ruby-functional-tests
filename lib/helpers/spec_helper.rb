@@ -75,6 +75,7 @@ require 'pages/new_admin_pipeline_page'
 require 'pages/admin_config_xml_page'
 require 'pages/config_xml_snippets_page'
 require 'pages/admin_templates_page'
+require 'pages/new_environments_page'
 require 'pages/package_repository_page'
 require 'pages/package_material_page'
 
@@ -104,6 +105,10 @@ module Helpers
 
     def elastic_profiles_page
       Pages::ElasticProfiles.new
+    end
+
+    def new_environments_page
+      Pages::NewEnvironments.new
     end
 
     def admin_access_token_page

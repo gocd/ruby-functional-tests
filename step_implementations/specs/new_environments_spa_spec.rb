@@ -26,8 +26,12 @@ step 'Add new environment <env>' do |env|
   new_environments_page.add_new_environment(env)
 end
 
-step 'Verify if environment <env> is added' do |env|
-  new_environments_page.has_environment(env)
+step 'Verify environment <env> is listed' do |env|
+  assert_true new_environments_page.has_environment?(env)
+end
+
+step 'Verify environment <env> is not listed' do |env|
+  assert_false new_environments_page.has_environment?(env)
 end
 
 step 'Open collapsible panel for <env>' do |env|
@@ -54,11 +58,30 @@ step 'Click on edit agent for <env>' do |env|
   new_environments_page.edit_agent_association_for(env)
 end
 
-step 'Associate agent <agent> to environment' do |agent|
-  new_environments_page.associate_agent(agent)
+step 'Associate all agents to the environment' do |_tmp|
+  new_environments_page.associate_all_agents
 end
 
 step 'Verify agent <agent> associated to environment <env>' do |agent, env|
   new_environments_page.has_agent(agent, env)
 end
 
+step 'Click on edit environment variable for <env>' do |env|
+  new_environments_page.edit_environment_variable_for(env)
+end
+
+step 'Add plain text environment variable name <name> value <value>' do |name, value|
+	new_environments_page.add_new_plain_text_environment_variable(name, value)
+end
+
+step 'Add secure environment variable name <name> value <value>' do |name, value|
+	new_environments_page.add_new_secure_environment_variable(name, value)
+end
+
+step 'Verify environment variable <variable> are available for environment <env>' do |variable, env|
+	new_environments_page.verify_added_environment_variables(variable, env)
+end
+
+step 'Delete environment <env>' do |env|
+	new_environments_page.delete_environment(env)
+end

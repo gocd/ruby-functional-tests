@@ -116,7 +116,7 @@ step 'set timer with spec <spec> on server' do |spec|
 basic_configuration.set_timer_spec spec
 end
 
-step 'Make cruise config file invalid' do ||
+step 'Make cruise config file invalid' do |_tmp|
   basic_configuration.change_cruise_config_file_to 'invalid-cruise-config.xml'
 end
 
@@ -124,11 +124,15 @@ step 'Group admin security configuration - setup' do
   secure_configuration.setup 'group-admin-security-config.xml','password.properties'
 end
 
-step 'Allow only known users to login' do ||
+step 'Package Repository configuration - setup' do
+  basic_configuration.setup 'package-repo-config.xml'
+end
+
+step 'Allow only known users to login' do |_tmp|
   basic_configuration.allow_known_user_to_login("true")
 end
 
-step 'Allow unknown users to login' do ||
+step 'Allow unknown users to login' do |_tmp|
   basic_configuration.allow_known_user_to_login("false")
 end
 

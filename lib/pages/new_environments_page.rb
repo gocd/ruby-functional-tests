@@ -24,6 +24,8 @@ module Pages
     element :input_id, "input[data-test-id='form-field-input-environment-name']"
     # element :profile_id, "[data-test-id='elastic-profile-id']"
     element :add_new_environment_button, "[data-test-id='add-environment-button']"
+    element :add_new_plain_environment_variable_btn, "[data-test-id='add-plain-text-variables-btn']"
+    element :add_new_secure_environment_variable_btn, "[data-test-id='add-secure-variables-btn']"
 
 
     def add_new_environment(env)
@@ -36,8 +38,8 @@ module Pages
       assert_true page.find("[data-test-id='no-environment-present-msg']").text.include? "Either no environments have been set up or you are not authorized to view the environments."
     end
 
-    def has_environment(env)
-      assert_true find_collapsible_header(env) != nil
+    def has_environment?(env)
+      page.has_css?("div[data-test-id='environment-header-for-#{env}']")
     end
 
     def open_collapsible_for(env)
@@ -61,8 +63,28 @@ module Pages
       page.find("div[data-test-id='agents-for-#{env}'] i[data-test-id=Edit-icon]").click
     end
 
-    def associate_agent(agent)
-      page.find("[data-test-id^='form-field-input-#{agent}']").click
+    def associate_all_agents
+      page.find("[data-test-id ='available-agents']").all("[data-test-id^='form-field-input-']").each do |agent|
+        agent.check
+      end
+      modal_save.click
+    end
+
+    def edit_environment_variable_for(env)
+      page.find("[data-test-id='environment-variables-for-#{env}']").find("[data-test-id='Edit-icon']").click
+    end
+
+    def add_new_plain_text_environment_variable(name, value)
+      add_new_plain_environment_variable_btn.click
+      page.all("[data-test-id='env-var-name']").last.set name
+      page.all("[data-test-id='env-var-value']").last.set value
+      modal_save.click
+    end
+
+    def add_new_secure_environment_variable(name, value)
+      add_new_secure_environment_variable_btn.click
+      page.all("[data-test-id='env-var-name']").last.set name
+      page.all("[data-test-id='env-var-value']").last.set value
       modal_save.click
     end
 
@@ -70,9 +92,13 @@ module Pages
       assert_true page.find("[data-test-id='agents-for-#{env}'] ul[data-test-id='agents-content']").text.include? agent
     end
 
-    def find_collapsible_header(id)
-      page.all("div[data-test-id='collapse-header']")
-          .find {|widget| widget.find("div[data-test-id='environment-header-for-#{id}']")}
+    def verify_added_environment_variables(variable, env)
+      page.find("[data-test-id='environment-variables-for-#{env}']").find("[data-test-id='environment-variables-content']").has_css?('li', text: variable)
+    end
+
+    def delete_environment env
+      page.find("div[data-test-id='collapsible-panel-for-env-env1']").find("[data-test-id='Delete-icon']").click
+      page.find("[data-test-id='button-delete']").click
     end
   end
 end

@@ -198,9 +198,9 @@ module Context
     end
 
     def update_toggle(toggle, value)
-      RestClient.post http_url("/api/admin/feature_toggles/#{toggle}"),
+      RestClient.put http_url("/api/admin/feature_toggles/#{toggle}"),
                       {"toggle_value": "#{value}"}.to_json,
-                      { content_type: :json }.merge(basic_configuration.header)
+                      { content_type: :json, accept: 'application/vnd.go.cd+json'  }.merge(basic_configuration.header)
     end
 
     def material_url_for(pipeline)

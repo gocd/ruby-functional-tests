@@ -48,6 +48,17 @@ Pipeline Visibility
 
 * verify user has operate permissions on "defaultStage" for pipeline "P4" on Pipeline Activity Page
 
+* Looking at pipeline "P1" - On Swift Dashboard page
+* Wait for "90" seconds till pipeline completed - On Swift Dashboard page
+
+* Looking at pipeline "P2" - On Swift Dashboard page
+* Wait for "90" seconds till pipeline completed - On Swift Dashboard page
+
+* Looking at pipeline "P3" - On Swift Dashboard page
+* Wait for "90" seconds till pipeline completed - On Swift Dashboard page
+
+* Looking at pipeline "P4" - On Swift Dashboard page
+* Wait for "90" seconds till pipeline completed - On Swift Dashboard page
 
 * Logout - from any page
 
@@ -69,6 +80,15 @@ Pipeline Visibility
 * verify user has operate permissions on "defaultStage" for pipeline "P2" on Pipeline Activity Page
 * verify user has operate permissions on "defaultStage" for pipeline "P3" on Pipeline Activity Page
 
+* Looking at pipeline "P2" - On Swift Dashboard page
+* Wait for "90" seconds till pipeline completed - On Swift Dashboard page
+
+* Looking at pipeline "P3" - On Swift Dashboard page
+* Wait for "90" seconds till pipeline completed - On Swift Dashboard page
+
+* Looking at pipeline "P4" - On Swift Dashboard page
+* Wait for "90" seconds till pipeline completed - On Swift Dashboard page
+
 * Logout - from any page
 
 * Login as "pavan"
@@ -88,6 +108,8 @@ Pipeline Visibility
 * verify user does not have operate permissions on "defaultStage" for pipleine "P1" on pipeline activity page
 * verify user has operate permissions on "defaultStage" for pipeline "P3" on Pipeline Activity Page
 
+* Looking at pipeline "P3" - On Swift Dashboard page
+* Wait for "90" seconds till pipeline completed - On Swift Dashboard page
 
 * Logout - from any page
 

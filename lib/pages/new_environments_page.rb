@@ -21,6 +21,7 @@ module Pages
     element :add, "button[data-test-id='add-environment-button']"
     element :save, "button[data-test-id='button-save']"
     element :modal_save, "button[data-test-id='save-button']"
+    element :modal_cancel, "button[data-test-id='cancel-button']"
     element :input_id, "input[data-test-id='form-field-input-environment-name']"
     # element :profile_id, "[data-test-id='elastic-profile-id']"
     element :add_new_environment_button, "[data-test-id='add-environment-button']"
@@ -127,8 +128,17 @@ module Pages
       assert_true page.find("div[data-test-id='environment-variables-for-#{env}']").has_css?('i[disabled=""]')
     end
 
+    def has_unavailable_pipeline(pipeline, env)
+      edit_pipeline_association_for(env)
+      assert_true page.find("div[data-test-id='unavailable-pipelines-already-associated-with-environments']").text.include? pipeline
+    end
+
     def find_collapsible_header(env)
       page.find("div[data-test-id='collapsible-panel-for-env-#{env}'] div[data-test-id='collapse-header']")
+    end
+
+    def close_modal
+      modal_cancel.click
     end
   end
 end

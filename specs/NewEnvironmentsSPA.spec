@@ -38,6 +38,9 @@ tags: new-environments-spa, spa
 
 * Add new environment "env2"
 * Verify environment "env2" is listed
+* Open collapsible panel for "env2"
+* Verify unavailable pipeline "basic-pipeline-fast-with-job-properties" for "env2"
+* Close pipeline association modal
 
 * Delete environment "env1"
 * Verify environment "env1" is not listed

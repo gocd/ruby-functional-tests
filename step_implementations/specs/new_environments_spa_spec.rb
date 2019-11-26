@@ -85,3 +85,19 @@ end
 step 'Delete environment <env>' do |env|
 	new_environments_page.delete_environment(env)
 end
+
+step 'Verify delete button for <env> is enabled' do |env|
+  new_environments_page.has_enabled_delete_button(env)
+end
+
+step 'Verify delete button for <env> is disabled' do |env|
+  new_environments_page.has_disabled_delete_button(env)
+end
+
+step 'Verify edit buttons for <env> are enabled' do |env|
+  new_environments_page.has_enabled_edit_buttons(env)
+end
+
+step 'Verify edit buttons for <env> are disabled' do |env|
+  new_environments_page.has_disabled_edit_buttons(env)
+end

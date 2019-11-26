@@ -89,6 +89,15 @@
                         <user>multiple.role.user</user>
                     </users>
                 </role>
+                <role name="administer-for-frontend-and-view-for-devops-user">
+                    <policy>
+                        <allow type="environment" action="view">devops_*</allow>
+                        <allow type="environment" action="administer">frontend_*</allow>
+                    </policy>
+                    <users>
+                        <user>bob</user>
+                    </users>
+                </role>
             </roles>
             <admins>
                 <user>admin</user>

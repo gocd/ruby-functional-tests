@@ -100,5 +100,35 @@ module Pages
       page.find("div[data-test-id='collapsible-panel-for-env-env1']").find("[data-test-id='Delete-icon']").click
       page.find("[data-test-id='button-delete']").click
     end
+
+    def has_enabled_delete_button(env)
+      panel_header = find_collapsible_header(env)
+      assert_true(!panel_header.find('[data-test-id="Delete-icon"').disabled?)
+    end
+
+    def has_disabled_delete_button(env)
+      panel_header = find_collapsible_header(env)
+      assert_true(panel_header.find('[data-test-id="Delete-icon"').disabled?)
+    end
+
+    def has_enabled_edit_buttons(env)
+      panel_header = find_collapsible_header(env)
+      panel_header.click
+      assert_false page.find("div[data-test-id='pipelines-for-#{env}'] i[data-test-id=Edit-icon]").disabled?
+      assert_false page.find("div[data-test-id='agents-for-#{env}'] i[data-test-id=Edit-icon]").disabled?
+      assert_false page.find("div[data-test-id='environment-variables-for-#{env}'] i[data-test-id=Edit-icon]").disabled?
+    end
+
+    def has_disabled_edit_buttons(env)
+      panel_header = find_collapsible_header(env)
+      panel_header.click
+      assert_true page.find("div[data-test-id='pipelines-for-#{env}']").has_css?('i[disabled=""]')
+      assert_true page.find("div[data-test-id='agents-for-#{env}']").has_css?('i[disabled=""]')
+      assert_true page.find("div[data-test-id='environment-variables-for-#{env}']").has_css?('i[disabled=""]')
+    end
+
+    def find_collapsible_header(env)
+      page.find("div[data-test-id='collapsible-panel-for-env-#{env}'] div[data-test-id='collapse-header']")
+    end
   end
 end

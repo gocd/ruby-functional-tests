@@ -148,8 +148,8 @@ module Pages
 
     def error_messages
       errors=[]
-      page.all('.form_error').each{|err| errors.push(err.text)}
-      page.all('.error').each{|err| errors.push(err.text)}
+      page.all('.form_error', wait: 10).each{|err| errors.push(err.text)}
+      page.all('.error', wait: 10).each{|err| errors.push(err.text)}
       return errors
     end
 

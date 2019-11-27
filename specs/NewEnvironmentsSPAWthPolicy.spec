@@ -9,7 +9,7 @@ Setup of contexts
 
 NewEnvironmentsSPAWithPolicy
 -------------------
-tags: foobar, new-environments-spa, policy, spa
+tags: new-environments-spa, policy, spa
 
 * On new environments page
 * Verify no environments present message

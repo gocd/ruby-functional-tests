@@ -14,11 +14,11 @@ tags: secure_variables
 
 * Add environment "uat" to all Idle agents - Using Agents API
 
-* Looking at environment "uat"
-* Open Environment edit page for environment "uat"
-* Edit environment variables
-* For variable at row "1" set name "env_level_variable_made_secure_at_pipeline_level" value "env_insecure_key_value"
-* Add new variable
+* On new environments page
+* Open collapsible panel for "uat"
+* Click on edit environment variable for "uat"
+* Add plain text environment variable name "env_level_variable_made_secure_at_pipeline_level" value "env_insecure_key_value"
+
 * On Job settings page of pipeline "edit-pipeline-with-secure-vars" stage "defaultStage" job "defaultJob"
 * Open "Environment Variables" tab - On Job settings page
 * Add environment variable "secure_variable_made_insecure_by_job" with value "secure_variable_made_insecure_by_job"
@@ -27,9 +27,11 @@ tags: secure_variables
 * Open "Environment Variables" tab - On Stage settings page
 * Add environment variable "secure_variable_made_insecure_by_stage" with value "secure_variable_made_insecure_by_stage"
 * Save Changes
-* Open Environment edit page for environment "uat"
-* Edit pipelines
-* Add pipeline "edit-pipeline-with-secure-vars" and save environment
+
+* On new environments page
+* Open collapsible panel for "uat"
+* Click on edit pipeline for "uat"
+* Associate pipeline "edit-pipeline-with-secure-vars" to environment
 
 * On Pipeline settings page of pipeline "edit-pipeline-with-secure-vars"
 * Open "Environment Variables" tab - On Pipeline settings page

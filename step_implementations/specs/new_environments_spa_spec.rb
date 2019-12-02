@@ -23,23 +23,23 @@ step 'Verify no environments present message' do
 end
 
 step 'Add new environment <env>' do |env|
-  new_environments_page.add_new_environment(env)
+  new_environments_page.add_new_environment(actual_name(env))
 end
 
 step 'Verify environment <env> is listed' do |env|
-  assert_true new_environments_page.has_environment?(env)
+  assert_true new_environments_page.has_environment?(actual_name(env))
 end
 
 step 'Verify environment <env> is not listed' do |env|
-  assert_false new_environments_page.has_environment?(env)
+  assert_false new_environments_page.has_environment?(actual_name(env))
 end
 
 step 'Open collapsible panel for <env>' do |env|
-  new_environments_page.open_collapsible_for(env)
+  new_environments_page.open_collapsible_for(actual_name(env))
 end
 
 step 'Click on edit pipeline for <env>' do |env|
-  new_environments_page.edit_pipeline_association_for(env)
+  new_environments_page.edit_pipeline_association_for(actual_name(env))
 end
 
 # step 'Verify flash info message for no pipelines' do
@@ -50,12 +50,20 @@ step 'Associate pipeline <pipeline> to environment' do |pipeline|
   new_environments_page.associate_pipeline(pipeline)
 end
 
-step 'Verify pipeline <pipeline> associated to environment <env>' do |pipeline, env|
-  new_environments_page.has_pipeline(pipeline, env)
+step 'Verify pipeline <pipelines> associated to environment <env>' do |pipelines, env|
+  pipelines.split(',').collect(&:strip).each do |pipeline|
+    assert_true new_environments_page.has_pipeline(pipeline, actual_name(env))
+  end
+end
+
+step 'Verify pipeline <pipelines> not associated to environment <env>' do |pipelines, env|
+  pipelines.split(',').collect(&:strip).each do |pipeline|
+    assert_false new_environments_page.has_pipeline(pipeline, actual_name(env))
+  end
 end
 
 step 'Click on edit agent for <env>' do |env|
-  new_environments_page.edit_agent_association_for(env)
+  new_environments_page.edit_agent_association_for(actual_name(env))
 end
 
 step 'Associate all agents to the environment' do |_tmp|
@@ -63,11 +71,11 @@ step 'Associate all agents to the environment' do |_tmp|
 end
 
 step 'Verify agent <agent> associated to environment <env>' do |agent, env|
-  new_environments_page.has_agent(agent, env)
+  new_environments_page.has_agent(agent, actual_name(env))
 end
 
 step 'Click on edit environment variable for <env>' do |env|
-  new_environments_page.edit_environment_variable_for(env)
+  new_environments_page.edit_environment_variable_for(actual_name(env))
 end
 
 step 'Add plain text environment variable name <name> value <value>' do |name, value|
@@ -79,25 +87,42 @@ step 'Add secure environment variable name <name> value <value>' do |name, value
 end
 
 step 'Verify environment variable <variable> are available for environment <env>' do |variable, env|
-	new_environments_page.verify_added_environment_variables(variable, env)
+	new_environments_page.verify_added_environment_variables(variable, actual_name(env))
 end
 
 step 'Delete environment <env>' do |env|
-	new_environments_page.delete_environment(env)
+	new_environments_page.delete_environment(actual_name(env))
 end
 
 step 'Verify delete button for <env> is enabled' do |env|
-  new_environments_page.has_enabled_delete_button(env)
+  new_environments_page.has_enabled_delete_button(actual_name(env))
 end
 
 step 'Verify delete button for <env> is disabled' do |env|
-  new_environments_page.has_disabled_delete_button(env)
+  new_environments_page.has_disabled_delete_button(actual_name(env))
 end
 
 step 'Verify edit buttons for <env> are enabled' do |env|
-  new_environments_page.has_enabled_edit_buttons(env)
+  new_environments_page.has_enabled_edit_buttons(actual_name(env))
 end
 
 step 'Verify edit buttons for <env> are disabled' do |env|
-  new_environments_page.has_disabled_edit_buttons(env)
+  new_environments_page.has_disabled_edit_buttons(actual_name(env))
+end
+
+step 'Verify removing pipelines <pipelines> is not allowed - On Environments SPA' do |pipelines, env|
+  pipelines.split(',').collect(&:strip).each do |pipeline|
+    assert_true new_environments_page.pipelines_selection_disabled?(pipeline)
+  end
+end
+
+def actual_name(env)
+  scenario_state.get(env) || env
+end
+
+step 'Remove pipelines <pipelines> and save environment - On Environments SPA' do |pipelines|
+  pipelines.split(',').collect(&:strip).each do |pipeline|
+    new_environments_page.unselect_pipeline(pipeline)
+  end
+  new_environments_page.modal_save.click
 end

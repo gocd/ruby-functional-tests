@@ -25,7 +25,10 @@ tags: environment_api
 * Get environment "from-api-with-secure-env" should return entity "environment_variables" with "name: secured, encrypted_value: encryptedValue"
 
 * Create a new config repo environment with name "config-repo-environment" on repo "1"
-* Verify environment "config-repo-environment" shows up on the environments page
+* Wait for config repo changes to sync
+
+* On new environments page
+* Verify environment "config-repo-environment" is listed
 
 * Get all environments should have "config-repo-environment, from-api, from-api-with-secure-env"
 

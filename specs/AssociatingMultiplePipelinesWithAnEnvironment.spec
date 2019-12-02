@@ -30,10 +30,10 @@ This is to verify that only the agents associated with an evironment are used to
 * Verify there are "0" agents with state "Building"
 
 * Add environment "uat" to any "2" Idle agents - Using Agents API
-* Looking at environment "uat"
-* Open Environment edit page for environment "uat"
-* Edit pipelines
-* Add pipeline "basic-pipeline" and save environment
+* On new environments page
+* Open collapsible panel for "uat"
+* Click on edit pipeline for "uat"
+* Associate pipeline "basic-pipeline" to environment
 
 * On Swift Dashboard Page
 * Looking at pipeline "environment-pipeline" - On Swift Dashboard page
@@ -48,6 +48,3 @@ Teardown of contexts
 ____________________
 * Capture go state "AssociatingMultiplePipelinesWithAnEnvironment" - teardown
 * With "2" live agents - teardown
-
-
-

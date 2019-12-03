@@ -79,11 +79,11 @@ step 'Click on edit environment variable for <env>' do |env|
 end
 
 step 'Add plain text environment variable name <name> value <value>' do |name, value|
-	new_environments_page.add_new_plain_text_environment_variable(name, value)
+  new_environments_page.add_new_plain_text_environment_variable(name, value)
 end
 
 step 'Add secure environment variable name <name> value <value>' do |name, value|
-	new_environments_page.add_new_secure_environment_variable(name, value)
+  new_environments_page.add_new_secure_environment_variable(name, value)
 end
 
 step 'Verify environment variable <variable> are available for environment <env>' do |variable, env|
@@ -109,6 +109,15 @@ end
 step 'Verify edit buttons for <env> are disabled' do |env|
   new_environments_page.has_disabled_edit_buttons(actual_name(env))
 end
+
+step 'Verify unavailable pipeline <pipeline> for <env>' do |pipeline, env|
+  new_environments_page.has_unavailable_pipeline(pipeline, actual_name(env))
+end
+
+step 'Close pipeline association modal' do
+  new_environments_page.close_modal
+end
+
 
 step 'Verify removing pipelines <pipelines> is not allowed - On Environments SPA' do |pipelines, env|
   pipelines.split(',').collect(&:strip).each do |pipeline|

@@ -18,24 +18,26 @@ Setup of contexts
 
 * Create a new config repo environment with name "config-repo-environment" on repo "2"
 * Add pipelines "simple-upstream, config-repo-pipeline" to config repo environment "config-repo-environment"
+* Wait for config repo changes to sync
 
-* Verify environment "config-repo-environment" shows up on the environments page
+* On new environments page
+* Verify environment "config-repo-environment" is listed
+* Open collapsible panel for "config-repo-environment"
+* Verify pipeline "simple-upstream, config-repo-pipeline" associated to environment "config-repo-environment"
 
-* Open Environment edit page for environment "config-repo-environment"
-* Verify pipelines "simple-upstream, config-repo-pipeline" are available on "config-repo-environment" edit page
+* Click on edit pipeline for "config-repo-environment"
+* Associate pipeline "main-config-pipeline" to environment
 
-* Edit pipelines
-* Add pipeline "main-config-pipeline" and save environment
-* Open Environment edit page for environment "config-repo-environment"
-* Verify pipelines "simple-upstream, config-repo-pipeline, main-config-pipeline" are available on "config-repo-environment" edit page
+* Verify pipeline "simple-upstream, config-repo-pipeline, main-config-pipeline" associated to environment "config-repo-environment"
 
-* Edit pipelines
-* Verify removing pipelines "simple-upstream, config-repo-pipeline" is not allowed
 
-* Remove pipelines "main-config-pipeline" and save environment
-* Open Environment edit page for environment "config-repo-environment"
-* Verify pipelines "simple-upstream, config-repo-pipeline" are available on "config-repo-environment" edit page
-* Verify pipelines "main-config-pipeline" are not available on "config-repo-environment" edit page
+* Click on edit pipeline for "config-repo-environment"
+* Verify removing pipelines "simple-upstream, config-repo-pipeline" is not allowed - On Environments SPA
+
+* Remove pipelines "main-config-pipeline" and save environment - On Environments SPA
+
+* Verify pipeline "simple-upstream, config-repo-pipeline" associated to environment "config-repo-environment"
+* Verify pipeline "main-config-pipeline" not associated to environment "config-repo-environment"
 
 teardown
 _______________

@@ -57,7 +57,7 @@ module Pages
     end
 
     def has_pipeline (pipeline, env)
-      assert_true page.find("[data-test-id='pipelines-for-#{env}'] ul[data-test-id='pipelines-content']").text.include? pipeline
+      page.find("[data-test-id='pipelines-for-#{env}'] ul[data-test-id='pipelines-content']").text.include? scenario_state.get(pipeline)
     end
 
     def edit_agent_association_for(env)
@@ -137,8 +137,17 @@ module Pages
       page.find("div[data-test-id='collapsible-panel-for-env-#{env}'] div[data-test-id='collapse-header']")
     end
 
+
     def close_modal
       modal_cancel.click
+    end
+
+    def pipelines_selection_disabled?(pipeline)
+      page.find("[data-test-id='form-field-input-#{scenario_state.get(pipeline)}']").disabled?
+    end
+
+    def unselect_pipeline(pipeline)
+      page.find("[data-test-id='form-field-input-#{scenario_state.get(pipeline)}']").uncheck
     end
   end
 end

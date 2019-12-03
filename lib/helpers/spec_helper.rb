@@ -34,8 +34,6 @@ require 'pages/app_base'
 require 'pages/login_page'
 require 'pages/data_sharing_spa'
 require 'pages/agents_spa'
-require 'pages/environments_page'
-require 'pages/environments_edit_page'
 require 'pages/server_health_messages'
 require 'pages/preferences_page'
 require 'pages/authorization_config_spa'
@@ -143,9 +141,6 @@ module Helpers
       Pages::StageDetailsPage.new
     end
 
-    def environments_dashboard_page
-      Pages::EnvironmentsPage.new
-    end
 
     def authorization_config_page
       Pages::AuthConfigSPA.new
@@ -173,10 +168,6 @@ module Helpers
 
     def preferences_page
       Pages::Preferences.new
-    end
-
-    def environments_edit_page(environment)
-      Pages::EnvironmentsEditPage.new(environment)
     end
 
     def pipeline_group_edit_page

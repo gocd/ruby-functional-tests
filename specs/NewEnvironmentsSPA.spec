@@ -6,7 +6,6 @@ Setup of contexts
 * Login as "admin" - setup
 * With "1" live agents - setup
 * Using pipeline "basic-pipeline-fast-with-job-properties" - setup
-* Update toggle "show_new_environments_spa" to value "ON"
 * Capture go state "NewEnvironmentsSPA" - setup
 
 NewEnvironmentsSPA

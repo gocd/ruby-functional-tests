@@ -4,7 +4,6 @@ NewEnvironmentsSPAWithPolicy
 Setup of contexts
 * Secure Configuration with policy - setup
 * Login as "admin" - setup
-* Update toggle "show_new_environments_spa" to value "ON"
 * Capture go state "NewEnvironmentsSPAWithPolicy" - setup
 
 NewEnvironmentsSPAWithPolicy

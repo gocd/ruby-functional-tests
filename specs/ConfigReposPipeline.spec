@@ -22,7 +22,7 @@ Setup of contexts
 
 * Verify pipeline "first-pipeline" shows up - On Swift Dashboard page
 * Looking at pipeline "first-pipeline" - On Swift Dashboard page
-* Verify pipeline is not editable - On Swift Dashboard page
+* Verify pipeline is editable - On Swift Dashboard page
 
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page

@@ -64,5 +64,5 @@ step 'Set administrator email as <email>' do |email|
 end
 
 step 'Verify server configuration save is successful' do
-  assert_equal server_configuration_page.flash_message.text, "Configuration was saved successfully!", "Actual message shown #{server_configuration_page.flash_message.text}"
+  assert_equal server_configuration_page.flash_message.text, "Mail server configuration updated successfully!", "Actual message shown #{server_configuration_page.flash_message.text}"
 end

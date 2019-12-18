@@ -16,15 +16,13 @@
 
 module Pages
   class PipelineHistoryPage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/tab/pipeline/history{/pipelinename}"
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/pipeline/activity{/pipelinename}"
 
-    element :pipeline_history_group, '.pipeline-history-group'
-    element :current_page, '.page-num.highlight-warning'
-    element :page_next, '#page-next'
-    element :page_previous, '#page-previous'
-    element :filter_history, '#labelFilterField'
-    element :label_filter_clear, '.filter-clear-icon'
-    element :build_cause_summary, '.build-cause-summary-container'
+    element :current_page, 'a[data-test-current-page]'
+    element :page_next, 'a[data-test-id="pagination-next-page"]'
+    element :page_previous, 'a[data-test-id="pagination-previous-page"]'
+    element :filter_history, 'input[data-test-id="search-field"]'
+    element :build_cause_summary, 'div[data-test-id=build-details]'
 
     def verify_current_pagination_number(page_number)
       assert_true current_page.text.include?(page_number)
@@ -51,15 +49,17 @@ module Pages
     end
 
     def click_on_pagenumber(page_number)
-      find("#page_#{page_number}").click
+      by_test_id("a", "pagination-page-#{page_number}").click
     end
 
     def clear_label_filter_selection
-      label_filter_clear.click
+      filter_history.set("")
     end
 
     def open_build_cause(_pipeline_name, label)
-      page.find('.pipeline-label', text: label).ancestor('.pipeline-name').find('.pipeline-info', text: /Triggered by/).click
+      by_test_id("tr", "pipeline-instance-#{label}")
+        .find(test_id("div", "meta"))
+        .find(test_id("a", "trigger-with-changes-button")).click
     end
 
     def shows_build_cause_message?(message)
@@ -67,43 +67,86 @@ module Pages
     end
 
     def triggered_by?(_pipeline_name, label, user)
-      page.find('.pipeline-label', text: label).ancestor('.pipeline-name').all('.pipeline-info', text: /Triggered by/).first.text == "Triggered by #{user}"
+      by_test_id("tr", "pipeline-instance-#{label}")
+        .find(test_id("td", "meta"))
+        .find(test_id("a", "trigger-with-changes-button")).first.text == "Triggered by #{user}"
     end
 
     def pause_pipeline
-      accept_confirm { page.find("#pause-#{scenario_state.self_pipeline}").click }
+      by_test_id("button", "page-header-pause-btn").click
+      by_test_id("button", "primary-action-button").click
     end
 
-    def verify_stage_can_rerun?(pipeline_name, label, stage_name)
-      page.has_selector?("#rerun-#{pipeline_name}-#{label}-#{stage_name}", visible: false) # visibility is set to false for on-hover functionality of the button
+    def verify_stage_can_rerun?(label, stage_name)
+      by_test_id("tr", "pipeline-instance-#{label}")
+        .find(test_id("td", "stage-status"))
+        .find(test_id("div", "stage-status-container-#{stage_name}"))
+        .has_selector?(test_id("i", "rerun-stage-icon"), visible: false)
+      # visibility is set to false for on-hover functionality of the button
+    end
+
+    def verify_stage_can_cancel?(label, stage_name)
+      by_test_id("tr", "pipeline-instance-#{label}")
+        .find(test_id("td", "stage-status"))
+        .find(test_id("div", "stage-status-container-#{stage_name}"))
+        .has_selector?(test_id("i", "cancel-stage-icon"), visible: false)
+      # visibility is set to false for on-hover functionality of the button
     end
 
     def verify_stage_can_be_approved?(stage_name, label)
-      page.has_selector?("#approve-#{label}-#{stage_name}") # visibility is set to false for on-hover functionality of the button
+      by_test_id("tr", "pipeline-instance-#{label}")
+        .find(test_id("td", "stage-status"))
+        .find(test_id("div", "stage-status-container-#{stage_name}"))
+        .has_selector?(test_id("i", "gate-icon"))
     end
 
     def approve_stage(stage_name, label)
-      accept_confirm { page.find("#approve-#{label}-#{stage_name}").click } # visibility is set to false for on-hover functionality of the button
+      by_test_id("tr", "pipeline-instance-#{label}")
+        .find(test_id("td", "stage-status"))
+        .find(test_id("div", "stage-status-container-#{stage_name}"))
+        .find(test_id("i", "gate-icon")).click
+
+      by_test_id("button", "primary-action-button").click
     end
 
-    def verify_stage_cannot_rerun?(pipeline_name, label, stage_name)
-      page.has_no_selector?("#rerun-#{pipeline_name}-#{label}-#{stage_name}", visible: false) # visibility is set to false for on-hover functionality of the button
-    end
-
-    def verify_stage_cannot_be_approved?(stage_name, label)
-      page.has_no_selector?("#approve-#{label}-#{stage_name}", visible: false) # visibility is set to false for on-hover functionality of the button
+    def verify_stage_cannot_rerun?(label, stage_name)
+      by_test_id("tr", "pipeline-instance-#{label}")
+        .find(test_id("td", "stage-status"))
+        .find(test_id("div", "stage-status-container-#{stage_name}"))
+        .has_no_selector?(test_id("i", "rerun-stage-icon"), visible: false)
+      # visibility is set to false for on-hover functionality of the button
     end
 
     def verify_cannot_approve_stage?(stage_name, label)
-      page.has_no_selector?("#approve-#{label}-#{stage_name}", visible: false)
+      by_test_id("tr", "pipeline-instance-#{label}")
+        .find(test_id("td", "stage-status"))
+        .find(test_id("div", "stage-status-container-#{stage_name}"))
+        .has_no_selector?(test_id("i", "gate-icon"))
     end
 
-    def stage_rerun(pipeline, current_label, stage_name)
-      page.find("#rerun-#{pipeline}-#{current_label}-#{stage_name}", visible: false)
+    def stage_rerun(current_label, stage_name)
+      by_test_id("tr", "pipeline-instance-#{current_label}")
+        .find(test_id("td", "stage-status"))
+        .find(test_id("div", "stage-status-container-#{stage_name}"))
+        .find(test_id("i", "rerun-stage-icon"), visible: false)
     end
 
     def triggered_by_on_history_page?(user)
-      page.find('.pipeline-label', text: scenario_state.get('current_label').to_s).ancestor('.pipeline-name').has_css?('a', text: "Triggered by #{user}")
+      page.find('table')
+        .find(test_id("td", "meta"))
+        .find(test_id("a", "trigger-with-changes-button"), text: "Triggered by #{user}") != nil
+    end
+
+    def by_test_id(tag, test_id)
+      page.find(test_id(tag, test_id))
+    end
+
+    def test_id(tag, test_id)
+      "#{tag}[data-test-id=\"#{slugify(test_id)}\"]"
+    end
+
+    def slugify(value)
+      value.downcase.strip.gsub(/[ _]+/, '-').gsub(/[^\w-]/, '')
     end
   end
 end

@@ -18,6 +18,7 @@ module Pages
   class PipelineHistoryPage < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/pipeline/activity{/pipelinename}"
 
+    element :pipeline_activity_page, '#pipeline_activity-page'
     element :current_page, 'a[data-test-current-page]'
     element :page_next, 'a[data-test-id="pagination-next-page"]'
     element :page_previous, 'a[data-test-id="pagination-previous-page"]'
@@ -59,7 +60,6 @@ module Pages
 
     def open_build_cause(_pipeline_name, label)
       by_test_id("tr", "pipeline-instance-#{label}")
-        .find(test_id("div", "meta"))
         .find(test_id("a", "trigger-with-changes-button")).click
     end
 
@@ -69,8 +69,7 @@ module Pages
 
     def triggered_by?(_pipeline_name, label, user)
       by_test_id("tr", "pipeline-instance-#{label}")
-        .find(test_id("td", "meta"))
-        .find(test_id("a", "trigger-with-changes-button")).first.text == "Triggered by #{user}"
+        .find(test_id("a", "trigger-with-changes-button")).text == "Triggered by #{user}"
     end
 
     def pause_pipeline

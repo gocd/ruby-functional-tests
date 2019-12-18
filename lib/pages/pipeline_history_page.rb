@@ -25,11 +25,11 @@ module Pages
     element :build_cause_summary, 'div[data-test-id=build-details]'
 
     def verify_current_pagination_number(page_number)
-      assert_true current_page.text.include?(page_number)
+      assert_true page.find("a[data-test-id='pagination-page-#{page_number}']")['class'].include? 'current-page'
     end
 
     def click_for_next_page
-      page_next.click
+      page_next(wait: 10).click
     end
 
     def click_for_previous_page
@@ -46,6 +46,7 @@ module Pages
 
     def search_given_pipeline(search_string)
       filter_history.set(search_string)
+      sleep 20
     end
 
     def click_on_pagenumber(page_number)
@@ -53,7 +54,7 @@ module Pages
     end
 
     def clear_label_filter_selection
-      filter_history.set("")
+      reload_page
     end
 
     def open_build_cause(_pipeline_name, label)

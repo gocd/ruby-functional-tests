@@ -22,7 +22,6 @@ tags: UI, pagination
 * Search for "20" on pipeline history page
 * Verify pipeline history page has "20"
 * Clear label filter selection field
-* Search for "" on pipeline history page
 * Verify pipeline history page has "23, 22, 21, 20, 19, 18, 17, 16, 15, 14"
 
 * Navigate to next pipeline history page

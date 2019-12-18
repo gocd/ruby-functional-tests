@@ -57,3 +57,35 @@ end
 step 'Verify that the config repos <repo> have disabled action buttons' do |repos|
   repos.split(',').each {|repo| config_repos_page.has_disabled_action_buttons(repo.strip)}
 end
+
+step 'Click on edit config repo <repo>' do |repo|
+  config_repos_page.click_edit_config_repo repo
+end
+
+step 'Click on save config repo' do
+  config_repos_page.click_save_config_repo
+end
+
+step 'Click on delete config repo <repo>' do |repo|
+  config_repos_page.click_delete_config_repo repo
+end
+
+step 'Click on confirm delete config repo' do
+  config_repos_page.click_confirm_delete
+end
+
+step 'Verify that the page does not contains <repo>' do |repo|
+  config_repos_page.does_not_contain_repo(repo)
+end
+
+step 'Click on create config repo' do
+  config_repos_page.click_on_add_config_repo
+end
+
+step 'Enter config repo name <name>' do |name|
+  config_repos_page.enter_config_repo_name(name)
+end
+
+step 'Enter config repo url <url>' do |url|
+  config_repos_page.enter_config_repo_url(url)
+end

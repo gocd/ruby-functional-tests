@@ -27,8 +27,10 @@ tags: elastic_agent_profile
 
 * Add new Elastic agent profile for cluster id "Cluster-1"
 
-* Set agent profile name as "Profile-Using-Cluster-1"
+* Go back to Cluster Profiles step on the wizard
 * Check cluster id is selected as "Cluster-1" with plugin "Docker Elastic Agent Plugin"
+* Go forward to Elastic Profiles step on the wizard
+* Set agent profile name as "Profile-Using-Cluster-1"
 * Set docker image as "rajiesh/gocd-agent-centos-7-test:v19.2.0"
 * Save the elastic agent profile
 
@@ -80,8 +82,10 @@ tags: elastic_agent_profile
 
 * Add new Elastic agent profile for cluster id "Cluster-2"
 
-* Set agent profile name as "Profile-Using-Cluster-2"
+* Go back to Cluster Profiles step on the wizard
 * Check cluster id is selected as "Cluster-2" with plugin "Docker Elastic Agent Plugin"
+* Go forward to Elastic Profiles step on the wizard
+* Set agent profile name as "Profile-Using-Cluster-2"
 * Set docker image as "rajiesh/gocd-agent-centos-7-test:v19.2.0"
 * Save the elastic agent profile
 
@@ -99,21 +103,6 @@ tags: elastic_agent_profile
 
 * On Job details page of pipeline "pipeline-with-elastic-agent-profile-2" counter "1" stage "defaultStage" counter "1" job "defaultJob"
 * Verify console log contains message "CLUSTER_NAME=Cluster-2"
-
-* On Elastic profiles page
-* Edit elastic agent profile "Profile-Using-Cluster-1" of cluster profile "Cluster-1"
-* Select cluster as "Cluster-2 (Docker Elastic Agent Plugin)"
-* Save the elastic agent profile
-
-* On Swift Dashboard Page
-* Looking at pipeline "pipeline-with-elastic-agent-profile-1" - On Swift Dashboard page
-* Trigger pipeline - On Swift Dashboard page
-
-* Wait for "180" seconds till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" - On Swift Dashboard page
-
-* On Job details page of pipeline "pipeline-with-elastic-agent-profile-1" counter "1" stage "defaultStage" counter "1" job "defaultJob"
-* Verify console log contains message "CLUSTER_NAME=Cluster-1"
 
 
 Teardown of contexts

@@ -20,7 +20,8 @@ module Pages
 
     element :add_new_cluster_profile, "[data-test-id='pageActions']"
 
-    element :cluster_profile_id, "[data-test-id='form-field-input-id']"
+    element :modal_cluster_profile_id, "[data-test-id='form-field-input-id']"
+    element :wizard_cluster_profile_id, "[data-test-id='form-field-input-cluster-profile-name']"
     element :plugin_id, "[data-test-id='form-field-input-plugin-id']"
     element :go_server_url, "input[ng-model='go_server_url']"
     element :auto_register_timeout, "input[ng-model='auto_register_timeout']"
@@ -28,11 +29,17 @@ module Pages
     element :env_variable, "textarea[ng-model='environment_variables']"
     element :docker_uri, "input[ng-model='docker_uri']"
     element :save_cluster_profile_btn, "[data-test-id='cluster-profile-save-btn']"
+    
+    element :save_and_exit_btn, "[data-test-id='save-cluster-profile']"
+    element :previous_btn, "[data-test-id='previous']"
+    element :next_btn, "[data-test-id='next']"
+    element :finish_btn, "[data-test-id='finish']"
 
-    element :elastic_agent_profile_id, "[data-test-id='form-field-input-id']"
+    element :modal_elastic_agent_profile_id, "[data-test-id='form-field-input-id']"
+    element :wizard_elastic_agent_profile_id, "[data-test-id='form-field-input-elastic-profile-name']"
     element :selected_cluster_profile_id, "[data-test-id='form-field-input-cluster-profile-id']"
     element :image, "input[ng-model='Image']"
-    element :save_elastic_agent_profile_btn, "button[data-test-id='button-ok']"
+    element :modal_ok_btn, "[data-test-id='button-ok']"
     element :max_memory, "input[ng-model='MaxMemory']"
 
     element :confirm_delete, "button[data-test-id='button-delete']"
@@ -42,8 +49,16 @@ module Pages
       save_cluster_profile_btn.click
     end
 
+    def save_cluster_profile_and_exit
+      save_and_exit_btn.click
+    end
+
     def save_elastic_agent_profile
-      save_elastic_agent_profile_btn.click
+      finish_btn.click
+    end
+
+    def save_elastic_agent_profile_modal
+      modal_ok_btn.click
     end
 
     def click_confirm_delete
@@ -55,7 +70,8 @@ module Pages
     end
 
     def has_selected_cluster_profile_id?(cluster_profile_id, plugin_name)
-      page.has_css?("[data-test-id='form-field-input-cluster-profile-id']", text: "#{cluster_profile_id} (#{plugin_name})")
+      page.has_css?("[data-test-id='form-field-input-cluster-profile-name']", text: "#{cluster_profile_id}")
+      page.has_css?("[data-test-id='form-field-input-plugin-id']", text: "#{plugin_name}")
     end
 
     def has_elastic_agent?(elastic_agent_profile_id)
@@ -113,6 +129,14 @@ module Pages
     def elastic_agent_profile_header(cluster_profile_id, elastic_agent_profile_id)
       elastic_profile = cluster_profile_header(cluster_profile_id).find("div[data-test-id='elastic-profile-list']").find("div[data-test-id='elastic-profile-id']", text: elastic_agent_profile_id)
       elastic_profile.ancestor("[data-test-id='elastic-profile-header']")
+    end
+
+    def click_previous_button_on_wizard
+      previous_btn.click
+    end
+
+    def click_next_button_on_wizard
+      next_btn.click
     end
 
   end

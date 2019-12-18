@@ -19,8 +19,10 @@ Note: This spec will use 2 elastic agent(Docker and K8s plguins) plugins and set
 * On Elastic profiles page
 * Add new Elastic agent profile for cluster id "Docker-Cluster"
 
-* Set agent profile name as "Profile-Using-Docker-Cluster"
+* Go back to Cluster Profiles step on the wizard
 * Check cluster id is selected as "Docker-Cluster" with plugin "Docker Elastic Agent Plugin"
+* Go forward to Elastic Profiles step on the wizard
+* Set agent profile name as "Profile-Using-Docker-Cluster"
 * Set docker image as "rajiesh/gocd-agent-centos-7-test:v19.2.0"
 * Save elastic agent profile
 
@@ -34,7 +36,9 @@ Note: This spec will use 2 elastic agent(Docker and K8s plguins) plugins and set
 
 * Set agent profile name as "Profile-Using-K8s-Cluster"
 * Select Configuration properties for kubernetes cluster
+* Go back to Cluster Profiles step on the wizard
 * Check cluster id is selected as "K8s-Cluster" with plugin "Kubernetes Elastic Agent Plugin"
+* Go forward to Elastic Profiles step on the wizard
 * Set docker image as "rajiesh/gocd-agent-centos-7-test:v19.2.0"
 * Save elastic agent profile
 

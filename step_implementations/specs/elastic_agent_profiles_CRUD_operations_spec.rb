@@ -72,8 +72,8 @@ end
 
 step 'Clone Elastic agent profile <elastic_agent_profile_id> of cluster <cluster_id> by name <new_elastic_agent_profile_id>' do |elastic_agent_profile_id, cluster_id, new_elastic_agent_profile_id|
   elastic_profiles_page.clone_elastic_agent_profile(cluster_id, elastic_agent_profile_id)
-  elastic_profiles_page.elastic_agent_profile_id.set new_elastic_agent_profile_id
-  elastic_profiles_page.save_elastic_agent_profile
+  elastic_profiles_page.modal_elastic_agent_profile_id.set new_elastic_agent_profile_id
+  elastic_profiles_page.save_elastic_agent_profile_modal
 end
 
 step 'Verify elastic agent profiles <elastic_agent_profiles> listed' do |elastic_agent_profiles|

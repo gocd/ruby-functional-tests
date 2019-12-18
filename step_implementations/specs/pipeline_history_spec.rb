@@ -19,7 +19,6 @@ step 'Verify pipeline activity page is shown' do |_tmp|
 end
 
 step 'Verify pipeline history page <page_number> is shown' do |page_number|
-  # pipeline_history_page.load(pipeline_name: scenario_state.self_pipeline)
   pipeline_history_page.verify_current_pagination_number page_number
 end
 

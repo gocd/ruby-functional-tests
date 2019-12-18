@@ -33,7 +33,7 @@ step 'Set image as <image>' do |image|
 end
 
 step 'Save the elastic agent profile' do
-  elastic_agents_profiles_page.btn_save.click
+  elastic_agents_profiles_page.finish_btn.click
 end
 
 step 'Verify profile <profile_name> listed' do |profile_name|

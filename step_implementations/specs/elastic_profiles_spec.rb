@@ -23,7 +23,7 @@ step 'Add new cluster profile' do |plugin_id|
 end
 
 step 'Set cluster profile name as <cluster_profile_id>' do |cluster_profile_id|
-  elastic_profiles_page.cluster_profile_id.set cluster_profile_id
+  elastic_profiles_page.wizard_cluster_profile_id.set cluster_profile_id
 end
 
 step 'Set plugin id as <plugin_id>' do |plugin_id|
@@ -55,7 +55,7 @@ step 'Expand cluster profile <id>' do |id|
 end
 
 step 'Save cluster profile' do
-  elastic_profiles_page.save_cluster_profile
+  elastic_profiles_page.save_cluster_profile_and_exit
 end
 
 step 'Add new Elastic agent profile for cluster id <cluster_profile_id>' do |cluster_profile_id|
@@ -63,7 +63,15 @@ step 'Add new Elastic agent profile for cluster id <cluster_profile_id>' do |clu
 end
 
 step 'Set agent profile name as <elastic_agent_profile_name>' do |elastic_agent_profile_name|
-  elastic_profiles_page.elastic_agent_profile_id.set elastic_agent_profile_name
+  elastic_profiles_page.wizard_elastic_agent_profile_id.set elastic_agent_profile_name
+end
+
+step 'Go back to Cluster Profiles step on the wizard' do
+  elastic_profiles_page.click_previous_button_on_wizard
+end
+
+step 'Go forward to Elastic Profiles step on the wizard' do
+  elastic_profiles_page.click_next_button_on_wizard
 end
 
 step 'Check cluster id is selected as <cluster_profile_id> with plugin <plugin_name>' do |cluster_profile_id, plugin_name|
@@ -101,7 +109,7 @@ end
 
 step 'Clone cluster profile <cluster_profile_id> by name <new_cluster_profile_id>' do |cluster_profile_id, new_cluster_profile_id|
   elastic_profiles_page.clone_cluster_profile(cluster_profile_id)
-  elastic_profiles_page.cluster_profile_id.set new_cluster_profile_id
+  elastic_profiles_page.modal_cluster_profile_id.set new_cluster_profile_id
   elastic_profiles_page.save_cluster_profile
 end
 

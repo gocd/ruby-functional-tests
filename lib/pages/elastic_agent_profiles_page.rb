@@ -24,6 +24,7 @@ module Pages
     element :image, "input[ng-model='Image']"
     element :profile_id, "[data-test-id='elastic-profile-id']"
     element :add_new_profile, "[data-test-id='pageActions']"
+    element :finish_btn, "[data-test-id='finish']"
 
     load_validation { has_add_new_profile? }
 

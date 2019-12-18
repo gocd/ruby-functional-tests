@@ -50,42 +50,42 @@ end
 step 'Approve stage <stage> with label <label>' do |stage, label|
   # Since there is javascript alert on history page during stage approval handling stage approval via API
   begin
-    RestClient.post http_url("/api/stages/#{scenario_state.self_pipeline}/#{label}/#{stage}/run"),{}, { accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
+    RestClient.post http_url("/api/stages/#{scenario_state.self_pipeline}/#{label}/#{stage}/run"), {}, {accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true'}.merge(basic_configuration.header)
   rescue RestClient::ExceptionWithResponse => err
     p "Stage #{stage} approval on history page failed with response code #{err.response.code} and the response body - #{err.response.body}"
   end
 end
 
 step 'Open build cause of pipeline with label <label>' do |label|
-	pipeline_history_page.open_build_cause(scenario_state.self_pipeline, label)
+  pipeline_history_page.open_build_cause(scenario_state.self_pipeline, label)
 end
 
 step 'Verify build cause message contains <message>' do |message|
-	pipeline_history_page.shows_build_cause_message?(message)
+  pipeline_history_page.shows_build_cause_message?(message)
 end
 
 step 'Verify pipeline with label <label> is triggered by <user>' do |label, user|
-	pipeline_history_page.triggered_by?(scenario_state.self_pipeline, label, user)
+  pipeline_history_page.triggered_by?(scenario_state.self_pipeline, label, user)
 end
 
 step 'Pause pipeline on activity page' do ||
-	pipeline_history_page.pause_pipeline
+  pipeline_history_page.pause_pipeline
 end
 
 step 'Looking at pipeline with label <label>' do |label|
-  scenario_state.put('current_label',label)
+  scenario_state.put('current_label', label)
 end
 
 step 'Verify stage <stage_name> of pipeline can be rerun' do |stage_name|
-  pipeline_history_page.verify_stage_can_rerun?(scenario_state.self_pipeline ,scenario_state.get('current_label'), stage_name )
+  pipeline_history_page.verify_stage_can_rerun?(scenario_state.get('current_label'), stage_name)
 end
 
 step 'Rerun stage <stage_name> - Already On Pipeline History Page' do |stage_name|
-  pipeline_history_page.stage_rerun(scenario_state.self_pipeline ,scenario_state.get('current_label'), stage_name )
+  pipeline_history_page.stage_rerun(scenario_state.get('current_label'), stage_name)
 end
 
 step 'Verify <stage_name> stage can be cancelled' do |stage_name|
-  pipeline_history_page.verify_stage_can_cancel?(scenario_state.self_pipeline ,scenario_state.get('current_label'), stage_name )
+  pipeline_history_page.verify_stage_can_cancel?(scenario_state.get('current_label'), stage_name)
 end
 
 step 'Verify pipeline is paused on pipeline activity page' do ||
@@ -105,7 +105,7 @@ step 'Approve stage <stage_name> on Pipeline Activity Page' do |stage_name|
 end
 
 step 'Verify stage <stage_name> of pipeline cannot be rerun on Pipeline Activity Page' do |stage_name|
-  pipeline_history_page.verify_stage_cannot_rerun?(scenario_state.self_pipeline ,scenario_state.get('current_label'), stage_name )
+  pipeline_history_page.verify_stage_cannot_rerun?(scenario_state.get('current_label'), stage_name)
 end
 
 step 'Verify <stage_name> cannot be approved on Pipeline Activity Page' do |stage_name|
@@ -113,7 +113,7 @@ step 'Verify <stage_name> cannot be approved on Pipeline Activity Page' do |stag
 end
 
 step 'Verify on pipeline history page for <pipeline>' do |pipeline|
-  assert_true pipeline_history_page.current_path.include?scenario_state.get(pipeline)
+  assert_true pipeline_history_page.current_path.include? scenario_state.get(pipeline)
 end
 
 step 'Verify pipeline is triggered by <user> - On History page' do |user|

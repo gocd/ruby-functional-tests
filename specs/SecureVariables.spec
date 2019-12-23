@@ -18,6 +18,8 @@ tags: secure_variables
 * Open collapsible panel for "uat"
 * Click on edit environment variable for "uat"
 * Add plain text environment variable name "env_level_variable_made_secure_at_pipeline_level" value "env_insecure_key_value"
+* Click on edit environment variable for "uat"
+* Add secure environment variable name "env_level_secure_variable" value "very secure val"
 
 * On Job settings page of pipeline "edit-pipeline-with-secure-vars" stage "defaultStage" job "defaultJob"
 * Open "Environment Variables" tab - On Job settings page
@@ -62,10 +64,12 @@ tags: secure_variables
 * Trigger pipeline - On Swift Dashboard page
 * Wait for "240" seconds till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "passed" on pipeline with label "1" - On Swift Dashboard page
-* On Job details page of pipeline "edit-pipeline-with-secure-vars" counter "1" stage "defaultStage" counter "1" job "defaultJob"
 
+
+* On Job details page of pipeline "edit-pipeline-with-secure-vars" counter "1" stage "defaultStage" counter "1" job "defaultJob"
 * Verify console log contains message "setting environment variable 'plain_key' to value 'plain_value'"
 * Verify console log contains message "setting environment variable 'secure_key' to value '********'"
+* Verify console log contains message "setting environment variable 'env_level_secure_variable' to value '********'"
 * Verify console log contains message "setting environment variable 'secure_key_overridden_by_trigger' to value '********'"
 * Verify console log contains message "setting environment variable 'env_level_variable_made_secure_at_pipeline_level' to value 'env_insecure_key_value'"
 * Verify console log contains message "overriding environment variable 'env_level_variable_made_secure_at_pipeline_level' with value '********'"
@@ -78,6 +82,10 @@ tags: secure_variables
 * Verify console log contains message "env_level_variable_made_secure_at_pipeline_level=3_eulav_eruces"
 * Verify console log contains message "secure_variable_made_insecure_by_stage=egats_yb_erucesni_edam_elbairav_eruces"
 * Verify console log contains message "secure_variable_made_insecure_by_job=boj_yb_erucesni_edam_elbairav_eruces"
+
+* Open "Artifacts" tab - On Job details page
+* Verify artifacts tab contains file "decrypted.txt"
+* Verify artifact "decrypted.txt" contains text "very secure value"
 
 * On Swift Dashboard Page
 * Open trigger with options - On Swift Dashboard page

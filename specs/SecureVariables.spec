@@ -19,7 +19,7 @@ tags: secure_variables
 * Click on edit environment variable for "uat"
 * Add plain text environment variable name "env_level_variable_made_secure_at_pipeline_level" value "env_insecure_key_value"
 * Click on edit environment variable for "uat"
-* Add secure environment variable name "env_level_secure_variable" value "very secure val"
+* Add secure environment variable name "env_level_secure_variable" value "very secure value"
 
 * On Job settings page of pipeline "edit-pipeline-with-secure-vars" stage "defaultStage" job "defaultJob"
 * Open "Environment Variables" tab - On Job settings page

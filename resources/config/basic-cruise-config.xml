@@ -1040,9 +1040,15 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                           <exec command="ls">
+                           <exec command="/bin/bash">
+                                <arg>-c</arg>
+                                <arg>echo $env_level_secure_variable &gt; decrypted.txt</arg>
+                                <runif status="passed" />
                             </exec>
                         </tasks>
+                        <artifacts>
+                            <artifact type="build" src="decrypted.txt" />
+                        </artifacts>
                     </job>
                 </jobs>
             </stage>

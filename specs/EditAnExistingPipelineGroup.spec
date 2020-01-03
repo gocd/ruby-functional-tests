@@ -16,22 +16,16 @@ tags: 4369, Clicky Admin, pipeline group
 * On Admin pipeline page
 
 * Verify groups "group-name-to-be-changed,group4" are visible - on Admin Pipelines tab
-* Edit pipeline group "group4"
-
+* Edit pipeline group "group4" on pipeline page
 * Set group name as "group5" - on edit group page
-* Save Changes
-
+* Save pipeline group
 * On Admin pipeline page
 
-
 * Verify groups "group-name-to-be-changed,group5" are visible - on Admin Pipelines tab
-* Edit pipeline group "group5"
-
-
-* Adding "pavan" as a "admin" user for group "group5"
-* Verify pipeline group "group5" has user "pavan" with "admin" permissions
-* Save Changes
-* Verify the message "Saved successfully." is present
+* Edit pipeline group "group5" on pipeline page
+* Adding "pavan" as a "admin" user
+* Save pipeline group
+* Verify flash message for pipeline group "Pipeline group group5 updated successfully."
 * Adding "role-that-does-not-exist" as a "view" role for group "group5"
 * Save Changes
 * Verify message "Role \"role-that-does-not-exist\" does not exist." shows up - On Permission tab

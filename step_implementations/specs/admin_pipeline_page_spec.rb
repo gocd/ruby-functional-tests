@@ -182,12 +182,20 @@ step 'Adding <user> as a <type> user' do |user, type|
   admin_pipeline_page.add_user_permissions(user, type)
 end
 
+step 'Update <user> as a <type> user' do |user, type|
+  admin_pipeline_page.update_user_permissions(user, type)
+end
+
 step 'Adding <user> as a <type> role for group <group>' do |user, type, group|
   admin_pipeline_page.add_role_to_group(user, type, group)
 end
 
+step 'Adding <user> as a <type> role' do |user, type|
+  admin_pipeline_page.add_role_permissions(user, type)
+end
+
 step 'Verify pipeline group <group> has user <user> with <permissions> permissions' do |_group, user, permissions|
-  users = admin_pipeline_page.users_in_group
+  users       = admin_pipeline_page.users_in_group
   permissions = admin_pipeline_page.users_permissions_in_group(user)
   assert_true users.include? user
   permissions.each do |permission|
@@ -309,4 +317,16 @@ end
 
 step 'Verify flash message for pipeline group <message>' do |message|
   assert_true admin_pipeline_page.flash_message.text.include? message
+end
+
+step 'Verify error message <message> is present' do |message|
+  assert_true admin_pipeline_page.error_message.text.include? message
+end
+
+step 'Delete user permission <user>' do |user|
+  admin_pipeline_page.delete_user_permission(user)
+end
+
+step 'Delete role permission <role>' do |role|
+  admin_pipeline_page.delete_role_permission(role)
 end

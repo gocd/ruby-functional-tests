@@ -34,8 +34,9 @@ module Pages
     element :save, "button[data-test-id='save-pipeline-group']"
     element :add_user_permission, "button[data-test-id='add-user-permission']"
     element :add_role_permission, "button[data-test-id='add-role-permission']"
-    element :users_permission, "table[data-test-id='users-permissions']"
+    element :users_permissions, "table[data-test-id='users-permissions']"
     element :roles_permissions, "table[data-test-id='roles-permissions']"
+    element :error_message, "[data-test-id='pipeline-group-flash-message']"
 
     load_validation {has_create_new_pipeline_group?}
 
@@ -324,8 +325,38 @@ module Pages
 
     def add_user_permissions(user, type)
       add_user_permission.click
-      users_permission.all("input[data-test-id='user-name']").last.set(user)
-      users_permission.all("input[data-test-id='#{type}-permission']").last.click
+      users_permissions.all("input[data-test-id='user-name']").last.set(user)
+      users_permissions.all("input[data-test-id='#{type}-permission']").last.set(true)
+    end
+
+    def update_user_permissions(user, type)
+      users_permissions.all("tbody tr").each do |widget|
+        if widget.find("input[data-test-id='user-name']").text === user
+          widget.find("input[data-test-id='#{type}-permission']").set(true)
+        end
+      end
+    end
+
+    def add_role_permissions(role, type)
+      add_role_permission.click
+      roles_permissions.all("input[data-test-id='role-name']").last.set(role)
+      roles_permissions.all("input[data-test-id='#{type}-permission']").last.set(true)
+    end
+
+    def delete_user_permission(user)
+      users_permissions.all("tbody tr").each do |widget|
+        if widget.find("input[data-test-id='user-name']").text === user
+          widget.find("input[data-test-id='user-permission-delete']").click
+        end
+      end
+    end
+
+    def delete_role_permission(role)
+      roles_permissions.all("tbody tr").each do |widget|
+        if widget.find("input[data-test-id='role-name']").text === role
+          widget.find("input[data-test-id='role-permission-delete']").click
+        end
+      end
     end
 
     private

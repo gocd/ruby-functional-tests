@@ -32,8 +32,7 @@ step 'Create notification filter for pipeline <pipeline> stage <stage> event <ev
 end
 
 step 'Get notification filter <id>' do |id|
-	actual_id = JSON.parse(get_filter(id).body)['id']
-	assert_true (actual_id == id.to_i), "Actual id returned - #{actual_id}"
+	get_filter(id)
 end
 
 step 'Verify notification filter is set for pipeline <pipeline> stage <stage> event <event> and match commit <match_commit>' do |pipeline, stage, event, match_commit|
@@ -64,7 +63,6 @@ end
 
 def get_filter(id)
 	RestClient.get http_url("/api/notification_filters/#{id}"), { accept: NOTIFICATION_FILTER_VERSION }.merge(basic_configuration.header)   do |response, _request, _result|
-		raise "Failed to get the Notification Filter #{id}. Returned response code - #{err.response.code}" unless response.code == 200
 		scenario_state.put 'api_response', response
 		response
 	end

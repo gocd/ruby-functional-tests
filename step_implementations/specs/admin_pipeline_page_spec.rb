@@ -18,7 +18,6 @@ step 'On Admin page' do |_tmp|
   admin_pipeline_page.load
 end
 
-
 step 'On Admin pipeline page' do |_tmp|
   admin_pipeline_page.load
 end
@@ -34,10 +33,6 @@ end
 step 'Move pipeline <pipeline_name> from group <source_group> to group <destination_group>' do |pipeline, source_group, destination_group|
   admin_pipeline_page.move_pipeline(scenario_state.get(pipeline), source_group, destination_group)
 end
-
-
-
-
 
 step 'Open config tab as group admin' do
   admin_pipeline_page.navigate_to('Config XML')
@@ -56,6 +51,7 @@ end
 step 'Add new pipeline group' do
   admin_pipeline_page.add_pipeline_group
 end
+
 step 'Enter pipeline group name <group> - Already On New Pipeline Group Popup' do |group|
   admin_pipeline_page.input_pipeline_group_name.set group
 end
@@ -77,7 +73,7 @@ end
 
 step 'Verify <group> has pipelines <pipelines>' do |group, pipelines|
   pipelines_from_groups = admin_pipeline_page.get_pipelines_from(group)
-  p = pipelines.split(',').map { |pipeline| scenario_state.get(pipeline.strip).nil? ? pipeline.strip : scenario_state.get(pipeline) }
+  p                     = pipelines.split(',').map {|pipeline| scenario_state.get(pipeline.strip).nil? ? pipeline.strip : scenario_state.get(pipeline)}
   assert_true (p & pipelines_from_groups) == p
 end
 
@@ -148,9 +144,9 @@ end
 
 step 'Verify <group> does not have pipelines <pipelines>' do |group, pipelines|
   pipelines_from_groups = admin_pipeline_page.get_pipelines_from(group)
-  pipeline_names = []
+  pipeline_names        = []
   pipelines.split(',').each do |pipeline|
-    ppl = scenario_state.get(pipeline) || pipeline
+    ppl            = scenario_state.get(pipeline) || pipeline
     pipeline_names = pipeline_names.push(ppl)
   end
   pipeline_names.each do |pipeline|
@@ -161,8 +157,6 @@ end
 step 'Verify <group> has message <message>' do |group, message|
   assert_true admin_pipeline_page.group_has_message?(group, message)
 end
-
-
 
 step 'Click to create a new pipeline to group <group>' do |group|
   admin_pipeline_page.add_new_pipeline_in_group(group)
@@ -184,12 +178,24 @@ step 'Adding <user> as a <type> user for group <group>' do |user, type, group|
   admin_pipeline_page.add_user_to_group(user, type, group)
 end
 
+step 'Adding <user> as a <type> user' do |user, type|
+  admin_pipeline_page.add_user_permissions(user, type)
+end
+
+step 'Update <user> as a <type> user' do |user, type|
+  admin_pipeline_page.update_user_permissions(user, type)
+end
+
 step 'Adding <user> as a <type> role for group <group>' do |user, type, group|
   admin_pipeline_page.add_role_to_group(user, type, group)
 end
 
+step 'Adding <user> as a <type> role' do |user, type|
+  admin_pipeline_page.add_role_permissions(user, type)
+end
+
 step 'Verify pipeline group <group> has user <user> with <permissions> permissions' do |_group, user, permissions|
-  users = admin_pipeline_page.users_in_group
+  users       = admin_pipeline_page.users_in_group
   permissions = admin_pipeline_page.users_permissions_in_group(user)
   assert_true users.include? user
   permissions.each do |permission|
@@ -198,7 +204,7 @@ step 'Verify pipeline group <group> has user <user> with <permissions> permissio
 end
 
 step 'Verify pipeline group <group> has role <role> with <permission> permissions' do |_group, role, permissions|
-  roles = admin_pipeline_page.roles_in_group
+  roles       = admin_pipeline_page.roles_in_group
   permissions = admin_pipeline_page.roles_permissions_in_group(role)
   assert_true roles.include? role
   permissions.each do |permission|
@@ -225,7 +231,7 @@ step 'Delete role <user> -on edit group page' do |role|
 end
 
 step 'Set group name as <group> - on edit group page' do |group|
-  pipeline_group_edit_page.set_group_name group
+  admin_pipeline_page.set_group_name group
 end
 
 step 'Verify tabs <tabs> are visible' do |tabs|
@@ -244,12 +250,9 @@ step 'Open <tab> tab' do |tab|
   admin_pipeline_page.open_tab tab
 end
 
-step 'Open template <template>'do |template|
-admin_pipeline_page.open_template template
+step 'Open template <template>' do |template|
+  admin_pipeline_page.open_template template
 end
-
-
-
 
 step 'Verify templates tab is visible' do
   admin_pipeline_page.template_tab_is_visible?
@@ -283,24 +286,18 @@ step 'Verify post validation error is shown with message <message>' do |message|
   assert_true admin_pipeline_page.post_validation_error_message_exist? message
 end
 
-
 step 'Verify pipeline selection dropdown is disabled and has value <pipeline>' do |pipeline|
   assert_true admin_pipeline_page.extractable_disabled_pipeline.include? scenario_state.get(pipeline)
 end
-
-
 
 step 'Verify pipeline uses template <template>' do |template|
   assert_true admin_pipeline_page.has_template? template
 end
 
-
-
 step 'Verify extract template checkbox is disabled & checked' do
   assert_true admin_pipeline_page.extract_from_pipeline.checked?
   assert_true admin_pipeline_page.extract_from_pipeline.disabled?
 end
-
 
 step 'Enter template name <template> - On template popup' do |template|
   admin_pipeline_page.enter_template_name template
@@ -308,4 +305,28 @@ end
 
 step 'Extract template for pipeline <pipeline>' do |pipeline|
   admin_pipeline_page.click_extract_template scenario_state.get(pipeline)
+end
+
+step 'Edit pipeline group <group> on pipeline page' do |grp|
+  admin_pipeline_page.edit_pipeline_group grp
+end
+
+step 'Save pipeline group' do
+  admin_pipeline_page.save_pipeline_grp
+end
+
+step 'Verify flash message for pipeline group <message>' do |message|
+  assert_true admin_pipeline_page.flash_message.text.include? message
+end
+
+step 'Verify error message <message> is present' do |message|
+  assert_true admin_pipeline_page.error_message.text.include? message
+end
+
+step 'Delete user permission <user>' do |user|
+  admin_pipeline_page.delete_user_permission(user)
+end
+
+step 'Delete role permission <role>' do |role|
+  admin_pipeline_page.delete_role_permission(role)
 end

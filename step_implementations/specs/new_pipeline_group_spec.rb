@@ -80,5 +80,3 @@ end
 step 'Click on confirm delete pipeline group' do
   new_pipeline_group_page.confirm_delete
 end
-
-

@@ -54,6 +54,16 @@
           <user>group3Admin</user>
           </users>
         </role>
+		<role name="role1">
+        <users>
+          <user>user1</user>
+          </users>
+        </role>
+		<role name="role2">
+        <users>
+          <user>user2</user>
+          </users>
+        </role>
       </roles>
       <admins>
         <role>admins</role>

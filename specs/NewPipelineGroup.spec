@@ -1,23 +1,20 @@
-NewPipelineGroups
+NewPipelineGroup
 ==================
 
 Setup of contexts
 * Group admin security configuration - setup
 * Login as "admin" - setup
-*    Using pipeline "pipeline1,pipeline2,pipeline4,pipeline5,pipeline-with-group-and-stage-security,pipeline-down" - setup
-* Add user "user1" - Using user API
-* Add user "user2" - Using user API
-* Add user "user3" - Using user API
+* Using pipeline "pipeline1" - setup
 * Capture go state "NewPipelineGroups" - setup
 
-NewPipelineGroups
+NewPipelineGroup
 ------------------
 
-tags:pipeline group, new pipeline group
+tags:pipeline_group, new_pipeline_group
 
 * On pipelines page
 
-* Verify groups "group-name-to-be-changed,group2,groupWithStageSecurity" are visible on new page
+* Verify groups "group-name-to-be-changed" are visible on new page
 
 Add new pipeline group
 
@@ -38,8 +35,8 @@ Pipeline group edit
 * Click on add user permission - add "view" permission for "user1"
 * Click on add user permission - add "admin" permission for "user2"
 
-* Click on add role permission - add "view" permission for "user1"
-* Click on add role permission - add "operate" permission for "user2"
+* Click on add role permission - add "view" permission for "role1"
+* Click on add role permission - add "operate" permission for "role2"
 
 * Click on save pipeline group
 
@@ -50,8 +47,8 @@ Pipeline group edit
 * Verify user permission "view" for user "user1"
 * Verify user permission "view,operate,admin" for user "user2"
 
-* Verify role permission "view" for role "user1"
-* Verify role permission "view,operate" for role "user2"
+* Verify role permission "view" for role "role1"
+* Verify role permission "view,operate" for role "role2"
 
 * Close pipeline group edit modal
 

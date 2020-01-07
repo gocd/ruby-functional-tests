@@ -48,28 +48,18 @@ module Pages
 
     def add_new_user_permission(permission, user)
       page.find("[data-test-id='add-user-permission']").click
-      number_of_elements = page.all("[data-test-id='user-name']").length
-      wrapper = page.all("[data-test-id='user-name']")[number_of_elements - 1].ancestor("tr")
-      wrapper.find("[data-test-id='user-name']").set user
-      if (permission == "operate")
-        wrapper.find("[data-test-id='operate-permission']").click
-      end
-      if (permission == "admin")
-        wrapper.find("[data-test-id='admin-permission']").click
-      end
+      new_user_element = page.all("[data-test-id='user-name']").last
+      new_user_element.set user
+      new_user_element.ancestor("tr").find("[data-test-id='#{permission}-permission']").click unless permission.eql? 'view'
     end
 
     def add_new_role_permission(permission, role)
+      page.execute_script('document.querySelector("[data-test-id=\'add-role-permission\']").scrollIntoView(true)')
       page.find("[data-test-id='add-role-permission']").click
-      number_of_elements = page.all("[data-test-id='role-name']").length
-      wrapper = page.all("[data-test-id='role-name']")[number_of_elements - 1].ancestor("tr")
-      wrapper.find("[data-test-id='role-name']").set role
-      if (permission == "operate")
-        wrapper.find("[data-test-id='operate-permission']").click
-      end
-      if (permission == "admin")
-        wrapper.find("[data-test-id='admin-permission']").click
-      end
+      new_role_element = page.all("[data-test-id='role-name']", wait: 10).last
+      new_role_element.set role
+      new_role_element.ancestor("tr").find("[data-test-id='#{permission}-permission']").click unless permission.eql? 'view'
+
     end
 
     def verify_user_permission(permissions, user)
@@ -86,7 +76,6 @@ module Pages
       role_permission_wrapper = page.all("[data-test-id='role-name']")
                                     .find {|role_input| role_input.value === role}
                                     .ancestor('tr')
-
       permissions.split(/[\s,]+/).map(&:strip).each do |permission|
         assert_true(role_permission_wrapper.find("[data-test-id='#{permission}-permission']").checked?)
       end

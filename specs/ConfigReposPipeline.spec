@@ -20,6 +20,7 @@ Setup of contexts
 
 * Create a new config repo pipeline with name "first-pipeline" on repo "1" as downstream of "simple-upstream"
 
+
 * Verify pipeline "first-pipeline" shows up - On Swift Dashboard page
 * Looking at pipeline "first-pipeline" - On Swift Dashboard page
 * Verify pipeline is editable - On Swift Dashboard page
@@ -31,6 +32,7 @@ Setup of contexts
 * On Config repo page
 * Wait for config repo changes to sync
 * Verify config repo with name "config-repo" has pipeline with name "first-pipeline"
+* Get definition of config repo "config-repo" should return success
 
 * Create a new config repo pipeline with name "second-pipeline" on repo "2" as downstream of "first-pipeline"
 * Verify pipeline "second-pipeline" shows up - On Swift Dashboard page

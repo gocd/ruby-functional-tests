@@ -87,6 +87,7 @@ tags: config_repo_api, policy
 * Get all config repos should not have "cr3_3"
 
 * Get status of config repo "cr" should return success
+* Trigger update of config repo "cr4_4" should return success
 
 
 ~~~~~~~~ update config repo ~~~~~~~~
@@ -116,7 +117,7 @@ tags: config_repo_api, policy
 * Update config repo "cr2_4" should return success
 * Update config repo "cr3_3" should return forbidden
 
-* Trigger update of config repo "cr4_4" should return success
+
 
 
 

@@ -29,7 +29,7 @@ tags: 4369, Clicky Admin, pipeline group
 * Edit pipeline group "group5" on pipeline page
 * Adding "role-that-does-not-exist" as a "view" role
 * Save pipeline group
-* Verify error message "Role \"role-that-does-not-exist\" does not exist." is present
+* Verify roles level error message "Role \"role-that-does-not-exist\" does not exist." is present
 
 * Logout and login as "pavan"
 
@@ -46,12 +46,14 @@ tags: 4369, Clicky Admin, pipeline group
 * Adding "admins" as a "admin" role
 * Save pipeline group
 
+* Edit pipeline group "group5" on pipeline page
 * Verify pipeline group "group5" has user "shilpa" with "admin" permissions
 * Verify pipeline group "group5" has role "admins" with "admin" permissions
 * Verify pipeline group "group5" has user "admin" with "operate" permissions
 * Verify pipeline group "group5" has user "Rajeshvaran" with "view,operate" permissions
 * Verify pipeline group "group5" has role "operator" with "operate" permissions
 * Verify pipeline group "group5" has role "viewer" with "view" permissions
+* Save pipeline group
 
 * On Admin pipeline page
 
@@ -62,6 +64,7 @@ tags: 4369, Clicky Admin, pipeline group
 * Save pipeline group
 * Verify flash message for pipeline group "Pipeline group group5 updated successfully."
 
+* Edit pipeline group "group5" on pipeline page
 * Verify pipeline group "group5" does not have user "shilpa"
 * Verify pipeline group "group5" does not have role "viewer"
 

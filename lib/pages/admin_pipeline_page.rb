@@ -37,6 +37,7 @@ module Pages
     element :users_permissions, "table[data-test-id='users-permissions']"
     element :roles_permissions, "table[data-test-id='roles-permissions']"
     element :error_message, "[data-test-id='pipeline-group-flash-message']"
+    element :roles_error_message, "[data-test-id='errors-on-roles']"
 
     load_validation {has_create_new_pipeline_group?}
 
@@ -193,7 +194,7 @@ module Pages
 
     def users_in_group()
       users = []
-      page.all('input.permissions_USER_name').each {|element|
+      page.all('[data-test-id="user-name"]').each {|element|
         users.push(element.value) if !element.value.blank?
       }
       return users;
@@ -201,7 +202,7 @@ module Pages
 
     def roles_in_group()
       roles = []
-      page.all('input.permissions_ROLE_name').each {|element|
+      page.all('[data-test-id="role-name"]').each {|element|
         roles.push(element.value) if !element.value.blank?
       }
       return roles;
@@ -209,8 +210,9 @@ module Pages
 
     def users_permissions_in_group(user)
       permissions = []
-      page.all("tr#USER_#{user} td input[type=checkbox]").each {|element|
-        permissions.push(element[:name]) if !element.checked?
+      user_row = page.all('[data-test-id="user-name"]').select {|u| u if u.value == user}.first.ancestor('[data-test-id="table-row"]')
+      user_row.all('[data-test-id$="-permission"]').each {|element|
+        permissions.push(element['data-test-id'].split('-').first) if !element.checked?
       }
       return permissions
     end
@@ -344,19 +346,13 @@ module Pages
     end
 
     def delete_user_permission(user)
-      users_permissions.all("tbody tr").each do |widget|
-        if widget.find("input[data-test-id='user-name']").text === user
-          widget.find("input[data-test-id='user-permission-delete']").click
-        end
-      end
+      user_row = page.all('[data-test-id="user-name"]').select {|u| u if u.value == user}.first.ancestor('[data-test-id="table-row"]')
+      user_row.find("[data-test-id='user-permission-delete']").click
     end
 
     def delete_role_permission(role)
-      roles_permissions.all("tbody tr").each do |widget|
-        if widget.find("input[data-test-id='role-name']").text === role
-          widget.find("input[data-test-id='role-permission-delete']").click
-        end
-      end
+      role_row = page.all('[data-test-id="role-name"]').select {|r| r if r.value == role}.first.ancestor('[data-test-id="table-row"]')
+      role_row.find("[data-test-id='role-permission-delete']").click
     end
 
     private

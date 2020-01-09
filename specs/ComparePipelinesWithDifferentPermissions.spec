@@ -51,7 +51,6 @@ tags:compare_pipeline, dependency_walk
 * Verify that there are "1" materials
 * Verify displays revision "git-new2" having comment "Added git-new-file2" under "Git"
 
-
 * Logout and login as "raghu"
 
 * Verify pipeline "first-pipeline" is not visible - On Swift Dashboard page

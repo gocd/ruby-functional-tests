@@ -197,9 +197,9 @@ end
 step 'Verify pipeline group <group> has user <user> with <permissions> permissions' do |_group, user, permissions|
   users       = admin_pipeline_page.users_in_group
   permissions = admin_pipeline_page.users_permissions_in_group(user)
-  assert_true users.include? user
+  assert_true users.include?(user), "Actual set of users #{users.join(',')}"
   permissions.each do |permission|
-    assert_true permissions.include? permission
+    assert_true permissions.include?(permission), "Actual permissions for user #{user} are #{permissions.join(',')}"
   end
 end
 
@@ -319,8 +319,12 @@ step 'Verify flash message for pipeline group <message>' do |message|
   assert_true admin_pipeline_page.flash_message.text.include? message
 end
 
-step 'Verify error message <message> is present' do |message|
+step 'Verify top level error message <message> is present' do |message|
   assert_true admin_pipeline_page.error_message.text.include? message
+end
+
+step 'Verify roles level error message <message> is present' do |message|
+  assert_true admin_pipeline_page.roles_error_message.text.include? message
 end
 
 step 'Delete user permission <user>' do |user|

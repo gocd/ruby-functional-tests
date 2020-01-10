@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2018 ThoughtWorks, Inc.
+# Copyright 2020 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,11 +33,13 @@ Bundler.require
 
 require 'fileutils'
 require_relative 'go_constants'
+require_relative '../lib/helpers/api_builder'
 
 $LOAD_PATH << File.expand_path('../../lib', __FILE__)
 require 'helpers/spec_helper'
 include OwaspZap
 include Test::Unit::Assertions
+
 
 ZAP_PROXY = ENV['ZAP_PROXY'].to_s || nil
 
@@ -83,49 +85,62 @@ Capybara.default_driver = :selenium
 RestClient::Request.class_eval do
   def self.execute(args, & block)
     request_new = RestClient::Request.new(args)
+    APIBuilder.build_tested(request_new)
     CurlBuilder.build(request_new)
     request_new.execute(& block)
   end
 end
 
-module GoCDInitialize
 
-  before_suite do
-    if GoConstants::USE_EFS
-      %w(addons artifacts config db logs plugins).each do |fldr|
-        FileUtils.rm_rf("/efs/#{fldr}")
-      end
+before_suite do
+  if GoConstants::USE_EFS
+    %w(addons artifacts config db logs plugins).each do |fldr|
+      FileUtils.rm_rf("/efs/#{fldr}")
     end
-    go_server.start
-    go_server.wait_to_start
-    if ZAP_PROXY && ['localhost', '127.0.0.1'].include?(ZAP_PROXY)
-      $zap = Zap.new(target: "http://#{GoConstants::GO_SERVER_BASE_URL}", zap: GoConstants::OWASP_ZAP_PATH.to_s, base: 'http://localhost:8081')
-      unless $zap.running?
-        $zap.start(daemon: true)
-        wait_till_event_occurs_or_bomb 60, 'Expected ZAP Proxy to be listening by now' do
-          break if $zap.running?
-        end
+  end
+  go_server.start
+  go_server.wait_to_start
+  if ZAP_PROXY && ['localhost', '127.0.0.1'].include?(ZAP_PROXY)
+    $zap = Zap.new(target: "http://#{GoConstants::GO_SERVER_BASE_URL}", zap: GoConstants::OWASP_ZAP_PATH.to_s, base: 'http://localhost:8081')
+    unless $zap.running?
+      $zap.start(daemon: true)
+      wait_till_event_occurs_or_bomb 60, 'Expected ZAP Proxy to be listening by now' do
+        break if $zap.running?
       end
     end
   end
+end
 
-  after_suite do
-    go_server.stop
-    if GoConstants::USE_EFS
-      %w(addons artifacts config db logs plugins).each do |fldr|
-        FileUtils.rm_rf("/efs/#{fldr}")
-      end
-    end
-    %x(rm -rf target/go_state) unless ENV['GO_PIPELINE_NAME']
-    if $zap
-      response = RestClient.get 'http://localhost:8081/OTHER/core/other/htmlreport'
-      File.open('target/zap_report.html', 'w') {|file| file.write(response.body)}
-      $zap.shutdown
-    end
-  end
 
-  after_scenario do
-    app_base_page.logout
-    basic_configuration.reset_config
+
+after_suite do
+write_to_file("non_tested_apis.json", APIBuilder.build_non_tested)
+go_server.stop
+if GoConstants::USE_EFS
+  %w(addons artifacts config db logs plugins).each do |fldr|
+    FileUtils.rm_rf("/efs/#{fldr}")
   end
+end
+%x(rm -rf target/go_state) unless ENV['GO_PIPELINE_NAME']
+if $zap
+  response = RestClient.get 'http://localhost:8081/OTHER/core/other/htmlreport'
+  File.open('target/zap_report.html', 'w') {|file| file.write(response.body)}
+  $zap.shutdown
+end
+end
+
+def write_to_file(filename, data)
+begin
+  file = File.open("reports/#{filename}", "w+")
+  file.chmod(0755)
+  file.write(data)
+rescue IOError => e
+ensure
+  file.close unless file.nil?
+end
+end
+
+after_scenario do
+  app_base_page.logout
+  basic_configuration.reset_config
 end

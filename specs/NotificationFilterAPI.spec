@@ -62,7 +62,7 @@ Setup of contexts
 
 * List all notification filter should show "3, 4" filters
 
-* Update notification filter "1" by changing the "event" to "Cancelled"
+* Update notification filter "3" by changing the "event" to "Cancelled"
 * Get notification filter "3"
 * Verify returned "200" response code
 * Verify notification filter is set for pipeline "admin-pipeline" stage "defaultStage" event "Cancelled" and match commit "false"

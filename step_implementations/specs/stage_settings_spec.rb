@@ -147,6 +147,10 @@ step 'Set command as <command> - Already on Add New stage popup' do |command|
   stage_settings_page.command_on_stage_popup.set command
 end
 
+step 'Set command args as <args> - Already on Add New stage popup' do |args|
+  stage_settings_page.command_args_on_stage_popup.set args
+end
+
 step 'Set job name as <job> - Already on Add New stage popup' do |job|
   stage_settings_page.job_name_on_stage_popup.set job
 end

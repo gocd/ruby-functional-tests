@@ -11,7 +11,7 @@ Setup of contexts
 Pipeline_Stage_Job_AgentJobRun_HistoryApis
 ------------------------------------------
 
-tags: schedule, trigger, restful api
+tags: schedule, trigger, restful api, api
 
 
 * Looking at pipeline "basic-pipeline-fast" - On Swift Dashboard page

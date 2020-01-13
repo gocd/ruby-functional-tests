@@ -31,6 +31,7 @@ module Pages
     element :resources_on_popup, '#job_resources'
     element :job_name_popup, "input[name='stage[jobs][][name]']"
     element :command_on_stage_popup, "input[name='stage[jobs][][tasks][exec][command]']"
+    element :command_args_on_stage_popup, "textarea[name='stage[jobs][][tasks][exec][argListString]']"
 
     element :trigger_type_auto, '#auto'
     element :trigger_type_manual, '#manual'

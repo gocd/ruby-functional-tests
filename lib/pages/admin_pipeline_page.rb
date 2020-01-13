@@ -30,7 +30,16 @@ module Pages
     element :button_extract_template, "[data-test-id='button-extract-template']"
     element :flash_message, "[data-test-id='flash-message-success']"
 
-    load_validation { has_create_new_pipeline_group? }
+    element :group_name, "input[data-test-id='form-field-input-pipeline-group-name']"
+    element :save, "button[data-test-id='save-pipeline-group']"
+    element :add_user_permission, "button[data-test-id='add-user-permission']"
+    element :add_role_permission, "button[data-test-id='add-role-permission']"
+    element :users_permissions, "table[data-test-id='users-permissions']"
+    element :roles_permissions, "table[data-test-id='roles-permissions']"
+    element :error_message, "[data-test-id='pipeline-group-flash-message']"
+    element :roles_error_message, "[data-test-id='errors-on-roles']"
+
+    load_validation {has_create_new_pipeline_group?}
 
     def clone_pipeline(source_pipeline_name, new_pipeline_name, pipeline_group_name)
       click_on_clone_link_for(source_pipeline_name)
@@ -89,11 +98,9 @@ module Pages
       pipelines
     end
 
-
     def delete_link_is_disabled?(group)
       page.find("[data-test-id='delete-pipeline-group-#{group.downcase}']").disabled?
     end
-
 
     def delete_group(group)
       page.find("[data-test-id='delete-pipeline-group-#{group.downcase}']").click
@@ -133,8 +140,6 @@ module Pages
       page.find("[data-test-id='pipeline-group-#{group.downcase}']").has_css?("[data-test-id='flash-message-info'] p", text: message)
     end
 
-
-
     def add_new_pipeline_in_group(group)
       page.find("[data-test-id='pipeline-group-#{group.downcase}']").find("[data-test-id='create-pipeline-in-group-#{group.downcase}']").click
     end
@@ -150,77 +155,78 @@ module Pages
     def pipeline_moved_to_group_list(pipeline)
       page.find("[data-test-id='move-pipeline-#{pipeline.downcase}']").click
       groups = page.find("[data-test-id='move-pipeline-group-selection']").all('option').collect(&:text)
-      page.all("button").select{|btn| btn['class'].include? 'overlay-close'}.first.click
+      page.all("button").select {|btn| btn['class'].include? 'overlay-close'}.first.click
       groups
     end
 
-    def add_user_to_group(user,type,group)
+    def add_user_to_group(user, type, group)
       if page.has_css?("tr#USER_#{user}")
         page.find("tr#USER_#{user} td input##{type}Privilege_USER_#{user}").click
         general_settings_page.task_save.click
         return
-      elsif page.all('input.permissions_USER_name').each{ |input_element|
+      elsif page.all('input.permissions_USER_name').each {|input_element|
         if input_element.value.blank?
-           input_element.set user
-           element=input_element.ancestor('tr').find("td input##{type}Privilege_USER_name")
-           element.click
-           general_settings_page.task_save.click
+          input_element.set user
+          element = input_element.ancestor('tr').find("td input##{type}Privilege_USER_name")
+          element.click
+          general_settings_page.task_save.click
         end
-       }
+      }
       end
     end
 
-    def add_role_to_group(user,type,group)
-       if page.has_css?("tr#ROLE_#{user}")
-         page.find("tr#ROLE_#{user} td input##{type}Privilege_ROLE_#{user}").click
-         general_settings_page.task_save.click
-         return
-       elsif page.all('input.permissions_ROLE_name').each{ |input_element|
-         if input_element.value.blank?
+    def add_role_to_group(user, type, group)
+      if page.has_css?("tr#ROLE_#{user}")
+        page.find("tr#ROLE_#{user} td input##{type}Privilege_ROLE_#{user}").click
+        general_settings_page.task_save.click
+        return
+      elsif page.all('input.permissions_ROLE_name').each {|input_element|
+        if input_element.value.blank?
           input_element.set user
-          element=input_element.ancestor('tr').find("td input##{type}Privilege_ROLE_name")
+          element = input_element.ancestor('tr').find("td input##{type}Privilege_ROLE_name")
           element.click
           general_settings_page.task_save.click
           return
         end
-        }
+      }
       end
     end
 
     def users_in_group()
-      users=[]
-      page.all('input.permissions_USER_name').each{|element|
+      users = []
+      page.all('[data-test-id="user-name"]').each {|element|
         users.push(element.value) if !element.value.blank?
       }
       return users;
     end
 
     def roles_in_group()
-      roles=[]
-      page.all('input.permissions_ROLE_name').each{|element|
+      roles = []
+      page.all('[data-test-id="role-name"]').each {|element|
         roles.push(element.value) if !element.value.blank?
       }
       return roles;
     end
 
     def users_permissions_in_group(user)
-      permissions=[]
-      page.all("tr#USER_#{user} td input[type=checkbox]").each{|element|
-        permissions.push(element[:name]) if !element.checked?
+      permissions = []
+      user_row = page.all('[data-test-id="user-name"]').select {|u| u if u.value == user}.first.ancestor('[data-test-id="table-row"]')
+      user_row.all('[data-test-id$="-permission"]').each {|element|
+        permissions.push(element['data-test-id'].split('-').first) if !element.checked?
       }
       return permissions
     end
 
     def roles_permissions_in_group(role)
-      permissions=[]
-      page.all("tr#ROLE_#{role} td input[type=checkbox]").each{|element|
+      permissions = []
+      page.all("tr#ROLE_#{role} td input[type=checkbox]").each {|element|
         permissions.push(element[:name]) if !element.checked?
       }
       return permissions
     end
 
     def delete_user_on_edit_group(user)
-    page.find("tr#USER_#{user} td span.remove_icon").click
+      page.find("tr#USER_#{user} td span.remove_icon").click
     end
 
     def delete_role_on_edit_group(role)
@@ -232,38 +238,36 @@ module Pages
     end
 
     def open_tab tab
-      page.find('.sub_tabs_container').find('a', text:tab).click
+      page.find('.sub_tabs_container').find('a', text: tab).click
     end
 
     def open_template template
-      page.find('a.edit_template', text:template).click
+      page.find('a.edit_template', text: template).click
     end
-
 
     def click_edit_pipeline pipeline
       page.find("[data-test-id='edit-pipeline-#{pipeline.downcase}']").click
     end
 
     def landed_on_pipeline_edit_page? pipeline
-      page.find('.pipeline_header').has_css?('a', text:pipeline)
+      page.find('.pipeline_header').has_css?('a', text: pipeline)
     end
 
     def template_tab_is_visible?
       page.has_css?('#tab-link-of-templates')
     end
 
-
     def edit_template template
       page.find("[data-test-id='edit-template-#{template.downcase}']").click
     end
 
     def change_cofig_to_conflict
-      context=page.find('#content').text.gsub! 'replace-job', 'replace-job-conflict'
+      context = page.find('#content').text.gsub! 'replace-job', 'replace-job-conflict'
       page.find('#content').set context
     end
 
-    def rename_pipeline_on_config_xml_page pipeline,new_pipeline
-      new_context=page.find('#content_container_for_edit').text.gsub! "#{pipeline}", new_pipeline
+    def rename_pipeline_on_config_xml_page pipeline, new_pipeline
+      new_context = page.find('#content_container_for_edit').text.gsub! "#{pipeline}", new_pipeline
       page.find('#content_container_for_edit').set new_context
     end
 
@@ -273,33 +277,31 @@ module Pages
     end
 
     def add_downstream_pipeline_to_create_post_validations
-     context= %Q(<pipeline name="downstream-pipeline">\n <materials>\n <pipeline pipelineName= "#{scenario_state.get('upstream-pipeline')}"
+      context     = %Q(<pipeline name="downstream-pipeline">\n <materials>\n <pipeline pipelineName= "#{scenario_state.get('upstream-pipeline')}"
                    stageName="defaultStage" materialName="UP" />\n </materials>\n <stage name="defaultStage">\n <approval type="manual"/>\n <jobs>\n <job name="replace-job">
                    \n <tasks>\n <exec command="ls"/>\n </tasks>\n </job>\n </jobs>\n </stage>\n </pipeline>\n </pipelines>)
-       new_context=page.find('#content').text.sub! "</pipelines>", context
-       page.find('#content').set new_context
+      new_context = page.find('#content').text.sub! "</pipelines>", context
+      page.find('#content').set new_context
     end
 
-    def post_validation_error_message_exist?message
+    def post_validation_error_message_exist? message
 
-     errors=[]
-     page.all('.error').each{|error|
-       errors.push(error.text)}
-     errors.include?new_pipeline_dashboard_page.sanitize_message(message)
+      errors = []
+      page.all('.error').each {|error|
+        errors.push(error.text)}
+      errors.include? new_pipeline_dashboard_page.sanitize_message(message)
     end
 
     def edit_config
-      page.find('a.link_as_button',text:'EDIT').click
+      page.find('a.link_as_button', text: 'EDIT').click
     end
-
 
     def extractable_disabled_pipeline
       page.find('select#pipeline_pipelineNames').all('option').collect(&:text)
     end
 
-
     def has_template? template
-      page.has_css?('a.edit_template',text: template )
+      page.has_css?('a.edit_template', text: template)
     end
 
     def click_extract_template pipeline
@@ -308,6 +310,49 @@ module Pages
 
     def enter_template_name name
       page.find("[data-test-id='form-field-input-new-template-name']").set name
+    end
+
+    def set_group_name(grp_name)
+      group_name.set grp_name
+    end
+
+    def edit_pipeline_group(grp_name)
+      data_test = "edit-pipeline-group-#{grp_name}"
+      page.find("button[data-test-id='#{data_test}']").click
+    end
+
+    def save_pipeline_grp
+      save.click
+    end
+
+    def add_user_permissions(user, type)
+      add_user_permission.click
+      users_permissions.all("input[data-test-id='user-name']").last.set(user)
+      users_permissions.all("input[data-test-id='#{type}-permission']").last.set(true)
+    end
+
+    def update_user_permissions(user, type)
+      users_permissions.all("tbody tr").each do |widget|
+        if widget.find("input[data-test-id='user-name']").text === user
+          widget.find("input[data-test-id='#{type}-permission']").set(true)
+        end
+      end
+    end
+
+    def add_role_permissions(role, type)
+      add_role_permission.click
+      roles_permissions.all("input[data-test-id='role-name']").last.set(role)
+      roles_permissions.all("input[data-test-id='#{type}-permission']").last.set(true)
+    end
+
+    def delete_user_permission(user)
+      user_row = page.all('[data-test-id="user-name"]').select {|u| u if u.value == user}.first.ancestor('[data-test-id="table-row"]')
+      user_row.find("[data-test-id='user-permission-delete']").click
+    end
+
+    def delete_role_permission(role)
+      role_row = page.all('[data-test-id="role-name"]').select {|r| r if r.value == role}.first.ancestor('[data-test-id="table-row"]')
+      role_row.find("[data-test-id='role-permission-delete']").click
     end
 
     private

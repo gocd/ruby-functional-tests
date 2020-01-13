@@ -8,7 +8,7 @@ Setup of contexts
 ConfigRepoAPI
 ----------------------------
 
-tags: config_repo_api, policy, wip
+tags: config_repo_api, policy, api
 
 ~~~~~~~~ create config repo ~~~~~~~~
 
@@ -86,10 +86,15 @@ tags: config_repo_api, policy, wip
 * Get all config repos should have "cr, cr1_1, cr2_2, cr4_4, cr1_4, cr2_4"
 * Get all config repos should not have "cr3_3"
 
+* Get status of config repo "cr" should return success
+* Trigger update of config repo "cr4_4" should return success
+
+
 ~~~~~~~~ update config repo ~~~~~~~~
 
 * As user "admin"
 * Update config repo "cr" should return success
+
 
 * As user "user1"
 * Update config repo "cr1_1" should return success
@@ -111,6 +116,10 @@ tags: config_repo_api, policy, wip
 * Update config repo "cr1_4" should return success
 * Update config repo "cr2_4" should return success
 * Update config repo "cr3_3" should return forbidden
+
+
+
+
 
 ~~~~~~~~ delete config repo ~~~~~~~~
 

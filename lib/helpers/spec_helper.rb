@@ -76,6 +76,7 @@ require 'pages/admin_templates_page'
 require 'pages/new_environments_page'
 require 'pages/package_repository_page'
 require 'pages/package_material_page'
+require 'pages/new_pipeline_group_page'
 
 
 
@@ -173,6 +174,11 @@ module Helpers
     def pipeline_group_edit_page
       Pages::PipelineGroupEditPage.new
     end
+
+    def new_pipeline_group_page
+      Pages::NewPipelineGroupPage.new
+    end
+
 
     def plugins_spa_page
       Pages::PluginsSPA.new

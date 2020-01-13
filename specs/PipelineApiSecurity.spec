@@ -12,7 +12,7 @@ Setup of contexts
 PipelineApiSecurity
 -------------------
 
-tags: API Security
+tags: API Security, api
 
 * Enable auto update for pipeline "basic-pipeline-fast-api"
 * Enable auto update for pipeline "viewable-pipeline"

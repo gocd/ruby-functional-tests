@@ -13,7 +13,7 @@ Setup of contexts
 PipelineApis
 ------------
 
-tags: schedule
+tags: schedule, api
 
 
 * On Swift Dashboard Page

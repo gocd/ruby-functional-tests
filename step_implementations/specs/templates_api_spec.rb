@@ -95,7 +95,3 @@ step 'Verify users <users_list> are template admins' do |users_list|
     assert_true temp_auth_response['admin']['users'].include? user
   end
 end
-
-step 'Verify returned <response> response code' do |expected_code|
-  assert_true scenario_state.get('api_response').code == expected_code.to_i
-end

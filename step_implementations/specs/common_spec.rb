@@ -86,3 +86,8 @@ end
 step 'Update toggle <toggle> to value <value>' do |toggle, value|
   basic_configuration.update_toggle toggle, value
 end
+
+step 'Verify returned <response> response code' do |expected_code|
+  response = scenario_state.get('api_response')
+  assert_true (response.code == expected_code.to_i), "Actual response code #{response.code} and body #{response.body}"
+end

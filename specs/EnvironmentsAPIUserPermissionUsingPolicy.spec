@@ -9,7 +9,7 @@ Setup of contexts
 EnvironmentsSparkAPI
 ----------------------------
 
-tags: environment_api, policy
+tags: environment_api, policy, api
 
 ~~~~~~~~ create environment ~~~~~~~~
 

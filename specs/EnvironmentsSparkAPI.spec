@@ -10,7 +10,7 @@ Setup of contexts
 EnvironmentsSparkAPI
 ----------------------------
 
-tags: environment_api
+tags: environment_api, api
 
 * Create environment "from-api"
 * Create environment "from-api-with-secure-env"

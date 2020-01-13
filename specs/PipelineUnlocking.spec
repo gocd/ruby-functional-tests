@@ -13,7 +13,7 @@ Setup of contexts
 PipelineUnlocking
 -----------------
 
-tags: 3378, 3411, feeds, restful api, shine, 3426, automate, failing
+tags: 3378, 3411, feeds, restful api, shine, 3426, automate, failing, api
 
 Verify can unlock a pipeline that's waiting for a manual stage to be triggered
 * On Swift Dashboard Page
@@ -75,5 +75,3 @@ ____________________
 * Capture go state "PipelineUnlocking" - teardown
 * With "1" live agents - teardown
 * Logout - from any page
-
-

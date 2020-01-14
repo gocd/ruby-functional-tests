@@ -49,6 +49,12 @@ Setup of contexts
 * Delete notification filter "2"
 * List all notification filter should show "1" filters
 
+* Create notification filter for pipeline "non-existing-pipeline" stage "defaultStage" event "Fails" and match commit "True"
+* Verify returned "422" response code
+
+* Create notification filter for pipeline "admin-pipeline" stage "nonExistingStage" event "Fails" and match commit "True"
+* Verify returned "422" response code
+
 * As user "group1Admin"
 
 * Create notification filter for pipeline "admin-pipeline" stage "defaultStage" event "All" and match commit "False"
@@ -93,6 +99,9 @@ Setup of contexts
 
 * Delete notification filter "5"
 * List all notification filter should show "6" filters
+
+* Create notification filter for pipeline "[Any Pipeline]" stage "[Any Stage]" event "Fails" and match commit "False"
+* Verify returned "200" response code
 
 
 teardown

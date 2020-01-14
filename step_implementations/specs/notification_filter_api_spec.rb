@@ -17,7 +17,7 @@
 NOTIFICATION_FILTER_VERSION = 'application/vnd.go.cd+json'.freeze
 step 'Create notification filter for pipeline <pipeline> stage <stage> event <event> and match commit <match_commit>' do |pipeline, stage, event, match_commit|
 	payload = {
-		"pipeline": scenario_state.get(pipeline),
+		"pipeline": scenario_state.get(pipeline) || pipeline,
 		"stage": stage,
 		"event": event,
 		"match_commits": match_commit.casecmp('true') ? true : false

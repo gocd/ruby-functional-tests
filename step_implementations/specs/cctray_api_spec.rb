@@ -15,7 +15,7 @@ step 'Verify cctray feed contains stage <stage> with current activity <current_a
   project_node=doc.xpath("//Project[@name='#{scenario_state.get(pipeline)} :: #{stage}'] [@lastBuildLabel='#{label}']")
   assert_equal project_node.attr('lastBuildStatus').value,last_status
   assert_equal project_node.attr('activity').value,current_activity
-  assert_equal project_node.xpath('//messages/message').first.attr('text'), author
+  assert_true author.include? project_node.xpath('//messages/message').first.attr('text')
 end
 
 
@@ -27,7 +27,7 @@ step 'Verify cctray feed contains stage <stage> job <job> with current activity 
   project_node= doc.xpath("//Project[@name='#{scenario_state.get(pipeline)} :: #{stage} :: #{job}'] [@lastBuildLabel='#{label}']")
   assert_equal project_node.attr('lastBuildStatus').value,last_status
   assert_equal project_node.attr('activity').value,current_activity
-  assert_equal project_node.xpath('//messages/message').first.attr('text'), author
+  assert_true author.include? project_node.xpath('//messages/message').first.attr('text')
 end
 step 'Verify cctray feed contains stage <stage> with relative weburl <weburl> with lablel <label>' do |stage,weburl,label|
   doc=scenario_state.get('cctray_response')

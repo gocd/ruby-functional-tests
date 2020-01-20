@@ -28,7 +28,7 @@ echo "JAVA_HOME set to : $JAVA_HOME"
 
 # 4 - because thats the number of PG version currently tested on - 9.6, 10, 11, 12
 
-if [ "$USE_POSTGRESQL" = "Y"]; then
+if [ "$USE_POSTGRESQL" = "Y" ]; then
 
   mod="$((${GO_PIPELINE_COUNTER} % 4))"
 

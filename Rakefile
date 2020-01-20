@@ -244,7 +244,7 @@ namespace :addons do
 
       sh "/usr/pgsql-#{PG_VERSION}/bin/initdb /go/.pg-data"
       sh %(echo "unix_socket_directories = '/tmp'" >> ~/.pg-data/postgresql.conf)
-      sh "/usr/pgsql-#{PG_VERSION}/bin/pg_ctl start -l /go/.pg-data/log -D /go/.pg-data -w -t 60"
+      sh "/usr/pgsql-#{PG_VERSION}/bin/pg_ctl start -l /go/.pg-data/pg_logs -D /go/.pg-data -w -t 60"
 
       mv Dir.glob('target/*-addon/*.jar'), "target/go-server-#{VERSION_NUMBER}/addons"
 

@@ -229,6 +229,23 @@ namespace :addons do
     end
 
     if USE_POSTGRESQL
+
+      # Setup the postgres server based on pipeline counter
+      mod = ENV['GO_PIPELINE_COUNTER'] % 4
+      if mod == 0
+        PG_VERSION = '9.6'
+      elsif mod == 1
+        PG_VERSION = '10'
+      elsif mod == 2
+        PG_VERSION = '11'
+      else
+        PG_VERSION = '12'
+      end
+
+      sh "/usr/pgsql-#{PG_VERSION}/bin/initdb /go/.pg-data"
+      sh %(echo "unix_socket_directories = '/tmp'" >> ~/.pg-data/postgresql.conf)
+      sh "/usr/pgsql-#{PG_VERSION}/bin/pg_ctl start -l /go/.pg-data/log -D /go/.pg-data -w -t 60"
+
       mv Dir.glob('target/*-addon/*.jar'), "target/go-server-#{VERSION_NUMBER}/addons"
 
       # Drop and recreate database for the test

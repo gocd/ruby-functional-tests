@@ -26,27 +26,4 @@ fi
 
 echo "JAVA_HOME set to : $JAVA_HOME"
 
-# 4 - because thats the number of PG version currently tested on - 9.6, 10, 11, 12
-
-if [ "$USE_POSTGRESQL" = "Y" ]; then
-
-  mod="$((${GO_PIPELINE_COUNTER} % 4))"
-
-  if [ "$mod" = "0" ]; then
-    PG_VERSION="9.6"
-  elif [ "$mod" = "1" ]; then
-    PG_VERSION="10"
-  elif [ "$mod" = "2" ]; then
-    PG_VERSION="11"
-  elif [ "$mod" = "3" ]; then
-    PG_VERSION="12"
-  fi
-
-  /usr/pgsql-$PG_VERSION/bin/initdb /go/.pg-data
-  echo "unix_socket_directories = '/tmp'" >> ~/.pg-data/postgresql.conf
-  /usr/pgsql-$PG_VERSION/bin/pg_ctl start -l /go/.pg-data/log -D /go/.pg-data -w -t 60
-
-fi
-
-
 exec "$@"

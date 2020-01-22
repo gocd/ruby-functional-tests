@@ -104,7 +104,13 @@ step 'Verify listed agents count is <count>' do |count|
   assert_equal count.to_i, agents_spa_page.listed_agents_count, "Listed agents count expected to be #{count}"
 end
 
-step 'Verify listed elastic agents count is <count>' do |count|
+step 'Wait till <timeout> seconds to verify listed elastic agents count is <count>' do |timeout, count|
+  Timeout.timeout(timeout.to_i) do
+    loop do
+        break if agents_spa_page.listed_elastic_agents_count > 0
+        sleep 5
+    end
+  end
   assert_equal count.to_i, agents_spa_page.listed_elastic_agents_count, "Listed elastic agents count expected to be #{count}"
 end
 

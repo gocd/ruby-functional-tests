@@ -231,7 +231,7 @@ namespace :addons do
     if USE_POSTGRESQL
 
       # Setup the postgres server based on pipeline counter
-      mod = ENV['GO_PIPELINE_COUNTER'] % 4
+      mod = ENV['GO_PIPELINE_COUNTER'].to_i % 4
       if mod == 0
         PG_VERSION = '9.6'
       elsif mod == 1

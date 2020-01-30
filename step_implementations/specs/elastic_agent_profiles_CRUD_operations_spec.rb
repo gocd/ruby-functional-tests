@@ -116,3 +116,19 @@ step 'Verify <count> elastic agent profiles <elastic_agent_profiles> are only re
     raise "Failed to get all the elastic agent profiles. Returned response code - #{err.response.code}"
   end
 end
+
+step 'Verify elastic agent profile operation <operation> is <state> for <ep> under cluster profile <cp>' do |operation, state, ep, cp|
+  if state.eql? 'disabled'
+    assert_true elastic_profiles_page.elastic_profile_operation_disabled?(cp, ep, operation), "Elastic agent operation #{operation} is not #{state}"
+  else
+    assert_false elastic_profiles_page.elastic_profile_operation_disabled?(cp, ep, operation), "Elastic agent operation #{operation} is not #{state}"
+  end
+end
+
+step 'Verify cluster profile operation <operation> is <state> for cluster profile <cp>' do |operation, state, cp|
+  if state.eql? 'disabled'
+    assert_true elastic_profiles_page.cluster_profile_operation_disabled?(cp, operation), "Cluster profile operation #{operation} is not #{state}"
+  else
+    assert_false elastic_profiles_page.cluster_profile_operation_disabled?(cp, operation), "Cluster profile operation #{operation} is not #{state}"
+  end
+end

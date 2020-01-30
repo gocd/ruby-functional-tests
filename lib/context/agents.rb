@@ -34,7 +34,7 @@ module Context
       chmod 0755, "#{dir}/with-java.sh"
       prepare_wrapper_conf(dir.to_s, GoConstants::GO_AGENT_SYSTEM_PROPERTIES)
       Bundler.with_clean_env do
-        process = ChildProcess.build('./with-java.sh', START_COMMAND, 'start', '-serverUrl', "https://127.0.0.1:#{GoConstants::SERVER_SSL_PORT}/go")
+        process = ChildProcess.build('./with-java.sh', START_COMMAND, 'start', '-serverUrl', "http://127.0.0.1:#{GoConstants::SERVER_PORT}/go")
         process.detach = true
         process.environment['GO_PIPELINE_COUNTER'] = GoConstants::GO_PIPELINE_COUNTER
         process.cwd = dir
@@ -89,7 +89,7 @@ module Context
         --name agent_#{identifier} \
         -v #{GoConstants::TEMP_DIR}:/materials \
         -e GO_AGENT_SYSTEM_PROPERTIES='#{GoConstants::GO_AGENT_SYSTEM_PROPERTIES.join(" ")}' \
-        -e GO_SERVER_URL='https://#{GoConstants::IPADDRESS}:#{GoConstants::SERVER_SSL_PORT}/go' \
+        -e GO_SERVER_URL='http://#{GoConstants::IPADDRESS}:#{GoConstants::SERVER_PORT}/go' \
         -e AGENT_AUTO_REGISTER_KEY='functional-tests' \
         #{manifest.image}:#{manifest.tag})
         # This is done to save space on the EA container

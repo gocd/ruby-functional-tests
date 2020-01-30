@@ -127,6 +127,10 @@ step 'Select cluster as <cluster_profile_id>' do |cluster_profile_id|
   elastic_profiles_page.selected_cluster_profile_id.select cluster_profile_id
 end
 
-step 'Select Configuration properties for kubernetes cluster' do ||
+step 'Select Configuration properties for kubernetes cluster' do |_tmp|
 	elastic_profiles_page.k8s_config_properties.click
+end
+
+step 'Verify error message for create cluster profile <err>' do |err|
+	assert_true elastic_profiles_page.error_message.include? err
 end

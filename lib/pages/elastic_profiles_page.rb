@@ -16,7 +16,7 @@
 
 module Pages
   class ElasticProfiles < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/elastic_profiles"
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/elastic_agent_configurations"
 
     element :add_new_cluster_profile, "[data-test-id='pageActions']"
 
@@ -29,7 +29,7 @@ module Pages
     element :env_variable, "textarea[ng-model='environment_variables']"
     element :docker_uri, "input[ng-model='docker_uri']"
     element :save_cluster_profile_btn, "[data-test-id='cluster-profile-save-btn']"
-    
+
     element :save_and_exit_btn, "[data-test-id='save-cluster-profile']"
     element :previous_btn, "[data-test-id='previous']"
     element :next_btn, "[data-test-id='next']"
@@ -44,6 +44,7 @@ module Pages
 
     element :confirm_delete, "button[data-test-id='button-delete']"
     element :k8s_config_properties, "#properties"
+    element :error_flash_message, "div[data-test-id='flash-message-alert']"
 
     def save_cluster_profile
       save_cluster_profile_btn.click
@@ -122,6 +123,10 @@ module Pages
       page.find("div[data-test-id='flash-message-alert']", wait: 20).text
     end
 
+    def error_message
+      error_flash_message.text
+    end
+
     def cluster_profile_header(cluster_profile_id)
       page.find("div[data-test-id='cluster-profile-name']", text: cluster_profile_id).ancestor("div[data-test-id='cluster-profile-panel']")
     end
@@ -137,6 +142,14 @@ module Pages
 
     def click_next_button_on_wizard
       next_btn.click
+    end
+
+    def elastic_profile_operation_disabled?(cp, ep, operation)
+      elastic_agent_profile_header(cp, ep).find("[data-test-id='#{operation}-elastic-profile']").disabled?
+    end
+
+    def cluster_profile_operation_disabled?(cp, operation)
+      cluster_profile_header(cp).find("[data-test-id='#{operation}-cluster-profile']").disabled?
     end
 
   end

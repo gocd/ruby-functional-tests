@@ -56,49 +56,60 @@ step 'Verify that to pipeline textbox is populated with <label>' do |expected|
 end
 
 step 'Verify that from pipeline textbox is populated with <label>' do |label|
-  assert_true compare_pipeline_page.from_pipeline.value == label
+  actual = compare_pipeline_page.from_pipeline.value
+  assert_true (actual == label), "Actual value on from pipeline textbox #{actual}"
 end
 
 step 'Verify there is message <msg>' do |msg|
-	assert_true compare_pipeline_page.checkin_info_message?(msg)
+  assert_true compare_pipeline_page.checkin_info_message?(msg)
 end
 
-step 'Opt to see bisect diff' do ||
-	compare_pipeline_page.see_bisect_diff
-end
-
-step 'Verify there is a warning message <msg>' do |msg|
-	assert_true compare_pipeline_page.checkin_warn_message?(msg)
+step 'Verify that to pipeline textbox has error message <msg>' do |msg|
+  assert_true compare_pipeline_page.to_instance_error_msg(msg)
 end
 
 step 'Verify that there are <count> materials' do |count|
-	assert_true compare_pipeline_page.number_of_materials? count.to_i
+  assert_true compare_pipeline_page.number_of_materials? count.to_i
 end
-step 'On Pipeline Compare page from <from_pipeline> build to <to_pipeline>' do |from_pipeline,to_pipeline|
+
+step 'On Pipeline Compare page from <from_pipeline> build to <to_pipeline>' do |from_pipeline, to_pipeline|
   compare_pipeline_page.load(pipeline_name: scenario_state.self_pipeline, from_pipeline: from_pipeline, to_pipeline: to_pipeline)
 end
- step 'Click to browse the timeline on to suggestion box' do ||
+
+step 'Click to browse the timeline on to suggestion box' do ||
   compare_pipeline_page.click_on_To_box_for_browse_timeline
 end
- step 'Click to browse the timeline on from suggestion box' do ||
+
+step 'Click to browse the timeline on from suggestion box' do ||
   compare_pipeline_page.click_on_From_box_for_browse_timeline
 end
+
 step 'Verify selected pipeline label is <label>' do |label|
-assert_true compare_pipeline_page.selected_pipeline_label_is? label
+  assert_true compare_pipeline_page.selected_pipeline_label_is? label
 end
- step 'Verify that page has pipeline range <high> to <low>' do |high,low|
-  pipeline_label_range=*(low.to_i..high.to_i)
-  assert_true  (pipeline_label_range-compare_pipeline_page.get_pipeline_labels).empty?
+
+step 'Verify that page has pipeline range <high> to <low>' do |high, low|
+  pipeline_label_range = *(low.to_i..high.to_i)
+  assert_true (pipeline_label_range - compare_pipeline_page.get_pipeline_labels).empty?
 end
- step 'Click page <page> - On Pipeline Compare page' do |page|
- compare_pipeline_page.click_page page
+
+step 'Click next - On Pipeline Compare page' do
+  compare_pipeline_page.click_next_page
 end
- step 'Choose and select pipeline with label <label>' do |label|
+
+step 'Click page <page> - On Pipeline Compare page' do |page|
+  compare_pipeline_page.click_page page
+end
+
+step 'Choose and select pipeline with label <label>' do |label|
   compare_pipeline_page.select_pipeline_with_label label
 end
+
 step 'Click on upstream pipeline revision <rev>' do |rev|
   compare_pipeline_page.click_revision rev
 end
+
 step 'Verify that unauthorized access message is shown' do ||
   assert_true compare_pipeline_page.unauthorized_message_exist?
 end
+

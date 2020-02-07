@@ -41,7 +41,7 @@ Post validation failure
 * Add downstream pipeline to create post validation conflict
 * Click save - Already on config XML Tab
 * Verify that split pane appears
-* Verify post validation error is shown with message "Pipeline \"$upstream-pipeline$\" does not exist. It is used from pipeline \"downstream-pipeline\"."
+* Verify post validation error is shown with message "Pipeline '$upstream-pipeline$' does not exist. It is used from pipeline 'downstream-pipeline'."
 
 * Click save - Already on config XML Tab
 

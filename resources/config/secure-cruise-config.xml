@@ -61,6 +61,9 @@
     <config-repos>
        <config-repo id="config-repo" pluginId="json.config.plugin">
          <git url="material-for-pipeline-git-config-repo" />
+           <rules>
+             <allow action="refer" type="*">config-repo-*</allow>
+           </rules>
        </config-repo>
     </config-repos>
     <pipelines group="DEV_GROUP">

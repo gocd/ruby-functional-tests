@@ -101,21 +101,33 @@ tags: config_repo_api, policy, api
 * Update config repo "cr4_4" should return forbidden
 * Update config repo "cr2_2" should return forbidden
 
+* Verify permissions API shows "config_repo" "view" list has only "cr1_1, cr1_4"
+* Verify permissions API shows "config_repo" "administer" list has only "cr1_1, cr1_4"
+
 * As user "user2"
 * Update config repo "cr2_2" should return success
 * Update config repo "cr4_4" should return forbidden
 * Update config repo "cr1_1" should return forbidden
+
+* Verify permissions API shows "config_repo" "view" list has only "cr2_2, cr2_4"
+* Verify permissions API shows "config_repo" "administer" list has only "cr2_2, cr2_4"
 
 * As user "user3"
 * Update config repo "cr3_3" should return success
 * Update config repo "cr4_4" should return forbidden
 * Update config repo "cr1_1" should return forbidden
 
+* Verify permissions API shows "config_repo" "view" list has only "cr3_3"
+* Verify permissions API shows "config_repo" "administer" list has only "cr3_3"
+
 * As user "user4"
 * Update config repo "cr4_4" should return success
 * Update config repo "cr1_4" should return success
 * Update config repo "cr2_4" should return success
 * Update config repo "cr3_3" should return forbidden
+
+* Verify permissions API shows "config_repo" "view" list has only "cr, cr1_1, cr2_2, cr1_4, cr2_4, cr4_4"
+* Verify permissions API shows "config_repo" "administer" list has only "cr, cr1_1, cr2_2, cr1_4, cr2_4, cr4_4"
 
 
 

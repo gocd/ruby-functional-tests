@@ -18,21 +18,33 @@ tags: new-environments-spa, policy, spa
 * Verify delete button for "env" is enabled
 * Verify edit buttons for "env" are enabled
 
+* Verify permissions API shows "environment" "view" list has only "env"
+* Verify permissions API shows "environment" "administer" list has only "env"
+
 * Logout and login as "frontend"
 * On new environments page
 * Add new environment "frontend_env"
 * Verify environment "frontend_env" is listed
+
+* Verify permissions API shows "environment" "view" list has only "frontend_env"
+* Verify permissions API shows "environment" "administer" list has only "frontend_env"
 
 * Logout and login as "devops"
 * On new environments page
 * Add new environment "devops_env"
 * Verify environment "devops_env" is listed
 
+* Verify permissions API shows "environment" "view" list has only "devops_env"
+* Verify permissions API shows "environment" "administer" list has only "devops_env"
+
 * Logout and login as "view"
 * On new environments page
 * Verify environment "env" is listed
 * Verify delete button for "env" is disabled
 * Verify edit buttons for "env" are disabled
+
+* Verify permissions API shows "environment" "view" list has only "devops_env, env, frontend_env"
+* Verify permissions API shows "environment" "administer" list has only ""
 
 
 * Logout and login as "bob"
@@ -45,6 +57,9 @@ tags: new-environments-spa, policy, spa
 * Verify environment "devops_env" is listed
 * Verify delete button for "devops_env" is disabled
 * Verify edit buttons for "devops_env" are disabled
+
+* Verify permissions API shows "environment" "view" list has only "frontend_env, devops_env"
+* Verify permissions API shows "environment" "administer" list has only "frontend_env"
 
 
 Teardown of contexts

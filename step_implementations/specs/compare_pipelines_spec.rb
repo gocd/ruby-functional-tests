@@ -93,7 +93,7 @@ step 'Verify that page has pipeline range <high> to <low>' do |high, low|
   assert_true (pipeline_label_range - compare_pipeline_page.get_pipeline_labels).empty?
 end
 
-step 'Click next - On Pipeline Compare page' do
+step 'Click next - On Pipeline Compare page' do |_tmp|
   compare_pipeline_page.click_next_page
 end
 
@@ -112,4 +112,3 @@ end
 step 'Verify that unauthorized access message is shown' do ||
   assert_true compare_pipeline_page.unauthorized_message_exist?
 end
-

@@ -22,15 +22,24 @@
        </artifacts>
     </server>
     <config-repos>
-       <config-repo id="config-repo" pluginId="json.config.plugin">
-         <git url="material-for-pipeline-git-config-repo" />
-       </config-repo>
-       <config-repo id="config-repo1" pluginId="json.config.plugin">
-         <git url="material-for-pipeline-git-config-repo1" />
-       </config-repo>
-       <config-repo id="config-repo2" pluginId="json.config.plugin">
-         <git url="material-for-pipeline-git-config-repo2" />
-       </config-repo>
+      <config-repo id="config-repo" pluginId="json.config.plugin">
+        <git url="material-for-pipeline-git-config-repo"/>
+        <rules>
+          <allow type="*" action="refer">*</allow>
+        </rules>
+      </config-repo>
+      <config-repo id="config-repo1" pluginId="json.config.plugin">
+        <git url="material-for-pipeline-git-config-repo1"/>
+        <rules>
+          <allow type="*" action="refer">*</allow>
+        </rules>
+      </config-repo>
+      <config-repo id="config-repo2" pluginId="json.config.plugin">
+        <git url="material-for-pipeline-git-config-repo2"/>
+        <rules>
+          <allow type="*" action="refer">*</allow>
+        </rules>
+      </config-repo>
     </config-repos>
     <pipelines group="basic">
         <pipeline name="simple-upstream">

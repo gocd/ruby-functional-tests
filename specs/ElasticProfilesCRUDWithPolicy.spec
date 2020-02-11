@@ -71,6 +71,12 @@ tags: elastic_agent_profile
 
 * Save the elastic agent profile
 
+* Verify permissions API shows "cluster_profile" "view" list has only "team1_UAT_cluster"
+* Verify permissions API shows "cluster_profile" "administer" list has only "team1_UAT_cluster"
+
+* Verify permissions API shows "elastic_agent_profile" "view" list has only "team1_UAT_test_profile"
+* Verify permissions API shows "elastic_agent_profile" "administer" list has only "team1_UAT_test_profile"
+
 * Logout - from any page
 
 * Login as "user2" - setup
@@ -124,6 +130,11 @@ tags: elastic_agent_profile
 * Verify cluster profile operation "clone" is "enabled" for cluster profile "team1_UAT_cluster"
 * Verify cluster profile operation "delete" is "disabled" for cluster profile "team1_UAT_cluster"
 
+
+* As user "view"
+* Verify permissions API shows "cluster_profile" "view" list has only "team1_UAT_cluster, team2_UAT_cluster"
+* Verify permissions API shows "cluster_profile" "administer" list has only ""
+
 * Verify elastic agent profiles "team1_UAT_test_profile" listed
 
 * Verify elastic agent profile operation "edit" is "disabled" for "team1_UAT_test_profile" under cluster profile "team1_UAT_cluster"
@@ -147,6 +158,14 @@ tags: elastic_agent_profile
 
 * Verify elastic agent profile operation "clone" is "enabled" for "team2_UAT_test_profile" under cluster profile "team2_UAT_cluster"
 * Verify elastic agent profile operation "show-usage" is "enabled" for "team2_UAT_test_profile" under cluster profile "team2_UAT_cluster"
+
+* As user "admin"
+
+* Verify permissions API shows "cluster_profile" "view" list has only "team1_UAT_cluster, team2_UAT_cluster"
+* Verify permissions API shows "cluster_profile" "administer" list has only "team1_UAT_cluster, team2_UAT_cluster"
+
+* Verify permissions API shows "elastic_agent_profile" "view" list has only "team1_UAT_test_profile, team2_UAT_test_profile"
+* Verify permissions API shows "elastic_agent_profile" "administer" list has only "team1_UAT_test_profile, team2_UAT_test_profile"
 
 
 

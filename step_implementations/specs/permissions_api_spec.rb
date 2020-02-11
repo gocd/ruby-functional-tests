@@ -17,13 +17,14 @@
 step 'Verify permissions API shows <entity> <permission> list has only <list>' do |entity, permission, list|
 	expected_list = list.split(',').map(&:strip).sort
 	actual_list = JSON.parse(get_permissions(entity))['permissions'][entity][permission]
-	assert_equal actual_list.sort, expected_list
+	assert_equal  expected_list, actual_list.sort
+end
 end
 
 def get_permissions(entity)
 	begin
 		RestClient.get http_url("/api/auth/permissions?type=#{entity}"),
-                               { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
+							   { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
 	rescue RestClient::ExceptionWithResponse => e
 		raise "Permissions API response failed with error #{e.message}"
 	end

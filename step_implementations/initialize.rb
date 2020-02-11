@@ -114,19 +114,19 @@ end
 
 
 after_suite do
-write_to_file("non_tested_apis.json", APIBuilder.build_non_tested)
-go_server.stop
-if GoConstants::USE_EFS
-  %w(addons artifacts config db logs plugins).each do |fldr|
-    FileUtils.rm_rf("/efs/#{fldr}")
+  write_to_file("non_tested_apis.json", APIBuilder.build_non_tested)
+  go_server.stop
+  if GoConstants::USE_EFS
+    %w(addons artifacts config db logs plugins).each do |fldr|
+      FileUtils.rm_rf("/efs/#{fldr}")
+    end
   end
-end
-%x(rm -rf target/go_state) unless ENV['GO_PIPELINE_NAME']
-if $zap
-  response = RestClient.get 'http://localhost:8081/OTHER/core/other/htmlreport'
-  File.open('target/zap_report.html', 'w') {|file| file.write(response.body)}
-  $zap.shutdown
-end
+  %x(rm -rf target/go_state) unless ENV['GO_PIPELINE_NAME']
+  if $zap
+    response = RestClient.get 'http://localhost:8081/OTHER/core/other/htmlreport'
+    File.open('target/zap_report.html', 'w') {|file| file.write(response.body)}
+    $zap.shutdown
+  end
 end
 
 def write_to_file(filename, data)

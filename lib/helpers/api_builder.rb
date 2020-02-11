@@ -62,7 +62,7 @@ module APIBuilder
       @all << GoCDApi.new(api['method'], api['path'])
     end
     (@all - @tested).each do |nt|
-      @non_tested << {'method': nt.method, 'path': nt.path}
+      @non_tested << {'method': nt.method, 'path': nt.path.gsub('[a-zA-Z0-9\-_]*', '<param>')}
     end
     JSON.pretty_generate(@non_tested)
   end

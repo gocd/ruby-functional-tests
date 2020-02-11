@@ -19,7 +19,6 @@ step 'Verify permissions API shows <entity> <permission> list has only <list>' d
 	actual_list = JSON.parse(get_permissions(entity))['permissions'][entity][permission]
 	assert_equal  expected_list, actual_list.sort
 end
-end
 
 def get_permissions(entity)
 	begin

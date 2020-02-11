@@ -32,9 +32,9 @@ module Pages
     end
 
     def has_config_repos(repos)
-      actual = find_all_config_repos.sort
+      actual   = find_all_config_repos.sort
       expected = repos.split(/[\s,]+/).map(&:strip).sort
-      assert_true (expected - actual).empty?, "Assertion failed. Expected: #{expected}, Actual: #{actual}"
+      assert_true difference(expected, actual).empty?, "Assertion failed. Expected: #{expected}, Actual: #{actual}"
     end
 
     def has_enabled_action_buttons(repo)
@@ -88,10 +88,46 @@ module Pages
       page.find('[data-test-id="form-field-input-url"]').set url
     end
 
+    def repo_failed_parsing(repo, env_name)
+      panel = find_collapsible_panel(repo)
+      assert_not_nil panel.find("div[data-test-id='collapse-header']")[:class].include?'index__error__'
+      assert_not_nil panel.find("div[data-test-id='flash-message-alert']")
+
+      error_span = panel.find("span[data-test-id='key-value-value-error']")
+      assert_not_nil error_span
+
+      err_msg = "Not allowed to refer environment '#{env_name}' from the config repository."
+      assert_true error_span.text.include?(err_msg), "Assertion failed. Expected to contain '#{err_msg}' but was '#{error_span.text}'"
+    end
+
+    def repo_successfully_parsed(repo)
+      panel_header = find_collapsible_header(repo)
+      assert_not_nil panel_header
+      assert_not_nil panel_header.find("span[data-test-id='repo-success-state']")
+    end
+
+    def repo_has_env(repo, env)
+      panel     = find_collapsible_panel(repo)
+      data_node = panel.find("dt[data-test-id^='tree-node-#{env}']")
+      assert_not_nil data_node
+
+      text = data_node.find("a").text
+      assert_true text.start_with?(env), "Assertion failed. Expected to start with '#{env}' but was '#{text}'"
+    end
+
     private
+
+    def difference(arr1, arr2)
+      (arr1 + arr2) - (arr1 & arr2)
+    end
 
     def find_collapsible_header(id)
       page.all("div[data-test-id='collapse-header']")
+          .find {|widget| widget.find("h4[data-test-id='config-repo-header']").text === id}
+    end
+
+    def find_collapsible_panel(id)
+      page.all("div[data-test-id='config-repo-details-panel']")
           .find {|widget| widget.find("h4[data-test-id='config-repo-header']").text === id}
     end
 

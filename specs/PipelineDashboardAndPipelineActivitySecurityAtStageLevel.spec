@@ -32,11 +32,15 @@ Pipeline Visibility
      |P7           |true    |false                |false                 |true               |true                |
 
 
+
 * verify user has operate permissions on "defaultStage" for pipeline "P5" on Pipeline Activity Page
 
 * verify user has operate permissions on "firstStage" for pipeline "P6" on Pipeline Activity Page
 * Verify "secondStage" can be approved on Pipeline Activity Page
 * Approve stage "secondStage" on Pipeline Activity Page
+
+* Looking at pipeline "P6" - On Swift Dashboard page
+* Wait till pipeline completed - On Swift Dashboard page
 
 * verify user does not have stage "firstStage" operate permissions for pipleine "P7" on pipeline activity page
 * Verify "secondStage" can be approved on Pipeline Activity Page

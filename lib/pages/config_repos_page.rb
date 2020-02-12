@@ -24,9 +24,7 @@ module Pages
 
     def verify_config_repo(repo, pipeline)
       assert_true(page.find('[data-test-id="config-repo-header"]', text: repo, exact_text: true).text.eql?(repo))
-
       page.find('[data-test-id="config-repo-header"]', text: repo, exact_text: true).click
-
       assert_true(page.find('[data-test-id="config-repo-header"]', text: repo, exact_text: true).ancestor('[data-test-id="config-repo-details-panel"]').find("[data-test-id^='pipeline_#{pipeline.underscore}']").text.include?(pipeline))
 
     end
@@ -88,7 +86,7 @@ module Pages
       page.find('[data-test-id="form-field-input-url"]').set url
     end
 
-    def repo_failed_parsing(repo, env_name)
+    def repo_failed_parsing(repo, entity, entity_name)
       panel = find_collapsible_panel(repo)
       assert_not_nil panel.find("div[data-test-id='collapse-header']")[:class].include?'index__error__'
       assert_not_nil panel.find("div[data-test-id='flash-message-alert']")
@@ -96,7 +94,7 @@ module Pages
       error_span = panel.find("span[data-test-id='key-value-value-error']")
       assert_not_nil error_span
 
-      err_msg = "Not allowed to refer environment '#{env_name}' from the config repository."
+      err_msg = "Not allowed to refer #{entity} '#{entity_name}' from the config repository."
       assert_true error_span.text.include?(err_msg), "Assertion failed. Expected to contain '#{err_msg}' but was '#{error_span.text}'"
     end
 

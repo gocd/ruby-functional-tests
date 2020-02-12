@@ -6,7 +6,7 @@ Setup of contexts
 * Capture go state "ConfigRepoAPIUserPermissionUsingPolicy" - setup
 
 ConfigRepoAPI
-----------------------------
+--------------
 
 tags: config_repo_api, policy, api
 
@@ -129,10 +129,6 @@ tags: config_repo_api, policy, api
 * Verify permissions API shows "config_repo" "view" list has only "cr, cr1_1, cr2_2, cr1_4, cr2_4, cr4_4"
 * Verify permissions API shows "config_repo" "administer" list has only "cr, cr1_1, cr2_2, cr1_4, cr2_4, cr4_4"
 
-
-
-
-
 ~~~~~~~~ delete config repo ~~~~~~~~
 
 * As user "admin"
@@ -167,6 +163,16 @@ tags: config_repo_api, policy, api
 * Get all config repos should not have "cr, cr1_1, cr2_2, cr3_3, cr4_4, cr1_4, cr2_4"
 * Update config repo "cr4_4" should return forbidden
 * Delete config repo "cr4_4" should return forbidden
+
+ConfigRepoAPIWithRules
+--------------
+
+* As user "admin"
+* Create config repo "cr" with rules "allow:environment:dev_env"
+* Get config repo "cr" should contain rules "allow:environment:dev_env"
+
+* Update config repo "cr" with rules "allow:environment:qa_env"
+* Get config repo "cr" should contain rules "allow:environment:qa_env"
 
 
 Teardown of contexts

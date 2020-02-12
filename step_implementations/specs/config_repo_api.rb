@@ -96,6 +96,22 @@ step 'Trigger update of config repo <id> should return success' do |id|
 	assert_equal response.code, 201, "Failed to trigger update. Response code #{response.code}, body #{response.body}"
 end
 
+step 'Create config repo <id> with rules <rules>' do |id, rules|
+  assert_true create_config_repo_with_rules(id, rules).code == 200
+end
+
+step 'Get config repo <id> should contain rules <rules>' do |id, rules|
+  result = get_config_repo(id)
+  assert_true result.code == 200
+  actual   = JSON.parse(result)["rules"]
+  expected = extract_rules(rules).map {|item| item.transform_keys(&:to_s)}
+  assert_true difference(expected, actual).empty?, "Assertion failed. Expected: #{expected}, Actual: #{actual}"
+end
+
+step 'Update config repo <id> with rules <rules>' do |id, rules|
+  assert_true update_config_repo_with_rules(id, rules).code == 200
+end
+
 private
 
 def get_all_config_repos
@@ -141,6 +157,13 @@ def create_config_repo(id)
                       .merge(basic_configuration.header)
 end
 
+def create_config_repo_with_rules(id, rules)
+  RestClient.post http_url(CONFIG_REPO_BASE_URL),
+                  request_body_for_repo(id, 'json.config.plugin', Context::GitMaterials.new, [], extract_rules(rules)),
+                  {content_type: :json, accept: CONFIG_REPO_API_VERSION}
+                      .merge(basic_configuration.header)
+end
+
 def delete_config_repo(id)
   RestClient.delete http_url("#{CONFIG_REPO_BASE_URL}/#{id}"),
                     {accept: CONFIG_REPO_API_VERSION}
@@ -155,7 +178,15 @@ def update_config_repo(id)
                      .merge(basic_configuration.header)
 end
 
-def request_body_for_repo(id, plugin_id = 'json.config.plugin', material = Context::GitMaterials.new, configuration = [])
+def update_config_repo_with_rules(id, rules)
+  etag = get_config_repo(id).headers[:etag]
+  RestClient.put http_url("#{CONFIG_REPO_BASE_URL}/#{id}"),
+                 request_body_for_repo(id, 'json.config.plugin', Context::GitMaterials.new, [], extract_rules(rules)),
+                 {content_type: :json, accept: CONFIG_REPO_API_VERSION, if_match: etag}
+                     .merge(basic_configuration.header)
+end
+
+def request_body_for_repo(id, plugin_id = 'json.config.plugin', material = Context::GitMaterials.new, configuration = [], rules = [])
   tmp = {
       :id            => id,
       :plugin_id     => plugin_id,
@@ -167,7 +198,19 @@ def request_body_for_repo(id, plugin_id = 'json.config.plugin', material = Conte
               :auto_update => true
           }
       },
-      :configuration => configuration
+      :configuration => configuration,
+      :rules         => rules
   }
   JSON.generate(tmp)
+end
+
+def extract_rules(rules)
+  rules.split(',').collect(&:strip).collect do |rule|
+    rule_entities = rule.split(':').collect(&:strip)
+    {directive: (rule_entities[0]).to_s, action: 'refer', type: (rule_entities[1]).to_s, resource: (rule_entities[2]).to_s}
+  end
+end
+
+def difference(arr1, arr2)
+  (arr1 + arr2) - (arr1 & arr2)
 end

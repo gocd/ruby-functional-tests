@@ -18,13 +18,13 @@ step 'Go to Secret Management page' do |_i|
   secret_management_page.load
 end
 
-step 'Create new secret config <id> with <filepath> and resource as <entity>' do |id, filepath, entity|
+step 'Create new secret config <id> with <filepath> and rule as <action>, <type>, <resource>' do |id, filepath, action, type, resource|
   plugin_id = 'File based secrets plugin for GoCD'
   secret_management_page.load
   secret_management_page.click_add
   secret_management_page.config_id(id)
   secret_management_page.plugin_value(plugin_id)
-  secret_management_page.rule_resource(entity)
+  secret_management_page.add_rule(action, type, resource)
   secret_management_page.filepath(File.expand_path("#{GoConstants::SERVER_DIR}/secrets/#{filepath}"))
 end
 

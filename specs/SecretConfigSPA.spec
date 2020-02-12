@@ -11,7 +11,7 @@ Setup of contexts
 * Login as "admin" - setup
 
 * Go to Secret Management page
-* Create new secret config "demo" with "secrets.json" and resource as "first"
+* Create new secret config "demo" with "secrets.json" and rule as "Allow", "All", "first"
 * Save secret config
 * Verify flash message for secret config "The secret configuration demo was created successfully!"
 * Verify if secret config "demo" is added

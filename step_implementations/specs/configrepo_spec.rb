@@ -95,9 +95,10 @@ step 'Verify that the <repo> is successfully parsed with environment <env>' do |
   config_repos_page.repo_has_env(repo, env)
 end
 
-step 'Verify that the <repo> has failed to parse with rule validation error on <env>' do |repo, env|
-  config_repos_page.repo_failed_parsing(repo, actual_name(env))
+step 'Verify that the <repo> has failed to parse with rule validation error on <entity> <name>' do |repo, entity, name|
+  config_repos_page.repo_failed_parsing(repo, entity, actual_name(name))
 end
+
 
 def actual_name(env)
   scenario_state.get(env) || env

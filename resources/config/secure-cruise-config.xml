@@ -59,10 +59,21 @@
         </security>
     </server>
     <config-repos>
-       <config-repo id="config-repo" pluginId="json.config.plugin">
+       <config-repo id="config-repo-with-rules" pluginId="json.config.plugin">
          <git url="material-for-pipeline-git-config-repo" />
            <rules>
-             <allow action="refer" type="*">config-repo-*</allow>
+             <allow action="refer" type="environment">team1-*</allow>
+             <allow action="refer" type="pipeline">team1-*</allow>
+             <allow action="refer" type="pipeline_group">configrepo</allow>
+             <deny action="refer" type="environment">team2-*</deny>
+             <deny action="refer" type="pipeline">team2-*</deny>
+             <deny action="refer" type="pipeline_group">team2-*</deny>
+           </rules>
+       </config-repo>
+        <config-repo id="config-repo-with-rules-on-group" pluginId="json.config.plugin">
+            <git url="material-for-config-repo-with-rules-on-group" />
+           <rules>
+             <deny action="refer" type="pipeline_group">configrepo</deny>
            </rules>
        </config-repo>
     </config-repos>
@@ -320,6 +331,36 @@
             </job>
           </jobs>
         </stage>
+      </pipeline>
+      <pipeline name="team1-stage-test">
+          <materials>
+              <git url="material-for-team1-prod-test" dest="git" materialName="git" autoUpdate="false"/>
+          </materials>
+          <stage name="defaultStage">
+              <approval type="manual"/>
+              <jobs>
+              <job name="defaultJob">
+                  <tasks>
+                    <exec command="ls"/>
+                  </tasks>
+              </job>
+              </jobs>
+          </stage>
+      </pipeline>
+      <pipeline name="team2-stage-test">
+          <materials>
+              <git url="material-for-team2-prod-test" dest="git" materialName="git" autoUpdate="false"/>
+          </materials>
+          <stage name="defaultStage">
+              <approval type="manual"/>
+              <jobs>
+              <job name="defaultJob">
+                  <tasks>
+                    <exec command="ls"/>
+                  </tasks>
+              </job>
+              </jobs>
+          </stage>
       </pipeline>
       <pipeline name="admin-pipeline-api">
             <materials>

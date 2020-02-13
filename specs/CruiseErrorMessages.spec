@@ -16,7 +16,7 @@ tags: error_messages
 * Using timer with spec "* ? ? ? * ? 2012"
 * Trigger pipeline - On Swift Dashboard page
 * On Admin page
-* Verify there are "6" errors
+* Verify there are "7" errors
 * Open error messages popup
 
 * Verify error description contains "Failed to run git clone command"
@@ -29,7 +29,7 @@ tags: error_messages
 
 * On Swift Dashboard Page
 * Edit pipeline "basic-pipeline-with-all-materials"
-* Verify there are "6" errors
+* Verify there are "7" errors
 * Open error messages popup
 
 * Verify error description contains "Failed to run git clone command"
@@ -44,7 +44,7 @@ tags: error_messages
 * Turn on AutoRefresh - On Swift Dashboard page
 * set timer with spec "* * * * * ? 2012" on server
 
-* Verify there are "5" errors
+* Verify there are "6" errors
 * Open error messages popup
 
 * Verify message do not contain "Invalid Configuration"
@@ -53,7 +53,7 @@ tags: error_messages
 * Make cruise config file invalid
 
 * On Admin page
-* Verify there are "6" errors
+* Verify there are "7" errors
 * Open error messages popup
 
 * Verify message contains "Invalid Configuration"

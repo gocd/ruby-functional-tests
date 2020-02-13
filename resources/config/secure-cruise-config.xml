@@ -74,6 +74,7 @@
             <git url="material-for-config-repo-with-rules-on-group" />
            <rules>
              <deny action="refer" type="pipeline_group">configrepo</deny>
+             <allow action="refer" type="environment">config-repo-*</allow>
            </rules>
        </config-repo>
     </config-repos>

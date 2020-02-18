@@ -57,6 +57,12 @@ module APIBuilder
                           }
   end
 
+  def self.all_deprecated_apis
+    response = RestClient.get http_url("/api/apis"), { accept: 'application/vnd.go.cd+json' }
+    json_response = JSON.parse(response.body)
+    json_response.select { |api| api['deprecation_info']['is_deprecated']}
+  end
+
   def self.build_non_tested
     all_apis.each do |api|
       @all << GoCDApi.new(api['method'], api['path'])

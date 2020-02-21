@@ -138,7 +138,7 @@ module Context
         image_index = ENV['GO_JOB_RUN_INDEX'] ? ENV['GO_JOB_RUN_INDEX'].to_i - 1 : 0
         manifest.image_info_at(image_index)
       else
-        manifest.image_info_of('centos-7')
+        manifest.image_info_of('centos-8')
       end
       manifest
     end

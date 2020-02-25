@@ -16,7 +16,7 @@ tags: elastic_agent_profile
 * Add new cluster profile
 * Set cluster profile name as "Cluster-1"
 * Set plugin id as "Docker Elastic Agent Plugin"
-* Set GoServer URL as "https://$server_ip$:8254/go" for cluster profile
+* Set GoServer URL as "http://$server_ip$:8253/go" for cluster profile
 * Set auto register timeout as "1" for cluster profile
 * Set max docker containers as "1"
 * Set environment variable as "CLUSTER_NAME=Cluster-1"
@@ -69,7 +69,7 @@ tags: elastic_agent_profile
 * On Elastic profiles page
 * Add new cluster profile
 * Set cluster profile name as "Cluster-2"
-* Set GoServer URL as "https://$server_ip$:8254/go" for cluster profile
+* Set GoServer URL as "http://$server_ip$:8253/go" for cluster profile
 * Set auto register timeout as "10" for cluster profile
 * Set max docker containers as "1"
 * Set environment variable as "CLUSTER_NAME=Cluster-2"

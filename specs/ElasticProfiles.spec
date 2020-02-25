@@ -31,7 +31,7 @@ tags: elastic_agent_profile
 * Check cluster id is selected as "Cluster-1" with plugin "Docker Elastic Agent Plugin"
 * Go forward to Elastic Profiles step on the wizard
 * Set agent profile name as "Profile-Using-Cluster-1"
-* Set docker image as "rajiesh/gocd-agent-centos-7-test:v19.2.0"
+* Set docker image as "gocd/gocd-agent-centos-7:v20.1.0"
 * Save the elastic agent profile
 
 * Expand cluster profile "Cluster-1"
@@ -84,7 +84,7 @@ tags: elastic_agent_profile
 * Check cluster id is selected as "Cluster-2" with plugin "Docker Elastic Agent Plugin"
 * Go forward to Elastic Profiles step on the wizard
 * Set agent profile name as "Profile-Using-Cluster-2"
-* Set docker image as "rajiesh/gocd-agent-centos-7-test:v19.2.0"
+* Set docker image as "gocd/gocd-agent-centos-7:v20.1.0"
 * Save the elastic agent profile
 
 * Expand cluster profile "Cluster-2"

@@ -44,7 +44,7 @@ Testing autocomplete on Resources
 * Add task "More.." - Already on Add New Job popup
 * Set command as "ls" - Already on Add New Job popup
 * Set resources as "win" - Already on Add New Job popup
-* Verify dropdown contains "windows,win-xp,win7"
+* Verify dropdown contains "windows"
 * Select "windows" from the dropdown
 * Save Changes
 

@@ -195,9 +195,10 @@ end
 step 'Verify dropdown contains <dropdown>' do |dropdown|
   drop_down_content=job_settings_page.get_dropdown
   dropdown.split(',').each{|drpdwn|
-    assert_true drop_down_content.include?drpdwn, "Expected - #{drpdwn}, Actual - #{drop_down_content}"
+    assert_true drop_down_content.include?(drpdwn), "Expected - #{drpdwn}, Actual - #{drop_down_content}"
   }
 end
+
 step 'Select <resource> from the dropdown' do |resource|
   job_settings_page.select_resouce_from_dropdown resource
 end

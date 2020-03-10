@@ -44,7 +44,7 @@ module APIBuilder
   end
 
   def self.all_apis
-    response = RestClient.get http_url("/api/apis"), { accept: 'application/vnd.go.cd+json' }
+    response = RestClient.get http_url("/api/internal/apis"), { accept: 'application/vnd.go.cd+json' }
     json_response = JSON.parse(response.body)
     json_response.select { |api|
                             if api['version'] == "application/vnd.go.cd+json"

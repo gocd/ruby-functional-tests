@@ -37,7 +37,7 @@ module Pages
     end
 
     def selected_pipeline_label_is?(label)
-      page.has_selector?('div[data-test-id^="instance-"][class*="modal__selected-instance"] span', text: label)
+      page.has_selector?('div[data-test-id^="instance-"][class*="modal__selected-instance"] td[data-test-id="instance-counter"]', text: label)
     end
 
     def get_pipeline_labels

@@ -22,7 +22,7 @@ Basic functionality
 * Click to browse the timeline on to suggestion box
 * Verify selected pipeline label is "12"
 * Verify that page has pipeline range "12" to "3"
-* Click next - On Pipeline Compare page
+* Click page "2" - On Pipeline Compare page
 * Verify that page has pipeline range "2" to "1"
 * Choose and select pipeline with label "1"
 

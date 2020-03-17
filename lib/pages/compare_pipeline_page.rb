@@ -17,12 +17,12 @@
 module Pages
   class ComparePipelinePage < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/compare{/pipeline_name}{/from_pipeline}/with{/to_pipeline}"
-    element :check_ins, 'div[data-test-id="comparison-result-widget"]'
-    element :to_pipeline, 'div[data-test-id="pipeline-to-instance"] input[type="search"]'
-    element :from_pipeline, 'div[data-test-id="pipeline-from-instance"] input[type="search"]'
-    element :browse_to_timeline, 'div[data-test-id="pipeline-to-instance"] a'
-    element :browse_from_timeline, 'div[data-test-id="pipeline-from-instance"] a'
-    element :pipeline_instance_list, 'div[data-test-id="matching-instances-results"]'
+    element :check_ins, '#tab-content-of-checkins'
+    element :to_pipeline, '#to_pipeline'
+    element :from_pipeline, '#from_pipeline'
+    element :browse_to_timeline, 'a#browse_timeline_link_to'
+    element :browse_from_timeline, 'a#browse_timeline_link_from'
+    element :pipeline_instance_list, '.pipeline_instance_list'
     element :next_page, 'div[data-test-id="pagination"] a[title="Next"]'
     element :previous_page, 'div[data-test-id="pagination"] a[title="Previous"]'
 
@@ -37,12 +37,12 @@ module Pages
     end
 
     def selected_pipeline_label_is?(label)
-      page.has_selector?('div[data-test-id^="instance-"][class*="modal__selected-instance"] td[data-test-id="instance-counter"]', text: label)
+      page.has_selector?('li.pim_list.clear_float.selected .pipeline_label', text: label)
     end
 
     def get_pipeline_labels
       pipeline_labels = []
-      page.find('div[data-test-id="left-pane"]').all('td[data-test-id="instance-counter"]', wait: 10).each do |element|
+      page.find('.pipeline_instance_list').all('.pipeline_label', wait: 10).each do |element|
         pipeline_labels.push(element.text.to_i)
       end
       puts "labels found: #{pipeline_labels}"
@@ -55,61 +55,50 @@ module Pages
     end
 
     def select_pipeline_with_label(label)
-      instance_div = 'div[data-test-id="instance-' + label + '"]'
-      page.find(instance_div).click
-      page.find('button[data-test-id="button-select-instance"]').click
+      page.find('li.pim_list .pipeline_label', text: label).click
+      page.find('a', text: 'SELECT THIS PIPELINE').click
     end
 
     def verify_pipeline_dependency_revision(pipeline_name, revision)
-      revisions = []
-      pipeline_dependency_material_modifications(pipeline_name).each do |widget|
-        widget.find('table').all('tbody tr').each {|tr| revisions.push(tr.all('td').first.text)}
-      end
-      puts "revisions: #{revisions}"
-      true if revisions.include? sanitize_message(revision)
+      pipeline_dependency_material_modifications(pipeline_name)
+          .find('.change').find('.revision').text.include? sanitize_message(revision)
     end
 
     def verify_pipeline_dependency_label(pipeline_name, label)
-      labels = []
-      pipeline_dependency_material_modifications(pipeline_name).each do |widget|
-        widget.find('table').all('tbody tr').each {|tr| labels.push(tr.all('td')[1].text)}
-      end
-      puts "labels: #{labels}"
-      true if labels.include? label
+      pipeline_dependency_material_modifications(pipeline_name)
+          .find('.change').find('.label').text.include? label
     end
 
     def verify_scm_material_revision(material_type, revision)
       revisions = []
-      pipeline_scm_material_modifications(material_type).each do |widget|
-        widget.find('table').all('tbody tr').each {|tr| revisions.push(tr.all('td').first.text)}
+      pipeline_scm_material_modifications(material_type).each do |material|
+              material.sibling('.list_table.material_modifications').all('.change').each { |change| revisions.push(change.find('.revision').text) }
       end
-      puts "revisions: #{revisions}"
-      true if revisions.include? revision
+      return true if revisions.include? revision
     end
 
     def verify_scm_material_comment(material_type, comment)
       comments = []
-      pipeline_scm_material_modifications(material_type).each do |widget|
-        widget.find('table').all('tbody tr').each {|tr| comments.push(tr.all('td').last.text)}
+      pipeline_scm_material_modifications(material_type).each do |material|
+        material.sibling('.list_table.material_modifications').all('.change').each { |change| comments.push(change.find('.comment').text) }
       end
-      puts "comments: #{comments}"
-      true if comments.include? comment
+      return true if comments.include? comment
     end
 
     def click_label(label)
-      page.find('div[data-test-id="matching-instances-results"]').find('h5', text: label).click
+      page.find('.ac_results').find('h3', text: label).click
     end
 
     def label_exists?(label)
-      page.find('div[data-test-id="matching-instances-results"]').has_selector?('h5', text: label)
+      page.find('.ac_results').has_selector?('h3', text: label)
     end
 
     def number_of_materials?(count)
-      check_ins.all('span[data-test-id="material-header"]').size.equal? count
+      check_ins.all('.material_title').size.equal? count
     end
 
     def checkin_info_message?(message)
-      page.find('div[data-test-id="info-msg"]').text.include? message
+      check_ins.find('.message').text.include? message
     end
 
     def to_instance_error_msg(message)
@@ -136,15 +125,12 @@ module Pages
     private
 
     def pipeline_dependency_material_modifications(pipeline_name)
-      check_ins.all('div[data-test-id="material-changes"]')
-          .select {|mt| mt.find('span[data-test-id="material-header"]')
-                            .text.start_with?("Pipeline - #{pipeline_name}")}
+      materials = check_ins.all('.material_title').select { |mt| mt if mt.text.start_with?("Pipeline - #{pipeline_name}") }
+      materials.first.sibling('.list_table.dependency_material_modifications')
     end
 
     def pipeline_scm_material_modifications(material_type)
-      check_ins.all('div[data-test-id="material-changes"]')
-          .select {|mt| mt.find('span[data-test-id="material-header"]')
-                            .text.start_with?("#{material_type} - ")}
+      check_ins.all('.material_title').select { |mt| mt if mt.text.start_with?("#{material_type} - ") }
     end
   end
 end

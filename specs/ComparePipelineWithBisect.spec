@@ -9,7 +9,7 @@ Setup of contexts
 ComparePipelineWithBisect
 -------------------------
 
-tags: compare_pipeline, wip
+tags: compare_pipeline
 
 * Looking at pipeline "up" - On Swift Dashboard page
 * Trigger and cancel stage "defaultStage" "1" times

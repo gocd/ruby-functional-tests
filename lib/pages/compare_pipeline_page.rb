@@ -37,12 +37,12 @@ module Pages
     end
 
     def selected_pipeline_label_is?(label)
-      page.has_selector?('div[data-test-id^="instance-"][class*="modal__selected-instance"] td[data-test-id="instance-counter"]', text: label)
+      page.has_selector?('div[data-test-id^="instance-"][class*="modal__selected-instance"] span[data-test-id="instance-counter"]', text: label)
     end
 
     def get_pipeline_labels
       pipeline_labels = []
-      page.find('div[data-test-id="left-pane"]').all('td[data-test-id="instance-counter"]', wait: 10).each do |element|
+      page.find('div[data-test-id="left-pane"]').all('span[data-test-id="instance-counter"]', wait: 10).each do |element|
         pipeline_labels.push(element.text.to_i)
       end
       puts "labels found: #{pipeline_labels}"

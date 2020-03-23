@@ -45,7 +45,7 @@ tags: compare_pipeline
 
 * Verify that from pipeline textbox is populated with "2"
 * Verify that to pipeline textbox is populated with "3"
-* Verify that to pipeline textbox has error message "This pipeline instance cannot be used to perform a comparison because it was triggered with a non-sequential material revision."
+* Verify that to pipeline textbox has error message "This pipeline instance was triggered with a non-sequential material revision."
 * Verify that there are "1" materials
 * Verify there is message "This comparison involves a pipeline instance that was triggered with a non-sequential material revision."
 * Verify displays revision "SECOND_REV" having comment "#15 - Another comment loser" under "Git"

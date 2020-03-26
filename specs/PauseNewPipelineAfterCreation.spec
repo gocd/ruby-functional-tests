@@ -43,7 +43,6 @@ tags: pipeline,pause_pipeline
 * Open job "defaultJob"
 
 * Verify pipeline "newpipeline" is paused with message "Paused by anonymous"
-* Verify pipeline "newpipeline" is paused with message "Paused by anonymous"
 * Unpause pipeline - On pipeline edit page
 
 * On Swift Dashboard Page

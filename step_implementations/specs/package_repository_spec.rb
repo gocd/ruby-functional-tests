@@ -14,9 +14,12 @@
 # limitations under the License.
 ##########################################################################
 
-
 step "Open Package repositories page" do |_tmp|
   package_repository_page.load
+end
+
+step "Click on add package repository" do
+  package_repository_page.add_package_button.click
 end
 
 step "Enter repository name as <repo_name>" do |repo_name|
@@ -27,7 +30,6 @@ step "Select <plugin_name> plugin" do |plugin_name|
   package_repository_page.package_repo_plugin.select plugin_name
 end
 
-
 step "Enter repo url as <repo_url>" do |repo_url|
   package_repository_page.package_repo_url.set repo_url
 end
@@ -35,7 +37,6 @@ end
 step "Click save - Already on Package Repositories tab" do |_tmp|
   package_repository_page.package_repo_save.click
 end
-
 
 step "Verify repository listing contains <repo_name>" do |repo_name|
   assert_true package_repository_page.package_repo_listed? repo_name

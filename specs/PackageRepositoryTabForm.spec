@@ -17,7 +17,7 @@ tags: package-repository
 * Open Package repositories page
 * Click on add package repository
 * Enter repository name as "repo-1"
-* Select "yum" plugin
+* Select "Yum Plugin" plugin
 * Enter repo url as "file:///tmp/packagerepo/file_repo"
 * Click save - Already on Package Repositories tab
 * Verify repository listing contains "repo-1"

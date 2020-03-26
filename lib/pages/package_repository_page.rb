@@ -20,7 +20,7 @@ module Pages
 
     element :add_package_button, "div[data-test-id='pageActions'] button"
     element :package_repo_name, "input[data-test-id='form-field-input-name']"
-    element :package_repo_url, "input[data-test-id='input-for-URL']"
+    element :package_repo_url, "input[data-test-id='input-for-Repository URL']"
     element :package_repo_username, "input[data-test-id='input-for-User']"
     element :package_repo_password, "input[data-test-id='input-for-Password']"
     element :package_repo_save, "button[data-test-id='button-save']"

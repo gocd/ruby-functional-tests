@@ -19,11 +19,11 @@ step "Open Package repositories page" do |_tmp|
 end
 
 step "Click on add package repository" do
-  package_repository_page.add_package_button.click
+  package_repository_page.add_package_repo_button.click
 end
 
 step "Enter repository name as <repo_name>" do |repo_name|
-  package_repository_page.package_repo_name.set repo_name
+  package_repository_page.name_field.set repo_name
 end
 
 step "Select <plugin_name> plugin" do |plugin_name|
@@ -35,11 +35,15 @@ step "Enter repo url as <repo_url>" do |repo_url|
 end
 
 step "Click save - Already on Package Repositories tab" do |_tmp|
-  package_repository_page.package_repo_save.click
+  package_repository_page.save_button.click
 end
 
 step "Verify repository listing contains <repo_name>" do |repo_name|
   assert_true package_repository_page.package_repo_listed? repo_name
+end
+
+step "Verify repository listing does not contains <repo_name>" do |repo_name|
+  assert_false package_repository_page.package_repo_listed? repo_name
 end
 
 step "Click on <repo_name> in repository listing" do |repo_name|
@@ -69,4 +73,95 @@ end
 
 step "Save package material" do |_tmp|
   package_material_page.package_material_save.click
+end
+
+step "Open Configuration for <pkg_repo>" do |pkg_repo|
+  package_repository_page.open_pkg_repo_configuration(pkg_repo)
+end
+
+step "Open package panel for <pkg_name>" do |pkg_name|
+  package_repository_page.find_package_panel(pkg_name).click
+end
+
+step "Verify that following configurations exist for <pkg_repo> <table>" do |pkg_repo, table|
+  table.rows.each_with_index do |row, index|
+    p "Verify configurations for row #{index + 1}"
+    assert_true package_repository_page.pkg_repo_config(pkg_repo, row['id']).text === row['value']
+  end
+end
+
+step "Verify that following package configurations exist for <pkg_name> <table>" do |pkg_name, table|
+  table.rows.each_with_index do |row, index|
+    p "Verify configurations for row #{index + 1}"
+    assert_true package_repository_page.pkg_config(pkg_name, row['id']).text === row['value']
+  end
+end
+
+step "Click on add package for <pkg_repo>" do |pkg_repo|
+  package_repository_page.button_add_package(pkg_repo).click
+end
+
+step "Set package name as <name> and spec as <spec>" do |name, spec|
+  package_repository_page.name_field.set name
+  package_repository_page.package_spec.set spec
+end
+
+step "Set package name as <name>" do |name|
+  package_repository_page.name_field.set name
+end
+
+step "Set spec as <spec>" do |spec|
+  package_repository_page.package_spec.set spec
+end
+
+step "Verify package <pkg_name> exists" do |pkg_name|
+  assert_true package_repository_page.find_package_panel(pkg_name) != nil
+end
+
+step "Verify package <pkg_name> does not exists" do |pkg_name|
+  assert_false package_repository_page.find_package_panel(pkg_name) != nil
+end
+
+step "Verify message <msg> for package repo spa" do |msg|
+  assert_true package_repository_page.msg.text === msg
+end
+
+step "Clone package repository <pkg_repo>" do |pkg_repo|
+  package_repository_page.clone_pkg_repo(pkg_repo)
+end
+
+step "Edit package repository <pkg_repo>" do |pkg_repo|
+  package_repository_page.edit_pkg_repo(pkg_repo)
+end
+
+step "Delete package repository <pkg_repo>" do |pkg_repo|
+  package_repository_page.delete_pkg_repo(pkg_repo)
+end
+
+step "Confirm delete package repository" do
+  package_repository_page.confirm_delete.click
+end
+
+step "On package repository page: press ok" do
+  package_repository_page.press_ok.click
+end
+
+step "Clone package <pkg_name>" do |pkg_name|
+  package_repository_page.clone_pkg(pkg_name)
+end
+
+step "Edit package <pkg_repo>" do |pkg_name|
+  package_repository_page.edit_pkg(pkg_name)
+end
+
+step "Delete package <pkg_repo>" do |pkg_name|
+  package_repository_page.delete_pkg(pkg_name)
+end
+
+step "Click usages for package <pkg_repo>" do |pkg_name|
+  package_repository_page.show_usages_pkg(pkg_name)
+end
+
+step "Verify message <msg> for usages" do |msg|
+  assert_true package_repository_page.modal_body.text === msg
 end

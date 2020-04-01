@@ -77,8 +77,7 @@ require 'pages/new_environments_page'
 require 'pages/package_repository_page'
 require 'pages/package_material_page'
 require 'pages/new_pipeline_group_page'
-
-
+require 'pages/pluggable_scm_page.rb'
 
 module Helpers
   module SpecHelper
@@ -310,6 +309,10 @@ module Helpers
 
     def package_material_page
       Pages::PackageMaterialPage.new
+    end
+
+    def pluggable_scm_page
+      Pages::PluggableSCMPage.new
     end
 
 

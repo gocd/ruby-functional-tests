@@ -56,6 +56,7 @@ TEST_EXTERNAL_ARTIFACTS_PLUGIN_RELEASE_URL  = ENV['TEST_EXTERNAL_ARTIFACTS_PLUGI
 ANALYTICS_PLUGIN_DOWNLOAD_URL               = ENV['ANALYTICS_PLUGIN_DOWNLOAD_URL']
 LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL      = ENV['LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL']
 FILE_BASED_SECRET_PLUGIN_RELEASE_URL        = ENV['FILE_BASED_SECRET_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd/gocd-file-based-secrets-plugin/releases/17414282'
+GITHUB_PR_PLUGIN_RELEASE_URL        = ENV['GITHUB_PR_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/ashwanthkumar/gocd-build-github-pull-requests/releases/latest'
 
 desc 'cleans all directories'
 task :clean_all do
@@ -167,6 +168,8 @@ namespace :plugins do
     sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-elastic-agents-plugin.jar"
     url = JSON.parse(open(K8S_EA_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
     sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/k8s-elastic-agents.jar"
+    url = JSON.parse(open(GITHUB_PR_PLUGIN_RELEASE_URL).read)['assets'][2]['browser_download_url']
+    sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/github-pr-poller.jar"
   end
 
   desc 'task for preparing anlytics plugin'

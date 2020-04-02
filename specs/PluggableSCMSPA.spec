@@ -25,10 +25,6 @@ tags: pluggable-scm, spa
         | name          | github                    |
         | plugin-id     | github.pr                 |
         | url           | https://github.com/gocd   |
-        | username      | (Not specified)           |
-        | password      | (Not specified)           |
-        | defaultbranch | (Not specified)           |
-        | shallowclone  | (Not specified)           |
 
 ~~~~~~~~~~~~~~~~~~ Clone scm ~~~~~~~~~~~~~~~~~
 

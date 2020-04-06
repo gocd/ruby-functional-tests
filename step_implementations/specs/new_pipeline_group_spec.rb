@@ -19,7 +19,7 @@ step "On pipelines page" do
 end
 
 step "Verify groups <groups> are visible on new page" do |groups|
-  actual = new_pipeline_group_page.all('[data-test-id="pipeline-group-name"]').collect(&:text).sort
+  actual   = new_pipeline_group_page.all('[data-test-id="pipeline-group-name"]').collect(&:text).sort
   expected = groups.split(/[\s,]+/).map(&:strip).sort
   assert_true (expected - actual).empty?, "Assertion failed. Expected: #{expected}, Actual: #{actual}"
 end
@@ -76,7 +76,10 @@ step "Close pipeline group edit modal" do
   new_pipeline_group_page.close_pipeline_group_edit_modal
 end
 
-
 step 'Click on confirm delete pipeline group' do
   new_pipeline_group_page.confirm_delete
+end
+
+step 'Verify error message on admin pipeline page <msg>' do |msg|
+  assert_true new_pipeline_group_page.error_message.text === msg
 end

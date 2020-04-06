@@ -31,6 +31,7 @@ module Pages
     element :email, "input[ng-model='EmailAttribute']"
     element :search_filter, "input[ng-model='UserSearchFilter']"
     element :flash_message, "div[data-test-id^='flash-message']"
+    element :error_message, "div[data-test-id='flash-message-alert']"
 
 
     element :save, "button[data-test-id='button-save']"

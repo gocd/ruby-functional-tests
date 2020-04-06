@@ -33,6 +33,7 @@ module Pages
     element :edit_group_name, "[data-test-id='form-field-input-pipeline-group-name']"
     element :confirm_delete_button, "button[data-test-id='button-delete']"
     element :cancel_button, "button[data-test-id='cancel-button']"
+    element :error_message, "div[data-test-id='flash-message-alert']"
 
     def remove_permission_for_role permission, role
       page.find("#{permission}Privilege_ROLE_#{role}").click if !page.find("#{permission}Privilege_ROLE_#{role}").checked?

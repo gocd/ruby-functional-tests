@@ -95,3 +95,7 @@ end
 step 'Set User Search Filter as <sf>' do |sf|
   authorization_config_page.search_filter.set sf
 end
+
+step 'Verify error message on auth config spa <msg>' do |msg|
+  assert_true authorization_config_page.error_message.text === msg
+end

@@ -20,6 +20,7 @@ module Pages
 
     element :msg, "div[data-test-id='flash-message-success']"
     element :info, "div[data-test-id='flash-message-info']"
+    element :error, "div[data-test-id='flash-message-alert']"
     element :confirm_delete, "button[data-test-id='button-delete']"
     element :press_ok, "button[data-test-id='button-ok']"
     element :add_package_repo_button, "div[data-test-id='pageActions'] button"

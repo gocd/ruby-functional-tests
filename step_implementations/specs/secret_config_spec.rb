@@ -71,3 +71,7 @@ end
 step 'Add new rule with directive <directive>, type <type> and resource <resource>' do |directive, type, resource|
   secret_management_page.add_rule(directive, type, resource)
 end
+
+step 'Verify error message on secret config page <msg>' do |msg|
+  assert_true secret_management_page.error_message.text === msg
+end

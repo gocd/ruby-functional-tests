@@ -19,6 +19,7 @@ module Pages
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/scms"
 
     element :flash_message, "div[data-test-id='flash-message-success']"
+    element :error_message, "div[data-test-id='flash-message-alert']"
     element :confirm_delete, "button[data-test-id='button-delete']"
     element :add_scm_button, "div[data-test-id='pageActions'] button"
 

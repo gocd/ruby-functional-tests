@@ -28,6 +28,7 @@ module Pages
     element :username, "input[ng-model='Username']"
     element :password, "input[ng-model='Password']"
     element :flash_message, "div[data-test-id='flash-message-success']"
+    element :error_message, "div[data-test-id='flash-message-alert']"
     element :confirm_delete, "button[data-test-id='button-delete']"
 
 

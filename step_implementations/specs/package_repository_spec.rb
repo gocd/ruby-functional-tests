@@ -165,3 +165,7 @@ end
 step "Verify message <msg> for usages" do |msg|
   assert_true package_repository_page.modal_body.text === msg
 end
+
+step 'Verify error message on package repo page <msg>' do |msg|
+  assert_true package_repository_page.error.text === msg
+end

@@ -74,3 +74,7 @@ end
 step "Confirm delete scm" do
   pluggable_scm_page.confirm_delete.click
 end
+
+step 'Verify error message on pluggable scm page <msg>' do |msg|
+  assert_true pluggable_scm_page.error_message.text === msg
+end

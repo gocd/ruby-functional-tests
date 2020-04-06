@@ -28,6 +28,7 @@ module Pages
     element :add_rule_button, "button[data-test-id='add-rule-button']"
 
     element :flash_message, "div[data-test-id='flash-message-success']"
+    element :error_message, "div[data-test-id='flash-message-alert']"
     element :confirm_delete, "button[data-test-id='button-delete']"
 
     def click_add

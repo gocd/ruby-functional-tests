@@ -36,7 +36,7 @@ Setup of contexts
 * Open Package repositories page
 * Click on add package repository
 * Enter repository name as "repo-name"
-* Select "Gem plugin" plugin
+* Select "Yum Plugin" plugin
 * Enter repo url as "file:///tmp/packagerepo/file_repo/"
 * Click save - Already on Package Repositories tab
 * Verify error message on package repo page "Server is in maintenance mode, please try later."

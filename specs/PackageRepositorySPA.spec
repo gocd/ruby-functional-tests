@@ -23,7 +23,6 @@ tags: package-repository
 * Verify that following configurations exist for "repo-name"
         | id                        | value                              |
         |---------------------------| -----------------------------------|
-        | key-value-value-name      | repo-name                          |
         | key-value-value-plugin-id | yum                                |
         | key-value-value-repo-url  | file:///tmp/packagerepo/file_repo/ |
 

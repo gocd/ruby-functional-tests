@@ -114,7 +114,8 @@ step "Set spec as <spec>" do |spec|
   package_repository_page.package_spec.set spec
 end
 
-step "Verify package <pkg_name> exists" do |pkg_name|
+step "Verify package <pkg_name> exists for repo <repo_name>" do |pkg_name, repo_name|
+  package_repository_page.toggle_repo_panel(repo_name)
   assert_true package_repository_page.find_package_panel(pkg_name) != nil
 end
 

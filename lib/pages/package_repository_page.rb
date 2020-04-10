@@ -42,6 +42,13 @@ module Pages
       find_collapsible_header(repo_name) != nil
     end
 
+    def toggle_repo_panel repo_name
+      selected_header = find_collapsible_header(repo_name)
+      if selected_header.find(:xpath, '..')['data-test-element-state'] == "collapsed"
+        selected_header.click
+      end
+    end
+
     def edit_package_repo repo_name
       selected_header = find_collapsible_header(repo_name)
 

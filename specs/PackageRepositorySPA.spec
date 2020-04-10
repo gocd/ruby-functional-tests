@@ -56,7 +56,7 @@ tags: package-repository
 * Set spec as "yum-spec"
 * Click save - Already on Package Repositories tab
 * Verify message "The package pkg-name was created successfully!" for package repo spa
-* Verify package "pkg-name" exists
+* Verify package "pkg-name" exists for repo "repo-name"
 * Open package panel for "pkg-name"
 * Verify that following package configurations exist for "pkg-name"
         | id                           | value     |
@@ -72,7 +72,7 @@ tags: package-repository
 * Set spec as "cloned-yum-spec"
 * Click save - Already on Package Repositories tab
 * Verify message "The package clone-pkg was created successfully!" for package repo spa
-* Verify package "clone-pkg" exists
+* Verify package "clone-pkg" exists for repo "repo-name"
 
 ~~~~~~~~~~~~~~~~~~ Edit package ~~~~~~~~~~~~~~~~~~
 
@@ -91,7 +91,7 @@ tags: package-repository
 ~~~~~~~~~~~~~~~~~~ Usages for package ~~~~~~~~~~~~~~~~~~
 
 * Click usages for package "pkg-name"
-* Verify message "No usages for package 'pkg-name' found." for usages
+* Verify message "No usages for scm 'pkg-name' found." for usages
 * On package repository page: press ok
 
 Teardown of contexts

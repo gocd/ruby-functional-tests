@@ -51,8 +51,11 @@ module Pages
     end
 
     def open_pkg_repo_configuration pkg_repo
-      selected_body = find_collapsible_body(pkg_repo)
-      selected_body.find("h5[data-test-id='configuration-details-header']").click
+      selected_header = find_collapsible_header(pkg_repo)
+      selected_header.click
+      selected_header
+          .sibling('div')
+          .find("h5[data-test-id='configuration-details-header']").click
     end
 
     def pkg_repo_config(pkg_repo, id)

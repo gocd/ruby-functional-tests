@@ -78,3 +78,7 @@ end
 step 'Verify error message on pluggable scm page <msg>' do |msg|
   assert_true pluggable_scm_page.error_message.text === msg
 end
+
+step 'Verify connection is successful' do
+  assert_true pluggable_scm_page.is_connection_ok
+end

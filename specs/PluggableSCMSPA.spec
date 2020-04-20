@@ -13,8 +13,9 @@ tags: pluggable-scm, spa
 * Open Pluggable SCM page
 * Click on add scm
 * Enter scm name as "github"
-* Select scm "Github Pull Requests Builder" plugin
-* Enter scm url as "https://github.com/gocd"
+* Select scm "JGit plugin" plugin
+* Enter scm url as "https://github.com/gocd/gocd.git"
+* Verify connection is successful
 * Save scm
 * Verify message "The scm github was created successfully!" for scm spa
 * Verify scm listing contains "github"
@@ -23,7 +24,7 @@ tags: pluggable-scm, spa
         | id            | value                     |
         |------------   | --------------------------|
         | name          | github                    |
-        | plugin-id     | github.pr                 |
+        | plugin-id     | jgit                      |
         | url           | https://github.com/gocd   |
 
 ~~~~~~~~~~~~~~~~~~ Clone scm ~~~~~~~~~~~~~~~~~

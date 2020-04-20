@@ -63,6 +63,11 @@ module Pages
           .click
     end
 
+    def is_connection_ok
+      page.find("button[data-test-id='button-check-connection']").click
+      page.find("div[data-test-id='flash-message-success']") != nil
+    end
+
     private
 
     def find_collapsible_header(name)

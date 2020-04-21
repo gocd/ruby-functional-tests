@@ -2,9 +2,10 @@ PackageRepositorySPA
 ========================
 
 Setup of contexts
+* Setup file based yum repo - setup
 * Package Repository configuration - setup
 * Using pipeline "pipeline_with_yum_repo_package_as_material" - setup
-* Capture go state "PackageRepositoryTabForm" - setup
+* Capture go state "PackageRepositorySPA" - setup
 
 PackageRepositorySPA
 ------------------------
@@ -16,6 +17,7 @@ tags: package-repository
 * Enter repository name as "repo-name"
 * Select "Yum Plugin" plugin
 * Enter repo url as "file:///tmp/packagerepo/file_repo/"
+* Verify connection to package repository is successful
 * Click save - Already on Package Repositories tab
 * Verify message "The package repository repo-name was created successfully!" for package repo spa
 * Verify repository listing contains "repo-name"
@@ -53,7 +55,8 @@ tags: package-repository
 * Open Package repositories page
 * Click on add package for "repo-name"
 * Set package name as "pkg-name"
-* Set spec as "yum-spec"
+* Set spec as "go-agent"
+* Verify connection to package repository is successful
 * Click save - Already on Package Repositories tab
 * Verify message "The package pkg-name was created successfully!" for package repo spa
 * Verify package "pkg-name" exists for repo "repo-name"
@@ -63,7 +66,7 @@ tags: package-repository
         |----------------------------- | ----------|
         | key-value-value-name         | pkg-name  |
         | key-value-value-auto-update  | false     |
-        | key-value-value-package-spec | yum-spec  |
+        | key-value-value-package-spec | go-agent  |
 
 ~~~~~~~~~~~~~~~~~~ Clone package ~~~~~~~~~~~~~~~~~~
 
@@ -96,5 +99,6 @@ tags: package-repository
 
 Teardown of contexts
 ____________________
-* Capture go state "PackageRepositoryTabForm" - teardown
+* Capture go state "PackageRepositorySPA" - teardown
 * Logout - from any page
+* Setup file based yum repo - teardown

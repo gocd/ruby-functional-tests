@@ -140,6 +140,11 @@ module Pages
       end
     end
 
+    def connection_ok
+      page.find("button[data-test-id='button-check-connection']").click
+      msg != nil
+    end
+
     private
 
     def find_collapsible_header(name)

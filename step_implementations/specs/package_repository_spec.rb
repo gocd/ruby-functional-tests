@@ -170,3 +170,7 @@ end
 step 'Verify error message on package repo page <msg>' do |msg|
   assert_true package_repository_page.error.text === msg
 end
+
+step 'Verify connection to package repository is successful' do
+  assert_true package_repository_page.connection_ok
+end

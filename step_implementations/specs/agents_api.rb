@@ -41,7 +41,7 @@ step 'Verify <label_count> instances of <pipeline_name> <stage_name> <job_name> 
   offset = 0
   while (label_count.to_i - offset) > 0
     pipeline_counter = label_count.to_i - offset
-    current_page_size = label_count.to_i - offset > 10 ? 10 : label_count.to_i - offset
+    current_page_size = pipeline_counter > 10 ? 10 : pipeline_counter
     hit_agent_history_API_and_verify_response(scenario_state.self_pipeline, stage_name, status, pipeline_counter, label_count.to_i, offset, current_page_size, job_name)
     offset += 10
   end
@@ -125,18 +125,22 @@ end
 def hit_agent_history_API_and_verify_response(pipeline_name, stage_name, status, _pipeline_counter, count, offset, current_pageSize, job_name)
   agents_with_state('Idle').each do |agent|
     begin
-      api_end_point = "/api/agents/#{agent['uuid']}/job_run_history" + (offset == 0 ? '' : '/' + offset.to_s)
+      api_end_point = "/api/agents/#{agent['uuid']}/job_run_history?page_size=10" + (offset == 0 ? '' : '&offset=' + offset.to_s)
       response      = RestClient.get http_url(api_end_point), {accept: AGENT_JOB_HISTORY_VERSION}.merge(basic_configuration.header)
       response_json = JSON.parse(response.body)
-      assert_true response_json['pagination']['offset'] == offset
-      assert_true response_json['pagination']['total'] == count
-      assert_true response_json['pagination']['page_size'] == 10
-      assert_true response_json['jobs'].size == current_pageSize
+      actual_offset = response_json['pagination']['offset']
+      actual_total  = response_json['pagination']['total']
+      page_size     = response_json['pagination']['page_size']
+      jobs_size     = response_json['jobs'].size
+      assert_true actual_offset == offset, "Expected: #{offset} Actual: #{actual_offset}"
+      assert_true actual_total == count, "Expected: #{count} Actual: #{actual_total}"
+      assert_true page_size == 10
+      assert_true jobs_size == current_pageSize, "Expected: #{current_pageSize} Actual: #{jobs_size}"
       response_json['jobs'].map do |job|
         assert_true job['pipeline_name'] == pipeline_name
         assert_true job['result'] == status
         assert_true job['stage_name'] == stage_name
-        assert_true job['name'] == job_name
+        assert_true job['job_name'] == job_name
         assert_true job['stage_counter'].to_i == 1
       end
     rescue RestClient::ExceptionWithResponse => err

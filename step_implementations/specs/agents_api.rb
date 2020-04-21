@@ -14,6 +14,7 @@
 # limitations under the License.
 ##########################################################################
 
+AGENT_JOB_HISTORY_VERSION = 'application/vnd.go.cd+json'.freeze
 step 'Add environment <env> to any <count> Idle agents - Using Agents API' do |_environment, _count|
   agents_with_state('Idle')[0.._count.to_i - 1].each do |agent|
     begin
@@ -125,7 +126,7 @@ def hit_agent_history_API_and_verify_response(pipeline_name, stage_name, status,
   agents_with_state('Idle').each do |agent|
     begin
       api_end_point = "/api/agents/#{agent['uuid']}/job_run_history" + (offset == 0 ? '' : '/' + offset.to_s)
-      response = RestClient.get http_url(api_end_point), basic_configuration.header
+      response      = RestClient.get http_url(api_end_point), {accept: AGENT_JOB_HISTORY_VERSION}.merge(basic_configuration.header)
       response_json = JSON.parse(response.body)
       assert_true response_json['pagination']['offset'] == offset
       assert_true response_json['pagination']['total'] == count

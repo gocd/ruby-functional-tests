@@ -19,7 +19,9 @@ module Pages
     element :env_variable, '#variables'
     element :parameter, '.popup_form #params'
     element :secure_variable, '#variables_secure'
-    element :task_save, "button[value='SAVE']"
+    element :global_save, 'button[data-test-id="save"]'
+    element :task_save, 'button[data-test-id="save-pipeline-group"]'
+    element :task_cancel, 'button[data-test-id="cancel-button"]'
     element :save_message, '#message_pane > p'
 
     def on_tab(tab_name)
@@ -65,7 +67,7 @@ module Pages
     end
 
     def verify_reset_button_exist?
-        page.has_css?('.reset_button')
+      page.has_css?('.reset_button')
     end
 
     def unpause_pipeline

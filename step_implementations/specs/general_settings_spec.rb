@@ -22,8 +22,16 @@ step 'Add secure environment variable <variable_name> with value <variable_value
   general_settings_page.add_sec_env_variable(variable_name,variable_value)
 end
 
-step 'Save Changes' do
+step 'Save task changes' do
   general_settings_page.task_save.click
+end
+
+step 'Save Changes' do
+  general_settings_page.global_save.click
+end
+
+step 'Close modal' do
+  general_settings_page.task_cancel.click
 end
 
 step 'Verify the message <message> is present' do |message|

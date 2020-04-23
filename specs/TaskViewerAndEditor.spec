@@ -23,9 +23,9 @@ tags: Clicky Admin
 
 Verify Tasks
 * verifyTask
-|Order_no|Task Type         |Run If Conditions |Properties                                                         |On Cancel     |
-|--------|------------------|------------------|-------------------------------------------------------------------|--------------| 
-|3       |Rake              |Failed, Passed    |Build File: RakeFile Target: test deploy Working Directory: pwd    |No            |
+|Order_no|Task Type  |Run If Conditions |Properties                                                           |On Cancel |
+|--------|-----------|------------------|---------------------------------------------------------------------|----------|
+|3       |Rake       |passed, failed    |Build-File: RakeFile, Target: test deploy, Working-Directory: pwd    |No        |
 
 
 

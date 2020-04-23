@@ -15,7 +15,7 @@
 ##########################################################################
 
 module Pages
-  
+
   class PublishArtifactsView < AppBase
 
     elements :external_artifacts_form, '.dirtyform'
@@ -25,11 +25,11 @@ module Pages
     elements :destination, "input[name='job[artifactTypeConfigs][][destination]']"
     elements :external_source, "input[name='job[artifactTypeConfigs][][configuration][Source]']"
     elements :external_destination, "input[name='job[artifactTypeConfigs][][configuration][Destination]']"
-    element  :save_publish_artifacts, "button[value='SAVE']"
-    element  :delete_artifact, "span.delete_artifact"
-    element  :save_status, ".flash>p"
-    element  :single_source, "input[name='job[artifactTypeConfigs][][source]']"
-    element  :single_destination, "input[name='job[artifactTypeConfigs][][destination]']"
+    element :save_publish_artifacts, "button[value='SAVE']"
+    element :delete_artifact, "span.delete_artifact"
+    element :save_status, ".flash>p"
+    element :single_source, "input[data-test-id='artifact-source-']"
+    element :single_destination, "input[data-test-id='artifact-destination-']"
 
     def fill_form(key_value)
       f = key_value.split(':', 2)
@@ -38,44 +38,36 @@ module Pages
 
     def fill_form_with_index(key_value, index)
       f = key_value.split(':', 2)
-      external_artifacts_form[0].find(:xpath, instance_eval(f[0])[index.to_i-1].path).set("#{f[1].strip}")
+      external_artifacts_form[0].find(:xpath, instance_eval(f[0])[index.to_i - 1].path).set("#{f[1].strip}")
     end
 
-    def verify_artifact_exist(pipeline,artifact,stage,job)
-      @artifact_list=[]
-       basic_configuration.get_config_from_server.xpath("//cruise/pipelines/pipeline[@name='#{pipeline}']/stage[@name='#{stage}']/jobs/job[@name='#{job}']/artifacts/artifact").each { 
-        |art|  @artifact_list.push("#{art['type']}:#{art['src']}:#{art['dest']}") 
-        }
-        if @artifact_list.include?(artifact) 
-          return true
-        else 
-          return false
-        end  
-     end
-
-     def verify_source_error_message()
-      if(page.has_css?('.form_error')) 
-      page.find('.artifact_source').ancestor('.field_with_errors').sibling('.form_error').text
+    def verify_artifact_exist(pipeline, artifact, stage, job)
+      @artifact_list = []
+      basic_configuration.get_config_from_server.xpath("//cruise/pipelines/pipeline[@name='#{pipeline}']/stage[@name='#{stage}']/jobs/job[@name='#{job}']/artifacts/artifact").each {
+          |art| @artifact_list.push("#{art['type']}:#{art['src']}:#{art['dest']}")
+      }
+      if @artifact_list.include?(artifact)
+        return true
       else
-        return ""
+        return false
       end
-     end 
+    end
 
-     def verify_destination_error_message()
-      if(page.has_css?('.form_error')) 
-        page.find('.artifact_destination').ancestor('.field_with_errors').sibling('.form_error').text
-        else
-          return ""
-        end
-     end
+    def verify_source_error_message
+      page.find("input[data-test-id^='artifact-source-']")
+          .sibling('span[class*="forms__form-error-text___"]')
+          .text
+    end
 
-     def remove_all_artifacts()
-       if page.has_css?('.delete_artifact') 
-         page.all('.delete_artifact').each { |delete_icon|  
-           delete_icon.click
-          }
-      end
-     end
-     
+    def verify_destination_error_message
+      page.find("input[data-test-id^='artifact-destination-']")
+          .sibling('span[class*="forms__form-error-text___"]')
+          .text
+    end
+
+    def remove_all_artifacts
+      page.all('i[data-test-id="remove-artifact"]').each(&:click)
+    end
+
   end
 end

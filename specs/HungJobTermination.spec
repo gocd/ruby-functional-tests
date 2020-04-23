@@ -27,9 +27,6 @@ tags: Clicky Admin
 * Verify console log contains message "Go cancelled this job as it has not generated any console output for more than 1 minute(s)"
 * Verify there are no warnings
 
-
-
-
 Teardown of contexts
 ____________________
 * Capture go state "HungJobTermination" - teardown

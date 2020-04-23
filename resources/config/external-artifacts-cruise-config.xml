@@ -87,10 +87,6 @@
                     <exec command="sleep" >
                         <arg>10</arg>
                     </exec>
-                    <exec command="/bin/bash" >
-                      <arg>-c</arg>
-                      <arg>env; echo "VAR1=$(echo "CHANGED_${VAR1}" | tr 1 X)"</arg>
-                    </exec>
                     </tasks>
                 </job>
                 </jobs>

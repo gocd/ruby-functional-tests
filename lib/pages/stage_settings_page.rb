@@ -16,7 +16,7 @@
 
 module Pages
   class StageSettingsPage < GeneralSettingsPage
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines{/pipeline_name}/stages{/stage_name}/settings"
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines{/pipeline_name}/edit#!{pipeline_name}{/stage_name}/stage_settings"
 
     element :stage_name, '#stage_name'
     element :permission_user_name, 'input.permissions_user_name'

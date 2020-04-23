@@ -19,7 +19,8 @@ This is to verify that only the agents associated with an evironment are used to
 * Select All agents
 * Add resources "linux"
 
-* On Job settings page of pipeline "environment-pipeline" stage "defaultStage" job "short"
+* 
+On Job settings page of pipeline "environment-pipeline" stage "defaultStage" job "short"
 * Open "Job Settings" tab - On Job settings page
 * set job resources as "linux"
 * Save Changes

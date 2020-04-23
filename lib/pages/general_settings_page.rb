@@ -19,23 +19,26 @@ module Pages
     element :env_variable, '#variables'
     element :parameter, '.popup_form #params'
     element :secure_variable, '#variables_secure'
-    element :task_save, "button[value='SAVE']"
-    element :save_message, '#message_pane > p'
+    element :global_save, 'button[data-test-id="save"]'
+    element :task_save, 'button[data-test-id="save-pipeline-group"]'
+    element :task_cancel, 'button[data-test-id="cancel-button"]'
+    element :save_message, 'div[data-test-id="flash-message-success"]'
+    element :error_message, 'div[data-test-id="flash-message-alert"]'
 
     def on_tab(tab_name)
-      page.find('a', text: tab_name).click
+      page.find('a', text: tab_name.upcase).click
     end
 
     def add_env_variable(variable_name, variable_value)
-      env_variable.find('tbody').find_all('tr').last.find('.environment_variable_name').set(variable_name)
-      env_variable.find('tbody').find_all('tr').last.find('.environment_variable_value').set(variable_value)
-      env_variable.find('a', text: 'Add').click
+      page.find('button[data-test-id="add-plain-text-variables-btn"]').click
+      page.find_all('input[data-test-id="env-var-name"]').last.set(variable_name)
+      page.find_all('input[data-test-id="env-var-value"]').last.set(variable_value)
     end
 
     def add_sec_env_variable(variable_name, variable_value)
-      secure_variable.find('tbody').find_all('tr').last.find('.environment_variable_name').set(variable_name)
-      secure_variable.find('tbody').find_all('tr').last.find('.environment_variable_value').set(variable_value)
-      secure_variable.find('a', text: 'Add').click
+      page.find('button[data-test-id="add-secure-variables-btn"]').click
+      page.find_all('input[data-test-id="secure-env-var-name"]').last.set(variable_name)
+      page.find_all('input[data-test-id="secure-env-var-value"]').last.set(variable_value)
     end
 
     def get_message
@@ -65,7 +68,7 @@ module Pages
     end
 
     def verify_reset_button_exist?
-        page.has_css?('.reset_button')
+      page.has_css?('.reset_button')
     end
 
     def unpause_pipeline

@@ -14,6 +14,8 @@
 # limitations under the License.
 ##########################################################################
 
+PIPELINE_STATUS_VERSION = 'application/vnd.go.cd+json'.freeze
+
 step 'Trigger the pipeline <counter> times - Using API' do |counter|
   (0...counter.to_i).each do |number|
     new_pipeline_dashboard_page.can_operate_using_api?
@@ -57,7 +59,7 @@ end
 step 'Verify <label_count> instances of <pipeline_name> <stage_name> <job_name> <status> - Using Pipeline History API' do |label_count, _pipeline_name, stage_name, _job_name, status|
   offset = 0
   while (label_count.to_i - offset) > 0
-    apiEndPoint = "/api/pipelines/#{scenario_state.self_pipeline}/history" + (offset == 0 ? '' : '/' + offset.to_s)
+    apiEndPoint      = "/api/pipelines/#{scenario_state.self_pipeline}/history" + (offset == 0 ? '' : '/' + offset.to_s)
     pipeline_counter = label_count.to_i - offset
     current_pageSize = label_count.to_i - offset > 10 ? 10 : label_count.to_i - offset
     hit_pipeline_history_API_and_verify_response(scenario_state.self_pipeline, stage_name, status, apiEndPoint, pipeline_counter, label_count.to_i, offset, current_pageSize)
@@ -68,7 +70,7 @@ end
 step 'Verify <label_count> instances of <pipeline_name> <stage_name> <job_name> <status> - Using Stage Api' do |label_count, _pipeline_name, stage_name, _job_name, status|
   offset = 0
   while (label_count.to_i - offset) > 0
-    apiEndPoint = "/api/stages/#{scenario_state.self_pipeline}/#{stage_name}/history" + (offset == 0 ? '' : '/' + offset.to_s)
+    apiEndPoint      = "/api/stages/#{scenario_state.self_pipeline}/#{stage_name}/history" + (offset == 0 ? '' : '/' + offset.to_s)
     pipeline_counter = label_count.to_i - offset
     current_pageSize = label_count.to_i - offset > 10 ? 10 : label_count.to_i - offset
     hit_stage_history_API_and_verify_response(scenario_state.self_pipeline, stage_name, status, apiEndPoint, pipeline_counter, label_count.to_i, offset, current_pageSize)
@@ -79,7 +81,7 @@ end
 step 'Verify <label_count> instances of <pipeline_name> <stage_name> <job_name> <status> - Using Job Api' do |label_count, _pipeline_name, stage_name, job_name, status|
   offset = 0
   while (label_count.to_i - offset) > 0
-    apiEndPoint = "/api/jobs/#{scenario_state.self_pipeline}/#{stage_name}/#{job_name}/history" + (offset == 0 ? '' : '/' + offset.to_s)
+    apiEndPoint      = "/api/jobs/#{scenario_state.self_pipeline}/#{stage_name}/#{job_name}/history" + (offset == 0 ? '' : '/' + offset.to_s)
     pipeline_counter = label_count.to_i - offset
     current_pageSize = label_count.to_i - offset > 10 ? 10 : label_count.to_i - offset
     hit_job_history_API_and_verify_response(scenario_state.self_pipeline, stage_name, status, apiEndPoint, pipeline_counter, label_count.to_i, offset, current_pageSize, job_name)
@@ -94,19 +96,19 @@ end
 
 step 'Verify pipeline is paused with reason <pause_cause> by <paused_by> - Using API' do |pause_cause, user|
   begin
-      response = RestClient.get(http_url("/api/pipelines/#{scenario_state.self_pipeline}/status"), basic_configuration.header)
-      assert_true (JSON.parse(response.body)['pausedCause'] == pause_cause)
-      assert_true (JSON.parse(response.body)['pausedBy'] == user)
-    rescue RestClient::ExceptionWithResponse => err
-      p "Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
-      return err.response.code
-    end
+    response = RestClient.get(http_url("/api/pipelines/#{scenario_state.self_pipeline}/status"), {accept: PIPELINE_STATUS_VERSION}.merge(basic_configuration.header))
+    assert_true (JSON.parse(response.body)['paused_cause'] == pause_cause)
+    assert_true (JSON.parse(response.body)['paused_by'] == user)
+  rescue RestClient::ExceptionWithResponse => err
+    p "Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+    return err.response.code
+  end
 end
 
 step 'Verify pipeline is unpaused - Using API' do
   begin
-    response = RestClient.get(http_url("/api/pipelines/#{scenario_state.self_pipeline}/status"), basic_configuration.header)
-    assert_true(JSON.parse(response.body)['paused'] == false)
+    response = RestClient.get(http_url("/api/pipelines/#{scenario_state.self_pipeline}/status"), {accept: PIPELINE_STATUS_VERSION}.merge(basic_configuration.header))
+    assert_false JSON.parse(response.body)['paused']
   rescue RestClient::ExceptionWithResponse => err
     p "Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
     return err.response.code
@@ -169,11 +171,11 @@ end
 
 def pause_pipeline_using_api(pipeline_name, pause_cause)
   tmp = {
-    pause_cause: pause_cause
+      pause_cause: pause_cause
   }
   begin
     response = RestClient.post http_url("/api/pipelines/#{pipeline_name}/pause"), JSON.generate(tmp),
-                               { content_type: :json, accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
+                               {content_type: :json, accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true'}.merge(basic_configuration.header)
     return response.code
   rescue RestClient::ExceptionWithResponse => err
     p "Pause Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
@@ -183,9 +185,9 @@ end
 
 def unpause_pipeline_using_api(pipeline_name)
   response = RestClient.post http_url("/api/pipelines/#{pipeline_name}/unpause"), {},
-                             { accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
+                             {accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true'}.merge(basic_configuration.header)
   response.code
-  rescue RestClient::ExceptionWithResponse => err
-    p "Unpause Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
-    err.response.code
-  end
+rescue RestClient::ExceptionWithResponse => err
+  p "Unpause Pipeline API call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+  err.response.code
+end

@@ -31,6 +31,7 @@ Setup of contexts
 * Add user "view_user" to the role
 * Save role
 
+* On Admin pipeline page
 * Edit pipeline group "basic"
 * Add role "guest" as view user
 * Add user "user1" as admin user

@@ -60,7 +60,14 @@ module Pages
       new_role_element = page.all("[data-test-id='role-name']", wait: 10).last
       new_role_element.set role
       new_role_element.ancestor("tr").find("[data-test-id='#{permission}-permission']").click unless permission.eql? 'view'
+    end
 
+    def update_role_permission(permission, role)
+      role_input = page.all("[data-test-id='role-name']")
+                       .find {|input| input.value === role}
+      role_input.ancestor("tr")
+          .find("[data-test-id='#{permission}-permission']")
+          .click unless permission.eql? 'view'
     end
 
     def verify_user_permission(permissions, user)

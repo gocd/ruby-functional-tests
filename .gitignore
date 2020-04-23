@@ -8,7 +8,7 @@ vendor/bundle/
 .bundle/config
 .gauge/
 .vscode
-screenshots/*.png
 godata/*
 resources/studios-gcp-gocd-*.json
 /reports/
+/screenshots/

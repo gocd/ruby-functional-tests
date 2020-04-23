@@ -18,9 +18,9 @@ Artifacts Field Validations
 * ArtifactSetAndValidate
  |source |destination |messageForSource                                                                                                                    |messageForDestination                                                                                                                            |saveStatus                   |
  |-------|------------|------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------|
- |#      |../../      |Error when processing params for '#' used in field 'source', # must be followed by a parameter pattern or escaped by another #      |Invalid destination path. Destination path should match the pattern (([.]\\\/)?[.][^. ]+)\|([^. ].+[^. ])\|([^. ][^. ])\|([^. ])                 |Save failed, see errors below|
- |#source|#destination|Error when processing params for '#source' used in field 'source', # must be followed by a parameter pattern or escaped by another #|Error when processing params for '#destination' used in field 'destination', # must be followed by a parameter pattern or escaped by another #   |Save failed, see errors below|
- |##     |##          |                                                                                                                                    |                                                                                                                                                 |Saved successfully.          |
+ |#      |../../      |Error when processing params for '#' used in field 'source', # must be followed by a parameter pattern or escaped by another #.      |Invalid destination path. Destination path should match the pattern (([.]\\\/)?[.][^. ]+)\|([^. ].+[^. ])\|([^. ][^. ])\|([^. ]).                 |ERROR::Error(s): [Validation failed.]. Please correct and resubmit.|
+ |#source|#destination|Error when processing params for '#source' used in field 'source', # must be followed by a parameter pattern or escaped by another #.|Error when processing params for '#destination' used in field 'destination', # must be followed by a parameter pattern or escaped by another #.   |ERROR::Error(s): [Validation failed.]. Please correct and resubmit.|
+ |##     |##          |                                                                                                                                    |                                                                                                                                                 |Saved Successfully          |
 
 
 * On Pipeline settings page of pipeline "edit-pipeline"
@@ -38,8 +38,8 @@ Artifacts Field Validations
 * ArtifactSetAndValidate
      |source   |messageForSource  |destination   |messageForDestination  |saveStatus         |
      |---------|------------------|--------------|-----------------------|-------------------|
-     |#{source}|                  |#{destination}|                       |Saved successfully.|
-     |${source}|                  |${destination}|                       |Saved successfully.|
+     |#{source}|                  |#{destination}|                       |Saved Successfully |
+     |${source}|                  |${destination}|                       |Saved Successfully |
 
 
 Teardown of contexts

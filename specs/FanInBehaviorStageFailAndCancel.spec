@@ -44,7 +44,7 @@ tags: diamond dependency, fanin
 * Open "Tasks" tab - On Job settings page
 * Open task "1"
 * Set command as "crap" - On Job Setting Page
-* Save Changes
+* Save task changes
 
 * On Swift Dashboard Page
 * Looking at pipeline "FS1" - On Swift Dashboard page
@@ -64,7 +64,7 @@ tags: diamond dependency, fanin
 * Open "Tasks" tab - On Job settings page
 * Open task "1"
 * Set command as "sleep" - On Job Setting Page
-* Save Changes
+* Save task changes
 
 * On Swift Dashboard Page
 * Looking at pipeline "FS1" - On Swift Dashboard page

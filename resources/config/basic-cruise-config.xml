@@ -247,7 +247,9 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="sleep" args="300"/>
+                            <exec command="sleep">
+                                <arg>300</arg>
+                            </exec>
                         </tasks>
                     </job>
                 </jobs>
@@ -262,7 +264,9 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="sleep" args="160"/>
+                            <exec command="sleep">
+                                <arg>160</arg>
+                            </exec>
                         </tasks>
                     </job>
                 </jobs>

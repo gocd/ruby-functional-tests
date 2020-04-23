@@ -60,6 +60,10 @@ step "Click on add role permission - add <permission> permission for <role>" do 
   new_pipeline_group_page.add_new_role_permission(permission, role)
 end
 
+step "Update role permission - set <permission> permission for <role>" do |permission, role|
+  new_pipeline_group_page.update_role_permission(permission, role)
+end
+
 step "Verify user permission <permissions> for user <user>" do |permissions, user|
   new_pipeline_group_page.verify_user_permission(permissions, user)
 end
@@ -82,4 +86,16 @@ end
 
 step 'Verify error message on admin pipeline page <msg>' do |msg|
   assert_true new_pipeline_group_page.error_message.text === msg
+end
+
+step "Add role <role> as view user" do |role|
+  new_pipeline_group_page.add_new_role_permission("view", role)
+end
+
+step "Add user <name> as admin user" do |name|
+  new_pipeline_group_page.add_new_user_permission("admin", name)
+end
+
+step "Save pipeline group permissions" do
+  new_pipeline_group_page.click_on_save
 end

@@ -174,20 +174,12 @@ step 'Verify that <pipeline> cannot be moved to group <group>' do |pipeline, _gr
   assert_false admin_pipeline_page.pipeline_moved_to_group_list(scenario_state.get(pipeline)).include? scenario_state.get(pipeline)
 end
 
-step 'Adding <user> as a <type> user for group <group>' do |user, type, group|
-  admin_pipeline_page.add_user_to_group(user, type, group)
-end
-
 step 'Adding <user> as a <type> user' do |user, type|
   admin_pipeline_page.add_user_permissions(user, type)
 end
 
 step 'Update <user> as a <type> user' do |user, type|
   admin_pipeline_page.update_user_permissions(user, type)
-end
-
-step 'Adding <user> as a <type> role for group <group>' do |user, type, group|
-  admin_pipeline_page.add_role_to_group(user, type, group)
 end
 
 step 'Adding <user> as a <type> role' do |user, type|
@@ -309,6 +301,10 @@ end
 
 step 'Edit pipeline group <group> on pipeline page' do |grp|
   admin_pipeline_page.edit_pipeline_group grp
+end
+
+step "Edit pipeline group <group>" do |grp|
+  new_pipeline_group_page.edit_pipeline_group(grp)
 end
 
 step 'Save pipeline group' do

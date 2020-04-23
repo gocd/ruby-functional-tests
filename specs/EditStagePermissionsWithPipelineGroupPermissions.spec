@@ -16,12 +16,12 @@ tags: Clicky Admin
 * Add user "user3" - Using user API
 * Add user "user4" - Using user API
 
-* On User Summary page
+* On Admin page
 * Edit pipeline group "basic"
-* Adding "user3" as a "view" user for group "basic"
-* Adding "viewer" as a "view" role for group "basic"
-* Adding "user4" as a "operate" user for group "basic"
-* Adding "operator" as a "operate" role for group "basic"
+* Click on add user permission - add "view" permission for "user3"
+* Click on add user permission - add "operate" permission for "user4"
+* Update role permission - set "operate" permission for "operator"
+* Click on save pipeline group
 
 * Looking at pipeline "edit-pipeline" - On Swift Dashboard page
 * On Stage settings page of pipeline "edit-pipeline" stage "defaultStage"

@@ -23,8 +23,8 @@ tags: administration, api, group admin
 
 
  Making "notInAnyRoleA" an admin user
-* Adding "notInAnyRoleA" as a "admin" user for group "group-name-to-be-changed"
-
+* Click on add user permission - add "admin" permission for "notInAnyRoleA"
+* Click on save pipeline group
 
 * Logout - from any page
 

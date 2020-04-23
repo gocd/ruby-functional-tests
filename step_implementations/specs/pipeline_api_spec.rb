@@ -58,7 +58,7 @@ end
 step 'Cancel stage <stage> counter <counter> of pipeline <pipeline> instance <instance>' do |stage, counter, pipeline, instance|
   begin
     response = RestClient.post http_url("/api/stages/#{scenario_state.get(pipeline)}/#{instance}/#{stage}/#{counter}/cancel"), '',
-                               {accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' : 'true'}.merge(basic_configuration.header)
+                               {accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true'}.merge(basic_configuration.header)
 
     assert_true response.code == 200
   rescue RestClient::ExceptionWithResponse => err
@@ -69,7 +69,7 @@ end
 step 'Verify can unlock <pipeline>' do |pipeline|
   body = begin
     response = RestClient.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
-                               {content_type: :json, accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' : 'true'}.merge(basic_configuration.header)
+                               {content_type: :json, accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true'}.merge(basic_configuration.header)
   rescue RestClient::ExceptionWithResponse => err
     p err.response.body
   end
@@ -80,7 +80,7 @@ end
 step 'Verify unauthorized to unlock <pipeline>' do |pipeline|
   body = begin
     response = RestClient.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
-                               {content_type: :json, accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' : 'true'}.merge(basic_configuration.header)
+                               {content_type: :json, accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true'}.merge(basic_configuration.header)
   rescue RestClient::ExceptionWithResponse => err
     p err.response.body
   end
@@ -90,7 +90,7 @@ end
 step 'Verify unlocking <pipeline> is not acceptable because <message>' do |pipeline, message|
   body = begin
     response = RestClient.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
-                               {content_type: :json, accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' : 'true'}.merge(basic_configuration.header)
+                               {content_type: :json, accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true'}.merge(basic_configuration.header)
   rescue RestClient::ExceptionWithResponse => err
     p err.response.body
   end
@@ -99,7 +99,7 @@ end
 
 step 'Verify unlocking <pipeline> fails as pipeline is not found' do |pipeline|
   RestClient.post http_url("/api/pipelines/#{pipeline}/unlock"), '',
-                  {content_type: :json, accept: 'application/vnd.go.cd+json', "X-GoCD-Confirm" : 'true'}
+                  {content_type: :json, accept: 'application/vnd.go.cd+json', "X-GoCD-Confirm" => 'true'}
                       .merge(basic_configuration.header) do |response, _request, _result|
     assert_true response.code.eql? 404
   end
@@ -119,7 +119,7 @@ end
 step 'Verify unauthorized to unlock <pipeline> using access token <token_id>' do |pipeline, token_id|
   body = begin
     response = RestClient.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
-                               {content_type: :json, accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' : 'true', Authorization: "Bearer #{scenario_state.get(token_id)}"}
+                               {content_type: :json, accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true', Authorization: "Bearer #{scenario_state.get(token_id)}"}
   rescue RestClient::ExceptionWithResponse => err
     p err.response.body
   end
@@ -129,7 +129,7 @@ end
 step 'Verify can unlock <pipeline> using access token <token_id>' do |pipeline, token_id|
   body = begin
     response = RestClient.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
-                               {content_type: :json, accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' : 'true', Authorization: "Bearer #{scenario_state.get(token_id)}"}
+                               {content_type: :json, accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true', Authorization: "Bearer #{scenario_state.get(token_id)}"}
   rescue RestClient::ExceptionWithResponse => err
     p err.response.body
   end

@@ -224,7 +224,7 @@ step 'Verify pipeline instance <pipeline> is not found' do |pipeline|
 end
 
 step 'Verify shows first instance of <stage> of <pipeline>' do |stage, pipeline|
-  RestClient.get http_url("/api/pipelines/#{scenario_state.get(pipeline)}/stages.xml"), basic_configuration.header do |response|
+  RestClient.get http_url("/api/feed/pipelines/#{scenario_state.get(pipeline)}/stages.xml"), basic_configuration.header do |response|
     assert_true response.body.to_s.include? "#{scenario_state.get(pipeline)}(1) stage #{stage}(1) Passed"
     doc                       = Nokogiri::XML(response)
     pipeline_instance_element = doc.xpath("//xmlns:feed/xmlns:entry/xmlns:title[.=\"#{scenario_state.get(pipeline)}(1) stage #{stage}(1) Passed\"]")
@@ -243,7 +243,7 @@ end
 
 step 'Verify unauthorized to load <pipeline>' do |pipeline|
   RestClient.get http_url(scenario_state.get(scenario_state.get(pipeline))), basic_configuration.header do |response|
-    assert_true response.code.to_i == 403
+    assert_true response.code.to_i == 401, "Expected: 401, Actual: #{response.code}"
   end
 end
 

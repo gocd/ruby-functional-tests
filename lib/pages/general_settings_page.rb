@@ -16,9 +16,6 @@
 
 module Pages
   class GeneralSettingsPage < AppBase
-    element :env_variable, '#variables'
-    element :parameter, '.popup_form #params'
-    element :secure_variable, '#variables_secure'
     element :global_save, 'button[data-test-id="save"]'
     element :task_save, 'button[data-test-id="save-pipeline-group"]'
     element :task_cancel, 'button[data-test-id="cancel-button"]'
@@ -46,20 +43,21 @@ module Pages
     end
 
     def verify_secure_variables_table_row(key)
-      secure_variable.find('tbody').find_all('tr').each do |tr|
-        return tr.find('.environment_variable_name').value == key
-      end
+      page.all('input[data-test-id="secure-env-var-name"]')
+          .find {|element| element.text === key}
     end
 
     def verify_variables_table_row(key, value)
-      env_variable.find('tbody').find_all('tr').each do |tr|
-        return tr.find('.environment_variable_name').value == key && tr.find('.environment_variable_value').value == value
+      page.all('div[data-test-id="environment-variable-wrapper"]').find do |tr|
+        tr.find('input[data-test-id="env-var-name"]').value === key && tr.find('input[data-test-id="env-var-value"]').value === value
       end
     end
 
     def verify_parameters_table_row(key, value)
-      parameter.find('tbody').find_all('tr').each do |tr|
-        return tr.find('.environment_variable_name').value == key && tr.find('.environment_variable_value').value == value
+      page.find('tbody')
+          .find_all('tr')
+          .each do |tr|
+        return tr.find('input[data-test-id^="form-field-input-param-name-"]').value == key && tr.find('input[data-test-id^="form-field-input-param-value-"]').value == value
       end
     end
 
@@ -72,12 +70,15 @@ module Pages
     end
 
     def unpause_pipeline
-      page.find("button[title='Unpause']").click
+      page.find("button[data-test-id='page-header-unpause-btn'").click
     end
 
     def open_tab(tab)
       page.find('a', text: tab).click
     end
 
+    def enable_new_pipeline_config
+      page.find('a.quick_edit_button').click
+    end
   end
 end

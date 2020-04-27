@@ -51,7 +51,7 @@ step 'Verify <job> job is not present' do |job|
   assert_false stage_settings_page.job_present? job
 end
 
-step 'Verify option  <option> is selected' do |option|
+step 'Verify option <option> is selected' do |option|
   assert_true  stage_settings_page.option_is_selected? option
 end
 
@@ -60,7 +60,7 @@ step 'Verify that the message <message> shows up - Already On Edit Stage Page' d
 end
 
 step 'Select <option>' do |option|
-  stage_settings_page.selecct_permission_option(option)
+  stage_settings_page.select_permission_option(option)
 end
 
 step 'Set <user> as user name - On Permission tab' do |user|
@@ -74,6 +74,7 @@ end
 step 'Verify that user <user> is inheritted' do |user|
   assert_true stage_settings_page.inherited_users.include?user
 end
+
 step 'Verify that role <user> is inheritted' do |user|
   assert_true stage_settings_page.inherited_roles.include?user
 end
@@ -153,4 +154,16 @@ end
 
 step 'Set job name as <job> - Already on Add New stage popup' do |job|
   stage_settings_page.job_name_on_stage_popup.set job
+end
+
+step 'Verify error message <message> is shown for stage name' do |message|
+  assert_true stage_settings_page.error_message_for_stage_name === new_pipeline_dashboard_page.sanitize_message(message)
+end
+
+step 'Add new user permission' do
+  stage_settings_page.add_new_user_permission.click
+end
+
+step 'Add new role permission' do
+  stage_settings_page.add_new_role_permission.click
 end

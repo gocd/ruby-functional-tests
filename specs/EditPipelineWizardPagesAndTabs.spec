@@ -23,21 +23,21 @@ tags: Clicky Admin
 * Enter "0 0 22 ? * MON-FRI" for cron time specifier
 * Save Changes
 * Verify "Saved successfully." message is displayed
-* Open tab "Materials" - On Pipeline Creation Page
+* Open "Materials" tab - On Pipeline settings page
 * Verify "Add Material" link is present
 
-* Open tab "Environment Variables" - On Pipeline Creation Page
+* Open "Environment Variables" tab - On Pipeline settings page
 * Verify reset button exists
 * Enter Environment variable name "os" with value "windows"
 * Save Changes
 
-* Open tab "Parameters" - On Pipeline Creation Page
+* Open "Parameters" tab - On Pipeline settings page
 
 * Verify reset button exists
 * Add parameter name "foo" and value "bar"
 * Save Changes
 
-* Open tab "Stages" - On Pipeline Creation Page
+* Open "Stages" tab - On Pipeline settings page
 
 * Verify "defaultStage" has "Manual" trigger option with "1" jobs
 * Add new stage
@@ -48,7 +48,7 @@ tags: Clicky Admin
 * Set command args as "-c\necho 'Hello World!'" - Already on Add New stage popup
 * Save Changes
 
-* Open tab "Stages" - On Pipeline Creation Page
+* Open "Stages" tab - On Pipeline settings page
 * Verify the stages are "defaultStage2"
 
 * On Swift Dashboard Page

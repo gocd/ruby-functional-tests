@@ -124,12 +124,12 @@ module Pages
       page.has_css?('span', text: message)
     end
 
-    def unpos_button_exist?(pipeline)
-      page.has_css?("button#unpause-#{pipeline}")
+    def unpos_button_exist?
+      page.has_css?("button[data-test-id='page-header-unpause-btn']")
     end
 
-    def get_pos_discription
-      page.find('.pause_description.paused_by').text
+    def get_pos_description
+      page.find('div[data-test-id="pipeline-pause-message"]').text
     end
 
     def delete_button_enabled?(pipeline)
@@ -208,10 +208,6 @@ module Pages
       page.find('.sub_tabs_container').find('a', text: tab).click
     end
 
-    def open_template template
-      page.find('a.edit_template', text: template).click
-    end
-
     def click_edit_pipeline pipeline
       page.find("[data-test-id='edit-pipeline-#{pipeline.downcase}']").click
     end
@@ -265,10 +261,6 @@ module Pages
 
     def extractable_disabled_pipeline
       page.find('select#pipeline_pipelineNames').all('option').collect(&:text)
-    end
-
-    def has_template? template
-      page.has_css?('a.edit_template', text: template)
     end
 
     def click_extract_template pipeline

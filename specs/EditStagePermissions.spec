@@ -1,5 +1,3 @@
-
-
 EditStagePermissions
 ====================
 
@@ -21,10 +19,12 @@ tags: Clicky Admin
 * Verify that the message "There is no authorization configured for this stage nor its pipeline group. Only GoCD administrators can operate this stage." shows up - Already On Edit Stage Page
 * Verify that the message "All system administrators and pipeline group administrators can operate on this stage (this cannot be overridden)." shows up - Already On Edit Stage Page
 * Select "Specify locally"
+* Add new user permission
 * Set "admin" as user name - On Permission tab
 * Save Changes
 * Verify that user "admin" is authorized to operate on the stage "defaultStage" of pipeline "pipeline-in-group-with-no-auth"
 * Open "Permissions" tab - On Stage settings page
+* Add new role permission
 * Set "admins" as role name - On Permission tab
 * Save Changes
 * Verify that role "admins" is authorized to operate on the stage "defaultStage" of pipeline "pipeline-in-group-with-no-auth"

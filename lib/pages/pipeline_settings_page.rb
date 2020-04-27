@@ -25,7 +25,7 @@ module Pages
     element :material_dest_directory, "input[name='material[folder]']"
     element :check_connection, "button[value='CHECK CONNECTION']"
     element :cron_timer, 'input#pipeline_timer_timerSpec'
-    element :label_template, 'input#pipeline_labelTemplate'
+    element :label_template, 'input[data-test-id="label-template"]'
     element :material_name, "input[name='material[materialName]']"
     element :stage_name, "input[name='material[pipelineStageName]']"
     element :pipeline_locking, '#pipeline_lockBehavior_lockonfailure'
@@ -137,7 +137,25 @@ module Pages
     end
 
     def select_stage(stage)
-      page.find('.stage_name_link', text: stage).click
+      page.all('div[data-test-id="stages-container"] a')
+          .find {|element| element.text === stage}
+          .click
+    end
+
+    def has_template? template
+      page.find('i[data-test-id="Search-icon"]')
+          .sibling('a', text: template)
+    end
+
+    def open_template(template)
+      page.find('i[data-test-id="Search-icon"]')
+          .sibling('a', text: template)
+          .click
+    end
+
+    def set_auto_scheduling
+      auto_schedule_element = page.find("input[data-test-id='automatic-pipeline-scheduling']")
+      auto_schedule_element.set(true) if auto_schedule_element.checked?
     end
 
   end

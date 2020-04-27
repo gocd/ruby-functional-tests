@@ -55,6 +55,7 @@ step 'Check connectivity should be failed - Already on Git Material Creation Pop
   pipeline_settings_page.check_connection.click
   assert_false pipeline_settings_page.connection_ok?
 end
+
 step 'Select add new material of type <type>' do |type|
   pipeline_settings_page.select_add_new_material type
 end
@@ -155,10 +156,18 @@ step 'Set url <url> for material <material> - On material popup' do |url, materi
   pipeline_settings_page.set_material_url new_pipeline_dashboard_page.sanitize_message(url)
 end
 
-step 'Open tab <tab> - On Pipeline Creation Page' do |tab|
-  pipeline_settings_page.open_tab(tab)
-end
-
 step 'Verify reset button exists' do
   assert_true pipeline_settings_page.verify_reset_button_exist?
+end
+
+step 'Verify pipeline uses template <template>' do |template|
+  assert_not_nil pipeline_settings_page.has_template? template
+end
+
+step 'Open template <template>' do |template|
+  pipeline_settings_page.open_template template
+end
+
+step 'Set auto scheduling' do
+  pipeline_settings_page.set_auto_scheduling
 end

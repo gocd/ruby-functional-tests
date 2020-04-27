@@ -18,7 +18,9 @@ module Pages
   class StageSettingsPage < GeneralSettingsPage
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines{/pipeline_name}/edit#!{pipeline_name}{/stage_name}/stage_settings"
 
-    element :stage_name, '#stage_name'
+    element :stage_name, 'input[data-test-id="stage-name-input"]'
+    element :add_new_user_permission, 'button[data-test-id="add-user-permission-button"]'
+    element :add_new_role_permission, 'button[data-test-id="add-role-permission-button"]'
     element :permission_user_name, 'input.permissions_user_name'
     element :permission_role_name, 'input.permissions_role_name'
 
@@ -61,9 +63,9 @@ module Pages
 
     def option_is_selected?(option)
       if option.eql? 'Inherit from the pipeline group'
-        page.find('input#inherit_permissions').checked?
+        page.find('input[data-test-id="radio-inherit"]').checked?
       else
-        page.find('input#define_permissions').checked?
+        page.find('input[data-test-id="radio-local"]').checked?
       end
     end
 
@@ -71,11 +73,11 @@ module Pages
       page.has_css?('div', text: message)
     end
 
-    def selecct_permission_option(option)
+    def select_permission_option(option)
       if option.eql? 'Inherit from the pipeline group'
-        page.find('input#inherit_permissions').click
+        page.find('input[data-test-id="radio-inherit"]').click
       else
-        page.find('input#define_permissions').click
+        page.find('input[data-test-id="radio-local"]').click
       end
     end
 
@@ -84,13 +86,15 @@ module Pages
     end
 
     def set_permission_user(user)
-      page.all('input.permissions_user_name').each do |input_element|
+      page.find('div[data-test-id="users"]')
+          .all('input[data-test-id="form-field-input-"]').each do |input_element|
         input_element.set user if input_element.value.blank?
       end
     end
 
     def set_permission_role(role)
-      page.all('input.permissions_role_name').each do |input_element|
+      page.find('div[data-test-id="roles"]')
+          .all('input[data-test-id="form-field-input-"]').each do |input_element|
         input_element.set role if input_element.value.blank?
       end
     end
@@ -147,5 +151,10 @@ module Pages
       page.find('#job_task_options').find(:option, task).select_option
     end
 
+    def error_message_for_stage_name
+      stage_name
+          .sibling('span[class*="forms__form-error-text___"]')
+          .text
+    end
   end
 end

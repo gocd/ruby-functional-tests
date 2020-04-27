@@ -393,10 +393,6 @@ module Pages
       page.find("#pipeline_approval_type").set(false)  if page.find("#pipeline_approval_type").checked?
     end
 
-    def set_auto_sceduling
-      page.find("#pipeline_approval_type").set(true)  if page.find("#pipeline_approval_type").checked?
-    end
-
     def auto_sceduling_selected?
       page.find("#pipeline_approval_type").checked?
     end

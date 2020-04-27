@@ -340,10 +340,6 @@ step 'Wait till <seconds> seconds for stage <stage> shows status <status> - On S
   new_pipeline_dashboard_page.wait_for_expected_stage_state scenario_state.self_pipeline, stage, status.downcase, seconds.to_i
 end
 
-step 'Set auto scheduling' do ||
-  new_pipeline_dashboard_page.set_auto_sceduling
-end
-
 step 'Verify auto scheduling is selected' do ||
   assert_true new_pipeline_dashboard_page.auto_sceduling_selected?
 end

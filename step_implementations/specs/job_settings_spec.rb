@@ -27,12 +27,6 @@ step 'Add artifact of type <type>' do |type|
   job_settings_page.add_artifact.click
 end
 
-# step 'Start creating external artifact with values <key_value>' do |key_value|
-#   key_value.split(',').each do |field|
-#     publish_artifacts_view.fill_form(field)
-#   end
-# end
-
 step 'Save external artifact with values <key_value>' do |key_value|
   key_value.split(',').each do |field|
     job_settings_page.fill_external_form(field)
@@ -172,7 +166,7 @@ end
 
 step 'SetEnvironmentVariablesForJob <table>' do |table|
   table.rows.each do |row|
-    parameters_page.set_parameter(row['index'], row['name'], row['value'])
+    job_settings_page.set_parameter(row['index'], row['name'], row['value'])
   end
 end
 
@@ -250,8 +244,7 @@ step 'Select never option' do ||
 end
 
 step 'set job resources as <resources>' do |resources|
-  resources.split(',').each {|resource|
-    job_settings_page.resources_on_popup.set resource}
+  job_settings_page.resources_on_popup.set resources
 end
 
 step 'Verify no tasks exists' do

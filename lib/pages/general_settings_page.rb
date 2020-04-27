@@ -80,5 +80,17 @@ module Pages
     def enable_new_pipeline_config
       page.find('a.quick_edit_button').click
     end
+
+    def set_parameter(index, env_name, env_value)
+      page.find("#params > table:nth-child(1) tr:nth-child(#{index}) td .environment_variable_name").set(env_name)
+      page.find("#params > table:nth-child(1) tr:nth-child(#{index}) td .environment_variable_value").set(env_value)
+      save.click
+    end
+
+    def add_parameter(name, value)
+      params_row = page.find('table[data-test-id="table"] tbody').all('tr').last
+      params_row.find("input[data-test-id^='form-field-input-param-name-']").set name
+      params_row.find("input[data-test-id^='form-field-input-param-value-']").set new_pipeline_dashboard_page.sanitize_message(value)
+    end
   end
 end

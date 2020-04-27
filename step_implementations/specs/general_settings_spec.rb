@@ -61,3 +61,7 @@ end
 step 'Enable pipeline config spa' do
   general_settings_page.enable_new_pipeline_config
 end
+
+step 'Add parameter name <name> and value <value>' do |name, value|
+  general_settings_page.add_parameter(name, value)
+end

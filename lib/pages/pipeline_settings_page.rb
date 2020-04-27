@@ -19,15 +19,15 @@ module Pages
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines{/pipeline_name}/edit#!{pipeline_name}/general"
 
     element :message, '#success'
-    element :add_variables, '#add_variables'
     element :save, "button[value='SAVE']"
     element :material_url_field, "input[name='material[url]']"
     element :material_dest_directory, "input[name='material[folder]']"
-    element :check_connection, "button[value='CHECK CONNECTION']"
+    element :check_connection, "button[data-test-id='test-connection-button']"
     element :cron_timer, 'input#pipeline_timer_timerSpec'
     element :label_template, 'input[data-test-id="label-template"]'
-    element :material_name, "input[name='material[materialName]']"
-    element :stage_name, "input[name='material[pipelineStageName]']"
+    element :material_name, "input[data-test-id='form-field-input-material-name']"
+    element :pipeline_name, "input[data-test-id='form-field-input-upstream-pipeline']"
+    element :stage_name, "select[data-test-id='form-field-input-upstream-stage']"
     element :pipeline_locking, '#pipeline_lockBehavior_lockonfailure'
     element :project_path, "input[name='material[projectPath]']"
 
@@ -52,13 +52,6 @@ module Pages
       stages
     end
 
-    def add_parameter(name, value)
-      params_row = page.find('.params.variables').find('.params').all('tr').last
-      params_row.find("input[name='pipeline[params][][name]']").set name
-      params_row.find("input[name='pipeline[params][][valueForDisplay]']").set new_pipeline_dashboard_page.sanitize_message(value)
-      add_variables.click
-    end
-
     def add_env(name, value)
       env_row = page.find('#variables').all('tr').last
       env_row.find("input[name='pipeline[variables][][name]']").set name
@@ -75,16 +68,17 @@ module Pages
     end
 
     def connection_ok?
-      page.has_css?('.ok_message')
+      page.has_css?('div[class^="test_connection__test-connection-result___"] div[data-test-id="flash-message-success"]')
     end
 
     def set_material_url(url)
-      page.find('.url').set url
+      p "url: #{url}"
+      page.find('input[data-test-id="form-field-input-repository-url"]').set url
     end
 
     def select_add_new_material(type)
-      page.find('.menu_link', text: 'Add Material').click
-      page.find('#new_material_popup ul li a', text: type, exact_text: true).click
+      page.find('button[data-test-id="add-material-button"]').click
+      page.find('select[data-test-id="form-field-input-material-type"]').select type
     end
 
     def delete_material(material_name)
@@ -156,6 +150,17 @@ module Pages
     def set_auto_scheduling
       auto_schedule_element = page.find("input[data-test-id='automatic-pipeline-scheduling']")
       auto_schedule_element.set(true) if auto_schedule_element.checked?
+    end
+
+    def set_material_name(mat_name)
+      page.all('dt')
+          .find {|element| element.text === "Advanced Settings"}
+          .click
+      material_name.set mat_name
+    end
+
+    def save_material
+      page.find('button[data-test-id="button-save"]').click
     end
 
   end

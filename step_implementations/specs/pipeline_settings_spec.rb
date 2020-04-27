@@ -26,10 +26,6 @@ step 'Verify pipeline created successfully' do
   assert_true pipeline_settings_page.partial_message_displayed?('Pipeline successfully created.')
 end
 
-step 'Add parameter name <name> and value <value>' do |name, value|
-  pipeline_settings_page.add_parameter(name, value)
-end
-
 step 'Save Pipeline settings' do
   pipeline_settings_page.save
 end
@@ -89,11 +85,13 @@ step 'Select onlyOnChanges flag to trigger pipeline only on new material' do
 end
 
 step 'Set material name as <pipeline_material>' do |material|
-  pipeline_settings_page.material_name.set material
+  pipeline_settings_page.set_material_name(material)
 end
 
-step 'Set pipeline Stage as <stage_name>' do |stage|
-  pipeline_settings_page.stage_name.set new_pipeline_dashboard_page.sanitize_message(stage)
+step 'Set pipeline and stage as <stage_name>' do |stage|
+  values = new_pipeline_dashboard_page.sanitize_message(stage).split(':')
+  pipeline_settings_page.pipeline_name.set values[0]
+  pipeline_settings_page.stage_name.select values[1]
 end
 
 step 'Verify material <material> is exist with URL <url>' do |material, url|
@@ -170,4 +168,8 @@ end
 
 step 'Set auto scheduling' do
   pipeline_settings_page.set_auto_scheduling
+end
+
+step 'Save material' do
+  pipeline_settings_page.save_material
 end

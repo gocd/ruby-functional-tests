@@ -29,11 +29,11 @@ tags: Clicky Admin
 
 Verify Tasks
 * verifyTask
-|Order_no|Task Type         |Run If Conditions |Properties                                                                |On Cancel     |
-|--------|------------------|------------------|--------------------------------------------------------------------------|--------------| 
-|1       |Ant               |Passed            |Build File: new file name Target: new target Working Directory: blah/pwd|Ant           |
-|2       |Rake              |Passed            |Build File: rakeFile Target: metric-fu Working Directory: boooo         |Rake          |
-|3       |NAnt              |Passed            |Build File: default.build Target: build Working Directory: blahaaa      |NAnt          |
+|Order_no|Task Type |Run If Conditions |Properties                                                                 |On Cancel |
+|--------|----------|------------------|---------------------------------------------------------------------------|----------|
+|1       |Ant       |passed            |Build-File: new file name, Target: new target, Working-Directory: blah/pwd |ant       |
+|2       |Rake      |passed            |Build-File: rakeFile, Target: metric-fu, Working-Directory: boooo          |rake      |
+|3       |NAnt      |passed            |Build-File: default.build, Target: build, Working-Directory: blahaaa       |nant      |
 
 
 Teardown of contexts

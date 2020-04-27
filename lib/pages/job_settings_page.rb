@@ -39,10 +39,10 @@ module Pages
     element :tasks_list, "table.tasks_list_table"
     element :task_build_file, "input[data-test-id='form-field-input-build-file']"
     element :task_commands, 'input[data-test-id="form-field-input-command"]'
-    element :task_cancel, ".close_modalbox_control"
+    element :task_cancel, 'button[data-test-id="cancel-button"]'
     element :job_name, "input[data-test-id='form-field-input-job-name']"
     element :set_never, 'input[data-test-id="radio-never"]'
-    element :resources_on_popup, '#job_resources'
+    element :resources_on_popup, 'input[data-test-id="form-field-input-resources"]'
     element :task_source_file, "input[data-test-id='form-field-input-source']"
     element :is_source_a_file, "input[data-test-id='form-field-input-source-is-a-file-not-a-directory']"
     element :task_dest_dir, "input[data-test-id='form-field-input-destination']"
@@ -129,22 +129,22 @@ module Pages
     end
 
     def click_on_task_by_index(row_count)
-      page.find(".tasks_list_table tr:nth-child(#{row_count.to_i}) td:nth-child(2) a").click
+      page.find("div[data-test-id='tasks-container'] table tr[data-id='#{row_count.to_i - 1}'] td:nth-child(2) a").click
     end
 
     def edit_task_with_on_cancel(build_file, target, working_directory, cancel_task_type, cancel_build_file, cancel_Target, cancel_working_Dir)
-
       task_build_file.set(build_file)
       task_target.set(target)
       task_working_directory.set(working_directory)
       on_cancel_task_check_box.set(true)
-      page.find('option', text: cancel_task_type, exact_text: true).click
-      page.find("input[name='task[onCancelConfig][#{cancel_task_type.downcase}OnCancel][buildFile]']").native.clear
-      page.find("input[name='task[onCancelConfig][#{cancel_task_type.downcase}OnCancel][buildFile]']").set(cancel_build_file)
-      page.find("input[name='task[onCancelConfig][#{cancel_task_type.downcase}OnCancel][target]']").native.clear
-      page.find("input[name='task[onCancelConfig][#{cancel_task_type.downcase}OnCancel][target]']").set(cancel_Target)
-      page.find("input[name='task[onCancelConfig][#{cancel_task_type.downcase}OnCancel][workingDirectory]']").native.clear
-      page.find("input[name='task[onCancelConfig][#{cancel_task_type.downcase}OnCancel][workingDirectory]']").set(cancel_working_Dir)
+      cancel_body = page.find('div[data-test-id="on-cancel-body"]')
+      cancel_body.find('select[data-test-id="form-field-input-"]').select cancel_task_type
+      cancel_body.find("input[data-test-id='form-field-input-build-file']").native.clear
+      cancel_body.find("input[data-test-id='form-field-input-build-file']").set(cancel_build_file)
+      cancel_body.find("input[data-test-id='form-field-input-target']").native.clear
+      cancel_body.find("input[data-test-id='form-field-input-target']").set(cancel_Target)
+      cancel_body.find("input[data-test-id='form-field-input-working-directory']").native.clear
+      cancel_body.find("input[data-test-id='form-field-input-working-directory']").set(cancel_working_Dir)
       general_settings_page.task_save.click
     end
 

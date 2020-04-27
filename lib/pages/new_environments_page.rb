@@ -84,8 +84,8 @@ module Pages
 
     def add_new_secure_environment_variable(name, value)
       add_new_secure_environment_variable_btn.click
-      page.all("[data-test-id='env-var-name']").last.set name
-      page.all("[data-test-id='env-var-value']").last.set value
+      page.all("[data-test-id='secure-env-var-name']").last.set name
+      page.all("[data-test-id='secure-env-var-value']").last.set value
       modal_save.click
     end
 

@@ -18,7 +18,7 @@ tags: Clicky Admin
 * On Stage settings page of pipeline "basic-pipeline-fast" stage "defaultStage"
 * Open "Permissions" tab - On Stage settings page
 * Verify option  "Inherit from the pipeline group" is selected
-* Verify that the message "There are no operate permissions configured for this stage nor its pipeline group. All Go users can operate on this stage." shows up - Already On Edit Stage Page
+* Verify that the message "There is no authorization configured for this stage nor its pipeline group. Only GoCD administrators can operate this stage." shows up - Already On Edit Stage Page
 * Verify that the message "All system administrators and pipeline group administrators can operate on this stage (this cannot be overridden)." shows up - Already On Edit Stage Page
 * Select "Specify locally"
 * Set "admin" as user name - On Permission tab

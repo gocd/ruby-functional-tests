@@ -33,10 +33,13 @@ module Context
 
       cp 'resources/with-java.sh', GoConstants::SERVER_DIR
       mkdir_p "#{GoConstants::SERVER_DIR}/logs"
-      out = File.open("#{GoConstants::SERVER_DIR}/logs/output.log", 'w')
+      log_location = "#{GoConstants::SERVER_DIR}/logs/output.log"
+      out = File.open(log_location, 'w')
       out.sync = true
       chmod 0o755, "#{GoConstants::SERVER_DIR}/with-java.sh"
       prepare_wrapper_conf(GoConstants::GO_SERVER_SYSTEM_PROPERTIES)
+
+      STDERR.puts "Attempting to start GoCD server in: #{GoConstants::SERVER_DIR}. Logs will be in #{log_location}"
       Bundler.with_clean_env do
         process = ChildProcess.build('./with-java.sh', START_COMMAND, 'start')
         process.detach = true
@@ -88,9 +91,13 @@ module Context
     end
 
     def ping_server
-      RestClient.get "#{GoConstants::GO_SERVER_BASE_URL}/about", basic_configuration.header do |response, _request, _result|
-        p "Server ping failed with response code #{response.code} and message #{response.body}" unless response.code == 200
-        return response
+      begin
+        RestClient::Request.execute method: :get, url:  "#{GoConstants::GO_SERVER_BASE_URL}/about", headers: basic_configuration.header, timeout: 10 do |response, _request, _result|
+          p "Server ping failed with response code #{response.code} and message #{response.body}" unless response.code == 200
+          return response
+        end
+      rescue => e
+        STDERR.puts "#{Time.now} Failed while trying to ping GoCD server: #{e}"
       end
     end
 

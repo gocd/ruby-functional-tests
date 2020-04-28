@@ -166,3 +166,15 @@ end
 step 'Add new stage' do
   pipeline_settings_page.add_new_stage.click
 end
+
+step 'Set cron field as <cron> and validate message as <message>' do |cron, message|
+  pipeline_settings_page.cron_timer.set cron
+  general_settings_page.global_save.click
+  values = message.split(':')
+  if values[0] === "Error"
+    actual = general_settings_page.error_message.text
+  else
+    actual = general_settings_page.get_message
+  end
+  assert_true actual.include?(values[1]), "Expected '#{values[1]}' to be a part of '#{actual}'"
+end

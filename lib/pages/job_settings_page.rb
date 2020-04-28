@@ -204,14 +204,6 @@ module Pages
       page.find("tr:nth-child(#{task_no.to_i}) td a").click
     end
 
-    def move_down_task_number number
-      page.find(".task_#{number} .promote_down").click
-    end
-
-    def move_up_task_number number
-      page.find(".task_#{number} .promote_up").click
-    end
-
     def override_job_time_out(time)
       parent = page.find("li[data-test-id='job-timout']")
       parent.find('input[data-test-id="radio-number"]').click

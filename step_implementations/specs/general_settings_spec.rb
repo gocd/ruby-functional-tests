@@ -63,3 +63,11 @@ end
 step 'Add parameter name <name> and value <value>' do |name, value|
   general_settings_page.add_parameter(name, value)
 end
+
+step 'Add more parameter' do
+  general_settings_page.add_parameter_button.click
+end
+
+step 'Confirm discard changes' do
+  general_settings_page.confirm_change.click
+end

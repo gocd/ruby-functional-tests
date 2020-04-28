@@ -146,6 +146,9 @@ module Pages
       page.find('button[data-test-id="button-save"]').click
     end
 
+    def error_message_for_cron
+      error_message_for_field(cron_timer)
+    end
     private
 
     def get_delete_material_icon(material)

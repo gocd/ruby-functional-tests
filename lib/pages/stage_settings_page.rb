@@ -153,9 +153,7 @@ module Pages
     end
 
     def error_message_for_stage_name
-      stage_name
-          .sibling('span[class*="forms__form-error-text___"]')
-          .text
+      error_message_for_field(stage_name)
     end
   end
 end

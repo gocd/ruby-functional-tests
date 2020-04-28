@@ -21,6 +21,8 @@ module Pages
     element :task_cancel, 'button[data-test-id="cancel-button"]'
     element :save_message, 'div[data-test-id="flash-message-success"]'
     element :error_message, 'div[data-test-id="flash-message-alert"]'
+    element :add_parameter_button, 'button[data-test-id="add-param"]'
+    element :confirm_change, 'button[data-test-id="primary-action-button"]'
 
     def on_tab(tab_name)
       page.find('a', text: tab_name.upcase).click

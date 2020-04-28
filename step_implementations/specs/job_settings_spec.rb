@@ -139,7 +139,7 @@ end
 
 step 'ArtifactSetAndValidate <table>' do |table|
   table.rows.each do |row|
-    publish_artifacts_view.remove_all_artifacts()
+    publish_artifacts_view.remove_all_artifacts
     job_settings_page.publish_artifact_type.select "build"
     job_settings_page.add_artifact.click
     publish_artifacts_view.single_source.set(row['source'])
@@ -166,7 +166,8 @@ end
 
 step 'SetEnvironmentVariablesForJob <table>' do |table|
   table.rows.each do |row|
-    job_settings_page.set_parameter(row['index'], row['name'], row['value'])
+    job_settings_page.add_parameter(row['name'], row['value'])
+    general_settings_page.add_parameter_button.click
   end
 end
 

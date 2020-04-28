@@ -26,13 +26,13 @@ tags: diamond dependency, fanin
 * On Swift Dashboard Page
 * Looking at pipeline "parent-right" - On Swift Dashboard page
 * Edit pipeline "parent-right"
-
+* Enable pipeline config spa
 * Open "Materials" tab - On Pipeline settings page
 
 * Select add new material of type "Git"
 * Copy over material url from material url as "material-for-basic-auto-pipeline"
 * Check connectivity should be successful - Already on Git Material Creation Popup
-* Save Changes
+* Save material
 
 * On Swift Dashboard Page
 * Looking at pipeline "basic-auto-pipeline" - On Swift Dashboard page
@@ -46,12 +46,10 @@ tags: diamond dependency, fanin
 * Looking at pipeline "child-down" - On Swift Dashboard page
 * Verify pipeline does not get triggered
 
-
 * Looking at pipeline "parent-right" - On Swift Dashboard page
 * Trigger and wait for stage "defaultStage" is "Passed" with label "2" - On Swift Dashboard page
 * Looking at pipeline "child-down" - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" on pipeline with label "2" and counter "1" - On Swift Dashboard page
-
 
 * Open changes section - On Swift Dashboard page
 * Looking at material of type "Pipeline" named "$parent-left$"
@@ -64,7 +62,7 @@ tags: diamond dependency, fanin
 * On Swift Dashboard Page
 * Looking at pipeline "parent-left" - On Swift Dashboard page
 * Edit pipeline "parent-left"
-
+* Enable pipeline config spa
 * Open "Materials" tab - On Pipeline settings page
 * Delete material with name "git"
 
@@ -80,12 +78,10 @@ tags: diamond dependency, fanin
 * Looking at pipeline "child-down" - On Swift Dashboard page
 * Verify pipeline does not get triggered
 
-
 * Looking at pipeline "parent-left" - On Swift Dashboard page
 * Trigger and wait for stage "defaultStage" is "Passed" with label "3" - On Swift Dashboard page
 * Looking at pipeline "child-down" - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" on pipeline with label "3" and counter "1" - On Swift Dashboard page
-
 
 * Open changes section - On Swift Dashboard page
 * Looking at material of type "Pipeline" named "$parent-left$"

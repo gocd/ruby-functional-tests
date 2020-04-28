@@ -66,7 +66,7 @@ module Pages
     end
 
     def remove_all_artifacts
-      page.all('i[data-test-id="remove-artifact"]').each(&:click)
+      page.all('i[data-test-id="remove-build-artifact"]').each(&:click)
     end
 
   end

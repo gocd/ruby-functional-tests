@@ -19,14 +19,11 @@ tags: diamond dependency, fanin
 * Checkin file "new-file-1" as user "go <go@po.com>" with message "Added new-file 1" - On Swift Dashboard page
 * Remember current version as "git-one-g1"
 
-
-
 * On Swift Dashboard Page
 * Looking at pipeline "FS1" - On Swift Dashboard page
 * Trigger and wait for stage "stage1" is "Passed" with label "1" - On Swift Dashboard page
 * On stage details page "overview" tab for "FS1" label "1" stage name "stage1" counter "1"
 * Trigger stage "stage2-manual" - On stage details page
-
 
 * On Swift Dashboard Page
 * Wait till pipeline completed - On Swift Dashboard page
@@ -38,7 +35,6 @@ tags: diamond dependency, fanin
 * Looking at pipeline "FS3" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "stage1" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
-
 
 * On Job settings page of pipeline "FS1" stage "stage2-manual" job "job2"
 * Open "Tasks" tab - On Job settings page
@@ -58,7 +54,6 @@ tags: diamond dependency, fanin
 
 * Looking at pipeline "FS2" - On Swift Dashboard page
 * Verify pipeline does not get triggered
-
 
 * On Job settings page of pipeline "FS1" stage "stage2-manual" job "job2"
 * Open "Tasks" tab - On Job settings page
@@ -88,7 +83,6 @@ tags: diamond dependency, fanin
 * Verify stage "stage1" is "passed" on pipeline with label "4" - On Swift Dashboard page
 * Open changes section - On Swift Dashboard page
 
-
 * Looking at material of type "Pipeline" named "$FS1$"
 * Verify modification "0" has revision "$FS1$/3/stage1/1" - On Build Cause popup
 * Verify material has not changed - On Build Cause popup
@@ -96,7 +90,6 @@ tags: diamond dependency, fanin
 * Looking at material of type "Pipeline" named "$FS2$"
 * Verify modification "0" has revision "$FS2$/2/stage1/1" - On Build Cause popup
 * Verify material has changed - On Build Cause popup
-
 
 Teardown of contexts
 ____________________

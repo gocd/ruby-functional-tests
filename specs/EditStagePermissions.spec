@@ -15,7 +15,7 @@ tags: Clicky Admin
 * Looking at pipeline "pipeline-in-group-with-no-auth" - On Swift Dashboard page
 * On Stage settings page of pipeline "pipeline-in-group-with-no-auth" stage "defaultStage"
 * Open "Permissions" tab - On Stage settings page
-* Verify option  "Inherit from the pipeline group" is selected
+* Verify option "Inherit from the pipeline group" is selected
 * Verify that the message "There is no authorization configured for this stage nor its pipeline group. Only GoCD administrators can operate this stage." shows up - Already On Edit Stage Page
 * Verify that the message "All system administrators and pipeline group administrators can operate on this stage (this cannot be overridden)." shows up - Already On Edit Stage Page
 * Select "Specify locally"

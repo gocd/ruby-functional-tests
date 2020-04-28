@@ -40,32 +40,30 @@ left [l1(g1), l2(g3), l3(g5), l3(g7)                  V                         
 * Verify pipeline is triggered by "changes" - On Swift Dashboard page
 * Click on history - On Swift Dashboard page
 
-
 * Looking at pipeline with label "1"
 * Verify pipeline is triggered by "changes" - On History page
 
 * On Swift Dashboard Page
 * Looking at pipeline "d-up-left" - On Swift Dashboard page
 * Edit pipeline "d-up-left"
-
+* Enable pipeline config spa
 * Open "Materials" tab - On Pipeline settings page
 
 * Edit material "git-second"
 * Copy over material url from material url as "material-for-basic-auto-pipeline"
 * Check connectivity should be successful - Already on Git Material Creation Popup
-* Save Changes
-
+* Save material
 
 * On Swift Dashboard Page
 * Looking at pipeline "d-up-right" - On Swift Dashboard page
 * Edit pipeline "d-up-right"
+* Enable pipeline config spa
 * Open "Materials" tab - On Pipeline settings page
 * Edit material "git-second"
 
 * Copy over material url from material url as "material-for-basic-auto-pipeline"
 * Check connectivity should be successful - Already on Git Material Creation Popup
-* Save Changes
-
+* Save material
 
 * On Swift Dashboard Page
 * Looking at pipeline "basic-auto-pipeline" - On Swift Dashboard page
@@ -76,7 +74,6 @@ left [l1(g1), l2(g3), l3(g5), l3(g7)                  V                         
 * On Swift Dashboard Page
 * Looking at pipeline "d-up-left" - On Swift Dashboard page
 * Trigger and wait for stage "defaultStage" is "Passed" with label "2" - On Swift Dashboard page
-
 
 * Looking at pipeline "d-down" - On Swift Dashboard page
 * Verify pipeline "d-down" does not trigger and stays at label "1" - On Swift Dashboard page
@@ -94,12 +91,6 @@ left [l1(g1), l2(g3), l3(g5), l3(g7)                  V                         
 * Looking at material of type "Pipeline" named "$d-up-right$"
 * Verify modification "0" has revision "$d-up-right$/2/defaultStage/1" - On Build Cause popup
 * Verify material has changed - On Build Cause popup
-
-
-
-
-
-
 
 
 Teardown of contexts

@@ -159,6 +159,10 @@ step 'Set auto scheduling' do
   pipeline_settings_page.set_auto_scheduling
 end
 
+step 'Unset auto scheduling' do
+  pipeline_settings_page.set_auto_scheduling(false)
+end
+
 step 'Save material' do
   pipeline_settings_page.save_material
 end
@@ -177,4 +181,22 @@ step 'Set cron field as <cron> and validate message as <message>' do |cron, mess
     actual = general_settings_page.get_message
   end
   assert_true actual.include?(values[1]), "Expected '#{values[1]}' to be a part of '#{actual}'"
+end
+
+step 'Verify auto scheduling is selected' do
+  assert_true pipeline_settings_page.auto_scheduling_selected?
+end
+
+step 'Verify auto scheduling is not selected' do
+  assert_false pipeline_settings_page.auto_scheduling_selected?
+end
+
+step 'Verify auto scheduling checkbox is disabled' do
+  assert_true pipeline_settings_page.auto_scheduling_enabled?
+end
+
+step "Select repository <repo_name> and package <pkg_name>" do |repo_name, pkg_name|
+  pipeline_settings_page.select_package_repo.select repo_name
+  pipeline_settings_page.select_package.select pkg_name
+
 end

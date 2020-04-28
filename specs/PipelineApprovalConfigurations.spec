@@ -21,7 +21,7 @@ Automatic pipeline scheduling for general pipelines
 * Save Changes
 * On Stage settings page of pipeline "edit-pipeline" stage "defaultStage"
 
-* Mark stage manual - On new pipeline wizard
+* Mark stage manual - On Stage settings page
 * Save Changes
 
 * On Swift Dashboard Page
@@ -35,11 +35,10 @@ Automatic pipeline scheduling for general pipelines
 
 * Edit template "autoStagePipelineTemplate"
 * Enable pipeline config spa
-* Open "Stages" tab
-
+* Open "Stages" tab - On Pipeline settings page
 * Open stage "defaultStage"
-* Verify auto aproval type is selected
-* Change approval type to "manual"
+* Verify auto approval type is selected
+* Mark stage manual - On Stage settings page
 * Save Changes
 * On Swift Dashboard Page
 * Looking at pipeline "autoFirst" - On Swift Dashboard page

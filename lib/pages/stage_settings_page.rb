@@ -32,9 +32,6 @@ module Pages
     element :command_on_stage_popup, "input[data-test-id='form-field-input-command']"
     element :command_args_on_stage_popup, "textarea[data-test-id='form-field-input-arguments']"
 
-    element :trigger_type_auto, '#auto'
-    element :trigger_type_manual, '#manual'
-
     element :save_job, "button[data-test-id='save-job']"
 
     def job_resources(job)
@@ -98,7 +95,8 @@ module Pages
 
     def inherited_users
       users = []
-      page.all("input[name='stage[operateUsers][][name]']").each do |element|
+      page.find('div[data-test-id="users"]')
+          .all('input[data-test-id="form-field-input-"]').each do |element|
         users.push(element.value) if element.disabled?
       end
       users
@@ -106,7 +104,8 @@ module Pages
 
     def inherited_roles
       roles = []
-      page.all("input[name='stage[operateRoles][][name]']").each do |element|
+      page.find('div[data-test-id="roles"]')
+          .all('input[data-test-id="form-field-input-"]').each do |element|
         roles.push(element.value) if element.disabled?
       end
       roles
@@ -129,7 +128,7 @@ module Pages
     end
 
     def auto_selected?
-      page.find('#auto').checked?
+      page.find('input[data-test-id="approval-checkbox"]', visible: false).checked?
     end
 
     def set_approval_type(type)
@@ -154,6 +153,11 @@ module Pages
 
     def error_message_for_stage_name
       error_message_for_field(stage_name)
+    end
+
+    def set_trigger_type(value)
+      page.find('input[data-test-id="approval-checkbox"]', visible: false)
+          .sibling('label[data-test-id="switch-paddle"]').set(value)
     end
   end
 end

@@ -27,8 +27,8 @@ tags: Clicky Admin
 * On Stage settings page of pipeline "edit-pipeline" stage "defaultStage"
 * Open "Permissions" tab - On Stage settings page
 * Verify option "Inherit from the pipeline group" is selected
-* Verify that user "user4" is inheritted
-* Verify that role "operator" is inheritted
+* Verify that user "user4" is inherited
+* Verify that role "operator" is inherited
 
 Make sure that only users who operate permissions (and not view users) on the pipeline group can be added into stage authorization
 

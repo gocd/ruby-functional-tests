@@ -52,7 +52,7 @@ step 'Verify <job> job is not present' do |job|
 end
 
 step 'Verify option <option> is selected' do |option|
-  assert_true  stage_settings_page.option_is_selected? option
+  assert_true stage_settings_page.option_is_selected? option
 end
 
 step 'Verify that the message <message> shows up - Already On Edit Stage Page' do |message|
@@ -71,16 +71,18 @@ step 'Set <role> as role name - On Permission tab' do |role|
   stage_settings_page.set_permission_role role
 end
 
-step 'Verify that user <user> is inheritted' do |user|
-  assert_true stage_settings_page.inherited_users.include?user
+step 'Verify that user <user> is inherited' do |user|
+  inherited_users = stage_settings_page.inherited_users
+  assert_true inherited_users.include?(user), "Expected '#{user}' to be a part of '#{inherited_users}'"
 end
 
-step 'Verify that role <user> is inheritted' do |user|
-  assert_true stage_settings_page.inherited_roles.include?user
+step 'Verify that role <user> is inherited' do |role|
+  inherited_roles = stage_settings_page.inherited_roles
+  assert_true inherited_roles.include?(role), "Expected '#{role}' to be a part of '#{inherited_roles}'"
 end
 
 step 'Verify that user <user> is already added - On Permission tab' do |user|
-  assert_true stage_settings_page.specified_users.include?user
+  assert_true stage_settings_page.specified_users.include? user
 end
 
 step 'Verify that role <role> is already added - On Permission tab' do |role|
@@ -91,12 +93,8 @@ step 'Verify message <message> shows up - On Permission tab' do |message|
   assert_true stage_settings_page.has_message? message
 end
 
-step 'Verify auto aproval type is selected' do
+step 'Verify auto approval type is selected' do
   assert_true stage_settings_page.auto_selected?
-end
-
-step 'Change approval type to <type>' do |type|
-  stage_settings_page.set_approval_type type
 end
 
 step 'Open tab <tab> - On Template Page' do |_tab|
@@ -119,8 +117,12 @@ step 'Set job name as <job> - Already on Add New Job popup' do |job|
   stage_settings_page.job_name_on_popup.set job
 end
 
-step 'Mark stage manual - On new pipeline wizard' do
-  stage_settings_page.trigger_type_manual.click
+step 'Mark stage manual - On Stage settings page' do
+  stage_settings_page.set_trigger_type(false)
+end
+
+step 'Mark stage success - On Stage settings page' do
+  stage_settings_page.set_trigger_type(true)
 end
 
 step 'Verify <stage> has <type> trigger option with <jobs> jobs' do |stage, type, jobs|

@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2019 ThoughtWorks, Inc.
+# Copyright 2018 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,16 +14,6 @@
 # limitations under the License.
 ##########################################################################
 
-module Pages
-  class PackageMaterialPage < AppBase
-
-    element :package_repo_name, "#repository"
-    element :add_new_package, "#addNew"
-    element :package_material_name, "#material_package_definition_name"
-    element :package_material_spec, "#material_package_definition_configuration_0_configurationValue_value"
-    element :package_material_save, "button[value='SAVE']"
-
-
-
-  end
+step 'On template settings page of template <template_name>' do |template_name|
+  template_settings_page.load(template_name: template_name)
 end

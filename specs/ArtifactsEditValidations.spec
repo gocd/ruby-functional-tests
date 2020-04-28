@@ -31,7 +31,7 @@ Artifacts Field Validations
 |-----|------------------|------------------|
 |    1|source            |source_folder     |
 |    2|destination       |destination_folder|
-
+* Save Changes
 * On Job settings page of pipeline "edit-pipeline" stage "defaultStage" job "defaultJob"
 * Open "Artifacts" tab - On Job settings page
 

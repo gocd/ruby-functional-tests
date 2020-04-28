@@ -37,6 +37,8 @@ module Pages
     element :mingle_mqa, '#pipeline_mingleConfig_mqlCriteria_mql'
 
     element :add_new_stage, 'button[data-test-id="add-stage-button"]'
+    element :select_package_repo, 'select[data-test-id="form-field-input-package-repository"]'
+    element :select_package, 'select[data-test-id="form-field-input-package"]'
 
     def partial_message_displayed?(message)
       page.find('.success').text.include?(message)
@@ -82,11 +84,11 @@ module Pages
     end
 
     def only_on_changes_checkbox_disabled?
-      page.find('input#pipeline_timer_onlyOnChanges').disabled?
+      page.find('input[data-test-id="run-only-on-new-material"]').disabled?
     end
 
     def set_only_on_changes_checkbox
-      page.find('input#pipeline_timer_onlyOnChanges', wait: 10).set(true)
+      page.find('input[data-test-id="run-only-on-new-material"]', wait: 10).set(true)
     end
 
     def url_exist_for_material?(material, url)
@@ -130,9 +132,17 @@ module Pages
           .click
     end
 
-    def set_auto_scheduling
+    def set_auto_scheduling(value = true)
       auto_schedule_element = page.find("input[data-test-id='automatic-pipeline-scheduling']")
-      auto_schedule_element.set(true) if auto_schedule_element.checked?
+      auto_schedule_element.set(value) if auto_schedule_element.checked?
+    end
+
+    def auto_scheduling_selected?
+      page.find("input[data-test-id='automatic-pipeline-scheduling']").checked?
+    end
+
+    def auto_scheduling_enabled?
+      page.find("input[data-test-id='automatic-pipeline-scheduling']").disabled?
     end
 
     def set_material_name(mat_name)
@@ -149,6 +159,7 @@ module Pages
     def error_message_for_cron
       error_message_for_field(cron_timer)
     end
+
     private
 
     def get_delete_material_icon(material)

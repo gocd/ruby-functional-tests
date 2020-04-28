@@ -170,3 +170,8 @@ end
 step 'Verify error message on package repo page <msg>' do |msg|
   assert_true package_repository_page.error.text === msg
 end
+
+step 'Verify connection to package repository is successful with message <msg>' do |msg|
+  connection_ok_msg = package_repository_page.connection_ok_msg
+  assert_true connection_ok_msg.include?(msg), "Expected '#{msg}' to be a part of '#{connection_ok_msg}'"
+end

@@ -10,21 +10,23 @@ PluggableSCMSPA
 
 tags: pluggable-scm, spa
 
+* Create dummy git repo
 * Open Pluggable SCM page
 * Click on add scm
 * Enter scm name as "github"
-* Select scm "Github Pull Requests Builder" plugin
-* Enter scm url as "https://github.com/gocd"
+* Select scm "JGit plugin" plugin
+* Enter scm url as "/tmp/sample.git"
+* Verify connection is successful
 * Save scm
 * Verify message "The scm github was created successfully!" for scm spa
 * Verify scm listing contains "github"
 * Open scm configuration for "github"
 * Verify that following scm configurations exist for "github"
-        | id            | value                     |
-        |------------   | --------------------------|
-        | name          | github                    |
-        | plugin-id     | github.pr                 |
-        | url           | https://github.com/gocd   |
+        | id        | value            |
+        |-----------| -----------------|
+        | name      | github           |
+        | plugin-id | jgit             |
+        | url       | /tmp/sample.git  |
 
 ~~~~~~~~~~~~~~~~~~ Clone scm ~~~~~~~~~~~~~~~~~
 

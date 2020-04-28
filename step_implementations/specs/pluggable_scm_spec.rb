@@ -54,8 +54,8 @@ end
 
 step "Verify that following scm configurations exist for <scm_name> <table>" do |scm_name, table|
   table.rows.each_with_index do |row, index|
-    expected = pluggable_scm_page.scm_config(scm_name, row['id']).text
-    assert_true expected === row['value'], "Assertion failed. Expected: #{expected}, Actual: #{row['value']}"
+    actual = pluggable_scm_page.scm_config(scm_name, row['id']).text
+    assert_true actual === row['value'], "Assertion failed. Expected: #{row['value']}, Actual: #{actual}"
   end
 end
 
@@ -77,4 +77,12 @@ end
 
 step 'Verify error message on pluggable scm page <msg>' do |msg|
   assert_true pluggable_scm_page.error_message.text === msg
+end
+
+step 'Verify connection is successful' do
+  assert_true pluggable_scm_page.is_connection_ok
+end
+
+step 'Create dummy git repo' do
+  Context::GitMaterials.new('/tmp').create_dummy_repo
 end

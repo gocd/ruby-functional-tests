@@ -140,6 +140,17 @@ module Context
       end
     end
 
+    def create_dummy_repo
+      rm_rf(@path) if Dir.exist? @path
+      mkdir_p(@path)
+      cd(@path) do
+        Open3.popen3('git init sample.git') do |_stdin, _stdout, stderr, wait_thr|
+          raise "Initialization of git Material Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
+        end
+      end
+      initial_commit
+    end
+
   end
 
   class SVNMaterials < Materials

@@ -140,9 +140,9 @@ module Pages
       end
     end
 
-    def connection_ok
+    def connection_ok_msg
       page.find("button[data-test-id='button-check-connection']").click
-      msg != nil
+      msg.text
     end
 
     private

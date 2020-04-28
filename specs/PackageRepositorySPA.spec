@@ -17,7 +17,7 @@ tags: package-repository
 * Enter repository name as "repo-name"
 * Select "Yum Plugin" plugin
 * Enter repo url as "file:///tmp/packagerepo/file_repo/"
-* Verify connection to package repository is successful
+* Verify connection to package repository is successful with message "Connection OK"
 * Click save - Already on Package Repositories tab
 * Verify message "The package repository repo-name was created successfully!" for package repo spa
 * Verify repository listing contains "repo-name"
@@ -56,7 +56,7 @@ tags: package-repository
 * Click on add package for "repo-name"
 * Set package name as "pkg-name"
 * Set spec as "go-agent"
-* Verify connection to package repository is successful
+* Verify connection to package repository is successful with message "OK. Found package"
 * Click save - Already on Package Repositories tab
 * Verify message "The package pkg-name was created successfully!" for package repo spa
 * Verify package "pkg-name" exists for repo "repo-name"

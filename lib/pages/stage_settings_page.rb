@@ -24,21 +24,18 @@ module Pages
     element :permission_user_name, 'input.permissions_user_name'
     element :permission_role_name, 'input.permissions_role_name'
 
-    element :add_new, 'a.add_link'
+    element :add_new, 'button[data-test-id="add-jobs-button"]'
 
-    element :job_name_on_popup, '#job_name'
-    element :job_name_on_stage_popup, "input[name='stage[jobs][][name]']"
+    element :job_name_on_popup, 'input[data-test-id="form-field-input-job-name"]'
+    element :task_on_stage_popup, 'select[data-test-id="form-field-input-task-type"]'
 
-    element :command_on_popup, "input[name='job[tasks][exec][command]']"
-    element :resources_on_popup, '#job_resources'
-    element :job_name_popup, "input[name='stage[jobs][][name]']"
-    element :command_on_stage_popup, "input[name='stage[jobs][][tasks][exec][command]']"
-    element :command_args_on_stage_popup, "textarea[name='stage[jobs][][tasks][exec][argListString]']"
+    element :command_on_stage_popup, "input[data-test-id='form-field-input-command']"
+    element :command_args_on_stage_popup, "textarea[data-test-id='form-field-input-arguments']"
 
     element :trigger_type_auto, '#auto'
     element :trigger_type_manual, '#manual'
 
-    element :stage_on_popup, "input[name='stage[name]']"
+    element :save_job, "button[data-test-id='save-job']"
 
     def job_resources(job)
       page.find('td a', text: job).ancestor('tr').find('td:nth-child(2)').text
@@ -53,8 +50,8 @@ module Pages
     end
 
     def delete_job(job)
-      page.find('td a', text: job).ancestor('tr').find('td.remove').find('form span.icon_remove').click
-      page.find("button[value='Proceed']").click
+      page.find("i[data-test-id='#{job.downcase}-delete-icon']").click
+      page.find("button[data-test-id='primary-action-button']").click
     end
 
     def job_present?(job)
@@ -140,15 +137,19 @@ module Pages
     end
 
     def stage_has_approval_type?(stage, type)
-      page.find(".stage_#{stage}").has_css?('.approval_type', text: type)
+      page.all('tbody tr')
+          .find {|element| element.find('a').text === stage}
+          .find("td:nth-child(3)").text === type
     end
 
     def stage_has_jobs?(stage, jobs)
-      page.find(".stage_#{stage}").has_css?('.number_of_jobs', text: jobs)
+      page.all('tbody tr')
+          .find {|element| element.find('a').text === stage}
+          .find("td:nth-child(4)").text === jobs
     end
 
     def add_new_task(task)
-      page.find('#job_task_options').find(:option, task).select_option
+      page.find('select[data-test-id="form-field-input-"]').select task
     end
 
     def error_message_for_stage_name

@@ -42,14 +42,17 @@ tags: Fetch Artifact
 * On Swift Dashboard Page
 * Looking at pipeline "down_pipeline" - On Swift Dashboard page
 * Edit pipeline "parent-left"
-
+* Enable pipeline config spa
 * Open "Materials" tab - On Pipeline settings page
 * Select add new material of type "Pipeline"
-* Set pipeline Stage as "$uppest_pipeline$ [uppest-stage2]"
-* Save Changes
+* Set pipeline and stage as "$uppest_pipeline$:uppest-stage2"
+* Save material
 
 * Verify that material "$uppest_pipeline$" can be deleted
-* Verify that material "$up_pipeline$" can not be deleted
+* Verify that material "$up_pipeline$" can be deleted
+
+* Delete material with name "$up_pipeline$"
+* Verify the error message "Cannot delete the material as it is used in a fetch artifact task" is present
 
 Teardown of contexts
 ____________________

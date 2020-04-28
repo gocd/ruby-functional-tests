@@ -33,8 +33,8 @@ tags:Clicky Admin
 
 * Open "Environment Variables" tab - On Pipeline settings page
 
-* Enter Environment variable name "env_cron_specifier" with value "0 30 10-13 ? * WED-FRI"
-* Enter Environment variable name "env_partial_cron_specifier" with value "0 30 10-13 ? * "
+* Add environment variable "env_cron_specifier" with value "0 30 10-13 ? * WED-FRI"
+* Add environment variable "env_partial_cron_specifier" with value "0 30 10-13 ? * "
 * Save Changes
 
 

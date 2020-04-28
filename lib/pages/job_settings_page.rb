@@ -188,15 +188,16 @@ module Pages
 
     def get_dropdown
       dropdown = []
-      page.all('.ac_results li').each {|list_item|
-        dropdown.push(list_item.text)
-      }
-      return dropdown
+      resources_on_popup
+          .sibling('ul[role="listbox"]')
+          .all('li')
+          .each {|list_item| dropdown.push(list_item.text)}
+      dropdown
     end
 
     def select_resouce_from_dropdown resource
-      page.find('#job_resources').click
-      page.find('.ac_results li', text: resource).click
+      resources_on_popup.click
+      page.find('ul[role="listbox"] li', text: resource).click
     end
 
     def select_task task_no
@@ -222,21 +223,19 @@ module Pages
     end
 
     def error_message_for_working_dir
-      task_working_directory
-          .sibling('span[class*="forms__form-error-text___"]')
-          .text
+      error_message_for_field(task_working_directory)
     end
 
     def error_message_for_job_name
-      job_name
-          .sibling('span[class*="forms__form-error-text___"]')
-          .text
+      error_message_for_field(job_name)
     end
 
     def error_message_for_source
-      task_source_file
-          .sibling('span[class*="forms__form-error-text___"]')
-          .text
+      error_message_for_field(task_source_file)
+    end
+
+    def error_message_for_command
+      error_message_for_field(task_commands)
     end
 
     def fill_external_form(key_value)

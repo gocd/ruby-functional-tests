@@ -35,11 +35,13 @@ step 'Close modal' do
 end
 
 step 'Verify the message <message> is present' do |message|
-  assert_true general_settings_page.get_message.include? message
+  actual = general_settings_page.get_message
+  assert_true actual.include?(message), "Expected '#{message}' to be a part of '#{actual}'"
 end
 
 step 'Verify the error message <message> is present' do |message|
-  assert_true general_settings_page.error_message.text.include? message
+  actual = general_settings_page.error_message.text
+  assert_true actual.include?(message), "Expected '#{message}' to be a part of '#{actual}'"
 end
 
 step 'Verify secure environment variable with name <key> is present' do |key|
@@ -52,10 +54,6 @@ end
 
 step 'Verify parameter with name <key> and value <value> is present' do |key, value|
   general_settings_page.verify_parameters_table_row(key, value)
-end
-
-step 'Verify <link> link is present' do |link|
-  general_settings_page.is_link_exist?(link)
 end
 
 step 'Enable pipeline config spa' do

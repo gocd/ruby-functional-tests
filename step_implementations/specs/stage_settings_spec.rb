@@ -111,16 +111,12 @@ step 'Add task <task> - Already on Add New Job popup' do |task|
   stage_settings_page.add_new_task(task)
 end
 
+step 'Add task <task> - Already on Add New stage popup' do |task|
+  stage_settings_page.task_on_stage_popup.select (task)
+end
+
 step 'Set job name as <job> - Already on Add New Job popup' do |job|
   stage_settings_page.job_name_on_popup.set job
-end
-
-step 'Set command as <command> - Already on Add New Job popup' do |command|
-  stage_settings_page.command_on_popup.set command
-end
-
-step 'Set resources as <windows> - Already on Add New Job popup' do |resource|
-  stage_settings_page.resources_on_popup.set resource
 end
 
 step 'Mark stage manual - On new pipeline wizard' do
@@ -132,28 +128,12 @@ step 'Verify <stage> has <type> trigger option with <jobs> jobs' do |stage, type
   assert_true stage_settings_page.stage_has_jobs? stage, jobs
 end
 
-step 'Add new stage' do
-  stage_settings_page.add_new.click
-end
-
-step 'Set stage as <stage> - On Add new stage pop up' do |stage|
-  stage_settings_page.stage_on_popup.set stage
-end
-
-step 'Add task <task> - Already on Add New stage popup' do |task|
-  stage_settings_page.add_new_task(task)
-end
-
 step 'Set command as <command> - Already on Add New stage popup' do |command|
   stage_settings_page.command_on_stage_popup.set command
 end
 
 step 'Set command args as <args> - Already on Add New stage popup' do |args|
   stage_settings_page.command_args_on_stage_popup.set args
-end
-
-step 'Set job name as <job> - Already on Add New stage popup' do |job|
-  stage_settings_page.job_name_on_stage_popup.set job
 end
 
 step 'Verify error message <message> is shown for stage name' do |message|
@@ -166,4 +146,8 @@ end
 
 step 'Add new role permission' do
   stage_settings_page.add_new_role_permission.click
+end
+
+step 'Save job changes' do
+  stage_settings_page.save_job.click
 end

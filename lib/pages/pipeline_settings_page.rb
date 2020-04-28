@@ -23,7 +23,7 @@ module Pages
     element :material_url_field, "input[name='material[url]']"
     element :material_dest_directory, "input[name='material[folder]']"
     element :check_connection, "button[data-test-id='test-connection-button']"
-    element :cron_timer, 'input#pipeline_timer_timerSpec'
+    element :cron_timer, 'input[data-test-id="cron-timer"]'
     element :label_template, 'input[data-test-id="label-template"]'
     element :material_name, "input[data-test-id='form-field-input-material-name']"
     element :pipeline_name, "input[data-test-id='form-field-input-upstream-pipeline']"
@@ -36,9 +36,7 @@ module Pages
     element :mingle_identifier, '#pipeline_mingleConfig_projectIdentifier'
     element :mingle_mqa, '#pipeline_mingleConfig_mqlCriteria_mql'
 
-    def message_displayed?(message)
-      page.has_css?('.success', text: message, exact_text: true)
-    end
+    element :add_new_stage, 'button[data-test-id="add-stage-button"]'
 
     def partial_message_displayed?(message)
       page.find('.success').text.include?(message)
@@ -46,17 +44,10 @@ module Pages
 
     def get_pipeline_stages
       stages = []
-      page.all('a.stage_name_link').each do |stage|
+      page.all('div[data-test-id="stages-container"] table td:nth-child(2)').each do |stage|
         stages.push(stage.text)
       end
       stages
-    end
-
-    def add_env(name, value)
-      env_row = page.find('#variables').all('tr').last
-      env_row.find("input[name='pipeline[variables][][name]']").set name
-      env_row.find("input[name='pipeline[variables][][valueForDisplay]']").set value
-      page.find('#variables').find('#add_variables').click
     end
 
     def select_material(material_name)
@@ -82,8 +73,8 @@ module Pages
     end
 
     def delete_material(material_name)
-      page.find('.material_name', text: material_name, exact_text: true).ancestor('tr').find('.icon_remove').click
-      page.find("button[value='Proceed']").click
+      get_delete_material_icon(material_name).click
+      page.find("button[data-test-id='primary-action-button']").click
     end
 
     def set_material_blacklist(blacklist)
@@ -103,7 +94,7 @@ module Pages
     end
 
     def can_material_be_deleted?(material)
-      page.find("tbody tr:nth-child(#{page.find('.material_name', text: material, exact_text: true).ancestor('tr').path[-2].to_i})").has_css?('span.delete_parent')
+      get_delete_material_icon(material)['disabled'] === nil
     end
 
     def make_material_auto_update(flag)
@@ -116,14 +107,6 @@ module Pages
 
     def clean_work_dir
       page.find('#stage_cleanWorkingDir').set(true)
-    end
-
-    def can_move_stage?(stage, direction)
-      page.find(".stage_#{stage}").has_css?(".promote_#{direction}")
-    end
-
-    def move_stage(stage, direction)
-      page.find(".stage_#{stage}").find("button[title='Move #{direction.capitalize}']").click
     end
 
     def select_tracking_tool(tool)
@@ -161,6 +144,17 @@ module Pages
 
     def save_material
       page.find('button[data-test-id="button-save"]').click
+    end
+
+    private
+
+    def get_delete_material_icon(material)
+      page.all('a[data-test-id="edit-material-button"]')
+          .find {|element| element.text === material}
+          .ancestor('td') # td element
+          .ancestor('tr') # tr element
+          .find('td:nth-child(4)')
+          .find('i[data-test-id="delete-material-button"]')
     end
 
   end

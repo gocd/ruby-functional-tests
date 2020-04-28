@@ -61,12 +61,8 @@ module Pages
       end
     end
 
-    def is_link_exist?(link)
-      page.has_css?('.menu_link', text: link)
-    end
-
     def verify_reset_button_exist?
-      page.has_css?('.reset_button')
+      page.has_css?('button[data-test-id="cancel"]')
     end
 
     def unpause_pipeline
@@ -91,6 +87,10 @@ module Pages
       params_row = page.find('table[data-test-id="table"] tbody').all('tr').last
       params_row.find("input[data-test-id^='form-field-input-param-name-']").set name
       params_row.find("input[data-test-id^='form-field-input-param-value-']").set new_pipeline_dashboard_page.sanitize_message(value)
+    end
+
+    def error_message_for_field(element)
+      element.sibling('span[class*="forms__form-error-text___"]').text
     end
   end
 end

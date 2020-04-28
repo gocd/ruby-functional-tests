@@ -175,7 +175,16 @@ step 'Check run multiple instance with <instance>' do |instance|
 end
 
 step 'Verify error message <message> is shown - Already On Job Edit Page' do |message|
-  assert_true job_settings_page.error_messages.include? new_pipeline_dashboard_page.sanitize_message(message)
+  values   = message.split(':')
+  expected = new_pipeline_dashboard_page.sanitize_message(values[1])
+  if values[0] === 'Job-Name'
+    actual = job_settings_page.error_message_for_job_name
+  elsif values[0] === 'Command'
+    actual = job_settings_page.error_message_for_command
+  else
+    actual = job_settings_page.error_messages
+  end
+  assert_true actual.include?(expected), "Expected '#{expected}' to be a part of '#{actual}'"
 end
 
 step 'Verify that job is named <job>' do |job|
@@ -298,4 +307,8 @@ end
 
 step "Add a custom tab" do
   job_settings_page.add_custom_tab_button.click
+end
+
+step 'Set command as <command> - Already on Add New Job popup' do |command|
+  job_settings_page.task_commands.set command
 end

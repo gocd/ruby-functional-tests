@@ -104,10 +104,6 @@ step 'Enter pipeline name <pipeline>' do |pipeline|
   admin_pipeline_page.input_new_pipeline_name.set(pipeline)
 end
 
-step 'Verify <message> message is displayed' do |message|
-  assert_true pipeline_settings_page.message_displayed?(message)
-end
-
 step 'Verify pipeline <pipeline> is paused with message <message>' do |pipeline, message|
   assert_true admin_pipeline_page.unpos_button_exist?
   assert_equal message, admin_pipeline_page.get_pos_description

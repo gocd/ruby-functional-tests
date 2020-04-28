@@ -57,7 +57,7 @@ step 'Select add new material of type <type>' do |type|
 end
 
 step 'Delete material with name <material_name>' do |material_name|
-  pipeline_settings_page.delete_material material_name
+  pipeline_settings_page.delete_material new_pipeline_dashboard_page.sanitize_message(material_name)
 end
 
 step 'Enter black list <balcklicst>' do |blacklist|
@@ -98,10 +98,6 @@ step 'Verify material <material> is exist with URL <url>' do |material, url|
   assert_true pipeline_settings_page.url_exist_for_material? material, new_pipeline_dashboard_page.sanitize_message(url)
 end
 
-step 'Enter Environment variable name <name> with value <value>' do |name, value|
-  pipeline_settings_page.add_env(name, value)
-end
-
 step 'Verify that material <material> can be deleted' do |material|
   assert_true pipeline_settings_page.can_material_be_deleted? new_pipeline_dashboard_page.sanitize_message(material)
 end
@@ -123,20 +119,13 @@ step 'Select Clean working directory' do
   pipeline_settings_page.clean_work_dir
 end
 
-step 'Verify cannot move <stage> to <direction>' do |stage, direction|
-  assert_false pipeline_settings_page.can_move_stage? stage, direction
-end
-
-step 'Move stage <stage> to <direction>' do |stage, direction|
-  pipeline_settings_page.move_stage stage, direction
-end
-
 step 'Enter project path as <path>' do |path|
   pipeline_settings_page.project_path.set(path)
 end
 
 step 'Verify the stages are <stages>' do |stages|
   pipeline_stages = pipeline_settings_page.get_pipeline_stages
+  p "stages: #{pipeline_stages}"
   stages.split(',').each do |stage|
     assert_true pipeline_stages.include? stage
   end
@@ -172,4 +161,8 @@ end
 
 step 'Save material' do
   pipeline_settings_page.save_material
+end
+
+step 'Add new stage' do
+  pipeline_settings_page.add_new_stage.click
 end

@@ -45,7 +45,7 @@ Setup of contexts
 * Open Pluggable SCM page
 * Click on add scm
 * Enter scm name as "github"
-* Select scm "Github Pull Requests Builder" plugin
+* Select scm "JGit plugin" plugin
 * Enter scm url as "https://github.com/gocd"
 * Save scm
 * Verify error message on pluggable scm page "Server is in maintenance mode, please try later."

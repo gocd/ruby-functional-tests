@@ -16,146 +16,146 @@
  *************************GO-LICENSE-END******************************* -->
 
 <cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="136">
-    <server commandRepositoryLocation="default" serverId="gauge" tokenGenerationKey="token">
-        <artifacts>
-            <artifactsDir>artifacts</artifactsDir>
-        </artifacts>
-        <security>
-          <authConfigs>
-              <authConfig id="61f10215-9fba-4962-a2f4-d6c8944ade32" pluginId="cd.go.authentication.passwordfile">
-                  <property>
-                      <key>PasswordFilePath</key>
-                      <value>$password_properties</value>
-                  </property>
-              </authConfig>
-          </authConfigs>
-            <roles>
-                <role name="admins">
-                    <users>
-                        <user>admin</user>
-                        <user>pipelineSelectorAdmin</user>
-                    </users>
-                </role>
-                <role name="operator">
-                    <users>
-                        <user>operatorUser</user>
-                    </users>
-                </role>
-                <role name="viewer">
-                    <users>
-                        <user>view</user>
-                        <user>operate</user>
-                    </users>
-                </role>
-                <role name="misc">
-                    <users>
-                        <user>group1View</user>
-                    </users>
-                 </role>
-            </roles>
-            <admins>
-                <role>admins</role>
-            </admins>
-        </security>
-    </server>
-    <config-repos>
-       <config-repo id="config-repo-with-rules" pluginId="json.config.plugin">
-         <git url="material-for-pipeline-git-config-repo" />
-           <rules>
-             <allow action="refer" type="environment">team1-*</allow>
-             <allow action="refer" type="pipeline">team1-*</allow>
-             <allow action="refer" type="pipeline_group">configrepo</allow>
-             <deny action="refer" type="environment">team2-*</deny>
-             <deny action="refer" type="pipeline">team2-*</deny>
-             <deny action="refer" type="pipeline_group">team2-*</deny>
-           </rules>
-       </config-repo>
-        <config-repo id="config-repo-with-rules-on-group" pluginId="json.config.plugin">
-            <git url="material-for-config-repo-with-rules-on-group" />
-           <rules>
-             <deny action="refer" type="pipeline_group">configrepo</deny>
-             <allow action="refer" type="environment">config-repo-*</allow>
-           </rules>
-       </config-repo>
-    </config-repos>
-    <pipelines group="DEV_GROUP">
-      <pipeline name="In-group-DEV">
-        <environmentvariables>
-          <variable name="ENV_KEY">
-            <value>{{SECRET:[DEV][dev-password]}}</value>
-          </variable>
-        </environmentvariables>
-        <materials>
-          <git url="material-for-In-group-DEV" dest="git" materialName="git" autoUpdate="true" />
-        </materials>
-        <stage name="defaultStage">
-          <approval type="manual"/>
-          <jobs>
-            <job name="defaultJob">
-              <tasks>
-                <exec command="/bin/bash">
-                  <arg>-c</arg>
-                  <arg>echo "Using env var : $ENV_KEY"</arg>
-                </exec>
-              </tasks>
-            </job>
-          </jobs>
-        </stage>
-      </pipeline>
-    </pipelines>
-    <pipelines group="TEST_GROUP">
-      <pipeline name="In-group-TEST">
-        <environmentvariables>
-          <variable name="ENV_KEY">
-            <value>{{SECRET:[TEST][test-password]}}</value>
-          </variable>
-        </environmentvariables>
-        <materials>
-          <git url="material-for-In-group-TEST" dest="git" materialName="git" autoUpdate="true" />
-        </materials>
-        <stage name="defaultStage">
-          <approval type="manual"/>
-          <jobs>
-            <job name="defaultJob">
-              <tasks>
-                <exec command="/bin/bash">
-                  <arg>-c</arg>
-                  <arg>echo "Using env var : $ENV_KEY"</arg>
-                </exec>
-              </tasks>
-            </job>
-          </jobs>
-        </stage>
-      </pipeline>
-    </pipelines>
-    <pipelines group="PROD_GROUP">
-      <pipeline name="In-group-PROD">
-        <environmentvariables>
-          <variable name="ENV_KEY">
-            <value>{{SECRET:[PROD][prod-password]}}</value>
-          </variable>
-        </environmentvariables>
-        <materials>
-          <git url="material-for-In-group-PROD" dest="git" materialName="git" autoUpdate="true" />
-        </materials>
-        <stage name="defaultStage">
-          <approval type="manual"/>
-          <jobs>
-            <job name="defaultJob">
-              <tasks>
-                <exec command="/bin/bash">
-                  <arg>-c</arg>
-                  <arg>echo "Using env var : $ENV_KEY"</arg>
-                </exec>
-              </tasks>
-            </job>
-          </jobs>
-        </stage>
-      </pipeline>
+  <server commandRepositoryLocation="default" serverId="gauge" tokenGenerationKey="token">
+    <artifacts>
+      <artifactsDir>artifacts</artifactsDir>
+    </artifacts>
+    <security>
+      <authConfigs>
+        <authConfig id="61f10215-9fba-4962-a2f4-d6c8944ade32" pluginId="cd.go.authentication.passwordfile">
+          <property>
+            <key>PasswordFilePath</key>
+            <value>$password_properties</value>
+          </property>
+        </authConfig>
+      </authConfigs>
+      <roles>
+        <role name="admins">
+          <users>
+            <user>admin</user>
+            <user>pipelineSelectorAdmin</user>
+          </users>
+        </role>
+        <role name="operator">
+          <users>
+            <user>operatorUser</user>
+          </users>
+        </role>
+        <role name="viewer">
+          <users>
+            <user>view</user>
+            <user>operate</user>
+          </users>
+        </role>
+        <role name="misc">
+          <users>
+            <user>group1View</user>
+          </users>
+        </role>
+      </roles>
+      <admins>
+        <role>admins</role>
+      </admins>
+    </security>
+  </server>
+  <config-repos>
+    <config-repo id="config-repo-with-rules" pluginId="json.config.plugin">
+      <git url="material-for-pipeline-git-config-repo" />
+      <rules>
+        <allow action="refer" type="environment">team1-*</allow>
+        <allow action="refer" type="pipeline">team1-*</allow>
+        <allow action="refer" type="pipeline_group">configrepo</allow>
+        <deny action="refer" type="environment">team2-*</deny>
+        <deny action="refer" type="pipeline">team2-*</deny>
+        <deny action="refer" type="pipeline_group">team2-*</deny>
+      </rules>
+    </config-repo>
+    <config-repo id="config-repo-with-rules-on-group" pluginId="json.config.plugin">
+      <git url="material-for-config-repo-with-rules-on-group" />
+      <rules>
+        <deny action="refer" type="pipeline_group">configrepo</deny>
+        <allow action="refer" type="environment">config-repo-*</allow>
+      </rules>
+    </config-repo>
+  </config-repos>
+  <pipelines group="DEV_GROUP">
+    <pipeline name="In-group-DEV">
+      <environmentvariables>
+        <variable name="ENV_KEY">
+          <value>{{SECRET:[DEV][dev-password]}}</value>
+        </variable>
+      </environmentvariables>
+      <materials>
+        <git url="material-for-In-group-DEV" dest="git" materialName="git" autoUpdate="true" />
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="/bin/bash">
+                <arg>-c</arg>
+                <arg>echo "Using env var : $ENV_KEY"</arg>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
+  <pipelines group="TEST_GROUP">
+    <pipeline name="In-group-TEST">
+      <environmentvariables>
+        <variable name="ENV_KEY">
+          <value>{{SECRET:[TEST][test-password]}}</value>
+        </variable>
+      </environmentvariables>
+      <materials>
+        <git url="material-for-In-group-TEST" dest="git" materialName="git" autoUpdate="true" />
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="/bin/bash">
+                <arg>-c</arg>
+                <arg>echo "Using env var : $ENV_KEY"</arg>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
+  <pipelines group="PROD_GROUP">
+    <pipeline name="In-group-PROD">
+      <environmentvariables>
+        <variable name="ENV_KEY">
+          <value>{{SECRET:[PROD][prod-password]}}</value>
+        </variable>
+      </environmentvariables>
+      <materials>
+        <git url="material-for-In-group-PROD" dest="git" materialName="git" autoUpdate="true" />
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="/bin/bash">
+                <arg>-c</arg>
+                <arg>echo "Using env var : $ENV_KEY"</arg>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
 
-    </pipelines>
-    <pipelines group="VSM.Analytics">
-     <authorization>
+  </pipelines>
+  <pipelines group="VSM.Analytics">
+    <authorization>
       <view>
         <user>group1Admin</user>
         <user>view</user>
@@ -164,62 +164,62 @@
       <admins>
         <user>group1Admin</user>
       </admins>
-     </authorization>
+    </authorization>
 
-        <pipeline name="VSM1">
-            <materials>
-                <git url="material-for-pipeline_VSM1" dest="git" materialName="git" autoUpdate="true"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                    <job name="defaultJob">
-                     <tasks>
-                          <exec command="sleep">
-                            <arg>5</arg>
-                            <runif status="passed"/>
-                          </exec>
-                     </tasks>
-                   </job>
-                </jobs>
-            </stage>
-        </pipeline>
-         <pipeline name="VSM2">
-            <materials>
-                 <pipeline pipelineName="VSM1" stageName="defaultStage" materialName="VSM1" />
-            </materials>
-            <stage name="defaultStage">
-                 <jobs>
-                  <job name="defaultJob">
-                     <tasks>
-                          <exec command="sleep">
-                            <arg>5</arg>
-                            <runif status="passed"/>
-                          </exec>
-                     </tasks>
-                 </job>
-                </jobs>
-            </stage>
-       </pipeline>
-      <pipeline name="VSM3">
-       <materials>
-        <pipeline pipelineName="VSM1" stageName="defaultStage" materialName="VSM1" />
-        <git url="material-for-pipeline_VSM3" dest="git" materialName="git" autoUpdate="true"/>
-       </materials>
-       <stage name="defaultStage">
+    <pipeline name="VSM1">
+      <materials>
+        <git url="material-for-pipeline_VSM1" dest="git" materialName="git" autoUpdate="true"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
         <jobs>
           <job name="defaultJob">
-           <tasks>
+            <tasks>
               <exec command="sleep">
-                 <arg>5</arg>
-                 <runif status="passed"/>
+                <arg>5</arg>
+                <runif status="passed"/>
               </exec>
-           </tasks>
+            </tasks>
           </job>
         </jobs>
-       </stage>
-     </pipeline>
-     <pipeline name="VSM4">
+      </stage>
+    </pipeline>
+    <pipeline name="VSM2">
+      <materials>
+        <pipeline pipelineName="VSM1" stageName="defaultStage" materialName="VSM1" />
+      </materials>
+      <stage name="defaultStage">
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="sleep">
+                <arg>5</arg>
+                <runif status="passed"/>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="VSM3">
+      <materials>
+        <pipeline pipelineName="VSM1" stageName="defaultStage" materialName="VSM1" />
+        <git url="material-for-pipeline_VSM3" dest="git" materialName="git" autoUpdate="true"/>
+      </materials>
+      <stage name="defaultStage">
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="sleep">
+                <arg>5</arg>
+                <runif status="passed"/>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="VSM4">
       <materials>
         <pipeline pipelineName="VSM2" stageName="defaultStage" materialName="VSM2" />
         <pipeline pipelineName="VSM3" stageName="defaultStage" materialName="VSM3" />
@@ -229,8 +229,8 @@
           <job name="defaultJob">
             <tasks>
               <exec command="sleep">
-                 <arg>5</arg>
-                 <runif status="passed"/>
+                <arg>5</arg>
+                <runif status="passed"/>
               </exec>
             </tasks>
           </job>
@@ -241,7 +241,7 @@
   <pipelines group="VSM.Analytics.Rerun">
     <pipeline name="Rerun1">
       <materials>
-         <git url="material-for-pipeline_R1" dest="git" materialName="git" autoUpdate="true"/>
+        <git url="material-for-pipeline_R1" dest="git" materialName="git" autoUpdate="true"/>
       </materials>
       <stage name="defaultStage">
         <approval type="manual"/>
@@ -282,9 +282,9 @@
       <stage name="defaultStage">
         <jobs>
           <job name="defaultJob">
-             <tasks>
-                <exec command="rake" args="wait_or_fail" workingdir="git"/>
-             </tasks>
+            <tasks>
+              <exec command="rake" args="wait_or_fail" workingdir="git"/>
+            </tasks>
           </job>
         </jobs>
       </stage>
@@ -308,345 +308,375 @@
       </stage>
     </pipeline>
   </pipelines>
-    <pipelines group="admin-only">
-    <authorization>
-        <admins>
-          <user>admin</user>
-          <user>group1Admin</user>
-        </admins>
-      </authorization>
-      <pipeline name="In-env-PROD">
-        <materials>
-          <git url="material-for-In-env-PROD" dest="git" materialName="git" autoUpdate="true" />
-        </materials>
-        <stage name="defaultStage">
-          <approval type="manual"/>
-          <jobs>
-            <job name="defaultJob">
-              <tasks>
-                <exec command="/bin/bash">
-                  <arg>-c</arg>
-                  <arg>echo "Using environment level var : $ENV_LEVEL_VARIABLE"</arg>
-                </exec>
-              </tasks>
-            </job>
-          </jobs>
-        </stage>
-      </pipeline>
-      <pipeline name="team1-stage-test">
-          <materials>
-              <git url="material-for-team1-prod-test" dest="git" materialName="git" autoUpdate="false"/>
-          </materials>
-          <stage name="defaultStage">
-              <approval type="manual"/>
-              <jobs>
-              <job name="defaultJob">
-                  <tasks>
-                    <exec command="ls"/>
-                  </tasks>
-              </job>
-              </jobs>
-          </stage>
-      </pipeline>
-      <pipeline name="team2-stage-test">
-          <materials>
-              <git url="material-for-team2-prod-test" dest="git" materialName="git" autoUpdate="false"/>
-          </materials>
-          <stage name="defaultStage">
-              <approval type="manual"/>
-              <jobs>
-              <job name="defaultJob">
-                  <tasks>
-                    <exec command="ls"/>
-                  </tasks>
-              </job>
-              </jobs>
-          </stage>
-      </pipeline>
-      <pipeline name="admin-pipeline-api">
-            <materials>
-                <git url="material-for-admin-pipeline-api" dest="git" materialName="git" autoUpdate="false"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                <job name="defaultJob">
-                    <tasks>
-                      <exec command="ls"/>
-                    </tasks>
-                </job>
-                </jobs>
-            </stage>
-        </pipeline>
-        <pipeline name="admin-pipeline" lockBehavior="lockOnFailure">
-            <materials>
-                <git url="material-for-admin-pipeline" dest="git" materialName="git" autoUpdate="false"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                <job name="defaultJob">
-                    <tasks>
-                    <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
-                    </tasks>
-                </job>
-                </jobs>
-            </stage>
-            <stage name="secondStage">
-                <approval type="manual"/>
-                <jobs>
-                <job name="defaultJob">
-                    <tasks>
-                    <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
-                    </tasks>
-                </job>
-                </jobs>
-            </stage>
-            </pipeline>
-    </pipelines>
-    <pipelines group="viewable">
-        <authorization>
-            <view>
-                <role>viewer</role>
-                <role>operator</role>
-            </view>
-            <operate>
-                <user>operate</user>
-                <role>operator</role>
-            </operate>
-        </authorization>
-        <pipeline name="failing-pipeline">
-          <materials>
-            <git url="material-for-failing-pipeline" dest="git" materialName="gitMaterial" autoUpdate="false"/>
-          </materials>
-          <stage name="defaultStage">
-            <approval type="manual"/>
-            <jobs>
-              <job name="defaultJob">
-                <tasks>
-                  <exec command="rake" args="wait_and_fail" workingdir="git"/>
-                </tasks>
-              </job>
-            </jobs>
-          </stage>
-        </pipeline>
-        <pipeline name="viewable-pipeline">
-             <materials>
-                <git url="material-for-viewable-pipeline" dest="git" materialName="git" autoUpdate="false"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                    <job name="defaultJob">
-                     <tasks>
-                          <exec command="sleep">
-                            <arg>5</arg>
-                            <runif status="passed"/>
-                          </exec>
-                     </tasks>
-                   </job>
-                </jobs>
-            </stage>
-        </pipeline>
-
-        <pipeline name="pipeline-with-stage-security">
-            <materials>
-                <hg url="material-for-pipeline-with-stage-security" dest="hg" autoUpdate="false"/>
-            </materials>
-            <stage name="first">
-                <approval type="manual">
-                    <authorization>
-                        <user>operate</user>
-                        <role>operator</role>
-                    </authorization>
-                </approval>
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                            <ant target="run.till.file.exists" workingdir="hg/dev"/>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
-
-        <pipeline name="pipeline-with-auto-stage-security">
-            <materials>
-                <git url="material-for-pipeline-with-stage-security" dest="git" autoUpdate="false"/>
-            </materials>
-            <stage name="first">
-                <approval type="success">
-                    <authorization>
-                        <user>operate</user>
-                        <role>operator</role>
-                    </authorization>
-                </approval>
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                          <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
-                      </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
-
-        <pipeline name="2-stage-viewable">
-            <materials>
-                <git url="material-for-2-stage-viewable-pipeline" dest="git" autoUpdate="false"/>
-            </materials>
-            <stage name="first">
-                <approval type="manual">
-                    <authorization>
-                        <user>operate</user>
-                    </authorization>
-                </approval>
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                            <exec command="ls"/>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-            <stage name="second">
-                <approval type="manual">
-                    <authorization>
-                        <user>admin</user>
-                    </authorization>
-                </approval>
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                            <exec command="ls"/>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
-    </pipelines>
-    <pipelines group="open-to-all">
-        <pipeline name="manual-stages-that-run-till-file-exists">
-            <materials>
-                <git url="material-for-manual-stages-that-run-till-file-exists" dest="git" materialName="gitMaterial" autoUpdate="false"/>
-            </materials>
-            <stage name="firstStage">
-                <approval type="manual"/>
-                <jobs>
-                <job name="defaultJob">
-                    <tasks>
-                    <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
-                    </tasks>
-                </job>
-                </jobs>
-            </stage>
-            <stage name="secondStage">
-                <approval type="manual"/>
-                <jobs>
-                <job name="defaultJob">
-                    <tasks>
-                    <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
-                    </tasks>
-                </job>
-                </jobs>
-            </stage>
-        </pipeline>
-        <pipeline name="basic-pipeline-for-cctray">
-         <materials>
-          <git url="material-for-basic-pipeline-for-cctray" dest="git" autoUpdate="false" materialName="git-material"/>
-         </materials>
-         <stage name="defaultStage">
-            <approval type="manual"/>
-            <jobs>
-              <job name="basic-pipeline-for-cctray-job">
-               <tasks>
-                    <exec command="rake" args="wait_or_fail" workingdir="git"/>
-               </tasks>
-              </job>
-              <job name="passing-job">
-                <tasks>
-                    <exec command="sleep">
-                      <arg>15</arg>
-                      <runif status="passed"/>
-                    </exec>
-                </tasks>
+  <pipelines group="group-with-no-auth">
+    <pipeline name="pipeline-in-group-with-no-auth">
+      <materials>
+        <git url="material-for-pipeline-in-group-with-no-auth" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ls">
+              </exec>
+            </tasks>
           </job>
         </jobs>
       </stage>
     </pipeline>
-    </pipelines>
-    <pipelines group="basic">
-      <authorization>
-        <admins>
-          <user>group1Admin</user>
-        </admins>
-        <operate>
-                <user>operate</user>
-       </operate>
-          <view>
-              <role>viewer</role>
-              <role>operator</role>
-          </view>
-      </authorization>
-           <pipeline name="pipeline-with-elastic-agent-profile">
-            <materials>
-                 <git url="https://github.com/gocd/ruby-functional-tests.git" shallowClone="true" dest="git" materialName="git" autoUpdate="true"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual" />
-                 <jobs>
-                  <job name="defaultJob">
-                     <tasks>
-                          <exec command="ls">
-                          </exec>
-                     </tasks>
-                 </job>
-                </jobs>
-            </stage>
-       </pipeline>
-        <pipeline name="pipeline-with-elastic-agent-profile-1">
-            <materials>
-                <git url="https://github.com/gocd/ruby-functional-tests.git" shallowClone="true" dest="git" materialName="git" autoUpdate="true"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual" />
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                            <exec command="/bin/bash">
-                                <arg>-c</arg>
-                                <arg>echo CLUSTER_NAME=$CLUSTER_NAME</arg>
-                                <runif status="passed"/>
-                            </exec>
-                            <exec command="sleep">
-                                <arg>30</arg>
-                                <runif status="passed"/>
-                            </exec>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
-        <pipeline name="pipeline-with-elastic-agent-profile-2">
-            <materials>
-                <git url="https://github.com/gocd/ruby-functional-tests.git" shallowClone="true" dest="git" materialName="git" autoUpdate="true"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual" />
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                            <exec command="/bin/bash">
-                                <arg>-c</arg>
-                                <arg>echo CLUSTER_NAME=$CLUSTER_NAME</arg>
-                                <runif status="passed"/>
-                            </exec>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
-     <pipeline name="downstream-pipeline">
+  </pipelines>
+
+  <pipelines group="admin-only">
+    <authorization>
+      <admins>
+        <user>admin</user>
+        <user>group1Admin</user>
+      </admins>
+    </authorization>
+    <pipeline name="In-env-PROD">
+      <materials>
+        <git url="material-for-In-env-PROD" dest="git" materialName="git" autoUpdate="true" />
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="/bin/bash">
+                <arg>-c</arg>
+                <arg>echo "Using environment level var : $ENV_LEVEL_VARIABLE"</arg>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="team1-stage-test">
+      <materials>
+        <git url="material-for-team1-prod-test" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ls"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="team2-stage-test">
+      <materials>
+        <git url="material-for-team2-prod-test" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ls"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="admin-pipeline-api">
+      <materials>
+        <git url="material-for-admin-pipeline-api" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ls"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="admin-pipeline" lockBehavior="lockOnFailure">
+      <materials>
+        <git url="material-for-admin-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="secondStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
+  <pipelines group="viewable">
+    <authorization>
+      <view>
+        <role>viewer</role>
+        <role>operator</role>
+      </view>
+      <operate>
+        <user>operate</user>
+        <role>operator</role>
+      </operate>
+    </authorization>
+    <pipeline name="failing-pipeline">
+      <materials>
+        <git url="material-for-failing-pipeline" dest="git" materialName="gitMaterial" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="rake" args="wait_and_fail" workingdir="git"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="viewable-pipeline">
+      <materials>
+        <git url="material-for-viewable-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="sleep">
+                <arg>5</arg>
+                <runif status="passed"/>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+
+    <pipeline name="pipeline-with-stage-security">
+      <materials>
+        <hg url="material-for-pipeline-with-stage-security" dest="hg" autoUpdate="false"/>
+      </materials>
+      <stage name="first">
+        <approval type="manual">
+          <authorization>
+            <user>operate</user>
+            <role>operator</role>
+          </authorization>
+        </approval>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <ant target="run.till.file.exists" workingdir="hg/dev"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+
+    <pipeline name="pipeline-with-auto-stage-security">
+      <materials>
+        <git url="material-for-pipeline-with-stage-security" dest="git" autoUpdate="false"/>
+      </materials>
+      <stage name="first">
+        <approval type="success">
+          <authorization>
+            <user>operate</user>
+            <role>operator</role>
+          </authorization>
+        </approval>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+
+    <pipeline name="2-stage-viewable">
+      <materials>
+        <git url="material-for-2-stage-viewable-pipeline" dest="git" autoUpdate="false"/>
+      </materials>
+      <stage name="first">
+        <approval type="manual">
+          <authorization>
+            <user>operate</user>
+          </authorization>
+        </approval>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ls"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="second">
+        <approval type="manual">
+          <authorization>
+            <user>admin</user>
+          </authorization>
+        </approval>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ls"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
+  <pipelines group="open-to-all">
+    <authorization>
+      <operate>
+        <role>viewer</role>
+        <role>operator</role>
+      </operate>
+      <view>
+        <role>viewer</role>
+        <role>operator</role>
+      </view>
+    </authorization>
+
+    <pipeline name="manual-stages-that-run-till-file-exists">
+      <materials>
+        <git url="material-for-manual-stages-that-run-till-file-exists" dest="git" materialName="gitMaterial" autoUpdate="false"/>
+      </materials>
+      <stage name="firstStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="secondStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="basic-pipeline-for-cctray">
+      <materials>
+        <git url="material-for-basic-pipeline-for-cctray" dest="git" autoUpdate="false" materialName="git-material"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="basic-pipeline-for-cctray-job">
+            <tasks>
+              <exec command="rake" args="wait_or_fail" workingdir="git"/>
+            </tasks>
+          </job>
+          <job name="passing-job">
+            <tasks>
+              <exec command="sleep">
+                <arg>15</arg>
+                <runif status="passed"/>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
+  <pipelines group="basic">
+    <authorization>
+      <admins>
+        <user>group1Admin</user>
+      </admins>
+      <operate>
+        <user>operate</user>
+      </operate>
+      <view>
+        <role>viewer</role>
+        <role>operator</role>
+      </view>
+    </authorization>
+    <pipeline name="pipeline-with-elastic-agent-profile">
+      <materials>
+        <git url="https://github.com/gocd/ruby-functional-tests.git" shallowClone="true" dest="git" materialName="git" autoUpdate="true"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual" />
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ls">
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="pipeline-with-elastic-agent-profile-1">
+      <materials>
+        <git url="https://github.com/gocd/ruby-functional-tests.git" shallowClone="true" dest="git" materialName="git" autoUpdate="true"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual" />
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="/bin/bash">
+                <arg>-c</arg>
+                <arg>echo CLUSTER_NAME=$CLUSTER_NAME</arg>
+                <runif status="passed"/>
+              </exec>
+              <exec command="sleep">
+                <arg>30</arg>
+                <runif status="passed"/>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="pipeline-with-elastic-agent-profile-2">
+      <materials>
+        <git url="https://github.com/gocd/ruby-functional-tests.git" shallowClone="true" dest="git" materialName="git" autoUpdate="true"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual" />
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="/bin/bash">
+                <arg>-c</arg>
+                <arg>echo CLUSTER_NAME=$CLUSTER_NAME</arg>
+                <runif status="passed"/>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="downstream-pipeline">
       <materials>
         <pipeline pipelineName="basic-pipeline-fast" stageName="defaultStage"/>
         <git url="material-for-downstream-pipeline" dest="git" materialName="downstream_git_material">
@@ -666,7 +696,7 @@
         </jobs>
       </stage>
     </pipeline>
-      <pipeline name="pipeline-artifacts">
+    <pipeline name="pipeline-artifacts">
       <materials>
         <git url="material-for-pipeline-artifacts" materialName="junit-pipeline-artifacts" autoUpdate="false"/>
       </materials>
@@ -708,141 +738,152 @@
         </jobs>
       </stage>
     </pipeline>
-        <pipeline name="basic-pipeline-with-git-material">
-            <materials>
-                <git url="material-for-basic-pipeline-with-git-material" dest="git" materialName="git" autoUpdate="false"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                            <exec command="sleep">
-                                <arg>5</arg>
-                                <runif status="passed"/>
-                            </exec>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
+    <pipeline name="basic-pipeline-with-git-material">
+      <materials>
+        <git url="material-for-basic-pipeline-with-git-material" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="sleep">
+                <arg>5</arg>
+                <runif status="passed"/>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
 
-        <pipeline name="P1">
-            <materials>
-                <git url="material-for-analytics" dest="git" materialName="git" autoUpdate="false"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                <job name="defaultJob">
-                    <tasks>
-                        <exec command="rake" args="wait_or_fail" workingdir="git"/>
-                    </tasks>
-                    <resources>
-                        <resource>R1</resource>
-                    </resources>
+    <pipeline name="P1">
+      <materials>
+        <git url="material-for-analytics" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="rake" args="wait_or_fail" workingdir="git"/>
+            </tasks>
+            <resources>
+              <resource>R1</resource>
+            </resources>
 
-                </job>
-                </jobs>
-            </stage>
-            </pipeline>
-        <pipeline name="P2">
-            <materials>
-                <git url="material-for-analytics" dest="git" materialName="git" autoUpdate="false"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                <job name="defaultJob">
-                    <tasks>
-                    <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
-                    </tasks>
-                    <resources>
-                        <resource>R2</resource>
-                    </resources>
-                </job>
-                </jobs>
-            </stage>
-            </pipeline>
-        <pipeline name="basic-pipeline-with-all-materials">
-          <materials>
-           <hg url="http://Non-existing-material" dest="hg" materialName="hg" autoUpdate="false"/>
-           <svn url="http://Non-existing-material" dest="svn" materialName="svn" autoUpdate="false"/>
-           <git url="http://Non-existing-material" dest="git" materialName="git" autoUpdate="false"/>
-           <p4 port="http://nonexisting:6578" useTickets="true" dest="p4" materialName="p4" autoUpdate="false">
-           <view>//depot/... //p4test_1/...</view>
-            <filter>
-             <ignore pattern="*.ignore"/>
-            </filter>
-           </p4>
-          </materials>
-          <stage name="defaultStage">
-           <jobs>
-            <job name="defaultJob">
-             <tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="P2">
+      <materials>
+        <git url="material-for-analytics" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+            </tasks>
+            <resources>
+              <resource>R2</resource>
+            </resources>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="basic-pipeline-with-all-materials">
+      <materials>
+        <hg url="http://Non-existing-material" dest="hg" materialName="hg" autoUpdate="false"/>
+        <svn url="http://Non-existing-material" dest="svn" materialName="svn" autoUpdate="false"/>
+        <git url="http://Non-existing-material" dest="git" materialName="git" autoUpdate="false"/>
+        <p4 port="http://nonexisting:6578" useTickets="true" dest="p4" materialName="p4" autoUpdate="false">
+          <view>//depot/... //p4test_1/...</view>
+          <filter>
+            <ignore pattern="*.ignore"/>
+          </filter>
+        </p4>
+      </materials>
+      <stage name="defaultStage">
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
               <exec command="sleep" args="15"/>
-             </tasks>
-           </job>
-           </jobs>
-          </stage>
-         </pipeline>
-         <pipeline name="pipeline-with-3-stages" lockBehavior="lockOnFailure">
-            <materials>
-                 <git url="material-for-pipeline-with-3-stages" dest="git" autoUpdate="false" />
-             </materials>
-            <stage name="first">
-                 <approval type="manual" />
-             <jobs>
-                  <job name="defaultJob">
-                      <tasks>
-                          <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
-                      </tasks>
-                  </job>
-             </jobs>
-            </stage>
-            <stage name="second">
-             <approval type="manual" />
-             <jobs>
-               <job name="defaultJob">
-                <tasks>
-                     <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
-                </tasks>
-                </job>
-             </jobs>
-            </stage>
-            <stage name="third">
-             <approval type="manual" />
-              <jobs>
-                 <job name="defaultJob">
-                  <tasks>
-                     <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
-                  </tasks>
-                 </job>
-              </jobs>
-          </stage>
-       </pipeline>
-       <pipeline name="edit-pipeline">
-            <materials>
-                <git url="material-for-edit-pipeline" dest="git" materialName="git" autoUpdate="false"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                           <exec command="sleep">
-                                <arg>10</arg>
-                                <runif status="passed"/>
-                            </exec>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="pipeline-with-3-stages" lockBehavior="lockOnFailure">
+      <materials>
+        <git url="material-for-pipeline-with-3-stages" dest="git" autoUpdate="false" />
+      </materials>
+      <stage name="first">
+        <approval type="manual" />
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="second">
+        <approval type="manual" />
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="third">
+        <approval type="manual" />
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="edit-pipeline">
+      <materials>
+        <git url="material-for-edit-pipeline" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="sleep">
+                <arg>10</arg>
+                <runif status="passed"/>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
 
-    </pipelines>
-    <pipelines group="lock-pipelines">
-     <pipeline name="pipeline-2-manual-stages-that-run-till-file-exists" lockBehavior="lockOnFailure">
+  <pipelines group="lock-pipelines">
+    <authorization>
+      <operate>
+        <role>viewer</role>
+        <role>operator</role>
+      </operate>
+      <view>
+        <role>viewer</role>
+        <role>operator</role>
+      </view>
+    </authorization>
+
+    <pipeline name="pipeline-2-manual-stages-that-run-till-file-exists" lockBehavior="lockOnFailure">
       <materials>
         <git url="material-for-pipeline-2-manual-stages-that-run-till-file-exists" dest="git" autoUpdate="false" materialName="gitMaterial"/>
       </materials>
@@ -861,21 +902,21 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-                  <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+              <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
             </tasks>
           </job>
         </jobs>
       </stage>
     </pipeline>
-     <pipeline name="pipeline-with-environment-variables">
-         <environmentvariables>
-          <variable name="PIPELINE_LEVEL_VARIABLE"><value>pipeline</value></variable>
-          <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_PIPELINE"><value>pipeline-overrides-env</value></variable>
-          <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE"><value>does-not-matter</value></variable>
-         <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>does-not-matter</value></variable>
-         <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
-         <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
-        </environmentvariables>
+    <pipeline name="pipeline-with-environment-variables">
+      <environmentvariables>
+        <variable name="PIPELINE_LEVEL_VARIABLE"><value>pipeline</value></variable>
+        <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_PIPELINE"><value>pipeline-overrides-env</value></variable>
+        <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE"><value>does-not-matter</value></variable>
+        <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>does-not-matter</value></variable>
+        <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
+        <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
+      </environmentvariables>
       <materials>
         <git url="material-for-environment-variables" dest="git" materialName="env-var-material" autoUpdate="false"/>
       </materials>
@@ -898,11 +939,11 @@
               <variable name="JOB_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
             </environmentvariables>
             <tasks>
-                <exec command="sleep">
-                    <arg>5</arg>
-                    <runif status="passed"/>
-                </exec>
-           </tasks>
+              <exec command="sleep">
+                <arg>5</arg>
+                <runif status="passed"/>
+              </exec>
+            </tasks>
           </job>
           <job name="another-job">
             <environmentvariables>
@@ -933,81 +974,81 @@
       </stage>
     </pipeline>
 
-        <pipeline name="downstream-pipeline-api">
-         <materials>
-           <pipeline pipelineName="basic-pipeline-fast-api" stageName="defaultStage"/>
-          <git url="material-for-downstream-pipeline" dest="git" materialName="downstream_git_material">
-           <filter>
+    <pipeline name="downstream-pipeline-api">
+      <materials>
+        <pipeline pipelineName="basic-pipeline-fast-api" stageName="defaultStage"/>
+        <git url="material-for-downstream-pipeline" dest="git" materialName="downstream_git_material">
+          <filter>
             <ignore pattern="**/*"/>
-           </filter>
-           </git>
-         </materials>
-         <stage name="defaultStage">
-           <approval type="manual"/>
-           <jobs>
-            <job name="defaultJob">
-             <tasks>
+          </filter>
+        </git>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
               <exec command="ls"/>
-             </tasks>
-            </job>
-           </jobs>
-          </stage>
-         </pipeline>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
 
-         <pipeline name="run.till.file.exists-api">
-            <materials>
-                <git url="material-for-run.till.file.exists-api" dest="git" autoUpdate="false" materialName="git.material"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                            <exec command="sleep">
-                            <arg>40</arg>
-                            <runif status="passed"/>
-                            </exec>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
+    <pipeline name="run.till.file.exists-api">
+      <materials>
+        <git url="material-for-run.till.file.exists-api" dest="git" autoUpdate="false" materialName="git.material"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="sleep">
+                <arg>40</arg>
+                <runif status="passed"/>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
 
-        <pipeline name="basic-pipeline-fast-api">
-            <materials>
-                <git url="material-for-basic-pipeline-fast-api" dest="git" materialName="git" autoUpdate="false"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                            <exec command="ls">
-                            </exec>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
+    <pipeline name="basic-pipeline-fast-api">
+      <materials>
+        <git url="material-for-basic-pipeline-fast-api" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ls">
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
 
-        <pipeline name="basic-pipeline-slow" lockBehavior="lockOnFailure">
-          <materials>
-           <git url="material-for-basic-pipeline-slow" dest="git" autoUpdate="false"/>
-          </materials>
-          <stage name="defaultStage">
-           <approval type="manual"/>
-           <jobs>
-            <job name="defaultJob">
-              <tasks>
-                <exec command="sleep">
-                            <arg>60</arg>
-                            <runif status="passed"/>
-                </exec>
-              </tasks>
-            </job>
-           </jobs>
-          </stage>
-        </pipeline>
+    <pipeline name="basic-pipeline-slow" lockBehavior="lockOnFailure">
+      <materials>
+        <git url="material-for-basic-pipeline-slow" dest="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="sleep">
+                <arg>60</arg>
+                <runif status="passed"/>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
     <pipeline name="environment-pipeline">
       <materials>
         <git url="material-for-environment-pipeline" dest="git" autoUpdate="false"/>
@@ -1076,195 +1117,209 @@
         </jobs>
       </stage>
     </pipeline>
-    </pipelines>
-    <pipelines group="operable">
-        <authorization>
-            <admins>
-                <user>operate</user>
-            </admins>
-            <operate>
-                <role>operator</role>
-            </operate>
-        </authorization>
-        <pipeline name="operable-pipeline">
-            <materials>
-                <hg url="material-for-operable-pipeline" dest="hg" autoUpdate="false" materialName="admin-pipeline-hg"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                            <exec command="ls"/>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
-    </pipelines>
-    <pipelines group="group.with.dot">
-      <pipeline name="run.till.file.exists">
-            <materials>
-                <git url="material-for-pipeline" dest="git" autoUpdate="false" materialName="git.material"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                            <exec command="ls"/>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
+  </pipelines>
 
-        <pipeline name="basic-pipeline-fast">
-            <materials>
-                <git url="material-for-basic-pipeline-fast" dest="git" materialName="git" autoUpdate="false"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                            <exec command="ls">
-                            </exec>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
+  <pipelines group="operable">
+    <authorization>
+      <admins>
+        <user>operate</user>
+      </admins>
+      <operate>
+        <role>operator</role>
+      </operate>
+    </authorization>
+    <pipeline name="operable-pipeline">
+      <materials>
+        <hg url="material-for-operable-pipeline" dest="hg" autoUpdate="false" materialName="admin-pipeline-hg"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ls"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
 
-        <pipeline name="pipeline-run-till-file-exits" lockBehavior="lockOnFailure">
-            <materials>
-                <git url="material-for-pipeline-run-till-file-exits" dest="git" materialName="git" autoUpdate="false"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                            <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
+  <pipelines group="group.with.dot">
+    <authorization>
+      <operate>
+        <role>viewer</role>
+        <role>operator</role>
+      </operate>
+      <view>
+        <role>viewer</role>
+        <role>operator</role>
+      </view>
+    </authorization>
 
-        <pipeline name="wait-for-stop-job" lockBehavior="lockOnFailure">
-            <materials>
-                <git url="material-for-wait-for-stop-job" dest="git" materialName="git" autoUpdate="false"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                            <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
-                            <exec command="/bin/bash">
-                                <arg>-c</arg>
-                                <arg>echo "Second task completed"</arg>
-                            </exec>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
+    <pipeline name="run.till.file.exists">
+      <materials>
+        <git url="material-for-pipeline" dest="git" autoUpdate="false" materialName="git.material"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ls"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
 
-        <pipeline name="run-forever" lockBehavior="lockOnFailure">
-            <materials>
-                <git url="material-for-run-forever" dest="git" materialName="git" autoUpdate="false"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                            <exec command="rake" args="wait_forever" workingdir="git"/>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
+    <pipeline name="basic-pipeline-fast">
+      <materials>
+        <git url="material-for-basic-pipeline-fast" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ls">
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
 
-        <pipeline name="timer-triggered" lockBehavior="lockOnFailure">
-            <materials>
-                <git url="material-for-timer-triggered" dest="git" materialName="git" autoUpdate="false"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                            <exec command="ls" workingdir="git"/>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
+    <pipeline name="pipeline-run-till-file-exits" lockBehavior="lockOnFailure">
+      <materials>
+        <git url="material-for-pipeline-run-till-file-exits" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
 
-        <pipeline name="long-mdu" lockBehavior="lockOnFailure">
-            <materials>
-                <git url="https://github.com/cirosantilli/test-many-commits-1m" dest="git" materialName="long_running_mdu" autoUpdate="false"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                            <exec command="ls" workingdir="git"/>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
+    <pipeline name="wait-for-stop-job" lockBehavior="lockOnFailure">
+      <materials>
+        <git url="material-for-wait-for-stop-job" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+              <exec command="/bin/bash">
+                <arg>-c</arg>
+                <arg>echo "Second task completed"</arg>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+
+    <pipeline name="run-forever" lockBehavior="lockOnFailure">
+      <materials>
+        <git url="material-for-run-forever" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="rake" args="wait_forever" workingdir="git"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+
+    <pipeline name="timer-triggered" lockBehavior="lockOnFailure">
+      <materials>
+        <git url="material-for-timer-triggered" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ls" workingdir="git"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+
+    <pipeline name="long-mdu" lockBehavior="lockOnFailure">
+      <materials>
+        <git url="https://github.com/cirosantilli/test-many-commits-1m" dest="git" materialName="long_running_mdu" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ls" workingdir="git"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
 
 
-        <pipeline name="pipeline-with-failing-stage" lockBehavior="lockOnFailure">
-            <materials>
-                <git url="material-for-pipeline-with-failing-stage" dest="git" materialName="git" autoUpdate="false"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                <job name="defaultJob">
-                    <tasks>
-                    <exec command="executable-that-will-not-be-found"/>
-                    </tasks>
-                </job>
-                </jobs>
-            </stage>
-            <stage name="secondStage">
+    <pipeline name="pipeline-with-failing-stage" lockBehavior="lockOnFailure">
+      <materials>
+        <git url="material-for-pipeline-with-failing-stage" dest="git" materialName="git" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="executable-that-will-not-be-found"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="secondStage">
         <approval type="manual"/>
         <jobs>
           <job name="defaultJob">
             <tasks>
               <exec command="sleep">
-                            <arg>60</arg>
-                            <runif status="passed"/>
-                          </exec>
+                <arg>60</arg>
+                <runif status="passed"/>
+              </exec>
             </tasks>
           </job>
         </jobs>
       </stage>
-        </pipeline>
-        <pipeline name="basic-pipeline">
-            <materials>
-              <hg url="material-for-basic-pipeline" dest="hg" autoUpdate="false"/>
-            </materials>
-            <stage name="defaultStage">
-             <approval type="manual"/>
-              <jobs>
-                <job name="defaultJob">
-                   <tasks>
-                    <exec command="ls"/>
-                   </tasks>
-                </job>
-              </jobs>
-             </stage>
-          </pipeline>
-    </pipelines>
+    </pipeline>
+
+    <pipeline name="basic-pipeline">
+      <materials>
+        <hg url="material-for-basic-pipeline" dest="hg" autoUpdate="false"/>
+      </materials>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ls"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
 
 
   <pipelines group="group-for-dependency-walk-1">
@@ -1315,58 +1370,58 @@
     </pipeline>
   </pipelines>
 
-    <!-- Add this template creation and adding template admin to the spec ones API supports updating authoriztion -->
-    <templates>
-      <pipeline name="simple-pass">
-	        <stage name="defaultStage">
-	        	<approval type="manual"/>
-	        	<jobs>
-	            	<job name="defaultJob">
-	                    <tasks>
-	                        <exec command="ls"/>
-	                    </tasks>
-	                 </job>
-	            </jobs>
-		  	</stage>
-	  </pipeline>
-      <pipeline name="Template-With-Admin">
-        <authorization>
-          <admins>
-            <user>templateadmin</user>
-          </admins>
-        </authorization>
-        <stage name="defaultStage">
-            <approval type="manual"/>
-            <jobs>
-                <job name="defaultJob">
-                    <tasks>
-                        <exec command="ls" />
-                    </tasks>
-                </job>
-            </jobs>
-        </stage>
+  <!-- Add this template creation and adding template admin to the spec ones API supports updating authoriztion -->
+  <templates>
+    <pipeline name="simple-pass">
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ls"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="Template-With-Admin">
+      <authorization>
+        <admins>
+          <user>templateadmin</user>
+        </admins>
+      </authorization>
+      <stage name="defaultStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ls" />
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
     </pipeline>
   </templates>
-    <environments>
-  		<environment name="uat">
-  		  <environmentvariables>
-          <variable name="ENV_LEVEL_VARIABLE"><value>environment</value></variable>
-          <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_PIPELINE"><value>does-not-matter</value></variable>
-          <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE"><value>does-not-matter</value></variable>
-          <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>does-not-matter</value></variable>
-          <variable name="ENVIRONMENT_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
-			  </environmentvariables>
-       <pipelines>
-       <pipeline name="pipeline-with-environment-variables"/>
-      </pipelines>
-      </environment>
-      <environment name="PROD_ENV">
+  <environments>
+    <environment name="uat">
       <environmentvariables>
-          <variable name="ENV_LEVEL_VARIABLE"><value>{{SECRET:[PROD][prod-password]}}</value></variable>
-			  </environmentvariables>
-        <pipelines>
-          <pipeline name="In-env-PROD"/>
-        </pipelines>
-      </environment>
-  	</environments>
+        <variable name="ENV_LEVEL_VARIABLE"><value>environment</value></variable>
+        <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_PIPELINE"><value>does-not-matter</value></variable>
+        <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_STAGE"><value>does-not-matter</value></variable>
+        <variable name="ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>does-not-matter</value></variable>
+        <variable name="ENVIRONMENT_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
+      </environmentvariables>
+      <pipelines>
+        <pipeline name="pipeline-with-environment-variables"/>
+      </pipelines>
+    </environment>
+    <environment name="PROD_ENV">
+      <environmentvariables>
+        <variable name="ENV_LEVEL_VARIABLE"><value>{{SECRET:[PROD][prod-password]}}</value></variable>
+      </environmentvariables>
+      <pipelines>
+        <pipeline name="In-env-PROD"/>
+      </pipelines>
+    </environment>
+  </environments>
 </cruise>

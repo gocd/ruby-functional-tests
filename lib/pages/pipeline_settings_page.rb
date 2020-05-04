@@ -80,7 +80,10 @@ module Pages
     end
 
     def set_material_blacklist(blacklist)
-      page.find("textarea[name='material[filterAsString]']").set blacklist
+      page.all('dt')
+          .find {|element| element.text === "Advanced Settings"}
+          .click
+      page.find("input[data-test-id='form-field-input-blacklist']").set blacklist
     end
 
     def only_on_changes_checkbox_disabled?

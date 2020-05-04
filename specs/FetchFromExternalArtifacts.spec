@@ -16,7 +16,7 @@ Setup of contexts
 * Save store details as "server_url: http://localhost:8253/go, username: admin, password: badger"
 * On Job settings page of pipeline "upstream" stage "defaultStage" job "defaultJob"
 * Open "Artifacts" tab - On Job settings page
-* Add artifact of type "external"
+* Add artifact of type "External"
 * Start creating external artifact with artifact id as "test_artifact" and store id as "ExternalArtifact"
 * Save external artifact with values "Source: artifact.txt, Destination: test_folder"
 

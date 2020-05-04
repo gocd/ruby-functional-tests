@@ -140,7 +140,7 @@ end
 step 'ArtifactSetAndValidate <table>' do |table|
   table.rows.each do |row|
     publish_artifacts_view.remove_all_artifacts
-    job_settings_page.publish_artifact_type.select "build"
+    job_settings_page.publish_artifact_type.select "Build"
     job_settings_page.add_artifact.click
     publish_artifacts_view.single_source.set(row['source'])
     publish_artifacts_view.single_destination.set(row['destination'])

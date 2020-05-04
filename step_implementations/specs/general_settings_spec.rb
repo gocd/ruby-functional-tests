@@ -40,8 +40,9 @@ step 'Verify the message <message> is present' do |message|
 end
 
 step 'Verify the error message <message> is present' do |message|
-  actual = general_settings_page.error_message.text
-  assert_true actual.include?(message), "Expected '#{message}' to be a part of '#{actual}'"
+  actual   = general_settings_page.error_message.text
+  expected = new_pipeline_dashboard_page.sanitize_message(message)
+  assert_true actual.include?(expected), "Expected '#{expected}' to be a part of '#{actual}'"
 end
 
 step 'Verify secure environment variable with name <key> is present' do |key|

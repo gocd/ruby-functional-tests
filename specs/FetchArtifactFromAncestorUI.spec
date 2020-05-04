@@ -52,7 +52,7 @@ tags: Fetch Artifact
 * Verify that material "$up_pipeline$" can be deleted
 
 * Delete material with name "$up_pipeline$"
-* Verify the error message "Cannot delete the material as it is used in a fetch artifact task" is present
+* Verify the error message "Pipeline named '$up_pipeline$' exists, but is not an ancestor of '$down_pipeline$' as declared in '$uppest_pipeline$/$upper_pipeline$/$up_pipeline$'." is present
 
 Teardown of contexts
 ____________________

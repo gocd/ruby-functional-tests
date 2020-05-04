@@ -46,12 +46,12 @@ module Pages
 
     def verify_secure_variables_table_row(key)
       page.all('input[data-test-id="secure-env-var-name"]')
-          .find {|element| element.text === key}
+          .find {|element| element.value === key}
     end
 
     def verify_variables_table_row(key, value)
-      page.all('div[data-test-id="environment-variable-wrapper"]').find do |tr|
-        tr.find('input[data-test-id="env-var-name"]').value === key && tr.find('input[data-test-id="env-var-value"]').value === value
+      page.all('div[data-test-id="environment-variable-wrapper"]').find do |parent|
+        parent.find('input[data-test-id="env-var-name"]').value === key && parent.find('input[data-test-id="env-var-value"]').value === value
       end
     end
 

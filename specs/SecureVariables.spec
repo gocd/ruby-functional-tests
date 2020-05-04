@@ -45,9 +45,9 @@ tags: secure_variables
 * Add secure environment variable "secure_variable_made_insecure_by_stage" with value "secure_value_4"
 * Add secure environment variable "secure_variable_made_insecure_by_job" with value "secure_value_5"
 * Save Changes
-* Verify the message "Saved successfully." is present
+* Verify the message "Saved Successfully" is present
 
-* Verify environment variable with name "plain_key" and value "plain_value1" is present
+* Verify environment variable with name "plain_key" and value "plain_value" is present
 * Verify secure environment variable with name "secure_key" is present
 * Verify secure environment variable with name "secure_key_overridden_by_trigger" is present
 * Verify secure environment variable with name "env_level_variable_made_secure_at_pipeline_level" is present
@@ -57,7 +57,7 @@ tags: secure_variables
 * On Job settings page of pipeline "edit-pipeline-with-secure-vars" stage "defaultStage" job "defaultJob"
 * Add task "Rake"
 * Set target to "\"string_reverse[secure_key secure_key_overridden_by_trigger env_level_variable_made_secure_at_pipeline_level secure_variable_made_insecure_by_stage secure_variable_made_insecure_by_job]\"" with working directory "git"
-* Save Changes
+* Save task changes
 
 * On Swift Dashboard Page
 * Looking at pipeline "edit-pipeline-with-secure-vars" - On Swift Dashboard page

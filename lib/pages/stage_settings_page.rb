@@ -113,18 +113,16 @@ module Pages
 
     def specified_users
       users = []
-      page.all('.permissions_user_name').each do |element|
-        users.push(element.value) unless element.value.blank?
-      end
+      page.find('div[data-test-id="users"]')
+          .all('input[data-test-id="form-field-input-"]').each {|element| users.push(element.value)}
       users
     end
 
     def specified_roles
-      users = []
-      page.all('.permissions_role_name').each do |element|
-        users.push(element.value) unless element.value.blank?
-      end
-      users
+      roles = []
+      page.find('div[data-test-id="roles"]')
+          .all('input[data-test-id="form-field-input-"]').each {|element| roles.push(element.value)}
+      roles
     end
 
     def auto_selected?

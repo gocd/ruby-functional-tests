@@ -125,13 +125,11 @@ module Pages
     end
 
     def has_template? template
-      page.find('i[data-test-id="Search-icon"]')
-          .sibling('a', text: template)
+      page.find('a[data-test-id="template-name"]', text: template)
     end
 
     def open_template(template)
-      page.find('i[data-test-id="Search-icon"]')
-          .sibling('a', text: template)
+      page.find('a[data-test-id="template-name"]', text: template)
           .click
     end
 

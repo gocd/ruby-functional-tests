@@ -17,6 +17,7 @@
 module Pages
   class GeneralSettingsPage < AppBase
     element :global_save, 'button[data-test-id="save"]'
+    element :global_cancel, 'button[data-test-id="cancel"]'
     element :task_save, 'button[data-test-id="save-pipeline-group"]'
     element :task_cancel, 'button[data-test-id="cancel-button"]'
     element :save_message, 'div[data-test-id="flash-message-success"]'

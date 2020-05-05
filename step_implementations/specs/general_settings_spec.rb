@@ -30,6 +30,10 @@ step 'Save Changes' do
   general_settings_page.global_save.click
 end
 
+step 'Reset Changes' do
+  general_settings_page.global_cancel.click
+end
+
 step 'Close modal' do
   general_settings_page.task_cancel.click
 end

@@ -48,7 +48,7 @@ Make sure that only users who operate permissions (and not view users) on the pi
 * Set "user3" as user name - On Permission tab
 * Save Changes
 * Verify message "User \"user3\" who is not authorized to operate pipeline group `basic` can not be authorized to approve stage" shows up - On Permission tab
-
+* Reset Changes
 * Open "Permissions" tab - On Stage settings page
 * Add new role permission
 * Set "viewer" as role name - On Permission tab

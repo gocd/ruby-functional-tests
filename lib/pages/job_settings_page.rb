@@ -42,7 +42,7 @@ module Pages
     element :task_cancel, 'button[data-test-id="cancel-button"]'
     element :job_name, "input[data-test-id='form-field-input-job-name']"
     element :set_never, 'input[data-test-id="radio-never"]'
-    element :resources_on_popup, 'input[data-test-id="form-field-input-resources"]'
+    element :resources_on_popup, 'input[data-test-id="resources-input"]'
     element :task_source_file, "input[data-test-id='form-field-input-source']"
     element :is_source_a_file, "input[data-test-id='form-field-input-source-is-a-file-not-a-directory']"
     element :task_dest_dir, "input[data-test-id='form-field-input-destination']"

@@ -80,9 +80,9 @@ module Pages
       when "Task Type"
         return table_row.find("td:nth-child(2)").text.eql?(header_name)
       when "Run If Conditions"
-        return table_row.find("td:nth-child(3)").text.eql?(header_name)
+        return table_row.find("td:nth-child(4)").text.eql?(header_name)
       when "Properties"
-        properties = table_row.find("td:nth-child(4)")
+        properties = table_row.find("td:nth-child(3)")
         header_name.split(',').each do |key_value|
           vals   = key_value.split(':')
           result = properties.find("span[data-test-id='key-value-value-#{vals[0].strip.downcase}']").text.eql?(new_pipeline_dashboard_page.sanitize_message(vals[1].strip))

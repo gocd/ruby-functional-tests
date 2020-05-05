@@ -21,7 +21,7 @@ Verify Tasks
 * verifyTask
 |Order_no|Task Type         |Run If Conditions |Properties                                           |On Cancel   |
 |--------|------------------|------------------|---------------------------------------------------  |------------|
-|1       |Custom Command    |                  |Command: ls                                          |No          |
+|1       |Custom Command    |passed            |Command: ls                                          |No          |
 |2       |Custom Command    |passed, failed    |Command: sleep, Arguments: 5, Working-Directory: git |exec        |
 
 * Delete task "1"

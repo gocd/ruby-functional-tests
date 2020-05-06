@@ -28,7 +28,7 @@
           <job name="defaultJob">
             <tasks>
               <exec command="/bin/sh">
-                <arg>-c</arg>
+                <arg>-cx</arg>
                 <arg>echo GO_REPO_TW_REPO_GO_AGENT_PASSWORD : $GO_REPO_TW_REPO_GO_AGENT_PASSWORD AND GO_PACKAGE_TW_REPO_GO_AGENT_LOCATION : $GO_PACKAGE_TW_REPO_GO_AGENT_LOCATION</arg>
                 <runif status="passed"/>
               </exec>

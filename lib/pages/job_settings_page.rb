@@ -211,7 +211,7 @@ module Pages
     end
 
     def total_tasks
-      page.all('tbody tr').count
+      page.all('tbody tr', wait: 20).count
     end
 
     def error_message_for_working_dir

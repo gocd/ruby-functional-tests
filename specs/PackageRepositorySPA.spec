@@ -65,7 +65,7 @@ tags: package-repository
         | id                           | value     |
         |----------------------------- | ----------|
         | key-value-value-name         | pkg-name  |
-        | key-value-value-auto-update  | false     |
+        | key-value-value-auto-update  | true      |
         | key-value-value-package-spec | go-agent  |
 
 ~~~~~~~~~~~~~~~~~~ Clone package ~~~~~~~~~~~~~~~~~~

@@ -211,7 +211,7 @@ module Pages
     end
 
     def total_tasks
-      page.all('tbody tr', wait: 20).count
+      page.find('div[data-test-id="tasks-container"]', wait:20).all('tbody tr').count
     end
 
     def error_message_for_working_dir

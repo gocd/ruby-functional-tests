@@ -94,7 +94,7 @@ module Pages
       error_span = panel.find("span[data-test-id='key-value-value-error']")
       assert_not_nil error_span
 
-      err_msg = "Not allowed to refer #{entity} '#{entity_name}' from the config repository."
+      err_msg = "Not allowed to refer to #{entity} '#{entity_name}'. Check the 'Rules' of this config repository."
       assert_true error_span.text.include?(err_msg), "Assertion failed. Expected to contain '#{err_msg}' but was '#{error_span.text}'"
     end
 

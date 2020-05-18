@@ -21,7 +21,3 @@ end
 step 'Capture go state <identifier> - teardown' do |identifier|
   go_state.capture_all("target/go_state/#{identifier}/TEARDOWN")
 end
-
-step 'Capture go state <identifier> - teardown with artifacts' do |identifier|
-  go_state.capture_all("target/go_state/#{identifier}/TEARDOWN", true)
-end

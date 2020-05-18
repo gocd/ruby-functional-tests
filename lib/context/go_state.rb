@@ -29,10 +29,6 @@ module Context
       end
     end
 
-    def capture_artifacts(path)
-      cp_r "#{GoConstants::SERVER_DIR}/artifacts", path
-    end
-
     def capture_agents(path)
       return unless Dir.exist?(GoConstants::GAUGE_AGENT_DIR.to_s)
       Dir.foreach("#{GoConstants::GAUGE_AGENT_DIR}") do |item|
@@ -64,16 +60,13 @@ module Context
 
     end
 
-    def capture_all(path, artifacts = false)
+    def capture_all(path)
       mkdir_p path
       capture_logs(path)
       capture_agents(path)
       capture_healthstate(path)
       capture_cruise_config(path)
       capture_database(path)
-      if artifacts
-        capture_artifacts(path)
-      end
     end
   end
 end

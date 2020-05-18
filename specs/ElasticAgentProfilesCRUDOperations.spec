@@ -40,6 +40,7 @@ Note: This spec will use 2 elastic agent(Docker and K8s plguins) plugins and set
 * Check cluster id is selected as "K8s-Cluster" with plugin "Kubernetes Elastic Agent Plugin"
 * Go forward to Elastic Profiles step on the wizard
 * Set docker image as "gocd/gocd-agent-centos-7:v20.1.0"
+* Set maximum memory limit as "50M"
 * Save elastic agent profile
 
 * Expand cluster profile "K8s-Cluster"

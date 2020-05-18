@@ -31,7 +31,7 @@ tags: stage-details
 Teardown of contexts
 ____________________
 * Capture go state "StageDetailsJobTab" - teardown
-* With "3" live agents - teardown
+* With "2" live agents - teardown
 
 
 

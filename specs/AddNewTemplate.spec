@@ -20,16 +20,13 @@ tags: template
 * Save Template create
 
 * Edit template "some-funky-template"
-
-* Open tab "General Options" - On Pipeline Creation Page
-* Open "Stages" tab
+* Open "General" tab - On Pipeline settings page
+* Open "Stages" tab - On Pipeline settings page
 * Open stage "defaultStage"
 * Open "Jobs" tab - On Stage settings page
 
 * Verify "defaultJob" job is present
 * Open job "defaultJob"
-
-
 * Verify no tasks exists
 
 
@@ -50,17 +47,11 @@ Story: 5105 -  Create template from an existing pipeline
 * Looking at pipeline "simple-pipeline" - On Swift Dashboard page
 
 * Edit pipeline "simple-pipeline"
-
 * Verify pipeline uses template "template_from_pipeline"
-* Open "Parameters" tab
+* Open "Parameters" tab - On Pipeline settings page
 * Verify parameter with name "name" and value "value" is present
-
-* Open "Environment Variables" tab
+* Open "Environment Variables" tab - On Pipeline settings page
 * Verify environment variable with name "NAME" and value "hucha_raghuveer" is present
-
-
-
-
 
 Teardown of contexts
 ____________________

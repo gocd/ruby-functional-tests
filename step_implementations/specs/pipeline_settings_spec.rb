@@ -26,10 +26,6 @@ step 'Verify pipeline created successfully' do
   assert_true pipeline_settings_page.partial_message_displayed?('Pipeline successfully created.')
 end
 
-step 'Add parameter name <name> and value <value>' do |name, value|
-  pipeline_settings_page.add_parameter(name, value)
-end
-
 step 'Save Pipeline settings' do
   pipeline_settings_page.save
 end
@@ -55,15 +51,16 @@ step 'Check connectivity should be failed - Already on Git Material Creation Pop
   pipeline_settings_page.check_connection.click
   assert_false pipeline_settings_page.connection_ok?
 end
+
 step 'Select add new material of type <type>' do |type|
   pipeline_settings_page.select_add_new_material type
 end
 
 step 'Delete material with name <material_name>' do |material_name|
-  pipeline_settings_page.delete_material material_name
+  pipeline_settings_page.delete_material new_pipeline_dashboard_page.sanitize_message(material_name)
 end
 
-step 'Enter black list <balcklicst>' do |blacklist|
+step 'Enter black list <blacklist>' do |blacklist|
   pipeline_settings_page.set_material_blacklist(blacklist)
 end
 
@@ -88,19 +85,17 @@ step 'Select onlyOnChanges flag to trigger pipeline only on new material' do
 end
 
 step 'Set material name as <pipeline_material>' do |material|
-  pipeline_settings_page.material_name.set material
+  pipeline_settings_page.set_material_name(material)
 end
 
-step 'Set pipeline Stage as <stage_name>' do |stage|
-  pipeline_settings_page.stage_name.set new_pipeline_dashboard_page.sanitize_message(stage)
+step 'Set pipeline and stage as <stage_name>' do |stage|
+  values = new_pipeline_dashboard_page.sanitize_message(stage).split(':')
+  pipeline_settings_page.pipeline_name.set values[0]
+  pipeline_settings_page.stage_name.select values[1]
 end
 
 step 'Verify material <material> is exist with URL <url>' do |material, url|
   assert_true pipeline_settings_page.url_exist_for_material? material, new_pipeline_dashboard_page.sanitize_message(url)
-end
-
-step 'Enter Environment variable name <name> with value <value>' do |name, value|
-  pipeline_settings_page.add_env(name, value)
 end
 
 step 'Verify that material <material> can be deleted' do |material|
@@ -124,20 +119,13 @@ step 'Select Clean working directory' do
   pipeline_settings_page.clean_work_dir
 end
 
-step 'Verify cannot move <stage> to <direction>' do |stage, direction|
-  assert_false pipeline_settings_page.can_move_stage? stage, direction
-end
-
-step 'Move stage <stage> to <direction>' do |stage, direction|
-  pipeline_settings_page.move_stage stage, direction
-end
-
 step 'Enter project path as <path>' do |path|
   pipeline_settings_page.project_path.set(path)
 end
 
 step 'Verify the stages are <stages>' do |stages|
   pipeline_stages = pipeline_settings_page.get_pipeline_stages
+  p "stages: #{pipeline_stages}"
   stages.split(',').each do |stage|
     assert_true pipeline_stages.include? stage
   end
@@ -155,10 +143,60 @@ step 'Set url <url> for material <material> - On material popup' do |url, materi
   pipeline_settings_page.set_material_url new_pipeline_dashboard_page.sanitize_message(url)
 end
 
-step 'Open tab <tab> - On Pipeline Creation Page' do |tab|
-  pipeline_settings_page.open_tab(tab)
-end
-
 step 'Verify reset button exists' do
   assert_true pipeline_settings_page.verify_reset_button_exist?
+end
+
+step 'Verify pipeline uses template <template>' do |template|
+  assert_not_nil pipeline_settings_page.has_template? template
+end
+
+step 'Open template <template>' do |template|
+  pipeline_settings_page.open_template template
+end
+
+step 'Set auto scheduling' do
+  pipeline_settings_page.set_auto_scheduling
+end
+
+step 'Unset auto scheduling' do
+  pipeline_settings_page.set_auto_scheduling(false)
+end
+
+step 'Save material' do
+  pipeline_settings_page.save_material
+end
+
+step 'Add new stage' do
+  pipeline_settings_page.add_new_stage.click
+end
+
+step 'Set cron field as <cron> and validate message as <message>' do |cron, message|
+  pipeline_settings_page.cron_timer.set cron
+  general_settings_page.global_save.click
+  values = message.split(':')
+  if values[0] === "Error"
+    actual = general_settings_page.error_message.text
+  else
+    actual = general_settings_page.get_message
+  end
+  assert_true actual.include?(values[1]), "Expected '#{values[1]}' to be a part of '#{actual}'"
+end
+
+step 'Verify auto scheduling is selected' do
+  assert_true pipeline_settings_page.auto_scheduling_selected?
+end
+
+step 'Verify auto scheduling is not selected' do
+  assert_false pipeline_settings_page.auto_scheduling_selected?
+end
+
+step 'Verify auto scheduling checkbox is disabled' do
+  assert_true pipeline_settings_page.auto_scheduling_enabled?
+end
+
+step "Select repository <repo_name> and package <pkg_name>" do |repo_name, pkg_name|
+  pipeline_settings_page.select_package_repo.select repo_name
+  pipeline_settings_page.select_package.select pkg_name
+
 end

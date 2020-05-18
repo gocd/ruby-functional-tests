@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright 2019 ThoughtWorks, Inc.
+# Copyright 2018 ThoughtWorks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,15 +15,8 @@
 ##########################################################################
 
 module Pages
-  class PackageMaterialPage < AppBase
-
-    element :package_repo_name, "#repository"
-    element :add_new_package, "#addNew"
-    element :package_material_name, "#material_package_definition_name"
-    element :package_material_spec, "#material_package_definition_configuration_0_configurationValue_value"
-    element :package_material_save, "button[value='SAVE']"
-
-
+  class TemplateSettingsPage < GeneralSettingsPage
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/templates{/template_name}/edit#!{template_name}/general"
 
   end
 end

@@ -14,15 +14,6 @@
 # limitations under the License.
 ##########################################################################
 
-module Pages
-    class ParametersPage < AppBase
-      element  :save, ".finish"
-      
-      def set_parameter(index,env_name,env_value)
-        page.find("#params > table:nth-child(1) tr:nth-child(#{index}) td .environment_variable_name").set(env_name)
-        page.find("#params > table:nth-child(1) tr:nth-child(#{index}) td .environment_variable_value").set(env_value)
-        save.click
-      end
-  
-    end
-  end
+step 'On template settings page of template <template_name>' do |template_name|
+  template_settings_page.load(template_name: template_name)
+end

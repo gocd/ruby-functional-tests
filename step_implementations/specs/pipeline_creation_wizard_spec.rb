@@ -30,10 +30,6 @@ step 'Set url <url> for material  <material>' do |url, material|
   pipeline_creation_wizard.set_material_url(new_pipeline_dashboard_page.sanitize_message(url))
 end
 
-step 'Set pipeline and stage <pipeline> <stage>' do |pipeline, stage|
-  pipeline_creation_wizard.pipeline_material.set "#{scenario_state.get(pipeline)} [#{stage}]"
-end
-
 step 'Set stage name as <stage_name>' do |stage_name|
   pipeline_creation_wizard.stage_name.set stage_name
 end
@@ -61,8 +57,6 @@ end
 step 'Set branch as <branch> for material <material_type>' do |branch, material_type|
   pipeline_creation_wizard.set_branch(branch)
 end
-
-
 
 step 'Select stage type as <type>' do |type|
   pipeline_creation_wizard.select_approval_type type

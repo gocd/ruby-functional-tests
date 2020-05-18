@@ -22,16 +22,20 @@ tags: package-repository
 * Click save - Already on Package Repositories tab
 * Verify repository listing contains "repo-1"
 
+* Reload page
+* Click on add package for "repo-1"
+* Set package name as "go-agent"
+* Set spec as "go-agent"
+* Click save - Already on Package Repositories tab
+* Verify message "The package go-agent was created successfully!" for package repo spa
+* Verify package "go-agent" exists for repo "repo-1"
+
 * On Swift Dashboard Page
 * Edit pipeline "pipeline_with_yum_repo_package_as_material"
-
 * Open "Materials" tab - On Pipeline settings page
-* Select add new material of type "Package"
-
-* Select repository "repo-1"
-* Select option "addNew" - On Package Material Creation Popup
-* Enter package name "go-agent" and spec "go-agent"
-* Save package material
+* Select add new material of type "Package Materials"
+* Select repository "repo-1" and package "go-agent"
+* Save material
 
 * On Swift Dashboard Page
 * Looking at pipeline "pipeline_with_yum_repo_package_as_material" - On Swift Dashboard page
@@ -42,7 +46,7 @@ tags: package-repository
 
 Teardown of contexts
 ____________________
-* Capture go state "PackageRepositoryTabForm" - teardown
+* Capture go state "PackageRepositoryTabForm" - teardown with artifacts
 * Logout - from any page
 * With "1" live agents - teardown
 * Setup file based yum repo - teardown

@@ -18,9 +18,15 @@ module Pages
   class AdminConfigXMLPage < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/config_xml"
 
+    element :save_message, '#message_pane > p'
+
     def save_config
       page.execute_script "window.scrollTo(0,0)"
       page.find('#save_config').click
+    end
+
+    def get_message
+      save_message.text
     end
   end
 end

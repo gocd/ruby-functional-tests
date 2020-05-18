@@ -16,26 +16,29 @@
 
 module Pages
   class GeneralSettingsPage < AppBase
-    element :env_variable, '#variables'
-    element :parameter, '.popup_form #params'
-    element :secure_variable, '#variables_secure'
-    element :task_save, "button[value='SAVE']"
-    element :save_message, '#message_pane > p'
+    element :global_save, 'button[data-test-id="save"]'
+    element :global_cancel, 'button[data-test-id="cancel"]'
+    element :task_save, 'button[data-test-id="save-pipeline-group"]'
+    element :task_cancel, 'button[data-test-id="cancel-button"]'
+    element :save_message, 'div[data-test-id="flash-message-success"]'
+    element :error_message, 'div[data-test-id="flash-message-alert"]'
+    element :add_parameter_button, 'button[data-test-id="add-param"]'
+    element :confirm_change, 'button[data-test-id="primary-action-button"]'
 
     def on_tab(tab_name)
-      page.find('a', text: tab_name).click
+      page.find('a', text: tab_name.upcase).click
     end
 
     def add_env_variable(variable_name, variable_value)
-      env_variable.find('tbody').find_all('tr').last.find('.environment_variable_name').set(variable_name)
-      env_variable.find('tbody').find_all('tr').last.find('.environment_variable_value').set(variable_value)
-      env_variable.find('a', text: 'Add').click
+      page.find('button[data-test-id="add-plain-text-variables-btn"]').click
+      page.find_all('input[data-test-id="env-var-name"]').last.set(variable_name)
+      page.find_all('input[data-test-id="env-var-value"]').last.set(variable_value)
     end
 
     def add_sec_env_variable(variable_name, variable_value)
-      secure_variable.find('tbody').find_all('tr').last.find('.environment_variable_name').set(variable_name)
-      secure_variable.find('tbody').find_all('tr').last.find('.environment_variable_value').set(variable_value)
-      secure_variable.find('a', text: 'Add').click
+      page.find('button[data-test-id="add-secure-variables-btn"]').click
+      page.find_all('input[data-test-id="secure-env-var-name"]').last.set(variable_name)
+      page.find_all('input[data-test-id="secure-env-var-value"]').last.set(variable_value)
     end
 
     def get_message
@@ -43,38 +46,50 @@ module Pages
     end
 
     def verify_secure_variables_table_row(key)
-      secure_variable.find('tbody').find_all('tr').each do |tr|
-        return tr.find('.environment_variable_name').value == key
-      end
+      page.all('input[data-test-id="secure-env-var-name"]')
+          .find {|element| element.value === key}
     end
 
     def verify_variables_table_row(key, value)
-      env_variable.find('tbody').find_all('tr').each do |tr|
-        return tr.find('.environment_variable_name').value == key && tr.find('.environment_variable_value').value == value
+      page.all('div[data-test-id="environment-variable-wrapper"]').find do |parent|
+        parent.find('input[data-test-id="env-var-name"]').value === key && parent.find('input[data-test-id="env-var-value"]').value === value
       end
     end
 
     def verify_parameters_table_row(key, value)
-      parameter.find('tbody').find_all('tr').each do |tr|
-        return tr.find('.environment_variable_name').value == key && tr.find('.environment_variable_value').value == value
+      page.find('tbody')
+          .find_all('tr')
+          .each do |tr|
+        return tr.find('input[data-test-id^="form-field-input-param-name-"]').value == key && tr.find('input[data-test-id^="form-field-input-param-value-"]').value == value
       end
     end
 
-    def is_link_exist?(link)
-      page.has_css?('.menu_link', text: link)
-    end
-
     def verify_reset_button_exist?
-        page.has_css?('.reset_button')
+      page.has_css?('button[data-test-id="cancel"]')
     end
 
     def unpause_pipeline
-      page.find("button[title='Unpause']").click
+      page.find("button[data-test-id='page-header-unpause-btn'").click
     end
 
     def open_tab(tab)
       page.find('a', text: tab).click
     end
 
+    def set_parameter(index, env_name, env_value)
+      page.find("#params > table:nth-child(1) tr:nth-child(#{index}) td .environment_variable_name").set(env_name)
+      page.find("#params > table:nth-child(1) tr:nth-child(#{index}) td .environment_variable_value").set(env_value)
+      save.click
+    end
+
+    def add_parameter(name, value)
+      params_row = page.find('table[data-test-id="table"] tbody').all('tr').last
+      params_row.find("input[data-test-id^='form-field-input-param-name-']").set name
+      params_row.find("input[data-test-id^='form-field-input-param-value-']").set new_pipeline_dashboard_page.sanitize_message(value)
+    end
+
+    def error_message_for_field(element)
+      element.sibling('span[class*="forms__form-error-text___"]').text
+    end
   end
 end

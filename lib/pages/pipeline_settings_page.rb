@@ -16,18 +16,18 @@
 
 module Pages
   class PipelineSettingsPage < GeneralSettingsPage
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines{/pipeline_name}/general"
+    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines{/pipeline_name}/edit#!{pipeline_name}/general"
 
     element :message, '#success'
-    element :add_variables, '#add_variables'
     element :save, "button[value='SAVE']"
     element :material_url_field, "input[name='material[url]']"
     element :material_dest_directory, "input[name='material[folder]']"
-    element :check_connection, "button[value='CHECK CONNECTION']"
-    element :cron_timer, 'input#pipeline_timer_timerSpec'
-    element :label_template, 'input#pipeline_labelTemplate'
-    element :material_name, "input[name='material[materialName]']"
-    element :stage_name, "input[name='material[pipelineStageName]']"
+    element :check_connection, "button[data-test-id='test-connection-button']"
+    element :cron_timer, 'input[data-test-id="cron-timer"]'
+    element :label_template, 'input[data-test-id="label-template"]'
+    element :material_name, "input[data-test-id='form-field-input-material-name']"
+    element :pipeline_name, "input[data-test-id='form-field-input-upstream-pipeline']"
+    element :stage_name, "select[data-test-id='form-field-input-upstream-stage']"
     element :pipeline_locking, '#pipeline_lockBehavior_lockonfailure'
     element :project_path, "input[name='material[projectPath]']"
 
@@ -36,9 +36,9 @@ module Pages
     element :mingle_identifier, '#pipeline_mingleConfig_projectIdentifier'
     element :mingle_mqa, '#pipeline_mingleConfig_mqlCriteria_mql'
 
-    def message_displayed?(message)
-      page.has_css?('.success', text: message, exact_text: true)
-    end
+    element :add_new_stage, 'button[data-test-id="add-stage-button"]'
+    element :select_package_repo, 'select[data-test-id="form-field-input-package-repository"]'
+    element :select_package, 'select[data-test-id="form-field-input-package"]'
 
     def partial_message_displayed?(message)
       page.find('.success').text.include?(message)
@@ -46,24 +46,10 @@ module Pages
 
     def get_pipeline_stages
       stages = []
-      page.all('a.stage_name_link').each do |stage|
+      page.all('div[data-test-id="stages-container"] table td:nth-child(2)').each do |stage|
         stages.push(stage.text)
       end
       stages
-    end
-
-    def add_parameter(name, value)
-      params_row = page.find('.params.variables').find('.params').all('tr').last
-      params_row.find("input[name='pipeline[params][][name]']").set name
-      params_row.find("input[name='pipeline[params][][valueForDisplay]']").set new_pipeline_dashboard_page.sanitize_message(value)
-      add_variables.click
-    end
-
-    def add_env(name, value)
-      env_row = page.find('#variables').all('tr').last
-      env_row.find("input[name='pipeline[variables][][name]']").set name
-      env_row.find("input[name='pipeline[variables][][valueForDisplay]']").set value
-      page.find('#variables').find('#add_variables').click
     end
 
     def select_material(material_name)
@@ -75,33 +61,37 @@ module Pages
     end
 
     def connection_ok?
-      page.has_css?('.ok_message')
+      page.has_css?('div[class^="test_connection__test-connection-result___"] div[data-test-id="flash-message-success"]')
     end
 
     def set_material_url(url)
-      page.find('.url').set url
+      p "url: #{url}"
+      page.find('input[data-test-id="form-field-input-repository-url"]').set url
     end
 
     def select_add_new_material(type)
-      page.find('.menu_link', text: 'Add Material').click
-      page.find('#new_material_popup ul li a', text: type, exact_text: true).click
+      page.find('button[data-test-id="add-material-button"]').click
+      page.find('select[data-test-id="form-field-input-material-type"]').select type
     end
 
     def delete_material(material_name)
-      page.find('.material_name', text: material_name, exact_text: true).ancestor('tr').find('.icon_remove').click
-      page.find("button[value='Proceed']").click
+      get_delete_material_icon(material_name).click
+      page.find("button[data-test-id='primary-action-button']").click
     end
 
     def set_material_blacklist(blacklist)
-      page.find("textarea[name='material[filterAsString]']").set blacklist
+      page.all('dt')
+          .find {|element| element.text === "Advanced Settings"}
+          .click
+      page.find("input[data-test-id='form-field-input-blacklist']").set blacklist
     end
 
     def only_on_changes_checkbox_disabled?
-      page.find('input#pipeline_timer_onlyOnChanges').disabled?
+      page.find('input[data-test-id="run-only-on-new-material"]').disabled?
     end
 
     def set_only_on_changes_checkbox
-      page.find('input#pipeline_timer_onlyOnChanges', wait: 10).set(true)
+      page.find('input[data-test-id="run-only-on-new-material"]', wait: 10).set(true)
     end
 
     def url_exist_for_material?(material, url)
@@ -109,7 +99,7 @@ module Pages
     end
 
     def can_material_be_deleted?(material)
-      page.find("tbody tr:nth-child(#{page.find('.material_name', text: material, exact_text: true).ancestor('tr').path[-2].to_i})").has_css?('span.delete_parent')
+      get_delete_material_icon(material)['disabled'] === nil
     end
 
     def make_material_auto_update(flag)
@@ -124,20 +114,62 @@ module Pages
       page.find('#stage_cleanWorkingDir').set(true)
     end
 
-    def can_move_stage?(stage, direction)
-      page.find(".stage_#{stage}").has_css?(".promote_#{direction}")
-    end
-
-    def move_stage(stage, direction)
-      page.find(".stage_#{stage}").find("button[title='Move #{direction.capitalize}']").click
-    end
-
     def select_tracking_tool(tool)
       page.find("input[title='#{tool.capitalize}']").click
     end
 
     def select_stage(stage)
-      page.find('.stage_name_link', text: stage).click
+      page.all('div[data-test-id="stages-container"] a')
+          .find {|element| element.text === stage}
+          .click
+    end
+
+    def has_template? template
+      page.find('a[data-test-id="template-name"]', text: template)
+    end
+
+    def open_template(template)
+      page.find('a[data-test-id="template-name"]', text: template)
+          .click
+    end
+
+    def set_auto_scheduling(value = true)
+      auto_schedule_element = page.find("input[data-test-id='automatic-pipeline-scheduling']")
+      auto_schedule_element.set(value) if auto_schedule_element.checked?
+    end
+
+    def auto_scheduling_selected?
+      page.find("input[data-test-id='automatic-pipeline-scheduling']").checked?
+    end
+
+    def auto_scheduling_enabled?
+      page.find("input[data-test-id='automatic-pipeline-scheduling']").disabled?
+    end
+
+    def set_material_name(mat_name)
+      page.all('dt')
+          .find {|element| element.text === "Advanced Settings"}
+          .click
+      material_name.set mat_name
+    end
+
+    def save_material
+      page.find('button[data-test-id="button-save"]').click
+    end
+
+    def error_message_for_cron
+      error_message_for_field(cron_timer)
+    end
+
+    private
+
+    def get_delete_material_icon(material)
+      page.all('a[data-test-id="edit-material-button"]')
+          .find {|element| element.text === material}
+          .ancestor('td') # td element
+          .ancestor('tr') # tr element
+          .find('td:nth-child(4)')
+          .find('i[data-test-id="delete-material-button"]')
     end
 
   end

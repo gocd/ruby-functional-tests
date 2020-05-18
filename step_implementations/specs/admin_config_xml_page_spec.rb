@@ -21,3 +21,7 @@ end
 step 'Click save - Already on config XML Tab' do
   admin_config_xml_page.save_config
 end
+
+step 'Verify the message <message> is present on rails page' do |message|
+  assert_true admin_config_xml_page.get_message.include? message
+end

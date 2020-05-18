@@ -16,19 +16,16 @@ tags: Clicky Admin
 * On Swift Dashboard Page
 * Looking at pipeline "edit-pipeline" - On Swift Dashboard page
 * Edit pipeline "edit-pipeline"
-
-
 * Open "Materials" tab - On Pipeline settings page
-
-* Select add new material of type "Pipeline"
+* Select add new material of type "Another Pipeline"
 * Set material name as "pipeline_material"
-* Set pipeline Stage as "$two-stage-pipeline$ [defaultStage]"
-* Save Changes
+* Set pipeline and stage as "$two-stage-pipeline$:defaultStage"
+* Save material
 * Verify material "pipeline_material" is exist with URL "$two-stage-pipeline$ / defaultStage"
 
 * Edit material "pipeline_material"
-* Set pipeline Stage as "$two-stage-pipeline$ [anotherStage]"
-* Save Changes
+* Set pipeline and stage as "$two-stage-pipeline$:anotherStage"
+* Save material
 * Verify material "pipeline_material" is exist with URL "$two-stage-pipeline$ / anotherStage"
 
 

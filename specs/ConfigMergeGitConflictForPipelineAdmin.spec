@@ -47,7 +47,7 @@ Successful Merge
 
 * Rename pipeline "P4" to "P-merge" - Already On Pipeline Group Xml
 * Click save - Already on config XML Tab
-* Verify the message "Saved configuration successfully. The configuration was modified by someone else, but your changes were merged successfully." is present
+* Verify the message "Saved configuration successfully. The configuration was modified by someone else, but your changes were merged successfully." is present on rails page
 
 
 Teardown of contexts

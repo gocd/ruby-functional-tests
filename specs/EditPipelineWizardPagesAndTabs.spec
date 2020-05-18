@@ -17,38 +17,35 @@ tags: Clicky Admin
 * On Swift Dashboard Page
 * Looking at pipeline "edit-pipeline" - On Swift Dashboard page
 * Edit pipeline "edit-pipeline"
-
 * Verify reset button exists
 * Enter "${COUNT}-pipelinename" for label template
 * Enter "0 0 22 ? * MON-FRI" for cron time specifier
 * Save Changes
-* Verify "Saved successfully." message is displayed
-* Open tab "Materials" - On Pipeline Creation Page
-* Verify "Add Material" link is present
+* Verify the message "Saved Successfully" is present
 
-* Open tab "Environment Variables" - On Pipeline Creation Page
+* Open "Environment Variables" tab - On Pipeline settings page
 * Verify reset button exists
-* Enter Environment variable name "os" with value "windows"
+* Add environment variable "os" with value "windows"
 * Save Changes
 
-* Open tab "Parameters" - On Pipeline Creation Page
+* Open "Parameters" tab - On Pipeline settings page
 
 * Verify reset button exists
 * Add parameter name "foo" and value "bar"
 * Save Changes
 
-* Open tab "Stages" - On Pipeline Creation Page
+* Open "Stages" tab - On Pipeline settings page
 
-* Verify "defaultStage" has "Manual" trigger option with "1" jobs
+* Verify "defaultStage" has "manual" trigger option with "1" jobs
 * Add new stage
-* Set stage as "defaultStage2" - On Add new stage pop up
-* Set job name as "job1" - Already on Add New stage popup
-* Add task "More.." - Already on Add New stage popup
+* Set stage as "defaultStage2" - On Stage settings page
+* Set job name as "job1" - Already on Add New Job popup
+* Add task "Custom Command" - Already on Add New stage popup
 * Set command as "bash" - Already on Add New stage popup
 * Set command args as "-c\necho 'Hello World!'" - Already on Add New stage popup
-* Save Changes
+* Save job changes
 
-* Open tab "Stages" - On Pipeline Creation Page
+* Open "Stages" tab - On Pipeline settings page
 * Verify the stages are "defaultStage2"
 
 * On Swift Dashboard Page

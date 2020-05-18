@@ -26,10 +26,9 @@ tags: Clicky Admin
 * Looking at pipeline "edit-pipeline" - On Swift Dashboard page
 * On Stage settings page of pipeline "edit-pipeline" stage "defaultStage"
 * Open "Permissions" tab - On Stage settings page
-* Verify option  "Inherit from the pipeline group" is selected
-* Verify that user "user4" is inheritted
-* Verify that role "operator" is inheritted
-
+* Verify option "Inherit from the pipeline group" is selected
+* Verify that user "user4" is inherited
+* Verify that role "operator" is inherited
 
 Make sure that only users who operate permissions (and not view users) on the pipeline group can be added into stage authorization
 
@@ -40,22 +39,21 @@ Make sure that only users who operate permissions (and not view users) on the pi
 * Verify that user "user4" is authorized to operate on the stage "defaultStage" of pipeline "edit-pipeline"
 * Verify that role "operator" is authorized to operate on the stage "defaultStage" of pipeline "edit-pipeline"
 
-
+* Add new user permission
 * Set "operatorUser" as user name - On Permission tab
 * Save Changes
 * Verify that user "operatorUser" is authorized to operate on the stage "defaultStage" of pipeline "edit-pipeline"
 
-
+* Add new user permission
 * Set "user3" as user name - On Permission tab
 * Save Changes
 * Verify message "User \"user3\" who is not authorized to operate pipeline group `basic` can not be authorized to approve stage" shows up - On Permission tab
-
+* Reset Changes
 * Open "Permissions" tab - On Stage settings page
+* Add new role permission
 * Set "viewer" as role name - On Permission tab
 * Save Changes
 * Verify message "Role \"viewer\" who is not authorized to operate pipeline group `basic` can not be authorized to approve stage" shows up - On Permission tab
-
-
 
 Teardown of contexts
 ____________________

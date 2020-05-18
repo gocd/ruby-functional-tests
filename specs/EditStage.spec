@@ -17,10 +17,10 @@ tags: Clicky Admin
 
 * Set stage as "some really horrible stage name" - On Stage settings page
 * Save Changes
-* Verify error message "Invalid stage name 'some really horrible stage name'. This must be alphanumeric and can contain underscores, hyphens and periods (however, it cannot start with a period). The maximum allowed length is 255 characters." is shown - Already On Job Edit Page
+* Verify error message "Invalid name. This must be alphanumeric and can contain hyphens, underscores and periods (however, it cannot start with a period). The maximum allowed length is 255 characters." is shown for stage name
 * Set stage as "new-shiny-but-valid-stage-name" - On Stage settings page
 * Save Changes
-* Verify the message "Saved successfully." is present
+* Verify the message "Saved Successfully" is present
 * Verify that stage is named "new-shiny-but-valid-stage-name"
 
 * On Stage settings page of pipeline "edit-pipeline" stage "new-shiny-but-valid-stage-name"

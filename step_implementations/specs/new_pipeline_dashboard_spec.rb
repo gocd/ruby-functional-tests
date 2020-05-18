@@ -325,10 +325,6 @@ step 'Edit pipeline <pipeline>' do |pipeline|
   new_pipeline_dashboard_page.edit_pipeline pipeline
 end
 
-step 'Update auto scheduling to false' do ||
-  new_pipeline_dashboard_page.unset_auto_sceduling
-end
-
 step 'Wait till pipeline start building - On Swift Dashboard page' do ||
   new_pipeline_dashboard_page.wait_till_pipeline_start_building
 end
@@ -340,22 +336,6 @@ step 'Wait till <seconds> seconds for stage <stage> shows status <status> - On S
   new_pipeline_dashboard_page.wait_for_expected_stage_state scenario_state.self_pipeline, stage, status.downcase, seconds.to_i
 end
 
-step 'Set auto scheduling' do ||
-  new_pipeline_dashboard_page.set_auto_sceduling
-end
-
-step 'Verify auto scheduling is selected' do ||
-  assert_true new_pipeline_dashboard_page.auto_sceduling_selected?
-end
-
-step 'Verify auto scheduling is not selected' do ||
-  assert_false new_pipeline_dashboard_page.auto_sceduling_selected?
-end
-
-step 'Verify auto scheduling checkbox is disabled' do ||
-
-  assert_true new_pipeline_dashboard_page.auto_sceduling_enabled?
-end
 step 'Commit file <file> to directory <dir>' do |file,dir|
   Context::GitMaterials.new(scenario_state.get("current_material_url")).create_new_directory_and_add_file(file,dir )
 end

@@ -137,7 +137,6 @@ module Pages
       page.find("div[data-test-id='collapsible-panel-for-env-#{env}'] div[data-test-id='collapse-header']")
     end
 
-
     def close_modal
       modal_cancel.click
     end

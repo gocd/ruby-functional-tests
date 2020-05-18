@@ -36,5 +36,4 @@ Setup of contexts
 teardown
 _______________
 * As user "admin" for teardown
-* With "1" live agents - teardown
 * Logout - from any page

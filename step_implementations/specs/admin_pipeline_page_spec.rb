@@ -104,13 +104,9 @@ step 'Enter pipeline name <pipeline>' do |pipeline|
   admin_pipeline_page.input_new_pipeline_name.set(pipeline)
 end
 
-step 'Verify <message> message is displayed' do |message|
-  assert_true pipeline_settings_page.message_displayed?(message)
-end
-
 step 'Verify pipeline <pipeline> is paused with message <message>' do |pipeline, message|
-  assert_true admin_pipeline_page.unpos_button_exist?(pipeline)
-  assert_equal message, admin_pipeline_page.get_pos_discription
+  assert_true admin_pipeline_page.unpos_button_exist?
+  assert_equal message, admin_pipeline_page.get_pos_description
 end
 
 step 'Click clone button for pipeline <pipeline>' do |pipeline|
@@ -242,10 +238,6 @@ step 'Open <tab> tab' do |tab|
   admin_pipeline_page.open_tab tab
 end
 
-step 'Open template <template>' do |template|
-  admin_pipeline_page.open_template template
-end
-
 step 'Verify templates tab is visible' do
   admin_pipeline_page.template_tab_is_visible?
 end
@@ -280,10 +272,6 @@ end
 
 step 'Verify pipeline selection dropdown is disabled and has value <pipeline>' do |pipeline|
   assert_true admin_pipeline_page.extractable_disabled_pipeline.include? scenario_state.get(pipeline)
-end
-
-step 'Verify pipeline uses template <template>' do |template|
-  assert_true admin_pipeline_page.has_template? template
 end
 
 step 'Verify extract template checkbox is disabled & checked' do

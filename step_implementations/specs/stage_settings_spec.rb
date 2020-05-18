@@ -51,8 +51,8 @@ step 'Verify <job> job is not present' do |job|
   assert_false stage_settings_page.job_present? job
 end
 
-step 'Verify option  <option> is selected' do |option|
-  assert_true  stage_settings_page.option_is_selected? option
+step 'Verify option <option> is selected' do |option|
+  assert_true stage_settings_page.option_is_selected? option
 end
 
 step 'Verify that the message <message> shows up - Already On Edit Stage Page' do |message|
@@ -60,7 +60,7 @@ step 'Verify that the message <message> shows up - Already On Edit Stage Page' d
 end
 
 step 'Select <option>' do |option|
-  stage_settings_page.selecct_permission_option(option)
+  stage_settings_page.select_permission_option(option)
 end
 
 step 'Set <user> as user name - On Permission tab' do |user|
@@ -71,15 +71,18 @@ step 'Set <role> as role name - On Permission tab' do |role|
   stage_settings_page.set_permission_role role
 end
 
-step 'Verify that user <user> is inheritted' do |user|
-  assert_true stage_settings_page.inherited_users.include?user
+step 'Verify that user <user> is inherited' do |user|
+  inherited_users = stage_settings_page.inherited_users
+  assert_true inherited_users.include?(user), "Expected '#{user}' to be a part of '#{inherited_users}'"
 end
-step 'Verify that role <user> is inheritted' do |user|
-  assert_true stage_settings_page.inherited_roles.include?user
+
+step 'Verify that role <user> is inherited' do |role|
+  inherited_roles = stage_settings_page.inherited_roles
+  assert_true inherited_roles.include?(role), "Expected '#{role}' to be a part of '#{inherited_roles}'"
 end
 
 step 'Verify that user <user> is already added - On Permission tab' do |user|
-  assert_true stage_settings_page.specified_users.include?user
+  assert_true stage_settings_page.specified_users.include? user
 end
 
 step 'Verify that role <role> is already added - On Permission tab' do |role|
@@ -90,12 +93,8 @@ step 'Verify message <message> shows up - On Permission tab' do |message|
   assert_true stage_settings_page.has_message? message
 end
 
-step 'Verify auto aproval type is selected' do
+step 'Verify auto approval type is selected' do
   assert_true stage_settings_page.auto_selected?
-end
-
-step 'Change approval type to <type>' do |type|
-  stage_settings_page.set_approval_type type
 end
 
 step 'Open tab <tab> - On Template Page' do |_tab|
@@ -110,37 +109,25 @@ step 'Add task <task> - Already on Add New Job popup' do |task|
   stage_settings_page.add_new_task(task)
 end
 
+step 'Add task <task> - Already on Add New stage popup' do |task|
+  stage_settings_page.task_on_stage_popup.select (task)
+end
+
 step 'Set job name as <job> - Already on Add New Job popup' do |job|
   stage_settings_page.job_name_on_popup.set job
 end
 
-step 'Set command as <command> - Already on Add New Job popup' do |command|
-  stage_settings_page.command_on_popup.set command
+step 'Mark stage manual - On Stage settings page' do
+  stage_settings_page.set_trigger_type(false)
 end
 
-step 'Set resources as <windows> - Already on Add New Job popup' do |resource|
-  stage_settings_page.resources_on_popup.set resource
-end
-
-step 'Mark stage manual - On new pipeline wizard' do
-  stage_settings_page.trigger_type_manual.click
+step 'Mark stage success - On Stage settings page' do
+  stage_settings_page.set_trigger_type(true)
 end
 
 step 'Verify <stage> has <type> trigger option with <jobs> jobs' do |stage, type, jobs|
   assert_true stage_settings_page.stage_has_approval_type? stage, type
   assert_true stage_settings_page.stage_has_jobs? stage, jobs
-end
-
-step 'Add new stage' do
-  stage_settings_page.add_new.click
-end
-
-step 'Set stage as <stage> - On Add new stage pop up' do |stage|
-  stage_settings_page.stage_on_popup.set stage
-end
-
-step 'Add task <task> - Already on Add New stage popup' do |task|
-  stage_settings_page.add_new_task(task)
 end
 
 step 'Set command as <command> - Already on Add New stage popup' do |command|
@@ -151,6 +138,18 @@ step 'Set command args as <args> - Already on Add New stage popup' do |args|
   stage_settings_page.command_args_on_stage_popup.set args
 end
 
-step 'Set job name as <job> - Already on Add New stage popup' do |job|
-  stage_settings_page.job_name_on_stage_popup.set job
+step 'Verify error message <message> is shown for stage name' do |message|
+  assert_true stage_settings_page.error_message_for_stage_name === new_pipeline_dashboard_page.sanitize_message(message)
+end
+
+step 'Add new user permission' do
+  stage_settings_page.add_new_user_permission.click
+end
+
+step 'Add new role permission' do
+  stage_settings_page.add_new_role_permission.click
+end
+
+step 'Save job changes' do
+  stage_settings_page.save_job.click
 end

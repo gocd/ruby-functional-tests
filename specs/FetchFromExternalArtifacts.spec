@@ -17,16 +17,19 @@ Setup of contexts
 * On Job settings page of pipeline "upstream" stage "defaultStage" job "defaultJob"
 * Open "Artifacts" tab - On Job settings page
 * Add artifact of type "External"
-* Start creating external artifact with values "external_artifacts_id: test_artifact, external_artifacts_store_id: ExternalArtifact"
-* Save external artifact with values "external_source: artifact.txt, external_destination: test_folder"
+* Start creating external artifact with artifact id as "test_artifact" and store id as "ExternalArtifact"
+* Save external artifact with values "Source: artifact.txt, Destination: test_folder"
 
 * On Job settings page of pipeline "downstream" stage "defaultStage" job "defaultJob"
 * Open "Tasks" tab - On Job settings page
 * Add task "Fetch Artifact"
 * Select artifact type "External" pipeline "upstream" stage "defaultStage" job "defaultJob" artifact id "test_artifact" path "test_folder"
-* Save task details
-* Move task "2" up
+* Save task changes
 
+//adding command for echo as move is not supported
+* Add task "Custom Command"
+* Set More task - Command as "/bin/bash" argument as "-c\nenv; echo \"VAR1=$(echo \"CHANGED_${VAR1}\" | tr 1 X)\"" working directory as "" runIfConditions as "" - Already on Task edit popup
+* Save task changes
 
 * Looking at pipeline "upstream" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page

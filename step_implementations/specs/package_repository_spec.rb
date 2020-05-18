@@ -58,23 +58,6 @@ step "Enter password as <password>" do |password|
   package_repository_page.package_repo_password username
 end
 
-step "Select repository <repo_name>" do |repo_name|
-  package_material_page.package_repo_name.select repo_name
-end
-
-step "Select option <option> - On Package Material Creation Popup" do |option|
-  package_material_page.add_new_package.click
-end
-
-step "Enter package name <name> and spec <spec>" do |name, spec|
-  package_material_page.package_material_name.set name
-  package_material_page.package_material_spec.set spec
-end
-
-step "Save package material" do |_tmp|
-  package_material_page.package_material_save.click
-end
-
 step "Open Configuration for <pkg_repo>" do |pkg_repo|
   package_repository_page.open_pkg_repo_configuration(pkg_repo)
 end

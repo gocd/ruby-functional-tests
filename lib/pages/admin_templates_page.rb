@@ -25,10 +25,6 @@ module Pages
 
     load_validation { has_create_new_template? }
 
-    def landed_on_pipeline_edit_page? pipeline
-      page.find('.pipeline_header').has_css?('a', text:pipeline)
-    end
-
     def click_edit_pipeline pipeline
       page.find("[data-test-id='edit-pipeline-#{pipeline.downcase}']").click
     end

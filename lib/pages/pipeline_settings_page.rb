@@ -161,6 +161,10 @@ module Pages
       error_message_for_field(cron_timer)
     end
 
+    def landed_on_pipeline_edit_page?(pipeline)
+      page.has_css?('label[data-test-id="step-pipeline-name"]', text: pipeline)
+    end
+
     private
 
     def get_delete_material_icon(material)

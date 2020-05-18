@@ -212,10 +212,6 @@ module Pages
       page.find("[data-test-id='edit-pipeline-#{pipeline.downcase}']").click
     end
 
-    def landed_on_pipeline_edit_page? pipeline
-      page.find('.pipeline_header').has_css?('a', text: pipeline)
-    end
-
     def template_tab_is_visible?
       page.has_css?('#tab-link-of-templates')
     end

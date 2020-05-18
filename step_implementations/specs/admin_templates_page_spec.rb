@@ -25,7 +25,7 @@ end
 
 step 'Verify that edit pipeline <pipeline> lands on pipeline edit page' do |pipeline|
   admin_templates_page.click_edit_pipeline scenario_state.get(pipeline)
-  assert_true admin_templates_page.landed_on_pipeline_edit_page? scenario_state.get(pipeline)
+  assert_true pipeline_settings_page.landed_on_pipeline_edit_page? scenario_state.get(pipeline)
 end
 
 step 'Enter template name <template> - On template page' do |template|

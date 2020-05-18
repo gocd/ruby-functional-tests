@@ -25,8 +25,7 @@ tags: pipeline,pause_pipeline
 * Set task as "rake wait_for_stopjob_file"
 * Set job name as "defaultJob"
 * Save pipeline "newpipeline" successfully
-* Enable pipeline config spa
- Verify "Pipeline successfully created." message is displayed
+* Verify "Pipeline successfully created." message is displayed
 * Verify pipeline "newpipeline" is paused with message "Scheduling is paused by anonymous (Under construction)"
 * Open "Materials" tab - On Pipeline settings page
 

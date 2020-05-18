@@ -16,7 +16,6 @@ tags: Clicky Admin
 * On Swift Dashboard Page
 * Looking at pipeline "edit-pipeline" - On Swift Dashboard page
 * Edit pipeline "edit-pipeline"
-* Enable pipeline config spa
 * Open "Materials" tab - On Pipeline settings page
 * Select add new material of type "Another Pipeline"
 * Set material name as "pipeline_material"

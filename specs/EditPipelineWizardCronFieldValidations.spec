@@ -16,7 +16,6 @@ tags:Clicky Admin
 * On Swift Dashboard Page
 * Looking at pipeline "edit-pipeline" - On Swift Dashboard page
 * Edit pipeline "edit-pipeline"
-* Enable pipeline config spa
 * Open "Parameters" tab - On Pipeline settings page
 * Add parameter name "cron_time_specifier" and value "0 30 10-13 ? * WED-FRI"
 * Add more parameter

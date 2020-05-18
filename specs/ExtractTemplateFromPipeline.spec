@@ -21,7 +21,6 @@ tags: Clicky Admin, template, #5785, 6821
 
 * On Swift Dashboard Page
 * Edit pipeline "simple-pipeline"
-* Enable pipeline config spa
 * Verify pipeline uses template "template_from_pipeline"
 * Open "Parameters" tab - On Pipeline settings page
 * Verify parameter with name "name" and value "value" is present
@@ -30,8 +29,6 @@ tags: Clicky Admin, template, #5785, 6821
 * Verify environment variable with name "NAME" and value "hucha_raghuveer" is present
 
 * Open "General" tab - On Pipeline settings page
-//* Open template "template_from_pipeline"
-//* Enable pipeline config spa
 * On template settings page of template "template_from_pipeline"
 * Open "Stages" tab - On Pipeline settings page
 * Open stage "first"

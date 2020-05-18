@@ -18,7 +18,6 @@ Changing pipeline config appropriately to use in this test
 * On Swift Dashboard Page
 * Looking at pipeline "downstream-pipeline" - On Swift Dashboard page
 * Edit pipeline "downstream-pipeline"
-* Enable pipeline config spa
 * Unset auto scheduling
 * Save Changes
 * Open "Materials" tab - On Pipeline settings page
@@ -33,7 +32,6 @@ Changing pipeline config appropriately to use in this test
 * Trigger and wait for stage "defaultStage" is "Passed" with label "1" - On Swift Dashboard page
 
 * Edit pipeline "downstream-pipeline"
-* Enable pipeline config spa
 * Verify only on changes checkbox is disabled
 * Enter "0 0/2 * 1/1 * ? *" for cron time specifier
 * Verify only on changes checkbox is enabled
@@ -46,7 +44,6 @@ Changing pipeline config appropriately to use in this test
 * Verify pipeline is triggered by "timer" - On Swift Dashboard page
 
 * Edit pipeline "downstream-pipeline"
-* Enable pipeline config spa
 * Select onlyOnChanges flag to trigger pipeline only on new material
 * Save Changes
 

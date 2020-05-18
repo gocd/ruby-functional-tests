@@ -22,7 +22,6 @@ tags: Clone
 * Enter pipeline name "cloned-pipeline"
 * Enter pipeline group name "basic" - Already On Clone Pipeline pop up
 * Save Cloning
-* Enable pipeline config spa
 * Verify pipeline "cloned-pipeline" is paused with message "Scheduling is paused by admin (Under construction)"
 
 * On Admin pipeline page
@@ -31,7 +30,6 @@ tags: Clone
 * Enter pipeline name "another-cloned-pipeline"
 * Enter pipeline group name "defaultGroup" - Already On Clone Pipeline pop up
 * Save Cloning
-* Enable pipeline config spa
 * Verify pipeline "another-cloned-pipeline" is paused with message "Scheduling is paused by admin (Under construction)"
 
 * On Admin pipeline page

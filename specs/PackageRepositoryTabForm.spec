@@ -32,7 +32,6 @@ tags: package-repository
 
 * On Swift Dashboard Page
 * Edit pipeline "pipeline_with_yum_repo_package_as_material"
-* Enable pipeline config spa
 * Open "Materials" tab - On Pipeline settings page
 * Select add new material of type "Package Materials"
 * Select repository "repo-1" and package "go-agent"

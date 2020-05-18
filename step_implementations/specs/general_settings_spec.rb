@@ -61,10 +61,6 @@ step 'Verify parameter with name <key> and value <value> is present' do |key, va
   general_settings_page.verify_parameters_table_row(key, value)
 end
 
-step 'Enable pipeline config spa' do
-  general_settings_page.enable_new_pipeline_config
-end
-
 step 'Add parameter name <name> and value <value>' do |name, value|
   general_settings_page.add_parameter(name, value)
 end

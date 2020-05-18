@@ -20,7 +20,6 @@ tags: template
 * Save Template create
 
 * Edit template "some-funky-template"
-* Enable pipeline config spa
 * Open "General" tab - On Pipeline settings page
 * Open "Stages" tab - On Pipeline settings page
 * Open stage "defaultStage"
@@ -48,7 +47,6 @@ Story: 5105 -  Create template from an existing pipeline
 * Looking at pipeline "simple-pipeline" - On Swift Dashboard page
 
 * Edit pipeline "simple-pipeline"
-* Enable pipeline config spa
 * Verify pipeline uses template "template_from_pipeline"
 * Open "Parameters" tab - On Pipeline settings page
 * Verify parameter with name "name" and value "value" is present

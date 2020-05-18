@@ -16,7 +16,6 @@ tags: Clicky admin
 * On Swift Dashboard Page
 * Looking at pipeline "edit-pipeline" - On Swift Dashboard page
 * Edit pipeline "edit-pipeline"
-* Enable pipeline config spa
 * Open "Materials" tab - On Pipeline settings page
 * Edit material "git"
 * Check connectivity should be successful - Already on Git Material Creation Popup
@@ -24,7 +23,6 @@ tags: Clicky admin
 * Looking at pipeline "edit-pipeline" - On Swift Dashboard page
 * With material "git" of type "git" for pipeline "edit-pipeline"
 * Edit pipeline "edit-pipeline"
-* Enable pipeline config spa
 * Open "Parameters" tab - On Pipeline settings page
 * Add parameter name "url" and value "$current_material_url$"
 * Save Changes
@@ -32,7 +30,6 @@ tags: Clicky admin
 * On Swift Dashboard Page
 * Looking at pipeline "edit-pipeline" - On Swift Dashboard page
 * Edit pipeline "edit-pipeline"
-* Enable pipeline config spa
 * Open "Materials" tab - On Pipeline settings page
 * Edit material "git"
 * Set url "foo" for material "git" - On material popup

@@ -76,10 +76,6 @@ module Pages
       page.find('a', text: tab).click
     end
 
-    def enable_new_pipeline_config
-      page.find('a.quick_edit_button').click
-    end
-
     def set_parameter(index, env_name, env_value)
       page.find("#params > table:nth-child(1) tr:nth-child(#{index}) td .environment_variable_name").set(env_name)
       page.find("#params > table:nth-child(1) tr:nth-child(#{index}) td .environment_variable_value").set(env_value)

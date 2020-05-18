@@ -46,7 +46,6 @@ left [l1(g1), l2(g3), l3(g5), l3(g7)                  V                         
 * On Swift Dashboard Page
 * Looking at pipeline "d-up-left" - On Swift Dashboard page
 * Edit pipeline "d-up-left"
-* Enable pipeline config spa
 * Open "Materials" tab - On Pipeline settings page
 
 * Edit material "git-second"
@@ -57,7 +56,6 @@ left [l1(g1), l2(g3), l3(g5), l3(g7)                  V                         
 * On Swift Dashboard Page
 * Looking at pipeline "d-up-right" - On Swift Dashboard page
 * Edit pipeline "d-up-right"
-* Enable pipeline config spa
 * Open "Materials" tab - On Pipeline settings page
 * Edit material "git-second"
 

@@ -42,7 +42,6 @@ tags: Fetch Artifact
 * On Swift Dashboard Page
 * Looking at pipeline "down_pipeline" - On Swift Dashboard page
 * Edit pipeline "parent-left"
-* Enable pipeline config spa
 * Open "Materials" tab - On Pipeline settings page
 * Select add new material of type "Pipeline"
 * Set pipeline and stage as "$uppest_pipeline$:uppest-stage2"

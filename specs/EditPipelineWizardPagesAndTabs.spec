@@ -17,7 +17,6 @@ tags: Clicky Admin
 * On Swift Dashboard Page
 * Looking at pipeline "edit-pipeline" - On Swift Dashboard page
 * Edit pipeline "edit-pipeline"
-* Enable pipeline config spa
 * Verify reset button exists
 * Enter "${COUNT}-pipelinename" for label template
 * Enter "0 0 22 ? * MON-FRI" for cron time specifier

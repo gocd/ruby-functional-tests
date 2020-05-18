@@ -64,7 +64,6 @@ Enable security
 * Enter pipeline name "admin-test-basic"
 * Enter pipeline group name "basic" - Already On Clone Pipeline pop up
 * Save Cloning
-* Enable pipeline config spa
 * Verify pipeline "admin-test-basic" is paused with message "Scheduling is paused by pipelineSelectorAdmin (Under construction)"
 
 //create new pipeline in group 'dependency-group'
@@ -73,7 +72,6 @@ Enable security
 * Enter pipeline name "admin-test-dependency"
 * Enter pipeline group name "dependency-group" - Already On Clone Pipeline pop up
 * Save Cloning
-* Enable pipeline config spa
 * Verify pipeline "admin-test-dependency" is paused with message "Scheduling is paused by pipelineSelectorAdmin (Under construction)"
 
 * On Swift Dashboard Page
@@ -109,7 +107,6 @@ Enable security
 * Enter pipeline name "pavan-test-basic"
 * Enter pipeline group name "basic" - Already On Clone Pipeline pop up
 * Save Cloning
-* Enable pipeline config spa
 * Verify pipeline "pavan-test-basic" is paused with message "Scheduling is paused by pavan (Under construction)"
 
 //create new pipeline in group 'dependency-group'
@@ -118,7 +115,6 @@ Enable security
 * Enter pipeline name "pavan-test-dependency"
 * Enter pipeline group name "dependency-group" - Already On Clone Pipeline pop up
 * Save Cloning
-* Enable pipeline config spa
 * Verify pipeline "pavan-test-dependency" is paused with message "Scheduling is paused by pavan (Under construction)"
 
 * On Swift Dashboard Page

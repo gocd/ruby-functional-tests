@@ -26,7 +26,6 @@ tags: diamond dependency, fanin
 * On Swift Dashboard Page
 * Looking at pipeline "parent-right" - On Swift Dashboard page
 * Edit pipeline "parent-right"
-* Enable pipeline config spa
 * Open "Materials" tab - On Pipeline settings page
 
 * Select add new material of type "Git"
@@ -62,7 +61,6 @@ tags: diamond dependency, fanin
 * On Swift Dashboard Page
 * Looking at pipeline "parent-left" - On Swift Dashboard page
 * Edit pipeline "parent-left"
-* Enable pipeline config spa
 * Open "Materials" tab - On Pipeline settings page
 * Delete material with name "git"
 

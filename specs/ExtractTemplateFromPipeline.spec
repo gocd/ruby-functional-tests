@@ -29,7 +29,7 @@ tags: Clicky Admin, template, #5785, 6821
 * Verify environment variable with name "NAME" and value "hucha_raghuveer" is present
 
 * Open "General" tab - On Pipeline settings page
-* On template settings page of template "template_from_pipeline"
+* Open template "template_from_pipeline"
 * Open "Stages" tab - On Pipeline settings page
 * Open stage "first"
 * Open "Jobs" tab - On Stage settings page

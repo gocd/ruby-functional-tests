@@ -33,7 +33,7 @@ module CurlBuilder
   private
   def self.payload request
     if ['PUT', 'PATCH', 'POST'].include?(request.method.upcase)
-      "-d '#{URI.decode(request.payload.to_s)}'"
+      "-d '#{CGI.unescape(request.payload.to_s)}'"
     end
   end
 

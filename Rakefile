@@ -135,7 +135,7 @@ zips.each do |package, file|
 
     desc "Build go #{package}"
     task :build do
-      Bundler.with_clean_env do
+      Bundler.with_unbundled_env do
         cd "../#{GO_TRUNK_DIRNAME}" do
           sh "./gradlew -q #{package}GenericZip"
         end
@@ -156,17 +156,17 @@ namespace :plugins do
 
     end
     url = JSON.parse(open(ELASTICAGENTS_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
-    sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/elastic-agent-skeleton-plugin.jar"
+    sh "curl --compressed -s -O target/go-server-#{VERSION_NUMBER}/plugins/external/elastic-agent-skeleton-plugin.jar #{url}"
     url = JSON.parse(open(JSON_CONFIG_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
-    sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/json-config-plugin.jar"
+    sh "curl --compressed -s -O target/go-server-#{VERSION_NUMBER}/plugins/external/json-config-plugin.jar #{url}"
     url = JSON.parse(open(DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
-    sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-registry-artifact-plugin.jar"
+    sh "curl --compressed -s -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-registry-artifact-plugin.jar #{url}"
     url = JSON.parse(open(DOCKER_SWARM_EA_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
-    sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-swarm-elastic-agents-plugin.jar"
+    sh "curl --compressed -s -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-swarm-elastic-agents-plugin.jar #{url}"
     url = JSON.parse(open(DOCKER_EA_PLUGIN_RELEASE_URL).read)[0]['assets'][0]['browser_download_url']
-    sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-elastic-agents-plugin.jar"
+    sh "curl --compressed -s -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-elastic-agents-plugin.jar #{url}"
     url = JSON.parse(open(K8S_EA_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
-    sh "wget --quiet #{url} -O target/go-server-#{VERSION_NUMBER}/plugins/external/k8s-elastic-agents.jar"
+    sh "curl --compressed -s -O target/go-server-#{VERSION_NUMBER}/plugins/external/k8s-elastic-agents.jar #{url}"
   end
 
   desc 'task for preparing anlytics plugin'
@@ -311,7 +311,7 @@ task default: %w[kill clean_all build_all prepare test]
 task :setup_tfs_cli do
   rm_rf "tfs-tool"
   mkdir_p "tfs-tool"
-  sh "wget --quiet https://maven-mirrors.gocd.org/repository/s3-mirrors/local/TEE-CLC-14.0.3.zip -O tfs-tool/TEE-CLC-14.0.3.zip"
+  sh "curl --compressed -s https://maven-mirrors.gocd.org/repository/s3-mirrors/local/TEE-CLC-14.0.3.zip -O tfs-tool/TEE-CLC-14.0.3.zip"
   sh "unzip tfs-tool/TEE-CLC-14.0.3.zip -d tfs-tool"
   sh "mv tfs-tool/TEE-CLC-14.0.3/* tfs-tool/"
   cd "tfs-tool" do

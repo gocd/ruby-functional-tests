@@ -33,7 +33,7 @@ module Context
       cp 'resources/with-java.sh', "#{dir}/"
       chmod 0755, "#{dir}/with-java.sh"
       prepare_wrapper_conf(dir.to_s, GoConstants::GO_AGENT_SYSTEM_PROPERTIES)
-      Bundler.with_clean_env do
+      Bundler.with_unbundled_env do
         process = ChildProcess.build('./with-java.sh', START_COMMAND, 'start', '-serverUrl', "http://127.0.0.1:#{GoConstants::SERVER_PORT}/go")
         process.detach = true
         process.environment['GO_PIPELINE_COUNTER'] = GoConstants::GO_PIPELINE_COUNTER
@@ -115,7 +115,7 @@ module Context
         sh %(docker rm -f agent_#{n} || true)
         return
       end
-      Bundler.with_clean_env do
+      Bundler.with_unbundled_env do
         process = ChildProcess.build('./with-java.sh', STOP_COMMAND, 'stop')
         process.detach = true
         process.environment['PID_FILE'] = 'go-agent.pid'

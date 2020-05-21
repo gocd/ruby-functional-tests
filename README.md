@@ -4,13 +4,13 @@
 
 * Java 12
 
-* Ruby 2.7.1
+* Ruby 2.6.5
 
-* Rake 13.0.1
+* Rake 12.3.2
 
-* Bundler 2.1.4
+* Bundler 1.17.2
 
-* [Node](https://nodejs.org/en/) v14.3.0
+* [Node](https://nodejs.org/en/) v13.8.0
 
 * [Gauge](https://gauge.org/index.html) 1.0.8
 
@@ -21,11 +21,13 @@
 
   You might have to run `bundle update` to get the right version. Look inside `vendor/bundle` to find the correct, installed version and don't depend on the output of `gauge --version`.
 
-* Firefox >= 45.0 (verified with Firefox 76.0.1)
+* Firefox >= 45.0 (verified with Firefox 75.0)
 
 * geckodriver 0.26.0
 
 * jq
+
+* wget
 
 ## Setup
 

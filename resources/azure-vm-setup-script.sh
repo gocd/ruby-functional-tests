@@ -20,7 +20,7 @@ curl -L https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 apt-get update && apt-get install -y azure-cli unzip
 install_gauge
 apt-get install -y docker.io
-curl --compressed -O https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
 sh -c 'tar -x geckodriver -zf geckodriver-v0.26.0-linux64.tar.gz -O > /usr/bin/geckodriver'
 chmod +x /usr/bin/geckodriver
 rm geckodriver-v0.26.0-linux64.tar.gz

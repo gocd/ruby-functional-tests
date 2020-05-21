@@ -135,7 +135,7 @@ zips.each do |package, file|
 
     desc "Build go #{package}"
     task :build do
-      Bundler.with_unbundled_env do
+      Bundler.with_original_env do
         cd "../#{GO_TRUNK_DIRNAME}" do
           sh "./gradlew -q #{package}GenericZip"
         end

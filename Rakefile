@@ -46,16 +46,16 @@ AZ_FILE_SHARE_QUOTA      = ENV['AZ_FILE_SHARE_QUOTA'] || 100
 AZ_STORAGE_DEPLOYMENT_NAME = ENV['AZ_STORAGE_DEPLOYMENT_NAME'] || 'gocdstorageaccount'
 
 
-DOCKER_EA_PLUGIN_RELEASE_URL                = ENV['DOCKER_EA_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/docker-elastic-agents/releases'
-K8S_EA_PLUGIN_RELEASE_URL                   = ENV['K8S_EA_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd/kubernetes-elastic-agents/releases/latest'
-DOCKER_SWARM_EA_PLUGIN_RELEASE_URL          = ENV['DOCKER_SWARM_EA_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/docker-swarm-elastic-agents/releases/latest'
-ELASTICAGENTS_PLUGIN_RELEASE_URL            = ENV['ELASTICAGENTS_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/elastic-agent-skeleton-plugin/releases/latest'
-JSON_CONFIG_PLUGIN_RELEASE_URL              = ENV['JSON_CONFIG_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/tomzo/gocd-json-config-plugin/releases/latest'
-DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL = ENV['DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd/docker-registry-artifact-plugin/releases/latest'
-TEST_EXTERNAL_ARTIFACTS_PLUGIN_RELEASE_URL  = ENV['TEST_EXTERNAL_ARTIFACTS_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/test-external-artifacts-plugin/releases/latest'
+DOCKER_EA_PLUGIN_RELEASE_URL                = ENV['DOCKER_EA_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd-contrib/docker-elastic-agents/releases'
+K8S_EA_PLUGIN_RELEASE_URL                   = ENV['K8S_EA_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/kubernetes-elastic-agents/releases/latest'
+DOCKER_SWARM_EA_PLUGIN_RELEASE_URL          = ENV['DOCKER_SWARM_EA_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd-contrib/docker-swarm-elastic-agents/releases/latest'
+ELASTICAGENTS_PLUGIN_RELEASE_URL            = ENV['ELASTICAGENTS_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd-contrib/elastic-agent-skeleton-plugin/releases/latest'
+JSON_CONFIG_PLUGIN_RELEASE_URL              = ENV['JSON_CONFIG_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/tomzo/gocd-json-config-plugin/releases/latest'
+DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL = ENV['DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/docker-registry-artifact-plugin/releases/latest'
+TEST_EXTERNAL_ARTIFACTS_PLUGIN_RELEASE_URL  = ENV['TEST_EXTERNAL_ARTIFACTS_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd-contrib/test-external-artifacts-plugin/releases/latest'
 ANALYTICS_PLUGIN_DOWNLOAD_URL               = ENV['ANALYTICS_PLUGIN_DOWNLOAD_URL']
 LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL      = ENV['LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL']
-FILE_BASED_SECRET_PLUGIN_RELEASE_URL        = ENV['FILE_BASED_SECRET_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd/gocd-file-based-secrets-plugin/releases/17414282'
+FILE_BASED_SECRET_PLUGIN_RELEASE_URL        = ENV['FILE_BASED_SECRET_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/gocd-file-based-secrets-plugin/releases/17414282'
 
 desc 'cleans all directories'
 task :clean_all do
@@ -153,20 +153,24 @@ namespace :plugins do
       cp_r "../#{GO_PLUGINS_DIRNAME}/target/go-plugins-dist/.", "target/go-server-#{VERSION_NUMBER}/plugins/external"
     else
       cp_r 'target/go-plugins-dist/.', "target/go-server-#{VERSION_NUMBER}/plugins/external"
-
     end
-    url = JSON.parse(open(ELASTICAGENTS_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
-    sh "curl -L --compressed -s -O target/go-server-#{VERSION_NUMBER}/plugins/external/elastic-agent-skeleton-plugin.jar #{url}"
-    url = JSON.parse(open(JSON_CONFIG_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
-    sh "curl -L --compressed -s -O target/go-server-#{VERSION_NUMBER}/plugins/external/json-config-plugin.jar #{url}"
-    url = JSON.parse(open(DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
-    sh "curl -L --compressed -s -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-registry-artifact-plugin.jar #{url}"
-    url = JSON.parse(open(DOCKER_SWARM_EA_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
-    sh "curl -L --compressed -s -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-swarm-elastic-agents-plugin.jar #{url}"
-    url = JSON.parse(open(DOCKER_EA_PLUGIN_RELEASE_URL).read)[0]['assets'][0]['browser_download_url']
-    sh "curl -L --compressed -s -O target/go-server-#{VERSION_NUMBER}/plugins/external/docker-elastic-agents-plugin.jar #{url}"
-    url = JSON.parse(open(K8S_EA_PLUGIN_RELEASE_URL).read)['assets'][0]['browser_download_url']
-    sh "curl -L --compressed -s -O target/go-server-#{VERSION_NUMBER}/plugins/external/k8s-elastic-agents.jar #{url}"
+
+    def download_url(blob)
+      blob['assets'][0]['browser_download_url'].gsub(/:\/\/api.github.com\//, "://github-api-proxy.gocd.org/")
+    end
+
+    url = download_url(JSON.parse(open(ELASTICAGENTS_PLUGIN_RELEASE_URL).read))
+    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/elastic-agent-skeleton-plugin.jar #{url}"
+    url = download_url(JSON.parse(open(JSON_CONFIG_PLUGIN_RELEASE_URL).read))
+    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/json-config-plugin.jar #{url}"
+    url = download_url(JSON.parse(open(DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL).read))
+    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-registry-artifact-plugin.jar #{url}"
+    url = download_url(JSON.parse(open(DOCKER_SWARM_EA_PLUGIN_RELEASE_URL).read))
+    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-swarm-elastic-agents-plugin.jar #{url}"
+    url = download_url(JSON.parse(open(DOCKER_EA_PLUGIN_RELEASE_URL).read)[0])
+    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-elastic-agents-plugin.jar #{url}"
+    url = download_url(JSON.parse(open(K8S_EA_PLUGIN_RELEASE_URL).read))
+    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/k8s-elastic-agents.jar #{url}"
   end
 
   desc 'task for preparing anlytics plugin'
@@ -311,7 +315,7 @@ task default: %w[kill clean_all build_all prepare test]
 task :setup_tfs_cli do
   rm_rf "tfs-tool"
   mkdir_p "tfs-tool"
-  sh "curl -L --compressed -s https://maven-mirrors.gocd.org/repository/s3-mirrors/local/TEE-CLC-14.0.3.zip -O tfs-tool/TEE-CLC-14.0.3.zip"
+  sh "curl --compressed -sSL --output tfs-tool/TEE-CLC-14.0.3.zip https://maven-mirrors.gocd.org/repository/s3-mirrors/local/TEE-CLC-14.0.3.zip"
   sh "unzip tfs-tool/TEE-CLC-14.0.3.zip -d tfs-tool"
   sh "mv tfs-tool/TEE-CLC-14.0.3/* tfs-tool/"
   cd "tfs-tool" do

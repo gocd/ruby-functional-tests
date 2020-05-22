@@ -35,7 +35,7 @@ module Context
         cp_r Dir.glob("#{YUM_FILES_DIRECTORY}/revision-one/*.rpm"), "#{YUM_REPO_DIRECTORY_PATH}/#{name}"
         out = File.open("#{GoConstants::SERVER_DIR}/logs/output.log", 'w')
         #cwd = Dir["#{YUM_REPO_DIRECTORY_PATH}/#{name}"].find { |f| File.directory?(f) }
-        Bundler.with_original_env do
+        Bundler.with_clean_env do
             process = ChildProcess.build('/usr/bin/createrepo', "#{YUM_REPO_DIRECTORY_PATH}/#{name}")
             process.detach = true
             process.io.stdout = process.io.stderr = out
@@ -48,7 +48,7 @@ module Context
     # For basic test a file based repo is good enough
     def start_jetty_server
         out = File.open("#{GoConstants::SERVER_DIR}/logs/output.log", 'w')
-        Bundler.with_original_env do
+        Bundler.with_clean_env do
             process = ChildProcess.build('java', '-jar', 'start.jar', 'jetty.port=8081')
             process.detach = true
             process.io.stdout = process.io.stderr = out
@@ -64,7 +64,7 @@ module Context
     def publish_new_artifact_to(repo)
         cp_r Dir.glob("#{YUM_FILES_DIRECTORY}/revision-two/*.rpm"), "#{YUM_REPO_DIRECTORY_PATH}/#{repo}"
         out = File.open("#{GoConstants::SERVER_DIR}/logs/output.log", 'w')
-        Bundler.with_original_env do
+        Bundler.with_clean_env do
             process = ChildProcess.build('/usr/bin/createrepo', "--update", "#{YUM_REPO_DIRECTORY_PATH}/#{repo}/")
             process.detach = true
             process.io.stdout = process.io.stderr = out

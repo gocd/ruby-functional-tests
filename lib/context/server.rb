@@ -40,7 +40,7 @@ module Context
       prepare_wrapper_conf(GoConstants::GO_SERVER_SYSTEM_PROPERTIES)
 
       STDERR.puts "Attempting to start GoCD server in: #{GoConstants::SERVER_DIR}. Logs will be in #{log_location}"
-      Bundler.with_clean_env do
+      Bundler.with_original_env do
         process = ChildProcess.build('./with-java.sh', START_COMMAND, 'start')
         process.detach = true
         process.io.stdout = process.io.stderr = out
@@ -58,7 +58,7 @@ module Context
           sh %(docker rm -f gauge_server || true)
           return
         end
-        Bundler.with_clean_env do
+        Bundler.with_original_env do
           process = ChildProcess.build('./with-java.sh', STOP_COMMAND, 'stop')
           process.detach = true
           process.cwd = GoConstants::SERVER_DIR

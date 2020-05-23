@@ -67,7 +67,7 @@ GEM
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
-    json (2.2.0)
+    json (2.3.0)
     json_builder (3.1.7)
       activesupport (>= 2.0.0)
       json
@@ -162,6 +162,7 @@ DEPENDENCIES
   deep_merge
   ffi (< 1.12.2)
   gauge-ruby
+  json (~> 2.3.0)
   json_builder
   ladle
   multi_json

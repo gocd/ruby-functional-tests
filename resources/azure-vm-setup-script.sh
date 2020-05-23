@@ -1,10 +1,9 @@
 #!/bin/bash
 
 function install_gauge() {
-curl -sL https://github.com/getgauge/gauge/releases/download/v1.0.6/gauge-1.0.6-linux.x86_64.zip -o /home/gauge-1.0.6-linux.x86_64.zip
-cd /home && unzip /home/gauge-1.0.6-linux.x86_64.zip
-mv /home/gauge /usr/bin
-gauge -v
+  curl -sL -O https://github.com/getgauge/gauge/releases/download/v1.0.8/gauge-1.0.8-linux.x86_64.zip
+  unzip -d /usr/bin gauge-1.0.8-linux.x86_64.zip
+  gauge -v
 }
 
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -

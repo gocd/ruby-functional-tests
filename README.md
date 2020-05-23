@@ -4,7 +4,7 @@
 
 * Java 12
 
-* Ruby 2.6.6
+* Ruby 2.7.1
 
 * Rake 13.0.1
 

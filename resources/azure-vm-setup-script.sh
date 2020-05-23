@@ -1,8 +1,9 @@
 #!/bin/bash
 
 function install_gauge() {
-  curl -sL -O https://github.com/getgauge/gauge/releases/download/v1.0.8/gauge-1.0.8-linux.x86_64.zip
-  unzip -d /usr/bin gauge-1.0.8-linux.x86_64.zip
+  local version="$1"
+  curl -sL -O https://github.com/getgauge/gauge/releases/download/v$version/gauge-$version-linux.x86_64.zip
+  unzip -d /usr/bin gauge-$version-linux.x86_64.zip
   gauge -v
 }
 
@@ -17,7 +18,7 @@ curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | tee
 AZ_REPO=$(lsb_release -cs) && echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | tee /etc/apt/sources.list.d/azure-cli.list
 curl -L https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 apt-get update && apt-get install -y azure-cli unzip
-install_gauge
+install_gauge "1.0.6"
 apt-get install -y docker.io
 curl -L --compressed -O https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
 sh -c 'tar -x geckodriver -zf geckodriver-v0.26.0-linux64.tar.gz -O > /usr/bin/geckodriver'

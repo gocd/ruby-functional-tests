@@ -20,7 +20,7 @@ module Pages
     element :global_cancel, 'button[data-test-id="cancel"]'
     element :task_save, 'button[data-test-id="save-pipeline-group"]'
     element :task_cancel, 'button[data-test-id="cancel-button"]'
-    element :save_message, 'div[data-test-id="flash-message-success"]'
+    elements :save_messages, 'div[data-test-id="flash-message-success"]'
     element :error_message, 'div[data-test-id="flash-message-alert"]'
     element :add_parameter_button, 'button[data-test-id="add-param"]'
     element :confirm_change, 'button[data-test-id="primary-action-button"]'
@@ -42,7 +42,7 @@ module Pages
     end
 
     def get_message
-      save_message.text
+      save_messages.map(&:text).join("\n")
     end
 
     def verify_secure_variables_table_row(key)

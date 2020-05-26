@@ -120,7 +120,7 @@ step 'Select Clean working directory' do
 end
 
 step 'Enter project path as <path>' do |path|
-  pipeline_settings_page.project_path.set(path)
+  pipeline_settings_page.set_project_path(path)
 end
 
 step 'Verify the stages are <stages>' do |stages|

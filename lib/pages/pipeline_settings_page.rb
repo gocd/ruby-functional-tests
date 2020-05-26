@@ -64,6 +64,10 @@ module Pages
       page.has_css?('div[class^="test_connection__test-connection-result___"] div[data-test-id="flash-message-success"]')
     end
 
+    def set_project_path(path)
+      page.find('input[data-test-id="form-field-input-project-path"]').set path
+    end
+
     def set_material_url(url)
       p "url: #{url}"
       page.find('input[data-test-id="form-field-input-repository-url"]').set url

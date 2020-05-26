@@ -21,7 +21,7 @@ module Pages
     element :message, '#success'
     element :save, "button[value='SAVE']"
     element :material_url_field, "input[name='material[url]']"
-    element :material_dest_directory, "input[name='material[folder]']"
+    element :material_dest_directory, "input[data-test-id='form-field-input-alternate-checkout-path']"
     element :check_connection, "button[data-test-id='test-connection-button']"
     element :cron_timer, 'input[data-test-id="cron-timer"]'
     element :label_template, 'input[data-test-id="label-template"]'
@@ -29,7 +29,7 @@ module Pages
     element :pipeline_name, "input[data-test-id='form-field-input-upstream-pipeline']"
     element :stage_name, "select[data-test-id='form-field-input-upstream-stage']"
     element :pipeline_locking, '#pipeline_lockBehavior_lockonfailure'
-    element :project_path, "input[name='material[projectPath]']"
+    element :project_path, "input[data-test-id='form-field-input-project-path']"
 
     # mingle project management
     element :mingle_URL, '#pipeline_mingleConfig_baseUrl'
@@ -103,15 +103,23 @@ module Pages
     end
 
     def make_material_auto_update(flag)
-      page.find('#material_autoUpdate').set(flag)
+      page.all('dt')
+          .find {|element| element.text === "Advanced Settings"}
+          .click
+      page.find('input[data-test-id="auto-update-material"]', visible: false)
+          .sibling('label[data-test-id="switch-paddle"]').set(flag)
     end
 
     def invert_material
-      page.find('#material_invertFilter').set(true)
+      page.all('dt')
+          .find {|element| element.text === "Advanced Settings"}
+          .click
+      page.find('input[data-test-id="invert-filter"]').set(true)
     end
 
     def clean_work_dir
-      page.find('#stage_cleanWorkingDir').set(true)
+      page.find('input[data-test-id="clean-working-directory-checkbox"]', visible: false)
+          .sibling('label[data-test-id="switch-paddle"]').set(true)
     end
 
     def select_tracking_tool(tool)
@@ -151,6 +159,13 @@ module Pages
           .find {|element| element.text === "Advanced Settings"}
           .click
       material_name.set mat_name
+    end
+
+    def set_destination_dir(destination)
+      page.all('dt')
+          .find {|element| element.text === "Advanced Settings"}
+          .click
+      material_dest_directory.set destination
     end
 
     def save_material

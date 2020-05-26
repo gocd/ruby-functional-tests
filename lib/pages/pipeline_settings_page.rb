@@ -65,7 +65,8 @@ module Pages
     end
 
     def set_project_path(path)
-      page.find('input[data-test-id="form-field-input-project-path"]').set path
+      p "project_path: #{path}"
+      page.find('input[data-test-id="form-field-input-project-path"]', wait: 10).set path
     end
 
     def set_material_url(url)

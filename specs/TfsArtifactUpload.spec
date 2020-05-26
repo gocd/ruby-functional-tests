@@ -40,9 +40,6 @@ Rajeshvaran's Regression Suite - 7.1.1 - artifacts are generated in the working 
 * Verify stage "defaultStage" is "Failed" on pipeline with label "1" - On Swift Dashboard page
 
 
-
-
-
 Teardown of contexts
 ____________________
 * Capture go state "TfsArtifactUpload" - teardown

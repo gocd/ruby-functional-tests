@@ -35,7 +35,7 @@ step 'Edit material <material_name>' do |material_name|
 end
 
 step 'Enter destination directory <dest>' do |dest|
-  pipeline_settings_page.material_dest_directory.set dest
+  pipeline_settings_page.set_destination_dir(dest)
 end
 
 step 'Copy over material url from material url as <material-url>' do |material_url|

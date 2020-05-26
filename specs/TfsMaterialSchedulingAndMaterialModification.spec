@@ -34,9 +34,7 @@ tags: tfs
 * Open "Materials" tab - On Pipeline settings page
 * Edit material "tfs_mat"
 * Enter project path as "$/for_tests"
-* Save Changes
-
-
+* Save material
 
 
 now trigger pipeline again with new material change
@@ -61,8 +59,6 @@ verify second instance built with newer material
 * Looking at material of type "Tfs" named "tfs_mat"
 * Verify material has changed - Already On Build Cause Section
 * Verify modification "0" is checked in by "go.tfs.user" with comment "Updated SecondAdd.txt"
-
-
 
 
 Teardown of contexts

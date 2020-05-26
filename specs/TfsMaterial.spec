@@ -22,13 +22,12 @@ Add resource "tfs" to an agent - Using Agents API
 * Open "Materials" tab - On Pipeline settings page
 * Edit material "tfs_mat"
 * Make autoupdate to be "true" - Already on edit material popup
-* Save Changes
+* Save material
 
 * On Swift Dashboard Page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
-
 
 * Modify and checkin file "IgnoredFile.ignore.txt" as "ignoreuser" with message "should be ignored"
 * Verify pipeline does not get triggered
@@ -42,7 +41,7 @@ Add resource "tfs" to an agent - Using Agents API
 * Open "Materials" tab - On Pipeline settings page
 * Edit material "tfs_mat"
 * Invert material
-* Save Changes
+* Save material
 * On Stage settings page of pipeline "basic-tfs-pipeline" stage "defaultStage"
 * Mark stage success - On Stage settings page
 * Save Changes
@@ -55,7 +54,6 @@ Add resource "tfs" to an agent - Using Agents API
 * Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" on pipeline with label "3" - On Swift Dashboard page
 
-
 * On Swift Dashboard Page
 * On Stage settings page of pipeline "basic-tfs-pipeline" stage "defaultStage"
 * Mark stage manual - On Stage settings page
@@ -67,7 +65,7 @@ Add resource "tfs" to an agent - Using Agents API
 * Open "Materials" tab - On Pipeline settings page
 * Edit material "tfs_mat"
 * Make autoupdate to be "false" - Already on edit material popup
-* Save Changes
+* Save material
 
 * On Swift Dashboard Page
 * Modify and checkin file "HelloWorld.txt" as "luser" with message "interesting comment by luser"
@@ -80,15 +78,13 @@ Add resource "tfs" to an agent - Using Agents API
 * Verify modification "0" is checked with comment "interesting comment by luser"
 * Verify material has changed - Already On Build Cause Section
 
-
-
 * On Swift Dashboard Page
 * Looking at pipeline "basic-tfs-pipeline" - On Swift Dashboard page
 * Edit pipeline "basic-tfs-pipeline"
 * Open "Materials" tab - On Pipeline settings page
 * Edit material "tfs_mat"
 * Enter destination directory ""
-* Save Changes
+* Save material
 
 * On Swift Dashboard Page
 * Trigger pipeline - On Swift Dashboard page
@@ -101,7 +97,7 @@ Add resource "tfs" to an agent - Using Agents API
 * Open "Materials" tab - On Pipeline settings page
 * Edit material "tfs_mat"
 * Enter destination directory "new_dest"
-* Save Changes
+* Save material
 
 * On Swift Dashboard Page
 * Trigger pipeline - On Swift Dashboard page
@@ -119,9 +115,6 @@ Add resource "tfs" to an agent - Using Agents API
 
 * On Job details page of pipeline "basic-tfs-pipeline" counter "7" stage "defaultStage" counter "1" job "defaultJob"
 * Verify console log contains message "Cleaning working directory"
-
-
-
 
 Teardown of contexts
 _____________________

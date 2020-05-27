@@ -80,9 +80,11 @@
 		  <stage name="stage1">
 		  	<approval type="manual"/>
 		    <jobs>
-		      <job name="defaultJob">
-		        <tasks/>
-		      </job>
+				<job name="defaultJob">
+					<tasks>
+						<exec command="ls"/>
+					</tasks>
+				</job>
 		    </jobs>
 		  </stage>
 		  <stage name="stage2">

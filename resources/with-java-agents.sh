@@ -2,8 +2,6 @@
 
 # 3, because that's the number of JVMs we test on currently - 11, 12, 13
 mod="$((${GO_PIPELINE_COUNTER:-0} % 3))"
-# 5, because that's the number of DBs we test are: h2, postgres(9.6, 10, 11 and 12)
- db_mod="$((${GO_PIPELINE_COUNTER:-0} % 5))"
 
 function use_jdk() {
     if [ ! -f "${HOME}/.jabba/jabba.sh" ]; then
@@ -35,32 +33,4 @@ fi
 
 echo "JAVA_HOME set to : $JAVA_HOME"
 
-function setup_postgres() {
-    /usr/pgsql-$1/bin/initdb /go/.pg-data
-    echo "unix_socket_directories = '/tmp'" >> ~/.pg-data/postgresql.conf
-    mkdir /go/.pg-data/log
-    /usr/pgsql-$1/bin/pg_ctl start -l /go/.pg-data/log/logfile -D /go/.pg-data -w -t 60
-    dropdb --if-exists --host=localhost --port=5432 --username go cruise
-    createdb --host=localhost --port=5432 --username go cruise
-}
-
-if [[ "$db_mod" = "0" ]]; then
-    echo "Nothing to do here. Keep using h2."
-else
-    echo "Copying db.properties to the config"
-    cp db.properties config/
-    if [[ "$db_mod" = "1" ]]; then
-        echo "Running GoCD with postgres 9.6"
-        setup_postgres 9.6
-    elif [[ "$db_mod" = "2" ]]; then
-        echo "Running GoCD with postgres 10"
-        setup_postgres 10
-    elif [[ "$db_mod" = "3" ]]; then
-        echo "Running GoCD with postgres 11"
-        setup_postgres 11
-    elif [[ "$db_mod" = "4" ]]; then
-        echo "Running GoCD with postgres 12"
-        setup_postgres 12
-    fi
-fi
 exec "$@"

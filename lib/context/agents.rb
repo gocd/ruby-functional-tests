@@ -30,7 +30,7 @@ module Context
       rm_rf(dir)
       mkdir_p dir
       cp_r "#{GoConstants::AGENT_DIR}/.", "#{dir}/"
-      cp 'resources/with-java.sh', "#{dir}/"
+      cp 'resources/with-java-agents.sh', "#{dir}/with-java.sh"
       chmod 0755, "#{dir}/with-java.sh"
       prepare_wrapper_conf(dir.to_s, GoConstants::GO_AGENT_SYSTEM_PROPERTIES)
       Bundler.with_original_env do

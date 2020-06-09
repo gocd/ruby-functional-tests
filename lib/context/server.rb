@@ -32,6 +32,7 @@ module Context
       return if DEVELOPMENT_MODE && server_running?
 
       cp 'resources/with-java.sh', GoConstants::SERVER_DIR
+      cp 'resources/db/db.properties', GoConstants::SERVER_DIR
       mkdir_p "#{GoConstants::SERVER_DIR}/logs"
       log_location = "#{GoConstants::SERVER_DIR}/logs/output.log"
       out = File.open(log_location, 'w')

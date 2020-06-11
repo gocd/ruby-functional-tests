@@ -18,11 +18,26 @@ module Pages
   class Preferences < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/preferences/notifications"
 
-    element :page_title , "#page-title"
+    element :page_title, "#page-title"
+    element :notifications_table, ".notification-filters-list"
+    element :pipeline_selector, "select[name='pipeline']"
+    element :stage_selector, "select[name='stage']"
+    element :event_selector, "select[name='event']"
+    element :only_my_commits, "input[name='match_commits']"
+    element :add_notification, "input[type='submit']"
 
     def verify_title(title)
       assert_equal page_title.text, title
     end
 
+    def notifications_configured
+      notifications_table.all('tbody tr').count
+    end
+
+    def delete_notification(row)
+      notifications_table.all('tbody tr')[row.to_i - 1]
+          .find('button')
+          .click
+    end
   end
 end

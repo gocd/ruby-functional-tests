@@ -21,3 +21,30 @@ end
 step "Verify page title is <title>" do |title|
   preferences_page.verify_title(title)
 end
+
+step "Verify <count> notifications are present" do |count|
+  assert_equal count.to_i, preferences_page.notifications_configured
+end
+
+step "Set pipeline as <pipeline>" do |pipeline|
+  preferences_page.pipeline_selector.select scenario_state.get(pipeline)
+end
+
+step "Set stage as <stage>" do |stage|
+  preferences_page.stage_selector.select stage
+end
+
+step "Set event as <event>" do |event|
+  preferences_page.event_selector.select event
+end
+
+step "Set notification for all commits" do
+  preferences_page.only_my_commits.set false
+end
+
+step "Add notification" do
+  preferences_page.add_notification.click
+end
+step "Delete notification <row>" do |row|
+  preferences_page.delete_notification(row)
+end

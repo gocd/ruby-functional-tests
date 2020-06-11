@@ -160,3 +160,7 @@ end
 step 'Tfs configuration - setup' do ||
   basic_configuration.setup 'tfs-cruise-config.xml'
 end
+
+step 'Mailhost configuration - setup' do ||
+  secure_configuration.setup 'secure-cruise-config-with-mailhost.xml', 'password.properties'
+end

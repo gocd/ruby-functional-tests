@@ -53,8 +53,9 @@ end
 step 'Verify that the db backup is present in the <dir> directory' do |dir|
   h2_backup_present = !Dir.glob("#{GoConstants::SERVER_DIR}/artifacts/#{dir}/**/db.zip").empty?
   if h2_backup_present === false
-    assert_true !Dir.glob("#{GoConstants::SERVER_DIR}/artifacts/#{dir}/**/db.cruise").empty?
-  else
-    raise "Neither db.zip nor db.cruise is present in the backup"
+    other_db_backup = !Dir.glob("#{GoConstants::SERVER_DIR}/artifacts/#{dir}/**/db.cruise").empty?
+    if other_db_backup === false
+      raise "Neither db.zip nor db.cruise is present in the backup"
+    end
   end
 end

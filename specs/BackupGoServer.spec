@@ -21,7 +21,7 @@ tags: backup
 * Verify the last performed backup message contains "Last backup was taken by 'admin' at"
 
 * Verify the "serverBackups" directory exists
-* Verify the "serverBackups" directory contains "db.zip" file in the tree
+* Verify that the db backup is present in the "serverBackups" directory
 * Verify the "serverBackups" directory contains "config-repo.zip" file in the tree
 * Verify the "serverBackups" directory contains "config-dir.zip" file in the tree
 * Verify the "serverBackups" directory contains "version.txt" file in the tree

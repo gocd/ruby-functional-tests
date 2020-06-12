@@ -49,3 +49,12 @@ step 'Verify the <dir> directory contains file named <file> which has running go
   actual_version = server_backup_page.running_server_full_version
   assert_true version_on_backupfile.eql?(actual_version), "Expected #{version_on_backupfile}, Actual #{actual_version}"
 end
+
+step 'Verify that the db backup is present in the <dir> directory' do |dir|
+  h2_backup_present = !Dir.glob("#{GoConstants::SERVER_DIR}/artifacts/#{dir}/**/db.zip").empty?
+  if h2_backup_present === false
+    assert_true !Dir.glob("#{GoConstants::SERVER_DIR}/artifacts/#{dir}/**/db.cruise").empty?
+  else
+    raise "Neither db.zip nor db.cruise is present in the backup"
+  end
+end

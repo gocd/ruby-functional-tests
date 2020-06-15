@@ -35,6 +35,7 @@ GAUGE_TAGS       = ENV['GAUGE_TAGS'] || 'smoke'
 LOAD_BALANCED    = GO_JOB_RUN_COUNT && GO_JOB_RUN_INDEX
 DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
 USE_POSTGRESQL   = !ENV['USE_POSTGRESQL'].nil?
+GO_PIPELINE_COUNTER = ENV['GO_PIPELINE_COUNTER'] || 0
 
 AZ_SP_USERNAME           = ENV['AZ_SP_USERNAME']
 AZ_SP_PASSWORD           = ENV['AZ_SP_PASSWORD']
@@ -353,4 +354,38 @@ end
 task :cleanup_azure_resources do
   sh "az storage account delete -n #{AZ_STORAGE_ACCOUNT_NAME} --resource-group #{AZ_RESOURCE_GROUP} --yes"
   sh "az group deployment delete --verbose --name #{AZ_STORAGE_DEPLOYMENT_NAME} --resource-group #{AZ_RESOURCE_GROUP}"
+end
+
+namespace :db do
+  desc 'task for starting postgres server if needed'
+  task :prepare do
+    db_mod = GO_PIPELINE_COUNTER % 5
+    if db_mod === 0
+      puts "Using h2..."
+    else
+      db_version = '9.6'
+      case db_mod
+      when 2
+        db_version = '10'
+      when 3
+        db_version = '11'
+      when 4
+        db_version = '12'
+      end
+
+      if DEVELOPMENT_MODE
+        puts "Using postgres with locally installed postgres"
+      else
+        puts "Using postgres with version #{db_version}"
+
+        [
+            "/usr/pgsql-#{db_version}/bin/initdb /go/.pg-data",
+            "echo \"unix_socket_directories = '/tmp'\" >> ~/.pg-data/postgresql.conf",
+            "mkdir /go/.pg-data/log && /usr/pgsql-#{db_version}/bin/pg_ctl start -l /go/.pg-data/log/logfile -D /go/.pg-data -w -t 60"
+        ].each do |command|
+          system(command) || (puts "Failed to run command. Tried running: #{command}"; exit 1)
+        end
+      end
+    end
+  end
 end

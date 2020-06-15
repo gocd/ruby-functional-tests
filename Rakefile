@@ -298,7 +298,7 @@ task 'bump-schema' do
 end
 
 desc 'initializes the filesystem to run tests'
-task prepare: %w[plugins:prepare addons:prepare]
+task prepare: %w[plugins:prepare addons:prepare db:prepare]
 
 task :test do
   if LOAD_BALANCED

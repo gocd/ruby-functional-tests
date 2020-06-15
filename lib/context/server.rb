@@ -51,6 +51,20 @@ module Context
       end
     end
 
+    def restart
+      return if DEVELOPMENT_MODE && server_running?
+
+      STDERR.puts "Attempting to re-start GoCD server in: #{GoConstants::SERVER_DIR}.}"
+      Bundler.with_original_env do
+        process = ChildProcess.build('./with-java.sh', START_COMMAND, 'restart')
+        process.detach = true
+        process.io.stdout = process.io.stderr = out
+        process.environment['GO_PIPELINE_COUNTER'] = GoConstants::GO_PIPELINE_COUNTER
+        process.cwd = GoConstants::SERVER_DIR
+        process.start
+      end
+    end
+
     def stop
       if DEVELOPMENT_MODE
         puts 'Running test in development mode so not stopping the server........'

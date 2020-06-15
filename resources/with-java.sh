@@ -35,13 +35,16 @@ fi
 
 echo "JAVA_HOME set to : $JAVA_HOME"
 
-if [[ "$db_mod" = "0" ]]; then
-    echo "Nothing to do here. Keep using h2."
-else
+if [[ "$@" != *"restart"* ]]; then
+  if [[ "$db_mod" = "0" ]]; then
+      echo "Nothing to do here. Keep using h2."
+  else
     echo "Copying db.properties to the config"
     cp db.properties config/
 
     dropdb --if-exists --host=localhost --port=5432 --username go cruise
     createdb --host=localhost --port=5432 --username go cruise
+  fi
 fi
+
 exec "$@"

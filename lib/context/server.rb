@@ -54,6 +54,11 @@ module Context
     def restart
       return if DEVELOPMENT_MODE && server_running?
 
+      log_location = "#{GoConstants::SERVER_DIR}/logs/output.log"
+      out = File.open(log_location, 'a')
+      out.sync = true
+      prepare_wrapper_conf(GoConstants::GO_SERVER_SYSTEM_PROPERTIES)
+
       STDERR.puts "Attempting to re-start GoCD server in: #{GoConstants::SERVER_DIR}.}"
       Bundler.with_original_env do
         process = ChildProcess.build('./with-java.sh', START_COMMAND, 'restart')

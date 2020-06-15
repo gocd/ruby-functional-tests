@@ -119,7 +119,7 @@ module Pages
     end
 
     def verify_pipeline_stage_state(pipeline, stage, state)
-      wait_till_event_occurs_or_bomb 180, "Pipeline #{pipeline} stage #{stage} is not in #{state} state" do
+      wait_till_event_occurs_or_bomb 120, "Pipeline #{pipeline} stage #{stage} is not in #{state} state" do
         next if get_pipeline_stage_state(pipeline, stage).nil?
         break if get_pipeline_stage_state(pipeline, stage).include?(state)
       end

@@ -160,17 +160,17 @@ namespace :plugins do
       blob['assets'][0]['browser_download_url'].gsub(/:\/\/api.github.com\//, "://github-api-proxy.gocd.org/")
     end
 
-    url = download_url(JSON.parse(open(ELASTICAGENTS_PLUGIN_RELEASE_URL).read))
+    url = download_url(JSON.parse(URI.open(ELASTICAGENTS_PLUGIN_RELEASE_URL).read))
     sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/elastic-agent-skeleton-plugin.jar #{url}"
-    url = download_url(JSON.parse(open(JSON_CONFIG_PLUGIN_RELEASE_URL).read))
+    url = download_url(JSON.parse(URI.open(JSON_CONFIG_PLUGIN_RELEASE_URL).read))
     sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/json-config-plugin.jar #{url}"
-    url = download_url(JSON.parse(open(DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL).read))
+    url = download_url(JSON.parse(URI.open(DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL).read))
     sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-registry-artifact-plugin.jar #{url}"
-    url = download_url(JSON.parse(open(DOCKER_SWARM_EA_PLUGIN_RELEASE_URL).read))
+    url = download_url(JSON.parse(URI.open(DOCKER_SWARM_EA_PLUGIN_RELEASE_URL).read))
     sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-swarm-elastic-agents-plugin.jar #{url}"
-    url = download_url(JSON.parse(open(DOCKER_EA_PLUGIN_RELEASE_URL).read)[0])
+    url = download_url(JSON.parse(URI.open(DOCKER_EA_PLUGIN_RELEASE_URL).read)[0])
     sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-elastic-agents-plugin.jar #{url}"
-    url = download_url(JSON.parse(open(K8S_EA_PLUGIN_RELEASE_URL).read))
+    url = download_url(JSON.parse(URI.open(K8S_EA_PLUGIN_RELEASE_URL).read))
     sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/k8s-elastic-agents.jar #{url}"
   end
 
@@ -293,7 +293,7 @@ task 'bump-schema' do
     next unless content =~ /xsi:noNamespaceSchemaLocation="cruise-config.xsd"/
     puts "Replacing content in #{path}"
     content = content.gsub(/schemaVersion="\d+"/, %(schemaVersion="#{version}"))
-    open(path, 'w') {|f| f.write(content)}
+    File.open(path, 'w') {|f| f.write(content)}
   end
 end
 

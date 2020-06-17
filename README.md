@@ -66,7 +66,7 @@ gauge install
 
     ```
     cd ruby-functional-tests
-    bundle install --path=vendor/bundle
+    bundle install
     ```
 
 5. Clean and prepare server and agent for functional tests:

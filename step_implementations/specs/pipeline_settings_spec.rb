@@ -60,8 +60,8 @@ step 'Delete material with name <material_name>' do |material_name|
   pipeline_settings_page.delete_material new_pipeline_dashboard_page.sanitize_message(material_name)
 end
 
-step 'Enter black list <blacklist>' do |blacklist|
-  pipeline_settings_page.set_material_blacklist(blacklist)
+step 'Enter deny list <denylist>' do |denylist|
+  pipeline_settings_page.set_material_denylist(denylist)
 end
 
 step 'Verify only on changes checkbox is disabled' do

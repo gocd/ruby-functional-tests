@@ -110,10 +110,6 @@ module Helpers
       Pages::AdminAccessToken.new
     end
 
-    def data_sharing_spa_page
-      Pages::DataSharingSPA.new
-    end
-
     def server_backup_page
       Pages::BackUpPage.new
     end

@@ -125,7 +125,7 @@ module Pages
     end
 
     def unauthorized_message_exist?
-      page.has_css?('h3', text: 'Not authorized to view pipeline { Not authorized to view pipeline }')
+      page.has_css?('h3', text: 'Not authorized to view pipeline')
     end
 
     def click_next_page

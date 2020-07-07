@@ -243,8 +243,8 @@ step 'set job resources as <resources>' do |resources|
   job_settings_page.resources_on_popup.set resources
 end
 
-step 'Verify no tasks exists' do
-  assert_equal 0, job_settings_page.total_tasks
+step 'Verify default echo task exists' do
+  assert_equal 1, job_settings_page.total_tasks
 end
 
 step 'Set task pipeline as <pipeline>' do |pipeline|

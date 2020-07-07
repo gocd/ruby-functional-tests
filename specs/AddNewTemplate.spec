@@ -27,7 +27,7 @@ tags: template
 
 * Verify "defaultJob" job is present
 * Open job "defaultJob"
-* Verify no tasks exists
+* Verify default echo task exists
 
 
 Story: 5105 -  Create template from an existing pipeline

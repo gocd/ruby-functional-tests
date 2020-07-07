@@ -34,7 +34,8 @@
                             <exec command="sleep">
                                 <arg>1</arg>
                                 <runif status="passed"/>
-                            </exec></tasks>
+                            </exec>
+                        </tasks>
                     </job>
                 </jobs>
             </stage>
@@ -922,6 +923,12 @@
             <stage name="defaultStage">
                 <jobs>
                     <job name="defaultJob">
+                        <tasks>
+                            <exec command="sleep">
+                                <arg>1</arg>
+                                <runif status="passed"/>
+                            </exec>
+                        </tasks>
                         <artifacts>
                             <artifact type="build" src="abc.txt"/>
                             <artifact type="build" src="baz"/>
@@ -947,7 +954,14 @@
             </materials>
             <stage name="defaultStage">
                 <jobs>
-                    <job name="defaultJob"/>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="sleep">
+                                <arg>1</arg>
+                                <runif status="passed"/>
+                            </exec>
+                        </tasks>
+                    </job>
                 </jobs>
             </stage>
             <stage name="secondStage">
@@ -968,6 +982,12 @@
             <stage name="defaultStage">
                 <jobs>
                     <job name="defaultJob">
+                        <tasks>
+                            <exec command="sleep">
+                                <arg>1</arg>
+                                <runif status="passed"/>
+                            </exec>
+                        </tasks>
                     	<artifacts>
                             <artifact type="build" src="new_artifact.txt"/>
                         </artifacts>
@@ -1204,8 +1224,12 @@
       <approval type="manual"/>
         <jobs>
           <job name="down-job2">
-            <tasks>
-            </tasks>
+              <tasks>
+                  <exec command="sleep">
+                      <arg>1</arg>
+                      <runif status="passed"/>
+                  </exec>
+              </tasks>
           </job>
         </jobs>
       </stage>

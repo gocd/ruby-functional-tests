@@ -26,7 +26,7 @@ tags: Fetch Artifact
 * verifyTask
 |Order_no|Task Type         |Run If Conditions |Properties                                                                                    |On Cancel     |
 |--------|------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
-|1       |Fetch Artifact    |passed            |Pipeline-Name: $uppest_pipeline$/$upper_pipeline$/$up_pipeline$, Stage-Name: uppest-stage1, Job-Name: uppest-job1, Source: source_file, Destination: dest_dir   |No            |
+|2       |Fetch Artifact    |passed            |Pipeline-Name: $uppest_pipeline$/$upper_pipeline$/$up_pipeline$, Stage-Name: uppest-stage1, Job-Name: uppest-job1, Source: source_file, Destination: dest_dir   |No            |
 
 * Add task "Fetch Artifact"
 * Set task stage as "down-stage1"
@@ -37,7 +37,7 @@ tags: Fetch Artifact
 * verifyTask
 |Order_no|Task Type         |Run If Conditions |Properties                                                      |On Cancel |
 |--------|------------------|------------------|----------------------------------------------------------------|----------|
-|2       |Fetch Artifact    |passed            |Stage-Name: down-stage1, Job-Name: down-job1, Source: src_dir   |No        |
+|3       |Fetch Artifact    |passed            |Stage-Name: down-stage1, Job-Name: down-job1, Source: src_dir   |No        |
 
 * On Swift Dashboard Page
 * Looking at pipeline "down_pipeline" - On Swift Dashboard page

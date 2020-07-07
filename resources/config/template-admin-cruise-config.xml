@@ -104,7 +104,14 @@
          <stage name="first">
 		    <approval type="manual"/>
 	    	<jobs>
-            	<job name="defaultJob"/>
+            	<job name="defaultJob">
+                    <tasks>
+                        <exec command="sleep">
+                            <arg>1</arg>
+                            <runif status="passed"/>
+                        </exec>
+                    </tasks>
+                </job>
             </jobs>
 	  	</stage>
 	  </pipeline>

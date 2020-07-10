@@ -22,7 +22,7 @@ Changing pipeline config appropriately to use in this test
 * Save Changes
 * Open "Materials" tab - On Pipeline settings page
 * Edit material "git"
-* Enter black list " "
+* Enter deny list " "
 * Save material
 
 * On Swift Dashboard Page

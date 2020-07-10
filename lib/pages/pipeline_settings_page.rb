@@ -84,11 +84,11 @@ module Pages
       page.find("button[data-test-id='primary-action-button']").click
     end
 
-    def set_material_blacklist(blacklist)
+    def set_material_denylist(denylist)
       page.all('dt')
           .find {|element| element.text === "Advanced Settings"}
           .click
-      page.find("input[data-test-id='form-field-input-blacklist']").set blacklist
+      page.find("input[data-test-id='form-field-input-denylist']").set denylist
     end
 
     def only_on_changes_checkbox_disabled?

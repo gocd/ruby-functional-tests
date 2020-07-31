@@ -149,7 +149,7 @@ step 'Verify console says that artifact <artifact_name> was fetched from <stage_
   job_details_page.console_has_message?(message_2)
 end
 
-step 'Verify in console that artifact <artifact> was uploaded to <dest>' do |artifact, dest|
+step 'Verify in console that artifact <artifact> is uploading to <dest>' do |artifact, dest|
   job_details_page.console_has_message?("/#{artifact} to #{dest}")
 end
 

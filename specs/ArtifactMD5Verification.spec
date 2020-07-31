@@ -28,8 +28,9 @@ tags: Artifacts, MD5
 * Wait till pipeline completed - On Swift Dashboard page
 * On Job details page of pipeline "artifact-md5-up" counter "1" stage "defaultStage" counter "1" job "defaultJob"
 
-* Verify in console that artifact "abc.txt" was uploaded to "[defaultRoot]"
-* Verify in console that artifact "baz" was uploaded to "[defaultRoot]"
+* Verify in console that artifact "abc.txt" is uploading to "[defaultRoot]"
+* Verify in console that artifact "baz" is uploading to "[defaultRoot]"
+* Verify console log contains message "Job completed"
 * Open "Artifacts" tab - On Job details page
 * Verify artifacts tab contains file "abc.txt"
 * Verify artifacts tab contains file "new_artifact.txt" in dir "baz"

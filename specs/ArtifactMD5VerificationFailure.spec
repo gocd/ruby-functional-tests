@@ -28,7 +28,8 @@ Failure Scenario - MD5 Mismatch
 
 
 
-* Verify in console that artifact "new_artifact.txt" was uploaded to ""
+* Verify in console that artifact "new_artifact.txt" is uploading to ""
+* Verify console log contains message "Job completed"
 * Open "Artifacts" tab - On Job details page
 * Verify artifacts tab contains file "new_artifact.txt"
 * Verify artifacts tab contains file "md5.checksum" in dir "cruise-output"

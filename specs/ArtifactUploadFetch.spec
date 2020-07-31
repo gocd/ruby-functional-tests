@@ -20,13 +20,13 @@ tags: fetch artifacts
 * Trigger pipeline - On Swift Dashboard page
 * Verify stage "defaultStage" is "Failed" on pipeline with label "1" - On Swift Dashboard page
 * On Job details page of pipeline "pipeline-artifacts" counter "1" stage "defaultStage" counter "1" job "Job1"
-* Verify in console that artifact "subfolder/another.zip" was uploaded to "file-with-dot-in-subfolder"
-* Verify in console that artifact "something.jar" was uploaded to "jarfolder"
-* Verify in console that artifact "some.txt.thing" was uploaded to "zipfolder"
-* Verify in console that artifact "subfolder/another.zip" was uploaded to "all-in-subfolder"
-* Verify in console that artifact "subfolder/file" was uploaded to "all-in-subfolder"
-* Verify in console that artifact "something.zip" was uploaded to "allzip"
-* Verify in console that artifact "subfolder/another.zip" was uploaded to "allzip/subfolder"
+* Verify in console that artifact "subfolder/another.zip" is uploading to "file-with-dot-in-subfolder"
+* Verify in console that artifact "something.jar" is uploading to "jarfolder"
+* Verify in console that artifact "some.txt.thing" is uploading to "zipfolder"
+* Verify in console that artifact "subfolder/another.zip" is uploading to "all-in-subfolder"
+* Verify in console that artifact "subfolder/file" is uploading to "all-in-subfolder"
+* Verify in console that artifact "something.zip" is uploading to "allzip"
+* Verify in console that artifact "subfolder/another.zip" is uploading to "allzip/subfolder"
 
 * On stage details page "overview" tab for "pipeline-artifacts" label "1" stage name "defaultStage" counter "1"
 

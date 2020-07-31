@@ -154,7 +154,15 @@ step 'Verify in console that artifact <artifact> is uploading to <dest>' do |art
 end
 
 step 'Verify artifacts tab contains file <file>' do |file|
-  assert_true job_details_page.file_exist_in_artifacts_tab? file
+  result = false
+
+  (1..3).each do |_|
+    job_details_page.on_tab "Artifacts"
+    break if result = job_details_page.file_exist_in_artifacts_tab? file
+    job_details_page.reload_page
+  end
+
+  assert_true result
 end
 
 step 'Verify artifacts tab does not contain file <file>' do |file|

@@ -241,7 +241,7 @@ module Context
       mkdir_p(@repository_directory)
        cd(@repository_directory) do
         chmod 0755,@tfs_tool_path
-         Open3.popen3("#{@tfs_tool_path} workspace -new -noprompt -server:#{ENV['TFS_SERVER_URL'] } -login:#{ENV['TFS_SERVER_USERNAME']},#{ENV['TFS_SERVER_PASSWORD']}  #{@workspace_name}") do |_stdin, _stdout, stderr, wait_thr|
+         Open3.popen3("#{@tfs_tool_path} workspace -new -noprompt -server:#{ENV['TFS_SERVER_URL']} -login:#{ENV['TFS_SERVER_USERNAME']},#{ENV['TFS_SERVER_PASSWORD']} #{@workspace_name}") do |_stdin, _stdout, stderr, wait_thr|
           raise "Initialization of tfs workspece Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
          end
          Open3.popen3("#{@tfs_tool_path} workfold -map -workspace:#{@workspace_name} -server:#{ENV['TFS_SERVER_URL'] } -login:#{ENV['TFS_SERVER_USERNAME']},#{ENV['TFS_SERVER_PASSWORD']}  #{tfs_project_path} #{@repository_directory}") do |_stdin, _stdout, stderr, wait_thr|

@@ -39,8 +39,7 @@ module Pages
     end
 
     def trigger_pipeline(name: scenario_state.self_pipeline, wait_to_build: false)
-      (pipeline_name text: name)
-        .ancestor('.pipeline').find('.pipeline_btn.play').click
+      (pipeline_name text: name).ancestor('.pipeline').find('.pipeline_btn.play').click
       wait_till_pipeline_start_building if wait_to_build
     end
 
@@ -252,8 +251,7 @@ module Pages
       (pipeline_name text: scenario_state.self_pipeline)
         .ancestor('.pipeline').find('.pipeline_stage.building').click
 
-      (stage_name text: scenario_state.get('current_stage_name'))
-        .ancestor('.pipeline').find('.stage_action').click
+      page.find('i[data-test-id="Cancel Stage-icon"]').click
 
       page.find('#app-menu').find('a', text: 'DASHBOARD').click
     end

@@ -83,8 +83,7 @@ module Pages
 
     def get_all_stages(pipeline) # This one needs to be relooked - the way the view is modelled do not make it easy to get latest stage state
       reload_page
-      (pipeline_name text: pipeline)
-        .ancestor('.pipeline').find('.pipeline_instance', wait: 10).find('.pipeline_stages').all('a')
+      (pipeline_name text: pipeline).ancestor('.pipeline').find('.pipeline_instance', wait: 10).find('.pipeline_stages').all('.pipeline_stage_manual_gate_wrapper a')
     rescue StandardError => e
       p 'Looks like Pipeline still not started, trying after page reload...'
       nil
@@ -92,7 +91,7 @@ module Pages
 
     def get_pipeline_stage_state(pipeline, stagename) # This need relook too
       return if get_all_stages(pipeline).nil?
-      target_stage = get_all_stages(pipeline).select { |stage| stage['href'].include?(stagename) }
+      target_stage = get_all_stages(pipeline).select { |stage| stage['title'].include?(stagename)}
       target_stage.first['class']
     end
 

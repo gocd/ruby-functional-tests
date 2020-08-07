@@ -17,10 +17,10 @@ tags: UI, refresh
 * Verify pipeline is in group "basic" - On Swift Dashboard page
 * Verify pipeline has no history - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "1" is "Building" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Building" - On Swift Dashboard page
 * Verify cannot trigger pipeline
 * Create a "stopjob" file
-* Verify stage "1" is "Passed" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" - On Swift Dashboard page
 * Verify can trigger pipeline
 
 

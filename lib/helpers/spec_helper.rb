@@ -73,6 +73,7 @@ require 'pages/new_environments_page'
 require 'pages/package_repository_page'
 require 'pages/new_pipeline_group_page'
 require 'pages/pluggable_scm_page.rb'
+require 'pages/materials_page.rb'
 
 module Helpers
   module SpecHelper
@@ -259,7 +260,7 @@ module Helpers
     end
 
     def config_repos_page
-       Pages::ConfigReposPage.new
+      Pages::ConfigReposPage.new
     end
 
     def server_configuration_page
@@ -292,6 +293,10 @@ module Helpers
 
     def pluggable_scm_page
       Pages::PluggableSCMPage.new
+    end
+
+    def materials_page
+      Pages::MaterialsPage.new
     end
   end
 end

@@ -164,3 +164,7 @@ end
 step 'Mailhost configuration - setup' do ||
   secure_configuration.setup 'secure-cruise-config-with-mailhost.xml', 'password.properties'
 end
+
+step 'Materials configuration - setup' do ||
+  secure_configuration.setup 'all-materials-cruise-config.xml', 'password.properties'
+end

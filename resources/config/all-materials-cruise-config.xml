@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- *************************GO-LICENSE-START******************************
+ * Copyright 2016 ThoughtWorks, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *************************GO-LICENSE-END******************************* -->
+
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd"
+        schemaVersion="138">
+    <server commandRepositoryLocation="default" serverId="gauge" tokenGenerationKey="token">
+        <artifacts>
+            <artifactsDir>artifacts</artifactsDir>
+        </artifacts>
+        <security>
+            <authConfigs>
+                <authConfig id="61f10215-9fba-4962-a2f4-d6c8944ade32" pluginId="cd.go.authentication.passwordfile">
+                    <property>
+                        <key>PasswordFilePath</key>
+                        <value>$password_properties</value>
+                    </property>
+                </authConfig>
+            </authConfigs>
+            <roles>
+                <role name="admins">
+                    <users>
+                        <user>admin</user>
+                    </users>
+                </role>
+            </roles>
+            <admins>
+                <role>admins</role>
+            </admins>
+        </security>
+    </server>
+    <repositories>
+        <repository id="720ec4d5-8b97-482b-977d-db34223a93aa" name="repo-1">
+            <pluginConfiguration id="yum" version=""/>
+            <configuration>
+                <property>
+                    <key>REPO_URL</key>
+                    <value>file:///tmp/packagerepo/file_repo</value>
+                </property>
+                <property>
+                    <key>USERNAME</key>
+                </property>
+                <property>
+                    <key>PASSWORD</key>
+                </property>
+            </configuration>
+            <packages>
+                <package id="6849ecea-7e53-4ced-b5f0-b51356a30de4" name="go-agent" autoUpdate="false">
+                    <configuration>
+                        <property>
+                            <key>PACKAGE_SPEC</key>
+                            <value>go-agent</value>
+                        </property>
+                    </configuration>
+                </package>
+            </packages>
+        </repository>
+    </repositories>
+    <scms>
+        <scm id="c6a60973-edf0-4d52-820d-e2a7197a7a82" name="github" autoUpdate="false">
+            <pluginConfiguration id="jgit" version="1"/>
+            <configuration>
+                <property>
+                    <key>url</key>
+                    <value>/tmp/sample.git</value>
+                </property>
+                <property>
+                    <key>username</key>
+                </property>
+                <property>
+                    <key>password</key>
+                </property>
+                <property>
+                    <key>branch</key>
+                </property>
+            </configuration>
+        </scm>
+    </scms>
+    <pipelines group="first">
+        <pipeline name="pipeline-with-all-materials">
+            <materials>
+                <git materialName="git-repo" url="git-repo" autoUpdate="false" dest="git"/>
+                <hg materialName="hg-repo" url="hg-repo" dest="hg" autoUpdate="false"/>
+                <svn materialName="svn-repo" url="svn-repo" dest="svn" autoUpdate="false"/>
+                <p4 materialName="p4-repo" port="http://p4_repo:9876" dest="p4" autoUpdate="false">
+                    <view><![CDATA[view]]></view>
+                </p4>
+                <tfs materialName="tfs-repo" url="tfs-server" projectPath="some-path" dest="tfs" username="bob"
+                     password="hello" autoUpdate="false"/>
+                <package ref="6849ecea-7e53-4ced-b5f0-b51356a30de4"/>
+                <scm ref="c6a60973-edf0-4d52-820d-e2a7197a7a82" dest="scm"/>
+            </materials>
+            <stage name="defaultStage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="defaultJob">
+                        <tasks>
+                            <exec command="ls"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+    </pipelines>
+    <pipelines group="second">
+        <authorization>
+            <view>
+                <user>operate</user>
+            </view>
+        </authorization>
+        <pipeline name="pipeline2">
+            <materials>
+                <git materialName="git-repo" url="git-repo" autoUpdate="false"/>
+            </materials>
+            <stage name="stage">
+                <approval type="manual"/>
+                <jobs>
+                    <job name="job">
+                        <tasks>
+                            <exec command="ls"/>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+    </pipelines>
+</cruise>

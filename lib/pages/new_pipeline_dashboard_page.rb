@@ -82,7 +82,7 @@ module Pages
 
     def get_all_stages(pipeline) # This one needs to be relooked - the way the view is modelled do not make it easy to get latest stage state
       reload_page
-      (pipeline_name text: pipeline).ancestor('.pipeline').find('.pipeline_instance', wait: 10).find('.pipeline_stages').all('.pipeline_stage_manual_gate_wrapper a')
+      (pipeline_name text: pipeline).ancestor('.pipeline').find('.pipeline_instance', wait: 10).find('.pipeline_stages').all('.pipeline_stage_manual_gate_wrapper .pipeline_stage')
     rescue StandardError => e
       p 'Looks like Pipeline still not started, trying after page reload...'
       nil
@@ -92,6 +92,18 @@ module Pages
       return if get_all_stages(pipeline).nil?
       target_stage = get_all_stages(pipeline).select { |stage| stage['title'].include?(stagename)}
       target_stage.first['class']
+    end
+
+    def get_manual_gate(pipeline, stagename)
+      target_stage = get_all_stages(pipeline).select { |s| s['title'].include?(stagename)}
+      parent = target_stage.first.find(:xpath,".//..")
+      parent.find('.manual_gate')
+    end
+
+    def is_stage_manual(pipeline, stagename)
+      !get_manual_gate(pipeline, stagename).nil?
+    rescue StandardError => e
+      false
     end
 
     def verify_pipeline_is_at_label(pipeline, label)
@@ -122,6 +134,47 @@ module Pages
       wait_till_event_occurs_or_bomb 300, "Pipeline #{pipeline} stage #{stage} is not in #{state} state" do
         next if get_pipeline_stage_state(pipeline, stage).nil?
         break if get_pipeline_stage_state(pipeline, stage).include?(state)
+      end
+    end
+
+    def verify_pipeline_stage_is_manual(pipeline, stage)
+      assert_true is_stage_manual(pipeline, stage)
+    end
+
+    def verify_pipeline_stage_is_not_manual(pipeline, stage)
+      assert_false is_stage_manual(pipeline, stage)
+    end
+
+    def manually_trigger_stage(pipeline, stage)
+      reload_page
+      manual_gate = get_manual_gate(pipeline, stage)
+      manual_gate.click
+      page.find('.manual-stage-trigger-body').text.include?("Do you want to trigger stage '#{stage}'?")
+
+      page.find('.button.save.primary').click
+
+      sleep 5
+      reload_page
+    end
+
+    def verify_manual_stage_state(pipeline, stage, enabled)
+      reload_page
+      manual_gate = get_manual_gate(pipeline, stage)
+      is_disabled = manual_gate['class'].include?('disabled')
+      assert_equal !is_disabled, enabled
+    end
+
+    def verify_manual_stage_message(pipeline, stage, message)
+      reload_page
+      manual_gate = get_manual_gate(pipeline, stage)
+      is_disabled = manual_gate['class'].include?('disabled')
+
+      if is_disabled
+        target_stage = get_all_stages(pipeline).select { |s| s['title'].include?(stage)}
+        parent = target_stage.first.find(:xpath,".//..")
+        assert_true parent.find('.tooltip', :visible => false).text(:all).include?(message)
+      else
+        assert_true manual_gate['title'].include?(message)
       end
     end
 

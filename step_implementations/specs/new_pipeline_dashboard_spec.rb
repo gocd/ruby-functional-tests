@@ -57,6 +57,26 @@ step 'Verify stage <stage> is <state> - On Swift Dashboard page' do |stage, stat
   new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.get('current_pipeline'), stage, state.downcase
 end
 
+step 'Verify stage <stage> has a manual gate - On Swift Dashboard page' do |stage|
+  new_pipeline_dashboard_page.verify_pipeline_stage_is_manual scenario_state.get('current_pipeline'), stage
+end
+
+step 'Verify stage <stage> does not have a manual gate - On Swift Dashboard page' do |stage|
+  new_pipeline_dashboard_page.verify_pipeline_stage_is_not_manual scenario_state.get('current_pipeline'), stage
+end
+
+step 'Manually trigger stage <stage> - On Swift Dashboard page' do |stage|
+  new_pipeline_dashboard_page.manually_trigger_stage scenario_state.get('current_pipeline'), stage
+end
+
+step 'Verify stage <stage> has a manual gate in <state> state with message <message> - On Swift Dashboard page' do |stage, state, message|
+  enabled_manual_gate = state.include?("enabled")
+  new_pipeline_dashboard_page.verify_pipeline_stage_is_manual scenario_state.get('current_pipeline'), stage
+  new_pipeline_dashboard_page.verify_manual_stage_state scenario_state.get('current_pipeline'), stage, enabled_manual_gate
+  new_pipeline_dashboard_page.verify_manual_stage_message scenario_state.get('current_pipeline'), stage, message
+end
+
+
 step 'Trigger and cancel stage <defaultStage> <trigger_number> times' do |stage_name, trigger_number|
   scenario_state.put 'current_stage_name', stage_name
   new_pipeline_dashboard_page.trigger_cancel_pipeline trigger_number

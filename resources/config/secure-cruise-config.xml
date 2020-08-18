@@ -553,6 +553,7 @@
       <view>
         <role>viewer</role>
         <role>operator</role>
+        <user>user1</user>
       </view>
     </authorization>
 

@@ -582,6 +582,33 @@
         </jobs>
       </stage>
     </pipeline>
+
+    <pipeline name="manual-stages-with-previous-stage-successful">
+      <materials>
+        <git url="material-for-manual-stages-with-previous-stage-successful" dest="git" materialName="gitMaterial" autoUpdate="false"/>
+      </materials>
+      <stage name="firstStage">
+        <approval type="manual"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="secondStage">
+        <approval type="manual" allowOnlyOnSuccess="true"/>
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+
     <pipeline name="basic-pipeline-for-cctray">
       <materials>
         <git url="material-for-basic-pipeline-for-cctray" dest="git" autoUpdate="false" materialName="git-material"/>

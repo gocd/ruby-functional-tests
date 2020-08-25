@@ -461,6 +461,74 @@ module Pages
       }
     end
 
+    def open_stage_overview(pipeline, stage)
+      target_stage = get_all_stages(pipeline).select { |s| s['title'].include?(stage)}
+      target_stage.first.click
+    end
+
+    def verify_stage_overview_header(pipeline, pipeline_counter, stage, stage_counter)
+      assert_true page.find('div[data-test-id="pipeline-name-container"]').text.include?(pipeline)
+      assert_true page.find('div[data-test-id="pipeline-instance-container"]').text.include?(pipeline_counter)
+      assert_true page.find('div[data-test-id="stage-name-container"]').text.include?(stage)
+      assert_true page.find('div[data-test-id="stage-instance-container"]').text.include?(stage_counter)
+    end
+
+    def verify_stage_overview_triggered_by_user(username)
+      assert_true page.find('div[data-test-id="triggered-by-container"]').text.include?(username)
+    end
+
+    def verify_stage_overview_cancelled_by_user(username)
+      assert_true page.find('div[data-test-id="cancelled-by-container"]').text.include?(username)
+    end
+
+    def verify_stage_overview_element_not_empty(data_test_id)
+      assert_false page.find("div[data-test-id='#{data_test_id}']").text.empty?
+    end
+
+    def verify_stage_overview_rerun_stage_is_enabled
+      assert_false page.find("[data-test-id='Repeat-icon']").disabled?
+    end
+
+    def verify_stage_overview_cancel_stage_is_enabled
+      assert_false page.find("[data-test-id='Cancel Stage-icon']").disabled?
+    end
+
+    def verify_stage_overview_stage_settings_is_enabled
+      assert_false page.find("[data-test-id='Settings-icon']").disabled?
+    end
+
+    def verify_stage_overview_rerun_stage_is_disabled
+      page.find("[data-test-id='Repeat-icon'][data-test-disabled-element]")
+    end
+
+    def verify_stage_overview_stage_settings_is_disabled
+      page.find("[data-test-id='Settings-icon'][data-test-disabled-element]")
+    end
+
+    def open_stage_settings_from_stage_overview_and_verify_url(url)
+      page.find("[data-test-id='Settings-icon']").click
+      sleep 5
+      page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
+      assert_true page.current_url.include?(url)
+    end
+
+    def open_stage_details_from_stage_overview_and_verify_url(url)
+      page.find("[data-test-id='stage-details-page-link']").find('a').click
+      sleep 5
+      page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
+      assert_true page.current_url.include?(url)
+    end
+
+    def stage_overview_rerun_stage
+      page.find("[data-test-id='Repeat-icon']").click
+      sleep 11
+    end
+
+    def stage_overview_cancel_stage
+      page.find("[data-test-id='Cancel Stage-icon']").click
+      sleep 11
+    end
+
     private
 
     def revisions(pipeline)

@@ -529,6 +529,43 @@ module Pages
       sleep 11
     end
 
+    def stage_overview_verify_job_state(job, state)
+      assert_false page.find("[data-test-id='job-name-for-#{job}']").nil?
+      assert_true page.find("[data-test-id='job-name-for-#{job}']").find('div')[:class].include?(state)
+    end
+
+    def select_job_for_rerun(job)
+      page.find("[data-test-id='checkbox-for-#{job}']").find('input').check
+    end
+
+    def rerun_failed_jobs
+      page.find("[data-test-id='job-rerun-container']").find_all('button')[0].click
+    end
+
+    def rerun_selected_jobs
+      page.find("[data-test-id='job-rerun-container']").find_all('button')[1].click
+    end
+
+    def stage_overview_verify_rerun_failed_btn_state(is_enabled)
+      assert_equal !page.find("[data-test-id='job-rerun-container']").find_all('button')[0].disabled?, is_enabled
+    end
+
+    def stage_overview_verify_rerun_selected_btn_state(is_enabled)
+      assert_equal !page.find("[data-test-id='job-rerun-container']").find_all('button')[1].disabled?, is_enabled
+    end
+
+    def stage_overview_verify_failed_job_count(count)
+      assert_true page.find("[data-test-id='failed-jobs-container']").text.include?(count)
+    end
+
+    def stage_overview_verify_passed_job_count(count)
+      assert_true page.find("[data-test-id='passed-jobs-container']").text.include?(count)
+    end
+
+    def stage_overview_verify_building_job_count(count)
+      assert_true page.find("[data-test-id='in-progress-jobs-container']").text.include?(count)
+    end
+
     private
 
     def revisions(pipeline)

@@ -78,3 +78,40 @@ end
 step 'Verify page url is <url>' do |url|
   new_pipeline_dashboard_page.verify_page_url url
 end
+
+step 'Verify <job> job is in <state> state' do |job, state|
+  new_pipeline_dashboard_page.stage_overview_verify_job_state job, state
+end
+
+step 'Verify rerun failed jobs is <enabled>' do |enabled|
+  new_pipeline_dashboard_page.stage_overview_verify_rerun_failed_btn_state enabled.eql?("enabled")
+end
+
+step 'Verify rerun selected jobs is <enabled>' do |enabled|
+  new_pipeline_dashboard_page.stage_overview_verify_rerun_selected_btn_state enabled.eql?("enabled")
+end
+
+step 'Verify failed job count is <count>' do |count|
+  new_pipeline_dashboard_page.stage_overview_verify_failed_job_count count
+end
+
+step 'Verify passed job count is <count>' do |count|
+  new_pipeline_dashboard_page.stage_overview_verify_passed_job_count count
+end
+
+step 'Verify building job count is <count>' do |count|
+  new_pipeline_dashboard_page.stage_overview_verify_building_job_count count
+end
+
+step 'Rerun failed jobs' do
+  new_pipeline_dashboard_page.rerun_failed_jobs
+end
+
+step 'Rerun selected jobs' do
+  new_pipeline_dashboard_page.rerun_selected_jobs
+end
+
+
+step 'Select <job> job for rerun' do |job|
+  new_pipeline_dashboard_page.select_job_for_rerun job
+end

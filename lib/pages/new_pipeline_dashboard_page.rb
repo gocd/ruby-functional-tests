@@ -531,7 +531,7 @@ module Pages
 
     def stage_overview_verify_job_state(job, state)
       assert_false page.find("[data-test-id='job-name-for-#{job}']").nil?
-      assert_true page.find("[data-test-id='job-name-for-#{job}']").find('div', match: :first)[:class].include?(state)
+      assert_true page.find("[data-test-id='job-name-for-#{job}']").find('div[class*="job-result"]')[:class].include?(state)
     end
 
     def select_job_for_rerun(job)

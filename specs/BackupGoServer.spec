@@ -17,7 +17,7 @@ tags: backup
 * Verify the location of the backup store is at "serverBackups"
 * Perform server backup
 
-* Verify back up completed with message "Backup Completed"
+* Verify back up completed with message "Backup was generated successfully."
 * Verify the last performed backup message contains "Last backup was taken by 'admin' at"
 
 * Verify the "serverBackups" directory exists

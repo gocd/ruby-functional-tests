@@ -76,7 +76,7 @@ Setup of contexts
 
 * On server backup page
 * Perform server backup
-* Verify back up completed with message "Backup Completed"
+* Verify back up completed with message "Backup was generated successfully."
 
 * Logout - from any page
 * Restart server

@@ -70,3 +70,7 @@ end
 step 'Verify there are <number_of_errors> errors' do |number_of_errors|
   server_health_message.verify_number_of_error_message number_of_errors
 end
+
+step 'Verify there are a minimum <number_of_errors> errors' do |number_of_errors|
+  server_health_message.verify_minimum_number_of_error_message number_of_errors
+end

@@ -39,7 +39,12 @@ module Pages
       end
     end
 
-
+    def verify_minimum_number_of_error_message(number_of_err_msg)
+      wait_till_event_occurs_or_bomb 60, "Total number of errors are lesser the minimum: #{number_of_err_msg} required" do
+        reload_page
+        break if message_notifier.text.split('and')[0].scan(/\d+/)[0].to_i >= number_of_err_msg.to_i
+      end
+    end
 
     def verify_number_of_warnings(number_of_warning_msg)
       wait_till_event_occurs_or_bomb 90, "Total number of Warnings are not equal to #{number_of_warning_msg}" do

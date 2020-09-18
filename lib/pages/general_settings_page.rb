@@ -26,7 +26,8 @@ module Pages
     element :confirm_change, 'button[data-test-id="primary-action-button"]'
 
     def on_tab(tab_name)
-      page.find('a', text: tab_name.upcase).click
+      # need to differentiate materials tab link from materials spa link
+      page.find('ul[class^="index__tabs__"] a', text: tab_name.upcase).click
     end
 
     def add_env_variable(variable_name, variable_value)

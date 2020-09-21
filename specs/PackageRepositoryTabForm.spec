@@ -3,6 +3,7 @@ PackageRepositoryTabForm
 
 Setup of contexts
 * Setup file based yum repo - setup
+* Prepare secret config json "secrets.json" with secrets "password: secret"
 * Package Repository configuration - setup
 * Using pipeline "pipeline_with_yum_repo_package_as_material" - setup
 * With "1" live agents - setup
@@ -13,12 +14,14 @@ PackageRepositoryTabForm
 
 tags: package-repository
 
-
+* Create secret config "test" for secret file "secrets.json" rules "allow:package_repository:repo-1" - Using Secret Config API
 * Open Package repositories page
 * Click on add package repository
 * Enter repository name as "repo-1"
 * Select "Yum Plugin" plugin
 * Enter repo url as "file:///tmp/packagerepo/file_repo"
+* Enter username as "user"
+* Enter password as "{{SECRET:[test][password]}}"
 * Click save - Already on Package Repositories tab
 * Verify repository listing contains "repo-1"
 

@@ -118,3 +118,7 @@ end
 step 'Verify pipeline is triggered by <user> - On History page' do |user|
   assert_true pipeline_history_page.triggered_by_on_history_page? user
 end
+
+step 'Open stage overview for stage <stage> - On Pipeline Activity page' do |stage|
+  pipeline_history_page.open_stage_overview stage
+end

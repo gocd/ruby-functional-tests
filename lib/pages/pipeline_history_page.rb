@@ -137,6 +137,10 @@ module Pages
         .find(test_id("a", "trigger-with-changes-button"), text: "Triggered by #{user}") != nil
     end
 
+    def open_stage_overview(stage)
+      by_test_id("span", "stage-status-#{stage}").click
+    end
+
     def by_test_id(tag, test_id)
       page.find(test_id(tag, test_id))
     end

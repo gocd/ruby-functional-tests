@@ -84,5 +84,10 @@ step 'Verify connection is successful' do
 end
 
 step 'Create dummy git repo' do
-  Context::GitMaterials.new('/tmp').create_dummy_repo
+  Context::GitMaterials.new('/tmp/test').create_dummy_repo
+end
+
+step "Set scm username as <username> and password as <password>" do |username,password|
+  pluggable_scm_page.scm_username.set username
+  pluggable_scm_page.scm_password.set password
 end

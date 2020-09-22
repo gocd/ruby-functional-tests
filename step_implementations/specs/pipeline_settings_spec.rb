@@ -198,5 +198,9 @@ end
 step "Select repository <repo_name> and package <pkg_name>" do |repo_name, pkg_name|
   pipeline_settings_page.select_package_repo.select repo_name
   pipeline_settings_page.select_package.select pkg_name
+end
 
+step "Select scm plugin <scm_plugin> and scm <scm>" do |scm_plugin, scm|
+  pipeline_settings_page.select_scm_plugin.select scm_plugin
+  pipeline_settings_page.select_scm.select scm
 end

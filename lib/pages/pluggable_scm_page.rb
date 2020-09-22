@@ -26,8 +26,6 @@ module Pages
     element :scm_name, "input[data-test-id='form-field-input-name']"
     element :scm_plugin, "select[data-test-id='form-field-input-plugin']"
     element :scm_url, "input[ng-model='url']"
-    element :scm_username, "input[ng-model='username']"
-    element :scm_password, "input[ng-model='password']"
     element :save_button, "button[data-test-id='button-save']"
 
     load_validation {add_scm_button}

@@ -39,8 +39,6 @@ module Pages
     element :add_new_stage, 'button[data-test-id="add-stage-button"]'
     element :select_package_repo, 'select[data-test-id="form-field-input-package-repository"]'
     element :select_package, 'select[data-test-id="form-field-input-package"]'
-    element :select_scm_plugin, 'select[data-test-id="form-field-input-scm-plugin"]'
-    element :select_scm, 'select[data-test-id="form-field-input-scm"]'
 
     def partial_message_displayed?(message)
       page.find('.success').text.include?(message)

@@ -15,7 +15,7 @@ tags: pluggable-scm, spa
 * Click on add scm
 * Enter scm name as "github"
 * Select scm "JGit plugin" plugin
-* Enter scm url as "/tmp/sample.git"
+* Enter scm url as "/tmp/test/sample.git"
 * Verify connection is successful
 * Save scm
 * Verify message "The scm github was created successfully!" for scm spa
@@ -26,7 +26,7 @@ tags: pluggable-scm, spa
         |-----------| -----------------|
         | name      | github           |
         | plugin-id | jgit             |
-        | url       | /tmp/sample.git  |
+        | url       | /tmp/test/sample.git  |
 
 ~~~~~~~~~~~~~~~~~~ Clone scm ~~~~~~~~~~~~~~~~~
 

@@ -57,6 +57,7 @@ TEST_EXTERNAL_ARTIFACTS_PLUGIN_RELEASE_URL  = ENV['TEST_EXTERNAL_ARTIFACTS_PLUGI
 ANALYTICS_PLUGIN_DOWNLOAD_URL               = ENV['ANALYTICS_PLUGIN_DOWNLOAD_URL']
 LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL      = ENV['LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/gocd-ldap-authorization-plugin/releases/latest'
 FILE_BASED_SECRET_PLUGIN_RELEASE_URL        = ENV['FILE_BASED_SECRET_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/gocd-file-based-secrets-plugin/releases/17414282'
+MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL        = ENV['MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/1and1/go-maven-poller/releases/24528030'
 
 desc 'cleans all directories'
 task :clean_all do
@@ -174,6 +175,8 @@ namespace :plugins do
     sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/k8s-elastic-agents.jar #{url}"
     url = download_url(JSON.parse(URI.open(LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL).read))
     sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/ldap_authorization_plugin.jar #{url}"
+    url = download_url(JSON.parse(URI.open(MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL).read))
+    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/maven_repo_poller_plugin.jar #{url}"
   end
 
   desc 'task for preparing anlytics plugin'

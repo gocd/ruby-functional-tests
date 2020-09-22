@@ -51,11 +51,11 @@ step "Click on <repo_name> in repository listing" do |repo_name|
 end
 
 step "Enter username as <username>" do |username|
-  package_repository_page.package_repo_username username
+  package_repository_page.package_repo_username.set username
 end
 
 step "Enter password as <password>" do |password|
-  package_repository_page.package_repo_password username
+  package_repository_page.package_repo_password.set password
 end
 
 step "Open Configuration for <pkg_repo>" do |pkg_repo|

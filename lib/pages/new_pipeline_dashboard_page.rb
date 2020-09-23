@@ -473,6 +473,10 @@ module Pages
       assert_true page.find('div[data-test-id="stage-instance-container"]').text.include?(stage_counter)
     end
 
+    def select_stage_counter_from_stage_overview_header(counter)
+      page.find('select[data-test-id="form-field-input-"]').select counter
+    end
+
     def verify_stage_overview_triggered_by_user(username)
       assert_true page.find('div[data-test-id="triggered-by-container"]').text.include?(username)
     end

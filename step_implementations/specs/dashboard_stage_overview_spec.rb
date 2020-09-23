@@ -22,6 +22,10 @@ step 'Verify stage overview has header <pipeline> <pipeline_counter> <stage> <st
   new_pipeline_dashboard_page.verify_stage_overview_header pipeline, pipeline_counter, stage, stage_counter
 end
 
+step 'Select stage counter <counter> from stage overview header' do |counter|
+  new_pipeline_dashboard_page.select_stage_counter_from_stage_overview_header counter
+end
+
 step 'Verify stage overview renders stage triggered by <username>' do |username|
   new_pipeline_dashboard_page.verify_stage_overview_triggered_by_user username
 end

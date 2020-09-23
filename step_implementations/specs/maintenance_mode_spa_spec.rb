@@ -54,6 +54,14 @@ step 'Verify maintenance mode banner is not shown' do
   assert_false maintenance_mode_page.maintenance_mode_banner_shown?
 end
 
+step 'Specify system property to start GoCD Server in maintenance mode' do
+  ENV['ADDITIONAL_SERVER_SYSTEM_PROPERITES'] = "-Dgocd.server.start.in.maintenance.mode=true"
+end
+
+step 'Remove system property to start GoCD Server in maintenance mode' do
+  ENV['ADDITIONAL_SERVER_SYSTEM_PROPERITES'] = "-Dgocd.server.start.in.maintenance.mode=false"
+end
+
 step 'Cancel pipeline <pipeline> counter <p_counter> stage <stage> counter <s_counter> - On Maintenance mode spa' do |pipeline, p_counter, stage, s_counter|
   maintenance_mode_page.cancel_stage(scenario_state.get(pipeline), p_counter, stage, s_counter)
 end
@@ -65,6 +73,10 @@ end
 
 step 'Verify in progress subsystems section shows material <name>' do |name|
   maintenance_mode_page.shows_running_mdu_for_material(name)
+end
+
+step 'Verify server is in maintenance mode' do
+  assert_true maintenance_mode_page.maintenance_mode_enabled?
 end
 
 step 'Verify server is not in maintenance mode' do

@@ -84,5 +84,5 @@ class GoConstants
                                    -Dcruise.server.ssl.port=#{SERVER_SSL_PORT}
                                    -Xms#{SERVER_MEM}
                                    -Xmx#{SERVER_MAX_MEM}
-                                   #{ENV['ADDITIONAL_SERVER_SYSTEM_PROPERITES']}].freeze
+                                   #{ENV['ADDITIONAL_SERVER_SYSTEM_PROPERITES']}]
 end

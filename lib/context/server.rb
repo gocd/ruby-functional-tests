@@ -57,7 +57,9 @@ module Context
       log_location = "#{GoConstants::SERVER_DIR}/logs/output.log"
       out = File.open(log_location, 'a')
       out.sync = true
-      prepare_wrapper_conf(GoConstants::GO_SERVER_SYSTEM_PROPERTIES)
+      properties = GoConstants::GO_SERVER_SYSTEM_PROPERTIES
+      properties.push(ENV['ADDITIONAL_SERVER_SYSTEM_PROPERITES'])
+      prepare_wrapper_conf(properties)
 
       STDERR.puts "Attempting to re-start GoCD server in: #{GoConstants::SERVER_DIR}.}"
       Bundler.with_original_env do

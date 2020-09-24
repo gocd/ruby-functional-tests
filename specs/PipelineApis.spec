@@ -152,7 +152,7 @@ tags: schedule, api
 
 * Schedule should return code "409"
 
-* Attempt to get scheduled list of jobs should return with status "403"
+* Attempt to get scheduled list of jobs should return with status "200"
 
 
 

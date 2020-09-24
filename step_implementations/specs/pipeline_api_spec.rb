@@ -137,8 +137,8 @@ step 'Verify can unlock <pipeline> using access token <token_id>' do |pipeline, 
 end
 
 step 'Attempt to get scheduled list of jobs should return with status <return_code>' do |return_code|
-  RestClient.get http_url("/api/jobs/scheduled.xml"), basic_configuration.header do |response|
-    assert_true response.code == return_code.to_i
+  RestClient.get http_url("/api/feed/jobs/scheduled.xml"), basic_configuration.header do |response|
+    assert_true response.code == return_code.to_i, "Expected: #{return_code}, Actual: #{response.code}"
   end
 end
 

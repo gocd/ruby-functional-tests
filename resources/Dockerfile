@@ -1,5 +1,5 @@
-FROM gocddev/gocd-dev-build:centos-7-v2.0.67
+FROM gocd/gocd-agent-centos-7:v20.8.0
 
-COPY gcp.repo /etc/yum.repos.d/gcp.repo
-
-RUN sudo yum install -y google-cloud-sdk kubectl
+RUN yum install -y centos-release-scl initscripts && \
+yum install -y rh-git29 && \
+echo source /opt/rh/rh-git29/enable > /etc/profile.d/rh-git29.sh

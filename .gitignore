@@ -9,6 +9,5 @@ vendor/bundle/
 .gauge/
 .vscode
 godata/*
-resources/studios-gcp-gocd-*.json
 /reports/
 /screenshots/

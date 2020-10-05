@@ -154,6 +154,8 @@ Your Environment Information -----------
 You can see in the above output that the version of gauge-ruby in `vendor/bundle` is `gauge-ruby-0.5.2` and the version Gauge seems to be expect is `0.5.3` (that you can see in the "Your Environment Information" section at the end).
 
 
+
+
 ## License
 
 ```plain

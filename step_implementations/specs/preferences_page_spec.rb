@@ -42,9 +42,14 @@ step "Set notification for all commits" do
   preferences_page.only_my_commits.set false
 end
 
-step "Add notification" do
-  preferences_page.add_notification.click
+step "Save notification" do
+  preferences_page.save_notification.click
 end
+
 step "Delete notification <row>" do |row|
   preferences_page.delete_notification(row)
+end
+
+step 'Add new notification' do
+  preferences_page.add_notification.click
 end

@@ -13,16 +13,17 @@ Setup of contexts
 * On Preferences page
 * Verify "0" notifications are present
 
+* Add new notification
 * Set pipeline as "basic-pipeline-with-git-material"
 * Set stage as "defaultStage"
 * Set event as "Fails"
-* Add notification
+* Save notification
 * Verify "1" notifications are present
 
-* Reload page
+* Add new notification
 * Set event as "Breaks"
 * Set notification for all commits
-* Add notification
+* Save notification
 * Verify "2" notifications are present
 
 * Delete notification "1"

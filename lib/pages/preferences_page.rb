@@ -18,25 +18,26 @@ module Pages
   class Preferences < AppBase
     set_url "#{GoConstants::GO_SERVER_BASE_URL}/preferences/notifications"
 
-    element :page_title, "#page-title"
-    element :notifications_table, ".notification-filters-list"
-    element :pipeline_selector, "select[name='pipeline']"
-    element :stage_selector, "select[name='stage']"
-    element :event_selector, "select[name='event']"
-    element :only_my_commits, "input[name='match_commits']"
-    element :add_notification, "input[type='submit']"
+    element :page_title, 'h1[data-test-id="title"]'
+    element :notifications_table, 'table[data-test-id="table"]'
+    element :pipeline_selector, 'select[data-test-id="form-field-input-pipeline"]'
+    element :stage_selector, 'select[data-test-id="form-field-input-stage"]'
+    element :event_selector, 'select[data-test-id="form-field-input-event"]'
+    element :only_my_commits, 'input[data-test-id="form-field-input-only-if-it-contains-my-check-ins"]'
+    element :add_notification, 'button[data-test-id="notification-filter-add"]'
+    element :save_notification, 'button[data-test-id="button-save"]'
 
     def verify_title(title)
       assert_equal page_title.text, title
     end
 
     def notifications_configured
-      notifications_table.all('tbody tr').count
+      page.all('table[data-test-id="table"] tbody tr').count
     end
 
     def delete_notification(row)
-      notifications_table.all('tbody tr')[row.to_i - 1]
-          .find('button')
+      page.all('table[data-test-id="table"] tbody tr')[row.to_i - 1]
+          .find('button[data-test-id="notification-filter-delete"]')
           .click
     end
   end

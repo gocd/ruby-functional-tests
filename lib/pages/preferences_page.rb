@@ -26,6 +26,7 @@ module Pages
     element :only_my_commits, 'input[data-test-id="form-field-input-only-if-it-contains-my-check-ins"]'
     element :add_notification, 'button[data-test-id="notification-filter-add"]'
     element :save_notification, 'button[data-test-id="button-save"]'
+    element :confirm_delete, 'button[data-test-id="button-cancel"]'
 
     def verify_title(title)
       assert_equal page_title.text, title

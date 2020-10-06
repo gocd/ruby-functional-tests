@@ -27,8 +27,10 @@ Setup of contexts
 * Verify "2" notifications are present
 
 * Delete notification "1"
+* Confirm delete notification
 * Verify "1" notifications are present
 * Delete notification "1"
+* Confirm delete notification
 * Verify "0" notifications are present
 
 teardown

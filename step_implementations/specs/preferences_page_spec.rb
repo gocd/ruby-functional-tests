@@ -53,3 +53,7 @@ end
 step 'Add new notification' do
   preferences_page.add_notification.click
 end
+
+step 'Confirm delete notification' do
+  preferences_page.confirm_delete.click
+end

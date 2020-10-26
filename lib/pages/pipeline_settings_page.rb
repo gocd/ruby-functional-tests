@@ -113,7 +113,7 @@ module Pages
       page.all('dt')
           .find {|element| element.text === "Advanced Settings"}
           .click
-      page.find('input[data-test-id="auto-update-material"]', visible: false)
+      page.find('input[data-test-id="material-auto-update"]', visible: false)
           .sibling('label[data-test-id="switch-paddle"]').set(flag)
     end
 

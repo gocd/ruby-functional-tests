@@ -113,8 +113,8 @@ module Pages
       page.all('dt')
           .find {|element| element.text === "Advanced Settings"}
           .click
-      page.find('input[data-test-id="material-auto-update"]', visible: false)
-          .sibling('label[data-test-id="switch-paddle"]').set(flag)
+      page.find('[data-test-id="material-auto-update"]')
+          .find("[data-test-id=\"radio-#{flag ? "auto" : "manual"}\"]").click
     end
 
     def invert_material

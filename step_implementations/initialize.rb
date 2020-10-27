@@ -28,6 +28,7 @@ require 'json_builder'
 require 'deep_merge'
 require 'uri'
 require 'clipboard'
+require 'rbconfig'
 Bundler.setup(:default)
 Bundler.require
 
@@ -73,7 +74,10 @@ Capybara.register_driver :selenium do |app|
   end
   cap = case browser
           when :firefox
-            {browser: browser, profile: profile}
+            options = ::Selenium::WebDriver::Firefox::Options.new
+            options.profile = profile
+            options.args << "--headless" if RbConfig::CONFIG['host_os'] =~ /linux/
+            {browser: browser, options: options}
           else
             {browser: browser}
         end

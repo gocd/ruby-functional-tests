@@ -48,15 +48,6 @@ Gauge.configure do |config|
   config.include Helpers::SpecHelper
   config.include Helpers::GoUrlHelper
   config.include Helpers::Wait
-  config.custom_screenshot_writer = -> {
-    Capybara.page.save_screenshot
-    return Dir.glob('screenshots/*.png').first
-  }
-end
-
-Capybara.configure do |config|
-  config.save_path = 'screenshots'
-  config.default_max_wait_time = 20
 end
 
 Capybara.register_driver :selenium do |app|

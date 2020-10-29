@@ -71,6 +71,6 @@ This is a bug. At this point, there is nothing which is running and the job has 
 Teardown of contexts
 ____________________
 * Capture go state "StageDetailsAutoRefresh" - teardown
-* With "2" live agents - teardown
+* With "1" live agents - teardown
 
 

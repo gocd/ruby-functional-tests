@@ -41,8 +41,9 @@ module Pages
     end
 
     def get_pipeline_labels
-      pipeline_labels = page.all('div[data-test-id="left-pane"] span[data-test-id="instance-counter"]', wait: 10).map do |element|
-        element.text.to_i
+      pipeline_labels = []
+      page.all('span[data-test-id="instance-counter"]').each do |element|
+        pipeline_labels.append(element.text.to_i)
       end
       puts "labels found: #{pipeline_labels}"
       pipeline_labels

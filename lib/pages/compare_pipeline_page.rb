@@ -41,11 +41,14 @@ module Pages
     end
 
     def get_pipeline_labels
-      pipeline_labels = []
-      page.all('span[data-test-id="instance-counter"]').each do |element|
-        pipeline_labels.append(element.text.to_i)
-      end
-      puts "labels found: #{pipeline_labels}"
+      page.first 'span[data-test-id="instance-counter"]' # ensure at least one has appeared
+
+      # use JS to fetch these to avoid racing mithril redraw and page#find()
+      pipeline_labels = page.evaluate_script %{
+        [].slice.call(document.querySelectorAll('span[data-test-id="instance-counter"]')).
+          reduce((memo, el) => (memo.push(parseInt(el.textContent, 10)), memo), [])
+      }
+
       pipeline_labels
     end
 
@@ -65,8 +68,10 @@ module Pages
       pipeline_dependency_material_modifications(pipeline_name).each do |widget|
         widget.find('table').all('tbody tr').each {|tr| revisions.push(tr.all('td').first.text)}
       end
-      puts "revisions: #{revisions}"
-      true if revisions.include? sanitize_message(revision)
+
+      revisions.include?(sanitize_message(revision)).tap { |b|
+        $stderr.puts "revisions: #{revisions} does not contain #{revision}" unless b
+      }
     end
 
     def verify_pipeline_dependency_label(pipeline_name, label)
@@ -74,8 +79,10 @@ module Pages
       pipeline_dependency_material_modifications(pipeline_name).each do |widget|
         widget.find('table').all('tbody tr').each {|tr| labels.push(tr.all('td')[1].text)}
       end
-      puts "labels: #{labels}"
-      true if labels.include? label
+
+      labels.include?(label).tap { |b|
+        $stderr.puts "labels: #{labels} does not contain #{label}" unless b
+      }
     end
 
     def verify_scm_material_revision(material_type, revision)
@@ -83,8 +90,10 @@ module Pages
       pipeline_scm_material_modifications(material_type).each do |widget|
         widget.find('table').all('tbody tr').each {|tr| revisions.push(tr.all('td').first.text)}
       end
-      puts "revisions: #{revisions}"
-      true if revisions.include? revision
+
+      revisions.include?(revision).tap { |b|
+        $stderr.puts "revisions: #{revisions} does not contain #{revision}" unless b
+      }
     end
 
     def verify_scm_material_comment(material_type, comment)
@@ -92,8 +101,10 @@ module Pages
       pipeline_scm_material_modifications(material_type).each do |widget|
         widget.find('table').all('tbody tr').each {|tr| comments.push(tr.all('td').last.text)}
       end
-      puts "comments: #{comments}"
-      true if comments.include? comment
+
+      comments.include?(comment).tap { |b|
+        $stderr.puts "comments: #{comments} does not container #{comment}" unless b
+      }
     end
 
     def click_label(label)

@@ -89,6 +89,7 @@ step 'Verify selected pipeline label is <label>' do |label|
 end
 
 step 'Verify that page has pipeline range <high> to <low>' do |high, low|
+  sleep 1 # needed to add a sleep so that the capybara session can be updated before the specs execute
   pipeline_label_range = *(low.to_i..high.to_i)
   actual_labels        = compare_pipeline_page.get_pipeline_labels
   assert_true (pipeline_label_range - actual_labels).empty?, "Expected: #{pipeline_label_range}, Actual: #{actual_labels}"

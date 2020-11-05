@@ -28,7 +28,7 @@ module Pages
     element :clone_package_repo_button, "button[data-test-id='package-repo-edit']"
     element :name_field, "input[data-test-id='form-field-input-name']"
     element :package_repo_url, "input[data-test-id='input-for-Repository URL']"
-    element :package_repo_username, "input[data-test-id='input-for-UserName']"
+    element :package_repo_username, "input[data-test-id='input-for-User']"
     element :package_repo_password, "input[data-test-id='input-for-Password']"
     element :package_spec, "input[data-test-id='input-for-Package Spec']"
     element :save_button, "button[data-test-id='button-save']"

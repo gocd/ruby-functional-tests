@@ -2,7 +2,8 @@ SecretManagementWithPluginAndPackageMaterial
 =======
 
 Setup of contexts
-* Prepare secret config json "secrets.json" with secrets "password: secret"
+* Prepare secret config json "secrets.json" with secrets "password: secret, agent: go-agent"
+* Setup file based yum repo - setup
 * Package Repository configuration - setup
 * Using pipeline "pipeline_with_many_material" - setup
 * With "1" live agents - setup
@@ -11,9 +12,9 @@ Setup of contexts
 SecretManagementWithPluginAndPackageMaterial
 -------
 
-tags: secret_management, pluggable-scm, plugin-material
+tags: secret_management, pluggable-scm, plugin-material, package-repository
 
-* Create secret config "test" for secret file "secrets.json" rules "allow:pluggable_scm:test_*, allow:package_repository:maven_repo" - Using Secret Config API
+* Create secret config "test" for secret file "secrets.json" rules "allow:pluggable_scm:test_*, allow:package_repository:yum-repo" - Using Secret Config API
 * Create dummy git repo
 * Open Pluggable SCM page
 * Edit scm "test_github"
@@ -21,10 +22,20 @@ tags: secret_management, pluggable-scm, plugin-material
 * Save scm
 
 * Open Package repositories page
-* Edit package repository "maven_repo"
-* Enter username as "user"
-* Enter password as "{{SECRET:[test][password]}}"
+* Click on add package repository
+* Enter repository name as "yum-repo"
+* Select "Yum Plugin" plugin
+* Enter repo url as "file:///tmp/packagerepo/file_repo"
 * Click save - Already on Package Repositories tab
+* Verify repository listing contains "yum-repo"
+
+* Reload page
+* Click on add package for "yum-repo"
+* Set package name as "go-agent"
+* Set spec as "{{SECRET:[test][agent]}}"
+* Click save - Already on Package Repositories tab
+* Verify message "The package go-agent was created successfully!" for package repo spa
+* Verify package "go-agent" exists for repo "yum-repo"
 
 * On Swift Dashboard Page
 * Edit pipeline "pipeline_with_many_material"
@@ -34,7 +45,7 @@ tags: secret_management, pluggable-scm, plugin-material
 * Enter destination directory "scm"
 * Save material
 * Select add new material of type "Package Materials"
-* Select repository "maven_repo" and package "gocd-plugin"
+* Select repository "yum-repo" and package "go-agent"
 * Save material
 
 * On Swift Dashboard Page

@@ -18,6 +18,57 @@
         schemaVersion="138">
     <server serverId="gauge" tokenGenerationKey="token">
     </server>
+    <repositories>
+        <repository id="b0c8b232-ee26-4811-8d3f-bbf537b197db" name="maven_repo">
+            <pluginConfiguration id="maven-repo" version=""/>
+            <configuration>
+                <property>
+                    <key>REPO_URL</key>
+                    <value>https://repo1.maven.org/maven2/</value>
+                </property>
+                <property>
+                    <key>USERNAME</key>
+                </property>
+                <property>
+                    <key>PASSWORD</key>
+                </property>
+                <property>
+                    <key>PROXY</key>
+                </property>
+                <property>
+                    <key>TIME_ZONE</key>
+                </property>
+                <property>
+                    <key>LATEST_VERSION_TAG</key>
+                </property>
+            </configuration>
+            <packages>
+                <package id="fc522663-0db6-44b8-9150-d01006169839" name="gocd-plugin">
+                    <configuration>
+                        <property>
+                            <key>GROUP_ID</key>
+                            <value>cd.go.plugin</value>
+                        </property>
+                        <property>
+                            <key>ARTIFACT_ID</key>
+                            <value>go-plugin-api</value>
+                        </property>
+                        <property>
+                            <key>PACKAGING</key>
+                            <value>jar</value>
+                        </property>
+                        <property>
+                            <key>POLL_VERSION_FROM</key>
+                        </property>
+                        <property>
+                            <key>POLL_VERSION_TO</key>
+                            <value>19.8.0</value>
+                        </property>
+                    </configuration>
+                </package>
+            </packages>
+        </repository>
+    </repositories>
     <scms>
         <scm id="cd7ea0c7-3b21-40f3-b5c2-710e133d01db" name="test_github">
             <pluginConfiguration id="jgit" version="1"/>

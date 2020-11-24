@@ -16,7 +16,7 @@
  *************************GO-LICENSE-END******************************* -->
 
 <cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="139">
-    <server commandRepositoryLocation="default" serverId="gauge" agentAutoRegisterKey="functional-tests" tokenGenerationKey="token">
+    <server serverId="gauge" agentAutoRegisterKey="functional-tests" tokenGenerationKey="token">
         <artifacts>
             <artifactsDir>artifacts</artifactsDir>
         </artifacts>

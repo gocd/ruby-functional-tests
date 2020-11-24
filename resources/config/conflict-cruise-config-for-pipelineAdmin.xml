@@ -16,7 +16,7 @@
  *************************GO-LICENSE-END******************************* -->
 
 <cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="139">
-  <server commandRepositoryLocation="default" serverId="dev-id" tokenGenerationKey="token">
+  <server serverId="dev-id" tokenGenerationKey="token">
       <artifacts>
           <artifactsDir>logs</artifactsDir>
       </artifacts>

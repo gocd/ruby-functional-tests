@@ -17,7 +17,7 @@
 
 <cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd"
         schemaVersion="139">
-    <server commandRepositoryLocation="default" serverId="gauge" tokenGenerationKey="token">
+    <server serverId="gauge" tokenGenerationKey="token">
         <artifacts>
             <artifactsDir>artifacts</artifactsDir>
         </artifacts>

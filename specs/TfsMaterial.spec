@@ -5,8 +5,8 @@ TfsMaterial
 
 Setup of contexts
 * Tfs configuration - setup
-* Using pipeline "basic-tfs-pipeline" - setup
 * With "2" live agents - setup
+* Using pipeline "basic-tfs-pipeline" - setup
 * Capture go state "TfsMaterial" - setup
 
 TfsMaterial

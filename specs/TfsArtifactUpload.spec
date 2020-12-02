@@ -4,8 +4,8 @@ TfsArtifactUpload
 
 Setup of contexts
 * Tfs configuration - setup
-* Using pipeline "tfs_artifact_in_dest,tfs_artifact_in_child_directory,tfs_generated_file_gets_deleted" - setup
 * With "1" live agents - setup
+* Using pipeline "tfs_artifact_in_dest,tfs_artifact_in_child_directory,tfs_generated_file_gets_deleted" - setup
 * Capture go state "TfsArtifactUpload" - setup
 
 TfsArtifactUpload

@@ -242,16 +242,16 @@ module Context
        cd(@repository_directory) do
         chmod 0755,@tfs_tool_path
          Open3.popen3("#{@tfs_tool_path} workspace -new -noprompt -server:#{ENV['TFS_SERVER_URL']} -login:#{ENV['TFS_SERVER_USERNAME']},#{ENV['TFS_SERVER_PASSWORD']} #{@workspace_name}") do |_stdin, _stdout, stderr, wait_thr|
-          raise "Initialization of tfs workspece Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
+          raise "Initialization of tfs workspace Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
          end
          Open3.popen3("#{@tfs_tool_path} workfold -map -workspace:#{@workspace_name} -server:#{ENV['TFS_SERVER_URL'] } -login:#{ENV['TFS_SERVER_USERNAME']},#{ENV['TFS_SERVER_PASSWORD']}  #{tfs_project_path} #{@repository_directory}") do |_stdin, _stdout, stderr, wait_thr|
-          raise "Mapping of tfs workspece Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
+          raise "Mapping of tfs workspace Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
          end
          Open3.popen3("#{@tfs_tool_path} get #{@repository_directory} -recursive -noprompt -all -server:#{ENV['TFS_SERVER_URL'] } -login:#{ENV['TFS_SERVER_USERNAME']},#{ENV['TFS_SERVER_PASSWORD']}  #{tfs_project_path}") do |_stdin, _stdout, stderr, wait_thr|
           raise "Getting of tfs material Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
          end
          Open3.popen3("#{@tfs_tool_path} checkout * -recursive -login:#{ENV['TFS_SERVER_USERNAME']},#{ENV['TFS_SERVER_PASSWORD']}") do |_stdin, _stdout, stderr, wait_thr|
-          raise "checkoutf of tfs material Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
+          raise "checkout of tfs material Failed. Error returned: #{stderr.read}" unless wait_thr.value.success?
          end
          basic_configuration.set_material_path_for_tfs_pipeline(pipeline, ENV['TFS_SERVER_URL'],ENV['TFS_SERVER_USERNAME'],ENV['TFS_SERVER_PASSWORD'])
          scenario_state.put('workspace',@workspace_name)

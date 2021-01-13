@@ -25,7 +25,7 @@ step 'Trigger the pipeline <counter> times - Using API' do |counter|
       response = RestClient.get http_url("/api/pipelines/#{scenario_state.self_pipeline}/instance/#{instance_count}"), basic_configuration.header
       assert_true (response.code == 200)
     rescue RestClient::ExceptionWithResponse => err
-      p "Pipeline Instance call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+      puts "Pipeline Instance call failed with response code #{err.response.code} and the response body - #{err.response.body}"
     end
   end
 end
@@ -39,7 +39,7 @@ step 'Verify <label_count> instance of <pipeline_name> <stage_name> <job_name> <
     assert_true (JSON.parse(response.body)['stages'].first['result'] == status)
     assert_true (JSON.parse(response.body)['stages'].first['counter'].to_i == 1)
   rescue RestClient::ExceptionWithResponse => err
-    p "Pipeline Instance call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+    puts "Pipeline Instance call failed with response code #{err.response.code} and the response body - #{err.response.body}"
   end
 end
 
@@ -52,7 +52,7 @@ step 'Verify <label_count> instance of <pipeline_name> <stage_name> <job_name> <
     assert_true (JSON.parse(response.body)['result'] == status)
     assert_true (JSON.parse(response.body)['pipeline_counter'] == label_count.to_i)
   rescue RestClient::ExceptionWithResponse => err
-    p "Pipeline Instance call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+    puts "Pipeline Instance call failed with response code #{err.response.code} and the response body - #{err.response.body}"
   end
 end
 

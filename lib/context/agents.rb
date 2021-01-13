@@ -57,7 +57,7 @@ module Context
     end
 
     def create_stopjob(filename)
-      agent_wrk_dirs.each { |agent_dir| sh("touch #{agent_dir}/#{filename}") }
+      agent_wrk_dirs.each { |agent_dir| FileUtils.touch "#{agent_dir}/#{filename}" }
     end
 
     def delete_stopjob(filename)

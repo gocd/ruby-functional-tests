@@ -18,8 +18,11 @@ CONFIG_REPO_API_VERSION = 'application/vnd.go.cd+json'.freeze
 CONFIG_REPO_BASE_URL    = '/api/admin/config_repos'.freeze
 
 step 'Create config repo <id>' do |id|
-  resp = create_config_repo(id)
-  assert_true resp.code == 200, "Expected 200 but actual resp code: #{resp.code}; body: #{resp.body}"
+  begin
+    assert_true create_config_repo(id).code == 200
+  rescue RestClient::ExceptionWithResponse => e
+    raise "Failed to create config repo #{id}. Resp code: #{e.response.code}; body: #{e.response.body}"
+  end
 end
 
 step 'Create config repo <id> should return forbidden' do |id|
@@ -98,7 +101,11 @@ step 'Trigger update of config repo <id> should return success' do |id|
 end
 
 step 'Create config repo <id> with rules <rules>' do |id, rules|
-  assert_true create_config_repo_with_rules(id, rules).code == 200
+  begin
+    assert_true create_config_repo_with_rules(id, rules).code == 200
+  rescue RestClient::ExceptionWithResponse => e
+    raise "Failed to create config repo #{id}. Resp code: #{e.response.code}; body: #{e.response.body}"
+  end
 end
 
 step 'Get config repo <id> should contain rules <rules>' do |id, rules|

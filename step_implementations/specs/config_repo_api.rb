@@ -18,7 +18,8 @@ CONFIG_REPO_API_VERSION = 'application/vnd.go.cd+json'.freeze
 CONFIG_REPO_BASE_URL    = '/api/admin/config_repos'.freeze
 
 step 'Create config repo <id>' do |id|
-  assert_true create_config_repo(id).code == 200
+  resp = create_config_repo(id)
+  assert_true resp.code == 200, "Expected 200 but actual resp code: #{resp.code}; body: #{resp.body}"
 end
 
 step 'Create config repo <id> should return forbidden' do |id|

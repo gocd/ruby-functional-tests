@@ -98,7 +98,7 @@ module Context
 
     def new_commit(filename, commit, author = 'gouser')
       cd(@path.to_s) do
-        sh "touch #{filename}"
+        FileUtils.touch filename
         Open3.popen3(%(git add . && git commit --author="#{author} <user@go>" -m "#{commit}")) do |_stdin, _stdout, stderr, wait_thr|
           raise "Failed to commit to git repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
         end
@@ -110,7 +110,7 @@ module Context
       if File.exist?("resources/#{filename}")
         cp_r "resources/#{filename}", "#{@path}/#{directory_name}"
       else
-        sh "touch #{@path}/#{directory_name}/#{filename}"
+        FileUtils.touch "#{@path}/#{directory_name}/#{filename}"
       end
       cd ("#{@path}/#{directory_name}") do
         Open3.popen3(%(git add . && git commit -m "Adding new file #{filename} in #{directory_name}")) do |_stdin, _stdout, stderr, wait_thr|
@@ -201,7 +201,7 @@ module Context
 
     def new_commit(filename, commit, author = 'gouser')
       cd(@working_copy.to_s) do
-        sh "touch #{filename}"
+        FileUtils.touch filename
         Open3.popen3(%(svn add #{filename} && svn ci --non-interactive --username "#{author} <user@go>" -m "#{commit}")) do |_stdin, _stdout, stderr, wait_thr|
           raise "Failed to commit to SVN repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
         end

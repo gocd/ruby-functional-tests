@@ -18,6 +18,23 @@ require 'timeout'
 
 module Helpers
   module Wait
+    def retry_until_true(options={}, &block)
+      if block_given?
+        max_tries = options[:max_tries] || 2
+        period = options[:delay] || 3
+        tries = 0
+        begin
+          raise "retry" unless block.call
+        rescue
+          if tries < max_tries
+            tries += 1
+            sleep period
+            retry
+          end
+        end
+      end
+    end
+
     def wait_till_event_occurs_or_bomb(wait_time, message)
       Timeout.timeout(wait_time) do
         loop do

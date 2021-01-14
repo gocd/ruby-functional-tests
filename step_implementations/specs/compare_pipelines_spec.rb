@@ -90,7 +90,13 @@ end
 
 step 'Verify that page has pipeline range <high> to <low>' do |high, low|
   pipeline_label_range = *(low.to_i..high.to_i)
-  actual_labels        = compare_pipeline_page.get_pipeline_labels
+  actual_labels        = []
+
+  compare_pipeline_page.retry_until_true(max_tries: 2, delay: 3) do
+    actual_labels = compare_pipeline_page.get_pipeline_labels
+    (pipeline_label_range - actual_labels).empty?
+  end
+
   assert_true (pipeline_label_range - actual_labels).empty?, "Expected: #{pipeline_label_range}, Actual: #{actual_labels}"
 end
 

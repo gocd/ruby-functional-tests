@@ -24,7 +24,7 @@
     <pipelines group="basic">
 		<pipeline name="tfs_artifact_in_child_directory">
 	      <materials>
-	        <tfs url="$tfsurl" username="$tfsuser"  password="$tfspassword" projectPath="$/MyFirstProject" materialName="tfs_mat" autoUpdate="false"/>
+	        <tfs url="tfsurl" username="$tfsuser"  password="$tfspassword" projectPath="$/MyFirstProject" materialName="tfs_mat" autoUpdate="false"/>
 	      </materials>
 	      <stage name="defaultStage">
 	       	<approval type="manual"/>
@@ -49,7 +49,7 @@
 	    </pipeline>
 		<pipeline name="tfs_generated_file_gets_deleted">
 	      <materials>
-	        <tfs url="$tfsurl" username="$tfsuser"  password="$tfspassword" projectPath="$/MyFirstProject" materialName="tfs_mat" autoUpdate="false"/>
+	        <tfs url="tfsurl" username="$tfsuser"  password="$tfspassword" projectPath="$/MyFirstProject" materialName="tfs_mat" autoUpdate="false"/>
 	      </materials>
 	      <stage name="defaultStage">
 	       	<approval type="manual"/>
@@ -75,7 +75,7 @@
 	    </pipeline>
 		<pipeline name="tfs-pipeline-with-multiple-stages">
 	      <materials>
-		    <tfs url="$tfsurl" username="$tfsuser" password="$tfspassword" projectPath="$/MyFirstProject" materialName="tfs_mat" autoUpdate="false"/>
+		    <tfs url="tfsurl" username="$tfsuser" password="$tfspassword" projectPath="$/MyFirstProject" materialName="tfs_mat" autoUpdate="false"/>
 		  </materials>
 		  <stage name="stage1">
 		  	<approval type="manual"/>
@@ -102,7 +102,7 @@
 	    </pipeline>
 			<pipeline name="basic-tfs-pipeline">
 				<materials>
-				 <tfs url="$tfsurl" username="$tfsuser" password="$tfspassword" projectPath="$/MyFirstProject" materialName="tfs_mat" autoUpdate="false">
+				 <tfs url="tfsurl" username="$tfsuser" password="$tfspassword" projectPath="$/MyFirstProject" materialName="tfs_mat" autoUpdate="false">
 		  		<filter>
 							<ignore pattern="*.ignore.txt"/>
 							<ignore pattern="$/MyFirstProject/Folder with space/*"/>
@@ -122,7 +122,7 @@
 			</pipeline>
 			<pipeline name="tfs_artifact_in_dest">
 				<materials>
-					<tfs url="$tfsurl" username="$tfsuser" password="$tfspassword" projectPath="$/MyFirstProject" materialName="tfs_mat" autoUpdate="false"/>
+					<tfs url="tfsurl" username="$tfsuser" password="$tfspassword" projectPath="$/MyFirstProject" materialName="tfs_mat" autoUpdate="false"/>
 				</materials>
 				<stage name="defaultStage">
 					<approval type="manual"/>

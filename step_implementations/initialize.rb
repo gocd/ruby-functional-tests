@@ -81,7 +81,7 @@ Capybara.register_driver :selenium do |app|
           else
             {browser: browser}
         end
-  Capybara::Selenium::Driver.new(app, cap)
+  Capybara::Selenium::Driver.new(app, **cap)
 end
 
 Capybara.default_driver = :selenium

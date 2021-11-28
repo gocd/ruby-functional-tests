@@ -34,6 +34,7 @@ Changing pipeline config appropriately to use in this test
 * Edit pipeline "downstream-pipeline"
 * Verify only on changes checkbox is disabled
 * Enter "0 0/2 * 1/1 * ? *" for cron time specifier
+* Wait for "5" seconds
 * Verify only on changes checkbox is enabled
 * Save Changes
 

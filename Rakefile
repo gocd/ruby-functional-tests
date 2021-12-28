@@ -320,9 +320,10 @@ task default: %w[kill clean_all build_all prepare test]
 task :setup_tfs_cli do
   rm_rf "tfs-tool"
   mkdir_p "tfs-tool"
-  sh "curl --compressed -sSL --output tfs-tool/TEE-CLC-14.134.0.zip https://github.com/microsoft/team-explorer-everywhere/releases/download/14.134.0/TEE-CLC-14.134.0.zip"
-  sh "unzip tfs-tool/TEE-CLC-14.134.0.zip -d tfs-tool"
-  sh "mv tfs-tool/TEE-CLC-14.134.0/* tfs-tool/"
+  tee_clc_version = "14.136.0"
+  sh "curl --compressed -sSL --output tfs-tool/TEE-CLC-#{tee_clc_version}.zip https://github.com/microsoft/team-explorer-everywhere/releases/download/#{tee_clc_version}/TEE-CLC-#{tee_clc_version}.zip"
+  sh "unzip tfs-tool/TEE-CLC-#{tee_clc_version}.zip -d tfs-tool"
+  sh "mv tfs-tool/TEE-CLC-#{tee_clc_version}/* tfs-tool/"
   sh "cp -f lib/tfs-deps/*.jar tfs-tool/lib/"
   cd "tfs-tool" do
     sh "yes | ./tf eula || true"

@@ -1,31 +1,17 @@
 [![Gauge Badge](https://cdn.rawgit.com/getgauge/getgauge.github.io/master/Gauge_Badge.svg)](https://gauge.org)
 
-## Pre-Requisites(with versions tested on)
+## Pre-Requisites (with versions tested on)
 
-* Java 12
-
-* Ruby 2.7.1
-
-* Rake 13.0.1
-
+* Ruby 2.7.2
 * Bundler 2.1.4
-
-* [Node](https://nodejs.org/en/) v14.3.0
-
-* [Gauge](https://gauge.org/index.html) 1.0.8
-
+* [Gauge](https://gauge.org/index.html) 1.4.2
 * gauge-ruby plugin (depends on the version of gauge used):
-
-  For gauge version 1.0.3: Make sure gauge-ruby is at 0.5.2.
-  For gauge version 1.0.8: Make sure gauge-ruby is at 0.5.3.
-
-  You might have to run `bundle update` to get the right version. Look inside `vendor/bundle` to find the correct, installed version and don't depend on the output of `gauge --version`.
-
+  * You might have to run `bundle update` to get the right version. Look inside `vendor/bundle` to find the correct, installed version and don't depend on the output of `gauge --version`.
 * Firefox >= 45.0 (verified with Firefox 76.0.1)
-
-* geckodriver 0.26.0
-
+* geckodriver 0.26.0 (or whatever the appropriate version is for your Firefox version)
 * jq
+* Whatever requirements are needed for building and running GoCD Server
+  * Check the main repo [.tool-versions](https://github.com/gocd/gocd/blob/master/.tool-versions) for an indication
 
 ## Setup
 

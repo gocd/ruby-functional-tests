@@ -24,9 +24,9 @@ module Pages
     element :user_list, '.list_table.sortable_table'
     element :username, "[data-test-id='user-username']"
     element :edit_panel, '.edit_panel'
-    element :btn_disable, "button[value='Disable']"
-    element :btn_enable, "button[value='Enable']"
-    element :btn_role, "button[value='Roles']"
+    element :btn_disable, 'button', text: 'Disable'
+    element :btn_enable, 'button', text: 'Enable'
+    element :btn_role, 'button', text: 'Roles'
     element :roles_panel, '#roles_panel'
     element :admin, 'span', text: 'Go System Administrator'
     element :add_role, '.apply_resources'

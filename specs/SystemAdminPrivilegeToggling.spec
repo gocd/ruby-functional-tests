@@ -10,9 +10,9 @@ Setup of contexts
 SystemAdminPrivilegeToggling
 ----------------------------
 
-tags: admin, role, user_summary
+tags: admin, role, user_summary, wip
 
-This spec needs to be modified accrding to the changes in admin privilege toggle using the switch paddle on new user management page
+This spec needs to be modified according to the changes in admin privilege toggle using the switch paddle on new user management page
 
 * Add user "pavan" - Using user API
 * Add user "raghu" - Using user API

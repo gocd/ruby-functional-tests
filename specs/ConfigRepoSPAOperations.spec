@@ -1,9 +1,9 @@
-ConfigRepoSPA
+ConfigRepoSPAOperations
 =========
 
-ConfigRepoSPA
+ConfigRepoSPAOperations
 -------------------
-tags: config-repo-spa-operations, config-repo-spa, spa, wip
+tags: config-repo-spa-operations, config-repo-spa, spa
 
 Setup of contexts
 * Secure Configuration with policy for config repo - setup
@@ -28,19 +28,19 @@ Setup of contexts
 * Enter config repo name "new-config-repo"
 * Enter config repo url "/tmp/materials/gitmaterial-#{Time.now.to_i}-#{SecureRandom.hex(4)}"
 * Click on save config repo
-* Verify that the page contains "new-config-repo"
+* Verify that the page contains "cr, cr1_1, cr2_2, new-config-repo"
 
 ~~~~~~~~~~~~~ as admin edit config repo ~~~~~~~~~~~~~~~~~
 
 * Click on edit config repo "cr"
 * Click on save config repo
-* Verify that the page contains "cr, cr1_1, cr2_2"
+* Verify that the page contains "cr, cr1_1, cr2_2, new-config-repo"
 
 
 ~~~~~~~~~~~~~ as admin delete config repo ~~~~~~~~~~~~~~~~~
 * Click on delete config repo "cr"
 * Click on confirm delete config repo
-* Verify that the page does not contains "cr"
+* Verify that the page does not contains "cr1_1, cr2_2, new-config-repo"
 
 Teardown of contexts
 ____________________

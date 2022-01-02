@@ -3,7 +3,7 @@ AgentsUIScreen
 
 AgentsUIScreen
 -------------------
-tags: agentspage, agentsUI, agents_spa, SPA
+tags: agentspage, agentsUI, agents_spa, spa
 
 Setup of contexts
 * Basic Configuration - setup

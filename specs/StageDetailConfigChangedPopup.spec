@@ -11,7 +11,7 @@ Setup of contexts
 StageDetailConfigChangedPopup
 -----------------------------
 
-tags: wip
+tags: stage-details
 
 * On Swift Dashboard Page
 * Looking at pipeline "edit-pipeline" - On Swift Dashboard page

@@ -1,7 +1,7 @@
 VsmAnalyticsVisibilityForAllUsers
 ==============
 
-tags: VSM_analytics
+tags: vsm_analytics
 
 Setup of contexts
 

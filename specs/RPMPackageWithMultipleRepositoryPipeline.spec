@@ -11,7 +11,7 @@ Setup of contexts
 RPMPackageWithMultipleRepositoryPipeline
 ------------------------------------------
 
-tags: package-repository, wip
+tags: package-repository
 
 * Looking at pipeline "A2" - On Swift Dashboard page
 * Verify stage "1" is "Passed" - On Swift Dashboard page

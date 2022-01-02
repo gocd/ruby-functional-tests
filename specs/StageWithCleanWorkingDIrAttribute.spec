@@ -12,7 +12,7 @@ Setup of contexts
 StageWithCleanWorkingDIrAttribute
 ---------------------------------
 
-tags: WIP
+tags: stage-config
 
 * On Swift Dashboard Page
 * Looking at pipeline "pipeline-clean-working-dir" - On Swift Dashboard page

@@ -8,7 +8,7 @@ Setup of contexts
 PluginValidations
 -----------------
 
-tags: Plugin Validations, plugins-tests, plugins_spa, SPA
+tags: Plugin Validations, plugins-tests, plugins_spa, spa
 
 * On Plugins page
 

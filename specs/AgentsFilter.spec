@@ -3,7 +3,7 @@ AgentsFilter
 
 AgentsFilter
 -------------------
-tags: agentsfilter, agentsUI, agents_spa, SPA
+tags: agentsfilter, agentsUI, agents_spa, spa
 This spec is removed from regression on "Regression-SPA" pipeline as these validations are taken care of by the jasmine specs
 
 Setup of contexts

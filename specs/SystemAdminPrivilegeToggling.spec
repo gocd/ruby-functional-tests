@@ -10,7 +10,7 @@ Setup of contexts
 SystemAdminPrivilegeToggling
 ----------------------------
 
-tags: admin, role, user_summary, WIP
+tags: admin, role, user_summary
 
 This spec needs to be modified accrding to the changes in admin privilege toggle using the switch paddle on new user management page
 

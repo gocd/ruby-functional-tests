@@ -3,7 +3,7 @@ RolesSPA
 
 RolesSPA
 -------------------
-tags: roles-spa, SPA
+tags: roles-spa, spa
 
 Setup of contexts
 * Ldap server - stop

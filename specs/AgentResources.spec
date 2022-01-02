@@ -3,7 +3,7 @@ AgentResources
 
 AgentResources
 -------------------
-tags: agents management, agents_spa, SPA
+tags: agents management, agents_spa, spa
 
 Setup of contexts
 * Basic Configuration - setup

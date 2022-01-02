@@ -1,7 +1,7 @@
-ConfigReposPipeline
+ConfigRepoPipeline
 =================
 
-ConfigReposPipeline
+ConfigRepoPipeline
 -------------------
 tags: config_repo_pipeline
 

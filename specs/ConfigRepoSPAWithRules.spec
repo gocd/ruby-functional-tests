@@ -1,7 +1,7 @@
-ConfigRepoWithRules
+ConfigRepoSPAWithRules
 =========
 
-ConfigRepoWithRules
+ConfigRepoSPAWithRules
 -------------------
 tags: config-repo-spa, spa, config-repo-rules
 

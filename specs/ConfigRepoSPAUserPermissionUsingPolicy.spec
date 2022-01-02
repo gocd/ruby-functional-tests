@@ -1,9 +1,9 @@
-ConfigRepoSPA
+ConfigRepoSPAUserPermissionUsingPolicy
 =========
 
-ConfigRepoSPA
+ConfigRepoSPAUserPermissionUsingPolicy
 -------------------
-tags: config-repo-spa, spa, wip
+tags: config-repo-spa, spa
 
 Setup of contexts
 * Secure Configuration with policy for config repo - setup

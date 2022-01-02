@@ -1,7 +1,7 @@
-ConfigReposEnvironment
+ConfigRepoEnvironment
 =================
 
-ConfigReposEnvironment
+ConfigRepoEnvironment
 -------------------
 tags: config_repo_environment
 

@@ -42,7 +42,7 @@ tags: stage-config
 
 * On Swift Dashboard Page
 * Verify stage "second" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
-* On Job details page of pipeline "pipeline-clean-working-dir" counter "1" stage "first" counter "1" job "firstJob"
+* On Job details page of pipeline "pipeline-clean-working-dir" counter "1" stage "second" counter "1" job "secondJob"
 * Verify console log contains message "Cleaning working directory"
 * Verify console log does not contains message "abc.txt"
 * Verify console log does not contains message "xyz.txt"

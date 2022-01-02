@@ -42,7 +42,7 @@
         </pipeline>
      <pipeline name="pipeline-clean-working-dir">
             <materials>
-                <git url="material-for-clean-working-dir" materialName="basic-git-material" autoUpdate="false"/>
+                <git url="material-for-clean-working-dir" dest="gitrepo" materialName="basic-git-material" autoUpdate="false"/>
             </materials>
             <stage name="setup">
                 <approval type="manual"/>
@@ -61,7 +61,7 @@
                 <jobs>
                     <job name="firstJob">
                         <tasks>
-                            <exec command="ls"/>
+                            <exec command="ls" args=". gitrepo/"/>
                         </tasks>
                     </job>
                 </jobs>
@@ -71,7 +71,7 @@
                 <jobs>
                     <job name="secondJob">
                         <tasks>
-                            <exec command="ls"/>
+                            <exec command="ls" args=". gitrepo/"/>
                         </tasks>
                     </job>
                 </jobs>

@@ -232,7 +232,7 @@ module Helpers
     end
 
     def ldap_server
-      Context::LdapServer.new
+      Context::LdapServer.instance
     end
 
     def secure_configuration

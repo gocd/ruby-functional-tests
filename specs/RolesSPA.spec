@@ -6,7 +6,6 @@ RolesSPA
 tags: roles-spa, spa
 
 Setup of contexts
-* Ldap server - stop
 * Ldap server - start
 * Auth Plugins Configuration - setup
 * Login as "admin" - setup

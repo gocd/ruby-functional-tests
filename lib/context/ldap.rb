@@ -15,6 +15,8 @@
 ##########################################################################
 module Context
   class LdapServer
+    include Singleton
+
     def start(ldif = 'data.ldif')
       @server = Ladle::Server.new(:ldif => ldif, :port => 10389, :domain => 'dc=tests,dc=com')
       @server.start
@@ -23,6 +25,7 @@ module Context
 
     def stop
       @server.stop if @server
+      @server = nil
     end
   end
 end

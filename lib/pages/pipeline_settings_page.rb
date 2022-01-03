@@ -63,7 +63,11 @@ module Pages
     end
 
     def connection_ok?
-      page.has_css?('div[class^="test_connection__test-connection-result___"] div[data-test-id="flash-message-success"]')
+      page.has_css?("div[data-test-id='flash-message-success']", wait: 5)
+    end
+
+    def connection_not_ok?
+      page.has_css?("div[data-test-id='flash-message-alert']", wait: 5)
     end
 
     def set_project_path(path)

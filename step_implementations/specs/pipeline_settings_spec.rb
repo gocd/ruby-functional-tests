@@ -49,7 +49,7 @@ end
 
 step 'Check connectivity should be failed - Already on Git Material Creation Popup' do
   pipeline_settings_page.check_connection.click
-  assert_false pipeline_settings_page.connection_ok?
+  assert_true pipeline_settings_page.connection_not_ok?
 end
 
 step 'Select add new material of type <type>' do |type|
@@ -139,7 +139,7 @@ step 'Unpause pipeline - On pipeline edit page' do
   pipeline_settings_page.unpause_pipeline
 end
 
-step 'Set url <url> for material <material> - On material popup' do |url, material|
+step 'Set url <url> - On material popup' do |url|
   pipeline_settings_page.set_material_url new_pipeline_dashboard_page.sanitize_message(url)
 end
 

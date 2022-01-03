@@ -11,7 +11,7 @@ Setup of contexts
 MaterialCheckConnectivity
 -------------------------
 
-tags: Clicky admin
+tags: Clicky admin, material_check
 
 * On Swift Dashboard Page
 * Looking at pipeline "edit-pipeline" - On Swift Dashboard page
@@ -32,9 +32,9 @@ tags: Clicky admin
 * Edit pipeline "edit-pipeline"
 * Open "Materials" tab - On Pipeline settings page
 * Edit material "git"
-* Set url "foo" for material "git" - On material popup
+* Set url "foo" - On material popup
 * Check connectivity should be failed - Already on Git Material Creation Popup
-* Set url "#{url}" for material "git" - On material popup
+* Set url "#{url}" - On material popup
 * Check connectivity should be successful - Already on Git Material Creation Popup
 
 Teardown of contexts

@@ -85,8 +85,8 @@ module Pages
 
     def add_parameter(name, value)
       params_row = page.find('table[data-test-id="table"] tbody').all('tr').last
-      params_row.find("input[data-test-id^='form-field-input-param-name-']").set name
-      params_row.find("input[data-test-id^='form-field-input-param-value-']").set new_pipeline_dashboard_page.sanitize_message(value)
+      params_row.find("[data-test-id^='form-field-input-param-name-']").set name
+      params_row.find("[data-test-id^='form-field-input-param-value-']").set new_pipeline_dashboard_page.sanitize_message(value)
     end
 
     def error_message_for_field(element)

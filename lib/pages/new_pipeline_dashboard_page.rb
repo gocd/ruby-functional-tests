@@ -348,7 +348,7 @@ module Pages
 
     def set_revision_to_trigger_with(material_name, identifier)
       page.find('.material-name', text: material_name).click
-      page.find('.material-revision-search').set scenario_state.material_revision identifier
+      page.find('.material-revision-search').set(scenario_state.material_revision(identifier), rapid: false)
       sleep 10
     end
 
@@ -386,7 +386,7 @@ module Pages
 
     def override_secure_env_variable(secure_env_variable_key, secure_env_variable_value)
       environment_variables_secure_key_value.find('dt', text: secure_env_variable_key.to_s, exact_text: true).sibling('.value').find('a', text: 'Override').click
-      environment_variables_secure_key_value.find('dt', text: secure_env_variable_key.to_s, exact_text: true).sibling('.value').find('input').set(secure_env_variable_value)
+      environment_variables_secure_key_value.find('dt', text: secure_env_variable_key.to_s, exact_text: true).sibling('.value').find('input').set(secure_env_variable_value, rapid: false)
     end
 
     def change_variable_to(key, value)

@@ -25,19 +25,19 @@ step 'Verify displays revision <material_id> having comment <comment> under <mat
 end
 
 step 'Search for <search_string> on to pipeline textbox' do |search_string|
-  compare_pipeline_page.to_pipeline.set search_string
+  compare_pipeline_page.to_pipeline.set(search_string, rapid: false)
 end
 
 step 'Search for <search_string> on from pipeline textbox' do |search_string|
-  compare_pipeline_page.from_pipeline.set search_string
+  compare_pipeline_page.from_pipeline.set(search_string, rapid: false)
 end
 
 step 'Search for revision <revision> on from pipeline textbox' do |revision|
-  compare_pipeline_page.from_pipeline.set scenario_state.material_revision(revision)
+  compare_pipeline_page.from_pipeline.set(scenario_state.material_revision(revision), rapid: false)
 end
 
 step 'Search for revision <revision> on to pipeline textbox' do |revision|
-  compare_pipeline_page.to_pipeline.set scenario_state.material_revision(revision)
+  compare_pipeline_page.to_pipeline.set(scenario_state.material_revision(revision), rapid: false)
 end
 
 step 'Click on label <label> in the dropdown' do |label|

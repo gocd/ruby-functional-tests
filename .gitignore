@@ -2,6 +2,7 @@ target/
 logs/
 .idea/
 *.out
+*.iml
 *.log
 out/
 vendor/bundle/

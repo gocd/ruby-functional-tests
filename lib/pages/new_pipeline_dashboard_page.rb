@@ -66,7 +66,7 @@ module Pages
     def pause_pipeline(reason)
       (pipeline_name text: scenario_state.self_pipeline)
         .ancestor('.pipeline').find('.pipeline_btn.pause').click
-      page.find('.modal-body').find('input').set(reason)
+      page.find('.modal-body').find('input').set(reason, rapid: false)
       page.find('.modal-buttons').find('button', text: 'OK').click
     end
 

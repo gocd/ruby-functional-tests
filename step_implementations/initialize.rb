@@ -27,7 +27,6 @@ require 'json'
 require 'json_builder'
 require 'deep_merge'
 require 'uri'
-require 'clipboard'
 require 'rbconfig'
 Bundler.setup(:default)
 Bundler.require

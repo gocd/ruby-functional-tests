@@ -6,3 +6,5 @@ updates:
     interval: weekly
     day: friday
   open-pull-requests-limit: 99
+  allow:
+    - dependency-type: all

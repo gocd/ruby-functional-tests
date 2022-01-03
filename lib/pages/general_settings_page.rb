@@ -32,14 +32,14 @@ module Pages
 
     def add_env_variable(variable_name, variable_value)
       page.find('button[data-test-id="add-plain-text-variables-btn"]').click
-      page.find_all('input[data-test-id="env-var-name"]').last.set(variable_name)
-      page.find_all('input[data-test-id="env-var-value"]').last.set(variable_value)
+      page.find_all('[data-test-id="env-var-name"]').last.set(variable_name)
+      page.find_all('[data-test-id="env-var-value"]').last.set(variable_value)
     end
 
     def add_sec_env_variable(variable_name, variable_value)
       page.find('button[data-test-id="add-secure-variables-btn"]').click
-      page.find_all('input[data-test-id="secure-env-var-name"]').last.set(variable_name)
-      page.find_all('input[data-test-id="secure-env-var-value"]').last.set(variable_value)
+      page.find_all('[data-test-id="secure-env-var-name"]').last.set(variable_name)
+      page.find_all('[data-test-id="secure-env-var-value"]').last.set(variable_value)
     end
 
     def get_message

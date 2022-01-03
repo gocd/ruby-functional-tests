@@ -50,7 +50,7 @@ module Pages
     end
 
     def set_material_url(url)
-      material_url.set(url)
+      material_url.set(url, rapid: false)
     end
 
     def select_approval_type(_type)

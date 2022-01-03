@@ -31,7 +31,7 @@ step "Select <plugin_name> plugin" do |plugin_name|
 end
 
 step "Enter repo url as <repo_url>" do |repo_url|
-  package_repository_page.package_repo_url.set repo_url
+  package_repository_page.package_repo_url.set(repo_url, rapid: false)
 end
 
 step "Click save - Already on Package Repositories tab" do |_tmp|

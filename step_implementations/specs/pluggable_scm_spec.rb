@@ -31,7 +31,7 @@ step "Select scm <scm_plugin> plugin" do |scm_plugin|
 end
 
 step "Enter scm url as <scm_url>" do |scm_url|
-  pluggable_scm_page.scm_url.set scm_url
+  pluggable_scm_page.scm_url.set(scm_url, rapid: false)
 end
 
 step "Save scm" do

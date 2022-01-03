@@ -32,14 +32,14 @@ module Pages
 
     def add_env_variable(variable_name, variable_value)
       page.find('button[data-test-id="add-plain-text-variables-btn"]').click
-      page.find_all('[data-test-id="env-var-name"]').last.set(variable_name)
-      page.find_all('[data-test-id="env-var-value"]').last.set(variable_value)
+      page.find_all('input[data-test-id="env-var-name"]').last.set(variable_name, rapid: false)
+      page.find_all('input[data-test-id="env-var-value"]').last.set(variable_value, rapid: false)
     end
 
     def add_sec_env_variable(variable_name, variable_value)
       page.find('button[data-test-id="add-secure-variables-btn"]').click
-      page.find_all('[data-test-id="secure-env-var-name"]').last.set(variable_name)
-      page.find_all('[data-test-id="secure-env-var-value"]').last.set(variable_value)
+      page.find_all('input[data-test-id="secure-env-var-name"]').last.set(variable_name, rapid: false)
+      page.find_all('input[data-test-id="secure-env-var-value"]').last.set(variable_value, rapid: false)
     end
 
     def get_message
@@ -78,15 +78,15 @@ module Pages
     end
 
     def set_parameter(index, env_name, env_value)
-      page.find("#params > table:nth-child(1) tr:nth-child(#{index}) td .environment_variable_name").set(env_name)
-      page.find("#params > table:nth-child(1) tr:nth-child(#{index}) td .environment_variable_value").set(env_value)
+      page.find("#params > table:nth-child(1) tr:nth-child(#{index}) td .environment_variable_name").set(env_name, rapid: false)
+      page.find("#params > table:nth-child(1) tr:nth-child(#{index}) td .environment_variable_value").set(env_value, rapid: false)
       save.click
     end
 
     def add_parameter(name, value)
       params_row = page.find('table[data-test-id="table"] tbody').all('tr').last
-      params_row.find("[data-test-id^='form-field-input-param-name-']").set name
-      params_row.find("[data-test-id^='form-field-input-param-value-']").set new_pipeline_dashboard_page.sanitize_message(value)
+      params_row.find("input[data-test-id^='form-field-input-param-name-']").set(name, rapid: false)
+      params_row.find("input[data-test-id^='form-field-input-param-value-']").set(new_pipeline_dashboard_page.sanitize_message(value), rapid: false)
     end
 
     def error_message_for_field(element)

@@ -77,7 +77,7 @@ module Pages
 
     def set_material_url(url)
       p "url: #{url}"
-      page.find('input[data-test-id="form-field-input-repository-url"]').set url
+      page.find('input[data-test-id="form-field-input-repository-url"]').set(url, rapid: false)
     end
 
     def select_add_new_material(type)

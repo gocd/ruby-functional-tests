@@ -72,16 +72,16 @@ Capybara.register_driver :selenium do |app|
     profile['network.proxy.ssl'] = ZAP_PROXY
     profile['network.proxy.ssl_port'] = 8081
   end
-  cap = case browser
+  config = case browser
           when :firefox
             options = ::Selenium::WebDriver::Firefox::Options.new
             options.profile = profile
             options.args << "--headless" if RbConfig::CONFIG['host_os'] =~ /linux/
-            {browser: browser, options: options}
+            {browser: browser, capabilities: options}
           else
             {browser: browser}
         end
-  Capybara::Selenium::Driver.new(app, **cap)
+  Capybara::Selenium::Driver.new(app, **config)
 end
 
 Capybara.default_driver = :selenium

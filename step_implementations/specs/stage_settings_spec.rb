@@ -23,7 +23,7 @@ step 'Open <tab_id> tab - On Stage settings page' do |tab_id|
 end
 
 step 'Set stage as <stage> - On Stage settings page' do |stage|
-  stage_settings_page.stage_name.set stage
+  stage_settings_page.stage_name.set(stage, rapid: false)
 end
 
 step 'Verify that stage is named <stage_name>' do |stage_name|
@@ -114,7 +114,7 @@ step 'Add task <task> - Already on Add New stage popup' do |task|
 end
 
 step 'Set job name as <job> - Already on Add New Job popup' do |job|
-  stage_settings_page.job_name_on_popup.set job
+  stage_settings_page.job_name_on_popup.set(job, rapid: false)
 end
 
 step 'Mark stage manual - On Stage settings page' do
@@ -131,11 +131,11 @@ step 'Verify <stage> has <type> trigger option with <jobs> jobs' do |stage, type
 end
 
 step 'Set command as <command> - Already on Add New stage popup' do |command|
-  stage_settings_page.command_on_stage_popup.set command
+  stage_settings_page.command_on_stage_popup.set(command, rapid: false)
 end
 
 step 'Set command args as <args> - Already on Add New stage popup' do |args|
-  stage_settings_page.command_args_on_stage_popup.set args
+  stage_settings_page.command_args_on_stage_popup.set(args, rapid: false)
 end
 
 step 'Verify error message <message> is shown for stage name' do |message|

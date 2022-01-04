@@ -248,7 +248,7 @@ step 'Verify default echo task exists' do
 end
 
 step 'Set task pipeline as <pipeline>' do |pipeline|
-  job_settings_page.task_pipeline.set new_pipeline_dashboard_page.sanitize_message(pipeline)
+  job_settings_page.task_pipeline.set(new_pipeline_dashboard_page.sanitize_message(pipeline), rapid: false)
 end
 
 step 'Set task job as <job>' do |job|

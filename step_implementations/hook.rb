@@ -8,26 +8,16 @@ before_spec do |execution_info|
   if execution_info.currentSpec.nil? || execution_info.currentSpec.name.nil?
     return
   end
-  lines = read_file('main.sh')
-
-  if lines.nil? || lines.empty?
-    lines = ["#!/usr/bin/env bash", 'BASEDIR=$(dirname "$0"', '']
-  end
-
-  specName = "$BASEDIR/#{execution_info.currentSpec.name}.sh"
-  lines << specName unless specName.empty?
-
-  lines.delete("\n")
-  write_to_file('main.sh', lines.join("\n"))
-  CurlBuilder.clearAllUrls
+  add_current_spec(execution_info)
+  CurlBuilder.clear_all_urls
 end
 
 after_spec do |execution_info|
-  urls = CurlBuilder.allUrls
+  urls = CurlBuilder.all_urls
   data = ''
   data = urls.join("\n## --------------------------- \n") unless urls.nil?
   write_to_file("#{execution_info.currentSpec.name}.sh", data)
-  CurlBuilder.clearAllUrls
+  CurlBuilder.clear_all_urls
 end
 
 def write_to_file(filename, data)

@@ -17,39 +17,39 @@ module CurlBuilder
   @generated_curls = ["#!/usr/bin/env bash"]
 
   def self.build(request)
-    generated_curl = "curl #{basic_auth(request)} --url #{request.url} -X #{request.method} #{toCurlHeader(request.headers)} #{payload(request)}"
+    generated_curl = "curl #{basic_auth(request)} --url #{request.url} -X #{request.method} #{to_curl_header(request.headers)} #{payload(request)}"
     @generated_curls << generated_curl
     generated_curl
   end
 
-  def self.allUrls
+  def self.all_urls
     @generated_curls
   end
 
-  def self.clearAllUrls
+  def self.clear_all_urls
     @generated_curls = ["#!/usr/bin/env bash"]
   end
 
   private
-  def self.payload request
+  def self.payload(request)
     if ['PUT', 'PATCH', 'POST'].include?(request.method.upcase)
       "-d '#{CGI.unescape(request.payload.to_s)}'"
     end
   end
 
-  def self.basic_auth request
+  def self.basic_auth(request)
     authorization = request.headers[:Authorization]
     unless authorization.nil?
       "-u #{Base64.decode64(authorization.gsub('Basic ', ''))}"
     end
   end
 
-  def self.toCurlHeader herders
-    nameMapping = {:content_type => 'Content-Type'}
-    valueMappings = {'json' => 'application/json'}
+  def self.to_curl_header(headers)
+    nameMapping = { :content_type => 'Content-Type' }
+    valueMappings = { 'json' => 'application/json' }
     allHeaders = []
-    unless herders.nil?
-      herders.each {|name, value|
+    unless headers.nil?
+      headers.each { |name, value|
         unless name == :Authorization
           allHeaders << "-H '#{ nameMapping[name] || name}: #{valueMappings[value] || value}'"
         end

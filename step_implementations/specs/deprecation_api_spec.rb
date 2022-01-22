@@ -43,7 +43,7 @@ end
 def verify_deprecated_headers(api)
   return unless (api['method'] == 'get')
 
-  puts "Requesting #{api['method']} #{api['path']} #{api['version']}"
+  puts "Requesting: #{api['method']} #{api['path']} #{api['version']}"
   response = make_api_call(api)
   verify_deprecation_header_exists(api, response)
 end

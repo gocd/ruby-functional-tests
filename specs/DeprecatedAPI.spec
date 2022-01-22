@@ -3,7 +3,7 @@ DeprecatedAPI
 
 DeprecatedAPI
 -------------------
-tags: Deprecated, api
+tags: deprecated, api
 
 * Capture go state "DeprecatedAPI" - setup
 

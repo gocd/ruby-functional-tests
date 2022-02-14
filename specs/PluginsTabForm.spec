@@ -51,8 +51,8 @@ Below steps fail becuase new plugins page do not show values as "Unknown" if the
 * Verify plugin with identifier "Yum Plugin" has path "/plugins/bundled/gocd-yum-repository-poller-plugin.jar" supported OS "Linux" target go version "15.2.0" and bundled status as "Yes"
 
 * Verify plugin with identifier "Password File Authentication Plugin for GoCD" is valid
-* Verify plugin with identifier "Password File Authentication Plugin for GoCD" name "Password File Authentication Plugin for GoCD" description "GoCD Authorization plugin for file based password authentication" author "GoCD Contributors" with enabled link to "https://github.com/gocd/filebased-authentication-plugin"
-* Verify plugin with identifier "Password File Authentication Plugin for GoCD" has path "/plugins/bundled/gocd-filebased-authentication-plugin.jar" supported OS "No restrictions" target go version "18.1.0" and bundled status as "Yes"
+* Verify plugin with identifier "Password File Authentication Plugin for GoCD" name "Password File Authentication Plugin for GoCD" description "GoCD Authorization plugin for file based password authentication" author "ThoughtWorks, Inc." with enabled link to "https://github.com/gocd/gocd-filebased-authentication-plugin"
+* Verify plugin with identifier "Password File Authentication Plugin for GoCD" has path "/plugins/bundled/gocd-filebased-authentication-plugin.jar" supported OS "No restrictions" target go version "20.9.0" and bundled status as "Yes"
 
 * Verify plugin with identifier "test-plugin-xml" is marked as invalid with message "Plugin with ID ([test-plugin-xml]) is not valid: Incompatible with current operating system 'Linux'. Valid operating systems are: [Windows]."
 

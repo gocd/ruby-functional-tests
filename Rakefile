@@ -52,10 +52,8 @@ DOCKER_SWARM_EA_PLUGIN_RELEASE_URL          = ENV['DOCKER_SWARM_EA_PLUGIN_RELEAS
 ELASTICAGENTS_PLUGIN_RELEASE_URL            = ENV['ELASTICAGENTS_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd-contrib/elastic-agent-skeleton-plugin/releases/latest'
 JSON_CONFIG_PLUGIN_RELEASE_URL              = ENV['JSON_CONFIG_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/tomzo/gocd-json-config-plugin/releases/latest'
 DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL = ENV['DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/docker-registry-artifact-plugin/releases/latest'
-TEST_EXTERNAL_ARTIFACTS_PLUGIN_RELEASE_URL  = ENV['TEST_EXTERNAL_ARTIFACTS_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd-contrib/test-external-artifacts-plugin/releases/latest'
 ANALYTICS_PLUGIN_DOWNLOAD_URL               = ENV['ANALYTICS_PLUGIN_DOWNLOAD_URL']
 LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL      = ENV['LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/gocd-ldap-authorization-plugin/releases/latest'
-FILE_BASED_SECRET_PLUGIN_RELEASE_URL        = ENV['FILE_BASED_SECRET_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/gocd-file-based-secrets-plugin/releases/17414282'
 MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL        = ENV['MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/1and1/go-maven-poller/releases/24528030'
 
 desc 'cleans all directories'

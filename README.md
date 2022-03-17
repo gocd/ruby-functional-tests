@@ -2,9 +2,9 @@
 
 ## Pre-Requisites (with versions tested on)
 
-* Ruby 2.7.2
+* Ruby 2.7.5
 * Bundler 2.1.4
-* [Gauge](https://gauge.org/index.html) 1.4.2
+* [Gauge](https://gauge.org/index.html) 1.4.3
 * gauge-ruby plugin (depends on the version of gauge used):
   * You might have to run `bundle update` to get the right version. Look inside `vendor/bundle` to find the correct, installed version and don't depend on the output of `gauge --version`.
 * Firefox >= 45.0 (verified with Firefox 95)

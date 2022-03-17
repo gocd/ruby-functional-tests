@@ -68,7 +68,6 @@ class GoConstants
                                    -Dcruise.produce.build.cause.interval=1000
                                    -Dcruise.produce.build.cause.delay=1000
                                    -Dmaterial.update.idle.interval=1000
-                                   -Dcruise.xmpp.port=61221
                                    -Dcruise.agent.service.refresh.interval=5000
                                    -Dagent.connection.timeout=50
                                    -Dcruise.unresponsive.job.warning=1

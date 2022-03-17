@@ -351,14 +351,14 @@ namespace :db do
     if db_mod === 0
       puts "Using h2..."
     else
-      db_version = '9.6'
+      db_version = '11'
       case db_mod
       when 2
-        db_version = '10'
-      when 3
-        db_version = '11'
-      when 4
         db_version = '12'
+      when 3
+        db_version = '13'
+      when 4
+        db_version = '14'
       end
 
       if DEVELOPMENT_MODE

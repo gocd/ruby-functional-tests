@@ -240,13 +240,13 @@ namespace :addons do
       # Setup the postgres server based on pipeline counter
       mod = ENV['GO_PIPELINE_COUNTER'].to_i % 4
       if mod == 0
-        PG_VERSION = '9.6'
-      elsif mod == 1
-        PG_VERSION = '10'
-      elsif mod == 2
         PG_VERSION = '11'
-      else
+      elsif mod == 1
         PG_VERSION = '12'
+      elsif mod == 2
+        PG_VERSION = '13'
+      else
+        PG_VERSION = '14'
       end
 
       sh "/usr/pgsql-#{PG_VERSION}/bin/initdb /go/.pg-data"

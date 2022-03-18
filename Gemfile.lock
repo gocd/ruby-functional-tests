@@ -157,7 +157,7 @@ GEM
     uber (0.1.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.8)
+    unf_ext (0.0.8.1)
     unicode_utils (1.4.0)
     unparser (0.4.9)
       abstract_type (~> 0.0.7)

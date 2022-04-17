@@ -143,7 +143,6 @@ module Context
 
       if ENV['USE_AFS']
         sh %(docker run -d --name gauge_server -p #{GoConstants::SERVER_PORT}:#{GoConstants::SERVER_PORT} \
-          -p #{GoConstants::SERVER_SSL_PORT}:#{GoConstants::SERVER_SSL_PORT} \
           -v #{File.expand_path(GoConstants::CONFIG_PATH.to_s)}:/test-config --mount type=bind,source=#{GoConstants::SERVER_DIR},target=/godata \
           -v /root/.gitconfig:/home/go/.gitconfig \
           -v #{GoConstants::TEMP_DIR}:/materials \
@@ -151,7 +150,6 @@ module Context
           #{image.image}:#{image.tag})
       else
         sh %(docker run -d --name gauge_server -p #{GoConstants::SERVER_PORT}:#{GoConstants::SERVER_PORT} \
-          -p #{GoConstants::SERVER_SSL_PORT}:#{GoConstants::SERVER_SSL_PORT} \
           -v #{File.expand_path(GoConstants::CONFIG_PATH.to_s)}:/test-config --mount type=bind,source=#{GoConstants::SERVER_DIR},target=/godata \
           -v #{GoConstants::TEMP_DIR}:/materials \
           -e GOCD_SERVER_JVM_OPTS='#{GoConstants::GO_SERVER_SYSTEM_PROPERTIES.join(' ')}' \

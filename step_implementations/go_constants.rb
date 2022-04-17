@@ -21,7 +21,6 @@ class GoConstants
   IPADDRESS = Socket.getaddrinfo(Socket.gethostname, 'echo', Socket::AF_INET)[0][3]
   GO_VERSION = ENV['GO_VERSION'] || '16.11.0'
   SERVER_PORT = ENV['GO_SERVER_PORT'] || '8253'
-  SERVER_SSL_PORT = ENV['GO_SERVER_SSL_PORT'] || '8254'
   RUN_ON_DOCKER = ENV['RUN_ON_DOCKER']
   USE_EFS = ENV['USE_EFS']
   USE_AFS = ENV['USE_AFS']
@@ -53,7 +52,6 @@ class GoConstants
   OWASP_ZAP_PATH = '/opt/homebrew-cask/Caskroom/owasp-zap/2.5.0/OWASP-ZAP.app/Contents/MacOS/OWASP-ZAP.sh'.freeze
 
   GO_SERVER_BASE_URL = "http://#{HOSTNAME}:#{SERVER_PORT}/go".freeze
-  GO_SERVER_BASE_SSL_URL = "https://#{HOSTNAME}:#{SERVER_SSL_PORT}/go".freeze
   GO_CONFIG_SCHEMA_VERSION = '84'.freeze
   GO_AGENT_SYSTEM_PROPERTIES = %w[ -Dagent.get.work.delay=500
                                    -Dagent.get.work.interval=500
@@ -77,7 +75,6 @@ class GoConstants
                                    -Dgo.gauge.server=true
                                    -DDB_DEBUG_MODE=true
                                    -Dcruise.server.port=#{SERVER_PORT}
-                                   -Dcruise.server.ssl.port=#{SERVER_SSL_PORT}
                                    -Xms#{SERVER_MEM}
                                    -Xmx#{SERVER_MAX_MEM}
                                    #{ENV['ADDITIONAL_SERVER_SYSTEM_PROPERITES']}]

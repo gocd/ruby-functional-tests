@@ -21,10 +21,6 @@ module Helpers
       "#{GoConstants::GO_SERVER_BASE_URL}#{url}"
     end
 
-    def https_url(url)
-      "#{GoConstants::GO_SERVER_BASE_SSL_URL}#{url}"
-    end
-
     def admin_config_url
       http_url('/api/admin/config.xml')
     end

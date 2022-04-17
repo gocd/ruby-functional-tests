@@ -55,11 +55,11 @@ step 'Verify maintenance mode banner is not shown' do
 end
 
 step 'Specify system property to start GoCD Server in maintenance mode' do
-  ENV['ADDITIONAL_SERVER_SYSTEM_PROPERITES'] = "-Dgocd.server.start.in.maintenance.mode=true"
+  ENV['ADDITIONAL_SERVER_SYSTEM_PROPERTIES'] = "-Dgocd.server.start.in.maintenance.mode=true"
 end
 
 step 'Remove system property to start GoCD Server in maintenance mode' do
-  ENV['ADDITIONAL_SERVER_SYSTEM_PROPERITES'] = "-Dgocd.server.start.in.maintenance.mode=false"
+  ENV['ADDITIONAL_SERVER_SYSTEM_PROPERTIES'] = "-Dgocd.server.start.in.maintenance.mode=false"
 end
 
 step 'Cancel pipeline <pipeline> counter <p_counter> stage <stage> counter <s_counter> - On Maintenance mode spa' do |pipeline, p_counter, stage, s_counter|

@@ -59,9 +59,7 @@ class GoConstants
                                    -Dagent.ping.interval=500
                                    -Dgo.gauge.agent=true].freeze
 
-  GO_SERVER_SYSTEM_PROPERTIES = %W[-Dalways.reload.config.file=true
-                                   -Dcruise.buildCause.producer.interval=1000
-                                   -Dcruise.material.update.interval=3000
+  GO_SERVER_SYSTEM_PROPERTIES = %W[-Dcruise.material.update.interval=3000
                                    -Dcruise.material.update.delay=1000
                                    -Dcruise.produce.build.cause.interval=1000
                                    -Dcruise.produce.build.cause.delay=1000
@@ -69,13 +67,9 @@ class GoConstants
                                    -Dcruise.agent.service.refresh.interval=5000
                                    -Dagent.connection.timeout=50
                                    -Dcruise.unresponsive.job.warning=1
-                                   -Dcruise.pipelineStatus.cache.interval=800
-                                   -Dcommand.repo.warning.timeout=30000
-                                   -Dnew.plugins.framework.enabled=Y
                                    -Dgo.gauge.server=true
-                                   -DDB_DEBUG_MODE=true
                                    -Dcruise.server.port=#{SERVER_PORT}
                                    -Xms#{SERVER_MEM}
                                    -Xmx#{SERVER_MAX_MEM}
-                                   #{ENV['ADDITIONAL_SERVER_SYSTEM_PROPERITES']}]
+                                   #{ENV['ADDITIONAL_SERVER_SYSTEM_PROPERTIES']}]
 end

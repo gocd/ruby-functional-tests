@@ -2,7 +2,7 @@
 
 ## Pre-Requisites (with versions tested on)
 
-* Ruby 2.7.5
+* Ruby 2.7.6
 * Bundler 2.1.4
 * [Gauge](https://gauge.org/index.html) 1.4.3
 * gauge-ruby plugin (depends on the version of gauge used):

@@ -14,11 +14,11 @@ tags: plugins-tests, plugins_spa, spa
 * On Plugins page
 
 * Verify plugin with identifier "Password File Authentication Plugin for GoCD" is valid
-* Verify plugin with identifier "Password File Authentication Plugin for GoCD" name "Password File Authentication Plugin for GoCD" description "GoCD Authorization plugin for file based password authentication" author "ThoughtWorks, Inc." with enabled link to "https://github.com/gocd/gocd-filebased-authentication-plugin"
+* Verify plugin with identifier "Password File Authentication Plugin for GoCD" name "Password File Authentication Plugin for GoCD" description "GoCD Authorization plugin for file based password authentication" author "Thoughtworks, Inc." with enabled link to "https://github.com/gocd/gocd-filebased-authentication-plugin"
 * Verify plugin with identifier "Password File Authentication Plugin for GoCD" has path "/plugins/bundled/gocd-filebased-authentication-plugin.jar" supported OS "No restrictions" target go version "20.9.0" and bundled status as "Yes"
 
 * Verify plugin with identifier "Yum Plugin" is valid
-* Verify plugin with identifier "Yum Plugin" name "Yum Plugin" description "Plugin that polls a yum repository" author "ThoughtWorks Go Team" with enabled link to "https://github.com/gocd/gocd-yum-repository-poller-plugin"
+* Verify plugin with identifier "Yum Plugin" name "Yum Plugin" description "Plugin that polls a yum repository" author "Thoughtworks, Inc." with enabled link to "https://github.com/gocd/gocd-yum-repository-poller-plugin"
 * Verify plugin with identifier "Yum Plugin" has path "/plugins/bundled/gocd-yum-repository-poller-plugin.jar" supported OS "Linux" target go version "15.2.0" and bundled status as "Yes"
 
 * Verify plugin with identifier "Example Elastic Agent Plugin" is valid
@@ -47,11 +47,11 @@ Below steps fail becuase new plugins page do not show values as "Unknown" if the
 * On Plugins page
 
 * Verify plugin with identifier "Yum Plugin" is valid
-* Verify plugin with identifier "Yum Plugin" name "Yum Plugin" description "Plugin that polls a yum repository" author "ThoughtWorks Go Team" with enabled link to "https://github.com/gocd/gocd-yum-repository-poller-plugin"
+* Verify plugin with identifier "Yum Plugin" name "Yum Plugin" description "Plugin that polls a yum repository" author "Thoughtworks, Inc." with enabled link to "https://github.com/gocd/gocd-yum-repository-poller-plugin"
 * Verify plugin with identifier "Yum Plugin" has path "/plugins/bundled/gocd-yum-repository-poller-plugin.jar" supported OS "Linux" target go version "15.2.0" and bundled status as "Yes"
 
 * Verify plugin with identifier "Password File Authentication Plugin for GoCD" is valid
-* Verify plugin with identifier "Password File Authentication Plugin for GoCD" name "Password File Authentication Plugin for GoCD" description "GoCD Authorization plugin for file based password authentication" author "ThoughtWorks, Inc." with enabled link to "https://github.com/gocd/gocd-filebased-authentication-plugin"
+* Verify plugin with identifier "Password File Authentication Plugin for GoCD" name "Password File Authentication Plugin for GoCD" description "GoCD Authorization plugin for file based password authentication" author "Thoughtworks, Inc." with enabled link to "https://github.com/gocd/gocd-filebased-authentication-plugin"
 * Verify plugin with identifier "Password File Authentication Plugin for GoCD" has path "/plugins/bundled/gocd-filebased-authentication-plugin.jar" supported OS "No restrictions" target go version "20.9.0" and bundled status as "Yes"
 
 * Verify plugin with identifier "test-plugin-xml" is marked as invalid with message "Plugin with ID ([test-plugin-xml]) is not valid: Incompatible with current operating system 'Linux'. Valid operating systems are: [Windows]."

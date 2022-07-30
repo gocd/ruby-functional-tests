@@ -34,7 +34,7 @@ Below steps fail becuase new plugins page do not show values as "Unknown" if the
 
 * Verify plugin with identifier "Do nothing plugin" is valid
 * Verify plugin with identifier "Valid innerclass plugin" is valid
-* Verify plugin with identifier "Valid subcalss plugin" is valid
+* Verify plugin with identifier "Valid subclass plugin" is valid
 * Verify plugin with identifier "Valid staticclass plugin" is valid
 
 * Verify plugin with identifier "JSON Configuration Plugin" has settings enabled

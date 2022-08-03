@@ -50,7 +50,6 @@ DOCKER_EA_PLUGIN_RELEASE_URL                = ENV['DOCKER_EA_PLUGIN_RELEASE_URL'
 K8S_EA_PLUGIN_RELEASE_URL                   = ENV['K8S_EA_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/kubernetes-elastic-agents/releases/latest'
 DOCKER_SWARM_EA_PLUGIN_RELEASE_URL          = ENV['DOCKER_SWARM_EA_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd-contrib/docker-swarm-elastic-agents/releases/latest'
 ELASTICAGENTS_PLUGIN_RELEASE_URL            = ENV['ELASTICAGENTS_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd-contrib/elastic-agent-skeleton-plugin/releases/latest'
-JSON_CONFIG_PLUGIN_RELEASE_URL              = ENV['JSON_CONFIG_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/tomzo/gocd-json-config-plugin/releases/latest'
 DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL = ENV['DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/docker-registry-artifact-plugin/releases/latest'
 ANALYTICS_PLUGIN_DOWNLOAD_URL               = ENV['ANALYTICS_PLUGIN_DOWNLOAD_URL']
 LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL      = ENV['LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/gocd-ldap-authorization-plugin/releases/latest'
@@ -160,8 +159,6 @@ namespace :plugins do
 
     url = download_url(JSON.parse(URI.open(ELASTICAGENTS_PLUGIN_RELEASE_URL).read))
     sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/elastic-agent-skeleton-plugin.jar #{url}"
-    url = download_url(JSON.parse(URI.open(JSON_CONFIG_PLUGIN_RELEASE_URL).read))
-    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/json-config-plugin.jar #{url}"
     url = download_url(JSON.parse(URI.open(DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL).read))
     sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-registry-artifact-plugin.jar #{url}"
     url = download_url(JSON.parse(URI.open(DOCKER_SWARM_EA_PLUGIN_RELEASE_URL).read))

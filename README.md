@@ -39,7 +39,7 @@ gauge install
 
     ```
     cd gocd
-    ./gradlew -PfastBuild --parallel --max-workers 2 plugin-infra:go-plugin-api:publishToMavenLocal plugin-infra:go-plugin-api-internal:publishToMavenLocal installers:versionFile
+    ./gradlew -PfastBuild plugin-infra:go-plugin-api:publishToMavenLocal plugin-infra:go-plugin-api-internal:publishToMavenLocal installers:versionFile
     ```
 
 3. Build GoCD plugins:

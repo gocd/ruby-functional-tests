@@ -75,21 +75,25 @@ module Pages
     end
 
     def job_has_current_value?(value)
-      if (page.has_css?("#build_list_#{value}"))
-        page.find("#build_list_#{value}")[:class].include?'current'
+      if page.has_css?("#build_list_#{value}")
+        job_history_is_visible? and page.find("#build_list_#{value}")[:class].include?'current'
       else
         page.find(".entity_title.dropdown-arrow-icon").click
-        page.find("#build_list_#{value}")[:class].include?'current'
+        job_history_is_visible? and page.find("#build_list_#{value}")[:class].include?'current'
       end
     end
 
     def job_is_not_copied_job?(value)
-      if (page.has_css?("#build_list_#{value} a div"))
-        page.find("#build_list_#{value} a div")[:class].include?'copied_job'
+      if page.has_css?("#build_list_#{value} a div")
+        job_history_is_visible? and page.find("#build_list_#{value} a div")[:class].include?'copied_job'
       else
         page.find(".entity_title.dropdown-arrow-icon").click
-        page.find("#build_list_#{value} a div")[:class].include?'copied_job'
+        job_history_is_visible? and page.find("#build_list_#{value} a div")[:class].include?'copied_job'
       end
+    end
+
+    def job_history_is_visible?
+      page.find('#build_history_holder')[:class].include?'open'
     end
 
     def get_value_of_property(property)

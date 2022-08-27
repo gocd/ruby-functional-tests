@@ -76,6 +76,10 @@ module Pages
       plugin_to_test(id).find('[data-test-id="key-value-value-author"]').has_selector?('a', text: author)
     end
 
+    def is_unlinked_author?(id, author)
+      plugin_to_test(id).find('[data-test-id="key-value-value-author"]').has_selector?('em', text: author)
+    end
+
     def is_expected_author_link?(id, author, link)
       plugin_to_test(id).find('[data-test-id="key-value-value-author"]').find('a', text: author)[:href] == link
     end
@@ -94,6 +98,10 @@ module Pages
 
     def is_expected_go_version?(id, version)
       plugin_to_test(id).find('[data-test-id="key-value-value-target-gocd-version"]').has_selector?('pre', text: version)
+    end
+
+    def is_unspecified_go_version?(id)
+      plugin_to_test(id).find('[data-test-id="key-value-value-target-gocd-version"]').has_selector?('em', text: '(Not specified)')
     end
 
     def is_expected_bundled?(id, bundled)
@@ -119,12 +127,28 @@ module Pages
         false
     end
 
-    def open_plugin_setings(id)
+    def open_plugin_settings(id)
       plugin_to_test(id).find('[data-test-id="edit-plugin-settings"]').click
     end
 
     def save_settings
       page.find('button', text: 'Save').click
+    end
+
+    def has_status_report?(id)
+      plugin_to_test(id).find('[data-test-id="status-report-link"]')
+      true
+    rescue
+      false
+    end
+
+    def check_elastic_agent_skeleton_status_report(id)
+      plugin_to_test(id).find('[data-test-id="status-report-link"]').click
+      # Check Angular stuff renders OK for elastic-agent-skeleton-plugin
+      status_report = page.find('#status_reports')
+      status_report.find('div', text: 'ID: instance-1')
+      status_report.first('div', text: 'Created At: Aug 27, 2022')
+      page.go_back
     end
   end
 end

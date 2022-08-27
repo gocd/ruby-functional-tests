@@ -39,11 +39,10 @@ step 'Verify plugin with identifier <id> name <name> description <description> a
   plugins_spa_page.collapse_plugin_config(id)
 end
 
-step 'Verify invalid plugin with identifier <id> name <name> description <description> author <author> with enabled link to <link>' do |id, name, description, author, link|
+step 'Verify invalid plugin with identifier <id> name <name> description <description> author <author>' do |id, name, description, author|
   assert_true plugins_spa_page.is_expected_name?(id, name)
   assert_true plugins_spa_page.is_expected_description?(id, description)
-  assert_true plugins_spa_page.is_expected_author?(id, author)
-  assert_true plugins_spa_page.is_expected_author_link?(id, author, link)
+  assert_true plugins_spa_page.is_unlinked_author?(id, author)
 end
 
 step 'Verify plugin with identifier <id> has path <path> supported OS <os> target go version <go_version> and bundled status as <bundled>' do |id, path, os, go_version, bundled|
@@ -55,10 +54,10 @@ step 'Verify plugin with identifier <id> has path <path> supported OS <os> targe
   plugins_spa_page.collapse_plugin_config(id)
 end
 
-step 'Verify invalid plugin with identifier <id> has path <path> supported OS <os> target go version <go_version> and bundled status as <bundled>' do |id, path, os, go_version, bundled|
+step 'Verify invalid plugin with identifier <id> has path <path> supported OS <os> and bundled status as <bundled>' do |id, path, os, bundled|
   assert_true plugins_spa_page.is_expected_installed_path?(id, path)
   assert_true plugins_spa_page.is_expected_supported_os?(id, os)
-  assert_true plugins_spa_page.is_expected_go_version?(id, go_version)
+  assert_true plugins_spa_page.is_unspecified_go_version?(id)
   assert_true plugins_spa_page.is_expected_bundled?(id, bundled)
 end
 
@@ -75,7 +74,15 @@ step 'Verify plugin with identifier <plugin_id> do not show settings option' do 
 end
 
 step 'Open <plugin_id> plugins settings page' do |plugin_id|
-  plugins_spa_page.open_plugin_setings(plugin_id)
+  plugins_spa_page.open_plugin_settings(plugin_id)
+end
+
+step 'Verify plugin with identifier <plugin_id> has status report' do |id|
+  assert_true plugins_spa_page.has_status_report?(id)
+end
+
+step 'Check plugin with identifier <plugin_id> status report renders correctly' do |plugin_id|
+  plugins_spa_page.check_elastic_agent_skeleton_status_report(plugin_id)
 end
 
 step 'Set GoServer URL as <url>' do |url|

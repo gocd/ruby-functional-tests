@@ -23,14 +23,11 @@ tags: plugins-tests, plugins_spa, spa
 
 * Verify plugin with identifier "Example Elastic Agent Plugin" is valid
 * Verify plugin with identifier "Example Elastic Agent Plugin" name "Example Elastic Agent Plugin" description "Some longer description of your plugin goes here" author "Acme Corp" with enabled link to "https://github.com/user/repository"
-* Verify plugin with identifier "Example Elastic Agent Plugin" has path "/plugins/external/elastic-agent-skeleton-plugin.jar" supported OS "No restrictions" target go version "18.2.0" and bundled status as "No"
+* Verify plugin with identifier "Example Elastic Agent Plugin" has path "/plugins/external/elastic-agent-skeleton-plugin.jar" supported OS "No restrictions" target go version "19.3.0" and bundled status as "No"
 
 * Verify plugin with identifier "test-plugin-xml" is marked as invalid with message "Plugin with ID ([test-plugin-xml]) is not valid: Incompatible with current operating system 'Linux'. Valid operating systems are: [Windows]."
-
-Below steps fail becuase new plugins page do not show values as "Unknown" if they dont exists, need to check where fix is needed
-
- Verify invalid plugin with identifier "test-plugin-xml" has version "1.0.0" name "test-plugin-xml" description "Plugin that has only some fields in its plugin.xml" author "Unknown" with enabled link to "http://www.mdaliejaz.com/"
- Verify invalid plugin with identifier "test-plugin-xml" has path "test-with-some-plugin-xml-values.jar" supported OS "Windows" target go version "Unknown" and bundled status as "No"
+* Verify invalid plugin with identifier "test-plugin-xml" name "(Not specified)" description "Plugin that has only some fields in its plugin.xml" author "(Not specified)"
+* Verify invalid plugin with identifier "test-plugin-xml" has path "test-with-some-plugin-xml-values.jar" supported OS "Windows" and bundled status as "No"
 
 * Verify plugin with identifier "Do nothing plugin" is valid
 * Verify plugin with identifier "Valid innerclass plugin" is valid
@@ -40,6 +37,9 @@ Below steps fail becuase new plugins page do not show values as "Unknown" if the
 * Verify plugin with identifier "JSON Configuration Plugin" has settings enabled
 * Verify plugin with identifier "Example Elastic Agent Plugin" has settings enabled
 * Verify plugin with identifier "Valid innerclass plugin" do not show settings option
+
+* Verify plugin with identifier "Example Elastic Agent Plugin" has status report
+* Check plugin with identifier "Example Elastic Agent Plugin" status report renders correctly
 
 * On Swift Dashboard Page
 * Logout and login as "group1Admin"
@@ -63,10 +63,8 @@ Below steps fail becuase new plugins page do not show values as "Unknown" if the
 * Verify plugin "Plugin 1" is loaded from the bundle "/plugins/external/test-plugin-bundle.jar"
 * Verify plugin "Plugin 2" is loaded from the bundle "/plugins/external/test-plugin-bundle.jar"
 
-Below steps fail becuase new plugins page do not show values as "Unknown" if they dont exists
-
- Verify invalid plugin with id "test-plugin-xml" has version "1.0.0" name "test-plugin-xml" description "Plugin that has only some fields in its plugin.xml" author "Unknown" with enabled link to "http://www.mdaliejaz.com/"
- Verify invalid plugin with id "test-plugin-xml" has path "test-with-some-plugin-xml-values.jar" supported OS "Windows" target go version "Unknown" and bundled status as "No"
+* Verify invalid plugin with identifier "test-plugin-xml" name "(Not specified)" description "Plugin that has only some fields in its plugin.xml" author "(Not specified)"
+* Verify invalid plugin with identifier "test-plugin-xml" has path "test-with-some-plugin-xml-values.jar" supported OS "Windows" and bundled status as "No"
 
 * Verify plugin with identifier "JSON Configuration Plugin" has settings disabled
 * Verify plugin with identifier "Example Elastic Agent Plugin" has settings disabled

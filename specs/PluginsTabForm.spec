@@ -35,7 +35,7 @@ tags: plugins-tests, plugins_spa, spa
 * Verify plugin with identifier "Valid staticclass plugin" is valid
 
 * Verify plugin with identifier "JSON Configuration Plugin" has settings enabled
-* Verify plugin with identifier "Example Elastic Agent Plugin" has settings enabled
+* Verify plugin with identifier "Example Elastic Agent Plugin" do not show settings option
 * Verify plugin with identifier "Valid innerclass plugin" do not show settings option
 
 * Verify plugin with identifier "Example Elastic Agent Plugin" has status report
@@ -66,7 +66,7 @@ tags: plugins-tests, plugins_spa, spa
 * Verify plugin "Plugin 2" is loaded from the bundle "/plugins/external/test-plugin-bundle.jar"
 
 * Verify plugin with identifier "JSON Configuration Plugin" has settings disabled
-* Verify plugin with identifier "Example Elastic Agent Plugin" has settings disabled
+* Verify plugin with identifier "Example Elastic Agent Plugin" do not show settings option
 * Verify plugin with identifier "Valid staticclass plugin" do not show settings option
 
 Teardown of contexts

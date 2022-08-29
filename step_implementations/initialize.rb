@@ -96,7 +96,7 @@ end
 
 before_suite do
   if GoConstants::USE_EFS
-    %w(addons artifacts config db logs plugins).each do |fldr|
+    %w(artifacts config db logs plugins).each do |fldr|
       FileUtils.rm_rf("/efs/#{fldr}")
     end
   end
@@ -119,7 +119,7 @@ after_suite do
   write_to_file("non_tested_apis.json", APIBuilder.build_non_tested)
   go_server.stop
   if GoConstants::USE_EFS
-    %w(addons artifacts config db logs plugins).each do |fldr|
+    %w(artifacts config db logs plugins).each do |fldr|
       FileUtils.rm_rf("/efs/#{fldr}")
     end
   end

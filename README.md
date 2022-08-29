@@ -32,7 +32,7 @@ gauge install
 
     ```
     cd gocd
-    ./gradlew clean installers:agentGenericZip installers:serverGenericZip test:test-addon:assemble
+    ./gradlew clean installers:agentGenericZip installers:serverGenericZip
     ```
 
 2. Build GoCD plugins API library:

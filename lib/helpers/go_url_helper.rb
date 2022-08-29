@@ -32,10 +32,5 @@ module Helpers
     def agents_spa_url
       http_url('/admin/agents')
     end
-
-    def delete_all_users_url
-      http_url('/add-on/test-addon/admin/users/delete')
-    end
-
   end
 end

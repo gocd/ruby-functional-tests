@@ -33,7 +33,6 @@ VERSION_NUMBER     = ENV['GO_VERSION'] || (raise 'Environment variable GO_VERSIO
 GAUGE_TAGS       = ENV['GAUGE_TAGS'] || 'smoke'
 LOAD_BALANCED    = GO_JOB_RUN_COUNT && GO_JOB_RUN_INDEX
 DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
-USE_POSTGRESQL   = !ENV['USE_POSTGRESQL'].nil?
 GO_PIPELINE_COUNTER = ENV['GO_PIPELINE_COUNTER'] || 0
 
 AZ_SP_USERNAME           = ENV['AZ_SP_USERNAME']
@@ -222,61 +221,10 @@ namespace :plugins do
   end
 end
 
-namespace :addons do
-  desc 'copy the addons in the go server'
-  task :prepare do
-    mkdir_p 'target/test-addon'
-    if DEVELOPMENT_MODE
-      cp_r "../#{GO_TRUNK_DIRNAME}/test/test-addon/target/libs/.", "target/go-server-#{VERSION_NUMBER}/addons"
-    else
-      cp_r 'target/test-addon/.', "target/go-server-#{VERSION_NUMBER}/addons"
-    end
-
-    if USE_POSTGRESQL
-
-      # Setup the postgres server based on pipeline counter
-      mod = ENV['GO_PIPELINE_COUNTER'].to_i % 4
-      if mod == 0
-        PG_VERSION = '11'
-      elsif mod == 1
-        PG_VERSION = '12'
-      elsif mod == 2
-        PG_VERSION = '13'
-      else
-        PG_VERSION = '14'
-      end
-
-      sh "/usr/pgsql-#{PG_VERSION}/bin/initdb /go/.pg-data"
-      sh %(echo "unix_socket_directories = '/tmp'" >> ~/.pg-data/postgresql.conf)
-      sh "/usr/pgsql-#{PG_VERSION}/bin/pg_ctl start -l /go/.pg-data/pg_logs -D /go/.pg-data -w -t 60"
-
-      mv Dir.glob('target/*-addon/*.jar'), "target/go-server-#{VERSION_NUMBER}/addons"
-
-      # Drop and recreate database for the test
-
-      drop_db_command   = "java -jar tools/run_with_postgres.jar localhost 5432 postgres go '' 'DROP DATABASE IF EXISTS go'"
-      create_db_command = "java -jar tools/run_with_postgres.jar localhost 5432 postgres go '' 'CREATE DATABASE go'"
-      system("#{drop_db_command} && #{create_db_command}") || (puts "Failed to drop and recreate DB. Tried running: #{drop_db_command} && #{create_db_command}"; exit 1)
-
-      puts "Recreated Postgresql DB: go"
-    else
-      p 'Not set to run with postgresql addon, proceeding with h2 database...'
-    end
-
-  end
-
-  desc 'gradle build test addons'
-  task :build do
-    cd "../#{GO_TRUNK_DIRNAME}" do
-      sh './gradlew -q test:test-addon:assemble'
-    end
-  end
-end
-
-desc 'Builds server, agent, plugins and test-addons if running in developement mode'
+desc 'Builds server, agent, plugins if running in development mode'
 task :build_all do
   if DEVELOPMENT_MODE
-    ['server:build', 'agent:build', 'plugins:build', 'addons:build'].each do |t|
+    ['server:build', 'agent:build', 'plugins:build'].each do |t|
       Rake::Task[t].invoke
     end
   end
@@ -297,7 +245,7 @@ task 'bump-schema' do
 end
 
 desc 'initializes the filesystem to run tests'
-task prepare: %w[plugins:prepare addons:prepare db:prepare]
+task prepare: %w[plugins:prepare db:prepare]
 
 task :test do
   if LOAD_BALANCED

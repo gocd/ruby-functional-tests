@@ -34,8 +34,8 @@ GEM
     concurrent-ruby (1.1.10)
     coolline (0.5.0)
       unicode_utils (~> 1.4)
-    debase (0.2.4.1)
-      debase-ruby_core_source (>= 0.10.2)
+    debase (0.2.5.beta2)
+      debase-ruby_core_source (>= 0.10.12)
     debase-ruby_core_source (0.10.16)
     declarative (0.0.20)
     deep_merge (1.2.2)
@@ -180,9 +180,9 @@ PLATFORMS
 
 DEPENDENCIES
   childprocess
-  debase (~> 0.2.4.1)
+  debase (~> 0.2.5.beta2)
   deep_merge
-  ffi (< 1.15.6)
+  ffi
   gauge-ruby
   json_builder
   ladle
@@ -200,4 +200,4 @@ DEPENDENCIES
   test-unit
 
 BUNDLED WITH
-   2.1.4
+   2.3.21

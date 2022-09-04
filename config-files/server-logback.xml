@@ -45,6 +45,5 @@
 
     <logger name="com.thoughtworks.go" level="INFO"/>
     <logger name="org.eclipse.jetty.server.RequestLog" level="INFO"/>
-    <logger name="com.thoughtworks.studios.shine" level="WARN" />
     <logger name="com.thoughtworks.go.server.Rails" level="DEBUG"/>
 </configuration>

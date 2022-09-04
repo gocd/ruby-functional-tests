@@ -2,13 +2,12 @@
 
 ## Pre-Requisites (with versions tested on)
 
-* Ruby 2.7.6
-* Bundler 2.1.4
-* [Gauge](https://gauge.org/index.html) 1.4.3
+* Java + Ruby + [Gauge](https://gauge.org/index.html).
+  * Consult [.tool-versions](.tool-versions).
 * gauge-ruby plugin (depends on the version of gauge used):
   * You might have to run `bundle update` to get the right version. Look inside `vendor/bundle` to find the correct, installed version and don't depend on the output of `gauge --version`.
 * Firefox >= 45.0 (verified with Firefox 95)
-* [geckodriver](https://github.com/mozilla/geckodriver/releases) 0.30.0 (or whatever the appropriate version is for your Firefox version)
+* [geckodriver](https://github.com/mozilla/geckodriver/releases) 0.31.0 (or whatever the appropriate version is for your Firefox version)
   * On Mac you can `brew install geckodriver` for latest version 
 * jq
 * Whatever requirements are needed for building and running GoCD Server
@@ -96,9 +95,11 @@ gauge install
 
 - Check the logs in: `target/go-server-*/logs`
 
-### 2. Check resource/with-java.sh
+### 2. Check you have an appropriate Java version installed
 
-- It uses jabba to install Java if needed. Make sure that the version of Java being used is correct.
+- The scripts assume there is an appropriate Java version available on the path.
+- On CI we use [ASDF](https://github.com/asdf-vm/asdf) for this - see [.tool-versions](.tool-versions) for appropriate
+  version, or use `asdf install` if you already use ASDF.
 
 ### 3. Ensure that you have the right version of gauge-ruby installed.
 

@@ -31,18 +31,18 @@ module Context
 
       return if DEVELOPMENT_MODE && server_running?
 
-      cp 'resources/with-java.sh', GoConstants::SERVER_DIR
+      cp 'resources/with-reset-db-if-necessary.sh', GoConstants::SERVER_DIR
       cp 'resources/db/db.properties', GoConstants::SERVER_DIR
       mkdir_p "#{GoConstants::SERVER_DIR}/logs"
       log_location = "#{GoConstants::SERVER_DIR}/logs/output.log"
       out = File.open(log_location, 'w')
       out.sync = true
-      chmod 0o755, "#{GoConstants::SERVER_DIR}/with-java.sh"
+      chmod 0o755, "#{GoConstants::SERVER_DIR}/with-reset-db-if-necessary.sh"
       prepare_wrapper_conf(GoConstants::GO_SERVER_SYSTEM_PROPERTIES)
 
       STDERR.puts "Attempting to start GoCD server in: #{GoConstants::SERVER_DIR}. Logs will be in #{log_location}"
       Bundler.with_original_env do
-        process = ChildProcess.build('./with-java.sh', START_COMMAND, 'start')
+        process = ChildProcess.build('./with-reset-db-if-necessary.sh', START_COMMAND, 'start')
         process.detach = true
         process.io.stdout = process.io.stderr = out
         process.environment['GO_PIPELINE_COUNTER'] = GoConstants::GO_PIPELINE_COUNTER
@@ -63,7 +63,7 @@ module Context
 
       STDERR.puts "Attempting to re-start GoCD server in: #{GoConstants::SERVER_DIR}.}"
       Bundler.with_original_env do
-        process = ChildProcess.build('./with-java.sh', START_COMMAND, 'restart')
+        process = ChildProcess.build(START_COMMAND, 'restart')
         process.detach = true
         process.io.stdout = process.io.stderr = out
         process.environment['GO_PIPELINE_COUNTER'] = GoConstants::GO_PIPELINE_COUNTER
@@ -81,7 +81,7 @@ module Context
           return
         end
         Bundler.with_original_env do
-          process = ChildProcess.build('./with-java.sh', STOP_COMMAND, 'stop')
+          process = ChildProcess.build('./with-reset-db-if-necessary.sh', STOP_COMMAND, 'stop')
           process.detach = true
           process.cwd = GoConstants::SERVER_DIR
           process.start

@@ -32,7 +32,7 @@ module Context
       cp_r "#{GoConstants::AGENT_DIR}/.", "#{dir}/"
       prepare_wrapper_conf(dir.to_s, GoConstants::GO_AGENT_SYSTEM_PROPERTIES)
       Bundler.with_original_env do
-        process = ChildProcess.build('./with-reset-db-if-necessary.sh', START_COMMAND, 'start', '-serverUrl', "http://127.0.0.1:#{GoConstants::SERVER_PORT}/go")
+        process = ChildProcess.build(START_COMMAND, 'start', '-serverUrl', "http://127.0.0.1:#{GoConstants::SERVER_PORT}/go")
         process.detach = true
         process.environment['GO_PIPELINE_COUNTER'] = GoConstants::GO_PIPELINE_COUNTER
         process.cwd = dir
@@ -114,7 +114,7 @@ module Context
         return
       end
       Bundler.with_original_env do
-        process = ChildProcess.build('./with-reset-db-if-necessary.sh', STOP_COMMAND, 'stop')
+        process = ChildProcess.build(STOP_COMMAND, 'stop')
         process.detach = true
         process.environment['PID_FILE'] = 'go-agent.pid'
         process.environment['MANUAL_SETTING'] = 'Y'

@@ -19,7 +19,6 @@ module Context
     include FileUtils
 
     YUM_REPO_DIRECTORY_PATH = '/tmp/packagerepo'
-    JETTY_ROOT_DIRECTORY = 'tools/jetty-8'
     YUM_FILES_DIRECTORY = 'test-repos/yumrepo'
 
 
@@ -44,42 +43,8 @@ module Context
         end
     end
 
-    # This method is not need, use it if thinking of adding spec for http based repo
-    # For basic test a file based repo is good enough
-    def start_jetty_server
-        out = File.open("#{GoConstants::SERVER_DIR}/logs/output.log", 'w')
-        Bundler.with_original_env do
-            process = ChildProcess.build('java', '-jar', 'start.jar', 'jetty.port=8081')
-            process.detach = true
-            process.io.stdout = process.io.stderr = out
-            process.cwd = JETTY_ROOT_DIRECTORY
-            process.start
-        end
-    end
-
-    def stop_jetty_server
-        sh "pkill -f jetty" # Not a good way to kill the process, if using it better update this
-    end
-
-    def publish_new_artifact_to(repo)
-        cp_r Dir.glob("#{YUM_FILES_DIRECTORY}/revision-two/*.rpm"), "#{YUM_REPO_DIRECTORY_PATH}/#{repo}"
-        out = File.open("#{GoConstants::SERVER_DIR}/logs/output.log", 'w')
-        Bundler.with_original_env do
-            process = ChildProcess.build('/usr/bin/createrepo', "--update", "#{YUM_REPO_DIRECTORY_PATH}/#{repo}/")
-            process.detach = true
-            process.io.stdout = process.io.stderr = out
-            process.cwd = "#{YUM_REPO_DIRECTORY_PATH}/#{repo}"
-            process.start
-        end
-    end
-
-
-
     def remove_repo(repo_name)
         rm_rf("#{YUM_REPO_DIRECTORY_PATH}/#{repo_name}") if Dir.exist?("#{YUM_REPO_DIRECTORY_PATH}/#{repo_name}")
-    end
-
-    def clean_repo_query_cache_directory
     end
   end
 end

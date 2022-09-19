@@ -75,7 +75,7 @@ step 'Rerun <jobs> jobs' do |jobs|
   jobs.split(',').each do |job|
     job_details_page.select_jobs(job)
   end
-  job_details_page.rerun_seleced.click
+  job_details_page.rerun_selected.click
 end
 
 step 'Verify looking at <stage> having counter <counter>' do |stage, counter|

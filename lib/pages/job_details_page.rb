@@ -21,7 +21,7 @@ module Pages
     element :tabs, '.sub_tabs_container'
     element :console_output, '.buildoutput_pre'
     element :job_completed_time, 'span#build_completed_date'
-    element :rerun_seleced, "button[value='RERUN']"
+    element :rerun_selected, "button[value='RERUN']"
     element :breadcrumb_stage, '.stage_name a'
     element :property_tab, 'a#tab-link-of-properties'
     element :breadcrumb_pipeline, "a[title=\"View this pipeline's activity\"]"
@@ -96,11 +96,6 @@ module Pages
       page.find('#build_history_holder')[:class].include?'open'
     end
 
-    def get_value_of_property(property)
-      page.find('a', text:'Properties').click
-      page.find("#build-peroperties-table tbody tr#property-of-#{property} td:nth-child(2)").text
-    end
-
     def job_rerun_failed_message(message)
       page.find('.error').text
     end
@@ -133,10 +128,6 @@ module Pages
     def artifact_contents
       wait_until_artifact_content_visible(wait: 10)
       artifact_content['innerHTML']
-    end
-
-    def property_exists? property
-      page.has_css?("#property-of-#{property}")
     end
   end
 end

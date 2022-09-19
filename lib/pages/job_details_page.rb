@@ -85,10 +85,10 @@ module Pages
 
     def job_is_not_copied_job?(value)
       if page.has_css?("#build_list_#{value} a div")
-        job_history_is_visible? and page.find("#build_list_#{value} a div")[:class].include?'copied_job'
+        job_history_is_visible? and page.find("#build_list_#{value} a div[class*='color_code_small']")[:class].include?'copied_job'
       else
         page.find(".entity_title.dropdown-arrow-icon").click
-        job_history_is_visible? and page.find("#build_list_#{value} a div")[:class].include?'copied_job'
+        job_history_is_visible? and page.find("#build_list_#{value} a div[class*='color_code_small']")[:class].include?'copied_job'
       end
     end
 

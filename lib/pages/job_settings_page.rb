@@ -56,14 +56,14 @@ module Pages
     end
 
     def configure_rake_task(target, working_directory)
-      task_target.set(target)
-      task_working_directory.set(working_directory)
+      task_target.set(target, rapid: false)
+      task_working_directory.set(working_directory, rapid: false)
     end
 
     def configure_more_task(command, arglist, working_directory, run_conditions)
-      task_commands.set(command)
-      argument.set(arglist)
-      task_working_directory.set(working_directory)
+      task_commands.set(command, rapid: false)
+      argument.set(arglist, rapid: false)
+      task_working_directory.set(working_directory, rapid: false)
       set_run_if(run_conditions)
     end
 
@@ -71,7 +71,7 @@ module Pages
       on_cancel_task_check_box.click
       cancel_body = page.find('div[data-test-id="on-cancel-body"]')
       cancel_body.find('select[data-test-id="form-field-input-"]').select task
-      cancel_body.find('input[data-test-id="form-field-input-command"]').set(command)
+      cancel_body.find('input[data-test-id="form-field-input-command"]').set(command, rapid: false)
     end
 
     def get_cell_value_from_table(row_count, column_name, header_name)
@@ -121,9 +121,9 @@ module Pages
 
     def set_task(task_type, target, build_file, working_directory, run_if_list)
       add_new_task_of_type(task_type)
-      task_target.set(target)
-      task_build_file.set(build_file)
-      task_working_directory.set(working_directory)
+      task_target.set(target, rapid: false)
+      task_build_file.set(build_file, rapid: false)
+      task_working_directory.set(working_directory, rapid: false)
       set_run_if(run_if_list)
       general_settings_page.task_save.click
     end
@@ -133,18 +133,18 @@ module Pages
     end
 
     def edit_task_with_on_cancel(build_file, target, working_directory, cancel_task_type, cancel_build_file, cancel_Target, cancel_working_Dir)
-      task_build_file.set(build_file)
-      task_target.set(target)
-      task_working_directory.set(working_directory)
+      task_build_file.set(build_file, rapid: false)
+      task_target.set(target, rapid: false)
+      task_working_directory.set(working_directory, rapid: false)
       on_cancel_task_check_box.set(true)
       cancel_body = page.find('div[data-test-id="on-cancel-body"]')
       cancel_body.find('select[data-test-id="form-field-input-"]').select cancel_task_type
       cancel_body.find("input[data-test-id='form-field-input-build-file']").native.clear
-      cancel_body.find("input[data-test-id='form-field-input-build-file']").set(cancel_build_file)
+      cancel_body.find("input[data-test-id='form-field-input-build-file']").set(cancel_build_file, rapid: false)
       cancel_body.find("input[data-test-id='form-field-input-target']").native.clear
-      cancel_body.find("input[data-test-id='form-field-input-target']").set(cancel_Target)
+      cancel_body.find("input[data-test-id='form-field-input-target']").set(cancel_Target, rapid: false)
       cancel_body.find("input[data-test-id='form-field-input-working-directory']").native.clear
-      cancel_body.find("input[data-test-id='form-field-input-working-directory']").set(cancel_working_Dir)
+      cancel_body.find("input[data-test-id='form-field-input-working-directory']").set(cancel_working_Dir, rapid: false)
       general_settings_page.task_save.click
     end
 
@@ -233,13 +233,13 @@ module Pages
     def fill_external_form(key_value)
       vals   = key_value.split(':', 2)
       parent = page.find('div[data-test-id="external-artifact-view"]')
-      parent.find("input[ng-model=\"#{vals[0].strip}\"]").set vals[1].strip
+      parent.find("input[ng-model=\"#{vals[0].strip}\"]").set(vals[1].strip, rapid: false)
     end
 
     def fill_form(type, key_value)
       vals   = key_value.split(':', 2)
       parent = page.find("div[data-test-id='#{type}-artifact-view']")
-      parent.find("input[data-test-id='artifact-#{vals[0].strip}-']").set vals[1].strip
+      parent.find("input[data-test-id='artifact-#{vals[0].strip}-']").set(vals[1].strip, rapid: false)
     end
 
     private

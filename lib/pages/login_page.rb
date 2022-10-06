@@ -28,8 +28,8 @@ module Pages
     load_validation { has_username? }
 
     def signin(user, pwd = 'badger')
-      username.set user
-      password.set pwd
+      username.set(user, rapid: false)
+      password.set(pwd, rapid: false)
       page.find('button', text: 'Sign in').click
     end
 

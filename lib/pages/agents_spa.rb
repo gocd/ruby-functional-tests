@@ -64,12 +64,12 @@ module Pages
     end
 
     def add_resource(resource)
-      agents_menu[0].find("div[data-test-id='association']").find('input[type="text"]').set resource
+      agents_menu[0].find("div[data-test-id='association']").find('input[type="text"]').set(resource, rapid: false)
       agents_menu[0].find("div[data-test-id='association']").find('button', text: 'Add').click
     end
 
     def set_resource(resource, value)
-      agents_menu[0].find("div[data-test-id='association'] input[type='checkbox'][data-test-id='form-field-input-#{slugify(resource)}']").set(value)
+      agents_menu[0].find("div[data-test-id='association'] input[type='checkbox'][data-test-id='form-field-input-#{slugify(resource)}']").set(value, rapid: false)
     end
 
     def verify_column(row_number, column_name, collection, error_message)
@@ -77,7 +77,7 @@ module Pages
     end
 
     def set_environment(environment, value)
-      agents_menu[0].find("div[data-test-id='association'] input[type='checkbox'][data-test-id='form-field-input-#{environment}']").set(value)
+      agents_menu[0].find("div[data-test-id='association'] input[type='checkbox'][data-test-id='form-field-input-#{environment}']").set(value, rapid: false)
     end
 
     def apply_changes
@@ -109,7 +109,7 @@ module Pages
     end
 
     def filter_by(search_string)
-      filter_agent.set(search_string)
+      filter_agent.set(search_string, rapid: false)
       wait_until_agents_summary_visible(wait: 5)
     end
 

@@ -151,7 +151,7 @@ module Pages
     def set_multiple_instance_with(instance)
       parent = page.find("li[data-test-id='run-type']")
       parent.find('input[data-test-id="radio-number"]').click
-      parent.find("input[data-test-id='number-field-for-run-instance']").set instance
+      parent.find("input[data-test-id='number-field-for-run-instance']").set(instance, rapid: false)
     end
 
     def error_messages
@@ -164,13 +164,13 @@ module Pages
     def set_custom_tab(tab_name, path_name)
       page.all('input[data-test-id="tab-name-"]').each {|tab|
         if tab.value.blank?
-          tab.set(tab_name)
+          tab.set(tab_name, rapid: false)
         else
         end
       }
       page.all('input[data-test-id="tab-path-"]').each {|tab|
         if tab.value.blank?
-          tab.set(path_name)
+          tab.set(path_name, rapid: false)
         else
         end
       }
@@ -207,7 +207,7 @@ module Pages
     def override_job_time_out(time)
       parent = page.find("li[data-test-id='job-timout']")
       parent.find('input[data-test-id="radio-number"]').click
-      parent.find("input[data-test-id='number-field-for-job-timeout']").set time
+      parent.find("input[data-test-id='number-field-for-job-timeout']").set(time, rapid: false)
     end
 
     def total_tasks

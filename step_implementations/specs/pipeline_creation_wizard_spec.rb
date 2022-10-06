@@ -19,7 +19,7 @@ step 'Start add new pipeline in pipeline group <pipeline_group>' do |pipeline_gr
 end
 
 step 'Enter new pipeline name as <name>' do |name|
-  pipeline_creation_wizard.new_pipeline_name.set name
+  pipeline_creation_wizard.new_pipeline_name.set(name, rapid: false)
 end
 
 step 'Select material type as <type>' do |type|
@@ -31,11 +31,11 @@ step 'Set url <url> for material  <material>' do |url, material|
 end
 
 step 'Set stage name as <stage_name>' do |stage_name|
-  pipeline_creation_wizard.stage_name.set stage_name
+  pipeline_creation_wizard.stage_name.set(stage_name, rapid: false)
 end
 
 step 'Set job name as <job_name>' do |job_name|
-  pipeline_creation_wizard.job_name.set job_name
+  pipeline_creation_wizard.job_name.set(job_name, rapid: false)
 end
 
 step 'Set task as <task_with_args>' do |task_with_args|
@@ -47,11 +47,11 @@ step 'Save pipeline <arg0> successfully' do |_arg0|
 end
 
 step 'Set job name as <job1> - on Job popup' do |job|
-  pipeline_creation_wizard.job_name_popup.set job
+  pipeline_creation_wizard.job_name_popup.set(job, rapid: false)
 end
 
 step 'Set command as <command> - On Job popup' do |command|
-  pipeline_creation_wizard.command_on_stage_popup.set command
+  pipeline_creation_wizard.command_on_stage_popup.set(command, rapid: false)
 end
 
 step 'Set branch as <branch> for material <material_type>' do |branch, material_type|
@@ -68,7 +68,7 @@ step 'Check connectivity should be successful' do
 end
 
 step 'Set exec command as <command>' do |command|
-  pipeline_creation_wizard.exec_tas_command.set command
+  pipeline_creation_wizard.exec_tas_command.set(command, rapid: false)
 end
 
 step 'Open Materials advanced settings' do ||

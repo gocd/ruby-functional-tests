@@ -35,7 +35,7 @@ module Pages
 
     def modify_group_name(old_name, new_name)
       new_content = content_container_for_edit.text.gsub! old_name, new_name
-      content_container_for_edit.set new_content
+      content_container_for_edit.set(new_content, rapid: false)
       save.click
     end
 

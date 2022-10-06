@@ -32,15 +32,15 @@ end
 
 step 'Set cancel job after <time> minutes' do |time|
   server_configuration_page.never_job_timeout_checkbox.set(false)
-  server_configuration_page.job_timeout_input.set time
+  server_configuration_page.job_timeout_input.set(time, rapid: false)
 end
 
 step 'Set SMTP server hostname as <hostname>' do |hostname|
-  server_configuration_page.smtp_hostname.set hostname
+  server_configuration_page.smtp_hostname.set(hostname, rapid: false)
 end
 
 step 'Set SMTP server port as <port>' do |port|
-  server_configuration_page.smtp_port.set port
+  server_configuration_page.smtp_port.set(port, rapid: false)
 end
 
 step 'Enable SMTPs' do
@@ -48,19 +48,19 @@ step 'Enable SMTPs' do
 end
 
 step 'Set SMTP server username as <username>' do |username|
-  server_configuration_page.smtp_username.set username
+  server_configuration_page.smtp_username.set(username, rapid: false)
 end
 
 step 'Set SMTP server password as <password>' do |password|
-  server_configuration_page.smtp_password.set password
+  server_configuration_page.smtp_password.set(password, rapid: false)
 end
 
 step 'Set sender email as <email>' do |email|
-  server_configuration_page.sender_email_address.set email
+  server_configuration_page.sender_email_address.set(email, rapid: false)
 end
 
 step 'Set administrator email as <email>' do |email|
-  server_configuration_page.admin_email_address.set email
+  server_configuration_page.admin_email_address.set(email, rapid: false)
 end
 
 step 'Verify server configuration save is successful' do

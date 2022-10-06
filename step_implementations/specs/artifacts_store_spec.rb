@@ -17,7 +17,7 @@
 step 'Start creating artifact store for plugin <plugin_name> with id <id>' do |plugin_name, id|
   artifacts_store_page.load
   artifacts_store_page.start_add_store
-  artifacts_store_page.id.set id
+  artifacts_store_page.id.set(id, rapid: false)
   artifacts_store_page.plugin = plugin_name
 end
 
@@ -37,7 +37,7 @@ step 'Clone artifact store <artifact_store_id>' do |artifact_store_id|
 end
 
 step 'Set id as <artifact_store_id>' do |id|
-  artifacts_store_page.id.set id
+  artifacts_store_page.id.set(id, rapid: false)
 end
 
 step 'Save artifact store' do |i|

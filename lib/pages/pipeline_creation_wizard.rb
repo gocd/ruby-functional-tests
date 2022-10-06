@@ -46,7 +46,7 @@ module Pages
     element :exec_tas_command, '.exec-task-command'
 
     def set_task_field(task_with_args)
-      page.find("[data-test-id='form-field-label-type-your-tasks-below-at-the-prompt']").sibling('code').find('pre').set task_with_args
+      page.find("[data-test-id='form-field-label-type-your-tasks-below-at-the-prompt']").sibling('code').find('pre').set(task_with_args, rapid: false)
     end
 
     def set_material_url(url)
@@ -71,15 +71,15 @@ module Pages
     end
 
     def set_username(username)
-      material_username.set username
+      material_username.set(username, rapid: false)
     end
 
     def set_password(password)
-      material_password.set password
+      material_password.set(password, rapid: false)
     end
 
     def set_branch(branch)
-      material_branch(wait: 10).set branch
+      material_branch(wait: 10).set(branch, rapid: false)
     end
 
     def open_material_advanced_settings

@@ -72,7 +72,7 @@ end
 
 step 'Clone Elastic agent profile <elastic_agent_profile_id> of cluster <cluster_id> by name <new_elastic_agent_profile_id>' do |elastic_agent_profile_id, cluster_id, new_elastic_agent_profile_id|
   elastic_profiles_page.clone_elastic_agent_profile(cluster_id, elastic_agent_profile_id)
-  elastic_profiles_page.modal_elastic_agent_profile_id.set new_elastic_agent_profile_id
+  elastic_profiles_page.modal_elastic_agent_profile_id.set(new_elastic_agent_profile_id, rapid: false)
   elastic_profiles_page.save_elastic_agent_profile_modal
 end
 
@@ -83,7 +83,7 @@ step 'Verify elastic agent profiles <elastic_agent_profiles> listed' do |elastic
 end
 
 step 'Set maximum memory limit as <memory_limit>' do |memory_limit|
-  elastic_profiles_page.max_memory.set memory_limit
+  elastic_profiles_page.max_memory.set(memory_limit, rapid: false)
 end
 
 step 'Elastic agent profile save should fail with message <failure_message>' do |failure_message|

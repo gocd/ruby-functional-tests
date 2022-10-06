@@ -72,7 +72,7 @@ module Pages
 
     def set_project_path(path)
       p "project_path: #{path}"
-      page.find('input[data-test-id="form-field-input-project-path"]', wait: 10).set path
+      page.find('input[data-test-id="form-field-input-project-path"]', wait: 10).set(path, rapid: false)
     end
 
     def set_material_url(url)
@@ -94,7 +94,7 @@ module Pages
       page.all('dt')
           .find {|element| element.text === "Advanced Settings"}
           .click
-      page.find("input[data-test-id='form-field-input-denylist']").set denylist
+      page.find("input[data-test-id='form-field-input-denylist']").set(denylist, rapid: false)
     end
 
     def only_on_changes_checkbox_disabled?
@@ -169,14 +169,14 @@ module Pages
       page.all('dt')
           .find {|element| element.text === "Advanced Settings"}
           .click
-      material_name.set mat_name
+      material_name.set(mat_name, rapid: false)
     end
 
     def set_destination_dir(destination)
       page.all('dt')
           .find {|element| element.text === "Advanced Settings"}
           .click
-      material_dest_directory.set destination
+      material_dest_directory.set(destination, rapid: false)
     end
 
     def save_material

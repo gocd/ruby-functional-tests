@@ -23,7 +23,7 @@ step 'Add new cluster profile' do |plugin_id|
 end
 
 step 'Set cluster profile name as <cluster_profile_id>' do |cluster_profile_id|
-  elastic_profiles_page.wizard_cluster_profile_id.set cluster_profile_id
+  elastic_profiles_page.wizard_cluster_profile_id.set(cluster_profile_id, rapid: false)
 end
 
 step 'Set plugin id as <plugin_id>' do |plugin_id|
@@ -31,23 +31,23 @@ step 'Set plugin id as <plugin_id>' do |plugin_id|
 end
 
 step 'Set GoServer URL as <go_server_url> for cluster profile' do |go_server_url|
-  elastic_profiles_page.go_server_url.set app_base_page.sanitize_message(go_server_url)
+  elastic_profiles_page.go_server_url.set(app_base_page.sanitize_message(go_server_url), rapid: false)
 end
 
 step 'Set auto register timeout as <auto_register_timeout> for cluster profile' do |auto_register_timeout|
-  elastic_profiles_page.auto_register_timeout.set auto_register_timeout
+  elastic_profiles_page.auto_register_timeout.set(auto_register_timeout, rapid: false)
 end
 
 step 'Set max docker containers as <max_docker_containers>' do |max_docker_containers|
-  elastic_profiles_page.max_docker_containers.set max_docker_containers
+  elastic_profiles_page.max_docker_containers.set(max_docker_containers, rapid: false)
 end
 
 step 'Set environment variable as <env_variable>' do |env_variable|
-  elastic_profiles_page.env_variable.set env_variable
+  elastic_profiles_page.env_variable.set(env_variable, rapid: false)
 end
 
 step 'Set docker URI as <docker_uri> for cluster profile' do |docker_uri|
-  elastic_profiles_page.docker_uri.set docker_uri
+  elastic_profiles_page.docker_uri.set(docker_uri, rapid: false)
 end
 
 step 'Expand cluster profile <id>' do |id|
@@ -63,7 +63,7 @@ step 'Add new Elastic agent profile for cluster id <cluster_profile_id>' do |clu
 end
 
 step 'Set agent profile name as <elastic_agent_profile_name>' do |elastic_agent_profile_name|
-  elastic_profiles_page.wizard_elastic_agent_profile_id.set elastic_agent_profile_name
+  elastic_profiles_page.wizard_elastic_agent_profile_id.set(elastic_agent_profile_name, rapid: false)
 end
 
 step 'Go back to Cluster Profiles step on the wizard' do
@@ -79,7 +79,7 @@ step 'Check cluster id is selected as <cluster_profile_id> with plugin <plugin_n
 end
 
 step 'Set docker image as <image>' do |image|
-  elastic_profiles_page.image.set image
+  elastic_profiles_page.image.set(image, rapid: false)
 end
 
 step 'Save elastic agent profile' do
@@ -109,7 +109,7 @@ end
 
 step 'Clone cluster profile <cluster_profile_id> by name <new_cluster_profile_id>' do |cluster_profile_id, new_cluster_profile_id|
   elastic_profiles_page.clone_cluster_profile(cluster_profile_id)
-  elastic_profiles_page.modal_cluster_profile_id.set new_cluster_profile_id
+  elastic_profiles_page.modal_cluster_profile_id.set(new_cluster_profile_id, rapid: false)
   elastic_profiles_page.save_cluster_profile
 end
 

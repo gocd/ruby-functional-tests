@@ -44,7 +44,7 @@ module Pages
     end
 
     def config_id(value)
-      input_id.set(value)
+      input_id.set(value, rapid: false)
     end
 
     def plugin_value(value)
@@ -52,11 +52,11 @@ module Pages
     end
 
     def filepath(value)
-      file_path.set(value)
+      file_path.set(value, rapid: false)
     end
 
     def rule_resource(value)
-      rule_resource_entity.set(value)
+      rule_resource_entity.set(value, rapid: false)
     end
 
     def has_secret_config(id)
@@ -90,7 +90,7 @@ module Pages
       add_rule_button.click
       rule_table_body.all("select[data-test-id='rule-directive']", wait: 10).last.select directive
       rule_table_body.all("select[data-test-id='rule-type']").last.select type
-      rule_table_body.all("input[data-test-id='rule-resource']").last.set(resource)
+      rule_table_body.all("input[data-test-id='rule-resource']").last.set(resource, rapid: false)
     end
 
     def rearrange_rules

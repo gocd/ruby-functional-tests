@@ -40,7 +40,7 @@ module Pages
     end
 
     def set_group_name group
-      edit_group_name.set group
+      edit_group_name.set(group, rapid: false)
     end
 
     def edit_pipeline_group(group_name)
@@ -50,7 +50,7 @@ module Pages
     def add_new_user_permission(permission, user)
       page.find("[data-test-id='add-user-permission']").click
       new_user_element = page.all("[data-test-id='user-name']").last
-      new_user_element.set user
+      new_user_element.set(user, rapid: false)
       new_user_element.ancestor("tr").find("[data-test-id='#{permission}-permission']").click unless permission.eql? 'view'
     end
 
@@ -58,7 +58,7 @@ module Pages
       page.execute_script('document.querySelector("[data-test-id=\'add-role-permission\']").scrollIntoView(true)')
       page.find("[data-test-id='add-role-permission']").click
       new_role_element = page.all("[data-test-id='role-name']", wait: 10).last
-      new_role_element.set role
+      new_role_element.set(role, rapid: false)
       new_role_element.ancestor("tr").find("[data-test-id='#{permission}-permission']").click unless permission.eql? 'view'
     end
 

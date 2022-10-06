@@ -73,11 +73,11 @@ step 'Verify only on changes checkbox is enabled' do
 end
 
 step 'Enter <timer> for cron time specifier' do |timer|
-  pipeline_settings_page.cron_timer.set timer
+  pipeline_settings_page.cron_timer.set(timer, rapid: false)
 end
 
 step 'Enter <label> for label template' do |label|
-  pipeline_settings_page.label_template.set label
+  pipeline_settings_page.label_template.set(label, rapid: false)
 end
 
 step 'Select onlyOnChanges flag to trigger pipeline only on new material' do
@@ -90,7 +90,7 @@ end
 
 step 'Set pipeline and stage as <stage_name>' do |stage|
   values = new_pipeline_dashboard_page.sanitize_message(stage).split(':')
-  pipeline_settings_page.pipeline_name.set values[0]
+  pipeline_settings_page.pipeline_name.set(values[0], rapid: false)
   pipeline_settings_page.stage_name.select values[1]
 end
 
@@ -172,7 +172,7 @@ step 'Add new stage' do
 end
 
 step 'Set cron field as <cron> and validate message as <message>' do |cron, message|
-  pipeline_settings_page.cron_timer.set cron
+  pipeline_settings_page.cron_timer.set(cron, rapid: false)
   general_settings_page.global_save.click
   values = message.split(':')
   if values[0] === "Error"

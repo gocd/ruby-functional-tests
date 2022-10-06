@@ -23,7 +23,7 @@ step "Click on add package repository" do
 end
 
 step "Enter repository name as <repo_name>" do |repo_name|
-  package_repository_page.name_field.set repo_name
+  package_repository_page.name_field.set(repo_name, rapid: false)
 end
 
 step "Select <plugin_name> plugin" do |plugin_name|
@@ -51,11 +51,11 @@ step "Click on <repo_name> in repository listing" do |repo_name|
 end
 
 step "Enter username as <username>" do |username|
-  package_repository_page.package_repo_username.set username
+  package_repository_page.package_repo_username.set(username, rapid: false)
 end
 
 step "Enter password as <password>" do |password|
-  package_repository_page.package_repo_password.set password
+  package_repository_page.package_repo_password.set(password, rapid: false)
 end
 
 step "Open Configuration for <pkg_repo>" do |pkg_repo|
@@ -85,16 +85,16 @@ step "Click on add package for <pkg_repo>" do |pkg_repo|
 end
 
 step "Set package name as <name> and spec as <spec>" do |name, spec|
-  package_repository_page.name_field.set name
-  package_repository_page.package_spec.set spec
+  package_repository_page.name_field.set(name, rapid: false)
+  package_repository_page.package_spec.set(spec, rapid: false)
 end
 
 step "Set package name as <name>" do |name|
-  package_repository_page.name_field.set name
+  package_repository_page.name_field.set(name, rapid: false)
 end
 
 step "Set spec as <spec>" do |spec|
-  package_repository_page.package_spec.set spec
+  package_repository_page.package_spec.set(spec, rapid: false)
 end
 
 step "Verify package <pkg_name> exists for repo <repo_name>" do |pkg_name, repo_name|

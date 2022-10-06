@@ -54,11 +54,11 @@ module Pages
     end
 
     def gocd_role=(value)
-      gocd_role.set(value)
+      gocd_role.set(value, rapid: false)
     end
 
     def plugin_role=(value)
-      plugin_role.set(value)
+      plugin_role.set(value, rapid: false)
     end
 
     def save_role
@@ -104,7 +104,7 @@ module Pages
       policy_table_body.all("select[data-test-id='permission-permission']", wait: 10).last.select permission
       policy_table_body.all("select[data-test-id='permission-action']").last.select action
       policy_table_body.all("select[data-test-id='permission-type']").last.select type
-      policy_table_body.all("input[data-test-id='permission-resource']").last.set(resource)
+      policy_table_body.all("input[data-test-id='permission-resource']").last.set(resource, rapid: false)
     end
 
     def update_permission_type(type)

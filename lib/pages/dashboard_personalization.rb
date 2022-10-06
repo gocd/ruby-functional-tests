@@ -100,7 +100,7 @@ module Pages
     end
 
     def set_view_name(view_name)
-      personalization_editor.find("section.filter-name input").set(view_name, clear: :backspace)
+      personalization_editor.find("section.filter-name input").set(view_name, clear: :backspace, rapid: false)
     end
 
     def pipeline_group_selected?(group_name)

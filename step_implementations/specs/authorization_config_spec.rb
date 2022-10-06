@@ -17,7 +17,7 @@
 step 'Start to add a new authorization config with id as <id> for plugin <plugin_id>' do |id, plugin_id|
   authorization_config_page.load
   authorization_config_page.click_add
-  authorization_config_page.id.set id
+  authorization_config_page.id.set(id, rapid: false)
   authorization_config_page.plugin = plugin_id
 end
 
@@ -26,11 +26,11 @@ step 'Go to auth config page' do |_i|
 end
 
 step 'Set auth config id as <auth_config_id>' do |auth_config_id|
-  authorization_config_page.id.set auth_config_id
+  authorization_config_page.id.set(auth_config_id, rapid: false)
 end
 
 step 'Set password file path as <file>' do |file|
-  authorization_config_page.pwd_file_path.set file == 'non_existent_file' ? file : File.expand_path("#{GoConstants::CONFIG_PATH}/#{file}")
+  authorization_config_page.pwd_file_path.set(file == 'non_existent_file' ? file : File.expand_path("#{GoConstants::CONFIG_PATH}/#{file}"), rapid: false)
 end
 
 step 'Save authorization config' do |_i|
@@ -65,35 +65,35 @@ step 'Confirm delete auth config' do |_i|
 end
 
 step 'Set LDAP Url' do |_i|
-  authorization_config_page.ldap_url.set "ldap://#{GoConstants::LDAP_SERVER_IP}"
+  authorization_config_page.ldap_url.set("ldap://#{GoConstants::LDAP_SERVER_IP}", rapid: false)
 end
 
 step 'Set Manager DN as <manager_dn>' do |dn|
-  authorization_config_page.manager_dn.set dn
+  authorization_config_page.manager_dn.set(dn, rapid: false)
 end
 
 step 'Set Password as <pwd>' do |pwd|
-  authorization_config_page.password.set pwd
+  authorization_config_page.password.set(pwd, rapid: false)
 end
 
 step 'Set Search Bases as <sb>' do |sb|
-  authorization_config_page.search_bases.set sb
+  authorization_config_page.search_bases.set(sb, rapid: false)
 end
 
 step 'Set User Login Filter as <lf>' do |lf|
-  authorization_config_page.login_filter.set lf
+  authorization_config_page.login_filter.set(lf, rapid: false)
 end
 
 step 'Set Display Name Attribute as <dn>' do |dn|
-  authorization_config_page.display_name.set dn
+  authorization_config_page.display_name.set(dn, rapid: false)
 end
 
 step 'Set Email Attribute as <email>' do |email|
-  authorization_config_page.email.set email
+  authorization_config_page.email.set(email, rapid: false)
 end
 
 step 'Set User Search Filter as <sf>' do |sf|
-  authorization_config_page.search_filter.set sf
+  authorization_config_page.search_filter.set(sf, rapid: false)
 end
 
 step 'Verify error message on auth config spa <msg>' do |msg|

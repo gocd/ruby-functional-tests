@@ -30,7 +30,7 @@ module Pages
     end
 
     def enter_template_name name
-      template_name_on_popup.set name
+      template_name_on_popup.set(name, rapid: false)
     end
 
     def click_extract_template pipeline

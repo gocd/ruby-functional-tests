@@ -46,7 +46,7 @@ module Pages
     end
 
     def search_given_pipeline(search_string)
-      filter_history.set(search_string)
+      filter_history.set(search_string, rapid: false)
       sleep 20
     end
 

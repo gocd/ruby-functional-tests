@@ -25,11 +25,11 @@ step 'Add new profile for plugin <plugin_id>' do |plugin_id|
 end
 
 step 'Set profile name as <profile_name>' do |profile_name|
-  elastic_agents_profiles_page.input_profile_name.set profile_name
+  elastic_agents_profiles_page.input_profile_name.set(profile_name, rapid: false)
 end
 
 step 'Set image as <image>' do |image|
-  elastic_agents_profiles_page.image.set image
+  elastic_agents_profiles_page.image.set(image, rapid: false)
 end
 
 step 'Save the elastic agent profile' do
@@ -45,7 +45,7 @@ step 'Edit elastic agent profile <name>' do |name|
 end
 
 step 'Update image as <image>' do |image|
-  elastic_agents_profiles_page.image.set image
+  elastic_agents_profiles_page.image.set(image, rapid: false)
 end
 
 step 'Verify elastic profile <name> has key <key> value <expected_value> - Using elastic agent profiles API' do |name, key, expected_value|

@@ -43,8 +43,8 @@ module Pages
 
     def clone_pipeline(source_pipeline_name, new_pipeline_name, pipeline_group_name)
       click_on_clone_link_for(source_pipeline_name)
-      input_new_pipeline_name.set new_pipeline_name
-      input_pipeline_group_name.set pipeline_group_name
+      input_new_pipeline_name.set(new_pipeline_name, rapid: false)
+      input_pipeline_group_name.set(pipeline_group_name, rapid: false)
       button_clone.click(wait: 10)
     end
 
@@ -220,14 +220,14 @@ module Pages
       page.find("[data-test-id='edit-template-#{template.downcase}']").click
     end
 
-    def change_cofig_to_conflict
+    def change_config_to_conflict
       context = page.find('#content').text.gsub! 'replace-job', 'replace-job-conflict'
-      page.find('#content').set context
+      page.find('#content').set(context, rapid: false)
     end
 
     def rename_pipeline_on_config_xml_page pipeline, new_pipeline
       new_context = page.find('#content_container_for_edit').text.gsub! "#{pipeline}", new_pipeline
-      page.find('#content_container_for_edit').set new_context
+      page.find('#content_container_for_edit').set(new_context, rapid: false)
     end
 
     def verify_split_appears
@@ -240,7 +240,7 @@ module Pages
                    stageName="defaultStage" materialName="UP" />\n </materials>\n <stage name="defaultStage">\n <approval type="manual"/>\n <jobs>\n <job name="replace-job">
                    \n <tasks>\n <exec command="ls"/>\n </tasks>\n </job>\n </jobs>\n </stage>\n </pipeline>\n </pipelines>)
       new_context = page.find('#content').text.sub! "</pipelines>", context
-      page.find('#content').set new_context
+      page.find('#content').set(new_context, rapid: false)
     end
 
     def post_validation_error_message_exist? message
@@ -264,11 +264,11 @@ module Pages
     end
 
     def enter_template_name name
-      page.find("[data-test-id='form-field-input-new-template-name']").set name
+      page.find("[data-test-id='form-field-input-new-template-name']").set(name, rapid: false)
     end
 
     def set_group_name(grp_name)
-      group_name.set grp_name
+      group_name.set(grp_name, rapid: false)
     end
 
     def edit_pipeline_group(grp_name)
@@ -282,7 +282,7 @@ module Pages
 
     def add_user_permissions(user, type)
       add_user_permission.click
-      users_permissions.all("input[data-test-id='user-name']").last.set(user)
+      users_permissions.all("input[data-test-id='user-name']").last.set(user, rapid: false)
       users_permissions.all("input[data-test-id='#{type}-permission']").last.set(true)
     end
 
@@ -296,7 +296,7 @@ module Pages
 
     def add_role_permissions(role, type)
       add_role_permission.click
-      roles_permissions.all("input[data-test-id='role-name']").last.set(role)
+      roles_permissions.all("input[data-test-id='role-name']").last.set(role, rapid: false)
       roles_permissions.all("input[data-test-id='#{type}-permission']").last.set(true)
     end
 

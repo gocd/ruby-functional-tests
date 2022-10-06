@@ -62,11 +62,11 @@ end
 
 step 'Select artifact type <a_type> pipeline <p_name> stage <s_name> job <j_name> artifact id <a_id> path <path>' do |a_type, p_name, s_name, j_name, a_id, path|
   job_settings_page.external_artifact.click
-  job_settings_page.task_pipeline.set scenario_state.get(p_name)
-  job_settings_page.task_stage.set s_name
-  job_settings_page.task_job.set j_name
-  job_settings_page.task_artifact_id.set a_id
-  job_settings_page.task_configuration_path.set path
+  job_settings_page.task_pipeline.set(scenario_state.get(p_name), rapid: false)
+  job_settings_page.task_stage.set(s_name, rapid: false)
+  job_settings_page.task_job.set(j_name, rapid: false)
+  job_settings_page.task_artifact_id.set(a_id, rapid: false)
+  job_settings_page.task_configuration_path.set(path, rapid: false)
 end
 
 step 'Save task details' do
@@ -142,8 +142,8 @@ step 'ArtifactSetAndValidate <table>' do |table|
     publish_artifacts_view.remove_all_artifacts
     job_settings_page.publish_artifact_type.select "Build"
     job_settings_page.add_artifact.click
-    publish_artifacts_view.single_source.set(row['source'])
-    publish_artifacts_view.single_destination.set(row['destination'])
+    publish_artifacts_view.single_source.set(row['source'], rapid: false)
+    publish_artifacts_view.single_destination.set(row['destination'], rapid: false)
     general_settings_page.global_save.click
     if row['messageForSource'] != ""
       source_error_msg = publish_artifacts_view.verify_source_error_message
@@ -201,7 +201,7 @@ step 'Verify error message <error_message> on name on tab <tab_index>' do |error
 end
 
 step 'Set job as <job> - On Job settings page' do |job|
-  job_settings_page.job_name.set job
+  job_settings_page.job_name.set(job, rapid: false)
 end
 
 step 'set run type as <run_type>' do |run_type|
@@ -224,11 +224,11 @@ step 'Open task <number>' do |number|
 end
 
 step 'Set command as <command> - On Job Setting Page' do |command|
-  job_settings_page.task_commands.set command
+  job_settings_page.task_commands.set(command, rapid: false)
 end
 
 step 'Set Working directory as <dir>' do |dir|
-  job_settings_page.task_working_directory.set dir
+  job_settings_page.task_working_directory.set(dir, rapid: false)
 end
 
 step 'Override job time out with <time> minutes' do |time|
@@ -240,7 +240,7 @@ step 'Select never option' do ||
 end
 
 step 'set job resources as <resources>' do |resources|
-  job_settings_page.resources_on_popup.set resources
+  job_settings_page.resources_on_popup.set(resources, rapid: false)
 end
 
 step 'Verify default echo task exists' do
@@ -252,15 +252,15 @@ step 'Set task pipeline as <pipeline>' do |pipeline|
 end
 
 step 'Set task job as <job>' do |job|
-  job_settings_page.task_job.set job
+  job_settings_page.task_job.set(job, rapid: false)
 end
 
 step 'Set task stage as <stage>' do |stage|
-  job_settings_page.task_stage.set stage
+  job_settings_page.task_stage.set(stage, rapid: false)
 end
 
 step 'Set task source file as <source_file>' do |source_file|
-  job_settings_page.task_source_file.set source_file
+  job_settings_page.task_source_file.set(source_file, rapid: false)
 end
 
 step 'Check source is a file option' do ||
@@ -268,7 +268,7 @@ step 'Check source is a file option' do ||
 end
 
 step 'Set task destination as <dest_dir>' do |dest_dir|
-  job_settings_page.task_dest_dir.set dest_dir
+  job_settings_page.task_dest_dir.set(dest_dir, rapid: false)
 end
 
 step 'Uncheck source is a file option' do ||
@@ -288,7 +288,7 @@ step 'Verify error message <message> is shown for source' do |message|
 end
 
 step "Start creating external artifact with artifact id as <artifact_id> and store id as <store_id>" do |artifact_id, store_id|
-  job_settings_page.artifact_id.set artifact_id
+  job_settings_page.artifact_id.set(artifact_id, rapid: false)
   job_settings_page.store_id.select store_id
 end
 
@@ -297,5 +297,5 @@ step "Add a custom tab" do
 end
 
 step 'Set command as <command> - Already on Add New Job popup' do |command|
-  job_settings_page.task_commands.set command
+  job_settings_page.task_commands.set(command, rapid: false)
 end

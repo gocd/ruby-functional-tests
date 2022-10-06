@@ -82,14 +82,14 @@ module Pages
     def set_permission_user(user)
       page.find('div[data-test-id="users"]')
           .all('input[data-test-id="form-field-input-"]').each do |input_element|
-        input_element.set user if input_element.value.blank?
+        input_element.set(user, rapid: false) if input_element.value.blank?
       end
     end
 
     def set_permission_role(role)
       page.find('div[data-test-id="roles"]')
           .all('input[data-test-id="form-field-input-"]').each do |input_element|
-        input_element.set role if input_element.value.blank?
+        input_element.set(role, rapid: false) if input_element.value.blank?
       end
     end
 

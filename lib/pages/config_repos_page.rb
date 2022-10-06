@@ -79,11 +79,11 @@ module Pages
     end
 
     def enter_config_repo_name(name)
-      page.find('[data-test-id="form-field-input-config-repository-name"]').set name
+      page.find('[data-test-id="form-field-input-config-repository-name"]').set(name, rapid: false)
     end
 
     def enter_config_repo_url(url)
-      page.find('[data-test-id="form-field-input-url"]').set url
+      page.find('[data-test-id="form-field-input-url"]').set(url, rapid: false)
     end
 
     def repo_failed_parsing(repo, entity, entity_name)

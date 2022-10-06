@@ -29,7 +29,7 @@ module Pages
     def revoke_token(user, description, reason)
       token_row = table_access_tokens.all("[data-test-id='table-row']").select{|row| row.has_css?('td', text: user) && row.has_css?('span', text: description) }
       token_row.first.find("[data-test-id='button-revoke']").click
-      text_revoke_reason.set reason
+      text_revoke_reason.set(reason, rapid: false)
       btn_revoke.click
     end
 

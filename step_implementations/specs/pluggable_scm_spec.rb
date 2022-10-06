@@ -23,7 +23,7 @@ step "Click on add scm" do
 end
 
 step "Enter scm name as <scm_name>" do |scm_name|
-  pluggable_scm_page.scm_name.set scm_name
+  pluggable_scm_page.scm_name.set(scm_name, rapid: false)
 end
 
 step "Select scm <scm_plugin> plugin" do |scm_plugin|
@@ -88,6 +88,6 @@ step 'Create dummy git repo' do
 end
 
 step "Set scm username as <username> and password as <password>" do |username,password|
-  pluggable_scm_page.scm_username.set username
-  pluggable_scm_page.scm_password.set password
+  pluggable_scm_page.scm_username.set(username, rapid: false)
+  pluggable_scm_page.scm_password.set(password, rapid: false)
 end

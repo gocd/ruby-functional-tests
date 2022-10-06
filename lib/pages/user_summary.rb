@@ -37,7 +37,7 @@ module Pages
 
     def search_for(user)
       import_user.click
-      page.find("input[placeholder='Search user..']", wait: 5).set user
+      page.find("input[placeholder='Search user..']", wait: 5).set(user, rapid: false)
       page.find('button', text: 'Search').click
     end
 
@@ -138,7 +138,7 @@ module Pages
         select_user(user)
       end
       page.find('button', text: 'Roles').click
-      page.find("input[placeholder='Add role']").set(new_role)
+      page.find("input[placeholder='Add role']").set(new_role, rapid: false)
       page.find('button', text: 'Add').click
       page.find('button', text: 'Apply').click
     end

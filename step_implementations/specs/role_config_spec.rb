@@ -18,18 +18,18 @@ step "Start to add a GoCD config role <name>" do |name|
   role_config_page.load
   role_config_page.click_add
   role_config_page.gocd_role = (true)
-  role_config_page.role_name.set name
+  role_config_page.role_name.set(name, rapid: false)
 end
 
 step "Create a new gocd role <name>" do |name|
   role_config_page.click_add
   role_config_page.gocd_role = (true)
-  role_config_page.role_name.set name
+  role_config_page.role_name.set(name, rapid: false)
 end
 
 step "Add user <names> to the role" do |names|
   names.split(',').each {|name|
-    role_config_page.role_users.set name.strip
+    role_config_page.role_users.set(name.strip, rapid: false)
     role_config_page.add_role.click
   }
 end
@@ -63,7 +63,7 @@ step 'Clone role <role_name>' do |role_name|
 end
 
 step 'Set role name as <role_name>' do |role_name|
-  role_config_page.role_name.set role_name
+  role_config_page.role_name.set(role_name, rapid: false)
 end
 
 step 'Delete role <role_name>' do |role_name|

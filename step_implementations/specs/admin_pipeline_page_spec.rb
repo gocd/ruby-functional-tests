@@ -53,11 +53,11 @@ step 'Add new pipeline group' do
 end
 
 step 'Enter pipeline group name <group> - Already On New Pipeline Group Popup' do |group|
-  admin_pipeline_page.input_pipeline_group_name.set group
+  admin_pipeline_page.input_pipeline_group_name.set(group, rapid: false)
 end
 
 step 'Enter pipeline group name <group> - Already On Clone Pipeline pop up' do |group|
-  admin_pipeline_page.input_pipeline_group_name.set(group)
+  admin_pipeline_page.input_pipeline_group_name.set(group, rapid: false)
 end
 
 step 'Verify error message <message> - Already On New Pipeline Group Popup' do |message|
@@ -101,7 +101,7 @@ step 'Verify error message <message> - Already On Clone Pipeline Popup' do |mess
 end
 
 step 'Enter pipeline name <pipeline>' do |pipeline|
-  admin_pipeline_page.input_new_pipeline_name.set(pipeline)
+  admin_pipeline_page.input_new_pipeline_name.set(pipeline, rapid: false)
 end
 
 step 'Verify pipeline <pipeline> is paused with message <message>' do |pipeline, message|
@@ -251,7 +251,7 @@ step 'Click edit Config XML' do
 end
 
 step 'Change config to conflict' do
-  admin_pipeline_page.change_cofig_to_conflict
+  admin_pipeline_page.change_config_to_conflict
 end
 
 step 'Rename pipeline <pipeline> to <new_pipeline> - Already On Pipeline Group Xml' do |pipeline, new_pipeline|

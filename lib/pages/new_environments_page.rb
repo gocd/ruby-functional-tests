@@ -31,7 +31,7 @@ module Pages
 
     def add_new_environment(env)
       add.click
-      input_id.set(env)
+      input_id.set(env, rapid: false)
       save.click
     end
 
@@ -77,15 +77,15 @@ module Pages
 
     def add_new_plain_text_environment_variable(name, value)
       add_new_plain_environment_variable_btn.click
-      page.all("[data-test-id='env-var-name']").last.set name
-      page.all("[data-test-id='env-var-value']").last.set value
+      page.all("[data-test-id='env-var-name']").last.set(name, rapid: false)
+      page.all("[data-test-id='env-var-value']").last.set(value, rapid: false)
       modal_save.click
     end
 
     def add_new_secure_environment_variable(name, value)
       add_new_secure_environment_variable_btn.click
-      page.all("[data-test-id='secure-env-var-name']").last.set name
-      page.all("[data-test-id='secure-env-var-value']").last.set value
+      page.all("[data-test-id='secure-env-var-name']").last.set(name, rapid: false)
+      page.all("[data-test-id='secure-env-var-value']").last.set(value, rapid: false)
       modal_save.click
     end
 

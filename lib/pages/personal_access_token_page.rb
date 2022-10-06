@@ -29,7 +29,7 @@ module Pages
 
     def generate_token(description = '')
       btn_generate_token.click
-      text_description.set description
+      text_description.set(description, rapid: false)
       btn_submit.click
     end
 

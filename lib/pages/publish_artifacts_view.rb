@@ -33,12 +33,12 @@ module Pages
 
     def fill_form(key_value)
       f = key_value.split(':', 2)
-      external_artifacts_form[0].find(:xpath, instance_eval(f[0])[0].path).set("#{f[1].strip}")
+      external_artifacts_form[0].find(:xpath, instance_eval(f[0])[0].path).set("#{f[1].strip}", rapid: false)
     end
 
     def fill_form_with_index(key_value, index)
       f = key_value.split(':', 2)
-      external_artifacts_form[0].find(:xpath, instance_eval(f[0])[index.to_i - 1].path).set("#{f[1].strip}")
+      external_artifacts_form[0].find(:xpath, instance_eval(f[0])[index.to_i - 1].path).set("#{f[1].strip}", rapid: false)
     end
 
     def verify_artifact_exist(pipeline, artifact, stage, job)

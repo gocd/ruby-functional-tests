@@ -27,7 +27,7 @@ module Pages
 
     def on_tab(tab_name)
       # need to differentiate materials tab link from materials spa link
-      page.find('ul[class^="index__tabs__"] a', text: tab_name.upcase).click
+      page.find('ul[class^="index__tabs__"] a', text: tab_name.upcase, wait: 5).click
     end
 
     def add_env_variable(variable_name, variable_value)

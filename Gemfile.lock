@@ -155,7 +155,7 @@ GEM
     site_prism-all_there (0.3.2)
     sys-proctable (1.2.6)
       ffi
-    test-unit (3.5.3)
+    test-unit (3.5.5)
       power_assert
     thread_safe (0.3.6)
     trailblazer-option (0.1.2)

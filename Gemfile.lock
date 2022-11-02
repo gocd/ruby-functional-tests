@@ -153,8 +153,8 @@ GEM
       capybara (~> 3.15)
       site_prism-all_there (>= 0.3.1, < 1.0)
     site_prism-all_there (0.3.2)
-    sys-proctable (1.2.6)
-      ffi
+    sys-proctable (1.2.7)
+      ffi (~> 1.1)
     test-unit (3.5.5)
       power_assert
     thread_safe (0.3.6)

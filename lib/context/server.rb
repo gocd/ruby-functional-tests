@@ -162,10 +162,10 @@ module Context
     def server_image_to_use
       manifest = DockerManifestParser.new('target/docker-server')
       if ENV['RUN_ON_ALL_SERVER_IMAGE']
-        unless manifest.has_image_count(GO_JOB_RUN_COUNT.to_i)
-          raise "Expected job to be configured with GO_JOB_RUN_COUNT=#{manifest.image_count} (current=#{GO_JOB_RUN_COUNT}) as manifest implies that's how many server images we have to test"
+        unless manifest.has_image_count(ENV['GO_JOB_RUN_COUNT'].to_i)
+          raise "Expected job to be configured with GO_JOB_RUN_COUNT=#{manifest.image_count} (current=#{ENV['GO_JOB_RUN_COUNT']}) as manifest implies that's how many server images we have to test"
         end
-        image_index = GO_JOB_RUN_INDEX ? GO_JOB_RUN_INDEX.to_i - 1 : 0
+        image_index = ENV['GO_JOB_RUN_INDEX'] ? ENV['GO_JOB_RUN_INDEX'].to_i - 1 : 0
         manifest.image_info_at(image_index)
       else
         manifest.image_info_of('centos-9')

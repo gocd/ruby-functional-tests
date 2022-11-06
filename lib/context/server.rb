@@ -170,33 +170,4 @@ module Context
       manifest
     end
   end
-
-  class DockerManifestParser
-    attr_reader :image
-    attr_reader :tag
-    attr_reader :file
-
-    def initialize(fldr)
-      @fldr = fldr
-    end
-
-    def image_info_of(os)
-      raise "Docker image manifest file not available at #{@fldr}" unless File.exist?("#{@fldr}/manifest.json")
-      manifest = JSON.parse(File.read("#{@fldr}/manifest.json"))
-      image_info = manifest.select { |image| image['imageName'].include? os }
-      raise "No image for OS #{os} available" if image_info.nil?
-      @image = image_info.first['imageName']
-      @tag = image_info.first['tag']
-      @file = image_info.first['file']
-    end
-
-    def image_info_at(position)
-      raise "Docker image manifest file not available at #{@fldr}" unless File.exist?("#{@fldr}/manifest.json")
-      manifest = JSON.parse(File.read("#{@fldr}/manifest.json"))
-      image_info = manifest[position]
-      @image = image_info['imageName']
-      @tag = image_info['tag']
-      @file = image_info['file']
-    end
-  end
 end

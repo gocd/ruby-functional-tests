@@ -79,6 +79,11 @@ module Context
 
     def run_agent_on_docker(identifier)
       manifest = DockerManifestParser.new('target/docker-agent')
+
+      if ENV['GO_JOB_RUN_COUNT'] && !manifest.has_image_count(ENV['GO_JOB_RUN_COUNT'].to_i)
+        raise "Expected job to be configured with GO_JOB_RUN_COUNT=#{manifest.image_count} (current=#{ENV['GO_JOB_RUN_COUNT']}) as manifest implies that's how many images we have to test"
+      end
+
       image_index = ENV['GO_JOB_RUN_INDEX'] ? ENV['GO_JOB_RUN_INDEX'].to_i - 1 : 0
       manifest.image_info_at(image_index)
       sh %(docker load < "target/docker-agent/#{manifest.file}")

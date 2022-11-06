@@ -50,7 +50,7 @@ K8S_EA_PLUGIN_RELEASE_URL                   = ENV['K8S_EA_PLUGIN_RELEASE_URL'] |
 DOCKER_SWARM_EA_PLUGIN_RELEASE_URL          = ENV['DOCKER_SWARM_EA_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd-contrib/docker-swarm-elastic-agents/releases/latest'
 ELASTICAGENTS_PLUGIN_RELEASE_URL            = ENV['ELASTICAGENTS_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd-contrib/elastic-agent-skeleton-plugin/releases/latest'
 DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL = ENV['DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/docker-registry-artifact-plugin/releases/latest'
-ANALYTICS_PLUGIN_DOWNLOAD_URL               = ENV['ANALYTICS_PLUGIN_DOWNLOAD_URL']
+ANALYTICS_PLUGIN_DOWNLOAD_URL               = ENV['ANALYTICS_PLUGIN_DOWNLOAD_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/gocd-analytics-plugin/releases/latest'
 LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL      = ENV['LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/gocd-ldap-authorization-plugin/releases/latest'
 MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL        = ENV['MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/1and1/go-maven-poller/releases/24528030'
 
@@ -170,18 +170,15 @@ namespace :plugins do
     sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/ldap_authorization_plugin.jar #{url}"
     url = download_url(JSON.parse(URI.open(MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL).read))
     sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/maven_repo_poller_plugin.jar #{url}"
+    url = download_url(JSON.parse(URI.open(ANALYTICS_PLUGIN_DOWNLOAD_URL).read))
+    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/analytics-plugin.jar #{url}"
   end
 
-  desc 'task for preparing anlytics plugin'
+  desc 'task for preparing analytics plugin'
   task :prepare_analytics do
-    mkdir_p "target/go-server-#{VERSION_NUMBER}/plugins/external"
-    sh "curl --silent --location -o target/go-server-#{VERSION_NUMBER}/plugins/external/analytics-plugin.jar --fail -H 'Accept: binary/octet-stream' --user '#{ENV['EXTENSIONS_USER']}:#{ENV['EXTENSIONS_PASSWORD']}' #{ANALYTICS_PLUGIN_DOWNLOAD_URL}"
-
     # preparing the database - drop and recreate analytics database
-
     ENV['ANALYTICS_DB_NAME_TO_USE'] = "#{ENV['ANALYTICS_DB_NAME'] || "analytics"}"
     ENV['POSTGRES_DB_HOST_TO_USE']  = "#{ENV['DB_HOST'] || "localhost"}"
-
 
     puts "Using DB: #{ENV['ANALYTICS_DB_NAME_TO_USE']} on host: #{ENV['POSTGRES_DB_HOST_TO_USE']}"
 
@@ -192,12 +189,6 @@ namespace :plugins do
     system("#{drop_db_command} && #{create_db_command}") || (puts "Failed to drop and recreate DB. Tried running: #{drop_db_command} && #{create_db_command}"; exit 1)
 
     puts "Recreated analytics DB: #{ENV['ANALYTICS_DB_NAME_TO_USE']}"
-  end
-
-  desc 'task for preparing ldap authorization plugin'
-  task :prepare_ldap_plugin do
-    mkdir_p "target/go-server-#{VERSION_NUMBER}/plugins/external"
-    sh "curl --silent --location -o target/go-server-#{VERSION_NUMBER}/plugins/external/ldap_authorization_plugin.jar --fail -H 'Accept: binary/octet-stream' --user '#{ENV['EXTENSIONS_USER']}:#{ENV['EXTENSIONS_PASSWORD']}' #{LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL}"
   end
 
   desc 'gradle build go plugins'

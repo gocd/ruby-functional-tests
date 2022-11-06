@@ -23,10 +23,6 @@
             "key": "password"
         },
         {
-            "key": "license",
-            "value": "#licence_key"
-        },
-        {
             "key": "periodic_cleanup_time"
         },
         {

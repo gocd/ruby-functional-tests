@@ -44,8 +44,7 @@ AZ_FILE_SHARE_NAME       = ENV['AZ_FILE_SHARE_NAME'] || 'gocdfs'
 AZ_FILE_SHARE_QUOTA      = ENV['AZ_FILE_SHARE_QUOTA'] || 100
 AZ_STORAGE_DEPLOYMENT_NAME = ENV['AZ_STORAGE_DEPLOYMENT_NAME'] || 'gocdstorageaccount'
 
-
-DOCKER_EA_PLUGIN_RELEASE_URL                = ENV['DOCKER_EA_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd-contrib/docker-elastic-agents/releases'
+DOCKER_EA_PLUGIN_RELEASE_URL                = ENV['DOCKER_EA_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd-contrib/docker-elastic-agents/releases/latest'
 K8S_EA_PLUGIN_RELEASE_URL                   = ENV['K8S_EA_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/kubernetes-elastic-agents/releases/latest'
 DOCKER_SWARM_EA_PLUGIN_RELEASE_URL          = ENV['DOCKER_SWARM_EA_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd-contrib/docker-swarm-elastic-agents/releases/latest'
 ELASTICAGENTS_PLUGIN_RELEASE_URL            = ENV['ELASTICAGENTS_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd-contrib/elastic-agent-skeleton-plugin/releases/latest'
@@ -143,6 +142,12 @@ zips.each do |package, file|
 end
 
 namespace :plugins do
+
+  def download_url_from_latest_release(releases_url)
+    blob = JSON.parse(URI.open(releases_url).read)
+    blob['assets'][0]['browser_download_url'].gsub(/:\/\/api.github.com\//, "://github-api-proxy.gocd.org/")
+  end
+
   desc 'copy the plugins in the go server'
   task :prepare do
     mkdir_p "target/go-server-#{VERSION_NUMBER}/plugins/external"
@@ -152,30 +157,19 @@ namespace :plugins do
       cp_r 'target/go-plugins-dist/.', "target/go-server-#{VERSION_NUMBER}/plugins/external"
     end
 
-    def download_url(blob)
-      blob['assets'][0]['browser_download_url'].gsub(/:\/\/api.github.com\//, "://github-api-proxy.gocd.org/")
-    end
-
-    url = download_url(JSON.parse(URI.open(ELASTICAGENTS_PLUGIN_RELEASE_URL).read))
-    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/elastic-agent-skeleton-plugin.jar #{url}"
-    url = download_url(JSON.parse(URI.open(DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL).read))
-    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-registry-artifact-plugin.jar #{url}"
-    url = download_url(JSON.parse(URI.open(DOCKER_SWARM_EA_PLUGIN_RELEASE_URL).read))
-    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-swarm-elastic-agents-plugin.jar #{url}"
-    url = download_url(JSON.parse(URI.open(DOCKER_EA_PLUGIN_RELEASE_URL).read)[0])
-    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-elastic-agents-plugin.jar #{url}"
-    url = download_url(JSON.parse(URI.open(K8S_EA_PLUGIN_RELEASE_URL).read))
-    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/k8s-elastic-agents.jar #{url}"
-    url = download_url(JSON.parse(URI.open(LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL).read))
-    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/ldap_authorization_plugin.jar #{url}"
-    url = download_url(JSON.parse(URI.open(MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL).read))
-    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/maven_repo_poller_plugin.jar #{url}"
-    url = download_url(JSON.parse(URI.open(ANALYTICS_PLUGIN_DOWNLOAD_URL).read))
-    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/analytics-plugin.jar #{url}"
+    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/elastic-agent-skeleton-plugin.jar #{download_url_from_latest_release(ELASTICAGENTS_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-registry-artifact-plugin.jar #{download_url_from_latest_release(DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-swarm-elastic-agents-plugin.jar #{download_url_from_latest_release(DOCKER_SWARM_EA_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-elastic-agents-plugin.jar #{download_url_from_latest_release(DOCKER_EA_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/k8s-elastic-agents.jar #{download_url_from_latest_release(K8S_EA_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/ldap_authorization_plugin.jar #{download_url_from_latest_release(LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL)}"
+    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/maven_repo_poller_plugin.jar #{download_url_from_latest_release(MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL)}"
   end
 
   desc 'task for preparing analytics plugin'
   task :prepare_analytics do
+    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/analytics-plugin.jar #{download_url_from_latest_release(ANALYTICS_PLUGIN_DOWNLOAD_URL)}"
+
     # preparing the database - drop and recreate analytics database
     ENV['ANALYTICS_DB_NAME_TO_USE'] = "#{ENV['ANALYTICS_DB_NAME'] || "analytics"}"
     ENV['POSTGRES_DB_HOST_TO_USE']  = "#{ENV['DB_HOST'] || "localhost"}"

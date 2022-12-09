@@ -120,7 +120,7 @@ GEM
     pry-coolline (0.2.6)
       coolline (~> 0.5)
       pry (~> 0.13)
-    public_suffix (5.0.0)
+    public_suffix (5.0.1)
     racc (1.6.1)
     rack (3.0.2)
     rack-test (2.0.2)

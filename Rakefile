@@ -46,6 +46,7 @@ AZ_STORAGE_DEPLOYMENT_NAME = ENV['AZ_STORAGE_DEPLOYMENT_NAME'] || 'gocdstorageac
 
 DOCKER_EA_PLUGIN_RELEASE_URL                = ENV['DOCKER_EA_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd-contrib/docker-elastic-agents/releases/latest'
 K8S_EA_PLUGIN_RELEASE_URL                   = ENV['K8S_EA_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/kubernetes-elastic-agents/releases/latest'
+YUM_REPO_POLLER_PLUGIN_RELEASE_URL          = ENV['YUM_REPO_POLLER_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/gocd-yum-repository-poller-plugin/releases/latest'
 DOCKER_SWARM_EA_PLUGIN_RELEASE_URL          = ENV['DOCKER_SWARM_EA_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd-contrib/docker-swarm-elastic-agents/releases/latest'
 ELASTICAGENTS_PLUGIN_RELEASE_URL            = ENV['ELASTICAGENTS_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd-contrib/elastic-agent-skeleton-plugin/releases/latest'
 DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL = ENV['DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/docker-registry-artifact-plugin/releases/latest'
@@ -164,6 +165,7 @@ namespace :plugins do
     sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/k8s-elastic-agents.jar #{download_url_from_latest_release(K8S_EA_PLUGIN_RELEASE_URL)}"
     sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/ldap_authorization_plugin.jar #{download_url_from_latest_release(LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL)}"
     sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/maven_repo_poller_plugin.jar #{download_url_from_latest_release(MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/yum_repo_poller_plugin.jar #{download_url_from_latest_release(YUM_REPO_POLLER_PLUGIN_RELEASE_URL)}"
   end
 
   desc 'task for preparing analytics plugin'

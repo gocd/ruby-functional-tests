@@ -158,7 +158,7 @@ GEM
       power_assert
     thread_safe (0.3.6)
     trailblazer-option (0.1.2)
-    tzinfo (2.0.5)
+    tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
     unf (0.1.4)

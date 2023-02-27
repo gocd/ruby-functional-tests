@@ -136,8 +136,18 @@ module Context
     end
 
     def run_server_on_docker
-      image = server_image_to_use
-      sh %(docker load < "target/docker-server/#{image.file}")
+      manifest = server_image_to_use
+
+      if manifest.format == 'oci' && manifest.platforms.length > 1
+        oci_folder = "target/docker-server/oci-#{manifest.image}:#{manifest.tag}"
+        sh %(regctl image import ocidir://#{oci_folder} "target/docker-server/#{manifest.file}")
+        sh %(regctl image export ocidir://#{oci_folder}@"$(regctl image digest --platform local ocidir://#{oci_folder})" "target/docker-server/native-#{manifest.file}")
+        sh %(docker load < "target/docker-server/native-#{manifest.file}")
+        sh %(docker tag localhost/#{manifest.image}:#{manifest.tag} #{manifest.image}:#{manifest.tag})
+        sh %(rm -rf #{oci_folder} target/docker-server/native-#{manifest.file})
+      else
+        sh %(docker load < "target/docker-server/#{manifest.file}")
+      end
 
       # The if-else block is added to accomodate the mount of .gitconfig. This is needed to avoid a bug with jgit where it does not by default support atomic link creation
 
@@ -147,13 +157,13 @@ module Context
           -v /root/.gitconfig:/home/go/.gitconfig \
           -v #{GoConstants::TEMP_DIR}:/materials \
           -e GOCD_SERVER_JVM_OPTS='#{GoConstants::GO_SERVER_SYSTEM_PROPERTIES.join(' ')}' \
-          #{image.image}:#{image.tag})
+          #{manifest.image}:#{manifest.tag})
       else
         sh %(docker run -d --name gauge_server -p #{GoConstants::SERVER_PORT}:#{GoConstants::SERVER_PORT} \
           -v #{File.expand_path(GoConstants::CONFIG_PATH.to_s)}:/test-config --mount type=bind,source=#{GoConstants::SERVER_DIR},target=/godata \
           -v #{GoConstants::TEMP_DIR}:/materials \
           -e GOCD_SERVER_JVM_OPTS='#{GoConstants::GO_SERVER_SYSTEM_PROPERTIES.join(' ')}' \
-          #{image.image}:#{image.tag})
+          #{manifest.image}:#{manifest.tag})
       end
       # This is done to save space on the EA container
       sh %(rm -rf target/docker-server)

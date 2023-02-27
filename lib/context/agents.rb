@@ -86,7 +86,18 @@ module Context
 
       image_index = ENV['GO_JOB_RUN_INDEX'] ? ENV['GO_JOB_RUN_INDEX'].to_i - 1 : 0
       manifest.image_info_at(image_index)
-      sh %(docker load < "target/docker-agent/#{manifest.file}")
+
+      if manifest.format == 'oci' && manifest.platforms.length > 1
+        oci_folder = "target/docker-agent/oci-#{manifest.image}:#{manifest.tag}"
+        sh %(regctl image import ocidir://#{oci_folder} "target/docker-agent/#{manifest.file}")
+        sh %(regctl image export ocidir://#{oci_folder}@"$(regctl image digest --platform local ocidir://#{oci_folder})" "target/docker-agent/native-#{manifest.file}")
+        sh %(docker load < "target/docker-agent/native-#{manifest.file}")
+        sh %(docker tag localhost/#{manifest.image}:#{manifest.tag} #{manifest.image}:#{manifest.tag})
+        sh %(rm -rf #{oci_folder} target/docker-agent/native-#{manifest.file})
+      else
+        sh %(docker load < "target/docker-agent/#{manifest.file}")
+      end
+
       sh %(docker rm -f agent_#{identifier} || true)
       sh %(docker run -d \
         --name agent_#{identifier} \
@@ -95,9 +106,9 @@ module Context
         -e GO_SERVER_URL='http://#{GoConstants::IPADDRESS}:#{GoConstants::SERVER_PORT}/go' \
         -e AGENT_AUTO_REGISTER_KEY='functional-tests' \
         #{manifest.image}:#{manifest.tag})
-        # This is done to save space on the EA container
-        # Will have to remove it if we want to start multiple agents for single spec
-        sh %(rm -rf target/docker-agent/#{manifest.file})
+      # This is done to save space on the EA container
+      # Will have to remove it if we want to start multiple agents for single spec
+      sh %(rm -rf target/docker-agent/#{manifest.file})
     end
 
     def create_agent(n)

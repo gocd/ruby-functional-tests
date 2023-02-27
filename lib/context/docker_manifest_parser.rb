@@ -18,6 +18,8 @@ module Context
     attr_reader :image
     attr_reader :tag
     attr_reader :file
+    attr_reader :format
+    attr_reader :platforms
 
     def initialize(fldr)
       @fldr = fldr
@@ -29,6 +31,8 @@ module Context
       @image = image_info.first['imageName']
       @tag = image_info.first['tag']
       @file = image_info.first['file']
+      @format = image_info.first['format']
+      @platforms = image_info.first['platforms'] || []
     end
 
     def has_image_count(target)
@@ -44,6 +48,8 @@ module Context
       @image = image_info['imageName']
       @tag = image_info['tag']
       @file = image_info['file']
+      @format = image_info['format']
+      @platforms = image_info['platforms'] || []
     end
 
     def load_manifest

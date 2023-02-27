@@ -139,11 +139,11 @@ module Context
       manifest = server_image_to_use
 
       if manifest.format == 'oci'
-        oci_folder = "target/docker-server/oci-#{manifest.image}:#{manifest.tag}"
+        oci_folder = "target/docker-server/oci-#{manifest.image.gsub('.', '-')}:#{manifest.tag}"
         sh %(regctl image import ocidir://#{oci_folder} "target/docker-server/#{manifest.file}")
         sh %(regctl image export ocidir://#{oci_folder}@"$(regctl image digest --platform local ocidir://#{oci_folder})" "target/docker-server/native-#{manifest.file}")
         sh %(docker load < "target/docker-server/native-#{manifest.file}")
-        sh %(docker tag localhost/#{oci_folder.gsub('.', '-')} #{manifest.image}:#{manifest.tag})
+        sh %(docker tag localhost/#{oci_folder} #{manifest.image}:#{manifest.tag})
         sh %(rm -rf #{oci_folder} target/docker-server/native-#{manifest.file})
       else
         sh %(docker load < "target/docker-server/#{manifest.file}")

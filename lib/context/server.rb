@@ -138,7 +138,7 @@ module Context
     def run_server_on_docker
       manifest = server_image_to_use
 
-      if manifest.format == 'oci' && manifest.platforms.length > 1
+      if manifest.format == 'oci'
         oci_folder = "target/docker-server/oci-#{manifest.image}:#{manifest.tag}"
         sh %(regctl image import ocidir://#{oci_folder} "target/docker-server/#{manifest.file}")
         sh %(regctl image export ocidir://#{oci_folder}@"$(regctl image digest --platform local ocidir://#{oci_folder})" "target/docker-server/native-#{manifest.file}")

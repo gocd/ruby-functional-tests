@@ -87,7 +87,7 @@ module Context
       image_index = ENV['GO_JOB_RUN_INDEX'] ? ENV['GO_JOB_RUN_INDEX'].to_i - 1 : 0
       manifest.image_info_at(image_index)
 
-      if manifest.format == 'oci' && manifest.platforms.length > 1
+      if manifest.format == 'oci'
         oci_folder = "target/docker-agent/oci-#{manifest.image}:#{manifest.tag}"
         sh %(regctl image import ocidir://#{oci_folder} "target/docker-agent/#{manifest.file}")
         sh %(regctl image export ocidir://#{oci_folder}@"$(regctl image digest --platform local ocidir://#{oci_folder})" "target/docker-agent/native-#{manifest.file}")

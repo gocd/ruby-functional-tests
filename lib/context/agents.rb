@@ -88,11 +88,11 @@ module Context
       manifest.image_info_at(image_index)
 
       if manifest.format == 'oci'
-        oci_folder = "target/docker-agent/oci-#{manifest.image.gsub('.', '-')}:#{manifest.tag}"
-        sh %(regctl image import ocidir://#{oci_folder} "target/docker-agent/#{manifest.file}")
-        sh %(regctl image export ocidir://#{oci_folder}@"$(regctl image digest --platform local ocidir://#{oci_folder})" "target/docker-agent/native-#{manifest.file}")
+        oci_folder = "target/docker-agent/oci-#{manifest.image.gsub('.', '-')}"
+        sh %(regctl image import ocidir://#{oci_folder}:#{manifest.tag} "target/docker-agent/#{manifest.file}")
+        sh %(regctl image export ocidir://#{oci_folder}:#{manifest.tag}@"$(regctl image digest --platform local ocidir://#{oci_folder}:#{manifest.tag})" "target/docker-agent/native-#{manifest.file}")
         sh %(docker load < "target/docker-agent/native-#{manifest.file}")
-        sh %(docker tag localhost/#{oci_folder} #{manifest.image}:#{manifest.tag})
+        sh %(docker tag localhost/#{oci_folder}:#{manifest.tag} #{manifest.image}:#{manifest.tag})
         sh %(rm -rf #{oci_folder} target/docker-agent/native-#{manifest.file})
       else
         sh %(docker load < "target/docker-agent/#{manifest.file}")

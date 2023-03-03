@@ -37,7 +37,7 @@ module Context
       @platforms = platforms_safe(image_info.first)
     end
 
-    def has_image_count(target)
+    def has_image_count?(target)
       target === image_count
     end
 
@@ -55,7 +55,7 @@ module Context
     end
 
     def images_for_current_platform
-      load_manifest.select { |image| platforms_safe(image).include?(docker_platform_for_current) }
+      load_manifest.select { |image| platforms_safe(image).include?(docker_platform_for_local_arch) }
     end
 
     private
@@ -64,8 +64,12 @@ module Context
       image_info['platforms'] || DEFAULT_PLATFORMS
     end
 
-    def docker_platform_for_current
-      "linux/#{RUBY_PLATFORM.split('-').first == 'arm64' ? 'arm64' : 'amd64'}"
+    def docker_platform_for_local_arch
+      "linux/#{local_arch_is_arm ? 'arm64' : 'amd64'}"
+    end
+
+    def local_arch_is_arm
+      %w[arm64 aarch64].include? RUBY_PLATFORM.split('-').first
     end
     
     def load_manifest

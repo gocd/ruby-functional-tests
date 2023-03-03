@@ -15,6 +15,8 @@
 ##########################################################################
 module Context
   class DockerManifestParser
+    DEFAULT_PLATFORMS = ['linux/amd64']
+
     attr_reader :image
     attr_reader :tag
     attr_reader :file
@@ -32,7 +34,7 @@ module Context
       @tag = image_info.first['tag']
       @file = image_info.first['file']
       @format = image_info.first['format']
-      @platforms = image_info.first['platforms'] || []
+      @platforms = image_info.first['platforms'] || DEFAULT_PLATFORMS
     end
 
     def has_image_count(target)
@@ -40,18 +42,27 @@ module Context
     end
 
     def image_count
-      load_manifest.length
+      images_for_current_platform.length
     end
 
     def image_info_at(position)
-      image_info = load_manifest[position]
+      image_info = images_for_current_platform[position]
       @image = image_info['imageName']
       @tag = image_info['tag']
       @file = image_info['file']
       @format = image_info['format']
-      @platforms = image_info['platforms'] || []
+      @platforms = image_info['platforms'] || DEFAULT_PLATFORMS
     end
 
+    def images_for_current_platform
+      load_manifest.select { |image| image['platforms'].include?(docker_platform_for_current) }
+    end
+
+    private
+    def docker_platform_for_current
+      "linux/#{RUBY_PLATFORM.split('-').first == 'arm64' ? 'arm64' : 'amd64'}"
+    end
+    
     def load_manifest
       raise "Docker image manifest file not available at #{@fldr}" unless File.exist?("#{@fldr}/manifest.json")
       JSON.parse(File.read("#{@fldr}/manifest.json"))

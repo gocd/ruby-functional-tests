@@ -34,7 +34,7 @@ module Context
       @tag = image_info.first['tag']
       @file = image_info.first['file']
       @format = image_info.first['format']
-      @platforms = image_info.first['platforms'] || DEFAULT_PLATFORMS
+      @platforms = platforms_safe(image_info.first)
     end
 
     def has_image_count(target)
@@ -51,14 +51,19 @@ module Context
       @tag = image_info['tag']
       @file = image_info['file']
       @format = image_info['format']
-      @platforms = image_info['platforms'] || DEFAULT_PLATFORMS
+      @platforms = platforms_safe(image_info)
     end
 
     def images_for_current_platform
-      load_manifest.select { |image| image['platforms'].include?(docker_platform_for_current) }
+      load_manifest.select { |image| platforms_safe(image).include?(docker_platform_for_current) }
     end
 
     private
+
+    def platforms_safe(image_info)
+      image_info['platforms'] || DEFAULT_PLATFORMS
+    end
+
     def docker_platform_for_current
       "linux/#{RUBY_PLATFORM.split('-').first == 'arm64' ? 'arm64' : 'amd64'}"
     end

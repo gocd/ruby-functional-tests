@@ -93,6 +93,7 @@ module Context
         sh %(regctl image export ocidir://#{oci_folder}:#{manifest.tag}@"$(regctl image digest --platform local ocidir://#{oci_folder}:#{manifest.tag})" "target/docker-agent/native-#{manifest.file}")
         sh %(docker load < "target/docker-agent/native-#{manifest.file}")
         sh %(docker tag localhost/#{oci_folder}:#{manifest.tag} #{manifest.image}:#{manifest.tag})
+        sh %(docker rmi localhost/#{oci_folder}:#{manifest.tag}) # Remove unused tag here
         sh %(rm -rf #{oci_folder} target/docker-agent/native-#{manifest.file})
       else
         sh %(docker load < "target/docker-agent/#{manifest.file}")
@@ -108,7 +109,7 @@ module Context
         #{manifest.image}:#{manifest.tag})
       # This is done to save space on the EA container
       # Will have to remove it if we want to start multiple agents for single spec
-      sh %(rm -rf target/docker-agent/#{manifest.file})
+      sh %(rm -rf target/docker-agent)
     end
 
     def create_agent(n)

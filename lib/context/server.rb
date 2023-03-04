@@ -144,6 +144,7 @@ module Context
         sh %(regctl image export ocidir://#{oci_folder}:#{manifest.tag}@"$(regctl image digest --platform local ocidir://#{oci_folder}:#{manifest.tag})" "target/docker-server/native-#{manifest.file}")
         sh %(docker load < "target/docker-server/native-#{manifest.file}")
         sh %(docker tag localhost/#{oci_folder}:#{manifest.tag} #{manifest.image}:#{manifest.tag})
+        sh %(docker rmi localhost/#{oci_folder}:#{manifest.tag}) # Remove unused tag here
         sh %(rm -rf #{oci_folder} target/docker-server/native-#{manifest.file})
       else
         sh %(docker load < "target/docker-server/#{manifest.file}")

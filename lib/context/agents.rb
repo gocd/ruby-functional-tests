@@ -87,17 +87,16 @@ module Context
       image_index = (ENV['GO_JOB_RUN_INDEX']&.to_i || 1) - 1
       manifest.image_info_at(image_index)
 
-      if manifest.format == 'oci'
-        oci_folder = "target/docker-agent/oci-#{manifest.image.gsub('.', '-')}"
-        sh %(regctl image import ocidir://#{oci_folder}:#{manifest.tag} "target/docker-agent/#{manifest.file}")
-        sh %(regctl image export ocidir://#{oci_folder}:#{manifest.tag}@"$(regctl image digest --platform local ocidir://#{oci_folder}:#{manifest.tag})" "target/docker-agent/native-#{manifest.file}")
-        sh %(docker load < "target/docker-agent/native-#{manifest.file}")
-        sh %(docker tag localhost/#{oci_folder}:#{manifest.tag} #{manifest.image}:#{manifest.tag})
-        sh %(docker rmi localhost/#{oci_folder}:#{manifest.tag}) # Remove unused tag here
-        sh %(rm -rf #{oci_folder} target/docker-agent/native-#{manifest.file})
-      else
-        sh %(docker load < "target/docker-agent/#{manifest.file}")
-      end
+      oci_folder = "target/docker-agent/oci-#{manifest.image.gsub('.', '-')}"
+      sh %(regctl image import ocidir://#{oci_folder}:#{manifest.tag} "target/docker-agent/#{manifest.file}")
+      sh %(rm -rf target/docker-agent/*.tar)
+      sh %(regctl image export ocidir://#{oci_folder}:#{manifest.tag}@"$(regctl image digest --platform local ocidir://#{oci_folder}:#{manifest.tag})" "target/docker-agent/native-#{manifest.file}")
+      sh %(rm -rf #{oci_folder})
+      sh %(docker load < "target/docker-agent/native-#{manifest.file}")
+      sh %(rm -rf target/docker-agent)
+
+      sh %(docker tag localhost/#{oci_folder}:#{manifest.tag} #{manifest.image}:#{manifest.tag})
+      sh %(docker rmi localhost/#{oci_folder}:#{manifest.tag}) # Remove unused tag here
 
       sh %(docker rm -f agent_#{identifier} || true)
       sh %(docker run -d \
@@ -107,9 +106,6 @@ module Context
         -e GO_SERVER_URL='http://#{GoConstants::IPADDRESS}:#{GoConstants::SERVER_PORT}/go' \
         -e AGENT_AUTO_REGISTER_KEY='functional-tests' \
         #{manifest.image}:#{manifest.tag})
-      # This is done to save space on the EA container
-      # Will have to remove it if we want to start multiple agents for single spec
-      sh %(rm -rf target/docker-agent)
     end
 
     def create_agent(n)

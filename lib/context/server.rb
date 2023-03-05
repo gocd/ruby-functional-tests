@@ -137,20 +137,19 @@ module Context
 
     def run_server_on_docker
       manifest = server_image_to_use
+      oci_folder = "target/docker-server/oci-#{manifest.image.gsub('.', '-')}"
 
-      if manifest.format == 'oci'
-        oci_folder = "target/docker-server/oci-#{manifest.image.gsub('.', '-')}"
-        sh %(regctl image import ocidir://#{oci_folder}:#{manifest.tag} "target/docker-server/#{manifest.file}")
-        sh %(regctl image export ocidir://#{oci_folder}:#{manifest.tag}@"$(regctl image digest --platform local ocidir://#{oci_folder}:#{manifest.tag})" "target/docker-server/native-#{manifest.file}")
-        sh %(docker load < "target/docker-server/native-#{manifest.file}")
-        sh %(docker tag localhost/#{oci_folder}:#{manifest.tag} #{manifest.image}:#{manifest.tag})
-        sh %(docker rmi localhost/#{oci_folder}:#{manifest.tag}) # Remove unused tag here
-        sh %(rm -rf #{oci_folder} target/docker-server/native-#{manifest.file})
-      else
-        sh %(docker load < "target/docker-server/#{manifest.file}")
-      end
+      sh %(regctl image import ocidir://#{oci_folder}:#{manifest.tag} "target/docker-server/#{manifest.file}")
+      sh %(rm -rf target/docker-server/*.tar)
+      sh %(regctl image export ocidir://#{oci_folder}:#{manifest.tag}@"$(regctl image digest --platform local ocidir://#{oci_folder}:#{manifest.tag})" "target/docker-server/native-#{manifest.file}")
+      sh %(rm -rf #{oci_folder})
+      sh %(docker load < "target/docker-server/native-#{manifest.file}")
+      sh %(rm -rf target/docker-server)
 
-      # The if-else block is added to accomodate the mount of .gitconfig. This is needed to avoid a bug with jgit where it does not by default support atomic link creation
+      sh %(docker tag localhost/#{oci_folder}:#{manifest.tag} #{manifest.image}:#{manifest.tag})
+      sh %(docker rmi localhost/#{oci_folder}:#{manifest.tag}) # Remove unused tag here
+
+      # The if-else block is added to accommodate the mount of .gitconfig. This is needed to avoid a bug with jgit where it does not by default support atomic link creation
 
       if ENV['USE_AFS']
         sh %(docker run -d --name gauge_server -p #{GoConstants::SERVER_PORT}:#{GoConstants::SERVER_PORT} \
@@ -166,8 +165,6 @@ module Context
           -e GOCD_SERVER_JVM_OPTS='#{GoConstants::GO_SERVER_SYSTEM_PROPERTIES.join(' ')}' \
           #{manifest.image}:#{manifest.tag})
       end
-      # This is done to save space on the EA container
-      sh %(rm -rf target/docker-server)
     end
 
     def server_image_to_use

@@ -69,7 +69,7 @@ module Context
     end
 
     def local_arch_is_arm
-      %w[arm64 aarch64].include? RUBY_PLATFORM.split('-').first
+      RUBY_PLATFORM =~ /aarch64|arm64/
     end
     
     def load_manifest

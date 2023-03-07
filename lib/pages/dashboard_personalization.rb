@@ -137,8 +137,7 @@ module Pages
 
     def show_new_pipelines_checkbox
       personalization_editor.find(".show-pipelines")
-        .find("span", text: "New")
-        .sibling("input")
+        .find("input[name='include-new-pipelines']")
     end
 
     def pipeline_checkbox_for(pipeline_name)

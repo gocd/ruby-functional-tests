@@ -108,10 +108,6 @@ module Context
         -e AGENT_AUTO_REGISTER_KEY='functional-tests' \
         #{manifest.image =~ /dind/ ? '--privileged' : ''} \
         #{manifest.image}:#{manifest.tag})
-
-      sh %(docker network inspect bridge)
-      sh %(docker inspect agent_#{identifier})
-      sh %(docker inspect gauge_server)
     end
 
     def create_agent(n)

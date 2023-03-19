@@ -19,7 +19,6 @@ require 'childprocess'
 require 'fileutils'
 require 'sys-proctable'
 require 'os'
-require 'pry'
 require 'json'
 require 'open-uri'
 include Sys

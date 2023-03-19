@@ -17,7 +17,6 @@
 require 'rubygems'
 require 'bundler'
 require 'owasp_zap'
-require 'pry'
 require 'test/unit'
 require 'ostruct'
 require 'singleton'

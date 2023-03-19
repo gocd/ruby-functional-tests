@@ -32,8 +32,6 @@ step 'With <count> live agents - setup' do |count|
   agents_spa_page.wait_till_agents_are_idle count
 end
 
-
-
 step 'Create a <file> file' do |file|
   go_agents.create_stopjob(file)
 end
@@ -74,7 +72,7 @@ step 'Set Fan In turned off' do ||
  ENV['FANINOFF']="true"
 end
 
-step  'Set Fan In turned off - teardown' do ||
+step 'Set Fan In turned off - teardown' do ||
   ENV['FANINOFF']="false"
   go_server.restart
   go_server.wait_to_start

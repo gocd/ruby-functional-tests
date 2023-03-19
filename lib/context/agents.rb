@@ -104,7 +104,7 @@ module Context
         --name agent_#{identifier} \
         -v #{GoConstants::TEMP_DIR}:/materials \
         -e GO_AGENT_SYSTEM_PROPERTIES='#{GoConstants::GO_AGENT_SYSTEM_PROPERTIES.join(" ")}' \
-        -e GO_SERVER_URL=http://$(#{find_server_docker_ip}:#{GoConstants::SERVER_PORT}/go" \
+        -e GO_SERVER_URL=http://$(#{find_server_docker_ip}):#{GoConstants::SERVER_PORT}/go \
         -e AGENT_AUTO_REGISTER_KEY='functional-tests' \
         #{manifest.image =~ /dind/ ? '--privileged' : ''} \
         #{manifest.image}:#{manifest.tag})

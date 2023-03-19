@@ -99,11 +99,12 @@ module Context
       sh %(docker rmi localhost/#{oci_folder}:#{manifest.tag}) # Remove unused tag here
 
       sh %(docker rm -f agent_#{identifier} || true)
+      find_server_docker_ip = "docker inspect gauge_server --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
       sh %(docker run -d \
         --name agent_#{identifier} \
         -v #{GoConstants::TEMP_DIR}:/materials \
         -e GO_AGENT_SYSTEM_PROPERTIES='#{GoConstants::GO_AGENT_SYSTEM_PROPERTIES.join(" ")}' \
-        -e GO_SERVER_URL='http://#{GoConstants::IPADDRESS}:#{GoConstants::SERVER_PORT}/go' \
+        -e GO_SERVER_URL=http://$(#{find_server_docker_ip}:#{GoConstants::SERVER_PORT}/go" \
         -e AGENT_AUTO_REGISTER_KEY='functional-tests' \
         #{manifest.image =~ /dind/ ? '--privileged' : ''} \
         #{manifest.image}:#{manifest.tag})

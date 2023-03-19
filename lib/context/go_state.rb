@@ -19,7 +19,6 @@ module Context
     include FileUtils
 
     def capture_logs(path)
-      # cp_r "#{GoConstants::SERVER_DIR}/logs/go-server.out.log" , path
       cp_r "#{GoConstants::SERVER_DIR}/logs/go-server.log", path
       if GoConstants::USE_EFS
         mkdir_p 'target/go_state/backup_from_efs'
@@ -30,6 +29,11 @@ module Context
     end
 
     def capture_agents(path)
+      if GoConstants::RUN_ON_DOCKER
+        find_agents = 'docker ps -q --filter name=agent'
+        sh %(docker logs $(#{find_agents}) > #{path}/docker-$(#{find_agents} --format '{{.Names}}').log 2>&1)
+      end
+
       return unless Dir.exist?(GoConstants::GAUGE_AGENT_DIR.to_s)
       Dir.foreach("#{GoConstants::GAUGE_AGENT_DIR}") do |item|
         next if %w(. ..).include? item

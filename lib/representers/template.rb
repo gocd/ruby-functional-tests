@@ -35,7 +35,7 @@ module Representers
         property :run_instance_count, default: "null"
         property :elastic_profile_id, default: "null"
         property :timeout, default: 0
-        collection :environment_varaible, default: []
+        collection :environment_variables, default: []
         collection :resources, default: []
         collection :tasks, class: Task do
           property :type, default: "exec"

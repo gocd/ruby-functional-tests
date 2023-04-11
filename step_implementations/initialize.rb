@@ -74,7 +74,7 @@ Capybara.register_driver :selenium do |app|
             options = ::Selenium::WebDriver::Firefox::Options.new
             options.profile = profile
             options.args << "--headless" if RbConfig::CONFIG['host_os'] =~ /linux/
-            {browser: browser, capabilities: options}
+            {browser: browser, options: options}
           else
             {browser: browser}
         end

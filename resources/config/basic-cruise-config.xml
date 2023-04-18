@@ -322,7 +322,7 @@
             <materials>
                 <git url="material-for-pipeline-with-lock-all-manual" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
-            <stage name="firstStage">
+            <stage name="firstStage" cleanWorkingDir="true">
                 <approval type="manual"/>
                 <jobs>
                     <job name="basic-pipeline-run-till-file-exists-job">
@@ -332,7 +332,7 @@
                     </job>
                 </jobs>
             </stage>
-            <stage name="secondStage">
+            <stage name="secondStage" cleanWorkingDir="true">
                 <approval type="manual"/>
                 <jobs>
                      <job name="basic-pipeline-run-till-file-exists-job">
@@ -431,7 +431,7 @@
             <materials>
                 <git url="material-for-basic-pipeline-run-till-file-exists" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
-            <stage name="defaultStage">
+            <stage name="defaultStage" cleanWorkingDir="true">
                 <approval type="manual"/>
                 <jobs>
                     <job name="defaultJob">
@@ -462,7 +462,7 @@
                 <pipeline pipelineName="basic-pipeline-run-till-file-exists" stageName="defaultStage" materialName="basic-pipeline-run-till-file-exists-downstream"/>
                 <git url="material-for-downstream" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
-            <stage name="defaultStage">
+            <stage name="defaultStage" cleanWorkingDir="true">
                 <approval type="manual"/>
                 <jobs>
                     <job name="defaultJob">
@@ -548,7 +548,7 @@
             <materials>
                 <git url="material-for-pipeline-unlock-onComplete" dest="tasks" materialName="git" autoUpdate="false"/>
             </materials>
-            <stage name="firstStage">
+            <stage name="firstStage" cleanWorkingDir="true">
                 <jobs>
                     <job name="long">
                         <tasks>
@@ -557,7 +557,7 @@
                     </job>
                 </jobs>
             </stage>
-            <stage name="secondStage">
+            <stage name="secondStage" cleanWorkingDir="true">
                 <approval type="manual"/>
                 <jobs>
                     <job name="long-fail">
@@ -679,7 +679,7 @@
             <materials>
                 <git url="material-for-pipeline-with-3-jobs" dest="git" materialName="git" autoUpdate="false"/>
             </materials>
-            <stage name="defaultStage">
+            <stage name="defaultStage" cleanWorkingDir="true">
                 <approval type="manual"/>
                 <jobs>
                     <job name="first">
@@ -1090,7 +1090,7 @@
           </filter>
         </git>
       </materials>
-      <stage name="first_stage">
+      <stage name="first_stage" cleanWorkingDir="true">
         <approval type="manual"/>
         <jobs>
           <job name="defaultJob">
@@ -1100,7 +1100,7 @@
           </job>
         </jobs>
       </stage>
-      <stage name="second_stage">
+      <stage name="second_stage" cleanWorkingDir="true">
         <approval type="manual"/>
         <jobs>
           <job name="defaultJob">

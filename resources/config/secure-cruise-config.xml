@@ -401,7 +401,7 @@
       <materials>
         <git url="material-for-admin-pipeline" dest="git" materialName="git" autoUpdate="false"/>
       </materials>
-      <stage name="defaultStage">
+      <stage name="defaultStage" cleanWorkingDir="true">
         <approval type="manual"/>
         <jobs>
           <job name="defaultJob">
@@ -411,7 +411,7 @@
           </job>
         </jobs>
       </stage>
-      <stage name="secondStage">
+      <stage name="secondStage" cleanWorkingDir="true">
         <approval type="manual"/>
         <jobs>
           <job name="defaultJob">
@@ -438,7 +438,7 @@
       <materials>
         <git url="material-for-failing-pipeline" dest="git" materialName="gitMaterial" autoUpdate="false"/>
       </materials>
-      <stage name="defaultStage">
+      <stage name="defaultStage" cleanWorkingDir="true">
         <approval type="manual"/>
         <jobs>
           <job name="defaultJob">
@@ -493,7 +493,7 @@
       <materials>
         <git url="material-for-pipeline-with-stage-security" dest="git" autoUpdate="false"/>
       </materials>
-      <stage name="first">
+      <stage name="first" cleanWorkingDir="true">
         <approval type="success">
           <authorization>
             <user>operate</user>
@@ -561,7 +561,7 @@
       <materials>
         <git url="material-for-manual-stages-that-run-till-file-exists" dest="git" materialName="gitMaterial" autoUpdate="false"/>
       </materials>
-      <stage name="firstStage">
+      <stage name="firstStage" cleanWorkingDir="true">
         <approval type="manual"/>
         <jobs>
           <job name="defaultJob">
@@ -571,7 +571,7 @@
           </job>
         </jobs>
       </stage>
-      <stage name="secondStage">
+      <stage name="secondStage" cleanWorkingDir="true">
         <approval type="manual"/>
         <jobs>
           <job name="defaultJob">
@@ -587,7 +587,7 @@
       <materials>
         <git url="material-for-manual-stages-with-previous-stage-successful" dest="git" materialName="gitMaterial" autoUpdate="false"/>
       </materials>
-      <stage name="firstStage">
+      <stage name="firstStage" cleanWorkingDir="true">
         <approval type="manual"/>
         <jobs>
           <job name="defaultJob">
@@ -597,7 +597,7 @@
           </job>
         </jobs>
       </stage>
-      <stage name="secondStage">
+      <stage name="secondStage" cleanWorkingDir="true">
         <approval type="manual" allowOnlyOnSuccess="true"/>
         <jobs>
           <job name="defaultJob">
@@ -808,7 +808,7 @@
       <materials>
         <git url="material-for-analytics" dest="git" materialName="git" autoUpdate="false"/>
       </materials>
-      <stage name="defaultStage">
+      <stage name="defaultStage" cleanWorkingDir="true">
         <approval type="manual"/>
         <jobs>
           <job name="defaultJob">
@@ -848,7 +848,7 @@
       <materials>
         <git url="material-for-pipeline-with-3-stages" dest="git" autoUpdate="false" />
       </materials>
-      <stage name="first">
+      <stage name="first" cleanWorkingDir="true">
         <approval type="manual" />
         <jobs>
           <job name="defaultJob">
@@ -858,7 +858,7 @@
           </job>
         </jobs>
       </stage>
-      <stage name="second">
+      <stage name="second" cleanWorkingDir="true">
         <approval type="manual" />
         <jobs>
           <job name="defaultJob">
@@ -868,7 +868,7 @@
           </job>
         </jobs>
       </stage>
-      <stage name="third">
+      <stage name="third" cleanWorkingDir="true">
         <approval type="manual" />
         <jobs>
           <job name="defaultJob">
@@ -915,7 +915,7 @@
       <materials>
         <git url="material-for-pipeline-2-manual-stages-that-run-till-file-exists" dest="git" autoUpdate="false" materialName="gitMaterial"/>
       </materials>
-      <stage name="defaultStage">
+      <stage name="defaultStage" cleanWorkingDir="true">
         <approval type="manual"/>
         <jobs>
           <job name="defaultJob">
@@ -925,7 +925,7 @@
           </job>
         </jobs>
       </stage>
-      <stage name="secondStage">
+      <stage name="secondStage" cleanWorkingDir="true">
         <approval type="manual"/>
         <jobs>
           <job name="defaultJob">
@@ -1222,7 +1222,7 @@
       <materials>
         <git url="material-for-pipeline-run-till-file-exits" dest="git" materialName="git" autoUpdate="false"/>
       </materials>
-      <stage name="defaultStage">
+      <stage name="defaultStage" cleanWorkingDir="true">
         <approval type="manual"/>
         <jobs>
           <job name="defaultJob">
@@ -1238,7 +1238,7 @@
       <materials>
         <git url="material-for-wait-for-stop-job" dest="git" materialName="git" autoUpdate="false"/>
       </materials>
-      <stage name="defaultStage">
+      <stage name="defaultStage" cleanWorkingDir="true">
         <approval type="manual"/>
         <jobs>
           <job name="defaultJob">

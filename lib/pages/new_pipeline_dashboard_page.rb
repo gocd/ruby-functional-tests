@@ -264,6 +264,12 @@ module Pages
       pipeline_group_title.select { |grp| grp.text == group }.any?
     end
 
+    def group_not_visible?(group)
+      wait_till_event_occurs_or_bomb 2, "Group #{group} is not visible" do
+        break unless pipeline_group_title.select { |grp| grp.text == group }.any?
+      end
+    end
+
     def pipeline_in_group?(group)
       wait_till_event_occurs_or_bomb 10, "Pipeline not in group #{group}" do
         selected_pipeline_group = pipeline_group.select { |grp| grp.find('.dashboard-group_name').text == group }.first

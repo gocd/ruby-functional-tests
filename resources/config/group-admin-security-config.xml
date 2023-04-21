@@ -218,7 +218,7 @@
 		<materials>
 			<git url="material-for-pipeline1" dest="git" autoUpdate="false"/>
         </materials>
-         <stage name="first" cleanWorkingDir="true">
+         <stage name="first">
 		    <approval type="manual">
 		      	 <authorization>
 				     <user>operate</user>

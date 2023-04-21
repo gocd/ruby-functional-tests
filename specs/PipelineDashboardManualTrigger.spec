@@ -27,6 +27,7 @@ tags: UI, refresh
 
 * Create a "stopjob" file
 * Verify stage "firstStage" is "Passed" - On Swift Dashboard page
+* Delete stopjob file
 * Verify stage "firstStage" does not have a manual gate - On Swift Dashboard page
 * Verify stage "secondStage" has a manual gate - On Swift Dashboard page
 

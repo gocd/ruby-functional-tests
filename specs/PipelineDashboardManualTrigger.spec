@@ -36,6 +36,9 @@ tags: UI, refresh
 * Manually trigger stage "secondStage" - On Swift Dashboard page
 
 * Verify stage "secondStage" has a manual gate in "disabled" state with message "Approved by 'admin'" - On Swift Dashboard page
+* Create a "stopjob" file
+* Verify stage "secondStage" is "Passed" - On Swift Dashboard page
+* Delete stopjob file
 
 * Trigger pipeline - On Swift Dashboard page
 * Verify stage "firstStage" is "Building" - On Swift Dashboard page

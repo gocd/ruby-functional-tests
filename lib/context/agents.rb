@@ -90,13 +90,10 @@ module Context
       oci_folder = "target/docker-agent/oci-#{manifest.image.gsub('.', '-')}"
       sh %(regctl image import ocidir://#{oci_folder}:#{manifest.tag} "target/docker-agent/#{manifest.file}")
       sh %(rm -rf target/docker-agent/*.tar)
-      sh %(regctl image export ocidir://#{oci_folder}:#{manifest.tag}@"$(regctl image digest --platform local ocidir://#{oci_folder}:#{manifest.tag})" "target/docker-agent/native-#{manifest.file}")
+      sh %(regctl image export --name #{manifest.image}:#{manifest.tag} ocidir://#{oci_folder}:#{manifest.tag}@"$(regctl image digest --platform local ocidir://#{oci_folder}:#{manifest.tag})" "target/docker-agent/native-#{manifest.file}")
       sh %(rm -rf #{oci_folder})
       sh %(docker load < "target/docker-agent/native-#{manifest.file}")
       sh %(rm -rf target/docker-agent)
-
-      sh %(docker tag localhost/#{oci_folder}:#{manifest.tag} #{manifest.image}:#{manifest.tag})
-      sh %(docker rmi localhost/#{oci_folder}:#{manifest.tag}) # Remove unused tag here
 
       sh %(docker rm -f agent_#{identifier} || true)
       find_server_docker_ip = "docker inspect gauge_server --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"

@@ -141,13 +141,10 @@ module Context
 
       sh %(regctl image import ocidir://#{oci_folder}:#{manifest.tag} "target/docker-server/#{manifest.file}")
       sh %(rm -rf target/docker-server/*.tar)
-      sh %(regctl image export ocidir://#{oci_folder}:#{manifest.tag}@"$(regctl image digest --platform local ocidir://#{oci_folder}:#{manifest.tag})" "target/docker-server/native-#{manifest.file}")
+      sh %(regctl image export --name #{manifest.image}:#{manifest.tag} ocidir://#{oci_folder}:#{manifest.tag}@"$(regctl image digest --platform local ocidir://#{oci_folder}:#{manifest.tag})" "target/docker-server/native-#{manifest.file}")
       sh %(rm -rf #{oci_folder})
       sh %(docker load < "target/docker-server/native-#{manifest.file}")
       sh %(rm -rf target/docker-server)
-
-      sh %(docker tag localhost/#{oci_folder}:#{manifest.tag} #{manifest.image}:#{manifest.tag})
-      sh %(docker rmi localhost/#{oci_folder}:#{manifest.tag}) # Remove unused tag here
 
       # The if-else block is added to accommodate the mount of .gitconfig. This is needed to avoid a bug with jgit where it does not by default support atomic link creation
 

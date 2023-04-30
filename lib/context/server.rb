@@ -141,7 +141,7 @@ module Context
 
       sh %(regctl image import ocidir://#{oci_folder}:#{manifest.tag} "target/docker-server/#{manifest.file}")
       sh %(rm -rf target/docker-server/*.tar)
-      sh %(regctl image export --name #{manifest.image}:#{manifest.tag} ocidir://#{oci_folder}:#{manifest.tag}@"$(regctl image digest --platform local ocidir://#{oci_folder}:#{manifest.tag})" "target/docker-server/native-#{manifest.file}")
+      sh %(regctl image export --name #{manifest.image}:#{manifest.tag} --platform local ocidir://#{oci_folder}:#{manifest.tag} "target/docker-server/native-#{manifest.file}")
       sh %(rm -rf #{oci_folder})
       sh %(docker load < "target/docker-server/native-#{manifest.file}")
       sh %(rm -rf target/docker-server)

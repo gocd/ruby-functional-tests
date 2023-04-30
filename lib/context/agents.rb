@@ -90,7 +90,7 @@ module Context
       oci_folder = "target/docker-agent/oci-#{manifest.image.gsub('.', '-')}"
       sh %(regctl image import ocidir://#{oci_folder}:#{manifest.tag} "target/docker-agent/#{manifest.file}")
       sh %(rm -rf target/docker-agent/*.tar)
-      sh %(regctl image export --name #{manifest.image}:#{manifest.tag} ocidir://#{oci_folder}:#{manifest.tag}@"$(regctl image digest --platform local ocidir://#{oci_folder}:#{manifest.tag})" "target/docker-agent/native-#{manifest.file}")
+      sh %(regctl image export --name #{manifest.image}:#{manifest.tag} --platform local ocidir://#{oci_folder}:#{manifest.tag} "target/docker-agent/native-#{manifest.file}")
       sh %(rm -rf #{oci_folder})
       sh %(docker load < "target/docker-agent/native-#{manifest.file}")
       sh %(rm -rf target/docker-agent)

@@ -140,7 +140,7 @@ GEM
       rake (>= 0.8.1)
     ruby-protocol-buffers (1.6.1)
     rubyzip (2.3.2)
-    selenium-webdriver (4.9.1)
+    selenium-webdriver (4.9.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)

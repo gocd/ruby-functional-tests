@@ -144,7 +144,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    site_prism (4.0)
+    site_prism (4.0.1)
       addressable (~> 2.8)
       capybara (~> 3.27)
       site_prism-all_there (~> 2.0)

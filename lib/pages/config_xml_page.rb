@@ -16,7 +16,7 @@
 
 module Pages
   class ConfigXMLPage < AppBase
-    element :edit_link, '.edit.link_as_button'
+    element :edit_link, 'a.link_as_button#edit_config'
     element :content_container_for_edit, '#content_container_for_edit'
     element :content_container, '#content_container'
     element :save, '#save_config'

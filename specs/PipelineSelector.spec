@@ -121,10 +121,8 @@ Enable security
 * Verify pipeline "pavan-test-basic" shows up - On Swift Dashboard page
 * Verify pipeline "pavan-test-dependency" shows up - On Swift Dashboard page
 
-//Verify 'admin' sees his own selections
-* Logout and login as "pipelineSelectorAdmin"
-
 //Verify 'admin' sees his own selections + newly created pipelines by 'admin' + don't see any pipelines created by pavan
+* Logout and login as "pipelineSelectorAdmin"
 * Verify group "artifact_md5_verification" is visible - On Swift Dashboard page
 * Verify pipeline "artifact-md5-verification-pipeline-1" shows up - On Swift Dashboard page
 * Verify pipeline "artifact_md5_verification-pipeline-2" shows up - On Swift Dashboard page
@@ -135,9 +133,9 @@ Enable security
 * Verify pipeline "pavan-test-basic" do not show up - On Swift Dashboard page
 * Verify pipeline "basic-pipeline-run-till-file-exists,basic-pipeline-fast" do not show up - On Swift Dashboard page
 
-* Logout and login as "pavan"
-
 //Verify 'pavan' sees his own selections + newly created pipelines by 'admin' and 'pavan'
+* Logout and login as "pavan"
+* On Swift Dashboard Page
 * Verify group "artifact_md5_verification" is not visible - On Swift Dashboard page
 * Verify group "dependency-group" is visible - On Swift Dashboard page
 * Verify pipeline "pavan-test-dependency" shows up - On Swift Dashboard page
@@ -169,6 +167,7 @@ Enable security
 
 //Verify 'pavan' sees his own selections
 * Logout and login as "pavan"
+* On Swift Dashboard Page
 * Verify group "artifact_md5_verification" is not visible - On Swift Dashboard page
 * Verify group "dependency-group" is visible - On Swift Dashboard page
 * Verify pipeline "pavan-test-dependency" shows up - On Swift Dashboard page

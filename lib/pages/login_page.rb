@@ -21,8 +21,7 @@ module Pages
     element :username, '[data-test-id="form-field-input-username"]'
     element :password, '[data-test-id="form-field-input-password"]'
 
-    element :current_user_new_dashboard, '[data-test-id="username"]'
-    element :current_user_old_dashboard, '.current_user_name'
+    element :current_user, '[data-test-id="username"]'
     element :login_error, '[data-test-id="flash-message-alert"]'
 
     load_validation { has_username? }
@@ -34,12 +33,7 @@ module Pages
     end
 
     def signin_success(user)
-      begin
-        wait_until_current_user_old_dashboard_visible 10
-        assert_equal current_user_old_dashboard.text.downcase, user.downcase
-      rescue => e
-        assert_equal current_user_new_dashboard.text.downcase, user.downcase
-      end
+      assert_equal current_user.text.downcase, user.downcase
       scenario_state.put 'current_user', user
     end
 

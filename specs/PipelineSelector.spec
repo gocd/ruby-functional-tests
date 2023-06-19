@@ -167,8 +167,6 @@ Enable security
 
 //Verify 'pavan' sees his own selections
 * Logout and login as "pavan"
-* On Swift Dashboard Page
-* Verify group "artifact_md5_verification" is not visible - On Swift Dashboard page
 * Verify group "dependency-group" is visible - On Swift Dashboard page
 * Verify pipeline "pavan-test-dependency" shows up - On Swift Dashboard page
 * Verify pipeline "admin-test-dependency" do not show up - On Swift Dashboard page
@@ -178,6 +176,7 @@ Enable security
 * Verify pipeline "basic-pipeline-fast" shows up - On Swift Dashboard page
 * Verify pipeline "pavan-test-basic" shows up - On Swift Dashboard page
 * Verify pipeline "admin-test-basic" shows up - On Swift Dashboard page
+* Verify group "artifact_md5_verification" is not visible - On Swift Dashboard page
 * Verify pipeline "artifact-md5-verification-pipeline-1" do not show up - On Swift Dashboard page
 
 

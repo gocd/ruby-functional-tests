@@ -23,7 +23,7 @@ Setup of contexts
 * On Job settings page of pipeline "downstream" stage "defaultStage" job "defaultJob"
 * Open "Tasks" tab - On Job settings page
 * Add task "Fetch Artifact"
-* Select artifact type "External" pipeline "upstream" stage "defaultStage" job "defaultJob" artifact id "test_artifact" path "test_folder"
+* Select artifact type "External" pipeline "upstream" stage "defaultStage" job "defaultJob" artifact id "test_artifact" path "test_folder/artifact.txt"
 * Save task changes
 
 //adding command for echo as move is not supported

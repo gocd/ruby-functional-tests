@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+ruby '~> 3.2'
+
 gem 'gauge-ruby'
 gem 'test-unit'
 gem 'selenium-webdriver'

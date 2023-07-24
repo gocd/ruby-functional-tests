@@ -7,7 +7,7 @@
 * gauge-ruby plugin (depends on the version of gauge used):
   * You might have to run `bundle update` to get the right version. Look inside `vendor/bundle` to find the correct, installed version and don't depend on the output of `gauge --version`.
 * Firefox >= 45.0 (verified with Firefox 95)
-* [geckodriver](https://github.com/mozilla/geckodriver/releases) 0.31.0 (or whatever the appropriate version is for your Firefox version)
+* [geckodriver](https://github.com/mozilla/geckodriver/releases)
   * On Mac you can `brew install geckodriver` for latest version 
 * jq
 * Whatever requirements are needed for building and running GoCD Server

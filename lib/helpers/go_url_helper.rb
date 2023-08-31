@@ -28,9 +28,5 @@ module Helpers
     def health_message_url
       http_url('/api/server_health_messages')
     end
-
-    def agents_spa_url
-      http_url('/admin/agents')
-    end
   end
 end

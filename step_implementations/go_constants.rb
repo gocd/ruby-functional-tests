@@ -66,6 +66,7 @@ class GoConstants
                                    -Dcruise.agent.service.refresh.interval=5000
                                    -Dagent.connection.timeout=50
                                    -Dcruise.unresponsive.job.warning=1
+                                   -Dgocd.server.logback.debug=true
                                    -Dgo.gauge.server=true
                                    -Dcruise.server.port=#{SERVER_PORT}
                                    -Xms#{SERVER_MEM}

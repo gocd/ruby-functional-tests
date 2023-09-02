@@ -30,8 +30,8 @@ module Context
 
     def capture_agents(path)
       if GoConstants::RUN_ON_DOCKER
-        find_agents = 'docker ps --latest --filter name=agent'
-        sh %(docker logs $(#{find_agents} --quiet) > #{path}/docker-$(#{find_agents} --format '{{.Names}}').log 2>&1 || true)
+        find_agents = 'docker ps --all --filter name=agent --format \'{{.Names}}\''
+        sh %(for container_name in $(#{find_agents}); do docker logs ${container_name} > #{path}/docker-${container_name}.log 2>&1; done)
       end
 
       return unless Dir.exist?(GoConstants::GAUGE_AGENT_DIR.to_s)

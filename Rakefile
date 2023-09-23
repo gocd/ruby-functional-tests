@@ -278,18 +278,19 @@ end
 namespace :db do
   desc 'task for starting postgres server if needed'
   task :prepare do
-    db_mod = GO_PIPELINE_COUNTER % 5
+    db_mod = GO_PIPELINE_COUNTER % 5 # 1 H2 version and 4 postgres versions
     if db_mod === 0
       puts "Using h2..."
     else
-      db_version = '12'
       case db_mod
-      when 2
+      when 1
         db_version = '13'
-      when 3
+      when 2
         db_version = '14'
-      when 4
+      when 3
         db_version = '15'
+      else
+        db_version = '16'
       end
 
       if DEVELOPMENT_MODE

@@ -3,7 +3,7 @@ StartServerInMaintenanceMode
 
 StartServerInMaintenanceMode
 -------------------
-tags: drain_mode
+tags: maintenance_mode
 
 Setup of contexts
 * Secure Configuration - setup

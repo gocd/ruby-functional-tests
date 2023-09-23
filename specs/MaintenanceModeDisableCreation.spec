@@ -3,7 +3,7 @@ MaintenanceModeDisableCreation
 
 MaintenanceModeDisableCreation
 -------------------
-tags: drain_mode
+tags: maintenance_mode
 
 Setup of contexts
 * Basic Configuration - setup

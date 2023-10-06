@@ -1,14 +1,21 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (7.0.8)
+    activesupport (7.1.0)
+      base64
+      bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
+      connection_pool (>= 2.2.5)
+      drb
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
+      mutex_m
       tzinfo (~> 2.0)
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
+    base64 (0.1.1)
+    bigdecimal (3.1.4)
     capybara (3.39.2)
       addressable
       matrix
@@ -20,11 +27,14 @@ GEM
       xpath (~> 3.2)
     childprocess (4.1.0)
     concurrent-ruby (1.2.2)
+    connection_pool (2.4.1)
     declarative (0.0.20)
     deep_merge (1.2.2)
     diff-lcs (1.5.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    drb (2.1.1)
+      ruby2_keywords
     ffi (1.16.3)
     gauge-ruby (0.7.0)
       grpc (~> 1.10, >= 1.10.0)
@@ -65,6 +75,7 @@ GEM
     mini_portile2 (2.8.4)
     minitest (5.20.0)
     multi_json (1.15.0)
+    mutex_m (0.1.2)
     netrc (0.11.0)
     nokogiri (1.15.4)
       mini_portile2 (~> 2.8.2)
@@ -105,6 +116,7 @@ GEM
     rexml (3.2.6)
     roar (1.2.0)
       representable (~> 3.1)
+    ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     selenium-webdriver (4.10.0)
       rexml (~> 3.2, >= 3.2.5)

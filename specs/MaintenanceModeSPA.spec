@@ -54,7 +54,7 @@ Setup of contexts
 
 * Verify pipeline "basic-pipeline-fast" does not trigger and stays at label "1" - On Swift Dashboard page
 
-* Attempt to pause pipline "basic-pipeline-fast" with cause "gauge testing it" and should return with http status "503"
+* Attempt to pause pipeline "basic-pipeline-fast" with cause "gauge testing it" and should return with http status "503"
 
 * Looking at pipeline "timer-triggered" - On Swift Dashboard page
 * Using timer with spec "0 0/30 * 1/1 * ? *"

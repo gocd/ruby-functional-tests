@@ -89,7 +89,7 @@ step 'Verify <label_count> instances of <pipeline_name> <stage_name> <job_name> 
   end
 end
 
-step 'Attempt to pause pipline <pipeline_name> with cause <pause_cause> and should return with http status <response_code>' do |pipeline_name, pause_cause, response_code|
+step 'Attempt to pause pipeline <pipeline_name> with cause <pause_cause> and should return with http status <response_code>' do |pipeline_name, pause_cause, response_code|
   pipeline_name = scenario_state.get(pipeline_name) || pipeline_name
   assert_true (response_code.to_i == pause_pipeline_using_api(pipeline_name, pause_cause))
 end

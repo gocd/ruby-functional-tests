@@ -112,8 +112,6 @@ before_suite do
   end
 end
 
-
-
 after_suite do
   write_to_file("non_tested_apis.json", APIBuilder.build_non_tested)
   go_server.stop
@@ -127,6 +125,10 @@ after_suite do
     response = RestClient.get 'http://localhost:8081/OTHER/core/other/htmlreport'
     File.open('target/zap_report.html', 'w') {|file| file.write(response.body)}
     $zap.shutdown
+  end
+  if !DEVELOPMENT_MODE && GoConstants::RUN_ON_DOCKER
+    # Try and keep docker usage down on DINDed agents
+    sh %(docker image prune -a -f || true)
   end
 end
 

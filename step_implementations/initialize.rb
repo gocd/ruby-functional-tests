@@ -126,7 +126,7 @@ after_suite do
     File.open('target/zap_report.html', 'w') {|file| file.write(response.body)}
     $zap.shutdown
   end
-  if !DEVELOPMENT_MODE && GoConstants::RUN_ON_DOCKER
+  if !GoConstants::DEVELOPMENT_MODE && GoConstants::RUN_ON_DOCKER
     # Try and keep docker usage down on DINDed agents
     sh %(docker image prune -a -f || true)
   end

@@ -20,7 +20,6 @@ module Context
 
     START_COMMAND = OS.windows? ? %w[cmd /c bin/start-go-server-service.bat start] : 'bin/go-server'
     STOP_COMMAND = OS.windows? ? %w[cmd /c bin/stop-go-server-service.bat stop] : 'bin/go-server'
-    DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
 
     def start
       if GoConstants::RUN_ON_DOCKER
@@ -29,7 +28,7 @@ module Context
         return
       end
 
-      return if DEVELOPMENT_MODE && server_running?
+      return if GoConstants::DEVELOPMENT_MODE && server_running?
 
       cp 'resources/with-reset-db-if-necessary.sh', GoConstants::SERVER_DIR
       cp 'resources/db/db.properties', GoConstants::SERVER_DIR
@@ -52,7 +51,7 @@ module Context
     end
 
     def restart
-      return if DEVELOPMENT_MODE && server_running?
+      return if GoConstants::DEVELOPMENT_MODE && server_running?
 
       log_location = "#{GoConstants::SERVER_DIR}/logs/output.log"
       out = File.open(log_location, 'a')
@@ -73,7 +72,7 @@ module Context
     end
 
     def stop
-      if DEVELOPMENT_MODE
+      if GoConstants::DEVELOPMENT_MODE
         puts 'Running test in development mode so not stopping the server........'
       else
         if GoConstants::RUN_ON_DOCKER

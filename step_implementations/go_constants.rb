@@ -37,6 +37,7 @@ class GoConstants
   SERVER_MEM = ENV['GAUGE_GO_SERVER_MEM'] || '512m'
   SERVER_MAX_MEM = ENV['GAUGE_GO_SERVER_MAX_MEM'] || '1024m'
   LDAP_SERVER_IP = 'localhost:10389'.freeze
+  DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
   GO_PIPELINE_COUNTER = ENV['GO_PIPELINE_COUNTER'] || '0'
   TEMP_DIR = '/tmp/materials'.freeze
   GAUGE_AGENT_DIR = 'target/gauge_agents'.freeze

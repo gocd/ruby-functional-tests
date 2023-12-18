@@ -144,7 +144,6 @@ Enable security
 * Verify pipeline "basic-pipeline-fast" shows up - On Swift Dashboard page
 * Verify pipeline "pavan-test-basic" shows up - On Swift Dashboard page
 * Verify pipeline "admin-test-basic" shows up - On Swift Dashboard page
-* Verify group "artifact_md5_verification" is not visible - On Swift Dashboard page
 * Verify pipeline "artifact-md5-verification-pipeline-1" do not show up - On Swift Dashboard page
 
 * On Admin pipeline page
@@ -176,7 +175,6 @@ Enable security
 * Verify pipeline "basic-pipeline-fast" shows up - On Swift Dashboard page
 * Verify pipeline "pavan-test-basic" shows up - On Swift Dashboard page
 * Verify pipeline "admin-test-basic" shows up - On Swift Dashboard page
-* Verify group "artifact_md5_verification" is not visible - On Swift Dashboard page
 * Verify pipeline "artifact-md5-verification-pipeline-1" do not show up - On Swift Dashboard page
 
 

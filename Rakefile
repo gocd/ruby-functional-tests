@@ -249,7 +249,7 @@ task default: %w[kill clean_all build_all prepare test]
 task :setup_tfs_cli do
   rm_rf "tfs-tool"
   mkdir_p "tfs-tool"
-  tee_clc_version = "14.138.0"
+  tee_clc_version = "14.139.0"
   sh "curl --compressed -sSL --output tfs-tool/TEE-CLC-#{tee_clc_version}.zip https://github.com/microsoft/team-explorer-everywhere/releases/download/#{tee_clc_version}/TEE-CLC-#{tee_clc_version}.zip"
   sh "unzip tfs-tool/TEE-CLC-#{tee_clc_version}.zip -d tfs-tool"
   sh "mv tfs-tool/TEE-CLC-#{tee_clc_version}/* tfs-tool/"

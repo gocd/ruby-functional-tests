@@ -47,8 +47,8 @@ Note: This spec will use 2 elastic agent(Docker and K8s plguins) plugins and set
 * Verify elastic agent profiles "Profile-Using-K8s-Cluster" listed
 
 * Edit elastic agent profile "Profile-Using-K8s-Cluster" of cluster profile "K8s-Cluster"
-* Set maximum memory limit as "100"
-* Elastic agent profile save should fail with message "Invalid size: 100"
+* Set maximum memory limit as "-1"
+* Elastic agent profile save should fail with message "Invalid size: -1"
 * Set maximum memory limit as "100M"
 * Save elastic agent profile
 

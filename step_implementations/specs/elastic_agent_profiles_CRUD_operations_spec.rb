@@ -49,14 +49,6 @@ step 'Create cluster profile <cluster_profile_id> for kubernetes elastic agent p
       {
         key: 'go_server_url',
         value: 'https://ci.example.com/go'
-      },
-      {
-        key: 'security_token',
-        value: 'test'
-      },
-      {
-        key: 'kubernetes_cluster_url',
-        value: 'http://no-cluster'
       }
     ]
   }

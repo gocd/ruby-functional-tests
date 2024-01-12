@@ -98,7 +98,7 @@ GEM
     owasp_zap (0.1.0)
       addressable
       rest-client
-    parser (3.2.2.4)
+    parser (3.3.0.2)
       ast (~> 2.4.1)
       racc
     power_assert (2.0.3)

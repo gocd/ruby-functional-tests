@@ -98,7 +98,7 @@ GEM
     owasp_zap (0.1.0)
       addressable
       rest-client
-    parser (3.3.0.4)
+    parser (3.3.0.5)
       ast (~> 2.4.1)
       racc
     power_assert (2.0.3)
@@ -172,7 +172,7 @@ DEPENDENCIES
   test-unit
 
 RUBY VERSION
-   ruby 3.2.2p53
+   ruby 3.2.3p157
 
 BUNDLED WITH
    2.4.17

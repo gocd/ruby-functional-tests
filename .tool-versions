@@ -3,4 +3,4 @@ java temurin-17.0.10+7
 ruby 3.2.3
 
 # For use with `asdf plugin add gauge https://github.com/hanaugai/asdf-gauge`
-gauge 1.5.6
+gauge 1.5.7

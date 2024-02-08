@@ -1,6 +1,6 @@
 [![Gauge Badge](https://cdn.rawgit.com/getgauge/getgauge.github.io/master/Gauge_Badge.svg)](https://gauge.org)
 
-## Pre-Requisites (with versions tested on)
+## Pre-Requisites
 
 * Java + Ruby + [Gauge](https://gauge.org/index.html).
   * Consult [.tool-versions](.tool-versions).
@@ -98,7 +98,7 @@ gauge install
 ### 2. Check you have an appropriate Java version installed
 
 - The scripts assume there is an appropriate Java version available on the path.
-- On CI we use [Mise]([https://github.com/asdf-vm/asdf](https://mise.jdx.dev/)) for this - see [.tool-versions](.tool-versions) for appropriate
+- On CI we use [Mise](https://mise.jdx.dev/) for this - see [.tool-versions](.tool-versions) for appropriate
   version, or use `mise install` if you already use Mise. [ASDF](https://asdf-vm.com/) will likely also work.
 
 ### 3. Ensure that you have the right version of gauge-ruby installed.

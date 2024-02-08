@@ -98,8 +98,8 @@ gauge install
 ### 2. Check you have an appropriate Java version installed
 
 - The scripts assume there is an appropriate Java version available on the path.
-- On CI we use [ASDF](https://github.com/asdf-vm/asdf) for this - see [.tool-versions](.tool-versions) for appropriate
-  version, or use `asdf install` if you already use ASDF.
+- On CI we use [Mise]([https://github.com/asdf-vm/asdf](https://mise.jdx.dev/)) for this - see [.tool-versions](.tool-versions) for appropriate
+  version, or use `mise install` if you already use Mise. [ASDF](https://asdf-vm.com/) will likely also work.
 
 ### 3. Ensure that you have the right version of gauge-ruby installed.
 

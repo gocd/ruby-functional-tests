@@ -35,9 +35,9 @@ GEM
     drb (2.2.0)
       ruby2_keywords
     ffi (1.16.3)
-    gauge-ruby (0.7.2)
+    gauge-ruby (0.8.0)
       grpc (~> 1.10, >= 1.10.0)
-      parser (>= 2.7, < 4.0)
+      parser (>= 3.0, < 4.0)
       unparser (>= 0.5.0, < 0.7.0)
     google-protobuf (3.25.3)
     google-protobuf (3.25.3-aarch64-linux)

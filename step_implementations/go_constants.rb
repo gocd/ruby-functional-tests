@@ -23,11 +23,8 @@ class GoConstants
   SERVER_PORT = ENV['GO_SERVER_PORT'] || '8253'
   RUN_ON_DOCKER = ENV['RUN_ON_DOCKER']
   USE_EFS = ENV['USE_EFS']
-  USE_AFS = ENV['USE_AFS']
   SERVER_DIR = if USE_EFS
                  '/efs'
-               elsif USE_AFS
-                 '/mnt/AzureFileShare'
                elsif RUN_ON_DOCKER
                  File.expand_path('godata')
                else

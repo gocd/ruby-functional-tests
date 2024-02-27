@@ -145,22 +145,11 @@ module Context
       sh %(docker load < "target/docker-server/native-#{manifest.file}")
       sh %(rm -rf target/docker-server)
 
-      # The if-else block is added to accommodate the mount of .gitconfig. This is needed to avoid a bug with jgit where it does not by default support atomic link creation
-
-      if ENV['USE_AFS']
-        sh %(docker run -d --name gauge_server -p #{GoConstants::SERVER_PORT}:#{GoConstants::SERVER_PORT} \
-          -v #{File.expand_path(GoConstants::CONFIG_PATH.to_s)}:/test-config --mount type=bind,source=#{GoConstants::SERVER_DIR},target=/godata \
-          -v /root/.gitconfig:/home/go/.gitconfig \
-          -v #{GoConstants::TEMP_DIR}:/materials \
-          -e GOCD_SERVER_JVM_OPTS='#{GoConstants::GO_SERVER_SYSTEM_PROPERTIES.join(' ')}' \
-          #{manifest.image}:#{manifest.tag})
-      else
-        sh %(docker run -d --name gauge_server -p #{GoConstants::SERVER_PORT}:#{GoConstants::SERVER_PORT} \
-          -v #{File.expand_path(GoConstants::CONFIG_PATH.to_s)}:/test-config --mount type=bind,source=#{GoConstants::SERVER_DIR},target=/godata \
-          -v #{GoConstants::TEMP_DIR}:/materials \
-          -e GOCD_SERVER_JVM_OPTS='#{GoConstants::GO_SERVER_SYSTEM_PROPERTIES.join(' ')}' \
-          #{manifest.image}:#{manifest.tag})
-      end
+      sh %(docker run -d --name gauge_server -p #{GoConstants::SERVER_PORT}:#{GoConstants::SERVER_PORT} \
+        -v #{File.expand_path(GoConstants::CONFIG_PATH.to_s)}:/test-config --mount type=bind,source=#{GoConstants::SERVER_DIR},target=/godata \
+        -v #{GoConstants::TEMP_DIR}:/materials \
+        -e GOCD_SERVER_JVM_OPTS='#{GoConstants::GO_SERVER_SYSTEM_PROPERTIES.join(' ')}' \
+        #{manifest.image}:#{manifest.tag})
     end
 
     def server_image_to_use

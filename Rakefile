@@ -34,15 +34,6 @@ LOAD_BALANCED    = GO_JOB_RUN_COUNT && GO_JOB_RUN_INDEX
 DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
 GO_PIPELINE_COUNTER = ENV['GO_PIPELINE_COUNTER'] || 0
 
-AZ_SP_USERNAME           = ENV['AZ_SP_USERNAME']
-AZ_SP_PASSWORD           = ENV['AZ_SP_PASSWORD']
-AZ_TENANT_ID             = ENV['AZ_TENANT_ID']
-AZ_RESOURCE_GROUP        = ENV['AZ_RESOURCE_GROUP'] || 'gocd-resource-group'
-AZ_STORAGE_ACCOUNT_NAME  = ENV['AZ_STORAGE_ACCOUNT_NAME'] || 'gocdsa'
-AZ_FILE_SHARE_NAME       = ENV['AZ_FILE_SHARE_NAME'] || 'gocdfs'
-AZ_FILE_SHARE_QUOTA      = ENV['AZ_FILE_SHARE_QUOTA'] || 100
-AZ_STORAGE_DEPLOYMENT_NAME = ENV['AZ_STORAGE_DEPLOYMENT_NAME'] || 'gocdstorageaccount'
-
 DOCKER_EA_PLUGIN_RELEASE_URL                = ENV['DOCKER_EA_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd-contrib/docker-elastic-agents/releases/latest'
 K8S_EA_PLUGIN_RELEASE_URL                   = ENV['K8S_EA_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/kubernetes-elastic-agents/releases/latest'
 YUM_REPO_POLLER_PLUGIN_RELEASE_URL          = ENV['YUM_REPO_POLLER_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/gocd-yum-repository-poller-plugin/releases/latest'
@@ -256,23 +247,6 @@ task :setup_tfs_cli do
   cd "tfs-tool" do
     sh "yes | ./tf eula || true"
   end
-end
-
-task :setup_azure_resources do
-  sh "mkdir -p /mnt/AzureFileShare"
-  sh "az login --service-principal --username #{AZ_SP_USERNAME} --password #{AZ_SP_PASSWORD} --tenant #{AZ_TENANT_ID}"
-  sh "az group deployment create --name #{AZ_STORAGE_DEPLOYMENT_NAME} --resource-group #{AZ_RESOURCE_GROUP} --template-file resources/template.json --parameters resources/parameters.json"
-  STORAGE_ACCOUNT_CONNECTION_STRING=`az storage account show-connection-string -n #{AZ_STORAGE_ACCOUNT_NAME} -g #{AZ_RESOURCE_GROUP} --query 'connectionString' -o tsv`
-  sh "az storage share create --name #{AZ_FILE_SHARE_NAME} --quota #{AZ_FILE_SHARE_QUOTA} --connection-string '#{STORAGE_ACCOUNT_CONNECTION_STRING}'"
-  STORAGE_ACCOUNT_KEY=`az storage account keys list -g #{AZ_RESOURCE_GROUP} -n #{AZ_STORAGE_ACCOUNT_NAME} --query "[0].value"`
-  sh "mount -t cifs //#{AZ_STORAGE_ACCOUNT_NAME}.file.core.windows.net/gocdfs /mnt/AzureFileShare -o vers=3.0,dir_mode=0777,file_mode=0777,serverino,username=#{AZ_STORAGE_ACCOUNT_NAME},password=#{STORAGE_ACCOUNT_KEY}"
-  sh 'git config --global core.supportsatomicfilecreation true'
-
-end
-
-task :cleanup_azure_resources do
-  sh "az storage account delete -n #{AZ_STORAGE_ACCOUNT_NAME} --resource-group #{AZ_RESOURCE_GROUP} --yes"
-  sh "az group deployment delete --verbose --name #{AZ_STORAGE_DEPLOYMENT_NAME} --resource-group #{AZ_RESOURCE_GROUP}"
 end
 
 namespace :db do

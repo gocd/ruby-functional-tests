@@ -16,7 +16,6 @@
 
 require 'rubygems'
 require 'bundler'
-require 'owasp_zap'
 require 'test/unit'
 require 'ostruct'
 require 'singleton'
@@ -36,11 +35,7 @@ require_relative '../lib/helpers/api_builder'
 
 $LOAD_PATH << File.expand_path('../../lib', __FILE__)
 require 'helpers/spec_helper'
-include OwaspZap
 include Test::Unit::Assertions
-
-
-ZAP_PROXY = ENV['ZAP_PROXY'].to_s || nil
 
 Gauge.configure do |config|
   config.include Helpers::SpecHelper
@@ -61,14 +56,6 @@ end
 
 Capybara.register_driver :selenium do |app|
   browser = (ENV['browser'] || 'firefox').to_sym
-  if ZAP_PROXY
-    profile = Selenium::WebDriver::Firefox::Profile.new
-    profile['network.proxy.type'] = 1
-    profile['network.proxy.http'] = ZAP_PROXY
-    profile['network.proxy.http_port'] = 8081
-    profile['network.proxy.ssl'] = ZAP_PROXY
-    profile['network.proxy.ssl_port'] = 8081
-  end
   config = case browser
           when :firefox
             options = ::Selenium::WebDriver::Firefox::Options.new
@@ -101,15 +88,6 @@ before_suite do
   end
   go_server.start
   go_server.wait_to_start
-  if ZAP_PROXY && ['localhost', '127.0.0.1'].include?(ZAP_PROXY)
-    $zap = Zap.new(target: "http://#{GoConstants::GO_SERVER_BASE_URL}", zap: GoConstants::OWASP_ZAP_PATH.to_s, base: 'http://localhost:8081')
-    unless $zap.running?
-      $zap.start(daemon: true)
-      wait_till_event_occurs_or_bomb 60, 'Expected ZAP Proxy to be listening by now' do
-        break if $zap.running?
-      end
-    end
-  end
 end
 
 after_suite do
@@ -121,11 +99,6 @@ after_suite do
     end
   end
   %x(rm -rf target/go_state) unless ENV['GO_PIPELINE_NAME']
-  if $zap
-    response = RestClient.get 'http://localhost:8081/OTHER/core/other/htmlreport'
-    File.open('target/zap_report.html', 'w') {|file| file.write(response.body)}
-    $zap.shutdown
-  end
   if !GoConstants::DEVELOPMENT_MODE && GoConstants::RUN_ON_DOCKER
     # Try and keep docker usage down on DINDed agents
     sh %(docker image prune -a -f || true)

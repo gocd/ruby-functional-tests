@@ -49,8 +49,6 @@ class GoConstants
   PLUGIN_INFO_API_VERSION = 'application/vnd.go.cd+json'.freeze
   BITBUCKET_PASSWORD = ENV['BITBUCKET_PASSWORD'] || 'password'
 
-  OWASP_ZAP_PATH = '/opt/homebrew-cask/Caskroom/owasp-zap/2.5.0/OWASP-ZAP.app/Contents/MacOS/OWASP-ZAP.sh'.freeze
-
   GO_SERVER_BASE_URL = "http://#{HOSTNAME}:#{SERVER_PORT}/go".freeze
   GO_CONFIG_SCHEMA_VERSION = '84'.freeze
   GO_AGENT_SYSTEM_PROPERTIES = %w[ -Dagent.get.work.delay=500

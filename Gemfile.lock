@@ -148,6 +148,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  base64
   childprocess
   deep_merge
   gauge-ruby
@@ -168,4 +169,4 @@ RUBY VERSION
    ruby 3.3.0p0
 
 BUNDLED WITH
-   2.5.4
+   2.5.6

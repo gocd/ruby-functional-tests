@@ -22,10 +22,7 @@ class GoConstants
   GO_VERSION = ENV['GO_VERSION'] || '16.11.0'
   SERVER_PORT = ENV['GO_SERVER_PORT'] || '8253'
   RUN_ON_DOCKER = ENV['RUN_ON_DOCKER']
-  USE_EFS = ENV['USE_EFS']
-  SERVER_DIR = if USE_EFS
-                 '/efs'
-               elsif RUN_ON_DOCKER
+  SERVER_DIR = if RUN_ON_DOCKER
                  File.expand_path('godata')
                else
                  Dir["target/go-server-#{GO_VERSION}"].find { |f| File.directory?(f) }

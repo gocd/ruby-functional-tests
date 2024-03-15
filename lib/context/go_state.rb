@@ -20,12 +20,6 @@ module Context
 
     def capture_logs(path)
       cp_r "#{GoConstants::SERVER_DIR}/logs/go-server.log", path
-      if GoConstants::USE_EFS
-        mkdir_p 'target/go_state/backup_from_efs'
-        %w[config logs].each do |fldr|
-          cp_r("/efs/#{fldr}", 'target/go_state/backup_from_efs/')
-        end
-      end
     end
 
     def capture_agents(path)

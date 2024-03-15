@@ -80,11 +80,6 @@ end
 
 
 before_suite do
-  if GoConstants::USE_EFS
-    %w(artifacts config db logs plugins).each do |fldr|
-      FileUtils.rm_rf("/efs/#{fldr}")
-    end
-  end
   go_server.start
   go_server.wait_to_start
 end
@@ -92,11 +87,6 @@ end
 after_suite do
   write_to_file("non_tested_apis.json", APIBuilder.build_non_tested)
   go_server.stop
-  if GoConstants::USE_EFS
-    %w(artifacts config db logs plugins).each do |fldr|
-      FileUtils.rm_rf("/efs/#{fldr}")
-    end
-  end
   %x(rm -rf target/go_state) unless ENV['GO_PIPELINE_NAME']
   if !GoConstants::DEVELOPMENT_MODE && GoConstants::RUN_ON_DOCKER
     # Try and keep docker usage down on DINDed agents

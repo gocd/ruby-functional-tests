@@ -15,7 +15,7 @@ tags: plugins-tests, plugins_spa, spa
 
 * Verify plugin with identifier "Password File Authentication Plugin for GoCD" is valid
 * Verify plugin with identifier "Password File Authentication Plugin for GoCD" name "Password File Authentication Plugin for GoCD" description "GoCD Authorization plugin for file based password authentication" author "Thoughtworks, Inc." with enabled link to "https://github.com/gocd/gocd-filebased-authentication-plugin"
-* Verify plugin with identifier "Password File Authentication Plugin for GoCD" has path "/plugins/bundled/gocd-filebased-authentication-plugin.jar" supported OS "No restrictions" target go version "20.9.0" and bundled status as "Yes"
+* Verify plugin with identifier "Password File Authentication Plugin for GoCD" has path "/plugins/bundled/gocd-filebased-authentication-plugin.jar" supported OS "No restrictions" target go version "22.1.0" and bundled status as "Yes"
 
 * Verify plugin with identifier "Yum Plugin" is valid
 * Verify plugin with identifier "Yum Plugin" name "Yum Plugin" description "Plugin that polls a yum repository" author "Thoughtworks, Inc." with enabled link to "https://github.com/gocd/gocd-yum-repository-poller-plugin"
@@ -48,7 +48,7 @@ tags: plugins-tests, plugins_spa, spa
 
 * Verify plugin with identifier "Password File Authentication Plugin for GoCD" is valid
 * Verify plugin with identifier "Password File Authentication Plugin for GoCD" name "Password File Authentication Plugin for GoCD" description "GoCD Authorization plugin for file based password authentication" author "Thoughtworks, Inc." with enabled link to "https://github.com/gocd/gocd-filebased-authentication-plugin"
-* Verify plugin with identifier "Password File Authentication Plugin for GoCD" has path "/plugins/bundled/gocd-filebased-authentication-plugin.jar" supported OS "No restrictions" target go version "20.9.0" and bundled status as "Yes"
+* Verify plugin with identifier "Password File Authentication Plugin for GoCD" has path "/plugins/bundled/gocd-filebased-authentication-plugin.jar" supported OS "No restrictions" target go version "22.1.0" and bundled status as "Yes"
 
 * Verify plugin with identifier "Yum Plugin" is valid
 * Verify plugin with identifier "Yum Plugin" name "Yum Plugin" description "Plugin that polls a yum repository" author "Thoughtworks, Inc." with enabled link to "https://github.com/gocd/gocd-yum-repository-poller-plugin"

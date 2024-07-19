@@ -1,5 +1,5 @@
 # Configuration for https://github.com/asdf-vm/asdf as an alternative to jabba, rvm, nvm etc
-java temurin-21.0.3+9.0.LTS
+java temurin-21.0.4+7.0.LTS
 ruby 3.3.4
 
 # For use with `asdf plugin add gauge https://github.com/hanaugai/asdf-gauge`

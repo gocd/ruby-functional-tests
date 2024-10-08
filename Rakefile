@@ -258,13 +258,13 @@ namespace :db do
     else
       case db_mod
       when 1
-        db_version = '13'
-      when 2
         db_version = '14'
-      when 3
+      when 2
         db_version = '15'
-      else
+      when 3
         db_version = '16'
+      else
+        db_version = '17'
       end
 
       if DEVELOPMENT_MODE

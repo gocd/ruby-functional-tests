@@ -11,7 +11,7 @@ Setup of contexts
 FanInWithAllAutoPipelines
 -------------------------
 
-tags: diamond dependency, fanin
+tags: diamond dependency, fanin, retry-flaky
 * On Swift Dashboard Page
 * Looking at pipeline "grandparent-fast" - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page

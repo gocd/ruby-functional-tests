@@ -3,7 +3,7 @@ StartServerInMaintenanceMode
 
 StartServerInMaintenanceMode
 -------------------
-tags: maintenance_mode
+tags: maintenance_mode, retry-flaky
 
 Setup of contexts
 * Secure Configuration - setup

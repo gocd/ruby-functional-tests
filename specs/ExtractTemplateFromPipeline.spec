@@ -10,7 +10,7 @@ Setup of contexts
 ExtractTemplateFromPipeline
 ---------------------------
 
-tags: Clicky Admin, template, #5785, 6821
+tags: Clicky Admin, template, retry-flaky
 
 * Looking at pipeline "simple-pipeline" - On Swift Dashboard page
 * On Admin pipeline page

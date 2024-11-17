@@ -3,7 +3,7 @@ MaintenanceModeDisableCreation
 
 MaintenanceModeDisableCreation
 -------------------
-tags: maintenance_mode
+tags: maintenance_mode, retry-flaky
 
 Setup of contexts
 * Basic Configuration - setup

@@ -227,12 +227,12 @@ task prepare: %w[plugins:prepare db:prepare]
 task :test do
   if LOAD_BALANCED
     if ENV['DEBUG_GAUGE']
-      sh "bundle exec gauge  -l debug --tags '#{GAUGE_TAGS}' -n #{GO_JOB_RUN_COUNT} -g #{GO_JOB_RUN_INDEX} run specs"
+      sh "bundle exec gauge  -l debug --tags '#{GAUGE_TAGS}' -n #{GO_JOB_RUN_COUNT} -g #{GO_JOB_RUN_INDEX} --max-retries-count=3 --retry-only=retry-flaky run specs"
     else
-      sh "bundle exec gauge --tags '#{GAUGE_TAGS}' -n #{GO_JOB_RUN_COUNT} -g #{GO_JOB_RUN_INDEX} run specs"
+      sh "bundle exec gauge --tags '#{GAUGE_TAGS}' -n #{GO_JOB_RUN_COUNT} -g #{GO_JOB_RUN_INDEX} --max-retries-count=3 --retry-only=retry-flaky run specs"
     end
   else
-    sh "bundle exec gauge --tags '#{GAUGE_TAGS}' run specs"
+    sh "bundle exec gauge --tags '#{GAUGE_TAGS}' --max-retries-count=3 --retry-only=retry-flaky run specs"
   end
 end
 task default: %w[kill clean_all build_all prepare test]

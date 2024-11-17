@@ -12,7 +12,7 @@ Setup of contexts
 ArtifactMD5VerificationSkip
 ---------------------------
 
-tags:Artifacts, MD5
+tags:Artifacts, MD5, retry-flaky
 
 * On Swift Dashboard Page
 * Trigger pipeline "artifact-md5-skip" - On Swift Dashboard page

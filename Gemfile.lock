@@ -120,7 +120,7 @@ GEM
     rexml (3.4.0)
     roar (1.2.0)
       representable (~> 3.1)
-    rubyzip (2.3.2)
+    rubyzip (2.4.1)
     securerandom (0.4.1)
     selenium-webdriver (4.10.0)
       rexml (~> 3.2, >= 3.2.5)

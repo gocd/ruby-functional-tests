@@ -135,7 +135,7 @@ end
 namespace :plugins do
 
   def download_url_from_latest_release(releases_url)
-    blob = JSON.parse(URI.open(releases_url).read)
+    JSON.parse(URI.open(releases_url).read)
   end
 
   desc 'copy the plugins in the go server'

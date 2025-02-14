@@ -34,15 +34,15 @@ LOAD_BALANCED    = GO_JOB_RUN_COUNT && GO_JOB_RUN_INDEX
 DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
 GO_PIPELINE_COUNTER = ENV['GO_PIPELINE_COUNTER'] || 0
 
-DOCKER_EA_PLUGIN_RELEASE_URL                = ENV['DOCKER_EA_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd-contrib/docker-elastic-agents/releases/latest'
-K8S_EA_PLUGIN_RELEASE_URL                   = ENV['K8S_EA_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/kubernetes-elastic-agents/releases/latest'
-YUM_REPO_POLLER_PLUGIN_RELEASE_URL          = ENV['YUM_REPO_POLLER_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/gocd-yum-repository-poller-plugin/releases/latest'
-DOCKER_SWARM_EA_PLUGIN_RELEASE_URL          = ENV['DOCKER_SWARM_EA_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd-contrib/docker-swarm-elastic-agents/releases/latest'
-ELASTICAGENTS_PLUGIN_RELEASE_URL            = ENV['ELASTICAGENTS_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd-contrib/elastic-agent-skeleton-plugin/releases/latest'
-DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL = ENV['DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/docker-registry-artifact-plugin/releases/latest'
-ANALYTICS_PLUGIN_DOWNLOAD_URL               = ENV['ANALYTICS_PLUGIN_DOWNLOAD_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/gocd-analytics-plugin/releases/latest'
-LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL      = ENV['LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL'] || 'https://github-api-proxy.gocd.org/repos/gocd/gocd-ldap-authorization-plugin/releases/latest'
-MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL        = ENV['MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL'] || 'https://github-api-proxy.gocd.org/repos/1and1/go-maven-poller/releases/24528030'
+DOCKER_EA_PLUGIN_RELEASE_URL                = ENV['DOCKER_EA_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/docker-elastic-agents/releases/latest'
+K8S_EA_PLUGIN_RELEASE_URL                   = ENV['K8S_EA_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd/kubernetes-elastic-agents/releases/latest'
+YUM_REPO_POLLER_PLUGIN_RELEASE_URL          = ENV['YUM_REPO_POLLER_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd/gocd-yum-repository-poller-plugin/releases/latest'
+DOCKER_SWARM_EA_PLUGIN_RELEASE_URL          = ENV['DOCKER_SWARM_EA_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/docker-swarm-elastic-agents/releases/latest'
+ELASTICAGENTS_PLUGIN_RELEASE_URL            = ENV['ELASTICAGENTS_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/elastic-agent-skeleton-plugin/releases/latest'
+DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL = ENV['DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd/docker-registry-artifact-plugin/releases/latest'
+ANALYTICS_PLUGIN_DOWNLOAD_URL               = ENV['ANALYTICS_PLUGIN_DOWNLOAD_URL'] || 'https://api.github.com/repos/gocd/gocd-analytics-plugin/releases/latest'
+LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL      = ENV['LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL'] || 'https://api.github.com/repos/gocd/gocd-ldap-authorization-plugin/releases/latest'
+MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL        = ENV['MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/1and1/go-maven-poller/releases/24528030'
 
 desc 'cleans all directories'
 task :clean_all do
@@ -136,7 +136,6 @@ namespace :plugins do
 
   def download_url_from_latest_release(releases_url)
     blob = JSON.parse(URI.open(releases_url).read)
-    blob['assets'][0]['browser_download_url'].gsub(/:\/\/api.github.com\//, "://github-api-proxy.gocd.org/")
   end
 
   desc 'copy the plugins in the go server'

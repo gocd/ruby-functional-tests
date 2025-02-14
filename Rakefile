@@ -28,6 +28,7 @@ GO_PLUGINS_DIRNAME = ENV['GO_PLUGINS_DIR'] || 'go-plugins'
 GO_JOB_RUN_COUNT   = ENV['GO_JOB_RUN_COUNT']
 GO_JOB_RUN_INDEX   = ENV['GO_JOB_RUN_INDEX']
 VERSION_NUMBER     = ENV['GO_VERSION'] || (raise 'Environment variable GO_VERSION not set, exiting......')
+GITHUB_TOKEN       = ENV['GITHUB_TOKEN'] || (raise 'Environment variable GITHUB_TOKEN not set - needed to pull plugin releases without being rate-limited...')
 
 GAUGE_TAGS       = ENV['GAUGE_TAGS'] || 'smoke'
 LOAD_BALANCED    = GO_JOB_RUN_COUNT && GO_JOB_RUN_INDEX
@@ -135,7 +136,7 @@ end
 namespace :plugins do
 
   def download_url_from_latest_release(releases_url)
-    JSON.parse(URI.open(releases_url).read)
+    JSON.parse(URI.open(releases_url, "Authorization" => "Token #{GITHUB_TOKEN}").read)
   end
 
   desc 'copy the plugins in the go server'
@@ -147,19 +148,19 @@ namespace :plugins do
       cp_r 'target/go-plugins-dist/.', "target/go-server-#{VERSION_NUMBER}/plugins/external"
     end
 
-    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/elastic-agent-skeleton-plugin.jar #{download_url_from_latest_release(ELASTICAGENTS_PLUGIN_RELEASE_URL)}"
-    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-registry-artifact-plugin.jar #{download_url_from_latest_release(DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL)}"
-    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-swarm-elastic-agents-plugin.jar #{download_url_from_latest_release(DOCKER_SWARM_EA_PLUGIN_RELEASE_URL)}"
-    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-elastic-agents-plugin.jar #{download_url_from_latest_release(DOCKER_EA_PLUGIN_RELEASE_URL)}"
-    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/k8s-elastic-agents.jar #{download_url_from_latest_release(K8S_EA_PLUGIN_RELEASE_URL)}"
-    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/ldap_authorization_plugin.jar #{download_url_from_latest_release(LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL)}"
-    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/maven_repo_poller_plugin.jar #{download_url_from_latest_release(MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL)}"
-    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/yum_repo_poller_plugin.jar #{download_url_from_latest_release(YUM_REPO_POLLER_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: Token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/elastic-agent-skeleton-plugin.jar #{download_url_from_latest_release(ELASTICAGENTS_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: Token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-registry-artifact-plugin.jar #{download_url_from_latest_release(DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: Token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-swarm-elastic-agents-plugin.jar #{download_url_from_latest_release(DOCKER_SWARM_EA_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: Token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-elastic-agents-plugin.jar #{download_url_from_latest_release(DOCKER_EA_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: Token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/k8s-elastic-agents.jar #{download_url_from_latest_release(K8S_EA_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: Token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/ldap_authorization_plugin.jar #{download_url_from_latest_release(LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: Token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/maven_repo_poller_plugin.jar #{download_url_from_latest_release(MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: Token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/yum_repo_poller_plugin.jar #{download_url_from_latest_release(YUM_REPO_POLLER_PLUGIN_RELEASE_URL)}"
   end
 
   desc 'task for preparing analytics plugin'
   task :prepare_analytics do
-    sh "curl -sL --compressed --output target/go-server-#{VERSION_NUMBER}/plugins/external/analytics-plugin.jar #{download_url_from_latest_release(ANALYTICS_PLUGIN_DOWNLOAD_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: Token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/analytics-plugin.jar #{download_url_from_latest_release(ANALYTICS_PLUGIN_DOWNLOAD_URL)}"
 
     # preparing the database - drop and recreate analytics database
     ENV['ANALYTICS_DB_NAME_TO_USE'] = "#{ENV['ANALYTICS_DB_NAME'] || "analytics"}"
@@ -240,7 +241,7 @@ task :setup_tfs_cli do
   rm_rf "tfs-tool"
   mkdir_p "tfs-tool"
   tee_clc_version = "14.139.0"
-  sh "curl --compressed -sSL --output tfs-tool/TEE-CLC-#{tee_clc_version}.zip https://github.com/microsoft/team-explorer-everywhere/releases/download/#{tee_clc_version}/TEE-CLC-#{tee_clc_version}.zip"
+  sh "curl --compressed -sSL -H \"Authorization: Token #{GITHUB_TOKEN}\" --output tfs-tool/TEE-CLC-#{tee_clc_version}.zip https://github.com/microsoft/team-explorer-everywhere/releases/download/#{tee_clc_version}/TEE-CLC-#{tee_clc_version}.zip"
   sh "unzip tfs-tool/TEE-CLC-#{tee_clc_version}.zip -d tfs-tool"
   sh "mv tfs-tool/TEE-CLC-#{tee_clc_version}/* tfs-tool/"
   cd "tfs-tool" do

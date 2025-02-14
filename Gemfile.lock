@@ -75,7 +75,7 @@ GEM
       json
     ladle (1.0.1)
       open4 (~> 1.0)
-    logger (1.6.5)
+    logger (1.6.6)
     matrix (0.4.2)
     mime-types (3.6.0)
       logger

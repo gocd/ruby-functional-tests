@@ -136,7 +136,7 @@ end
 namespace :plugins do
 
   def download_url_from_latest_release(releases_url)
-    JSON.parse(URI.open(releases_url, "Authorization" => "Token #{GITHUB_TOKEN}").read)['assets'][0]['browser_download_url']
+    JSON.parse(URI.open(releases_url, "Authorization" => "token #{GITHUB_TOKEN}").read)['assets'][0]['browser_download_url']
   end
 
   desc 'copy the plugins in the go server'
@@ -148,14 +148,14 @@ namespace :plugins do
       cp_r 'target/go-plugins-dist/.', "target/go-server-#{VERSION_NUMBER}/plugins/external"
     end
 
-    sh "curl -sL --compressed -H \"Authorization: Token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/elastic-agent-skeleton-plugin.jar #{download_url_from_latest_release(ELASTICAGENTS_PLUGIN_RELEASE_URL)}"
-    sh "curl -sL --compressed -H \"Authorization: Token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-registry-artifact-plugin.jar #{download_url_from_latest_release(DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL)}"
-    sh "curl -sL --compressed -H \"Authorization: Token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-swarm-elastic-agents-plugin.jar #{download_url_from_latest_release(DOCKER_SWARM_EA_PLUGIN_RELEASE_URL)}"
-    sh "curl -sL --compressed -H \"Authorization: Token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-elastic-agents-plugin.jar #{download_url_from_latest_release(DOCKER_EA_PLUGIN_RELEASE_URL)}"
-    sh "curl -sL --compressed -H \"Authorization: Token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/k8s-elastic-agents.jar #{download_url_from_latest_release(K8S_EA_PLUGIN_RELEASE_URL)}"
-    sh "curl -sL --compressed -H \"Authorization: Token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/ldap_authorization_plugin.jar #{download_url_from_latest_release(LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL)}"
-    sh "curl -sL --compressed -H \"Authorization: Token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/maven_repo_poller_plugin.jar #{download_url_from_latest_release(MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL)}"
-    sh "curl -sL --compressed -H \"Authorization: Token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/yum_repo_poller_plugin.jar #{download_url_from_latest_release(YUM_REPO_POLLER_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/elastic-agent-skeleton-plugin.jar #{download_url_from_latest_release(ELASTICAGENTS_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-registry-artifact-plugin.jar #{download_url_from_latest_release(DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-swarm-elastic-agents-plugin.jar #{download_url_from_latest_release(DOCKER_SWARM_EA_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-elastic-agents-plugin.jar #{download_url_from_latest_release(DOCKER_EA_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/k8s-elastic-agents.jar #{download_url_from_latest_release(K8S_EA_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/ldap_authorization_plugin.jar #{download_url_from_latest_release(LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/maven_repo_poller_plugin.jar #{download_url_from_latest_release(MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/yum_repo_poller_plugin.jar #{download_url_from_latest_release(YUM_REPO_POLLER_PLUGIN_RELEASE_URL)}"
   end
 
   desc 'task for preparing analytics plugin'

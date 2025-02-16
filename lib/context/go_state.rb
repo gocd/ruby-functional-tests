@@ -52,6 +52,10 @@ module Context
     def capture_database(path)
       begin
         cp_r "#{GoConstants::SERVER_DIR}/db", path
+
+        # Compress the config repo, as it's a git repo with many small files that is a pain to artifact
+        system "tar --directory=#{path}/db -czf #{path}/db/config.git.tar.gz config.git"
+        rm_rf "#{path}/db/config.git"
       rescue => exception
         p "Failed to capture DB as part of teardown. Ignore. Not failing the test for this"
       end

@@ -35,6 +35,7 @@ module Context
         cp_r "#{GoConstants::GAUGE_AGENT_DIR}/#{item}/config", "#{path}/#{item}"
         cp_r "#{GoConstants::GAUGE_AGENT_DIR}/#{item}/logs", "#{path}/#{item}"
         cp_r "#{GoConstants::GAUGE_AGENT_DIR}/#{item}/pipelines", "#{path}/#{item}"
+        tar_rm("#{path}/#{item}", "pipelines") # Compress the pipelines as they have many small .git files and are infrequently needed
       end
     end
 
@@ -52,10 +53,7 @@ module Context
     def capture_database(path)
       begin
         cp_r "#{GoConstants::SERVER_DIR}/db", path
-
-        # Compress the config repo, as it's a git repo with many small files that is a pain to artifact
-        system "tar --directory=#{path}/db -czf #{path}/db/config.git.tar.gz config.git"
-        rm_rf "#{path}/db/config.git"
+        tar_rm("#{path}/db", "config.git") # Compress the config repo, as it's a git repo with many small files that is a pain to artifact
       rescue => exception
         p "Failed to capture DB as part of teardown. Ignore. Not failing the test for this"
       end
@@ -69,6 +67,13 @@ module Context
       capture_healthstate(path)
       capture_cruise_config(path)
       capture_database(path)
+    end
+
+    private
+
+    def tar_rm(path, directory)
+      system "tar --directory=#{path} -czf #{path}/#{directory}.tar.gz #{directory}"
+      rm_rf "#{path}/#{directory}"
     end
   end
 end

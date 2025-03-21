@@ -38,7 +38,7 @@ gauge install
 
     ```
     cd gocd
-    ./gradlew -PfastBuild build-platform:publishToMavenLocal plugin-infra:go-plugin-api:publishToMavenLocal plugin-infra:go-plugin-api-internal:publishToMavenLocal installers:versionFile
+    ./gradlew -PfastBuild publishToMavenLocal installers:versionFile
     ```
 
 3. Build GoCD plugins:

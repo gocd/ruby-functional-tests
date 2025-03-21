@@ -1,10 +1,10 @@
 version: 2
 updates:
-- package-ecosystem: bundler
-  directory: "/"
-  schedule:
-    interval: weekly
-    day: friday
-  open-pull-requests-limit: 99
-  allow:
-    - dependency-type: all
+  - package-ecosystem: bundler
+    directory: /
+    schedule:
+      interval: weekly
+      day: friday
+    open-pull-request-limit: 99
+    allow:
+      - dependency-type: all

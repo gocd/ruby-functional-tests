@@ -57,13 +57,18 @@ end
 Capybara.register_driver :selenium do |app|
   browser = (ENV['browser'] || 'firefox').to_sym
   config = case browser
-          when :firefox
-            options = ::Selenium::WebDriver::Firefox::Options.new
-            options.args << "--headless" if RbConfig::CONFIG['host_os'] =~ /linux/
-            {browser: browser, options: options}
-          else
-            {browser: browser}
-        end
+           when :firefox
+             ::Selenium::WebDriver::Firefox::Service.driver_path = `which geckodriver`.chomp
+             options = ::Selenium::WebDriver::Firefox::Options.new
+             options.args << "--headless" if RbConfig::CONFIG['host_os'] =~ /linux/
+             { browser: browser, options: options }
+           else
+             chromedriver_path = `which chromedriver`.chomp
+             ::Selenium::WebDriver::Chrome::Service.driver_path = chromedriver_path
+             ::Selenium::WebDriver::Chromium::Service.driver_path = chromedriver_path
+             ::Selenium::WebDriver::Edge::Service.driver_path = chromedriver_path
+             { browser: browser }
+           end
   Capybara::Selenium::Driver.new(app, **config)
 end
 

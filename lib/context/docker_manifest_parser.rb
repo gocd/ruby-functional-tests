@@ -55,7 +55,7 @@ module Context
     end
 
     def images_for_current_platform
-      load_manifest.select { |image| platforms_safe(image).include?(docker_platform_for_local_arch) }
+      load_manifest.select { |image| platforms_safe(image).any? { |platform| platform.start_with?(docker_platform_for_local_arch) } }
     end
 
     private

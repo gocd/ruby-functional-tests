@@ -5,6 +5,6 @@ updates:
     schedule:
       interval: weekly
       day: friday
-    open-pull-request-limit: 99
+    open-pull-requests-limit: 99
     allow:
       - dependency-type: all

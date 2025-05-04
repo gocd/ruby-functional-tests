@@ -16,7 +16,7 @@ tags: create pipeline,hg credentials
 * Enter new pipeline name as "hg-cred-url"
 
 * Select material type as "Mercurial"
-* Set url "https://gocd_qa:$BITBUCKET_PASSWORD$@bitbucket.org/gocd_qa/hg-functional-tests" for material  "hg"
+* Set url "https://gocd_qa:$BITBUCKET_TOKEN$@bitbucket.org/gocd_qa/hg-functional-tests" for material  "hg"
 * Open Materials advanced settings
 * Set branch as "default" for material "hg"
 * Check connectivity should be successful
@@ -38,7 +38,7 @@ tags: create pipeline,hg credentials
 * Set url "https://bitbucket.org/gocd_qa/hg-functional-tests" for material  "hg"
 * Open Materials advanced settings
 * Set "hg" username as "gocd_qa"
-* Set "hg" password as "$BITBUCKET_PASSWORD$"
+* Set "hg" password as "$BITBUCKET_TOKEN$"
 * Set branch as "default" for material "hg"
 Removing the below step for polling of new changes - This option is removed from the new pipeline creation wizard
 To bring it back after discussion and decide to provide the option on creation wizard

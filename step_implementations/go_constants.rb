@@ -41,7 +41,7 @@ class GoConstants
   ELASTIC_AGENTS_PROFILE_API_VERSION = 'application/vnd.go.cd+json'.freeze
   VERSIONS_API_VERSION = 'application/vnd.go.cd+json'.freeze
   PLUGIN_INFO_API_VERSION = 'application/vnd.go.cd+json'.freeze
-  BITBUCKET_PASSWORD = ENV['BITBUCKET_PASSWORD'] || 'password'
+  BITBUCKET_TOKEN = ENV['BITBUCKET_TOKEN'] || 'api-token'
 
   GO_SERVER_BASE_URL = "http://#{HOSTNAME}:#{SERVER_PORT}/go".freeze
   GO_CONFIG_SCHEMA_VERSION = '84'.freeze

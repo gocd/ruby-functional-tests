@@ -20,7 +20,7 @@ module Context
       @scenario_store = Gauge::DataStoreFactory.scenario_datastore
       @scenario_store.put 'non-existing-pipeline', 'ghost-pipeline'
       @scenario_store.put 'server_ip', GoConstants::IPADDRESS
-      @scenario_store.put 'BITBUCKET_PASSWORD', GoConstants::BITBUCKET_PASSWORD
+      @scenario_store.put 'BITBUCKET_TOKEN', GoConstants::BITBUCKET_TOKEN
     end
 
     def get(key)

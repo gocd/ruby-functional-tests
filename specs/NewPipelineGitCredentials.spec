@@ -16,7 +16,7 @@ tags: create pipeline,git credentials
 * Enter new pipeline name as "git-cred-url"
 
 * Select material type as "Git"
-* Set url "https://gocd_qa:$BITBUCKET_PASSWORD$@bitbucket.org/gocd_qa/git-functional-tests.git" for material  "git"
+* Set url "https://gocd_qa:$BITBUCKET_TOKEN$@bitbucket.org/gocd_qa/git-functional-tests.git" for material  "git"
 * Open Materials advanced settings
 * Set branch as "master" for material "git"
 * Check connectivity should be successful
@@ -38,7 +38,7 @@ tags: create pipeline,git credentials
 * Set url "https://bitbucket.org/gocd_qa/git-functional-tests.git" for material  "git"
 * Open Materials advanced settings
 * Set "git" username as "gocd_qa"
-* Set "git" password as "$BITBUCKET_PASSWORD$"
+* Set "git" password as "$BITBUCKET_TOKEN$"
 * Set branch as "master" for material "git"
 Removing the below step for polling of new changes - This option is removed from the new pipeline creation wizard
 To bring it back after discussion and decide to provide the option on creation wizard

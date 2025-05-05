@@ -20,7 +20,8 @@ module Context
       @scenario_store = Gauge::DataStoreFactory.scenario_datastore
       @scenario_store.put 'non-existing-pipeline', 'ghost-pipeline'
       @scenario_store.put 'server_ip', GoConstants::IPADDRESS
-      @scenario_store.put 'BITBUCKET_TOKEN', GoConstants::BITBUCKET_TOKEN
+      @scenario_store.put 'HELIXTEAMHUB_USERNAME', GoConstants::HELIXTEAMHUB_USERNAME
+      @scenario_store.put 'HELIXTEAMHUB_PASSWORD', GoConstants::HELIXTEAMHUB_PASSWORD
     end
 
     def get(key)

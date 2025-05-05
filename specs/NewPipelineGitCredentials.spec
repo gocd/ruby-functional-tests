@@ -16,7 +16,7 @@ tags: create pipeline,git credentials
 * Enter new pipeline name as "git-cred-url"
 
 * Select material type as "Git"
-* Set url "https://gocd_qa:$BITBUCKET_TOKEN$@bitbucket.org/gocd_qa/git-functional-tests.git" for material  "git"
+* Set url "https://$HELIXTEAMHUB_USERNAME$:$HELIXTEAMHUB_PASSWORD$@helixteamhub.cloud/gocdcommunity/projects/gocd_qa/repositories/git/git-functional-tests" for material  "git"
 * Open Materials advanced settings
 * Set branch as "master" for material "git"
 * Check connectivity should be successful
@@ -35,10 +35,10 @@ tags: create pipeline,git credentials
 * Enter new pipeline name as "git-cred-attr"
 
 * Select material type as "Git"
-* Set url "https://bitbucket.org/gocd_qa/git-functional-tests.git" for material  "git"
+* Set url "https://helixteamhub.cloud/gocdcommunity/projects/gocd_qa/repositories/git/git-functional-tests" for material  "git"
 * Open Materials advanced settings
-* Set "git" username as "gocd_qa"
-* Set "git" password as "$BITBUCKET_TOKEN$"
+* Set "git" username as "$HELIXTEAMHUB_USERNAME$"
+* Set "git" password as "$HELIXTEAMHUB_PASSWORD$"
 * Set branch as "master" for material "git"
 Removing the below step for polling of new changes - This option is removed from the new pipeline creation wizard
 To bring it back after discussion and decide to provide the option on creation wizard

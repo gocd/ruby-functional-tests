@@ -5,6 +5,8 @@ updates:
     schedule:
       interval: weekly
       day: friday
-    open-pull-requests-limit: 99
     allow:
       - dependency-type: all
+    groups:
+      ruby-deps:
+        patterns: [ "*" ]

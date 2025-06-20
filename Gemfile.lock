@@ -76,11 +76,11 @@ GEM
     ladle (1.0.1)
       open4 (~> 1.0)
     logger (1.7.0)
-    matrix (0.4.2)
+    matrix (0.4.3)
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2025.0610)
+    mime-types-data (3.2025.0617)
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
     minitest (5.25.5)

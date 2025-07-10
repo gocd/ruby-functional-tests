@@ -42,10 +42,10 @@ GEM
     ffi (1.17.2-aarch64-linux-gnu)
     ffi (1.17.2-arm64-darwin)
     ffi (1.17.2-x86_64-linux-gnu)
-    gauge-ruby (0.9.3)
+    gauge-ruby (0.9.4)
       grpc (~> 1.10, >= 1.10.0, < 1.65)
       parser (>= 3.1, < 4.0)
-      unparser (>= 0.6.4, < 0.8.0)
+      unparser (>= 0.6.4, < 0.9.0)
     google-protobuf (3.25.8)
     google-protobuf (3.25.8-aarch64-linux)
     google-protobuf (3.25.8-arm64-darwin)
@@ -101,6 +101,7 @@ GEM
       ast (~> 2.4.1)
       racc
     power_assert (2.0.5)
+    prism (1.4.0)
     public_suffix (6.0.2)
     racc (1.8.1)
     rack (3.1.16)
@@ -141,9 +142,10 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
-    unparser (0.7.0)
+    unparser (0.8.0)
       diff-lcs (~> 1.6)
       parser (>= 3.3.0)
+      prism (>= 1.4)
     uri (1.0.3)
     websocket (1.2.11)
     xpath (3.2.0)
@@ -176,4 +178,4 @@ RUBY VERSION
    ruby 3.3.2p78
 
 BUNDLED WITH
-   2.6.8
+   2.6.9

@@ -91,11 +91,11 @@ module Pages
     def get_pipeline_stage_state(pipeline, stagename) # This need relook too
       return if get_all_stages(pipeline).nil?
       target_stage = get_all_stages(pipeline).select { |stage| stage['title'].include?(stagename)}
-      target_stage.first['class']
+      (target_stage.first || {})['class']
     end
 
     def get_manual_gate(pipeline, stagename)
-      target_stage = get_all_stages(pipeline).select { |s| s['title'].include?(stagename)}
+      target_stage = get_all_stages(pipeline).select { |stage| stage['title'].include?(stagename)}
       parent = target_stage.first.find(:xpath,".//..")
       parent.find('.manual_gate')
     end

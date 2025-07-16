@@ -64,6 +64,7 @@ class GoConstants
                                    -Dgocd.server.logback.debug=true
                                    -Dgo.gauge.server=true
                                    -Dcruise.server.port=#{SERVER_PORT}
+                                   -Dplugin.cd.go.authentication.ldap.log.level=debug
                                    -Xms#{SERVER_MEM}
                                    -Xmx#{SERVER_MAX_MEM}
                                    #{ENV['ADDITIONAL_SERVER_SYSTEM_PROPERTIES']}]

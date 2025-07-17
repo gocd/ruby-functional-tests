@@ -9,7 +9,7 @@ Setup of contexts
 * Ldap server - start
 * Auth Plugins Configuration - setup
 * Login as "admin" - setup
-* Capture go state "BundledAuthPlugins" - setup
+* Capture go state "RolesSPA" - setup
 
 * Go to roles page
 * Create a new gocd role "gocd"
@@ -84,6 +84,6 @@ Setup of contexts
 teardown
 _______________
 * As user "admin" for teardown
-* Capture go state "BundledAuthPlugins" - teardown
+* Capture go state "RolesSPA" - teardown
 * Logout - from any page
 * Ldap server - stop

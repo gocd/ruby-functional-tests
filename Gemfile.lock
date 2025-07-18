@@ -69,7 +69,7 @@ GEM
       domain_name (~> 0.5)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
-    json (2.12.2)
+    json (2.13.0)
     json_builder (3.1.7)
       activesupport (>= 2.0.0)
       json
@@ -80,7 +80,7 @@ GEM
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2025.0708)
+    mime-types-data (3.2025.0715)
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
     minitest (5.25.5)

@@ -56,7 +56,7 @@ end
 
 step 'Verify if artifact store <artifact_store_id> is not present' do |artifact_store_id|
   wait_till_event_occurs_or_bomb 10, "Artifact store  #{artifact_store_id} delete failed" do
-    break if !artifacts_store_page.has_artifact_store(artifact_store_id)
+    break unless artifacts_store_page.has_artifact_store(artifact_store_id)
   end
 end
 

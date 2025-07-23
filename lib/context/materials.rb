@@ -64,9 +64,7 @@ module Context
     end
 
     def setup_material_for(pipeline, material_url)
-      if !scenario_state.get(material_url).nil?
-        material_path = scenario_state.get(material_url)
-      else
+      if scenario_state.get(material_url).nil?
         rm_rf(@path) if Dir.exist? @path
         mkdir_p(@path)
         cd(@path) do
@@ -81,6 +79,8 @@ module Context
                           "#{@path}/sample.git"
                         end
         scenario_state.put(material_url, material_path)
+      else
+        material_path = scenario_state.get(material_url)
       end
       basic_configuration.set_material_path_for_pipeline('git', pipeline, material_path, material_url)
     rescue StandardError => e
@@ -168,9 +168,7 @@ module Context
 
     def setup_material_for(pipeline)
       material_url = material_config(pipeline).first.value
-      if !scenario_state.get(material_url).nil?
-        material_path = scenario_state.get(material_url)
-      else
+      if scenario_state.get(material_url).nil?
         rm_rf(@repository_directory)
         mkdir_p(@repository_directory)
         cp_r('test-repos/svn_repos/end2end/', @repository_directory)
@@ -184,6 +182,8 @@ module Context
         initial_commit
         material_path = "file://#{@repository_directory}/end2end"
         scenario_state.put(material_url, material_path)
+      else
+        material_path = scenario_state.get(material_url)
       end
       basic_configuration.set_material_path_for_pipeline('svn', pipeline, material_path)
     rescue StandardError => e

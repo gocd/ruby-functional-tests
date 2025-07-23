@@ -89,8 +89,9 @@ module Pages
     end
 
     def get_pipeline_stage_state(pipeline, stagename) # This need relook too
-      return if get_all_stages(pipeline).nil?
-      target_stage = get_all_stages(pipeline).select { |stage| stage['title'].include?(stagename)}
+      all_stages = get_all_stages(pipeline)
+      return if all_stages.nil?
+      target_stage = all_stages.select { |stage| stage['title'].include?(stagename)}
       (target_stage.first || {})['class']
     end
 
@@ -132,8 +133,9 @@ module Pages
 
     def verify_pipeline_stage_state(pipeline, stage, state)
       wait_till_event_occurs_or_bomb 300, "Pipeline #{pipeline} stage #{stage} is not in #{state} state" do
-        next if get_pipeline_stage_state(pipeline, stage).nil?
-        break if get_pipeline_stage_state(pipeline, stage).include?(state)
+        pipeline_stage_state = get_pipeline_stage_state(pipeline, stage)
+        next if pipeline_stage_state.nil?
+        break if pipeline_stage_state.include?(state)
       end
     end
 
@@ -182,7 +184,7 @@ module Pages
       wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
         all_stages = get_all_stages(scenario_state.self_pipeline)
         return if all_stages.nil?
-        break if all_stages.first['class'] and all_stages.first['class'].include?('building')
+        break if (all_stages.first['class'] || {}).include?('building')
       end
     end
 
@@ -199,7 +201,7 @@ module Pages
       wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.self_pipeline} started building when it was expected not to" do
         all_stages = get_all_stages(scenario_state.self_pipeline)
         return if all_stages.nil?
-        break unless all_stages.first['class'].nil? or all_stages.first['class'].include?('building')
+        break unless (all_stages.last['class'] || "building").include?('building')
       end
     end
 
@@ -207,7 +209,7 @@ module Pages
       wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.self_pipeline} failed to complete with in timeout" do
         all_stages = get_all_stages(scenario_state.self_pipeline)
         return if all_stages.nil?
-        break unless all_stages.last['class'].nil? or all_stages.last['class'].include?('building')
+        break unless (all_stages.last['class'] || "building").include?('building')
       end
     end
 
@@ -457,7 +459,7 @@ module Pages
                    p "Get All Material call failed with response code #{err.response.code} and the response body - #{err.response.body}"
                  end
       JSON.parse(response.body)['_embedded']['materials'].each{|material|
-        if !material['attributes']['url'].nil?
+        unless material['attributes']['url'].nil?
           if material['attributes']['url'].include? current_material_url
               scenario_state.put('fingerprint',material['fingerprint'])
               break

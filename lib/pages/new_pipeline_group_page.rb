@@ -36,7 +36,7 @@ module Pages
     element :error_message, "div[data-test-id='flash-message-alert']"
 
     def remove_permission_for_role permission, role
-      page.find("#{permission}Privilege_ROLE_#{role}").click if !page.find("#{permission}Privilege_ROLE_#{role}").checked?
+      page.find("#{permission}Privilege_ROLE_#{role}").click unless page.find("#{permission}Privilege_ROLE_#{role}").checked?
     end
 
     def set_group_name group

@@ -93,7 +93,7 @@ after_suite do
   write_to_file("non_tested_apis.json", APIBuilder.build_non_tested)
   go_server.stop
   %x(rm -rf target/go_state) unless ENV['GO_PIPELINE_NAME']
-  if !GoConstants::DEVELOPMENT_MODE && GoConstants::RUN_ON_DOCKER
+  unless GoConstants::DEVELOPMENT_MODE or !GoConstants::RUN_ON_DOCKER
     # Try and keep docker usage down on DINDed agents
     sh %(docker image prune -a -f || true)
   end

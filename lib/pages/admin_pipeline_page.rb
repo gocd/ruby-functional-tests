@@ -1,7 +1,7 @@
 ##########################################################################
 # Copyright 2022 Thoughtworks, Inc.
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
+# Licensed under the Apache License, Version 2.0 (the "License")
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
@@ -39,7 +39,7 @@ module Pages
     element :error_message, "[data-test-id='pipeline-group-flash-message']"
     element :roles_error_message, "[data-test-id='errors-on-roles']"
 
-    load_validation {has_create_new_pipeline_group?}
+    load_validation { has_create_new_pipeline_group? }
 
     def clone_pipeline(source_pipeline_name, new_pipeline_name, pipeline_group_name)
       click_on_clone_link_for(source_pipeline_name)
@@ -155,41 +155,41 @@ module Pages
     def pipeline_moved_to_group_list(pipeline)
       page.find("[data-test-id='move-pipeline-#{pipeline.downcase}']").click
       groups = page.find("[data-test-id='move-pipeline-group-selection']").all('option').collect(&:text)
-      page.all("button").select {|btn| btn['class'].include? 'overlay-close'}.first.click
+      page.all("button").select { |btn| btn['class'].include? 'overlay-close' }.first.click
       groups
     end
 
     def users_in_group()
       users = []
-      page.all('[data-test-id="user-name"]').each {|element|
-        users.push(element.value) if !element.value.blank?
+      page.all('[data-test-id="user-name"]').each { |element|
+        users.push(element.value) unless element.value.blank?
       }
-      return users;
+      users
     end
 
     def roles_in_group()
       roles = []
-      page.all('[data-test-id="role-name"]').each {|element|
-        roles.push(element.value) if !element.value.blank?
+      page.all('[data-test-id="role-name"]').each { |element|
+        roles.push(element.value) unless element.value.blank?
       }
-      return roles;
+      roles
     end
 
     def users_permissions_in_group(user)
       permissions = []
-      user_row = page.all('[data-test-id="user-name"]').select {|u| u if u.value == user}.first.ancestor('[data-test-id="table-row"]')
-      user_row.all('[data-test-id$="-permission"]').each {|element|
-        permissions.push(element['data-test-id'].split('-').first) if !element.checked?
+      user_row = page.all('[data-test-id="user-name"]').select { |u| u if u.value == user }.first.ancestor('[data-test-id="table-row"]')
+      user_row.all('[data-test-id$="-permission"]').each { |element|
+        permissions.push(element['data-test-id'].split('-').first) unless element.checked?
       }
-      return permissions
+      permissions
     end
 
     def roles_permissions_in_group(role)
       permissions = []
-      page.all("tr#ROLE_#{role} td input[type=checkbox]").each {|element|
-        permissions.push(element[:name]) if !element.checked?
+      page.all("tr#ROLE_#{role} td input[type=checkbox]").each { |element|
+        permissions.push(element[:name]) unless element.checked?
       }
-      return permissions
+      permissions
     end
 
     def delete_user_on_edit_group(user)
@@ -236,7 +236,7 @@ module Pages
     end
 
     def add_downstream_pipeline_to_create_post_validations
-      context     = %Q(<pipeline name="downstream-pipeline">\n <materials>\n <pipeline pipelineName= "#{scenario_state.get('upstream-pipeline')}"
+      context = %Q(<pipeline name="downstream-pipeline">\n <materials>\n <pipeline pipelineName= "#{scenario_state.get('upstream-pipeline')}"
                    stageName="defaultStage" materialName="UP" />\n </materials>\n <stage name="defaultStage">\n <approval type="manual"/>\n <jobs>\n <job name="replace-job">
                    \n <tasks>\n <exec command="ls"/>\n </tasks>\n </job>\n </jobs>\n </stage>\n </pipeline>\n </pipelines>)
       new_context = page.find('#content').text.sub! "</pipelines>", context
@@ -246,8 +246,8 @@ module Pages
     def post_validation_error_message_exist? message
 
       errors = []
-      page.all('.error').each {|error|
-        errors.push(error.text)}
+      page.all('.error').each { |error|
+        errors.push(error.text) }
       errors.include? new_pipeline_dashboard_page.sanitize_message(message)
     end
 
@@ -301,12 +301,12 @@ module Pages
     end
 
     def delete_user_permission(user)
-      user_row = page.all('[data-test-id="user-name"]').select {|u| u if u.value == user}.first.ancestor('[data-test-id="table-row"]')
+      user_row = page.all('[data-test-id="user-name"]').select { |u| u if u.value == user }.first.ancestor('[data-test-id="table-row"]')
       user_row.find("[data-test-id='user-permission-delete']").click
     end
 
     def delete_role_permission(role)
-      role_row = page.all('[data-test-id="role-name"]').select {|r| r if r.value == role}.first.ancestor('[data-test-id="table-row"]')
+      role_row = page.all('[data-test-id="role-name"]').select { |r| r if r.value == role }.first.ancestor('[data-test-id="table-row"]')
       role_row.find("[data-test-id='role-permission-delete']").click
     end
 

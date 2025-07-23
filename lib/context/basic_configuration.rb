@@ -57,13 +57,13 @@ module Context
       current_config
     end
 
-    def has_material_of_type type,pipeline
+    def has_material_of_type type, pipeline
       current_configuration = basic_configuration.get_config_from_server
-      flag= true if current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{type}").count>0
+      flag = true if current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{type}").count > 0
       flag
     end
 
-    def set_material_path_for_pipeline(material_type, pipeline, material_path,material_url)
+    def set_material_path_for_pipeline(material_type, pipeline, material_path, material_url)
       current_config = get_config_from_server
       current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{material_type}[@url='#{material_url}']").each do |material|
         material['url'] = material_path
@@ -71,7 +71,7 @@ module Context
       load_dom(current_config)
     end
 
-    def set_material_path_for_tfs_pipeline pipeline,tfs_url,tfs_username,tfs_password
+    def set_material_path_for_tfs_pipeline pipeline, tfs_url, tfs_username, tfs_password
       current_config = get_config_from_server
       current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/tfs").each do |material|
         material['url'] = tfs_url
@@ -89,18 +89,18 @@ module Context
           materials['pipelineName'] = pipeline['name'] if materials['pipelineName'] == initial_name
         end
         config_dom.xpath('//fetchartifact').each do |fetch|
-         if fetch.attributes.include?'pipeline'
-          if fetch['pipeline'].include?('/')
-            fetch['pipeline'].split('/').each{|fetch_pipeline|
-              if fetch_pipeline.eql?(initial_name)
-                  fetch['pipeline']=fetch['pipeline'].sub(initial_name,pipeline['name'])
-              end
-            }
+          if fetch.attributes.include? 'pipeline'
+            if fetch['pipeline'].include?('/')
+              fetch['pipeline'].split('/').each { |fetch_pipeline|
+                if fetch_pipeline.eql?(initial_name)
+                  fetch['pipeline'] = fetch['pipeline'].sub(initial_name, pipeline['name'])
+                end
+              }
 
-          else
+            else
               fetch['pipeline'] = pipeline['name'] if fetch['pipeline'] == initial_name
+            end
           end
-         end
         end
         config_dom.xpath('//environments/environment/pipelines/pipeline').each do |env|
           env['name'] = pipeline['name'] if env['name'] == initial_name
@@ -174,36 +174,36 @@ module Context
     end
 
     def remove_all_users
-      RestClient.get http_url("/api/users"), { accept: 'application/vnd.go.cd+json' }.merge(header)  do |response, _request, _result|
+      RestClient.get http_url("/api/users"), { accept: 'application/vnd.go.cd+json' }.merge(header) do |response, _request, _result|
         if response.code == 200
-          disabled_users = JSON.parse(response.body)['_embedded']['users'].collect{ |user|
+          disabled_users = JSON.parse(response.body)['_embedded']['users'].collect { |user|
             user['login_name'] if user['enabled'].eql? true
           }.compact
-          enabled_users = JSON.parse(response.body)['_embedded']['users'].collect{ |user|
+          enabled_users = JSON.parse(response.body)['_embedded']['users'].collect { |user|
             user['login_name'] if user['enabled'].eql? false
           }.compact
-          users_to_be_removed = enabled_users.concat(disabled_users).delete_if{ |user| user.eql?'admin'}
+          users_to_be_removed = enabled_users.concat(disabled_users).delete_if { |user| user.eql? 'admin' }
           RestClient.patch http_url("/api/users/operations/state"),
-                    { "operations": { "enable": false }, "users": enabled_users }.to_json,
-                    { content_type: :json, accept: 'application/vnd.go.cd+json' }.merge(header) unless enabled_users.empty?
+                           { "operations": { "enable": false }, "users": enabled_users }.to_json,
+                           { content_type: :json, accept: 'application/vnd.go.cd+json' }.merge(header) unless enabled_users.empty?
           RestClient::Request.execute(method: 'delete',
-                    url: http_url("/api/users"), payload: { "users": users_to_be_removed }.to_json,
-                    headers: { content_type: :json, accept: 'application/vnd.go.cd+json' }.merge(header)) unless users_to_be_removed.empty?
+                                      url: http_url("/api/users"), payload: { "users": users_to_be_removed }.to_json,
+                                      headers: { content_type: :json, accept: 'application/vnd.go.cd+json' }.merge(header)) unless users_to_be_removed.empty?
         end
       end
     end
 
     def update_toggle(toggle, value)
       RestClient.put http_url("/api/admin/feature_toggles/#{toggle}"),
-                      {"toggle_value": "#{value}"}.to_json,
-                      { content_type: :json, accept: 'application/vnd.go.cd+json'  }.merge(basic_configuration.header)
+                     { "toggle_value": "#{value}" }.to_json,
+                     { content_type: :json, accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
     end
 
     def material_url_for(pipeline)
       get_config_from_server.xpath("//cruise/pipelines/pipeline[@name='#{pipeline}']/materials/git").attribute('url').value
     end
 
-    def material_url(pipeline,material_type,material_name)
+    def material_url(pipeline, material_type, material_name)
       current_configuration = basic_configuration.get_config_from_server
       return current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{material_type}[@materialName='#{material_name}']")[0]['url']
     end
@@ -273,12 +273,12 @@ module Context
 
     def set_artifact_location(artifact_location)
       current_config = get_config_from_server
-      artifactsDir_tag="<artifactsDir>#{artifact_location}</artifactsDir>"
+      artifactsDir_tag = "<artifactsDir>#{artifact_location}</artifactsDir>"
       current_config.at('artifactsDir')['text'] = artifact_location
-      if !current_config.xpath("//cruise/server/artifacts/artifactsDir").empty?
-        current_config.xpath("//cruise/server/artifacts/artifactsDir").remove
+      if current_config.xpath("//cruise/server/artifacts/artifactsDir").empty?
         current_config.xpath("//cruise/server/artifacts").children.first.add_previous_sibling artifactsDir_tag
       else
+        current_config.xpath("//cruise/server/artifacts/artifactsDir").remove
         current_config.xpath("//cruise/server/artifacts").children.first.add_previous_sibling artifactsDir_tag
       end
       load_dom(current_config)
@@ -287,19 +287,20 @@ module Context
     def add_new_timer_spec_to_file(spec)
       current_config = get_config_from_server
       timer_tag = "<timer>#{spec}</timer>"
-      if !current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/timer").empty?
-        current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/timer").remove
+      if current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/timer").empty?
         current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']").children.first.add_previous_sibling timer_tag
       else
+        current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/timer").remove
         current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']").children.first.add_previous_sibling timer_tag
       end
       file = File.open("#{GoConstants::SERVER_DIR}/config/cruise-config.xml", 'w')
       begin
-         file.write(current_config.to_xml)
-       rescue IOError => e
-       ensure file.close unless file.nil?
-       end
-     end
+        file.write(current_config.to_xml)
+      rescue IOError => e
+      ensure
+        file.close unless file.nil?
+      end
+    end
 
     def set_timer_spec(spec)
       current_config = get_config_from_server
@@ -311,11 +312,12 @@ module Context
     def change_cruise_config_file_to(file)
       config_file = File.open("#{GoConstants::SERVER_DIR}/config/cruise-config.xml", 'w')
       begin
-         config_file.write(File.read("#{GoConstants::CONFIG_PATH}/#{file}"))
-       rescue IOError => e
-       ensure config_file.close unless config_file.nil?
-       end
-     end
+        config_file.write(File.read("#{GoConstants::CONFIG_PATH}/#{file}"))
+      rescue IOError => e
+      ensure
+        config_file.close unless config_file.nil?
+      end
+    end
 
     def allow_known_user_to_login(value)
       current_config = get_config_from_server
@@ -329,7 +331,7 @@ module Context
       current_config = get_config_from_server
       current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/stage[@name='#{stage}']/jobs/job[@name='#{job}']").remove
       load_dom(current_config)
-   end
+    end
 
     def set_run_instance_count_for_job(count, job, pipeline)
       current_config = get_config_from_server
@@ -343,8 +345,8 @@ module Context
       load_dom(current_config)
     end
 
-    def stage_is_authorised_with_user?(user,stage,pipeline)
-      users=[]
+    def stage_is_authorised_with_user?(user, stage, pipeline)
+      users = []
       current_config = get_config_from_server
       current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/stage[@name='#{stage}']/approval/authorization/user").each do |user|
         users.push(user.text)
@@ -352,8 +354,8 @@ module Context
       return users
     end
 
-    def stage_is_authorised_with_role?(user,stage,pipeline)
-      roles=[]
+    def stage_is_authorised_with_role?(user, stage, pipeline)
+      roles = []
       current_config = get_config_from_server
       current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/stage[@name='#{stage}']/approval/authorization/role").each do |role|
         roles.push(role.text)
@@ -364,31 +366,27 @@ module Context
     def auto_approve_first_stage()
       current_config = get_config_from_server
       current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/materials/*").each { |material|
-      material.remove_attribute("autoUpdate") if(material.has_attribute?("autoUpdate"))
-     }
-    approval_element= current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/stage[1]/approval")
-    current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/stage[1]/approval").remove if !approval_element.empty?
-    load_dom(current_config)
-   end
+        material.remove_attribute("autoUpdate") if (material.has_attribute?("autoUpdate"))
+      }
+      approval_element = current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/stage[1]/approval")
+      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/stage[1]/approval").remove unless approval_element.empty?
+      load_dom(current_config)
+    end
 
-   def rename_pipeline pipeline_name, new_name
-    current_config = get_config_from_server
-    current_config.xpath('//cruise/pipelines/pipeline').each{ |pipeline|
-      pipeline['name']=new_name if pipeline['name']==scenario_state.get(pipeline_name)
-    }
-    load_dom(current_config)
-   end
+    def rename_pipeline pipeline_name, new_name
+      current_config = get_config_from_server
+      current_config.xpath('//cruise/pipelines/pipeline').each { |pipeline|
+        pipeline['name'] = new_name if pipeline['name'] == scenario_state.get(pipeline_name)
+      }
+      load_dom(current_config)
+    end
 
-   def enable_auto_updates pipeline
-    current_config = get_config_from_server
-    current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/materials/*").each { |material|
-    material.remove_attribute("autoUpdate") if(material.has_attribute?("autoUpdate"))
-   }
-   load_dom(current_config)
-   end
-
-
-
-
+    def enable_auto_updates pipeline
+      current_config = get_config_from_server
+      current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/materials/*").each { |material|
+        material.remove_attribute("autoUpdate") if (material.has_attribute?("autoUpdate"))
+      }
+      load_dom(current_config)
+    end
   end
 end

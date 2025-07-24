@@ -5,7 +5,7 @@ Setup of contexts
 * Basic Configuration - setup
 * Using pipeline "pipeline-with-lock-all-manual" - setup
 * With "1" live agents - setup
-* Capture go state "PIpelineLockingOnDashboard" - setup
+* Capture go state "PipelineLockingOnDashboard" - setup
 
 PipelineLockingOnDashboard
 --------------------------
@@ -47,7 +47,7 @@ tags: pipeline_locking_behavior
 
 Teardown of contexts
 ____________________
-* Capture go state "PIpelineLockingOnDashboard" - teardown
+* Capture go state "PipelineLockingOnDashboard" - teardown
 * With "1" live agents - teardown
 
 

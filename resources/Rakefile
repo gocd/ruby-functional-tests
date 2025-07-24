@@ -14,7 +14,7 @@
 # limitations under the License.
 # #########################GO-LICENSE-END##################################
 
-# Test Rakefile to be checked in to any SCM material repostitory used in test
+# Test Rakefile to be checked in to any SCM material repository used in test
 
 task :wait_for_stopjob_file do
   sleep 1 until File.exist?('../../../stopjob')

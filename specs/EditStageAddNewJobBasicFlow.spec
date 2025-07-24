@@ -31,8 +31,6 @@ tags: smoke, run-on-docker
 * set job resources as "windows,win-xp,linux,win7"
 * set run type as "Run on all agents"
 * Save Changes
-* Wait for "60" seconds
-
 
 Teardown of contexts
 ____________________

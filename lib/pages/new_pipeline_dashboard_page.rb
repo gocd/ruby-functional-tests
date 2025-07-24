@@ -206,7 +206,7 @@ module Pages
     end
 
     def wait_till_pipeline_complete(wait_time = 600)
-      wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.self_pipeline} failed to complete with in timeout" do
+      wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.self_pipeline} failed to complete within timeout" do
         all_stages = get_all_stages(scenario_state.self_pipeline)
         return if all_stages.nil?
         break unless (all_stages.last['class'] || "building").include?('building')
@@ -214,7 +214,7 @@ module Pages
     end
 
     def wait_till_stage_complete(stage)
-      wait_till_event_occurs_or_bomb 120, "Pipeline #{scenario_state.self_pipeline} Stage #{stage} failed to complete with in timeout" do
+      wait_till_event_occurs_or_bomb 120, "Pipeline #{scenario_state.self_pipeline} Stage #{stage} failed to complete within timeout" do
         pipeline_stage_state = get_pipeline_stage_state(scenario_state.self_pipeline, stage)
         return if pipeline_stage_state.nil?
         break unless pipeline_stage_state.include?('building')

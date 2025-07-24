@@ -104,9 +104,9 @@ begin
   file = File.open("reports/#{filename}", "w+")
   file.chmod(0755)
   file.write(data)
-rescue IOError => e
+rescue IOError
 ensure
-  file.close unless file.nil?
+  file.close if file
 end
 end
 

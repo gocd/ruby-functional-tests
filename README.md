@@ -15,7 +15,7 @@
 
 ## Setup
 
-```
+```shell
 # Make sure these are sibling directories.
 git clone https://github.com/gocd/ruby-functional-tests ruby-functional-tests
 git clone https://github.com/gocd/gocd gocd
@@ -27,54 +27,47 @@ gauge install
 
 ## Prepare and run specs
 
-1. Build GoCD server and agent zip installers:
+1. Build GoCD installer and plugins API library:
 
-    ```
-    cd gocd
-    ./gradlew clean installers:agentGenericZip installers:serverGenericZip
-    ```
-
-2. Build GoCD plugins API library:
-
-    ```
-    cd gocd
-    ./gradlew -PfastBuild publishToMavenLocal installers:versionFile
+    ```shell
+    cd ../gocd
+    ./gradlew clean installers:agentGenericZip installers:serverGenericZip -PfastBuild publishToMavenLocal installers:versionFile
     ```
 
-3. Build GoCD plugins:
+2. Build GoCD plugins:
 
-    ```
-    cd go-plugins
+    ```shell
+    cd ../go-plugins
     ./gradlew clean assemble copyJarsToOnePlace -PgoVersion=$(jq '.go_full_version' -r ../gocd/installers/target/distributions/meta/version.json)
     ```
 
-4. Install Ruby gems for functional tests:
+3. Install Ruby gems for functional tests:
 
-    ```
-    cd ruby-functional-tests
+    ```shell
+    cd ../ruby-functional-tests
     bundle install
     ```
 
-5. Clean and prepare server and agent for functional tests:
+4. Clean and prepare server and agent for functional tests:
 
-    ```
-    cd ruby-functional-tests
+    ```shell
+    cd ../ruby-functional-tests
     bundle exec rake GO_VERSION='X.x.x' clean_test server:prepare agent:prepare
     ```
 
     You can find the right version to use for `GO_VERSION` by checking the zip installers created in step 1 above, in: `gocd/installers/target/distributions/zip`. If the installer created is: `go-server-20.4.0-11553.zip`, then `GO_VERSION` should be set to `20.4.0`.
 
-6. To run all specs:
+5. To run all specs:
 
-    ```
-    cd ruby-functional-tests
+    ```shell
+    cd ../ruby-functional-tests
     bundle exec rake GO_VERSION='X.x.x' GAUGE_TAGS='<spec tags to run>' test
     ```
 
-7. To run specific task(s), execute this command
+6. To run specific task(s), execute this command
 
-    ```
-    cd ruby-functional-tests
+    ```shell
+    cd ../ruby-functional-tests
     bundle exec rake [kill/clean/prepare/test/bump-schema] GO_VERSION='X.x.x' GAUGE_TAGS='<spec tags to run>'
     ```
 
@@ -105,7 +98,7 @@ gauge install
 
 If you have the wrong version, it might show up like this:
 
-```shell
+```
 $ bundle exec rake test GO_VERSION='20.4.0' GAUGE_TAGS='my-tags'
 bundle exec gauge --tags 'duck' run specs
 warning: parser/current is loading parser/ruby26, which recognizes

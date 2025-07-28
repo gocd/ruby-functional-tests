@@ -37,7 +37,7 @@ class GoConstants
   GAUGE_AGENT_DIR = 'target/gauge_agents'.freeze
   CONFIG_PATH = 'resources/config'.freeze
   FILE_BASED_PLUGIN_ID = 'cd.go.authentication.passwordfile'.freeze
-  AGENTS_API_VERSION = 'application/vnd.go.cd+json'.freeze
+
   ELASTIC_AGENTS_PROFILE_API_VERSION = 'application/vnd.go.cd+json'.freeze
   VERSIONS_API_VERSION = 'application/vnd.go.cd+json'.freeze
   PLUGIN_INFO_API_VERSION = 'application/vnd.go.cd+json'.freeze

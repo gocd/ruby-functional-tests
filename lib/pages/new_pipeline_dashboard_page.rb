@@ -175,7 +175,6 @@ module Pages
         url = stage_overview_stage_details_link['href']
         actual_stage_counter_url = '/go' + (url.split '/go')[1]
 
-        p "Pipeline #{pipeline} stage #{stage} is at counter: #{counter}"
         break if actual_stage_counter_url == expected_stage_counter_url
       end
     end
@@ -224,31 +223,34 @@ module Pages
     def wait_till_pipeline_start_building(wait_time = 60)
       wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
         all_stages = get_all_stages(scenario_state.self_pipeline)
-        return if all_stages.nil?
-        break if (all_stages.first['class'] || {}).include?('building')
+        break if all_stages&.first and (all_stages.first['class'] || {}).include?('building')
       end
     end
 
-    def wait_to_check_pipeline_do_not_start(wait_time = 60)
-      wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.self_pipeline} started building when it was expected not to" do
+    def wait_to_check_pipeline_do_not_start(wait_time = 20)
+      wait_till_event_occurs wait_time do
         all_stages = get_all_stages(scenario_state.self_pipeline)
-        return if all_stages.nil?
-        break unless (all_stages.last['class'] || "building").include?('building')
+
+        # Keep waiting if we have no stages, we don't know if it will trigger at some point
+        next if all_stages&.last.nil?
+
+        # Fail fast if the last stage ever mentions it is building
+        raise "Pipeline #{scenario_state.self_pipeline} started building when it was expected not to" if (all_stages.last['class'] || "").include?('building')
       end
     end
 
     def wait_till_pipeline_complete(wait_time = 60)
       wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.self_pipeline} failed to complete" do
         all_stages = get_all_stages(scenario_state.self_pipeline)
-        return if all_stages.nil?
-        break unless (all_stages.last['class'] || "building").include?('building')
+        next if all_stages&.last.nil? or all_stages.last['class'].nil?
+        break unless all_stages.last['class'].include?('building')
       end
     end
 
     def wait_till_stage_complete(stage)
       wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.self_pipeline} Stage #{stage} failed to complete" do
         pipeline_stage_state = get_pipeline_stage_state(scenario_state.self_pipeline, stage)
-        return if pipeline_stage_state.nil?
+        next if pipeline_stage_state.nil?
         break unless pipeline_stage_state.include?('building')
       end
     end
@@ -437,14 +439,7 @@ module Pages
       revision[:class].include?('changed')
     end
 
-    def can_operate_using_ui?
-      !(pipeline_name text: scenario_state.self_pipeline).ancestor('.pipeline_header').find('.pipeline_operations').find("button[title='Trigger Pipeline']")['class'].include? 'disabled'
-    rescue StandardError => e
-      p "Pipeline operate check failed with ERROR: #{e}"
-      false
-    end
-
-    def can_operate_using_api?
+    def schedule_using_api?
       response = RestClient.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/schedule"), {}, { accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
       (response.code == 202)
     rescue RestClient::ExceptionWithResponse => err

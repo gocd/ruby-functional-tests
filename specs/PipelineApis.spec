@@ -39,8 +39,7 @@ tags: schedule, api
 
 * On Swift Dashboard Page
 * Looking at pipeline "pipeline-with-environment-variables" - On Swift Dashboard page
-* Wait till stage "defaultStage" completed - On Swift Dashboard page
-* Verify stage "defaultStage" is with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
 * On Job details page of pipeline "pipeline-with-environment-variables" counter "1" stage "defaultStage" counter "1" job "pipeline-with-environment-variables-job"
 
 
@@ -58,8 +57,7 @@ tags: schedule, api
 
 * On Swift Dashboard Page
 * Looking at pipeline "pipeline-with-environment-variables" - On Swift Dashboard page
-* Wait till stage "defaultStage" completed - On Swift Dashboard page
-* Verify stage "defaultStage" is with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
 * On Job details page of pipeline "pipeline-with-environment-variables" counter "1" stage "defaultStage" counter "1" job "another-job"
 
 
@@ -117,28 +115,23 @@ tags: schedule, api
 
 * On Swift Dashboard Page
 * Looking at pipeline "basic-pipeline-fast-api" - On Swift Dashboard page
-* Wait till stage "defaultStage" completed - On Swift Dashboard page
-* Verify stage "defaultStage" is with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
 * Looking at pipeline "downstream-pipeline-api" - On Swift Dashboard page
-* Wait till stage "defaultStage" completed - On Swift Dashboard page
-* Verify stage "defaultStage" is with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
 
 * Looking at pipeline "basic-pipeline-fast-api" - On Swift Dashboard page
 * Schedule should return code "202"
 
 * On Swift Dashboard Page
 * Looking at pipeline "basic-pipeline-fast-api" - On Swift Dashboard page
-* Wait till stage "defaultStage" completed - On Swift Dashboard page
-* Verify stage "defaultStage" is with label "2" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
 * Looking at pipeline "downstream-pipeline-api" - On Swift Dashboard page
-* Wait till stage "defaultStage" completed - On Swift Dashboard page
-* Verify stage "defaultStage" is with label "2" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
 * Using latest revision of material of type "git" named "downstream_git_material" for pipeline "downstream-pipeline-api"
 * Schedule should return code "202"
 
 * On Swift Dashboard Page
-* Wait till stage "defaultStage" completed - On Swift Dashboard page
-* Verify stage "defaultStage" is with label "3" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "3" - On Swift Dashboard page
 * Open changes section - On Swift Dashboard page
 
 * Looking at material of type "Pipeline" named "$basic-pipeline-fast-api$"

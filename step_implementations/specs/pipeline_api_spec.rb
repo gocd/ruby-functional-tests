@@ -20,7 +20,7 @@ PIPELINE_CONFIG_API_VERSION = 'application/vnd.go.cd+json'
 
 step 'Verify pipeline <pipeline> is locked and not schedulable - Using api' do |pipeline|
   begin
-    response = RestClient.get http_url("/api/pipelines/#{scenario_state.get(pipeline)}/status"), basic_configuration.header
+    response = RestClient.get http_url("/api/pipelines/#{scenario_state.get(pipeline)}/status"), { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
     assert_true JSON.parse(response.body)['locked']
     assert_false JSON.parse(response.body)['schedulable']
   rescue RestClient::ExceptionWithResponse => err
@@ -37,7 +37,7 @@ end
 
 step 'Verify pipeline <pipeline> is not locked and is schedulable - Using api' do |pipeline|
   begin
-    response = RestClient.get http_url("/api/pipelines/#{scenario_state.get(pipeline)}/status"), basic_configuration.header
+    response = RestClient.get http_url("/api/pipelines/#{scenario_state.get(pipeline)}/status"), { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
     assert_false JSON.parse(response.body)['locked']
     assert_true JSON.parse(response.body)['schedulable']
   rescue RestClient::ExceptionWithResponse => err
@@ -173,8 +173,6 @@ step 'With variable <var> set to <value>' do |var, value|
 end
 
 step 'Using <rev> revision of <material> of type <git> for pipeline <pipeline>' do |rev, material, type, pipeline|
-  current_material_url = ""
-
   if rev.count("0-9") > 0
     rev                  = Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).nth_revision rev.delete('^0-9')
     current_material_url = basic_configuration.material_url(pipeline, type, material)
@@ -195,13 +193,13 @@ end
 step 'Schedule should return code <status_code>' do |status_code|
   var = ""
   scenario_state.get('variables').to_h.each do |key, value|
-    var = var << ",{\"name\":\"#{key}\",\"value\":\"#{value}\"}"
+    var += ",{\"name\":\"#{key}\",\"value\":\"#{value}\"}"
   end
 
   var = ',' if var.nil?
   scenario_state.put('update_materials_before_scheduling', true) if scenario_state.get('update_materials_before_scheduling').nil?
   payload = %({
-                  "environment_variables": [#{var.sub!(',', '')}],
+                  "environment_variables": [#{var.dup.sub!(',', '')}],
                   "materials": [ #{scenario_state.get('material_for_schedule')}],
                   "update_materials_before_scheduling": true
              })
@@ -234,7 +232,7 @@ step 'Verify shows first instance of <stage> of <pipeline>' do |stage, pipeline|
 end
 
 step 'Verify loads <pipeline> instance with file <file>' do |pipeline, file|
-  RestClient.get http_url(scenario_state.get(scenario_state.get(pipeline))), basic_configuration.header do |response|
+  RestClient.get http_url(scenario_state.get(scenario_state.get(pipeline))), { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header) do |response|
     doc = Nokogiri::XML(response)
 
     assert_equal file, doc.xpath("//file/@name").first.value
@@ -242,7 +240,7 @@ step 'Verify loads <pipeline> instance with file <file>' do |pipeline, file|
 end
 
 step 'Verify unauthorized to load <pipeline>' do |pipeline|
-  RestClient.get http_url(scenario_state.get(scenario_state.get(pipeline))), basic_configuration.header do |response|
+  RestClient.get http_url(scenario_state.get(scenario_state.get(pipeline))), { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header) do |response|
     assert_true response.code.to_i == 401, "Expected: 401, Actual: #{response.code}"
   end
 end

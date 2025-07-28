@@ -46,5 +46,17 @@ module Helpers
     rescue Timeout::Error
       raise "The event did not occur - #{message} within #{wait_time} seconds."
     end
+
+    def wait_till_event_occurs(wait_time)
+      Timeout.timeout(wait_time) do
+        loop do
+          yield if block_given?
+          # p "Waiting 1 sec..."
+          sleep 1
+        end
+      end
+    rescue Timeout::Error => ignore
+
+    end
   end
 end

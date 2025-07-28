@@ -14,7 +14,9 @@
 # limitations under the License.
 ##########################################################################
 
+AGENTS_API_VERSION = 'application/vnd.go.cd+json'.freeze
 AGENT_JOB_HISTORY_VERSION = 'application/vnd.go.cd+json'.freeze
+
 step 'Add environment <env> to any <count> Idle agents - Using Agents API' do |_environment, _count|
   agents_with_state('Idle')[0.._count.to_i - 1].each do |agent|
     begin
@@ -42,7 +44,7 @@ step 'Verify <label_count> instances of <pipeline_name> <stage_name> <job_name> 
   while (label_count.to_i - offset) > 0
     pipeline_counter = label_count.to_i - offset
     current_page_size = pipeline_counter > 10 ? 10 : pipeline_counter
-    hit_agent_history_API_and_verify_response(scenario_state.self_pipeline, stage_name, status, pipeline_counter, label_count.to_i, offset, current_page_size, job_name)
+    hit_agent_history_api_and_verify_response(scenario_state.self_pipeline, stage_name, status, pipeline_counter, label_count.to_i, offset, current_page_size, job_name)
     offset += 10
   end
 end
@@ -54,17 +56,17 @@ end
 
 step 'Verify last job <pipeline_name> <stage_name> <job_name> <status> - Using Agents Api' do |_pipeline_name, stage_name, job_name, status|
   agents_with_state('Idle').each do |agent|
+    api_end_point = http_url("/api/agents/#{agent['uuid']}/job_run_history")
     begin
-      api_end_point = "/api/agents/#{agent['uuid']}/job_run_history"
-      response = RestClient.get http_url(api_end_point), basic_configuration.header
+      response = RestClient.get api_end_point, { accept: AGENT_JOB_HISTORY_VERSION }.merge(basic_configuration.header)
       response_json = JSON.parse(response.body)
       assert_true response_json['jobs'].first['pipeline_name'] == scenario_state.self_pipeline
       assert_true response_json['jobs'].first['result'] == status
       assert_true response_json['jobs'].first['stage_name'] == stage_name
-      assert_true response_json['jobs'].first['name'] == job_name
+      assert_true response_json['jobs'].first['job_name'] == job_name
       assert_true response_json['jobs'].first['stage_counter'].to_i == 1
     rescue RestClient::ExceptionWithResponse => err
-      p "Pipeline Status call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+      raise "Pipeline Status call to #{api_end_point} failed with response code #{err.response.code} and the response body - #{err.response.body}"
     end
   end
 end
@@ -80,7 +82,7 @@ end
 
 def all_agents_info
   RestClient.get http_url('/api/agents'),
-                            { accept: GoConstants::AGENTS_API_VERSION }.merge(basic_configuration.header) do |response, _request, _result|
+                            {accept: AGENTS_API_VERSION}.merge(basic_configuration.header) do |response, _request, _result|
     response
   end
 end
@@ -92,7 +94,7 @@ def delete_all_agents
   end
   bulk_update_agent(%({"uuids": #{all_agents}, "agent_config_state" : "disabled"}))
   RestClient::Request.execute(method: :delete, url: http_url("/api/agents"),
-    payload: %({"uuids": #{all_agents}}), headers: { accept: GoConstants::AGENTS_API_VERSION, content_type: :json }
+    payload: %({"uuids": #{all_agents}}), headers: { accept: AGENTS_API_VERSION, content_type: :json }
     .merge(basic_configuration.header)) do |response, _request, _result|
     response
   end
@@ -101,7 +103,7 @@ end
 def patch_agent(agent_uuid, patch_request)
   RestClient.patch http_url("/api/agents/#{agent_uuid}"),
                                   patch_request,
-                                  { accept: GoConstants::AGENTS_API_VERSION, content_type: :json }
+                                  { accept: AGENTS_API_VERSION, content_type: :json }
                                   .merge(basic_configuration.header) do |response, _request, _result|
     response
   end
@@ -110,7 +112,7 @@ end
 def bulk_update_agent(patch_request)
   RestClient.patch http_url("/api/agents"),
                                   patch_request,
-                                  { accept: GoConstants::AGENTS_API_VERSION, content_type: :json }
+                                  { accept: AGENTS_API_VERSION, content_type: :json }
                                   .merge(basic_configuration.header) do |response, _request, _result|
     response
   end
@@ -122,7 +124,7 @@ def agents_with_state(state)
   end
 end
 
-def hit_agent_history_API_and_verify_response(pipeline_name, stage_name, status, _pipeline_counter, count, offset, current_pageSize, job_name)
+def hit_agent_history_api_and_verify_response(pipeline_name, stage_name, status, _pipeline_counter, count, offset, current_page_size, job_name)
   agents_with_state('Idle').each do |agent|
     begin
       api_end_point = "/api/agents/#{agent['uuid']}/job_run_history?page_size=10" + (offset == 0 ? '' : '&offset=' + offset.to_s)
@@ -135,7 +137,7 @@ def hit_agent_history_API_and_verify_response(pipeline_name, stage_name, status,
       assert_true actual_offset == offset, "Expected: #{offset} Actual: #{actual_offset}"
       assert_true actual_total == count, "Expected: #{count} Actual: #{actual_total}"
       assert_true page_size == 10
-      assert_true jobs_size == current_pageSize, "Expected: #{current_pageSize} Actual: #{jobs_size}"
+      assert_true jobs_size == current_page_size, "Expected: #{current_page_size} Actual: #{jobs_size}"
       response_json['jobs'].map do |job|
         assert_true job['pipeline_name'] == pipeline_name
         assert_true job['result'] == status

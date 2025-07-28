@@ -27,6 +27,7 @@ module Pages
     load_validation { has_username? }
 
     def signin(user, pwd = 'badger')
+      wait_until_username_visible(wait: 10)
       username.set(user, rapid: false)
       password.set(pwd, rapid: false)
       page.find('button', text: 'Sign in').click

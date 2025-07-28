@@ -22,19 +22,19 @@ tags: API Security, api
 
 * Looking at pipeline "pipeline-in-group-with-no-auth" - On Swift Dashboard page
 * Schedule should return code "202"
-* Wait till stage "defaultStage" completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
 
 * Looking at pipeline "basic-pipeline-fast-api" - On Swift Dashboard page
 * Schedule should return code "202"
-* Wait till stage "defaultStage" completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
 
 * Looking at pipeline "viewable-pipeline" - On Swift Dashboard page
 * Schedule should return code "202"
-* Wait till stage "defaultStage" completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
 
 * Looking at pipeline "admin-pipeline-api" - On Swift Dashboard page
 * Schedule should return code "202"
-* Wait till stage "defaultStage" completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
 
 * Looking at pipeline "basic-pipeline-fast-api" - On Swift Dashboard page
 * With material "git" of type "git" for pipeline "basic-pipeline-fast-api"
@@ -65,17 +65,17 @@ tags: API Security, api
 * Schedule should return code "202"
 
 * Looking at pipeline "basic-pipeline-fast-api" - On Swift Dashboard page
-* Wait till stage "defaultStage" completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
 * On Job details page of pipeline "basic-pipeline-fast-api" counter "2" stage "defaultStage" counter "1" job "defaultJob"
 * Verify console shows "2nd" commit for material "git" for "basic-pipeline-fast-api"
 
 * Looking at pipeline "viewable-pipeline" - On Swift Dashboard page
-* Wait till stage "defaultStage" completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
 * On Job details page of pipeline "viewable-pipeline" counter "2" stage "defaultStage" counter "1" job "defaultJob"
 * Verify console shows "2nd" commit for material "git" for "viewable-pipeline"
 
 * Looking at pipeline "admin-pipeline-api" - On Swift Dashboard page
-* Wait till stage "defaultStage" completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
 * On Job details page of pipeline "admin-pipeline-api" counter "2" stage "defaultStage" counter "1" job "defaultJob"
 * Verify console shows "2nd" commit for material "git" for "admin-pipeline-api"
 
@@ -88,7 +88,7 @@ tags: API Security, api
 
 * Looking at pipeline "basic-pipeline-fast-api" - On Swift Dashboard page
 * Schedule should return code "202"
-* Wait till stage "defaultStage" completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "3" - On Swift Dashboard page
 
 * Looking at pipeline "viewable-pipeline" - On Swift Dashboard page
 * Schedule should return code "403"
@@ -98,7 +98,7 @@ tags: API Security, api
 
 * Looking at pipeline "basic-pipeline-fast-api" - On Swift Dashboard page
 * Schedule should return code "202"
-* Wait till stage "defaultStage" completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "4" - On Swift Dashboard page
 
 * Looking at pipeline "viewable-pipeline" - On Swift Dashboard page
 * Schedule should return code "403"
@@ -119,11 +119,11 @@ tags: API Security, api
 
 * Looking at pipeline "basic-pipeline-fast-api" - On Swift Dashboard page
 * Schedule should return code "202"
-* Wait till stage "defaultStage" completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "5" - On Swift Dashboard page
 
 * Looking at pipeline "viewable-pipeline" - On Swift Dashboard page
 * Schedule should return code "202"
-* Wait till stage "defaultStage" completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "3" - On Swift Dashboard page
 
 * Looking at pipeline "admin-pipeline-api" - On Swift Dashboard page
 * Schedule should return code "403"
@@ -131,12 +131,12 @@ tags: API Security, api
 * Looking at pipeline "basic-pipeline-fast-api" - On Swift Dashboard page
 * Using "2nd" revision of "git" of type "git" for pipeline "basic-pipeline-fast-api"
 * Schedule should return code "202"
-* Wait till stage "defaultStage" completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "5" - On Swift Dashboard page
 
 * Looking at pipeline "viewable-pipeline" - On Swift Dashboard page
 * Using "2nd" revision of "git" of type "git" for pipeline "viewable-pipeline"
 * Schedule should return code "202"
-* Wait till stage "defaultStage" completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "4" - On Swift Dashboard page
 
 * Looking at pipeline "admin-pipeline-api" - On Swift Dashboard page
 * Using "2nd" revision of "git" of type "git" for pipeline "admin-pipeline-api"

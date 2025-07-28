@@ -38,6 +38,7 @@ end
 
 step 'Create a <file> file and validate pipeline completed' do |file|
   go_agents.create_stopjob(file)
+  sleep 20 # FIXME Ensure the agent has picked up the job first
   new_pipeline_dashboard_page.wait_till_pipeline_complete
   go_agents.delete_stopjobs
 end

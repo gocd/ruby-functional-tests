@@ -84,7 +84,7 @@ identifiers.each do |package, process_argument|
   namespace package do
     desc "Kill the #{package} identified using #{process_argument}"
     task :kill do
-      if process = ProcTable.ps.find {|each_process| each_process.environ[process_argument]}
+      while process = ProcTable.ps.find {|each_process| each_process.environ[process_argument]}
         $stderr.puts "Found PID(#{process.pid}) matching #{process_argument}"
         if OS.windows?
           sh("TASKKILL /PID #{process.pid}")

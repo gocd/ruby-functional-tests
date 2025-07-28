@@ -39,7 +39,7 @@ module Pages
     element :error_message, "[data-test-id='pipeline-group-flash-message']"
     element :roles_error_message, "[data-test-id='errors-on-roles']"
 
-    load_validation { has_create_new_pipeline_group? }
+    load_validation { has_create_new_pipeline_group?(wait: 20) }
 
     def clone_pipeline(source_pipeline_name, new_pipeline_name, pipeline_group_name)
       click_on_clone_link_for(source_pipeline_name)

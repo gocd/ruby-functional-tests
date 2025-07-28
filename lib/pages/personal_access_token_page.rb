@@ -25,7 +25,7 @@ module Pages
     element :tab_revoked_tokens, "[data-test-id='tab-header-1']"
     element :table_access_tokens, "[data-test-id='table-body']"
 
-    load_validation { has_btn_generate_token? }
+    load_validation { has_btn_generate_token?(wait: 20) }
 
     def generate_token(description = '')
       btn_generate_token.click

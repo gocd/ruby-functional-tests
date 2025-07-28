@@ -30,7 +30,7 @@ module Pages
     element :scm_password, "input[ng-model='password']"
     element :save_button, "button[data-test-id='button-save']"
 
-    load_validation {add_scm_button}
+    load_validation { add_scm_button(wait: 20) }
 
     def scm_labels
       page.all("div[data-test-id='collapse-header'] span[data-test-id='key-value-value-name']")

@@ -26,7 +26,7 @@ module Pages
     element :add_new_profile, "[data-test-id='pageActions']"
     element :finish_btn, "[data-test-id='finish']"
 
-    load_validation { has_add_new_profile? }
+    load_validation { has_add_new_profile?(wait: 20) }
 
     def profile_displayed?(name)
       !(profile_id text: name).nil?

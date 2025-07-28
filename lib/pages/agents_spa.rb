@@ -30,7 +30,7 @@ module Pages
     element :elastic_agents_info_panel, "div[data-test-id='tab-content-1'] > div div > div"
     elements :elastic_agents_row, "div[data-test-id='tab-content-1'] table[data-test-id='table'] > tbody > tr"
 
-    load_validation {has_filter_agent?}
+    load_validation { has_filter_agent?(wait: 20) }
 
     def select_all_agents
       wait_until_agents_menu_visible(wait: 5)

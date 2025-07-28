@@ -24,7 +24,7 @@ module Pages
     element :max_docker_containers, "input[ng-model='max_docker_containers']"
     element :docker_uri, "input[ng-model='docker_uri']"
 
-    load_validation { has_plugin_list_wrapper? }
+    load_validation { has_plugin_list_wrapper?(wait: 20) }
 
     def invalid_plugin_message_exists?(id, message)
       plugin_to_test(id).find('[data-test-id="key-value-value-there-were-errors-loading-the-plugin"]').has_selector?('pre', text: message)

@@ -21,7 +21,7 @@ module Pages
     element :create_new_pipeline_group, "[data-test-id='create-new-pipeline-group']"
     element :all_pipeline_groups, "[data-test-id='pipeline-groups']"
 
-    load_validation { has_create_new_pipeline_group? }
+    load_validation { has_create_new_pipeline_group?(wait: 20) }
 
 
 

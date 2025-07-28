@@ -24,7 +24,7 @@ module Pages
     element :current_user, '[data-test-id="username"]'
     element :login_error, '[data-test-id="flash-message-alert"]'
 
-    load_validation { has_username? }
+    load_validation { has_username?(wait: 20) }
 
     def signin(user, pwd = 'badger')
       wait_until_username_visible(wait: 10)

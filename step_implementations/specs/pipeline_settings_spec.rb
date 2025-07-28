@@ -125,7 +125,6 @@ end
 
 step 'Verify the stages are <stages>' do |stages|
   pipeline_stages = pipeline_settings_page.get_pipeline_stages
-  p "stages: #{pipeline_stages}"
   stages.split(',').each do |stage|
     assert_true pipeline_stages.include? stage
   end

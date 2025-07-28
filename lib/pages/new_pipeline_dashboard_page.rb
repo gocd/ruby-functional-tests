@@ -32,7 +32,7 @@ module Pages
     element :environment_variables_key_value, '.environment-variables.plain.key-value-pair'
     element :environment_variables_secure_key_value, '.environment-variables.secure.key-value-pair'
 
-    load_validation { has_dashboard_container? }
+    load_validation { has_dashboard_container?(wait: 20) }
 
     def admin?
       page.has_css?("[data-is-user-admin='true']")
@@ -88,7 +88,7 @@ module Pages
         .find('.pipeline_stages')
         .all('.pipeline_stage_manual_gate_wrapper .pipeline_stage')
     rescue StandardError => e
-      # p "Looks like Pipeline #{pipeline} still not started, trying after page reload... [#{e}]"
+      p "Looks like Pipeline #{pipeline} still not started, trying after page reload... [#{e}]"
       nil
     end
 
@@ -223,7 +223,7 @@ module Pages
     def wait_till_pipeline_start_building(wait_time = 60)
       wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
         all_stages = get_all_stages(scenario_state.self_pipeline)
-        break if all_stages&.first and (all_stages.first['class'] || {}).include?('building')
+        break if all_stages&.first and (all_stages.first['class'] || "").include?('building')
       end
     end
 

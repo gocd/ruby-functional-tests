@@ -346,6 +346,7 @@ end
 step 'Wait till pipeline start building for <seconds> seconds - On Swift Dashboard page' do |seconds|
   new_pipeline_dashboard_page.wait_till_pipeline_start_building seconds.to_i
 end
+
 step 'Wait till <seconds> seconds for stage <stage> shows status <status> - On Swift Dashboard page' do |seconds, stage, status|
   new_pipeline_dashboard_page.wait_for_expected_stage_state scenario_state.self_pipeline, stage, status.downcase, seconds.to_i
 end

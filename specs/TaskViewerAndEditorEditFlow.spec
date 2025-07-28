@@ -38,4 +38,4 @@ Verify Tasks
 
 Teardown of contexts
 ____________________
-* Capture go state "TTaskViewerAndEditorEditFlow" - teardown
+* Capture go state "TaskViewerAndEditorEditFlow" - teardown

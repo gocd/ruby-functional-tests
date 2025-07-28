@@ -29,7 +29,6 @@ module Pages
 
     def reload_page
       page.driver.browser.navigate.refresh
-      sleep 5
     end
 
     def logout

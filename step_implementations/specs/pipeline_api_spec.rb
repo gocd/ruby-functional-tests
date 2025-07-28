@@ -52,7 +52,7 @@ step 'Trigger stage <stage> run <run>' do |stage, run|
   rescue RestClient::ExceptionWithResponse => err
     p "Trigger stage call failed with response code #{err.response.code} and the response body - #{err.response.body}"
   end
-  new_pipeline_dashboard_page.verify_pipeline_stage_state(scenario_state.self_pipeline, stage, 'building')
+  new_pipeline_dashboard_page.wait_for_expected_stage_state(scenario_state.self_pipeline, stage, 'building')
 end
 
 step 'Cancel stage <stage> counter <counter> of pipeline <pipeline> instance <instance>' do |stage, counter, pipeline, instance|

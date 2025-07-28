@@ -39,23 +39,12 @@ module Helpers
       Timeout.timeout(wait_time) do
         loop do
           yield if block_given?
+          # p "Waiting 1 sec unless [#{message}]..."
           sleep 1
         end
       end
     rescue Timeout::Error
-      raise "The event did not occur - #{message}. Wait timed out"
+      raise "The event did not occur - #{message} within #{wait_time} seconds."
     end
-
-    def wait_for_event(wait_time, message)
-      Timeout.timeout(wait_time) do
-        loop do
-          yield if block_given?
-          sleep 1
-        end
-      end
-    rescue Timeout::Error
-      p "The event did not occur - #{message}. Wait timed out"
-    end
-
   end
 end

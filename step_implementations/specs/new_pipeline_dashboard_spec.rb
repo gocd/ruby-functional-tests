@@ -54,7 +54,7 @@ step 'Wait for <secs> seconds till pipeline completed - On Swift Dashboard page'
 end
 
 step 'Verify stage <stage> is <state> - On Swift Dashboard page' do |stage, state|
-  new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.get('current_pipeline'), stage, state.downcase
+  new_pipeline_dashboard_page.wait_for_expected_stage_state scenario_state.get('current_pipeline'), stage, state.downcase
 end
 
 step 'Verify stage <stage> has a manual gate - On Swift Dashboard page' do |stage|
@@ -76,7 +76,6 @@ step 'Verify stage <stage> has a manual gate in <state> state with message <mess
   new_pipeline_dashboard_page.verify_manual_stage_message scenario_state.get('current_pipeline'), stage, message
 end
 
-
 step 'Trigger and cancel stage <defaultStage> <trigger_number> times' do |stage_name, trigger_number|
   scenario_state.put 'current_stage_name', stage_name
   new_pipeline_dashboard_page.trigger_cancel_pipeline trigger_number
@@ -84,20 +83,15 @@ end
 
 step 'Trigger and wait for stage <stage> is <state> with label <label> - On Swift Dashboard page' do |stage, state, label|
   new_pipeline_dashboard_page.trigger_pipeline
-  new_pipeline_dashboard_page.wait_till_pipeline_complete
-  new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.self_pipeline, stage, state.downcase
-  new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.self_pipeline, label
+  new_pipeline_dashboard_page.wait_for_expected_stage_state_at_label scenario_state.self_pipeline, stage, state.downcase, label
 end
 
 step 'Verify stage <stage> is <state> on pipeline with label <label> - On Swift Dashboard page' do |stage, state, label|
-  new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.self_pipeline, stage, state.downcase
-  new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.self_pipeline, label
+  new_pipeline_dashboard_page.wait_for_expected_stage_state_at_label scenario_state.self_pipeline, stage, state.downcase, label
 end
 
 step 'Verify stage <stage> is <state> on pipeline with label <label> and counter <counter> - On Swift Dashboard page' do |stage, state, label,counter|
-  new_pipeline_dashboard_page.verify_pipeline_stage_state scenario_state.self_pipeline, stage, state.downcase
-  new_pipeline_dashboard_page.verify_pipeline_is_at_label scenario_state.self_pipeline, label
-  new_pipeline_dashboard_page.verify_stage_counter_on_pipeline scenario_state.self_pipeline, stage, label, counter
+  new_pipeline_dashboard_page.wait_for_expected_stage_state_at_label_and_counter scenario_state.self_pipeline, stage, state.downcase, label, counter
 end
 
 step 'Verify stage <stage> is with label <label> - On Swift Dashboard page' do |_stage, label|
@@ -352,7 +346,7 @@ end
 step 'Wait till pipeline start building for <seconds> seconds - On Swift Dashboard page' do |seconds|
   new_pipeline_dashboard_page.wait_till_pipeline_start_building seconds.to_i
 end
-step 'Wait till <seconds> seconds for stage <stage> shows status <status> - On Swift Dashboard page' do |seconds,stage,status|
+step 'Wait till <seconds> seconds for stage <stage> shows status <status> - On Swift Dashboard page' do |seconds, stage, status|
   new_pipeline_dashboard_page.wait_for_expected_stage_state scenario_state.self_pipeline, stage, status.downcase, seconds.to_i
 end
 

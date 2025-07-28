@@ -82,18 +82,28 @@ module Pages
 
     def get_all_stages(pipeline) # This one needs to be relooked - the way the view is modelled do not make it easy to get latest stage state
       reload_page
-      (pipeline_name text: pipeline).ancestor('.pipeline').find('.pipeline_instance', wait: 10).find('.pipeline_stages').all('.pipeline_stage_manual_gate_wrapper .pipeline_stage')
+      (pipeline_name text: pipeline)
+        .ancestor('.pipeline')
+        .find('.pipeline_instance')
+        .find('.pipeline_stages')
+        .all('.pipeline_stage_manual_gate_wrapper .pipeline_stage')
     rescue StandardError => e
-      p 'Looks like Pipeline still not started, trying after page reload...'
+      # p "Looks like Pipeline #{pipeline} still not started, trying after page reload... [#{e}]"
       nil
     end
 
-    def get_pipeline_stage_state(pipeline, stagename) # This need relook too
-      all_stages = get_all_stages(pipeline)
-      return if all_stages.nil?
-      target_stage = all_stages.select { |stage| (stage['title'] || {}).include?(stagename)}
-      (target_stage.first || {})['class']
+    def get_all_stages_at_label(pipeline, label)
+      reload_page
+      (pipeline_name text: pipeline)
+        .ancestor('.pipeline')
+        .find(:xpath, ".//div[*[@class='pipeline_instance-label' and string(.)='Instance: #{label}']]")
+        .find('.pipeline_stages')
+        .all('.pipeline_stage_manual_gate_wrapper .pipeline_stage')
+    rescue StandardError => e
+      # p "Looks like Pipeline #{pipeline} with label #{label} still not started, trying after page reload... [#{e}]"
+      nil
     end
+
 
     def get_manual_gate(pipeline, stagename)
       target_stage = get_all_stages(pipeline).select { |stage| (stage['title'] || {}).include?(stagename)}
@@ -113,29 +123,60 @@ module Pages
     end
 
     def verify_pipeline_stays_at_label(pipeline, label)
-      wait_for_event 30, "Pipeline #{pipeline} label verification timed out" do
+      wait_till_event_occurs_or_bomb 30, "Pipeline #{pipeline} label verification timed out" do
         reload_page
-        raise "Pipeline #{pipeline} got trigerred. Expected not to" if (pipeline_name text: pipeline)
-                        .ancestor('.pipeline').find('.pipeline_instance-label').text.include?((label.to_i+1).to_s)
+        raise "Pipeline #{pipeline} got triggered. Expected not to" if (pipeline_name text: pipeline)
+                        .ancestor('.pipeline')
+                        .find('.pipeline_instance-label')
+                        .text.include?((label.to_i+1).to_s)
       end
     end
 
-    def verify_stage_counter_on_pipeline(pipeline, stage, label, counter)
-      expected_stage_counter_url = "/go/pipelines/#{pipeline}/#{label}/#{stage}/#{counter}"
-      target_stage = get_all_stages(pipeline).select { |s| s['title'].include?(stage)}
-      target_stage.first.click
-
-      url = page.find('div[data-test-id="stage-details-page-link"]').find('a')['href']
-      actual_stage_counter_url = '/go' + (url.split '/go')[1]
-
-      assert_equal actual_stage_counter_url,  expected_stage_counter_url
+    def get_pipeline_stage_state(pipeline, stagename)
+      # p "getting stage state for pipeline: #{pipeline} and stage: #{stagename}"
+      all_stages = get_all_stages(pipeline)
+      return if all_stages.nil?
+      target_stage = all_stages.select { |stage| (stage['title'] || {}).include?(stagename)}
+      (target_stage.first || {})['class']
     end
 
-    def verify_pipeline_stage_state(pipeline, stage, state)
-      wait_till_event_occurs_or_bomb 300, "Pipeline #{pipeline} stage #{stage} is not in #{state} state" do
+    def get_pipeline_stage_at_label(pipeline, stagename, label)
+      # p "getting stage state for pipeline: #{pipeline} and stage: #{stagename} at label: #{label}"
+      all_stages = get_all_stages_at_label(pipeline, label)
+      return if all_stages.nil?
+      all_stages.select { |stage| (stage['title'] || {}).include?(stagename) }
+    end
+
+    def wait_for_expected_stage_state(pipeline, stage, state, wait_time = 60)
+      wait_till_event_occurs_or_bomb wait_time, "Pipeline #{pipeline} stage #{stage} is not in #{state} state" do
         pipeline_stage_state = get_pipeline_stage_state(pipeline, stage)
         next if pipeline_stage_state.nil?
         break if pipeline_stage_state.include?(state)
+      end
+    end
+
+    def wait_for_expected_stage_state_at_label(pipeline, stage, state, label)
+      wait_till_event_occurs_or_bomb 60, "Pipeline #{pipeline} at label #{label}'s stage #{stage} is not in #{state} state" do
+        pipeline_stage = get_pipeline_stage_at_label(pipeline, stage, label)
+        pipeline_stage_state = pipeline_stage.first['class'] if pipeline_stage&.first
+        break if pipeline_stage_state&.include?(state)
+      end
+    end
+
+    def wait_for_expected_stage_state_at_label_and_counter(pipeline, stage, state, label, counter)
+      wait_till_event_occurs_or_bomb 60, "Pipeline #{pipeline} at label #{label}'s stage #{stage} is not in #{state} state for counter #{counter}" do
+        pipeline_stage = get_pipeline_stage_at_label(pipeline, stage, label)
+        pipeline_stage_state = pipeline_stage.first['class'] if pipeline_stage&.first
+        next unless pipeline_stage_state&.include?(state)
+
+        # Check the stage counter
+        expected_stage_counter_url = "/go/pipelines/#{pipeline}/#{label}/#{stage}/#{counter}"
+        pipeline_stage.first.click
+        url = stage_overview_stage_details_link['href']
+        actual_stage_counter_url = '/go' + (url.split '/go')[1]
+
+        p "Pipeline #{pipeline} stage #{stage} is at counter: #{counter}"
+        break if actual_stage_counter_url == expected_stage_counter_url
       end
     end
 
@@ -180,20 +221,11 @@ module Pages
       end
     end
 
-    def wait_till_pipeline_start_building(wait_time = 120)
+    def wait_till_pipeline_start_building(wait_time = 60)
       wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
         all_stages = get_all_stages(scenario_state.self_pipeline)
         return if all_stages.nil?
         break if (all_stages.first['class'] || {}).include?('building')
-      end
-    end
-
-
-    def wait_for_expected_stage_state pipeline, stage, state, wait_time
-      wait_till_event_occurs_or_bomb wait_time, "Pipeline #{pipeline} stage #{stage} is not in #{state} state" do
-        pipeline_stage_state = get_pipeline_stage_state(pipeline, stage)
-        next if pipeline_stage_state.nil?
-        break if pipeline_stage_state.include?(state)
       end
     end
 
@@ -205,8 +237,8 @@ module Pages
       end
     end
 
-    def wait_till_pipeline_complete(wait_time = 600)
-      wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.self_pipeline} failed to complete within timeout" do
+    def wait_till_pipeline_complete(wait_time = 60)
+      wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.self_pipeline} failed to complete" do
         all_stages = get_all_stages(scenario_state.self_pipeline)
         return if all_stages.nil?
         break unless (all_stages.last['class'] || "building").include?('building')
@@ -214,7 +246,7 @@ module Pages
     end
 
     def wait_till_stage_complete(stage)
-      wait_till_event_occurs_or_bomb 120, "Pipeline #{scenario_state.self_pipeline} Stage #{stage} failed to complete within timeout" do
+      wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.self_pipeline} Stage #{stage} failed to complete" do
         pipeline_stage_state = get_pipeline_stage_state(scenario_state.self_pipeline, stage)
         return if pipeline_stage_state.nil?
         break unless pipeline_stage_state.include?('building')
@@ -290,8 +322,8 @@ module Pages
       has_pipeline_name? text: (scenario_state.get(pipeline) || pipeline)
     end
 
-    def wait_till_pipeline_showsup(pipeline, timeout = 120)
-      wait_till_event_occurs_or_bomb timeout, "Pipeline #{scenario_state.get(pipeline)} failed to showup on dashboard" do
+    def wait_till_pipeline_showsup(pipeline, wait_time = 120)
+      wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.get(pipeline)} failed to showup on dashboard" do
         reload_page
         break if visible?(pipeline)
       end
@@ -519,14 +551,12 @@ module Pages
     def open_stage_settings_from_stage_overview_and_verify_url(url)
       page.find("[data-test-id='Settings-icon']").click
       sleep 5
-      page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
       assert_true page.current_url.include?(url)
     end
 
     def open_stage_details_from_stage_overview_and_verify_url(url)
-      page.find("[data-test-id='stage-details-page-link']").find('a').click
+      stage_overview_stage_details_link.click
       sleep 5
-      page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
       assert_true page.current_url.include?(url)
     end
 
@@ -578,6 +608,10 @@ module Pages
     end
 
     private
+
+    def stage_overview_stage_details_link
+      page.find('[data-test-id="stage-details-page-link"]').find('a')
+    end
 
     def revisions(pipeline)
       (pipeline_name text: pipeline)

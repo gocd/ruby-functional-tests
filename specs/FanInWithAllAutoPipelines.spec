@@ -19,19 +19,20 @@ tags: diamond dependency, fanin, retry-flaky
 * Looking at pipeline "parent-fast" - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
 
+* Looking at pipeline "parent-slow" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Building" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+
+// Before parent-slow 1 is finished or child-fast 1 is triggered, checkin a new file
 * On Swift Dashboard Page
 * Looking at pipeline "grandparent-fast" - On Swift Dashboard page
 * With material "git-five" of type "git" for pipeline "grandparent-fast"
 * Checkin file "new-file-2" as user "go <go@po.com>" with message "Added new-file 2" - On Swift Dashboard page
 * Remember current version as "g2"
 
-
 * Looking at pipeline "grandparent-fast" - On Swift Dashboard page
-
 * Verify stage "defaultStage" is "Passed" on pipeline with label "2" and counter "1" - On Swift Dashboard page
 
 * Looking at pipeline "parent-fast" - On Swift Dashboard page
-
 * Verify stage "defaultStage" is "Passed" on pipeline with label "2" and counter "1" - On Swift Dashboard page
 
 
@@ -48,7 +49,9 @@ tags: diamond dependency, fanin, retry-flaky
 * Looking at pipeline "parent-fast" - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" on pipeline with label "3" and counter "1" - On Swift Dashboard page
 
-
+// Parent-slow should have completed its second attempt by now, allowing child-fast to fan-in
+* Looking at pipeline "parent-slow" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "2" and counter "1" - On Swift Dashboard page
 * Looking at pipeline "child-fast" - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" on pipeline with label "2" and counter "1" - On Swift Dashboard page
 

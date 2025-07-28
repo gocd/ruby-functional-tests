@@ -26,8 +26,7 @@ VsmAnalyticsRerunPipelineStage
 
 * Looking at pipeline "Rerun3" - On Swift Dashboard page
 * Create a "failjob" file and validate pipeline completed
-* Verify stage "defaultStage" is "Failed" - On Swift Dashboard page
-* Verify stage "defaultStage" is with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Failed" on pipeline with label "1" - On Swift Dashboard page
 
 * Looking at pipeline "Rerun1" - On Swift Dashboard page
 * Visit pipeline VSM page and verify VSM is rendered

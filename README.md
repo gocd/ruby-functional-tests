@@ -68,7 +68,7 @@ gauge install
 
     ```shell
     cd ../ruby-functional-tests
-    bundle exec rake [kill/clean/prepare/test/bump-schema] GO_VERSION='X.x.x' GAUGE_TAGS='<spec tags to run>'
+    bundle exec rake [kill/clean_test/prepare/test/bump-schema] GO_VERSION='X.x.x' GAUGE_TAGS='<spec tags to run>'
     ```
 
     * `kill` - Kills all running processes spun by the tests.

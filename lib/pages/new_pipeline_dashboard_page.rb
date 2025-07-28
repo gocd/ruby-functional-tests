@@ -439,7 +439,14 @@ module Pages
       revision[:class].include?('changed')
     end
 
-    def schedule_using_api?
+    def can_operate_using_ui?
+      !(pipeline_name text: scenario_state.self_pipeline).ancestor('.pipeline_header').find('.pipeline_operations').find("button[title='Trigger Pipeline']")['class'].include? 'disabled'
+    rescue StandardError => e
+      p "Pipeline operate check failed with ERROR: #{e}"
+      false
+    end
+
+    def can_operate_using_api?
       response = RestClient.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/schedule"), {}, { accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
       (response.code == 202)
     rescue RestClient::ExceptionWithResponse => err

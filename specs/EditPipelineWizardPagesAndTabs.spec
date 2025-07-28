@@ -12,7 +12,7 @@ Setup of contexts
 EditPipelineWizardPagesAndTabs
 ------------------------------
 
-tags: Clicky Admin
+tags: Clicky Admin, EditPipelineWizardPagesAndTabs
 
 * On Swift Dashboard Page
 * Looking at pipeline "edit-pipeline" - On Swift Dashboard page
@@ -50,7 +50,7 @@ tags: Clicky Admin
 
 * On Swift Dashboard Page
 * Looking at pipeline "edit-pipeline" - On Swift Dashboard page
-* Trigger and wait for stage "defaultStage2" is "Passed" with label "1" - On Swift Dashboard page
+* Trigger and wait for stage "defaultStage2" is "Passed" with label "1-pipelinename" - On Swift Dashboard page
 
 
 Teardown of contexts

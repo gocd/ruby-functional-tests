@@ -71,12 +71,10 @@ module Pages
     end
 
     def set_project_path(path)
-      p "project_path: #{path}"
       page.find('input[data-test-id="form-field-input-project-path"]', wait: 10).set(path, rapid: false)
     end
 
     def set_material_url(url)
-      p "url: #{url}"
       page.find('input[data-test-id="form-field-input-repository-url"]').set(url, rapid: false)
     end
 
@@ -144,7 +142,7 @@ module Pages
     end
 
     def has_template? template
-      page.find('a[data-test-id="template-name"]', text: template)
+      page.find('a[data-test-id="template-name"]', text: template, wait: 20)
     end
 
     def open_template(template)

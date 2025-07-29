@@ -140,6 +140,7 @@ step 'Select filter state <state>' do |state|
   dashboard_personalization.filter_by_state(state.capitalize)
 end
 
-step 'Trigger pipeline <name> - On Swift Dashboard page' do |name|
-  new_pipeline_dashboard_page.trigger_pipeline(name: name)
+step 'Trigger pipeline <name> - On Swift Dashboard page' do |pipeline|
+  scenario_state.put 'current_pipeline', pipeline
+  new_pipeline_dashboard_page.trigger_pipeline(name: pipeline)
 end

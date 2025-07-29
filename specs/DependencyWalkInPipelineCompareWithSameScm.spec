@@ -40,10 +40,10 @@ tags:compare_pipeline, dependency_walk
 * Wait till pipeline completed - On Swift Dashboard page
 * Looking at pipeline "child-of-first" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Wait till pipeline completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
 * Looking at pipeline "grandchild-of-first" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Wait till pipeline completed - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
 
 
 * On Pipeline Compare page from "1" build to "2"
@@ -55,14 +55,9 @@ tags:compare_pipeline, dependency_walk
 
 * On Pipeline Compare page from "1" build to "1"
 
-
 * Verify displays revision "$first$/1/defaultStage/1" having label "1" under pipeline named "first"
 * Verify displays revision "$child-of-first$/1/defaultStage/1" having label "1" under pipeline named "child-of-first"
 * Verify displays revision "git-new1" having comment "Added git-new-file" under "Git" 
-
-
-
-
 
 
 Teardown of contexts

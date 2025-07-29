@@ -15,6 +15,7 @@
 ##########################################################################
 
 step 'Capture go state <identifier> - setup' do |identifier|
+  sleep 5 # Replace an old sleep after page reload with more fine-grained sleep to ensure agent is created properly before capturing state
   go_state.capture_all("target/go_state/#{identifier}/SETUP")
 end
 

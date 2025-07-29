@@ -627,7 +627,7 @@ module Pages
     end
 
     def stage_state_building?(state)
-      state&.include?('building')
+      state&.include?('building') or state&.include?('failing')
     end
 
     def stage_overview_stage_details_link

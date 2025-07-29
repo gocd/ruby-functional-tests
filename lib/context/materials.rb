@@ -112,7 +112,7 @@ module Context
       else
         FileUtils.touch "#{@path}/#{directory_name}/#{filename}"
       end
-      cd ("#{@path}/#{directory_name}") do
+      cd("#{@path}/#{directory_name}") do
         Open3.popen3(%(git add . && git commit -m "Adding new file #{filename} in #{directory_name}")) do |_stdin, _stdout, stderr, wait_thr|
           raise "Failed to commit to git repository. Error returned: #{stderr.read}" unless wait_thr.value.success?
         end
@@ -233,9 +233,6 @@ module Context
 
     def setup_material_for(pipeline)
       current_configuration = basic_configuration.get_config_from_server
-      tfs_url=current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/tfs/@url")
-      tfs_username=current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/tfs/@username")
-      tfs_password=current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/tfs/@password")
       tfs_project_path=current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/tfs/@projectPath")
       rm_rf(@repository_directory)
       mkdir_p(@repository_directory)

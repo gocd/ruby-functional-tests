@@ -29,6 +29,7 @@ step 'With <count> live agents - setup' do |count|
   go_agents.create_agents count
   agents_spa_page.load
   agents_spa_page.resize
+  sleep 5 # Replace an old sleep after page reload with more fine-grained sleep to ensure agent is created properly
   agents_spa_page.wait_till_agents_are_idle count
 end
 

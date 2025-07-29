@@ -326,7 +326,7 @@
         <jobs>
           <job name="job1">
             <tasks>
-              <exec command="sleep" args="60"/>
+              <exec command="sleep" args="20"/>
             </tasks>
           </job>
         </jobs>

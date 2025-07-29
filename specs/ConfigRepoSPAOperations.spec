@@ -7,7 +7,7 @@ tags: config-repo-spa-operations, config-repo-spa, spa
 
 Setup of contexts
 * Secure Configuration with policy for config repo - setup
-* Capture go state "ConfigRepoSPA" - setup
+* Capture go state "ConfigRepoSPAOperations" - setup
 * Login as "admin" - setup
 
 ~~~~~~~~~~~~~ as admin ~~~~~~~~~~~~~~~~~
@@ -45,5 +45,5 @@ Setup of contexts
 Teardown of contexts
 ____________________
 
-* Capture go state "ConfigRepoSPA" - teardown
+* Capture go state "ConfigRepoSPAOperations" - teardown
 * Logout - from any page

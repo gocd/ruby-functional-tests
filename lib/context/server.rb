@@ -105,7 +105,7 @@ module Context
     end
 
     def server_running?
-      sleep 5
+      sleep 1
       ping_server.code == 200
     rescue StandardError => e
       false
@@ -128,7 +128,7 @@ module Context
           begin
             break if server_running?
           rescue Errno::ECONNREFUSED
-            sleep 5
+            sleep 1
           end
         end
       end

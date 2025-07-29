@@ -108,7 +108,7 @@ step 'Wait till <timeout> seconds to verify listed elastic agents count is <coun
   Timeout.timeout(timeout.to_i) do
     loop do
         break if agents_spa_page.listed_elastic_agents_count > 0
-        sleep 5
+        sleep 1
     end
   end
   assert_equal count.to_i, agents_spa_page.listed_elastic_agents_count, "Listed elastic agents count expected to be #{count}"

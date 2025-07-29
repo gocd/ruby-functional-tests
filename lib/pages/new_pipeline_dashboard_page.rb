@@ -32,7 +32,7 @@ module Pages
     element :environment_variables_key_value, '.environment-variables.plain.key-value-pair'
     element :environment_variables_secure_key_value, '.environment-variables.secure.key-value-pair'
 
-    load_validation { has_dashboard_container? }
+    load_validation { has_dashboard_container?(wait: 20) }
 
     def admin?
       page.has_css?("[data-is-user-admin='true']")

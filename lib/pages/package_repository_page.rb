@@ -36,7 +36,7 @@ module Pages
     element :search, "input[data-test-id='search-box']"
     element :modal_body, "div[data-test-id='modal-body']"
 
-    load_validation { add_package_repo_button(wait: 20) }
+    load_validation { add_package_repo_button }
 
     def package_repo_listed? repo_name
       find_collapsible_header(repo_name) != nil

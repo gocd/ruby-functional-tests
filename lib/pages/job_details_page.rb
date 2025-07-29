@@ -29,7 +29,7 @@ module Pages
     element :artifact_content, 'pre'
 
 
-    load_validation { has_tabs?(wait: 20) }
+    load_validation { has_tabs? }
 
     def on_tab(type)
       tabs.find('a', text: type).click

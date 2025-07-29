@@ -24,7 +24,7 @@ module Pages
     element :text_revoke_reason, "[data-test-id='form-field-input-are-you-sure-you-want-to-revoke-this-token']"
     element :btn_revoke, "[data-test-id='button-revoke-token']"
 
-    load_validation { has_tab_active_tokens?(wait: 20) }
+    load_validation { has_tab_active_tokens? }
 
     def revoke_token(user, description, reason)
       token_row = table_access_tokens.all("[data-test-id='table-row']").select{|row| row.has_css?('td', text: user) && row.has_css?('span', text: description) }

@@ -32,7 +32,7 @@ module Pages
     element :confirm_delete, "button[data-test-id='button-delete']"
 
 
-    load_validation { has_add_store?(wait: 20) }
+    load_validation { has_add_store? }
 
     def start_add_store
       add_store.click

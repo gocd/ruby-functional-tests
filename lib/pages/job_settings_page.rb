@@ -48,7 +48,7 @@ module Pages
     element :task_dest_dir, "input[data-test-id='form-field-input-destination']"
     element :add_custom_tab_button, "button[data-test-id='add-custom-tab-button']"
 
-    load_validation { has_add_new_task?(wait: 20) }
+    load_validation { has_add_new_task? }
 
     def add_new_task_of_type(type)
       new_task_list.select type

@@ -33,7 +33,7 @@ module Pages
     element :message_after_adding_role, '#message_pane'
     element :add_new_role, "input[name='new_role']"
 
-    load_validation { has_import_user?(wait: 20) }
+    load_validation { has_import_user? }
 
     def search_for(user)
       import_user.click

@@ -23,7 +23,7 @@ module Pages
     element :create_new_template, "[data-test-id='create-new-template']"
     element :button_create, "[data-test-id='button-create']"
 
-    load_validation { has_create_new_template?(wait: 20) }
+    load_validation { has_create_new_template? }
 
     def click_edit_pipeline pipeline
       page.find("[data-test-id='edit-pipeline-#{pipeline.downcase}']").click

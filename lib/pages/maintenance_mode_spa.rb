@@ -22,7 +22,7 @@ module Pages
     element :in_progress_subsystems, 'div[data-test-id="in-progress-subsystems"]'
     element :flash_message, "div[data-test-id='flash-message-success']"
 
-    load_validation { has_maintenance_mode_switch?(wait: 20) }
+    load_validation { has_maintenance_mode_switch? }
 
     def maintenance_complete?
       reload_page

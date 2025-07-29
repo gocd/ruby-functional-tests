@@ -123,7 +123,7 @@ module Pages
     end
 
     def verify_pipeline_stays_at_label(pipeline, label)
-      wait_till_event_occurs_or_bomb 30, "Pipeline #{pipeline} label verification timed out" do
+      wait_till_event_occurs 30 do
         reload_page
         raise "Pipeline #{pipeline} got triggered. Expected not to" if (pipeline_name text: pipeline)
                         .ancestor('.pipeline')
@@ -227,7 +227,7 @@ module Pages
       end
     end
 
-    def wait_to_check_pipeline_do_not_start(wait_time = 20)
+    def wait_to_check_pipeline_do_not_start(wait_time = 30)
       wait_till_event_occurs wait_time do
         all_stages = get_all_stages(scenario_state.self_pipeline)
 

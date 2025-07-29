@@ -340,11 +340,11 @@ step 'Edit pipeline <pipeline>' do |pipeline|
 end
 
 step 'Wait till pipeline start building - On Swift Dashboard page' do ||
-  new_pipeline_dashboard_page.wait_till_pipeline_start_building
+  new_pipeline_dashboard_page.wait_till_pipeline_starts
 end
 
 step 'Wait till pipeline start building for <seconds> seconds - On Swift Dashboard page' do |seconds|
-  new_pipeline_dashboard_page.wait_till_pipeline_start_building seconds.to_i
+  new_pipeline_dashboard_page.wait_till_pipeline_starts seconds.to_i
 end
 
 step 'Wait till <seconds> seconds for stage <stage> shows status <status> - On Swift Dashboard page' do |seconds, stage, status|

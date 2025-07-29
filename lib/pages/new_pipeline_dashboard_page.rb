@@ -40,7 +40,7 @@ module Pages
 
     def trigger_pipeline(name: scenario_state.self_pipeline, wait_to_build: false)
       (pipeline_name text: name).ancestor('.pipeline').find('.pipeline_btn.play').click
-      wait_till_pipeline_start_building if wait_to_build
+      wait_till_pipeline_starts if wait_to_build
     end
 
     def trigger_pipeline_disabled?
@@ -220,7 +220,7 @@ module Pages
       end
     end
 
-    def wait_till_pipeline_start_building(wait_time = 60)
+    def wait_till_pipeline_starts(wait_time = 60)
       wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
         all_stages = get_all_stages(scenario_state.self_pipeline)
         break if all_stages&.first and stage_state_building?(all_stages.first['class'])

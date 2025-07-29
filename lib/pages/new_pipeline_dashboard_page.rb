@@ -519,11 +519,11 @@ module Pages
     end
 
     def verify_stage_overview_triggered_by_user(username)
-      assert_true page.find('div[data-test-id="triggered-by-container"]').text.include?(username)
+      assert_true page.find('div[data-test-id="triggered-by-container"]', wait: 20).text.include?(username)
     end
 
     def verify_stage_overview_cancelled_by_user(username)
-      assert_true page.find('div[data-test-id="cancelled-by-container"]').text.include?(username)
+      assert_true page.find('div[data-test-id="cancelled-by-container"]', wait: 20).text.include?(username)
     end
 
     def verify_stage_overview_element_not_empty(data_test_id)

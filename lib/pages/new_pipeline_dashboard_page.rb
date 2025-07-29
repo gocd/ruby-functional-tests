@@ -243,7 +243,7 @@ module Pages
       wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.self_pipeline} failed to complete" do
         all_stages = get_all_stages(scenario_state.self_pipeline)
         next if pipeline_status_indeterminate?(all_stages)
-        break unless stage_state_building?(all_stages.last['class'])
+        break unless pipeline_last_determinate_stage_building?(all_stages)
       end
     end
 
@@ -611,8 +611,15 @@ module Pages
 
     private
 
+    # A pipeline will be indeterminate if it has any nil stages, or the first stage has unknown state
+    # If a single is unknown it wont be considered indeterminate. Stages that are not triggered yet are unknown, which
+    # may mean they have not been scheduled, or they are behind a manual gate.
     def pipeline_status_indeterminate?(all_stages)
-      all_stages&.last.nil? or stage_state_indeterminate?(all_stages.last['class'])
+      all_stages.nil? or all_stages.to_a.any? { |stage| stage.nil? } or all_stages.to_a.all? { |stage| stage_state_indeterminate?(stage['class']) }
+    end
+
+    def pipeline_last_determinate_stage_building?(all_stages)
+      stage_state_building?(all_stages.to_a.reverse.find { |stage| !stage_state_indeterminate?(stage['class']) }['class'])
     end
 
     def stage_state_indeterminate?(state)

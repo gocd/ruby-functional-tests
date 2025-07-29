@@ -16,7 +16,7 @@ tags: access_tokens
 * On Swift Dashboard Page
 * Looking at pipeline "basic-pipeline-with-auth" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Wait till stage "firstStage" completed - On Swift Dashboard page
+* Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "firstStage" is "Failed" - On Swift Dashboard page
 
 * On personal access token page

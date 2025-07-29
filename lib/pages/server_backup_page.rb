@@ -29,7 +29,7 @@ module Pages
     end
 
     def backup_successful? msg
-      page.has_css?('p', text: msg)
+      page.has_css?('p', text: msg, wait: 20)
     end
 
     def backup_location

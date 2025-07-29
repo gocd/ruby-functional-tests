@@ -234,8 +234,8 @@ module Pages
         # Keep waiting if we have no stages, we don't know if it will trigger at some point
         next if pipeline_status_indeterminate?(all_stages)
 
-        # Fail fast if the last stage ever mentions it is building
-        raise "Pipeline #{scenario_state.self_pipeline} started building when it was expected not to" if stage_state_building?(all_stages.last['class'])
+        # Fail fast if the first stage ever mentions it is building
+        raise "Pipeline #{scenario_state.self_pipeline} started building when it was expected not to" if stage_state_building?(all_stages.first['class'])
       end
     end
 

@@ -12,11 +12,11 @@ Setup of contexts
 ArtifactMD5VerificationSkip
 ---------------------------
 
-tags:Artifacts, MD5
+tags:Artifacts, MD5, ArtifactMD5VerificationSkip
 
 * On Swift Dashboard Page
 * Trigger pipeline "artifact-md5-skip" - On Swift Dashboard page
-* Wait till pipeline completed - On Swift Dashboard page
+* Wait till stage "defaultStage" completed - On Swift Dashboard page
 
 * For pipeline "artifact-md5-skip" label "1" stage "defaultStage" counter "1" job "defaultJob"
 * Create artifact "new_artifact.txt" and Verify return code is "201" - Using Artifact Api

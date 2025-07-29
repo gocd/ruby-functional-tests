@@ -223,7 +223,7 @@ module Pages
     def wait_till_pipeline_start_building(wait_time = 60)
       wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.self_pipeline} failed to start building" do
         all_stages = get_all_stages(scenario_state.self_pipeline)
-        break if all_stages&.first and (all_stages.first['class'] || "").include?('building')
+        break if all_stages&.first and stage_state_building?(all_stages.first['class'])
       end
     end
 
@@ -232,26 +232,26 @@ module Pages
         all_stages = get_all_stages(scenario_state.self_pipeline)
 
         # Keep waiting if we have no stages, we don't know if it will trigger at some point
-        next if all_stages&.last.nil?
+        next if pipeline_status_indeterminate?(all_stages)
 
         # Fail fast if the last stage ever mentions it is building
-        raise "Pipeline #{scenario_state.self_pipeline} started building when it was expected not to" if (all_stages.last['class'] || "").include?('building')
+        raise "Pipeline #{scenario_state.self_pipeline} started building when it was expected not to" if stage_state_building?(all_stages.last['class'])
       end
     end
 
     def wait_till_pipeline_complete(wait_time = 60)
       wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.self_pipeline} failed to complete" do
         all_stages = get_all_stages(scenario_state.self_pipeline)
-        next if all_stages&.last.nil? or all_stages.last['class'].nil?
-        break unless all_stages.last['class'].include?('building')
+        next if pipeline_status_indeterminate?(all_stages)
+        break unless stage_state_building?(all_stages.last['class'])
       end
     end
 
     def wait_till_stage_complete(stage)
       wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.self_pipeline} Stage #{stage} failed to complete" do
         pipeline_stage_state = get_pipeline_stage_state(scenario_state.self_pipeline, stage)
-        next if pipeline_stage_state.nil?
-        break unless pipeline_stage_state.include?('building')
+        next if stage_state_indeterminate?(pipeline_stage_state)
+        break unless stage_state_building?(pipeline_stage_state)
       end
     end
 
@@ -610,6 +610,18 @@ module Pages
     end
 
     private
+
+    def pipeline_status_indeterminate?(all_stages)
+      all_stages&.last.nil? or stage_state_indeterminate?(all_stages.last['class'])
+    end
+
+    def stage_state_indeterminate?(state)
+      state.nil? or state.include?('unknown')
+    end
+
+    def stage_state_building?(state)
+      state&.include?('building')
+    end
 
     def stage_overview_stage_details_link
       page.find('[data-test-id="stage-details-page-link"]').find('a')

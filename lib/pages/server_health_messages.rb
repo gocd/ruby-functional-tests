@@ -20,7 +20,7 @@ module Pages
     element :message_notifier, '[data-test-id="server-health-messages-count"]'
     element :health_messages, '[data-test-id="modal-body"]'
     elements :error_messages, "[data-test-class='server-health-message_message']"
-    elements :error_discription, "[data-test-class='server-health-message_detail']"
+    elements :error_description, "[data-test-class='server-health-message_detail']"
     element :error_popup_ok_button, "[data-test-id='button-ok']"
 
     def verify_message_notifier_showsup
@@ -71,10 +71,6 @@ module Pages
       page.has_css?("[data-test-id='server-health-messages-count']")
     end
 
-    def verify_there_are_no_errors_and_warnings
-      page.has_css?("[data-test-id='server-health-messages-count']")
-    end
-
     def verify_there_are_no_error_messages
       assert_true !message_notifier.text.include?('error')
     end
@@ -99,7 +95,7 @@ module Pages
 
     def verify_error_description_do_not_contains(error_message)
       msg_list = []
-      error_discription.each do |message|
+      error_description.each do |message|
         msg_list.push(message.text)
       end
       assert_true !msg_list.include?(error_message)
@@ -108,7 +104,7 @@ module Pages
     def verify_error_description(error_message)
       wait_till_event_occurs_or_bomb 60, "Does not contains #{error_message}" do
         found = false
-        error_discription.each do |message|
+        error_description.each do |message|
           found = true if message.text.include? error_message
         end
         break if found

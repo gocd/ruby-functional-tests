@@ -56,7 +56,7 @@ module Helpers
         end
       end
     rescue Timeout::Error
-
+      p "As expected, the event did not occur within #{wait_time} seconds."
     end
   end
 end

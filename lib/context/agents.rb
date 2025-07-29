@@ -55,7 +55,7 @@ module Context
     end
 
     def create_stopjob(filename)
-      agent_wrk_dirs.each { |agent_dir| File.open("#{agent_dir}/#{filename}", "w") {} }
+      agent_wrk_dirs.each { |agent_dir| File.write("#{agent_dir}/#{filename}", "") }
     end
 
     def delete_stopjob(filename)

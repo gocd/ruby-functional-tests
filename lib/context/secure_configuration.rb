@@ -34,6 +34,7 @@ module Context
       copy_password_file(pwd_file)
       load_dom(config_dom)
       scenario_state.put 'current_user', 'admin'
+      sleep 5 # wait for config reload :-(
     end
   end
 end

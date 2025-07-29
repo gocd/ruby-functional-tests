@@ -22,6 +22,7 @@ module Context
       get_dom(config_file)
       replace_pipeline_names
       load_dom(config_dom)
+      sleep 5 # wait for config reload :-(
     end
 
     def detect_headers_from_loaded_config

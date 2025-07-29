@@ -25,7 +25,6 @@ module Pages
     load_validation { has_maintenance_mode_switch? }
 
     def maintenance_complete?
-      reload_page
       page.has_css?('div', text: 'GoCD Server has no running subsystems.', wait: 60)
     end
 
@@ -34,7 +33,6 @@ module Pages
     end
 
     def maintenance_in_progress?
-      reload_page
       page.has_css?('div', text: 'Some subsystems of GoCD are still in progress.', wait: 60)
     end
 

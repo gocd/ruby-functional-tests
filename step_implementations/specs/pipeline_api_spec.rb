@@ -232,7 +232,7 @@ step 'Verify shows first instance of <stage> of <pipeline>' do |stage, pipeline|
 end
 
 step 'Verify loads <pipeline> instance with file <file>' do |pipeline, file|
-  RestClient.get http_url(scenario_state.get(scenario_state.get(pipeline))), { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header) do |response|
+  RestClient.get http_url(scenario_state.get(scenario_state.get(pipeline))), basic_configuration.header do |response|
     doc = Nokogiri::XML(response)
 
     assert_equal file, doc.xpath("//file/@name").first.value
@@ -240,7 +240,7 @@ step 'Verify loads <pipeline> instance with file <file>' do |pipeline, file|
 end
 
 step 'Verify unauthorized to load <pipeline>' do |pipeline|
-  RestClient.get http_url(scenario_state.get(scenario_state.get(pipeline))), { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header) do |response|
+  RestClient.get http_url(scenario_state.get(scenario_state.get(pipeline))), basic_configuration.header do |response|
     assert_true response.code.to_i == 401, "Expected: 401, Actual: #{response.code}"
   end
 end

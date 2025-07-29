@@ -55,7 +55,7 @@ module Helpers
           sleep 1
         end
       end
-    rescue Timeout::Error => ignore
+    rescue Timeout::Error
 
     end
   end

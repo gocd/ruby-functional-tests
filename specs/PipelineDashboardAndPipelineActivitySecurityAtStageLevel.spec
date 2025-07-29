@@ -82,8 +82,6 @@ Pipeline Visibility
 * Looking at pipeline with label "2"
 * Verify "secondStage" cannot be approved on Pipeline Activity Page
 
-* Wait for "180" seconds till pipeline completed - On Swift Dashboard page
-
 * Logout - from any page
 
 * Login as "group1View"

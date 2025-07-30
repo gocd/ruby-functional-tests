@@ -34,8 +34,8 @@ step 'Verify pipeline history page has <pipeline_histories>' do |pipeline_histor
   pipeline_history_page.verify_stage_history_has pipeline_histories
 end
 
-step 'Search for <seacrch_string> on pipeline history page' do |seacrch_string|
-  pipeline_history_page.search_given_pipeline seacrch_string
+step 'Search for <search_string> on pipeline history page' do |search_string|
+  pipeline_history_page.search_given_pipeline search_string
 end
 
 step 'Click on page number <clickable_page_number>' do |clickable_page_number|

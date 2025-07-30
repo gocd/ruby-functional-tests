@@ -68,13 +68,15 @@ tags: stage-overview, UI, refresh
 
 * Cancel stage from stage overview
 
+* Wait for "6" seconds
+
 * Verify rerun selected jobs is "disabled"
 * Select "first" job for rerun
 * Verify rerun selected jobs is "enabled"
 
 * Rerun selected jobs
 
-* Wait for "11" seconds
+* Wait for "6" seconds
 
 * Verify failed job count is "1"
 * Verify passed job count is "1"

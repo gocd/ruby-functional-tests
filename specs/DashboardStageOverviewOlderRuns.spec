@@ -1,4 +1,4 @@
-DashboardStageOverview
+DashboardStageOverviewOlderRuns
 ============
 
 Setup of contexts
@@ -7,9 +7,9 @@ Setup of contexts
 * Basic Configuration - setup
 * Using pipeline "pipeline-with-3-jobs" - setup
 * With "2" live agents - setup
-* Capture go state "DashboardStageOverview" - setup
+* Capture go state "DashboardStageOverviewOlderRuns" - setup
 
-DashboardStageOverview
+DashboardStageOverviewOlderRuns
 ------------
 
 tags: stage-overview, UI, refresh
@@ -48,8 +48,9 @@ tags: stage-overview, UI, refresh
 
 * Rerun failed jobs
 
-* Wait for "11" seconds
+* Verify stage "defaultStage" is "Building" on pipeline with label "1" - On Swift Dashboard page
 
+* Open stage overview for stage "defaultStage" - On Swift Dashboard page
 * Verify failed job count is "0"
 * Verify passed job count is "2"
 * Verify building job count is "1"
@@ -67,8 +68,6 @@ tags: stage-overview, UI, refresh
 
 * Select stage counter "1" from stage overview header
 
-* Wait for "11" seconds
-
 * Verify failed job count is "1"
 * Verify passed job count is "2"
 * Verify building job count is "0"
@@ -79,8 +78,9 @@ tags: stage-overview, UI, refresh
 
 * Rerun failed jobs
 
-* Wait for "11" seconds
+* Verify stage "defaultStage" is "Building" on pipeline with label "1" - On Swift Dashboard page
 
+* Open stage overview for stage "defaultStage" - On Swift Dashboard page
 * Verify stage overview has header "pipeline-with-3-jobs" "1" "defaultStage" "3"
 
 * Verify failed job count is "0"
@@ -90,5 +90,5 @@ tags: stage-overview, UI, refresh
 
 Teardown of contexts
 ____________________
-* Capture go state "DashboardStageOverview" - teardown
+* Capture go state "DashboardStageOverviewOlderRuns" - teardown
 * With "2" live agents - teardown

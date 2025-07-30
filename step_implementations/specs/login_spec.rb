@@ -78,7 +78,6 @@ end
 
 step 'VerifyIfUserHasRole <table>' do |table|
   table.rows.each_with_index do |row, index|
-    p "Executing Verify user role validation for row #{index + 1}"
     scenario_state.put('current_user', row['login as user'])
     logout
     login_page.load
@@ -87,7 +86,7 @@ step 'VerifyIfUserHasRole <table>' do |table|
       new_pipeline_dashboard_page.load
       method_name = table.columns[column_count]
       raise "The method #{method_name} does not exist" unless new_pipeline_dashboard_page.respond_to?(method_name)
-      assert_equal row[table.columns[column_count]], new_pipeline_dashboard_page.send(method_name).to_s
+      assert_equal row[method_name], new_pipeline_dashboard_page.send(method_name).to_s, "User #{row['login as user']} failed for #{method_name}"
     end
   end
 end

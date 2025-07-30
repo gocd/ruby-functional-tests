@@ -56,7 +56,7 @@ module Pages
       modal_save.click
     end
 
-    def has_pipeline (pipeline, env)
+    def has_pipeline(pipeline, env)
       page.find("[data-test-id='pipelines-for-#{env}'] ul[data-test-id='pipelines-content']").text.include? scenario_state.get(pipeline)
     end
 

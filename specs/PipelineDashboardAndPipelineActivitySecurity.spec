@@ -30,7 +30,7 @@ Verify that super-admin has all view and operate permissions
 
 * On Swift Dashboard Page
 
-Pipeline Visibility
+Pipeline Visibility as admin
 * PipelineVisibility
      |Pipeline Name|Visible?|Can Operate Using Ui?|Can Pause Using Api?|Can Pause Using Ui?|Can Operate Using API?|
      |-------------|--------|---------------------|--------------------|-------------------|----------------------|
@@ -62,10 +62,8 @@ Pipeline Visibility
 
 * Logout - from any page
 
+Pipeline Visibility as raghu
 * Login as "raghu"
-
-
-Pipeline Visibility
 * PipelineVisibility
      |Pipeline Name|Visible?|Can Operate Using Ui?|Can Pause Using Api?|Can Pause Using Ui?|Can Operate Using API?|
      |-------------|--------|---------------------|--------------------|-------------------|----------------------|
@@ -73,7 +71,6 @@ Pipeline Visibility
      |P2           |true    |true                 |true                |true               |true                  |
      |P3           |true    |true                 |true                |true               |true                  |
      |P4           |false   |false                |true                |false              |true                  |
-
 
 
 * verify user does not have operate permissions on "defaultStage" for pipleine "P1" on pipeline activity page
@@ -86,15 +83,10 @@ Pipeline Visibility
 * Looking at pipeline "P3" - On Swift Dashboard page
 * Wait for "90" seconds till pipeline completed - On Swift Dashboard page
 
-* Looking at pipeline "P4" - On Swift Dashboard page
-* Wait for "90" seconds till pipeline completed - On Swift Dashboard page
-
 * Logout - from any page
 
+Pipeline Visibility as pavan
 * Login as "pavan"
-
-
-Pipeline Visibility
 * PipelineVisibility
      |Pipeline Name|Visible?|Can Operate Using Ui?|Can Pause Using Api?|Can Pause Using Ui?|Can Operate Using API?|
      |-------------|--------|---------------------|--------------------|-------------------|----------------------|
@@ -102,7 +94,6 @@ Pipeline Visibility
      |P2           |false   |false                |false               |false              |false                 |
      |P3           |true    |true                 |true                |true               |true                  |
      |P4           |false   |false                |false               |false              |false                 |
-
 
 
 * verify user does not have operate permissions on "defaultStage" for pipleine "P1" on pipeline activity page
@@ -113,10 +104,8 @@ Pipeline Visibility
 
 * Logout - from any page
 
+Pipeline Visibility as group1view
 * Login as "group1View"
-
-
-Pipeline Visibility
 * PipelineVisibility
      |Pipeline Name|Visible?|Can Operate Using Ui?|Can Pause Using Api?|Can Pause Using Ui?|Can Operate Using API?|
      |-------------|--------|---------------------|--------------------|-------------------|----------------------|
@@ -124,8 +113,6 @@ Pipeline Visibility
      |P2           |true    |true                 |true                |true               |true                  |
      |P3           |true    |false                |true                |true               |false                 |
      |P4           |true    |false                |false               |false              |false                 |
-
-
 
 
 * verify user has operate permissions on "defaultStage" for pipeline "P2" on Pipeline Activity Page

@@ -20,17 +20,20 @@ step 'Login as <user> - setup' do |user|
 end
 
 step 'Login as <user>' do |user|
+  login_page.load
   login_page.signin user
   login_page.signin_success user
 end
 
 step 'Login as <user> - Swift Dashboard' do |user|
+  login_page.load
   login_page.signin user
   login_page.signin_success user
 end
 
 step 'Logout and login as <user>' do |user|
   logout
+  login_page.load
   login_page.signin user
   login_page.signin_success user
 end
@@ -41,6 +44,7 @@ end
 
 step 'Logout and Login as <user> with password as <pwd>' do |user, pwd|
   logout
+  login_page.load
   login_page.signin user, pwd
   login_page.signin_success user
 end
@@ -63,6 +67,7 @@ end
 
 step 'Logout and Login as <user> should fail with message <message>' do |user, message|
   logout
+  login_page.load
   login_page.signin user
   login_page.signin_failure message
 end
@@ -76,6 +81,7 @@ step 'VerifyIfUserHasRole <table>' do |table|
     p "Executing Verify user role validation for row #{index + 1}"
     scenario_state.put('current_user', row['login as user'])
     logout
+    login_page.load
     login_page.signin scenario_state.get('current_user')
     (1..table.columns.length - 1).each do |column_count|
       new_pipeline_dashboard_page.load

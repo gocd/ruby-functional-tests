@@ -33,7 +33,6 @@ module Pages
 
     def logout
       page.driver.browser.navigate.to(http_url('/auth/logout'))
-      sleep 5 # waiting for the logout redirect is easier than elsewhere
     end
 
     def menu_item_visible(item)

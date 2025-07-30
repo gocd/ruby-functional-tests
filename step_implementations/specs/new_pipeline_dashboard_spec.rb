@@ -326,7 +326,7 @@ step 'PipelineVisibility <table>' do |table|
       method_name = table.columns[i].tr(' ', '_').downcase
       raise "The method #{method_name} does not exist" unless new_pipeline_dashboard_page.respond_to?(method_name)
       p "Validating method - #{method_name}"
-      assert_equal row[table.columns[i]], new_pipeline_dashboard_page.send(method_name).to_s
+      assert_equal row[table.columns[i]], new_pipeline_dashboard_page.send(method_name).to_s, "#{row['Pipeline Name']} failed for #{method_name}"
     end
   end
 end

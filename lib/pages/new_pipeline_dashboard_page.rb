@@ -636,7 +636,7 @@ module Pages
     def revisions(pipeline)
       (pipeline_name text: pipeline)
         .ancestor('.pipeline')
-        .find('.material_changes').all('.revisions')
+        .find('.material_changes').all('.revisions', wait: 5)
     end
   end
 end

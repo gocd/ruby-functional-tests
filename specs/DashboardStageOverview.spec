@@ -12,7 +12,7 @@ Setup of contexts
 DashboardStageOverview
 ------------
 
-tags: stage-overview, UI, refresh
+tags: stage-overview, UI, refresh, DashboardStageOverview
 
 * Looking at pipeline "pipeline-with-3-jobs" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
@@ -52,8 +52,9 @@ tags: stage-overview, UI, refresh
 
 * Rerun failed jobs
 
-* Wait for "11" seconds
+* Verify stage "defaultStage" is "Building" on pipeline with label "1" - On Swift Dashboard page
 
+* Open stage overview for stage "defaultStage" - On Swift Dashboard page
 * Verify failed job count is "0"
 * Verify passed job count is "2"
 * Verify building job count is "1"
@@ -64,13 +65,19 @@ tags: stage-overview, UI, refresh
 
 * Cancel stage from stage overview
 
+* Verify stage "defaultStage" is "Cancelled" on pipeline with label "1" - On Swift Dashboard page
+
+* Open stage overview for stage "defaultStage" - On Swift Dashboard page
+
 * Verify rerun selected jobs is "disabled"
 * Select "first" job for rerun
 * Verify rerun selected jobs is "enabled"
 
 * Rerun selected jobs
 
-* Wait for "11" seconds
+* Verify stage "defaultStage" is "Building" on pipeline with label "1" - On Swift Dashboard page
+
+* Open stage overview for stage "defaultStage" - On Swift Dashboard page
 
 * Verify failed job count is "1"
 * Verify passed job count is "1"

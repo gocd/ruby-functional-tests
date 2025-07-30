@@ -569,7 +569,6 @@ module Pages
 
     def stage_overview_cancel_stage
       page.find("[data-test-id='Cancel Stage-icon']").click
-      sleep 6 # Wait for refresh :-(
     end
 
     def stage_overview_verify_job_state(job, state)

@@ -21,9 +21,9 @@ tags: Permissions, long_running, pipeline_dashboard_stage_permissions, pipeline_
 * Trigger and wait for stage "firstStage" is "Passed" with label "1" - On Swift Dashboard page
 
 * Logout - from any page
-* Login as "raghu"
 
-Pipeline Visibility
+Pipeline Visibility as "raghu"
+* Login as "raghu"
 * PipelineVisibility
      |Pipeline Name|visible?|can operate using ui?|can operate using Api?|can pause using ui?|can pause using api?|
      |-------------|--------|---------------------|----------------------|-------------------|--------------------|
@@ -48,11 +48,11 @@ Pipeline Visibility
 
 * Logout - from any page
 
-* Login as "pavan"
 
 
 Behavior of P7 is similar for user 'pavan' and 'raghu', hence not verified
-Pipeline Visibility
+* Login as "pavan"
+Pipeline Visibility for "paven"
 * PipelineVisibility
      |Pipeline Name|visible?|can operate using ui?|can operate using Api?|can pause using ui?|can pause using api?|
      |-------------|--------|---------------------|----------------------|-------------------|--------------------|
@@ -69,9 +69,10 @@ Pipeline Visibility
 * Looking at pipeline "P5" - On Swift Dashboard page
 * Verify pipeline is paused by "pavan" - On Swift Dashboard page
 * Unpause pipeline - On Swift Dashboard page
-* verify user has operate permissions on "firstStage" for pipeline "P6" on Pipeline Activity Page
 
+* verify user has operate permissions on "firstStage" for pipeline "P6" on Pipeline Activity Page
 * Looking at pipeline "P6" - On Swift Dashboard page
+* Wait till pipeline completed - On Swift Dashboard page
 * Click on history - On Swift Dashboard page
 * Looking at pipeline with label "1"
 * Verify stage "secondStage" of pipeline cannot be rerun on Pipeline Activity Page
@@ -84,9 +85,9 @@ Pipeline Visibility
 
 * Logout - from any page
 
-* Login as "group1View"
 
-Pipeline Visibility
+Pipeline Visibility as "group1view"
+* Login as "group1View"
 * PipelineVisibility
      |Pipeline Name|visible?|can operate using ui?|can operate using Api?|can pause using ui?|can pause using api?|
      |-------------|--------|---------------------|----------------------|-------------------|--------------------|

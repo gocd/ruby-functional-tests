@@ -35,28 +35,19 @@ module Helpers
       end
     end
 
-    def wait_till_event_occurs_or_bomb(wait_time, message)
-      Timeout.timeout(wait_time) do
-        loop do
-          yield if block_given?
-          # p "Waiting 1 sec unless [#{message}]..."
-          sleep 1
-        end
-      end
-    rescue Timeout::Error
-      raise "The event did not occur - #{message} within #{wait_time} seconds."
+    def wait_till_event_occurs_or_bomb(wait_time, message, &block)
+      exceeded_wait = wait_till_event_occurs(wait_time, &block)
+      raise "The event did not occur - #{message} within #{wait_time} seconds." if exceeded_wait
     end
 
     def wait_till_event_occurs(wait_time)
-      Timeout.timeout(wait_time) do
-        loop do
-          yield if block_given?
-          # p "Waiting 1 sec..."
-          sleep 1
-        end
+      start_time = Time.now
+      while Time.now - start_time < wait_time do
+        yield if block_given?
+        # p "Waiting 1 sec..."
+        sleep 1
       end
-    rescue Timeout::Error
-      p "As expected, the event did not occur within #{wait_time} seconds."
+      Time.now - start_time > wait_time
     end
   end
 end

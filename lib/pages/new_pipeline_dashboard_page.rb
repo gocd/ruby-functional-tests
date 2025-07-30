@@ -32,7 +32,7 @@ module Pages
     element :environment_variables_key_value, '.environment-variables.plain.key-value-pair'
     element :environment_variables_secure_key_value, '.environment-variables.secure.key-value-pair'
 
-    load_validation { has_dashboard_container?(wait: 20) }
+    load_validation { has_dashboard_container?(wait: 5) }
 
     def admin?
       page.has_css?("[data-is-user-admin='true']")
@@ -324,8 +324,8 @@ module Pages
       has_pipeline_name? text: (scenario_state.get(pipeline) || pipeline)
     end
 
-    def wait_till_pipeline_showsup(pipeline, wait_time = 120)
-      wait_till_event_occurs_or_bomb wait_time, "Pipeline #{scenario_state.get(pipeline)} failed to showup on dashboard" do
+    def wait_till_pipeline_showsup(pipeline, wait_time = 5)
+      wait_till_event_occurs_or_bomb wait_time, "Pipeline #{pipeline} failed to show up on dashboard" do
         reload_page
         break if visible?(pipeline)
       end

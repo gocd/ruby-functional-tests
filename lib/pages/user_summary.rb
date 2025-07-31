@@ -42,7 +42,7 @@ module Pages
     end
 
     def add_user_at(row)
-      search_result.all("[data-test-id='table-row']", wait: 5)[row.to_i - 1].find('input[type="radio"]').set(true)
+      (search_result wait: 5).all("[data-test-id='table-row']").last.find('input[type="radio"]').set(true)
       submit_add_user.click
     end
 

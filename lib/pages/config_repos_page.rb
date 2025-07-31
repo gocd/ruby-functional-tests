@@ -89,9 +89,9 @@ module Pages
     def repo_failed_parsing(repo, entity, entity_name)
       panel = find_collapsible_panel(repo)
       assert_not_nil panel.find("div[data-test-id='collapse-header']")[:class].include?'index__error__'
-      assert_not_nil panel.find("div[data-test-id='flash-message-alert']")
+      assert_not_nil panel.find("div[data-test-id='flash-message-alert']", wait: 5)
 
-      error_span = panel.find("span[data-test-id='key-value-value-error']")
+      error_span = panel.find("span[data-test-id='key-value-value-error']", wait: 5)
       assert_not_nil error_span
 
       err_msg = "Not allowed to refer to #{entity} '#{entity_name}'. Check the 'Rules' of this config repository."

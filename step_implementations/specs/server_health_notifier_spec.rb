@@ -24,7 +24,7 @@ step 'Verify server health message <message> is shown' do |msg|
 end
 
 step 'Wait till error message popup appears' do
-  server_health_message.wait_till_error_popup_appears
+  assert_true server_health_message.wait_till_error_popup_appears
 end
 
 step 'Verify message contains <message>' do |message|

@@ -46,7 +46,7 @@ step 'Update config repo pipeline with name <pipeline> as downstream of <upstrea
   scenario_state.get("#{pipeline}-configrepo").update_pipeline(upstream)
 end
 
-step 'Verify that the page contains <repos>' do |repos|
+step 'Verify that the page contains all of <repos>' do |repos|
   config_repos_page.has_config_repos(repos)
 end
 
@@ -74,7 +74,7 @@ step 'Click on confirm delete config repo' do
   config_repos_page.click_confirm_delete
 end
 
-step 'Verify that the page does not contains <repo>' do |repo|
+step 'Verify that the page does not contain single repo <repo>' do |repo|
   config_repos_page.does_not_contain_repo(repo)
 end
 

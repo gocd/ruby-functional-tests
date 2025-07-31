@@ -37,12 +37,12 @@ module Pages
 
     def search_for(user)
       import_user.click
-      page.find("input[placeholder='Search user..']", wait: 5).set(user, rapid: false)
+      page.find("input[placeholder='Search user..']", wait: 5).set(user)
       page.find('button', text: 'Search').click
     end
 
     def add_user_at(row)
-      search_result.all("[data-test-id='table-row']")[row.to_i - 1].find('input[type="radio"]').set(true)
+      search_result.all("[data-test-id='table-row']", wait: 5)[row.to_i - 1].find('input[type="radio"]').set(true)
       submit_add_user.click
     end
 

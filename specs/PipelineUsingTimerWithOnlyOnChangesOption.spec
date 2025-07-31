@@ -48,11 +48,11 @@ Disable onlyOnChanges option while still building so it doesn't schedule the nex
 * Save Changes
 
 Wait for completion of initial schedule
+* On Swift Dashboard Page
 * Verify stage "defaultStage" is "Passed" on pipeline with label "2" and counter "1" - On Swift Dashboard page
 * Verify pipeline is triggered by "timer" - On Swift Dashboard page
 
 Make sure it does not schedule again, as we told it to trigger only on changes
-* On Swift Dashboard Page
 * Verify pipeline does not get triggered for "35" seconds
 
 Check it still triggers on a SCM material change

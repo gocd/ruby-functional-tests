@@ -34,22 +34,22 @@ module Pages
 
     def verify_number_of_error_message(number_of_err_msg)
       wait_till_event_occurs_or_bomb 60, "Total number of errors are not equal to #{number_of_err_msg}" do
-        reload_page
         break if number_of_err_msg.to_i == message_notifier.text.split('and')[0].scan(/\d+/)[0].to_i
+        reload_page
       end
     end
 
     def verify_minimum_number_of_error_message(number_of_err_msg)
       wait_till_event_occurs_or_bomb 60, "Total number of errors are lesser the minimum: #{number_of_err_msg} required" do
-        reload_page
         break if message_notifier.text.split('and')[0].scan(/\d+/)[0].to_i >= number_of_err_msg.to_i
+        reload_page
       end
     end
 
     def verify_number_of_warnings(number_of_warning_msg)
       wait_till_event_occurs_or_bomb 90, "Total number of Warnings are not equal to #{number_of_warning_msg}" do
-        reload_page
         break if number_of_warning_msg.to_i == message_notifier.text.match('\d warning').to_s.scan(/\d+/)[0].to_i
+        reload_page
       end
     end
 

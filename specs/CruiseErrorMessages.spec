@@ -44,6 +44,7 @@ tags: error_messages
 * Turn on AutoRefresh - On Swift Dashboard page
 * set timer with spec "* * * * * ? 2012" on server
 
+* On Swift Dashboard Page
 * Verify there are a minimum "4" errors
 * Open error messages popup
 

@@ -12,23 +12,23 @@ Setup of contexts
 CCTrayFeed
 ----------
 
- tags: cctray integration
+tags: cctray integration
 
- * Looking at pipeline "basic-pipeline-for-cctray" - On Swift Dashboard page
- * Trigger pipeline - On Swift Dashboard page
+* Looking at pipeline "basic-pipeline-for-cctray" - On Swift Dashboard page
+* Trigger pipeline - On Swift Dashboard page
 
 
- * Create a "failjob" file
- * Wait till "120" seconds for stage "defaultStage" shows status "Failed" - On Swift Dashboard page
- * Wait till pipeline completed - On Swift Dashboard page
+* Create a "failjob" file
+* Wait till "120" seconds for stage "defaultStage" shows status "Failed" - On Swift Dashboard page
+* Wait till pipeline completed - On Swift Dashboard page
 
- * Make API call to cctray feed
- * Verify cctray feed contains stage "defaultStage" with current activity "Sleeping" with label "1" and last status "Failure" with broken by authors of last commit for material "git-material" of type "git" for pipeline "basic-pipeline-for-cctray"
- * Verify cctray feed contains stage "defaultStage" job "basic-pipeline-for-cctray-job" with current activity "Sleeping" with label "1" and last status "Failure" with broken by authors of last commit for material "git-material" of type "git" for pipeline "basic-pipeline-for-cctray"
- * Verify cctray feed contains stage "defaultStage" job "passing-job" with current activity "Sleeping" with label "1" and last status "Success"
- * Verify cctray feed contains stage "defaultStage" with relative weburl "/1/defaultStage/1" with lablel "1"
- * Verify cctray feed contains stage "defaultStage" and job "basic-pipeline-for-cctray-job" with relative weburl "/1/defaultStage/1/basic-pipeline-for-cctray-job" with lablel "1"
- * Verify cctray feed contains stage "defaultStage" and job "passing-job" with relative weburl "/1/defaultStage/1/passing-job" with lablel "1"
+* Make API call to cctray feed
+* Verify cctray feed contains stage "defaultStage" with current activity "Sleeping" with label "1" and last status "Failure" with broken by authors of last commit for material "git-material" of type "git" for pipeline "basic-pipeline-for-cctray"
+* Verify cctray feed contains stage "defaultStage" job "basic-pipeline-for-cctray-job" with current activity "Sleeping" with label "1" and last status "Failure" with broken by authors of last commit for material "git-material" of type "git" for pipeline "basic-pipeline-for-cctray"
+* Verify cctray feed contains stage "defaultStage" job "passing-job" with current activity "Sleeping" with label "1" and last status "Success"
+* Verify cctray feed contains stage "defaultStage" with relative weburl "/1/defaultStage/1" with lablel "1"
+* Verify cctray feed contains stage "defaultStage" and job "basic-pipeline-for-cctray-job" with relative weburl "/1/defaultStage/1/basic-pipeline-for-cctray-job" with lablel "1"
+* Verify cctray feed contains stage "defaultStage" and job "passing-job" with relative weburl "/1/defaultStage/1/passing-job" with lablel "1"
 
 * Delete stopjob file
 * Trigger pipeline - On Swift Dashboard page

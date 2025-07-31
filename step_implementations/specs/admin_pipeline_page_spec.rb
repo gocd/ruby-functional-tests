@@ -53,11 +53,11 @@ step 'Add new pipeline group' do
 end
 
 step 'Enter pipeline group name <group> - Already On New Pipeline Group Popup' do |group|
-  admin_pipeline_page.input_pipeline_group_name.set(group, rapid: false)
+  admin_pipeline_page.input_pipeline_group_name.set(group)
 end
 
 step 'Enter pipeline group name <group> - Already On Clone Pipeline pop up' do |group|
-  admin_pipeline_page.input_pipeline_group_name.set(group, rapid: false)
+  admin_pipeline_page.input_pipeline_group_name.set(group)
 end
 
 step 'Verify error message <message> - Already On New Pipeline Group Popup' do |message|

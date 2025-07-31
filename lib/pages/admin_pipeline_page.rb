@@ -268,7 +268,7 @@ module Pages
     end
 
     def set_group_name(grp_name)
-      group_name.set(grp_name, rapid: false)
+      group_name.set(grp_name)
     end
 
     def edit_pipeline_group(grp_name)

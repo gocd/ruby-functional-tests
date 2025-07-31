@@ -7,7 +7,7 @@ tags: config-repo-spa, spa, config-repo-rules
 
 Setup of contexts
 * Secure Configuration - setup
-* Capture go state "ConfigRepoWithRules" - setup
+* Capture go state "ConfigRepoSPAWithRules" - setup
 * Login as "admin" - setup
 
 * On Config repo page
@@ -36,5 +36,5 @@ Setup of contexts
 Teardown of contexts
 ____________________
 
-* Capture go state "ConfigRepoWithRules" - teardown
+* Capture go state "ConfigRepoSPAWithRules" - teardown
 * Logout - from any page

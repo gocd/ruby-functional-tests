@@ -122,8 +122,8 @@ module Pages
         .ancestor('.pipeline').find('.pipeline_instance-label').text.include?(label)
     end
 
-    def verify_pipeline_stays_at_label(pipeline, label)
-      wait_till_event_occurs 30 do
+    def verify_pipeline_stays_at_label(pipeline, label, wait_time = 11)
+      wait_till_event_occurs wait_time do
         reload_page
         raise "Pipeline #{pipeline} got triggered. Expected not to" if (pipeline_name text: pipeline)
                         .ancestor('.pipeline')
@@ -227,7 +227,7 @@ module Pages
       end
     end
 
-    def wait_to_check_pipeline_do_not_start(wait_time = 30)
+    def wait_to_check_pipeline_do_not_start(wait_time = 11)
       wait_till_event_occurs wait_time do
         all_stages = get_all_stages(scenario_state.self_pipeline)
 

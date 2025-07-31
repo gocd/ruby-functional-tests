@@ -101,7 +101,7 @@ module Pages
     def repo_successfully_parsed(repo)
       panel_header = find_collapsible_header(repo)
       assert_not_nil panel_header
-      assert_not_nil panel_header.find("span[data-test-id='repo-success-state']")
+      assert_not_nil panel_header.find("span[data-test-id='repo-success-state']", wait: 5)
     end
 
     def repo_has_env(repo, env)

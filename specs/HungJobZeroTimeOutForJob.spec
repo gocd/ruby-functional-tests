@@ -12,13 +12,13 @@ Setup of contexts
 HungJobZeroTimeOutForJob
 ------------------------
 
-tags: server configuration
+tags: server configuration, HungJobZeroTimeOutForJob
 
 * On Server Configuration page
 
 * On Job timeout configuration
 
-* Set cancel job after "2" minutes
+* Set cancel jobs after "2" minutes
 * Save Server Configuration
 
 * On Job settings page of pipeline "hung-job-zero-timeout-pipeline" stage "defaultStage" job "defaultJob"
@@ -33,8 +33,7 @@ tags: server configuration
 * Wait till error message popup appears
 * Verify there are "1" warnings
 * Verify stage "defaultStage" is "Building" - On Swift Dashboard page
-* Wait till "160" seconds for stage "defaultStage" shows status "Passed" - On Swift Dashboard page
-
+* Create a "stopjob" file and validate pipeline completed
 
 Teardown of contexts
 ____________________

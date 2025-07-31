@@ -54,11 +54,11 @@ module Pages
     end
 
     def wait_till_error_popup_appears
-      page.has_css?("[data-test-id='server-health-messages-count']", wait: 240)
+      page.has_css?("[data-test-id='server-health-messages-count']", wait: 120)
     end
 
     def verify_there_are_no_warnings
-      if page.has_no_css?("[data-test-id='server-health-messages-count']",wait: 10)
+      if page.has_no_css?("[data-test-id='server-health-messages-count']", wait: 10)
         assert_true true
       elsif page.has_css?("[data-test-id='server-health-messages-count']", wait: 10)
         assert_true !message_notifier.text.include?('warning')

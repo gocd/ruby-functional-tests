@@ -30,7 +30,7 @@ step 'Save Server Configuration' do
   server_configuration_page.save_button.click
 end
 
-step 'Set cancel job after <time> minutes' do |time|
+step 'Set cancel jobs after <time> minutes' do |time|
   server_configuration_page.never_job_timeout_checkbox.set(false)
   server_configuration_page.job_timeout_input.set(time, rapid: false)
 end

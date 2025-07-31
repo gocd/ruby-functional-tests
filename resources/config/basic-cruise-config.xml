@@ -248,9 +248,7 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="sleep">
-                                <arg>300</arg>
-                            </exec>
+                            <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
                         </tasks>
                     </job>
                 </jobs>
@@ -265,9 +263,7 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="sleep">
-                                <arg>160</arg>
-                            </exec>
+                            <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
                         </tasks>
                     </job>
                 </jobs>

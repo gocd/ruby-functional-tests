@@ -40,7 +40,7 @@ module Pages
     end
 
     def set_group_name group
-      edit_group_name.set(group)
+      edit_group_name.set(group, rapid: false)
     end
 
     def edit_pipeline_group(group_name)

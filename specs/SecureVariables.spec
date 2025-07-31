@@ -10,7 +10,7 @@ Setup of contexts
 SecureVariables
 ---------------
 
-tags: secure_variables, retry-flaky
+tags: secure_variables
 
 * Add environment "uat" to all Idle agents - Using Agents API
 

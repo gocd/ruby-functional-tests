@@ -10,7 +10,7 @@ Setup of contexts
 AddNewTemplate
 --------------
 
-tags: template, retry-flaky
+tags: template
 
 * On Admin Templates page
 

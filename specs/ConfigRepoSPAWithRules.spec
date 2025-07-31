@@ -3,7 +3,7 @@ ConfigRepoSPAWithRules
 
 ConfigRepoSPAWithRules
 -------------------
-tags: config-repo-spa, spa, config-repo-rules, retry-flaky
+tags: config-repo-spa, spa, config-repo-rules
 
 Setup of contexts
 * Secure Configuration - setup

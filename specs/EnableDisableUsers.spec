@@ -5,7 +5,7 @@ EnableDisableUsers
 EnableDisableUsers
 ------------------
 
-tags: Security, retry-flaky
+tags: Security
 
 Setup of contexts
 

@@ -12,7 +12,7 @@ Setup of contexts
 TfsMaterial
 -----------
 
-tags: tfs, retry-flaky
+tags: tfs
 
 Add resource "tfs" to an agent - Using Agents API
 

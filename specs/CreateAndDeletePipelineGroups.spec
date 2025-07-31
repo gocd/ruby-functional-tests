@@ -11,7 +11,7 @@ Setup of contexts
 CreateAndDeletePipelineGroups
 -----------------------------
 
-tags: pipeline group, retry-flaky
+tags: pipeline group
 
 * On Admin pipeline page
 * Add new pipeline group

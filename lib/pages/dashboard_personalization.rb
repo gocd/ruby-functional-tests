@@ -157,7 +157,7 @@ module Pages
     end
 
     def pipeline_group_checkbox_for(pipeline_group_name)
-      personalization_editor.first(".selected-pipelines li span", text: pipeline_group_name)
+      personalization_editor.first(".selected-pipelines li span", text: pipeline_group_name, wait: 5)
         .sibling('input')
     end
   end

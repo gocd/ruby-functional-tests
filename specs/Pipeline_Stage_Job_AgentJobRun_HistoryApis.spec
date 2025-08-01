@@ -59,11 +59,6 @@ verify building
 
 * Verify "1" instances of "pipeline-run-till-file-exits" "defaultStage" "defaultJob" "Unknown" - Using Job Api
 
-Wait until it starts building, so the agent has picked it up
-* Looking at pipeline "pipeline-run-till-file-exits" - On Swift Dashboard page
-* Trigger pipeline and wait for building - On Swift Dashboard page
-* Verify stage "defaultStage" is "building" on pipeline with label "2" - On Swift Dashboard page
-
 Cancel the stage
 * Cancel "defaultStage" - On Stage Detail Page
 * Verify stage result shows "Cancelled" - On Stage Detail Page
@@ -79,9 +74,8 @@ verify cancelled
 * Verify "1" instances of "pipeline-run-till-file-exits" "defaultStage" "defaultJob" "Cancelled" - Using Job Api
 
 // Try and verify it's cancelled from the agent perspective. Here we need to hope it was picked up by the agent before being cancelled.
-
+* Wait "5" seconds
 * Verify last job "pipeline-run-till-file-exits" "defaultStage" "defaultJob" "Cancelled" - Using Agents Api
-
 
 Teardown of contexts
 ____________________

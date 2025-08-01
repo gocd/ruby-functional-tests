@@ -24,10 +24,8 @@ tags: fanin-trigger-with-opts
 * Looking at pipeline "FTO3" - On Swift Dashboard page
 * Trigger and wait for stage "stage1" is "passed" with label "1" - On Swift Dashboard page
 * Looking at pipeline "FTO4" - On Swift Dashboard page
-* Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "stage1" is "passed" on pipeline with label "1" - On Swift Dashboard page
 * Looking at pipeline "FTO5" - On Swift Dashboard page
-* Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "stage1" is "passed" on pipeline with label "1" - On Swift Dashboard page
 
 * Looking at pipeline "FTO1" - On Swift Dashboard page
@@ -63,10 +61,8 @@ tags: fanin-trigger-with-opts
 * Looking at pipeline "FTO3" - On Swift Dashboard page
 * Trigger and wait for stage "stage1" is "passed" with label "3" - On Swift Dashboard page
 * Looking at pipeline "FTO4" - On Swift Dashboard page
-* Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "stage1" is "passed" on pipeline with label "2" - On Swift Dashboard page
 * Looking at pipeline "FTO5" - On Swift Dashboard page
-* Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "stage1" is "passed" on pipeline with label "2" - On Swift Dashboard page
 
 * Looking at pipeline "FTO4" - On Swift Dashboard page
@@ -78,36 +74,36 @@ tags: fanin-trigger-with-opts
 * Trigger pipeline with options - On Swift Dashboard page
 
 * Looking at pipeline "FTO4" - On Swift Dashboard page
-* Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "stage1" is "passed" on pipeline with label "3" - On Swift Dashboard page
 
 
 * Looking at pipeline "FTO5" - On Swift Dashboard page
 * Verify stage "stage1" is with label "2" - On Swift Dashboard page
 
-
+Trigger FT03 with options which won't allow fan-in due to use of g3 with FT02 run that didn't use g3 material
 * Looking at pipeline "FTO3" - On Swift Dashboard page
 * Open trigger with options - On Swift Dashboard page
-
 
 * Using material "git-one" set revision to trigger with as "g3" - On Swift Dashboard page
 * Using material "$FTO1$" set revision to trigger with as "$FTO1$/3/stage1/1" - On Swift Dashboard page
 * Using material "$FTO2$" set revision to trigger with as "$FTO2$/2/stage1/1" - On Swift Dashboard page
 * Trigger pipeline with options - On Swift Dashboard page
 
+* Looking at pipeline "FTO3" - On Swift Dashboard page
+* Verify stage "stage1" is "passed" on pipeline with label "4" - On Swift Dashboard page
+
+Check FT04 not triggered (can't fan in)
 * Looking at pipeline "FTO4" - On Swift Dashboard page
 * Verify stage "stage1" is with label "3" - On Swift Dashboard page
 
-
+Go back and trigger FT02 and FT03 with options allowing fan-in (original g1 revision)
 * Looking at pipeline "FTO2" - On Swift Dashboard page
 * Open trigger with options - On Swift Dashboard page
 * Using material "git-one" set revision to trigger with as "g1" - On Swift Dashboard page
 * Trigger pipeline with options - On Swift Dashboard page
 
 * Looking at pipeline "FTO2" - On Swift Dashboard page
-* Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "stage1" is "passed" on pipeline with label "4" - On Swift Dashboard page
-
 
 * Looking at pipeline "FTO3" - On Swift Dashboard page
 * Open trigger with options - On Swift Dashboard page
@@ -119,16 +115,13 @@ tags: fanin-trigger-with-opts
 
 
 * Looking at pipeline "FTO3" - On Swift Dashboard page
-* Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "stage1" is "passed" on pipeline with label "5" - On Swift Dashboard page
 * Looking at pipeline "FTO4" - On Swift Dashboard page
-* Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "stage1" is "passed" on pipeline with label "4" - On Swift Dashboard page
 * Looking at pipeline "FTO5" - On Swift Dashboard page
-* Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "stage1" is "passed" on pipeline with label "3" - On Swift Dashboard page
 
-
+Trigger FT03 with g3 revision and "correct" FT01 and FT02 revisions (allowing fan-in)
 * Looking at pipeline "FTO3" - On Swift Dashboard page
 * Open trigger with options - On Swift Dashboard page
 
@@ -139,7 +132,6 @@ tags: fanin-trigger-with-opts
 
 
 * Looking at pipeline "FTO3" - On Swift Dashboard page
-* Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "stage1" is "passed" on pipeline with label "6" - On Swift Dashboard page
 
 * Looking at pipeline "FTO4" - On Swift Dashboard page

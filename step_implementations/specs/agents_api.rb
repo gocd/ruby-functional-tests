@@ -76,8 +76,10 @@ step 'Verify there are <num> agents with state <state>' do |num,state|
 end
 
 step 'With <count> live agents - teardown' do |count|
+  all_agents = all_agent_uuids
+  disable_all_agents(all_agents)
   go_agents.destroy_agents count
-  delete_all_agents
+  delete_all_agents(all_agents)
 end
 
 def all_agents_info
@@ -87,15 +89,22 @@ def all_agents_info
   end
 end
 
-def delete_all_agents
+def all_agent_uuids
   all_agents = JSON.parse(all_agents_info.body)['_embedded']['agents']
   all_agents.map! do |agents|
     agents['uuid']
   end
+  all_agents
+end
+
+def disable_all_agents(all_agents)
   bulk_update_agent(%({"uuids": #{all_agents}, "agent_config_state" : "disabled"}))
+end
+
+def delete_all_agents(all_agents)
   RestClient::Request.execute(method: :delete, url: http_url("/api/agents"),
-    payload: %({"uuids": #{all_agents}}), headers: { accept: AGENTS_API_VERSION, content_type: :json }
-    .merge(basic_configuration.header)) do |response, _request, _result|
+                              payload: %({"uuids": #{all_agents}}), headers: { accept: AGENTS_API_VERSION, content_type: :json }
+                                                                               .merge(basic_configuration.header)) do |response, _request, _result|
     response
   end
 end

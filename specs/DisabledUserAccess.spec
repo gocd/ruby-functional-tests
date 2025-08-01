@@ -44,7 +44,7 @@ tags: Admin, Security
 Teardown of contexts
 ____________________
 * As user "admin" for teardown
+* Capture go state "DisabledUserAccess" - teardown
+* With "1" live agents - teardown
 * Logout - from any page
 * With no users - teardown
-* With "1" live agents - teardown
-* Capture go state "DisabledUserAccess" - teardown

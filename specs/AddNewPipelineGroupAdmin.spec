@@ -50,5 +50,5 @@ make sure group admins don't see autocomplete for group
 
 Teardown of contexts
 ____________________
-* Logout - from any page
 * Capture go state "AddNewPipelineGroupAdmin" - teardown
+* Logout - from any page

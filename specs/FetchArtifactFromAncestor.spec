@@ -62,5 +62,7 @@ tags: fetchartifact
 
 Teardown of contexts
 ____________________
-* With "2" live agents - teardown
 * Capture go state "FetchMaterialFromAncestor" - teardown
+* With "2" live agents - teardown
+
+

@@ -39,5 +39,5 @@ Simple case of comparison
 
 Teardown of contexts
 ____________________
-* With "1" live agents - teardown
 * Capture go state "ComparePipelinesEntryPoints" - teardown
+* With "1" live agents - teardown

@@ -109,7 +109,7 @@ Will have to see how and where to automate those steps, is functional test the r
 Teardown of contexts
 ____________________
 * As user "admin" for teardown
-* With "2" live agents - teardown
 * Capture go state "AnalyticsPlugin" - teardown
+* With "2" live agents - teardown
 
 

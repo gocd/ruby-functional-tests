@@ -117,7 +117,7 @@ this instance has lock
 
 Teardown of contexts
 ____________________
-* Logout - from any page
 * Capture go state "PipelineLayoutStageActions" - teardown
+* Logout - from any page
 
 

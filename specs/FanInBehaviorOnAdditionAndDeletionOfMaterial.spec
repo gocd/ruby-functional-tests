@@ -92,5 +92,7 @@ tags: diamond dependency, fanin
 
 Teardown of contexts
 ____________________
-* With "1" live agents - teardown
 * Capture go state "FanInBehaviorOnAdditionAndDeletionOfMaterials" - teardown
+* With "1" live agents - teardown
+
+

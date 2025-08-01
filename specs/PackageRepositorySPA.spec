@@ -99,6 +99,6 @@ tags: package-repository
 
 Teardown of contexts
 ____________________
+* Capture go state "PackageRepositorySPA" - teardown
 * Logout - from any page
 * Setup file based yum repo - teardown
-* Capture go state "PackageRepositorySPA" - teardown

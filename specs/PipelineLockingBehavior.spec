@@ -53,5 +53,5 @@ Setup of contexts
 
 teardown
 _______________
-* With "1" live agents - teardown
 * Capture go state "PipelineLockingBehavior" - teardown
+* With "1" live agents - teardown

@@ -33,5 +33,5 @@ First task fails, second task is runif pass, third task is runif failed and the 
 
 Teardown of contexts
 ____________________
-* With "1" live agents - teardown
 * Capture go state "JobTaskConditions" - teardown
+* With "1" live agents - teardown

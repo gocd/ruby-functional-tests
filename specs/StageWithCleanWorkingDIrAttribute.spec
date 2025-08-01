@@ -57,5 +57,8 @@ tags: stage-config
 
 Teardown of contexts
 ____________________
-* With "1" live agents - teardown
 * Capture go state "StageWithCleanWorkingDIrAttribute" - teardown
+* With "1" live agents - teardown
+
+
+

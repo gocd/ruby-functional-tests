@@ -58,5 +58,5 @@ Make sure that only users who operate permissions (and not view users) on the pi
 Teardown of contexts
 ____________________
 * Delete users "user3,user4" from DB
-* Logout - from any page
 * Capture go state "EditStagePermissionsWithPipelineGroupPermissions" - teardown
+* Logout - from any page

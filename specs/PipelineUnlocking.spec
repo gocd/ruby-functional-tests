@@ -72,6 +72,6 @@ Verify stage "defaultStage" is "Building" on pipeline with label "2" - On Swift 
 
 Teardown of contexts
 ____________________
-* Logout - from any page
-* With "1" live agents - teardown
 * Capture go state "PipelineUnlocking" - teardown
+* With "1" live agents - teardown
+* Logout - from any page

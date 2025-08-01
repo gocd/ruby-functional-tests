@@ -46,5 +46,5 @@ This is to verify that only the agents associated with an evironment are used to
 
 Teardown of contexts
 ____________________
-* With "2" live agents - teardown
 * Capture go state "AssociatingMultiplePipelinesWithAnEnvironment" - teardown
+* With "2" live agents - teardown

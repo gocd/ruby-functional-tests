@@ -94,6 +94,6 @@ Setup of contexts
 Teardown of contexts
 ____________________
 * As user "admin" for teardown
-* Logout - from any page
-* With "2" live agents - teardown
 * Capture go state "SwiftDashboard" - teardown
+* With "2" live agents - teardown
+* Logout - from any page

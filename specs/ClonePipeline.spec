@@ -39,5 +39,5 @@ tags: Clone
 
 Teardown of contexts
 ____________________
-* Logout - from any page
 * Capture go state "ClonePipeline" - teardown
+* Logout - from any page

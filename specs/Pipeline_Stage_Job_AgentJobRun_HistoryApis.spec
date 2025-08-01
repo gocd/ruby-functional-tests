@@ -77,6 +77,6 @@ tags: schedule, trigger, restful api, api
 
 Teardown of contexts
 ____________________
-* Logout - from any page
-* With "1" live agents - teardown
 * Capture go state "Pipeline_Stage_Job_AgentJobRun_HistoryApis" - teardown
+* With "1" live agents - teardown
+* Logout - from any page

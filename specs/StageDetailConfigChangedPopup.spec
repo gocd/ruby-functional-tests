@@ -58,6 +58,6 @@ tags: stage-details
 
 Teardown of contexts
 ____________________
-* Logout - from any page
 * Capture go state "StageDetailConfigChangedPopup" - teardown
+* Logout - from any page
 

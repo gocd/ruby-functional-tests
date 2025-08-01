@@ -36,5 +36,5 @@ Wait for agents to entirely complete
 
 teardown
 _______________
-* With "1" live agents - teardown
 * Capture go state "AgentInEnvironmentShouldNotSchedule" - teardown
+* With "1" live agents - teardown

@@ -48,6 +48,6 @@ Pipeline Visibility
 
 Teardown of contexts
 ____________________
-* Logout - from any page
-* With "1" live agents - teardown
 * Capture go state "PipelineGroupPermissionsForUserWithOperateViewAndAdmin" - teardown
+* With "1" live agents - teardown
+* Logout - from any page

@@ -48,6 +48,6 @@ tags: fetch artifacts
 
 Teardown of contexts
 ____________________
-* Logout - from any page
-* With "1" live agents - teardown
 * Capture go state "ArtifactUploadFetch" - teardown
+* With "1" live agents - teardown
+* Logout - from any page

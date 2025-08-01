@@ -44,5 +44,5 @@ tags: admin, role
 Teardown of contexts
 ____________________
 * As user "admin" for teardown
-* Logout - from any page
 * Capture go state "AssociateUsersWithRoles" - teardown
+* Logout - from any page

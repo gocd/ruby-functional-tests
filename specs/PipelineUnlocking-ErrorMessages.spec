@@ -28,7 +28,7 @@ tags: pipeline-unlocking
 
 Teardown of contexts
 ____________________
-* Logout - from any page
 * Capture go state "PipelineUnlocking-ErrorMessages" - teardown
+* Logout - from any page
 
 

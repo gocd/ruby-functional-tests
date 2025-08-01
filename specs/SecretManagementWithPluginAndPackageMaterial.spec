@@ -46,6 +46,6 @@ tags: secret_management, pluggable-scm, plugin-material
 
 Teardown of contexts
 ____________________
+* Capture go state "SecretManagementWithPluginMaterial" - teardown
 * Logout - from any page
 * With "1" live agents - teardown
-* Capture go state "SecretManagementWithPluginMaterial" - teardown

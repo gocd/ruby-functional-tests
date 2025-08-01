@@ -30,5 +30,5 @@ tags: secret_config, admin, api, secret_management
 Teardown
 _______________
 * As user "admin" for teardown
-* Logout - from any page
 * Capture go state "SecretConfigAPI" - teardown
+* Logout - from any page

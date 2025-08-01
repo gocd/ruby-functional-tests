@@ -72,5 +72,5 @@ tags: shine, bisect, automate
 
 Teardown of contexts
 ____________________
-* With "1" live agents - teardown
 * Capture go state "BisectingPipelines" - teardown
+* With "1" live agents - teardown

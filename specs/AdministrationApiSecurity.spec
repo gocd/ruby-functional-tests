@@ -57,6 +57,6 @@ tags: administration, api, group admin
 
 Teardown of contexts
 ____________________
-* Logout - from any page
-* With "1" live agents - teardown
 * Capture go state "AdministrationApiSecurity" - teardown
+* With "1" live agents - teardown
+* Logout - from any page

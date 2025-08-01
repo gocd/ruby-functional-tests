@@ -41,5 +41,5 @@ tags: spa, materials, modifications
 
 Teardown of contexts
 ____________________
-* Logout - from any page
 * Capture go state "MaterialsSPAWithModifications" - teardown
+* Logout - from any page

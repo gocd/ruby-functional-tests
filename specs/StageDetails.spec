@@ -95,9 +95,9 @@ tags: stage-details
 
 Teardown of contexts
 ____________________
-* With "2" live agents - teardown
-* Logout - from any page
 * Capture go state "StageDetails" - teardown
+* Logout - from any page
+* With "2" live agents - teardown
 
 
 

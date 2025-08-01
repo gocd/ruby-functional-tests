@@ -100,5 +100,5 @@ tags: Deep Diamond, fanin
 
 Teardown of contexts
 ____________________
-* With "2" live agents - teardown
 * Capture go state "FanInManualAndAutoTriggerForDeepDiamondConfiguration" - teardown
+* With "2" live agents - teardown

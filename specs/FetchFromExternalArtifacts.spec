@@ -56,6 +56,6 @@ Setup of contexts
 teardown
 _______________
 * As user "admin" for teardown
-* Logout - from any page
-* With "1" live agents - teardown
 * Capture go state "ExternalArtifacts" - teardown
+* With "1" live agents - teardown
+* Logout - from any page

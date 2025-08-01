@@ -47,5 +47,5 @@ tags: pipeline layout
 Teardown of contexts
 ____________________
 * As user "admin" for teardown
-* Logout - from any page
 * Capture go state "PipelineLayoutOperatePermissions" - teardown
+* Logout - from any page

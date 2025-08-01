@@ -150,5 +150,5 @@ left [l1(g1), l2(g3), l3(g5), l3(g7)                  V                         
 
 Teardown of contexts
 ____________________
-* With "2" live agents - teardown
 * Capture go state "PipelineDependencyDiamond" - teardown
+* With "2" live agents - teardown

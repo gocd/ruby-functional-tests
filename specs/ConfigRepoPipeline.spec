@@ -56,5 +56,5 @@ Setup of contexts
 
 teardown
 _______________
-* With "1" live agents - teardown
 * Capture go state "ConfigReposPipeline" - teardown
+* With "1" live agents - teardown

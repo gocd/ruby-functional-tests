@@ -50,6 +50,7 @@ Stop server
 
 Teardown of contexts
 ____________________
+* Capture go state "PipelineDependencyTriangle" - teardown
 * With "2" live agents - teardown
 * Set Fan In turned off - teardown
-* Capture go state "PipelineDependencyTriangle" - teardown
+

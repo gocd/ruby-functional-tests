@@ -33,5 +33,6 @@ tags: stage-details
 
 Teardown of contexts
 ____________________
-* With "3" live agents - teardown
 * Capture go state "StageDetailsJobTabAutoRefresh" - teardown
+* With "3" live agents - teardown
+

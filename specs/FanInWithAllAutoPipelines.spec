@@ -72,5 +72,5 @@ Before parent-slow 1/2 is finished or child-fast 1/2 is triggered, checkin anoth
 
 Teardown of contexts
 ____________________
-* With "4" live agents - teardown
 * Capture go state "FanInWithAllAutoPipelines" - teardown
+* With "4" live agents - teardown

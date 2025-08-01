@@ -63,5 +63,5 @@ tags: error_messages
 
 Teardown of contexts
 ____________________
-* Logout - from any page
 * Capture go state "CruiseErrorMessages" - teardown
+* Logout - from any page

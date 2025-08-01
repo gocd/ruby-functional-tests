@@ -55,5 +55,5 @@ tags: Clicky Admin, EditPipelineWizardPagesAndTabs
 
 Teardown of contexts
 ____________________
-* With "1" live agents - teardown
 * Capture go state "EditPipelineWizardPagesAndTabs" - teardown
+* With "1" live agents - teardown

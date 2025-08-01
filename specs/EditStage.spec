@@ -30,8 +30,8 @@ tags: Clicky Admin
 
 Teardown of contexts
 ____________________
-* Logout - from any page
 * Capture go state "EditStage" - teardown
+* Logout - from any page
 
 
 

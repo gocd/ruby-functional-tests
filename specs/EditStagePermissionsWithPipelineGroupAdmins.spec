@@ -39,6 +39,6 @@ Verify that an admin or a pipeline group admin can be explicitly added as an ope
 
 Teardown of contexts
 ____________________
+* Capture go state "EditStagePermissionsWithPipelineGroupAdmins" - teardown
 * Delete users "user3" from DB
 * Logout - from any page
-* Capture go state "EditStagePermissionsWithPipelineGroupAdmins" - teardown

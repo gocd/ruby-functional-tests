@@ -49,7 +49,7 @@ Non existent pipeline steps
 Teardown of contexts
 ____________________
 * As user "admin" for teardown
-* Logout - from any page
 * Capture go state "ApiPausePipeline" - teardown
+* Logout - from any page
 
 

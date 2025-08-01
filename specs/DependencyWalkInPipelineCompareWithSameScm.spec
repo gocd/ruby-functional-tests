@@ -61,6 +61,6 @@ tags:compare_pipeline, dependency_walk
 
 Teardown of contexts
 ____________________
-* With "1" live agents - teardown
 * Capture go state "DependencyWalkInPipelineCompareWithSameScm" - teardown
+* With "1" live agents - teardown
 

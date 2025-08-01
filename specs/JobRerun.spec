@@ -57,5 +57,8 @@ tags: job-rerun
 
 Teardown of contexts
 ____________________
-* With "2" live agents - teardown
 * Capture go state "JobRerun" - teardown
+* With "2" live agents - teardown
+
+
+

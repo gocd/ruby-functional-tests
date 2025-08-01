@@ -188,5 +188,5 @@ Enable security
 Teardown of contexts
 ____________________
 * As user "pipelineSelectorAdmin" for teardown
-* Logout - from any page
 * Capture go state "PipelineSelector" - teardown
+* Logout - from any page

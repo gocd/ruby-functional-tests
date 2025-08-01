@@ -50,6 +50,6 @@ Delete auth config
 teardown
 _______________
 * As user "admin" for teardown
+* Capture go state "BundledAuthPlugins" - teardown
 * Logout - from any page
 * Ldap server - stop
-* Capture go state "BundledAuthPlugins" - teardown

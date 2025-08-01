@@ -53,5 +53,5 @@ tags: pluggable-scm, spa
 
 Teardown of contexts
 ____________________
-* Logout - from any page
 * Capture go state "PluggableSCMSPA" - teardown
+* Logout - from any page

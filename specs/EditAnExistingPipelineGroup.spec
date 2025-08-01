@@ -71,5 +71,5 @@ tags: 4369, Clicky Admin, pipeline group
 
 Teardown of contexts
 ____________________
-* Logout - from any page
 * Capture go state "EditPipelineGroups" - teardown
+* Logout - from any page

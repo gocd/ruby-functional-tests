@@ -85,5 +85,7 @@ VSM Analytics Verifications -pipeline to pipeline for initial commit
 Teardown of contexts
 ____________________
 * As user "admin" for teardown
-* With "2" live agents - teardown
 * Capture go state "AnalyticsPlugin" - teardown
+* With "2" live agents - teardown
+
+

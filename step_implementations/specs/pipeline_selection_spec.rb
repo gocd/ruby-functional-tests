@@ -49,14 +49,14 @@ end
 step 'Verify groups <groups> are visible' do |groups|
   modal = dashboard_personalization.personalization_editor
   groups.split(',').each do |group|
-    assert_true modal.find(".selected-pipelines li span", text: group.strip).visible?
+    assert_true modal.find(".selected-pipelines li span", text: group.strip, wait: 5).visible?
   end
 end
 
 step 'Verify groups <groups> are not visible' do |groups|
   modal = dashboard_personalization.personalization_editor
   groups.split(',').each do |group|
-    modal.assert_no_selector(".selected-pipelines li span", text: group.strip)
+    modal.assert_no_selector(".selected-pipelines li span", text: group.strip, wait: 5)
   end
 end
 

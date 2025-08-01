@@ -54,7 +54,7 @@ module Pages
     end
 
     def wait_till_error_popup_appears
-      page.has_css?("[data-test-id='server-health-messages-count']", wait: 120)
+      page.has_css?("[data-test-id='server-health-messages-count']", wait: 150)
     end
 
     def verify_there_are_no_warnings

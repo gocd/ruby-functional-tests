@@ -42,8 +42,8 @@ tags:Artifacts, MD5, ArtifactMD5VerificationSkip
 Teardown of contexts
 
 ____________________
-* With "1" live agents - teardown
 * Capture go state "ArtifactMD5VerificationSkip" - teardown
+* With "1" live agents - teardown
 
 
 

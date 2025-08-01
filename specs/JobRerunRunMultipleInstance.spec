@@ -72,5 +72,5 @@ tags: job-rerun,run-multiple-instance
 
 Teardown of contexts
 ____________________
-* With "1" live agents - teardown
 * Capture go state "JobRerunRunMultipleInstance" - teardown
+* With "1" live agents - teardown

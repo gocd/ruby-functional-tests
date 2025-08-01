@@ -51,5 +51,5 @@ tags: new-environments-spa, spa
 Teardown of contexts
 ____________________
 * Logout - from any page
-* With "1" live agents - teardown
 * Capture go state "NewEnvironmentsSPA" - teardown
+* With "1" live agents - teardown

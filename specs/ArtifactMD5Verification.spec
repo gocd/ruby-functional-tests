@@ -53,8 +53,8 @@ tags: Artifacts, MD5
 
 Teardown of contexts
 ____________________
-* With "1" live agents - teardown
 * Capture go state "ArtifactMD5Verification" - teardown
+* With "1" live agents - teardown
 
 
 

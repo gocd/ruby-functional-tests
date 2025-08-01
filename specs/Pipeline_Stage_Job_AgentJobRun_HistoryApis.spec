@@ -17,7 +17,7 @@ tags: schedule, trigger, restful api, api
 * Looking at pipeline "basic-pipeline-fast" - On Swift Dashboard page
 * Trigger the pipeline "11" times - Using API
 
-// verify passed + pagination
+verify passed + pagination
 
 * Verify "11" instances of "basic-pipeline-fast" "defaultStage" "defaultJob" "Passed" - Using Pipeline History API
 * Verify "11" instance of "basic-pipeline-fast" "defaultStage" "defaultJob" "Passed" - Using Pipeline Instance API
@@ -33,7 +33,7 @@ tags: schedule, trigger, restful api, api
 * Trigger pipeline - On Swift Dashboard page
 * Verify stage "defaultStage" is "failed" on pipeline with label "1" - On Swift Dashboard page
 
-// verify failed
+verify failed
 
 * Verify "1" instances of "pipeline-with-failing-stage" "defaultStage" "defaultJob" "Failed" - Using Pipeline History API
 * Verify "1" instance of "pipeline-with-failing-stage" "defaultStage" "defaultJob" "Failed" - Using Pipeline Instance API
@@ -49,7 +49,7 @@ tags: schedule, trigger, restful api, api
 * Verify stage "defaultStage" is "building" on pipeline with label "1" - On Swift Dashboard page
 * On stage details page "overview" tab for "pipeline-run-till-file-exits" label "1" stage name "defaultStage" counter "1"
 
-// verify building
+verify building
 
 * Verify "1" instances of "pipeline-run-till-file-exits" "defaultStage" "defaultJob" "Unknown" - Using Pipeline History API
 * Verify "1" instance of "pipeline-run-till-file-exits" "defaultStage" "defaultJob" "Unknown" - Using Pipeline Instance API
@@ -59,10 +59,16 @@ tags: schedule, trigger, restful api, api
 
 * Verify "1" instances of "pipeline-run-till-file-exits" "defaultStage" "defaultJob" "Unknown" - Using Job Api
 
+Wait until it starts building, so the agent has picked it up
+* Looking at pipeline "pipeline-run-till-file-exits" - On Swift Dashboard page
+* Trigger pipeline and wait for building - On Swift Dashboard page
+* Verify stage "defaultStage" is "building" on pipeline with label "2" - On Swift Dashboard page
+
+Cancel the stage
 * Cancel "defaultStage" - On Stage Detail Page
 * Verify stage result shows "Cancelled" - On Stage Detail Page
 
-// verify cancelled
+verify cancelled
 
 * Verify "1" instances of "pipeline-run-till-file-exits" "defaultStage" "defaultJob" "Cancelled" - Using Pipeline History API
 * Verify "1" instance of "pipeline-run-till-file-exits" "defaultStage" "defaultJob" "Cancelled" - Using Pipeline Instance API
@@ -71,6 +77,8 @@ tags: schedule, trigger, restful api, api
 * Verify "1" instance of "pipeline-run-till-file-exits" "defaultStage" "defaultJob" "Cancelled" - Using Stage Api
 
 * Verify "1" instances of "pipeline-run-till-file-exits" "defaultStage" "defaultJob" "Cancelled" - Using Job Api
+
+// Try and verify it's cancelled from the agent perspective. Here we need to hope it was picked up by the agent before being cancelled.
 
 * Verify last job "pipeline-run-till-file-exits" "defaultStage" "defaultJob" "Cancelled" - Using Agents Api
 

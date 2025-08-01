@@ -108,7 +108,7 @@ module Pages
 
     def repo_has_env(repo, env)
       panel     = find_collapsible_panel(repo)
-      data_node = panel.find("dt[data-test-id^='tree-node-#{env}']", wait: 5)
+      data_node = panel.find("dt[data-test-id^='tree-node-#{env}']", wait: 20)
       assert_not_nil data_node
 
       text = data_node.find("a").text

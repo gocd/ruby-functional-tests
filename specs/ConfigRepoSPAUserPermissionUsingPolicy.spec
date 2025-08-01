@@ -66,5 +66,5 @@ Setup of contexts
 Teardown of contexts
 ____________________
 
-* Capture go state "ConfigRepoSPAUserPermissionUsingPolicy" - teardown
 * Logout - from any page
+* Capture go state "ConfigRepoSPAUserPermissionUsingPolicy" - teardown

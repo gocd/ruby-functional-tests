@@ -92,7 +92,5 @@ Pipeline ignoring upstream dependency should be triggered with SCM material
 
 Teardown of contexts
 ____________________
-* Capture go state "PipelineDependencyChaining" - teardown
 * With "2" live agents - teardown
-
-
+* Capture go state "PipelineDependencyChaining" - teardown

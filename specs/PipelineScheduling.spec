@@ -48,6 +48,6 @@ tags: scheduling
 
 Teardown of contexts
 ____________________
-* Capture go state "PipelineScheduling" - teardown
-* With "1" live agents - teardown
 * Logout - from any page
+* With "1" live agents - teardown
+* Capture go state "PipelineScheduling" - teardown

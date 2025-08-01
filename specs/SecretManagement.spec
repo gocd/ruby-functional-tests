@@ -69,6 +69,6 @@ tags: secret_management
 Teardown of contexts
 ____________________
 * As user "admin" for teardown
-* Capture go state "SecretManagement" - teardown
 * Logout - from any page
 * With "2" live agents - teardown
+* Capture go state "SecretManagement" - teardown

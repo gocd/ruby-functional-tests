@@ -117,5 +117,5 @@ tags: secure_variables
 
 Teardown of contexts
 ____________________
-* Capture go state "SecureVariables" - teardown
 * With "1" live agents - teardown
+* Capture go state "SecureVariables" - teardown

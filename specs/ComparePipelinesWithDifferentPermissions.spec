@@ -115,6 +115,6 @@ tags:compare_pipeline, dependency_walk
 
 Teardown of contexts
 ____________________
-* Capture go state "ComparePipelinesWithDifferentPermissions" - teardown
-* With "1" live agents - teardown
 * Logout - from any page
+* With "1" live agents - teardown
+* Capture go state "ComparePipelinesWithDifferentPermissions" - teardown

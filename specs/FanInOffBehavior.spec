@@ -86,9 +86,6 @@ tags: diamond dependency, fanin
 
 Teardown of contexts
 ____________________
-* Capture go state "FanInOffBehavior" - teardown
 * With "2" live agents - teardown
 * Set Fan In turned off - teardown
-
-
-
+* Capture go state "FanInOffBehavior" - teardown

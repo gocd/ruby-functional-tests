@@ -23,5 +23,5 @@ tags: param, params
 
 Teardown of contexts
 ____________________
-* Capture go state "ParamSubstitution" - teardown
 * With "1" live agents - teardown
+* Capture go state "ParamSubstitution" - teardown

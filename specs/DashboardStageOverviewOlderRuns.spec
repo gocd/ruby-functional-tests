@@ -90,5 +90,5 @@ tags: stage-overview, UI, refresh
 
 Teardown of contexts
 ____________________
-* Capture go state "DashboardStageOverviewOlderRuns" - teardown
 * With "2" live agents - teardown
+* Capture go state "DashboardStageOverviewOlderRuns" - teardown

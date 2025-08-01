@@ -44,6 +44,3 @@ Teardown of contexts
 ____________________
 * With "1" live agents - teardown
 * Capture go state "ArtifactMD5VerificationSkip" - teardown
-
-
-

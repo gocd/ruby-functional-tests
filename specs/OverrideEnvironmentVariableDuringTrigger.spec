@@ -46,5 +46,5 @@ Setup of contexts
 
 teardown
 _______________
-* Capture go state "OverrideEnvironmentVariableDuringTrigger" - teardown
 * With "1" live agents - teardown
+* Capture go state "OverrideEnvironmentVariableDuringTrigger" - teardown

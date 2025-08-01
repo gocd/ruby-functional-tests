@@ -52,5 +52,5 @@ Successful Merge
 
 Teardown of contexts
 ____________________
-* Capture go state "ConfigMergeGitConflictForPipelineAdmin" - teardown
 * Logout - from any page
+* Capture go state "ConfigMergeGitConflictForPipelineAdmin" - teardown

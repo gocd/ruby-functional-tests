@@ -92,6 +92,5 @@ Select "Changes" tab
 
 Teardown of contexts
 ____________________
-* Capture go state "ModificationsBetweenPipelines" - teardown
 * With "1" live agents - teardown
-
+* Capture go state "ModificationsBetweenPipelines" - teardown

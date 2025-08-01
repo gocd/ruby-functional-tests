@@ -27,5 +27,5 @@ Setup of contexts
 teardown
 _______________
 * As user "admin" for teardown
-* Capture go state "PluginInfoAPI" - teardown
 * Logout - from any page
+* Capture go state "PluginInfoAPI" - teardown

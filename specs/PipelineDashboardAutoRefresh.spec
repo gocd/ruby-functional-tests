@@ -26,5 +26,5 @@ tags: UI, refresh
 
 Teardown of contexts
 ____________________
-* Capture go state "PipelineDashboardAutoRefresh" - teardown
 * With "1" live agents - teardown
+* Capture go state "PipelineDashboardAutoRefresh" - teardown

@@ -46,7 +46,5 @@ tags: stage-details, pipeline_locking_behavior
 
 Teardown of contexts
 ____________________
-* Capture go state "StageDetailsForPipelineLock" - teardown
 * With "1" live agents - teardown
-
-
+* Capture go state "StageDetailsForPipelineLock" - teardown

@@ -29,6 +29,5 @@ tags: Clicky Admin
 
 Teardown of contexts
 ____________________
-* Capture go state "HungJobTermination" - teardown
 * With "1" live agents - teardown
-
+* Capture go state "HungJobTermination" - teardown

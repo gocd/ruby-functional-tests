@@ -55,5 +55,5 @@ Post validation failure
 Teardown of contexts
 ____________________
 
-* Capture go state "ConfigMergeGitConflict" - teardown
 * Logout - from any page
+* Capture go state "ConfigMergeGitConflict" - teardown

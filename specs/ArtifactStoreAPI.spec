@@ -60,5 +60,5 @@ Setup of contexts
 teardown
 _______________
 * As user "admin" for teardown
-* Capture go state "ArtifactStoreAPI" - teardown
 * Logout - from any page
+* Capture go state "ArtifactStoreAPI" - teardown

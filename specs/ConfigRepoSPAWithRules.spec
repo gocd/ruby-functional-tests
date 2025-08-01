@@ -36,5 +36,5 @@ Setup of contexts
 Teardown of contexts
 ____________________
 
-* Capture go state "ConfigRepoSPAWithRules" - teardown
 * Logout - from any page
+* Capture go state "ConfigRepoSPAWithRules" - teardown

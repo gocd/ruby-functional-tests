@@ -45,5 +45,3 @@ Artifacts Field Validations
 Teardown of contexts
 ____________________
 * Capture go state "ArtifactsEditValidations" - teardown
-
-

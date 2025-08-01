@@ -24,5 +24,5 @@ Setup of contexts
 
 teardown
 _______________
-* Capture go state "AgentResources" - teardown
 * With "1" live agents - teardown
+* Capture go state "AgentResources" - teardown

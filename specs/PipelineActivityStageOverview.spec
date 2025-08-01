@@ -85,5 +85,5 @@ tags: stage-overview, UI, refresh
 
 Teardown of contexts
 ____________________
-* Capture go state "PipelineActivityStageOverview" - teardown
 * With "2" live agents - teardown
+* Capture go state "PipelineActivityStageOverview" - teardown

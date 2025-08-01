@@ -30,5 +30,5 @@ tags: backup
 
 Teardown of contexts
 ____________________
-* Capture go state "BackupGoServer" - teardown
 * Logout - from any page
+* Capture go state "BackupGoServer" - teardown

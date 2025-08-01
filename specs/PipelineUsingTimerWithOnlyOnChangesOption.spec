@@ -74,5 +74,5 @@ Check it still triggers on an upstream pipeline change
 
 Teardown of contexts
 ____________________
-* Capture go state "PipelineUsingTimerWithOnlyOnChangesOption" - teardown
 * With "1" live agents - teardown
+* Capture go state "PipelineUsingTimerWithOnlyOnChangesOption" - teardown

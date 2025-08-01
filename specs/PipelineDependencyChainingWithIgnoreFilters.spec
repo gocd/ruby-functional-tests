@@ -106,6 +106,5 @@ Verify dependency chaining after scm does not trigger autoFirst pipeline (due to
 
 Teardown of contexts
 ____________________
-* Capture go state "PipelineDependencyChainingWithIgnoreFilters" - teardown
 * With "2" live agents - teardown
-
+* Capture go state "PipelineDependencyChainingWithIgnoreFilters" - teardown

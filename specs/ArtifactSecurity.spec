@@ -80,6 +80,6 @@ View user cannot add/edit artifacts
 
 Teardown of contexts
 ____________________
-* Capture go state "ArtifactAndPropertiesSecurity" - teardown
-* With "1" live agents - teardown
 * Logout - from any page
+* With "1" live agents - teardown
+* Capture go state "ArtifactAndPropertiesSecurity" - teardown

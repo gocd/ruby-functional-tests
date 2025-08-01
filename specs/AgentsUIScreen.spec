@@ -113,5 +113,5 @@ Delete agent
 
 teardown
 _______________
-* Capture go state "AgentsUIScreen" - teardown
 * With "4" live agents - teardown
+* Capture go state "AgentsUIScreen" - teardown

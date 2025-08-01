@@ -26,5 +26,5 @@ tags: stage-locking
 
 Teardown of contexts
 ____________________
-* Capture go state "StageLocking" - teardown
 * With "1" live agents - teardown
+* Capture go state "StageLocking" - teardown

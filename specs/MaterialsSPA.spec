@@ -37,5 +37,5 @@ tags: spa, materials
 
 Teardown of contexts
 ____________________
-* Capture go state "MaterialsSPA" - teardown
 * Logout - from any page
+* Capture go state "MaterialsSPA" - teardown

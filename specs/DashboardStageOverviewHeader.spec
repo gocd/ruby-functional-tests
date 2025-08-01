@@ -71,5 +71,5 @@ tags: stage-overview, UI, refresh
 Teardown of contexts
 ____________________
 * As user "admin" for teardown
-* Capture go state "DashboardStageOverviewHeader" - teardown
 * With "2" live agents - teardown
+* Capture go state "DashboardStageOverviewHeader" - teardown

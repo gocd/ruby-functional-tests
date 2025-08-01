@@ -86,5 +86,5 @@ Verify dependency chaining after scm triggers autoFirst pipeline
 
 Teardown of contexts
 ____________________
-* Capture go state "BasicDependencyWalkInPipelineCompare" - teardown
 * With "1" live agents - teardown
+* Capture go state "BasicDependencyWalkInPipelineCompare" - teardown

@@ -116,7 +116,7 @@ tags: personalization, pipeline_selector, with_security
 Teardown of contexts
 ____________________
 * As user "pipelineSelectorAdmin" for teardown
-* Capture go state "PipelineSelectorWithSecurity" - teardown
 * Logout - from any page
+* Capture go state "PipelineSelectorWithSecurity" - teardown
 
 

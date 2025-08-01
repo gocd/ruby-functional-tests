@@ -91,6 +91,6 @@ CCTray feed should not contain the breakers info, because the buildcause hasn't 
 
 Teardown of contexts
 ____________________
-* Capture go state "CCTrayFeed" - teardown
-* With "1" live agents - teardown
 * Logout - from any page
+* With "1" live agents - teardown
+* Capture go state "CCTrayFeed" - teardown

@@ -42,5 +42,5 @@ Rajeshvaran's Regression Suite - 7.1.1 - artifacts are generated in the working 
 
 Teardown of contexts
 ____________________
-* Capture go state "TfsArtifactUpload" - teardown
 * With "1" live agents - teardown
+* Capture go state "TfsArtifactUpload" - teardown

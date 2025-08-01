@@ -110,6 +110,6 @@ Pipeline Visibility as "group1view"
 
 Teardown of contexts
 ____________________
-* Capture go state "PipelineDashboardAndPipelineActivitySecurityAtStageLevel" - teardown
-* With "2" live agents - teardown
 * Logout - from any page
+* With "2" live agents - teardown
+* Capture go state "PipelineDashboardAndPipelineActivitySecurityAtStageLevel" - teardown

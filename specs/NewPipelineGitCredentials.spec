@@ -69,5 +69,5 @@ To bring it back after discussion and decide to provide the option on creation w
 
 Teardown of contexts
 ____________________
-* Capture go state "NewPipelineGitCredentials" - teardown
 * With "1" live agents - teardown
+* Capture go state "NewPipelineGitCredentials" - teardown

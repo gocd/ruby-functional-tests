@@ -33,6 +33,3 @@ tags: Clicky Admin
 Teardown of contexts
 ____________________
 * Capture go state "PipelineMaterialViewerAndEditor" - teardown
-
-
-

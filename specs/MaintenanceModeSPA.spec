@@ -98,5 +98,5 @@ _______________
 * As user "admin" for teardown
 * Maintenance mode - teardown
 * Logout - from any page
-* Capture go state "MaintenanceModeSPA" - teardown
 * With "3" live agents - teardown
+* Capture go state "MaintenanceModeSPA" - teardown

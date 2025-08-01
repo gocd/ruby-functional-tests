@@ -34,5 +34,5 @@ Setup of contexts
 
 teardown
 _______________
-* Capture go state "AgentInEnvironmentShouldNotSchedule" - teardown
 * With "1" live agents - teardown
+* Capture go state "AgentInEnvironmentShouldNotSchedule" - teardown

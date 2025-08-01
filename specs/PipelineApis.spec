@@ -151,6 +151,6 @@ tags: schedule, api
 
 Teardown of contexts
 ____________________
-* Capture go state "PipelineApis" - teardown
-* With "3" live agents - teardown
 * Logout - from any page
+* With "3" live agents - teardown
+* Capture go state "PipelineApis" - teardown

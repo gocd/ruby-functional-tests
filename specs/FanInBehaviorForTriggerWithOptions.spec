@@ -141,5 +141,5 @@ Trigger FT03 with g3 revision and "correct" FT01 and FT02 revisions (allowing fa
 
 Teardown of contexts
 ____________________
-* Capture go state "FanInBehaviorForTriggerWithOptions" - teardown
 * With "2" live agents - teardown
+* Capture go state "FanInBehaviorForTriggerWithOptions" - teardown

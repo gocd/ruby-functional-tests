@@ -23,5 +23,5 @@ tags: Allow_Users
 
 Teardown of contexts
 ____________________
-* Capture go state "AllowOnlyKnownUsersToLogin" - teardown
 * Logout - from any page
+* Capture go state "AllowOnlyKnownUsersToLogin" - teardown

@@ -118,5 +118,5 @@ Add resource "tfs" to an agent - Using Agents API
 
 Teardown of contexts
 _____________________
-* Capture go state "TfsMaterial" - teardown
 * With "2" live agents - teardown
+* Capture go state "TfsMaterial" - teardown

@@ -25,5 +25,5 @@ Setup of contexts
 
 teardown
 _______________
-* Capture go state "ManualRegistrationOfAgents" - teardown
 * With "1" live agents - teardown
+* Capture go state "ManualRegistrationOfAgents" - teardown

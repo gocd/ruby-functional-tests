@@ -216,8 +216,5 @@ tags: diamond dependency, multiple stages
 
 Teardown of contexts
 ____________________
-* Capture go state "FaninMultipleStagesDeepTriangle" - teardown
 * With "3" live agents - teardown
-
-
-
+* Capture go state "FaninMultipleStagesDeepTriangle" - teardown

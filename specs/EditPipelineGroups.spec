@@ -68,5 +68,5 @@ Move pipeline  from one group to another
 
 Teardown of contexts
 ____________________
-* Capture go state "EditPipelineGroups" - teardown
 * Logout - from any page
+* Capture go state "EditPipelineGroups" - teardown

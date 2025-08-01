@@ -46,7 +46,7 @@ tags: package-repository
 
 Teardown of contexts
 ____________________
-* Capture go state "PackageRepositoryTabForm" - teardown
 * Logout - from any page
-* With "1" live agents - teardown
 * Setup file based yum repo - teardown
+* With "1" live agents - teardown
+* Capture go state "PackageRepositoryTabForm" - teardown

@@ -35,5 +35,5 @@ tags:  templates
 
 Teardown of contexts
 ____________________
-* Capture go state "TemplatesViewerAndEditor" - teardown
 * Logout - from any page
+* Capture go state "TemplatesViewerAndEditor" - teardown

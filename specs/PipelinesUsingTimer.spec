@@ -41,5 +41,5 @@ Setting a timer that will constantly trigger the pipeline.
 
 Teardown of contexts
 ____________________
-* Capture go state "PipelinesUsingTimer" - teardown
 * With "1" live agents - teardown
+* Capture go state "PipelinesUsingTimer" - teardown

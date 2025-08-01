@@ -63,5 +63,5 @@ verify second instance built with newer material
 
 Teardown of contexts
 ____________________
-* Capture go state "TfsMaterialSchedulingAndMaterialModification" - teardown
 * With "1" live agents - teardown
+* Capture go state "TfsMaterialSchedulingAndMaterialModification" - teardown

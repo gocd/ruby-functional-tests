@@ -74,9 +74,9 @@ tags: Fanin off
 
 Teardown of contexts
 ____________________
-* Capture go state "FaninOffBehaviorBlacklistingForTriangleConfiguration" - teardown
-* Set Fan In turned off - teardown
 * With "1" live agents - teardown
+* Set Fan In turned off - teardown
+* Capture go state "FaninOffBehaviorBlacklistingForTriangleConfiguration" - teardown
 
 
 

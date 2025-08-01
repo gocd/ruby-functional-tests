@@ -45,7 +45,7 @@ module Pages
       wait_till_event_occurs_or_bomb 40, "Console does not have message #{message}" do
         output = console_output['innerHTML']
         break if output.include? message
-        raise "The job finished without producing message #{message}" if output.include? 'Job completed'
+        raise "The job finished without producing message #{message}" if output.include? '[go] Job completed'
       end
     end
 
@@ -54,7 +54,7 @@ module Pages
       wait_till_event_occurs_or_bomb 40, "Console does not have message matching #{message_pattern}" do
         output = console_output['innerHTML']
         break if output.match? message_pattern
-        raise "The job finished without producing message matching #{message_pattern}" if output.include? 'Job completed'
+        raise "The job finished without producing message matching #{message_pattern}" if output.include? '[go] Job completed'
       end
     end
 

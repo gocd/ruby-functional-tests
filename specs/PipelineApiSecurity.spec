@@ -131,7 +131,7 @@ tags: API Security, api
 * Looking at pipeline "basic-pipeline-fast-api" - On Swift Dashboard page
 * Using "2nd" revision of "git" of type "git" for pipeline "basic-pipeline-fast-api"
 * Schedule should return code "202"
-* Verify stage "defaultStage" is "Passed" on pipeline with label "5" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" on pipeline with label "6" - On Swift Dashboard page
 
 * Looking at pipeline "viewable-pipeline" - On Swift Dashboard page
 * Using "2nd" revision of "git" of type "git" for pipeline "viewable-pipeline"
@@ -141,6 +141,7 @@ tags: API Security, api
 * Looking at pipeline "admin-pipeline-api" - On Swift Dashboard page
 * Using "2nd" revision of "git" of type "git" for pipeline "admin-pipeline-api"
 * Schedule should return code "403"
+
 * On Job details page of pipeline "basic-pipeline-fast-api" counter "6" stage "defaultStage" counter "1" job "defaultJob"
 * Verify console shows "2nd" commit for material "git" for "basic-pipeline-fast-api"
 

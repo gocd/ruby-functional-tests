@@ -56,7 +56,7 @@ tags: stage-overview, UI, refresh
 
 * Rerun failed jobs
 
-* Wait for "6" seconds
+* Wait for "2" seconds
 
 * Verify failed job count is "0"
 * Verify passed job count is "2"

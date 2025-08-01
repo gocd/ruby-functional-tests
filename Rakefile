@@ -42,7 +42,7 @@ ELASTICAGENTS_PLUGIN_RELEASE_URL            = ENV['ELASTICAGENTS_PLUGIN_RELEASE_
 DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL = ENV['DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd/docker-registry-artifact-plugin/releases/latest'
 ANALYTICS_PLUGIN_DOWNLOAD_URL               = ENV['ANALYTICS_PLUGIN_DOWNLOAD_URL'] || 'https://api.github.com/repos/gocd/gocd-analytics-plugin/releases/latest'
 LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL      = ENV['LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL'] || 'https://api.github.com/repos/gocd/gocd-ldap-authorization-plugin/releases/latest'
-MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL        = ENV['MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/1and1/go-maven-poller/releases/24528030'
+MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL        = ENV['MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/1and1/go-maven-poller/releases/133275082'
 
 desc 'cleans all directories'
 task :clean_all do

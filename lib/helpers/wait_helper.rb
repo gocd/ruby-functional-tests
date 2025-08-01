@@ -47,7 +47,7 @@ module Helpers
         # p "Waiting 1 sec..."
         sleep 1
       end
-      Time.now - start_time > wait_time
+      Time.now - start_time >= wait_time
     end
   end
 end

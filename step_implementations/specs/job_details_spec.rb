@@ -26,20 +26,12 @@ step 'Verify console log contains message <message>' do |message|
 end
 
 step 'Verify console has environment variable <variable> set to value <count>' do |variable, count|
-  begin
-    job_details_page.console_has_message?("setting environment variable '#{variable}' to value '#{count}'")
-  rescue StandardError => e
-    job_details_page.console_has_message?("overriding environment variable '#{variable}' with value '#{count}'")
-  end
+  job_details_page.console_has_message_matching?("(setting|overriding) environment variable '#{variable}' (to|with) value '#{count}'")
 end
 
 step "Verify console shows <rev> commit for material <material> for <pipeline>" do |rev,material,pipeline|
   revision=Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.get(pipeline))).nth_revision rev.delete('^0-9').to_i
-  begin
-    job_details_page.console_has_message?("setting environment variable 'GO_REVISION_#{material.upcase}' to value '#{revision}'")
-  rescue StandardError => e
-    job_details_page.console_has_message?("overriding environment variable 'GO_REVISION_#{material.upcase}' with value '#{revision}'")
-  end
+  job_details_page.console_has_message_matching?("(setting|overriding) environment variable 'GO_REVISION_#{material.upcase}' (to|with) value '#{revision}'")
 end
 
 step 'Verify console log contains pipeline <pipeline> with <message>' do |pipeline, message|

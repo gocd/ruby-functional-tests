@@ -29,6 +29,9 @@ Setup of contexts
 * Wait till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" - On Swift Dashboard page
 
+* On Agents page
+* Verify agents at state "Building" is "0"
+
 teardown
 _______________
 * Capture go state "AgentInEnvironmentShouldNotSchedule" - teardown

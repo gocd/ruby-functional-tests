@@ -90,7 +90,7 @@ module Pages
       panel = find_collapsible_panel(repo)
       panel.click
       assert_not_nil panel.find("div[data-test-id='collapse-header']")[:class].include?'index__error__'
-      assert_not_nil panel.find("div[data-test-id='flash-message-alert']", wait: 20)
+      assert_not_nil panel.find("div[data-test-id='flash-message-alert']", wait: 5)
 
       error_span = panel.find("span[data-test-id='key-value-value-error']", wait: 20)
       assert_not_nil error_span
@@ -102,7 +102,6 @@ module Pages
     def repo_successfully_parsed(repo)
       panel_header = find_collapsible_header(repo)
       assert_not_nil panel_header
-      panel_header.click
       assert_not_nil panel_header.find("span[data-test-id='repo-success-state']", wait: 5)
     end
 

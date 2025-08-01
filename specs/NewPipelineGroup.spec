@@ -10,7 +10,7 @@ Setup of contexts
 NewPipelineGroup
 ------------------
 
-tags:pipeline_group, new_pipeline_group
+tags: pipeline_group, new_pipeline_group, retry-flaky
 
 * On pipelines page
 

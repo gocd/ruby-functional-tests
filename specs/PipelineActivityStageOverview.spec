@@ -55,8 +55,6 @@ tags: stage-overview, UI, refresh
 * Verify "third" job is in "passed" state
 
 * Rerun failed jobs
-
-# reopen overview to force an update rather thsn waiting for refresh
 * Open stage overview for stage "defaultStage" - On Pipeline Activity page
 
 * Verify failed job count is "0"
@@ -76,8 +74,6 @@ tags: stage-overview, UI, refresh
 * Verify rerun selected jobs is "enabled"
 
 * Rerun selected jobs
-
-# reopen overview to force an update rather thsn waiting for refresh
 * Open stage overview for stage "defaultStage" - On Pipeline Activity page
 
 * Verify failed job count is "1"

@@ -56,7 +56,8 @@ tags: stage-overview, UI, refresh
 
 * Rerun failed jobs
 
-* Wait for "5" seconds
+# reopen overview to force an update rather thsn waiting for refresh
+* Open stage overview for stage "defaultStage" - On Pipeline Activity page
 
 * Verify failed job count is "0"
 * Verify passed job count is "2"
@@ -76,7 +77,8 @@ tags: stage-overview, UI, refresh
 
 * Rerun selected jobs
 
-* Wait for "6" seconds
+# reopen overview to force an update rather thsn waiting for refresh
+* Open stage overview for stage "defaultStage" - On Pipeline Activity page
 
 * Verify failed job count is "1"
 * Verify passed job count is "1"

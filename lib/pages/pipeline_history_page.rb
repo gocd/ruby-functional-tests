@@ -38,10 +38,10 @@ module Pages
     end
 
     def verify_stage_history_has(pipeline_histories)
-      array = pipeline_histories.split(/\s*,\s*/)
-      all_history_tags = page.all('a', text: 'VSM').map { |a| a[:href] }
-      array.each do |history|
-        assert_true all_history_tags.include?("#{GoConstants::GO_SERVER_BASE_URL}/pipelines/value_stream_map/#{scenario_state.self_pipeline}/#{history}")
+      history_counters = pipeline_histories.split(/\s*,\s*/)
+      all_vsm_hrefs = page.all('a', text: 'VSM').map { |a| a[:href] }
+      history_counters.each do |history_counter|
+        assert_true all_vsm_hrefs.any? { |href| href.end_with?("/pipelines/value_stream_map/#{scenario_state.self_pipeline}/#{history_counter}") }
       end
     end
 

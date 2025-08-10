@@ -38,16 +38,25 @@ module Pages
     end
 
     def verify_stage_history_has(pipeline_histories)
-      history_counters = pipeline_histories.split(/\s*,\s*/)
+      history_counters_expected = pipeline_histories.split(/\s*,\s*/)
+      history_counters_found = find_pipeline_histories(history_counters_expected)
+      assert_equal history_counters_expected, history_counters_found
+    end
+
+    def verify_stage_history_doesnt_have(pipeline_histories)
+      history_counters_expected = pipeline_histories.split(/\s*,\s*/)
+      history_counters_found = find_pipeline_histories(history_counters_expected)
+      assert_equal [], history_counters_found
+    end
+
+    def find_pipeline_histories(history_counters)
       all_vsm_hrefs = page.all('a', text: 'VSM').map { |a| a[:href] }
-      history_counters.each do |history_counter|
-        assert_true all_vsm_hrefs.any? { |href| href.end_with?("/pipelines/value_stream_map/#{scenario_state.self_pipeline}/#{history_counter}") }
-      end
+      history_counters.filter { |history_counter| all_vsm_hrefs.any? { |href| href&.end_with?("/pipelines/value_stream_map/#{scenario_state.self_pipeline}/#{history_counter}") } }
     end
 
     def search_given_pipeline(search_string)
       filter_history.set(search_string, rapid: false)
-      sleep 20
+      sleep 5 # Wait for the search to debounce and results to be displayed
     end
 
     def click_on_pagenumber(page_number)

@@ -34,6 +34,10 @@ step 'Verify pipeline history page has <pipeline_histories>' do |pipeline_histor
   pipeline_history_page.verify_stage_history_has pipeline_histories
 end
 
+step 'Verify pipeline history page doesnt have <pipeline_histories>' do |pipeline_histories|
+  pipeline_history_page.verify_stage_history_doesnt_have pipeline_histories
+end
+
 step 'Search for <search_string> on pipeline history page' do |search_string|
   pipeline_history_page.search_given_pipeline search_string
 end

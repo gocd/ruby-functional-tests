@@ -19,6 +19,9 @@ Setup of contexts
 * Trigger pipeline - On Swift Dashboard page
 * Verify stage "defaultStage" is "Building" - On Swift Dashboard page
 
+Wait for job to actually be assigned to an agent
+* Wait for "5" seconds
+
 * Looking at pipeline "timer-triggered" - On Swift Dashboard page
 * Using timer with spec "0/30 * * 1/1 * ? *"
 

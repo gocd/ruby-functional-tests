@@ -41,7 +41,7 @@ Setup of contexts
 * Click save - Already on Package Repositories tab
 * Verify error message on package repo page "Server is in maintenance mode, please try later."
 
-//~~~~~~~~~~~~~~~~~ add pluggbale scm ~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~ add pluggable scm ~~~~~~~~~~~~~~~~~
 * Open Pluggable SCM page
 * Click on add scm
 * Enter scm name as "github"

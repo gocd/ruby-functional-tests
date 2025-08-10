@@ -23,13 +23,13 @@ step 'Enable maintenance mode' do
 end
 
 step 'Verify maintenance mode is in progress' do
-  wait_till_event_occurs_or_bomb 30, 'Maintenance mode is not enabled as expected' do
+  wait_till_event_occurs_or_bomb 30, 'Maintenance mode did not become in progress as expected' do
     break if maintenance_mode_page.maintenance_in_progress?
   end
 end
 
 step 'Verify maintenance mode completed' do
-  wait_till_event_occurs_or_bomb 30, 'Maintenance mode is not enabled as expected' do
+  wait_till_event_occurs_or_bomb 30, 'Maintenance mode did not complete as expected' do
     break if maintenance_mode_page.maintenance_complete?
   end
 end

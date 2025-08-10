@@ -25,33 +25,31 @@ module Pages
     load_validation { has_maintenance_mode_switch? }
 
     def maintenance_complete?
-      page.has_css?('div', text: 'GoCD Server has no running subsystems.', wait: 60)
-    end
-
-    def maintenance_mode_enabled?
-      maintenance_complete? || maintenance_in_progress?
+      page.has_css?('div', text: 'GoCD Server has no running subsystems.')
     end
 
     def maintenance_in_progress?
-      page.has_css?('div', text: 'Some subsystems of GoCD are still in progress.', wait: 60)
+      page.has_css?('div', text: 'Some subsystems of GoCD are still in progress.')
+    end
+
+    def maintenance_mode_enabled?(wait = 2)
+      page.has_css?('div', text: /GoCD Server has no running subsystems|Some subsystems of GoCD are still in progress/, wait: wait)
     end
 
     def cancel_stage(pipeline, pipeline_counter, stage, stage_counter)
       page.find("button[data-test-id='cancel-stage-btn-for-#{pipeline}/#{pipeline_counter}/#{stage}/#{stage_counter}']").click
-      page.has_css?("div[data-test-id='flash-message-success']", text: 'stage defaultStage successfully cancelled', wait: 20)
+      page.has_css?("div[data-test-id='flash-message-success']", text: 'stage defaultStage successfully cancelled', wait: 10)
 
     end
 
     def stage_in_inprogress_subsystem(pipeline, pipeline_counter, stage, stage_counter)
       reload_page
-      page.find('div[data-test-id="in-progress-subsystems"]', wait: 60).has_css?("button[data-test-id='cancel-stage-btn-for-#{pipeline}/#{pipeline_counter}/#{stage}/#{stage_counter}']", wait: 20)
+      page.find('div[data-test-id="in-progress-subsystems"]').has_css?("button[data-test-id='cancel-stage-btn-for-#{pipeline}/#{pipeline_counter}/#{stage}/#{stage_counter}']", wait: 10)
     end
 
     def switch_maintenance_mode
-      sleep 5 # Just adding it to see if it helps avoid the flakyness while running from pipeline
-      # remove the sleep when fixed the issue in better way
-      maintenance_mode_switch.click(wait: 30)
-      settings_save.click(wait: 30)
+      maintenance_mode_switch.click
+      settings_save.click
     end
 
     def shows_running_mdu_for_material(name)
@@ -63,7 +61,7 @@ module Pages
     end
 
     def disable_maintenance_mode
-      switch_maintenance_mode if maintenance_mode_enabled?
+      switch_maintenance_mode if maintenance_mode_enabled?(0)
     end
   end
 end

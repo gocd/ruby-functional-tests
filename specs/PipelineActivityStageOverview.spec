@@ -10,7 +10,7 @@ Setup of contexts
 PipelineActivityStageOverview
 ------------
 
-tags: stage-overview, UI, refresh
+tags: stage-overview, UI, refresh, PipelineActivityStageOverview
 
 * Looking at pipeline "pipeline-with-3-jobs" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
@@ -55,6 +55,7 @@ tags: stage-overview, UI, refresh
 * Verify "third" job is in "passed" state
 
 * Rerun failed jobs
+* Wait for "5" seconds
 * Open stage overview for stage "defaultStage" - On Pipeline Activity page
 
 * Verify failed job count is "0"
@@ -74,6 +75,7 @@ tags: stage-overview, UI, refresh
 * Verify rerun selected jobs is "enabled"
 
 * Rerun selected jobs
+* Wait for "5" seconds
 * Open stage overview for stage "defaultStage" - On Pipeline Activity page
 
 * Verify failed job count is "1"

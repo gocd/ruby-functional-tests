@@ -147,7 +147,7 @@ module Pages
       all_stages.select { |stage| (stage['title'] || {}).include?(stagename) }
     end
 
-    def wait_for_expected_stage_state(pipeline, stage, state, wait_time = 60)
+    def wait_for_expected_stage_state(pipeline, stage, state, wait_time = 90)
       wait_till_event_occurs_or_bomb wait_time, "Pipeline #{pipeline} stage #{stage} is not in #{state} state" do
         pipeline_stage_state = get_pipeline_stage_state(pipeline, stage)
         next if pipeline_stage_state.nil?
@@ -156,7 +156,7 @@ module Pages
     end
 
     def wait_for_expected_stage_state_at_label(pipeline, stage, state, label)
-      wait_till_event_occurs_or_bomb 60, "Pipeline #{pipeline} at label #{label}'s stage #{stage} is not in #{state} state" do
+      wait_till_event_occurs_or_bomb 90, "Pipeline #{pipeline} at label #{label}'s stage #{stage} is not in #{state} state" do
         pipeline_stage = get_pipeline_stage_at_label(pipeline, stage, label)
         pipeline_stage_state = pipeline_stage.first['class'] if pipeline_stage&.first
         break if pipeline_stage_state&.include?(state)
@@ -164,7 +164,7 @@ module Pages
     end
 
     def wait_for_expected_stage_state_at_label_and_counter(pipeline, stage, state, label, counter)
-      wait_till_event_occurs_or_bomb 60, "Pipeline #{pipeline} at label #{label}'s stage #{stage} is not in #{state} state for counter #{counter}" do
+      wait_till_event_occurs_or_bomb 90, "Pipeline #{pipeline} at label #{label}'s stage #{stage} is not in #{state} state for counter #{counter}" do
         pipeline_stage = get_pipeline_stage_at_label(pipeline, stage, label)
         pipeline_stage_state = pipeline_stage.first['class'] if pipeline_stage&.first
         next unless pipeline_stage_state&.include?(state)

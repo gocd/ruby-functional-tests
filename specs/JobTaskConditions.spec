@@ -24,8 +24,8 @@ tags: runif
 First task fails, second task is runif pass, third task is runif failed and the fourth is runif all.
 
 * Verify console log contains message "failed"
-* Verify console log does not contains message "Sleeping for 30 seconds so you can see the build in the new dashboard"
-* Verify console log contains message "sleep 6"
+* Verify console log does not contains message "Shouldnt run"
+* Verify console log contains message "ls"
 * Verify console log contains message "Hello"
 
 

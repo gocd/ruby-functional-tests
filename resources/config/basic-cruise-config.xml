@@ -222,16 +222,15 @@
                     <job name="job.with.runif">
                         <tasks>
                            <exec command="fail" />
-                           <exec command="sleep">
-                            <arg>30</arg>
+                           <exec command="echo">
+                            <arg>Shouldnt run</arg>
                             <runif status="passed" />
                            </exec>
-                           <exec command="sleep">
-                             <arg>6</arg>
+                           <exec command="ls">
                              <runif status="failed" />
                            </exec>
                            <exec command="echo">
-                            <arg>"Hello"</arg>
+                            <arg>Hello</arg>
                             <runif status="failed" />
                            </exec>
                         </tasks>

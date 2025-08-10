@@ -24,7 +24,13 @@ tags: stage-overview, UI, refresh, PipelineActivityStageOverview
 * Verify rerun failed jobs is "disabled"
 * Verify rerun selected jobs is "disabled"
 
-* Wait for "20" seconds
+Wait for the quick jobs to complete
+* Wait for "5" seconds
+* On Swift Dashboard Page
+* Verify stage "defaultStage" is "Failing" on pipeline with label "1" - On Swift Dashboard page
+
+* Click on history - On Swift Dashboard page
+* Open stage overview for stage "defaultStage" - On Pipeline Activity page
 
 * Verify failed job count is "1"
 * Verify passed job count is "1"
@@ -55,8 +61,13 @@ tags: stage-overview, UI, refresh, PipelineActivityStageOverview
 * Verify "third" job is in "passed" state
 
 * Rerun failed jobs
-* Wait for "5" seconds
 
+Wait for the re-run to be scheduled
+* On Swift Dashboard Page
+* Verify stage "defaultStage" is "Building" on pipeline with label "1" - On Swift Dashboard page
+
+* Click on history - On Swift Dashboard page
+* Open stage overview for stage "defaultStage" - On Pipeline Activity page
 * Verify failed job count is "0"
 * Verify passed job count is "2"
 * Verify building job count is "1"
@@ -67,15 +78,24 @@ tags: stage-overview, UI, refresh, PipelineActivityStageOverview
 
 * Cancel stage from stage overview
 
-* Wait for "11" seconds
+Wait for the cancel
+* On Swift Dashboard Page
+* Verify stage "defaultStage" is "Cancelled" on pipeline with label "1" - On Swift Dashboard page
 
+* Click on history - On Swift Dashboard page
+* Open stage overview for stage "defaultStage" - On Pipeline Activity page
 * Verify rerun selected jobs is "disabled"
 * Select "first" job for rerun
 * Verify rerun selected jobs is "enabled"
 
 * Rerun selected jobs
-* Wait for "5" seconds
 
+Wait for the re-run to be scheduled
+* On Swift Dashboard Page
+* Verify stage "defaultStage" is "Building" on pipeline with label "1" - On Swift Dashboard page
+
+* Click on history - On Swift Dashboard page
+* Open stage overview for stage "defaultStage" - On Pipeline Activity page
 * Verify failed job count is "1"
 * Verify passed job count is "1"
 * Verify building job count is "1"

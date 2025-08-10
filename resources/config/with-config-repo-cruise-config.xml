@@ -51,9 +51,7 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="sleep" >
-                            <arg>30</arg>
-                          </exec>
+                            <exec command="ls" />
                         </tasks>
                     </job>
                 </jobs>
@@ -68,9 +66,7 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="sleep" >
-                                <arg>30</arg>
-                            </exec>
+                            <exec command="ls" />
                         </tasks>
                     </job>
                 </jobs>

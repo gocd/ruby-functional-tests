@@ -16,11 +16,12 @@ tags: diamond dependency, fanin
 * Looking at pipeline "grandparent-fast" - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
 
+* Looking at pipeline "parent-slow" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Building" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+
 * Looking at pipeline "parent-fast" - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
 
-* Looking at pipeline "parent-slow" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Building" on pipeline with label "1" and counter "1" - On Swift Dashboard page
 
 Before parent-slow 1 is finished or child-fast 1 is triggered, checkin a new file
 * On Swift Dashboard Page

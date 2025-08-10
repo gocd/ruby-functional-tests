@@ -51,8 +51,6 @@ module Context
     end
 
     def restart
-      return if GoConstants::DEVELOPMENT_MODE && server_running?
-
       log_location = "#{GoConstants::SERVER_DIR}/logs/output.log"
       out = File.open(log_location, 'a')
       out.sync = true

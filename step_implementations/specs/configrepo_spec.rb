@@ -35,7 +35,7 @@ step 'Verify config repo with name <repo> has pipeline with name <pipeline>' do 
 end
 
 step 'Wait for config repo changes to sync' do
-  sleep 30
+  sleep 10
 end
 
 step 'Add pipelines <pipelines> to config repo environment <environment>' do |pipelines, environment|

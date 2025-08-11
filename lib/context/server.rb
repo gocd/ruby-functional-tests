@@ -143,6 +143,7 @@ module Context
       sh %(docker load < "target/docker-server/native-#{manifest.file}")
       sh %(rm -rf target/docker-server)
 
+      mkdir_p GoConstants::SERVER_DIR
       sh %(docker run -d --name gauge_server -p #{GoConstants::SERVER_PORT}:#{GoConstants::SERVER_PORT} \
         -v #{File.expand_path(GoConstants::CONFIG_PATH.to_s)}:/test-config --mount type=bind,source=#{GoConstants::SERVER_DIR},target=/godata \
         -v #{GoConstants::TEMP_DIR}:/materials \

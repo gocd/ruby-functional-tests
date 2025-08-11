@@ -43,7 +43,7 @@ class GoConstants
   PLUGIN_INFO_API_VERSION = 'application/vnd.go.cd+json'.freeze
 
   HELIXTEAMHUB_USERNAME = ENV['HELIXTEAMHUB_USERNAME'] || 'username'
-  HELIXTEAMHUB_PASSWORD = ENV['HELIXTEAMHUB_PASSWORD'] || 'password'
+  HELIXTEAMHUB_PASSWORD = ENV['HELIXTEAMHUB_PASSWORD'] || 'password%^'
 
   GO_SERVER_BASE_URL = "http://#{HOSTNAME}:#{SERVER_PORT}/go".freeze
   GO_CONFIG_SCHEMA_VERSION = '84'.freeze

@@ -29,7 +29,7 @@ tags:pipeline group
 * Click to create a new pipeline to group "groupWithStageSecurity"
 * Enter new pipeline name as "new-pipeline"
 * Select material type as "Git"
-* Set url "http://git.url" for material  "git"
+* Set url "http://git.url" for material "git"
 * Set stage name as "defaultStage"
 * Set task as "rake wait_for_stopjob_file"
 * Set job name as "defaultJob"

@@ -3,9 +3,10 @@ NewPipelineGitCredentials
 
 Setup of contexts
 * Basic Configuration - setup
-* Using pipeline "edit-pipeline" - setup
+* Using pipeline "basic-pipeline-fast-with-job-properties" - setup
 * With "1" live agents - setup
 * Capture go state "NewPipelineGitCredentials" - setup
+
 NewPipelineGitCredentials
 -----------------------------
 
@@ -16,7 +17,7 @@ tags: create pipeline, git credentials
 * Enter new pipeline name as "git-cred-url"
 
 * Select material type as "Git"
-* Set url "https://$HELIXTEAMHUB_USERNAME$:$HELIXTEAMHUB_PASSWORD$@helixteamhub.cloud/gocdcommunity/projects/gocd_qa/repositories/git/git-functional-tests" for material  "git"
+* Set url "https://$HELIXTEAMHUB_USERNAME$:$HELIXTEAMHUB_PASSWORD$@helixteamhub.cloud/gocdcommunity/projects/gocd_qa/repositories/git/git-functional-tests" for material "git"
 * Open Materials advanced settings
 * Set branch as "master" for material "git"
 * Check connectivity should be successful
@@ -34,7 +35,7 @@ tags: create pipeline, git credentials
 * Enter new pipeline name as "git-cred-attr"
 
 * Select material type as "Git"
-* Set url "https://helixteamhub.cloud/gocdcommunity/projects/gocd_qa/repositories/git/git-functional-tests" for material  "git"
+* Set url "https://helixteamhub.cloud/gocdcommunity/projects/gocd_qa/repositories/git/git-functional-tests" for material "git"
 * Open Materials advanced settings
 * Set "git" username as "$HELIXTEAMHUB_USERNAME$"
 * Set "git" password as "$HELIXTEAMHUB_PASSWORD$"
@@ -54,7 +55,7 @@ tags: create pipeline, git credentials
 * Enter new pipeline name as "git-ambiguous-attr"
 
 * Select material type as "Git"
-* Set url "https://foo:bar@git-functional-tests.git" for material  "git"
+* Set url "https://foo:bar@git-functional-tests.git" for material "git"
 * Open Materials advanced settings
 * Set "git" username as "foo"
 * Set "git" password as "bar"

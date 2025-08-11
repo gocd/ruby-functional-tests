@@ -19,7 +19,7 @@ tags: Clicky Admin
 make sure group admins don't see autocomplete for group
 * Enter new pipeline name as "some-pipeline-name"
 * Select material type as "Git"
-* Set url "http://git.url" for material  "git"
+* Set url "http://git.url" for material "git"
 * Open Materials advanced settings
 * Set branch as "some_branch" for material "git"
 * Set stage name as "some_stage"

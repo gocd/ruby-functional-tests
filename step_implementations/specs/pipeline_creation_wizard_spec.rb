@@ -26,7 +26,7 @@ step 'Select material type as <type>' do |type|
   pipeline_creation_wizard.material_type.select type
 end
 
-step 'Set url <url> for material  <material>' do |url, material|
+step 'Set url <url> for material <material>' do |url, material|
   pipeline_creation_wizard.set_material_url(new_pipeline_dashboard_page.sanitize_message(url))
 end
 

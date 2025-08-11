@@ -3,9 +3,10 @@ NewPipelineHgCredentials
 
 Setup of contexts
 * Basic Configuration - setup
-* Using pipeline "edit-pipeline" - setup
+* Using pipeline "basic-pipeline-fast-with-job-properties" - setup
 * With "1" live agents - setup
 * Capture go state "NewPipelineHgCredentials" - setup
+
 NewPipelineHgCredentials
 -----------------------------
 
@@ -16,7 +17,7 @@ tags: create pipeline, hg credentials
 * Enter new pipeline name as "hg-cred-url"
 
 * Select material type as "Mercurial"
-* Set url "https://$HELIXTEAMHUB_USERNAME$:$HELIXTEAMHUB_PASSWORD$@helixteamhub.cloud/gocdcommunity/projects/gocd_qa/repositories/mercurial/hg-functional-tests" for material  "hg"
+* Set url "https://$HELIXTEAMHUB_USERNAME$:$HELIXTEAMHUB_PASSWORD$@helixteamhub.cloud/gocdcommunity/projects/gocd_qa/repositories/mercurial/hg-functional-tests" for material "hg"
 * Open Materials advanced settings
 * Set branch as "default" for material "hg"
 * Check connectivity should be successful
@@ -34,7 +35,7 @@ tags: create pipeline, hg credentials
 * Enter new pipeline name as "hg-cred-attr"
 
 * Select material type as "Mercurial"
-* Set url "https://helixteamhub.cloud/gocdcommunity/projects/gocd_qa/repositories/mercurial/hg-functional-tests" for material  "hg"
+* Set url "https://helixteamhub.cloud/gocdcommunity/projects/gocd_qa/repositories/mercurial/hg-functional-tests" for material "hg"
 * Open Materials advanced settings
 * Set "hg" username as "$HELIXTEAMHUB_USERNAME$"
 * Set "hg" password as "$HELIXTEAMHUB_PASSWORD$"
@@ -54,7 +55,7 @@ tags: create pipeline, hg credentials
 * Enter new pipeline name as "hg-ambiguous-attr"
 
 * Select material type as "Mercurial"
-* Set url "https://foo:bar@hg-functional-tests" for material  "hg"
+* Set url "https://foo:bar@hg-functional-tests" for material "hg"
 * Open Materials advanced settings
 * Set "hg" username as "foo"
 * Set "hg" password as "bar"
@@ -65,7 +66,7 @@ tags: create pipeline, hg credentials
 * Enter new pipeline name as "hg-ambiguous-attr"
 
 * Select material type as "Mercurial"
-* Set url "https://foo:bar@hg-functional-testssoo##default" for material  "hg"
+* Set url "https://foo:bar@hg-functional-testssoo##default" for material "hg"
 * Open Materials advanced settings
 * Set branch as "default" for material "hg"
 * Check connectivity should be failed with message "- url: Ambiguous branch, must be provided either in URL or as an attribute." for "hg"

@@ -311,7 +311,8 @@
         <jobs>
           <job name="job2">
             <tasks>
-                <exec command="sleep" args="10"/>
+                <!-- Use stopjob to allow job to be cancelled or intentionally failed -->
+                <exec command="rake" args="wait_or_fail" workingdir="git-one"/>
             </tasks>
           </job>
         </jobs>
@@ -326,7 +327,7 @@
         <jobs>
           <job name="job1">
             <tasks>
-              <exec command="sleep" args="20"/>
+                <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -407,10 +408,7 @@
         <jobs>
           <job name="job1">
             <tasks>
-              <exec command="sleep">
-                  <arg>5</arg>
-                  <runif status="passed"/>
-              </exec>
+              <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -425,10 +423,7 @@
         <jobs>
           <job name="job1">
             <tasks>
-              <exec command="sleep">
-                  <arg>5</arg>
-                  <runif status="passed"/>
-              </exec>
+              <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -445,10 +440,7 @@
         <jobs>
           <job name="job1">
             <tasks>
-              <exec command="sleep">
-                  <arg>5</arg>
-                  <runif status="passed"/>
-              </exec>
+              <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -464,10 +456,7 @@
         <jobs>
           <job name="job1">
             <tasks>
-              <exec command="sleep">
-                  <arg>5</arg>
-                  <runif status="passed"/>
-              </exec>
+              <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -481,126 +470,13 @@
         <jobs>
           <job name="job1">
             <tasks>
-              <exec command="sleep">
-                  <arg>5</arg>
-                  <runif status="passed"/>
-              </exec>
+              <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
       </stage>
     </pipeline>
   </pipelines>
-
-
-    <pipelines group="fanin-VSM">
-        <pipeline name="VSMO1">
-            <materials>
-                <git url="material-for-git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
-            </materials>
-            <stage name="stage1">
-                <jobs>
-                    <job name="job1">
-                        <tasks>
-                            <exec command="ls"/>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
-        <pipeline name="VSMO2" lockBehavior="none">
-            <materials>
-                <git url="material-for-git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
-            </materials>
-            <stage name="stage1">
-                <jobs>
-                    <job name="job1">
-                        <tasks>
-                            <exec command="ls"/>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
-        <pipeline name="VSMO3">
-            <materials>
-                <pipeline pipelineName="VSMO1" stageName="stage1"/>
-                <pipeline pipelineName="VSMO2" stageName="stage1"/>
-                <git url="material-for-git-one" materialName="git-one" dest="git-one" autoUpdate="true"/>
-            </materials>
-            <stage name="stage1">
-                <jobs>
-                    <job name="job1">
-                        <tasks>
-                            <exec command="ls"/>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
-        <pipeline name="VSMO4">
-            <materials>
-                <pipeline pipelineName="VSMO1" stageName="stage1"/>
-                <pipeline pipelineName="VSMO2" stageName="stage1"/>
-                <pipeline pipelineName="VSMO3" stageName="stage1"/>
-            </materials>
-            <stage name="stage1">
-                <jobs>
-                    <job name="job1">
-                        <tasks>
-                            <exec command="ls"/>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
-        <pipeline name="VSMO5" lockBehavior="none">
-            <materials>
-                <pipeline pipelineName="VSMO4" stageName="stage1"/>
-            </materials>
-            <stage name="stage1">
-                <jobs>
-                    <job name="job1">
-                        <tasks>
-                            <exec command="ls"/>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
-    </pipelines>
-
-<pipelines group="stage_rerun_for_a_diamond_configuration">
-     <pipeline name="Upstream1">
-            <materials>
-                <git url="material-for-git-one" dest="git-one" materialName="git-one"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                    <job name="first">
-                        <tasks>
-                     		<ant target="run.till.file.exists" workingdir="git-one">
-                                <oncancel/>
-                            </ant>
-                        </tasks>
-                    </job>
-                 </jobs>
-              </stage>
-	</pipeline>
-     <pipeline name="Upstream2" template="upstream_2_template">
-            <materials>
-                <git url="material-for-git-one" dest="git-one" materialName="git-one"/>
-            </materials>
-	</pipeline>
-     <pipeline name="Downstream1" template="autoStagePipelineTemplate">
-            <materials>
-		        <pipeline pipelineName="Upstream1" stageName="defaultStage"/>
-		        <pipeline pipelineName="Upstream2" stageName="defaultStage"/>
-            </materials>
-     </pipeline>
-</pipelines>
-
 
     <templates>
 

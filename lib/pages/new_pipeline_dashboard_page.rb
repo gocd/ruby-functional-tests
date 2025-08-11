@@ -76,7 +76,7 @@ module Pages
     end
 
     def unpause_pipeline
-      (pipeline_name text: scenario_state.self_pipeline, wait: 5)
+      (pipeline_name text: scenario_state.self_pipeline, wait: 10)
         .ancestor('.pipeline').find('.pipeline_btn.unpause').click
     end
 

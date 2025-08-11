@@ -12,7 +12,7 @@ Setup of contexts
 AssociatingMultiplePipelinesWithAnEnvironment
 ---------------------------------------------
 
-tags:  environment, pipeline
+tags: environment, pipeline
 
 This is to verify that only the agents associated with an evironment are used to build the pipeline
 

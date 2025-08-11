@@ -11,7 +11,7 @@ Setup of contexts
 JobRerunRunMultipleInstance
 ---------------------------
 
-tags: job-rerun,run-multiple-instance
+tags: job-rerun, run-multiple-instance
 
 * On Job settings page of pipeline "pipeline-for-job-rerun-run-multiple-instance" stage "defaultStage" job "first"
 * Open "Job Settings" tab - On Job settings page

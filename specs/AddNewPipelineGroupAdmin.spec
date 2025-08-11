@@ -27,8 +27,6 @@ make sure group admins don't see autocomplete for group
 * Set job name as "some_job"
 * Save pipeline "some-pipeline-name" successfully
 
- Verify "Pipeline successfully created." message is displayed
-
 * On Admin pipeline page
 
 * Click clone button for pipeline "some-pipeline-name"

@@ -9,7 +9,7 @@ Setup of contexts
 NewPipelineHgCredentials
 -----------------------------
 
-tags: create pipeline,hg credentials
+tags: create pipeline, hg credentials
 
 
 * Start add new pipeline in pipeline group "basic"
@@ -25,7 +25,6 @@ tags: create pipeline,hg credentials
 * Set task as "ls"
 * Set job name as "defaultJob"
 * Save pipeline "hg-cred-url" successfully
- Verify "Pipeline successfully created." message is displayed
 * Looking at pipeline "hg-cred-url" - On Swift Dashboard page
 * Unpause pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
@@ -49,7 +48,6 @@ To bring it back after discussion and decide to provide the option on creation w
 * Set task as "ls"
 * Set job name as "defaultJob"
 * Save pipeline "hg-cred-attr" successfully
- Verify "Pipeline successfully created." message is displayed
 * Looking at pipeline "hg-cred-attr" - On Swift Dashboard page
 * Unpause pipeline - On Swift Dashboard page
 * Wait for "180" seconds till pipeline completed - On Swift Dashboard page

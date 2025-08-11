@@ -30,7 +30,7 @@ Setup of contexts
 * Verify stage "defaultStage" is "Passed" - On Swift Dashboard page
 
 Wait for agents to entirely complete
-* Wait "5" seconds
+* Wait for "5" seconds
 * On Agents page
 * Verify agents at state "Building" is "0"
 

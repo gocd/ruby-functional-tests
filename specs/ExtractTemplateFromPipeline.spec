@@ -20,7 +20,7 @@ tags: Clicky Admin, template
 * Save template
 
 Wait for background conversion of pipeline to template to complete
-* Wait "1" seconds
+* Wait for "5" seconds
 
 * On Swift Dashboard Page
 * Edit pipeline "simple-pipeline"

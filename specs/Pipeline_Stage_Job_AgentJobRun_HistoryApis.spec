@@ -74,7 +74,7 @@ verify cancelled
 * Verify "1" instances of "pipeline-run-till-file-exits" "defaultStage" "defaultJob" "Cancelled" - Using Job Api
 
 // Try and verify it's cancelled from the agent perspective. Here we need to hope it was picked up by the agent before being cancelled.
-* Wait "5" seconds
+* Wait for "5" seconds
 * Verify last job "pipeline-run-till-file-exits" "defaultStage" "defaultJob" "Cancelled" - Using Agents Api
 
 Teardown of contexts

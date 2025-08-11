@@ -37,8 +37,7 @@ Pipeline with environment variables
 * Verify stage "defaultStage" is "passed" on pipeline with label "1" - On Swift Dashboard page
 * On Job details page of pipeline "pipeline-with-environment-variables" counter "1" stage "defaultStage" counter "1" job "pipeline-with-environment-variables-job"
 
-* Verify console log contains message "setting environment variable 'GO_ENVIRONMENT_NAME' to value 'test-env'"
-* Verify console log contains message "overriding environment variable 'GO_ENVIRONMENT_NAME' with value 'overriden value'"
+* Verify console has environment variable "GO_ENVIRONMENT_NAME" set to value "overriden value"
 * Verify console log contains message "setting environment variable 'VARIABLE_TEST' to value 'variable test value'"
 * Verify console log contains message "setting environment variable 'ENV_LEVEL_VARIABLE' to value 'environment'"
 * Verify console log contains message "setting environment variable 'ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_PIPELINE' to value 'does-not-matter'"

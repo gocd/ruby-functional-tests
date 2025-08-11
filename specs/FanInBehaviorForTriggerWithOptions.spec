@@ -121,7 +121,7 @@ Go back and trigger FT02 and FT03 with options allowing fan-in (original g1 revi
 * Looking at pipeline "FTO5" - On Swift Dashboard page
 * Verify stage "stage1" is "passed" on pipeline with label "3" - On Swift Dashboard page
 
-Trigger FT03 with g3 revision and "correct" FT01 and FT02 revisions (allowing fan-in)
+Trigger FT03 with g3 revision and "correct" FTO1 and FTO2 revisions (allowing fan-in)
 * Looking at pipeline "FTO3" - On Swift Dashboard page
 * Open trigger with options - On Swift Dashboard page
 

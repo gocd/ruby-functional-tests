@@ -14,6 +14,10 @@
 # limitations under the License.
 ##########################################################################
 
+step 'Ensure process-level environment variable <variable_name> is set' do |variable_name|
+  raise "Expecting the Gauge process to have the environment variable #{variable_name} set (to anything) for agent env testing" unless ENV[variable_name]
+end
+
 step 'Reload page' do |_count|
   app_base_page.reload_page
 end

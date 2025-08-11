@@ -223,14 +223,11 @@ desc 'initializes the filesystem to run tests'
 task prepare: %w[plugins:prepare db:prepare]
 
 task :test do
+  sh "bundle exec gauge validate specs #{DEVELOPMENT_MODE ? '' : '--hide-suggestion'}#{ENV['DEBUG_GAUGE'] ? '-l debug' : ''}"
   if LOAD_BALANCED
-    if ENV['DEBUG_GAUGE']
-      sh "bundle exec gauge  -l debug --tags '#{GAUGE_TAGS}' -n #{GO_JOB_RUN_COUNT} -g #{GO_JOB_RUN_INDEX} --max-retries-count=3 --retry-only=retry-flaky run specs"
-    else
-      sh "bundle exec gauge --tags '#{GAUGE_TAGS}' -n #{GO_JOB_RUN_COUNT} -g #{GO_JOB_RUN_INDEX} --max-retries-count=3 --retry-only=retry-flaky run specs"
-    end
+    sh "bundle exec gauge run specs -n #{GO_JOB_RUN_COUNT} -g #{GO_JOB_RUN_INDEX} --tags '#{GAUGE_TAGS}' --max-retries-count=3 --retry-only=retry-flaky #{ENV['DEBUG_GAUGE'] ? '-l debug' : ''}"
   else
-    sh "bundle exec gauge --tags '#{GAUGE_TAGS}' --max-retries-count=3 --retry-only=retry-flaky run specs"
+    sh "bundle exec gauge run specs --tags '#{GAUGE_TAGS}' --max-retries-count=3 --retry-only=retry-flaky #{ENV['DEBUG_GAUGE'] ? '-l debug' : ''}"
   end
 end
 task default: %w[kill clean_all build_all prepare test]

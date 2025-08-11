@@ -15,18 +15,18 @@ tags: environment, environment variables
 This is to verify that only the agents associated with an evironment are used to build the pipeline
 * Add environment "test-env" to any "1" Idle agents - Using Agents API
 
-* Looking at environment "test-env"
-* Open Environment edit page for environment "test-env"
-* Edit environment variables
-* For variable at row "5" set name "VARIABLE_TEST" value "variable test value"
-* Add new variable
-* Open Environment edit page for environment "test-env"
-* Edit environment variables
-* For variable at row "6" set name "GO_ENVIRONMENT_NAME" value "overriden value"
-* Add new variable
+* On new environments page
+* Open collapsible panel for "test-env"
+* Click on edit environment variable for "test-env"
+* Add plain text environment variable name "VARIABLE_TEST" value "variable test value"
+* Click on edit environment variable for "test-env"
+* Add plain text environment variable name "GO_ENVIRONMENT_NAME" value "overriden value"
+
+Add an env var to be overridden from the outer agent environment
 * On Pipeline settings page of pipeline "pipeline-with-environment-variables"
 * Open "Environment Variables" tab - On Pipeline settings page
-* Add environment variable "VNC" with value "Y"
+* Ensure process-level environment variable "LANG" is set
+* Add environment variable "LANG" with value "pipeline-overrides-process"
 * Save Changes
 
 Pipeline with environment variables
@@ -53,7 +53,7 @@ Pipeline with environment variables
 * Verify console log contains message "setting environment variable 'JOB_LEVEL_VARIABLE' to value 'job'"
 * Verify console log contains message "overriding environment variable 'ENV_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB' with value 'job-overrides-env'"
 * Verify console log contains message "setting environment variable 'STAGE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB' to value 'job-overrides-stage'"
-* Verify console log contains message "overriding environment variable 'VNC' with value 'Y'"
+* Verify console log contains message "overriding environment variable 'LANG' with value 'pipeline-overrides-process'"
 
 Verify variables value as echoed as part of task
 * Verify console log contains message "STAGE_LEVEL_VARIABLE=stage."

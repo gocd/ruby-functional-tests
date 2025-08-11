@@ -83,10 +83,6 @@ step 'Set <material_type> password as <password>' do |material_type, password|
   pipeline_creation_wizard.set_password(new_pipeline_dashboard_page.sanitize_message(password))
 end
 
-step 'Turn off Poll for new changes for <material_type> material' do |material_type|
-  pipeline_creation_wizard.set_polling_off material_type
-end
-
 step 'Check connectivity should be failed with message <error_message> for <material_type>' do |error_message, material_type|
   pipeline_creation_wizard.check_connection(wait: 10).click
   pipeline_creation_wizard.git_error_message_present?(error_message, material_type)

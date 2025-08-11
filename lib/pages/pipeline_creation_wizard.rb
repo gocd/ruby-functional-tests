@@ -62,10 +62,6 @@ module Pages
       page.has_css?("[data-test-id='flash-message-success']", wait: 10)
     end
 
-    def set_polling_off(_material_type)
-      raise 'Needs implementation as new pipeline creation wizard misses this option'
-    end
-
     def git_error_message_present?(error_message, material_type)
       page.find("[data-test-id='flash-message-alert']").text.include? error_message
     end

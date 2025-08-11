@@ -39,9 +39,6 @@ tags: create pipeline, hg credentials
 * Set "hg" username as "$HELIXTEAMHUB_USERNAME$"
 * Set "hg" password as "$HELIXTEAMHUB_PASSWORD$"
 * Set branch as "default" for material "hg"
-Removing the below step for polling of new changes - This option is removed from the new pipeline creation wizard
-To bring it back after discussion and decide to provide the option on creation wizard
-  Turn off Poll for new changes for "Hg" material
 * Check connectivity should be successful
 
 * Set stage name as "defaultStage"
@@ -50,7 +47,7 @@ To bring it back after discussion and decide to provide the option on creation w
 * Save pipeline "hg-cred-attr" successfully
 * Looking at pipeline "hg-cred-attr" - On Swift Dashboard page
 * Unpause pipeline - On Swift Dashboard page
-* Wait for "180" seconds till pipeline completed - On Swift Dashboard page
+* Wait for "60" seconds till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "passed" - On Swift Dashboard page
 
 * Start add new pipeline in pipeline group "basic"

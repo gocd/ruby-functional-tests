@@ -68,7 +68,7 @@
                     <tasks>
                     <exec command="/bin/bash">
                         <arg>-c</arg>
-                        <arg>sleep 10; touch artifact.txt</arg>
+                        <arg>touch artifact.txt</arg>
                         <runif status="passed" />
                     </exec>
                     </tasks>
@@ -84,9 +84,7 @@
                 <jobs>
                 <job name="defaultJob">
                     <tasks>
-                    <exec command="sleep" >
-                        <arg>10</arg>
-                    </exec>
+                        <exec command="ls"/>
                     </tasks>
                 </job>
                 </jobs>

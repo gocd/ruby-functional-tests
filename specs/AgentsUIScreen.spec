@@ -96,6 +96,11 @@ Sort by status
 * Verify agents "Status" has values in order as "Disabled, Idle, Idle, Building"
 * Sort by "Status"
 * Verify agents "Status" has values in order as "Building, Idle, Idle, Disabled"
+
+* On Swift Dashboard Page
+* Create a "stopjob" file and validate pipeline completed
+
+* On Agents page
 * Wait till agent "1" status is "Idle"
 
 Delete agent

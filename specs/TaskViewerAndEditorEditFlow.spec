@@ -15,7 +15,7 @@ tags: Clicky Admin
 * VerifyFieldsOnTaskList
      |TaskIndex|task_build_file|task_target      |task_working_directory|
      |---------|---------------|-----------------|----------------------|
-     |1        |               |longsleep        |hg/dev                |
+     |1        |               |something        |hg/dev                |
      |2        |               |all              |hg/dev                |
      |3        |               |all              |hg/dev                |
 

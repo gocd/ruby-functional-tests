@@ -61,9 +61,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-              <arg>5</arg>
-              </exec>
+                <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -91,9 +89,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-                <arg>5</arg>
-              </exec>
+              <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -127,9 +123,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-                <arg>5</arg>
-              </exec>
+              <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -154,9 +148,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-                <arg>5</arg>
-              </exec>
+              <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -192,9 +184,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-                <arg>5</arg>
-              </exec>
+              <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -223,9 +213,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-                <arg>5</arg>
-              </exec>
+              <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -239,9 +227,7 @@
         <jobs>
           <job name="secondJob">
             <tasks>
-              <exec command="sleep">
-                <arg>5</arg>
-              </exec>
+              <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -274,9 +260,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-                <arg>5</arg>
-              </exec>
+              <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -286,9 +270,7 @@
         <jobs>
           <job name="secondJob">
             <tasks>
-              <exec command="sleep">
-                <arg>5</arg>
-              </exec>
+              <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -316,9 +298,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-                <arg>5</arg>
-              </exec>
+              <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -344,9 +324,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-                <arg>5</arg>
-              </exec>
+              <exec command="ls"/>
             </tasks>
           </job>
         </jobs>

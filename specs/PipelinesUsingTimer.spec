@@ -12,7 +12,7 @@ PipelinesUsingTimer
 
 tags:timer
 
-Setting a timer that will never actually trigger the pipeline. (Assuming time travel will not happen within this twist test)
+Setting a timer that will never actually trigger the pipeline. (Assuming time travel will not happen within this test)
 * On Swift Dashboard Page
 * Looking at pipeline "timer-pipeline" - On Swift Dashboard page
 * Using timer with spec "* * * * * ? 2021"
@@ -30,9 +30,8 @@ Setting a timer that will never actually trigger the pipeline. (Assuming time tr
 
 Setting a timer that will constantly trigger the pipeline.
 
-* Using timer with spec "0/30 * * * * ? *"
-* Wait till pipeline start building for "90" seconds - On Swift Dashboard page
-* Wait till pipeline completed - On Swift Dashboard page
+* Using timer with spec "0/15 * * * * ? *"
+* Verify stage "defaultStage" is "Passed" on pipeline with label "3" - On Swift Dashboard page
 * Pause pipeline with reason "prevent another timer trigger before verification" - On Swift Dashboard page
 * Verify pipeline is paused with reason "prevent another timer trigger before verification" by "anonymous" - On Swift Dashboard page
 * Verify pipeline is triggered by "timer" - On Swift Dashboard page

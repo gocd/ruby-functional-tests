@@ -13,16 +13,16 @@ tags: task, clicky, admin, exec, stage1
 
 * On Job settings page of pipeline "pipeline-ls" stage "defaultStage" job "defaultJob"
 * Add task "Custom Command"
-* Set More task - Command as "sleep" argument as "5" working directory as "git" runIfConditions as "Passed,Failed" - Already on Task edit popup
+* Set More task - Command as "blah" argument as "5" working directory as "git" runIfConditions as "Passed,Failed" - Already on Task edit popup
 * Set on Cancel task "Custom Command" and command "echo" - Already on Task edit popup
 * Save task changes
 
 Verify Tasks
 * verifyTask
-|Order_no|Task Type         |Run If Conditions |Properties                                           |On Cancel   |
-|--------|------------------|------------------|---------------------------------------------------  |------------|
-|1       |Custom Command    |passed            |Command: ls                                          |No          |
-|2       |Custom Command    |passed, failed    |Command: sleep, Arguments: 5, Working-Directory: git |exec        |
+|Order_no |Task Type      |Run If Conditions |Properties                                          |On Cancel |
+|---------|---------------|------------------|----------------------------------------------------|----------|
+|1        |Custom Command |passed            |Command: ls                                         |No        |
+|2        |Custom Command |passed, failed    |Command: blah, Arguments: 5, Working-Directory: git |exec      |
 
 * Delete task "1"
 * Verify no task with command "Command: ls" exists

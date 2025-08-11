@@ -60,10 +60,7 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="sleep">
-                                <arg>5</arg>
-                                <runif status="passed"/>
-                            </exec>
+                            <exec command="ls"/>
                         </tasks>
                     </job>
                 </jobs>

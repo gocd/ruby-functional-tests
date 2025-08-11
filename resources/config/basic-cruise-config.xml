@@ -31,10 +31,7 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="sleep">
-                                <arg>1</arg>
-                                <runif status="passed"/>
-                            </exec>
+                            <exec command="ls"/>
                         </tasks>
                     </job>
                 </jobs>
@@ -87,10 +84,8 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="sleep">
-                                <arg>20</arg>
-                                <runif status="passed"/>
-                            </exec>
+                            <!-- Allow cancellation -->
+                            <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
                         </tasks>
                     </job>
                 </jobs>
@@ -106,10 +101,8 @@
                 <jobs>
                     <job name="short">
                         <tasks>
-                            <exec command="sleep">
-                                <arg>30</arg>
-                                <runif status="passed"/>
-                            </exec>
+                            <!-- Allow cancellation -->
+                            <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
                         </tasks>
                     </job>
                 </jobs>
@@ -119,10 +112,8 @@
                 <jobs>
                     <job name="long">
                         <tasks>
-                             <exec command="sleep">
-                                <arg>30</arg>
-                                <runif status="passed"/>
-                            </exec>
+                            <!-- Allow cancellation -->
+                            <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
                         </tasks>
                     </job>
                 </jobs>
@@ -138,10 +129,9 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                           <exec command="sleep">
-                                <arg>30</arg>
-                                <runif status="passed"/>
-                        </exec></tasks>
+                            <!-- Allow cancellation -->
+                            <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
+                        </tasks>
                     </job>
                 </jobs>
             </stage>
@@ -178,7 +168,7 @@
 			                </variable>
 		            	</environmentvariables>
                         <tasks>
-                            <exec command="sleep" args="5"/>
+                            <exec command="ls"/>
                         </tasks>
                     </job>
                 </jobs>
@@ -268,50 +258,6 @@
                 </jobs>
             </stage>
     </pipeline>
-      <pipeline name="edit-pipeline-with-3-stages">
-            <materials>
-                <git url="material-for-edit-pipeline-with-3-stages" dest="git" autoUpdate="false" materialName="git-material"/>
-            </materials>
-            <stage name="defaultStage">
-                <approval type="manual"/>
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                            <exec command="sleep">
-                                <arg>5</arg>
-                                <runif status="passed"/>
-                            </exec>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-            <stage name="second">
-                <approval type="manual"/>
-                <jobs>
-                    <job name="defaultJob">
-                      <tasks>
-                            <exec command="sleep">
-                                <arg>5</arg>
-                                <runif status="passed"/>
-                            </exec>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-            <stage name="third">
-                <approval type="manual"/>
-                <jobs>
-                    <job name="defaultJob">
-                        <tasks>
-                           <exec command="sleep">
-                                <arg>5</arg>
-                                <runif status="passed"/>
-                            </exec>
-                        </tasks>
-                    </job>
-                </jobs>
-            </stage>
-        </pipeline>
 
       <pipeline name="pipeline-with-lock-all-manual" lockBehavior="lockOnFailure">
             <materials>
@@ -347,10 +293,7 @@
                 <jobs>
                     <job name="fast">
                        <tasks>
-                            <exec command="sleep">
-                                <arg>5</arg>
-                                <runif status="passed"/>
-                            </exec>
+                            <exec command="ls"/>
                         </tasks>
                     </job>
                 </jobs>
@@ -359,10 +302,7 @@
                 <jobs>
                     <job name="long">
                        <tasks>
-                            <exec command="sleep">
-                                <arg>30</arg>
-                                <runif status="passed"/>
-                            </exec>
+                            <exec command="ls"/>
                         </tasks>
                     </job>
                 </jobs>
@@ -377,10 +317,7 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="sleep">
-                                <arg>5</arg>
-                                <runif status="passed"/>
-                            </exec>
+                            <exec command="ls"/>
                         </tasks>
                     </job>
                 </jobs>
@@ -395,10 +332,7 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="sleep">
-                                <arg>5</arg>
-                                <runif status="passed"/>
-                            </exec>
+                            <exec command="ls"/>
                         </tasks>
                     </job>
                 </jobs>
@@ -413,10 +347,7 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="sleep">
-                                <arg>5</arg>
-                                <runif status="passed"/>
-                            </exec>
+                            <exec command="ls"/>
                         </tasks>
                     </job>
                 </jobs>
@@ -477,9 +408,7 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="sleep">
-                                <arg>30</arg>
-                            </exec>
+                            <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
                         </tasks>
                     </job>
                 </jobs>
@@ -494,8 +423,7 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="ls">
-                            </exec>
+                            <exec command="ls"/>
                         </tasks>
                     </job>
                 </jobs>
@@ -510,10 +438,7 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="sleep">
-                                <arg>20</arg>
-                                <runif status="passed"/>
-                            </exec>
+                            <exec command="ls"/>
                         </tasks>
                     </job>
                 </jobs>
@@ -528,9 +453,7 @@
                 <jobs>
                     <job name="job-basic-pipeline-with-job-resources">
                         <tasks>
-                            <exec command="sleep">
-                                <arg>30</arg>
-                            </exec>
+                            <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
                         </tasks>
                         <resources>
                             <resource>test_resource</resource>
@@ -628,7 +551,7 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <ant target="longsleep" workingdir="hg/dev"/>
+                            <ant target="something" workingdir="hg/dev"/>
 							<rake target="all" workingdir="hg/dev"/>
 							<nant target="all" workingdir="hg/dev"/>
                         </tasks>
@@ -727,10 +650,7 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="sleep">
-                                <arg>120</arg>
-                                <runif status="passed"/>
-                            </exec>
+                            <exec command="rake" args="wait_for_stopjob_file" workingdir="git"/>
                         </tasks>
                     </job>
                 </jobs>
@@ -749,14 +669,9 @@
                 <approval type="success"/>
                 <jobs>
                     <job name="defaultJob">
-
-                           <tasks>
-                             <exec command="sleep">
-                                <arg>2</arg>
-                                <runif status="passed"/>
-                            </exec>
+                        <tasks>
+                            <exec command="ls"/>
                         </tasks>
-
                     </job>
                 </jobs>
             </stage>
@@ -916,10 +831,7 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="sleep">
-                                <arg>1</arg>
-                                <runif status="passed"/>
-                            </exec>
+                            <exec command="ls"/>
                         </tasks>
                         <artifacts>
                             <artifact type="build" src="abc.txt"/>
@@ -948,10 +860,7 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="sleep">
-                                <arg>1</arg>
-                                <runif status="passed"/>
-                            </exec>
+                            <exec command="ls"/>
                         </tasks>
                     </job>
                 </jobs>
@@ -975,10 +884,7 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="sleep">
-                                <arg>1</arg>
-                                <runif status="passed"/>
-                            </exec>
+                            <exec command="ls"/>
                         </tasks>
                     	<artifacts>
                             <artifact type="build" src="new_artifact.txt"/>
@@ -1038,10 +944,7 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                           <exec command="sleep">
-                                <arg>10</arg>
-                                <runif status="passed"/>
-                            </exec>
+                           <exec command="ls"/>
                         </tasks>
                     </job>
                 </jobs>
@@ -1217,10 +1120,7 @@
         <jobs>
           <job name="down-job2">
               <tasks>
-                  <exec command="sleep">
-                      <arg>1</arg>
-                      <runif status="passed"/>
-                  </exec>
+                  <exec command="ls"/>
               </tasks>
           </job>
         </jobs>

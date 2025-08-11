@@ -175,10 +175,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-                <arg>25</arg>
-                <runif status="passed"/>
-              </exec>
+              <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -192,10 +189,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-                <arg>5</arg>
-                <runif status="passed"/>
-              </exec>
+                <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -210,10 +204,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-                <arg>5</arg>
-                <runif status="passed"/>
-              </exec>
+                <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -228,10 +219,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-                <arg>5</arg>
-                <runif status="passed"/>
-              </exec>
+                <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -248,10 +236,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-                <arg>5</arg>
-                <runif status="passed"/>
-              </exec>
+                <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -265,10 +250,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-                <arg>5</arg>
-                <runif status="passed"/>
-              </exec>
+                <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -298,10 +280,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-                <arg>5</arg>
-                <runif status="passed"/>
-              </exec>
+                <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -458,10 +437,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-                <arg>5</arg>
-                <runif status="passed"/>
-              </exec>
+                <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -623,10 +599,7 @@
           </job>
           <job name="passing-job">
             <tasks>
-              <exec command="sleep">
-                <arg>15</arg>
-                <runif status="passed"/>
-              </exec>
+                <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -674,10 +647,6 @@
               <exec command="/bin/bash">
                 <arg>-c</arg>
                 <arg>echo CLUSTER_NAME=$CLUSTER_NAME</arg>
-                <runif status="passed"/>
-              </exec>
-              <exec command="sleep">
-                <arg>30</arg>
                 <runif status="passed"/>
               </exec>
             </tasks>
@@ -775,10 +744,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-                <arg>5</arg>
-                <runif status="passed"/>
-              </exec>
+              <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -838,7 +804,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep" args="15"/>
+                <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -888,10 +854,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-                <arg>10</arg>
-                <runif status="passed"/>
-              </exec>
+                <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -967,10 +930,7 @@
               <variable name="JOB_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER"><value>does-not-matter</value></variable>
             </environmentvariables>
             <tasks>
-              <exec command="sleep">
-                <arg>5</arg>
-                <runif status="passed"/>
-              </exec>
+                <exec command="ls"/>
             </tasks>
           </job>
           <job name="another-job">
@@ -1032,10 +992,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-                <arg>40</arg>
-                <runif status="passed"/>
-              </exec>
+                <exec command="rake" args="wait_forever" workingdir="git"/>
             </tasks>
           </job>
         </jobs>
@@ -1068,10 +1025,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-                <arg>60</arg>
-                <runif status="passed"/>
-              </exec>
+                <exec command="rake" args="wait_forever" workingdir="git"/>
             </tasks>
           </job>
         </jobs>
@@ -1086,7 +1040,7 @@
         <jobs>
           <job name="short">
             <tasks>
-              <exec command="sleep" args="12"/>
+              <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -1095,7 +1049,7 @@
         <jobs>
           <job name="long">
             <tasks>
-              <exec command="sleep" args="40"/>
+                <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -1105,7 +1059,7 @@
         <jobs>
           <job name="long">
             <tasks>
-              <exec command="sleep" args="40"/>
+                <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -1120,7 +1074,7 @@
         <jobs>
           <job name="short">
             <tasks>
-              <exec command="sleep" args="12"/>
+                <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -1129,7 +1083,7 @@
         <jobs>
           <job name="long">
             <tasks>
-              <exec command="sleep" args="40"/>
+                <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -1139,7 +1093,7 @@
         <jobs>
           <job name="long">
             <tasks>
-              <exec command="sleep" args="40"/>
+                <exec command="ls"/>
             </tasks>
           </job>
         </jobs>
@@ -1322,10 +1276,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="sleep">
-                <arg>60</arg>
-                <runif status="passed"/>
-              </exec>
+                <exec command="rake" args="wait_forever" workingdir="git"/>
             </tasks>
           </job>
         </jobs>

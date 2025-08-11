@@ -32,7 +32,7 @@
             <jobs>
                 <job name="short">
                     <tasks>
-                        <exec command="sleep" args="12"/>
+                        <exec command="ls"/>
                     </tasks>
                     </job>
             </jobs>
@@ -41,7 +41,7 @@
             <jobs>
                 <job name="long">
                     <tasks>
-                        <exec command="sleep" args="40"/>
+                        <exec command="ls"/>
                     </tasks>
                     </job>
             </jobs>
@@ -51,7 +51,7 @@
             <jobs>
                 <job name="long">
                     <tasks>
-                        <exec command="sleep" args="40"/>
+                        <exec command="ls"/>
                     </tasks>
                     </job>
             </jobs>
@@ -76,7 +76,7 @@
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <ant target="sleep60" workingdir="hg/dev"/>
+                            <ant target="something" workingdir="hg/dev"/>
                         </tasks>
                     </job>
                 </jobs>
@@ -113,7 +113,6 @@
                             <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_ONE_JOB_ONLY"><value>job-overrides-pipeline</value></variable>
                         </environmentvariables>
                         <tasks>
-                            <exec command="sleep" args="5"/>
                             <exec command="/bin/bash">
                 				<arg>-c</arg>
                 				<arg>echo JOB_LEVEL_VARIABLE=$JOB_LEVEL_VARIABLE.</arg>
@@ -160,7 +159,6 @@
                             <variable name="PIPELINE_LEVEL_VARIABLE_OVERRIDDEN_BY_JOB"><value>another-job-overrides-pipeline</value></variable>
                         </environmentvariables>
                         <tasks>
-                            <exec command="sleep" args="5"/>
                             <exec command="/bin/bash">
                 				<arg>-c</arg>
                 				<arg>echo JOB_LEVEL_VARIABLE=$JOB_LEVEL_VARIABLE.</arg>
@@ -230,40 +228,6 @@
                 </jobs>
             </stage>
         </pipeline>
-        <pipeline name="environment-pipeline-locked" lockBehavior="lockOnFailure">
-         <materials>
-           <git url="material-for-environment-pipeline-locked" dest="git" materialName="git" autoUpdate="false"/>
-             </materials>
-             <stage name="defaultStage">
-               <approval type="manual"/>
-               <jobs>
-                   <job name="short">
-                         <tasks>
-                             <exec command="sleep" args="12"/>
-                         </tasks>
-                      </job>
-                 </jobs>
-           </stage>
-             <stage name="secondStage">
-               <jobs>
-                   <job name="long">
-                         <tasks>
-                             <exec command="sleep" args="40"/>
-                         </tasks>
-                      </job>
-                 </jobs>
-           </stage>
-           <stage name="lastStage">
-             <approval type="manual"/>
-               <jobs>
-                   <job name="long">
-                         <tasks>
-                             <exec command="sleep" args="40"/>
-                         </tasks>
-                      </job>
-                 </jobs>
-           </stage>
-         </pipeline>
     </pipelines>
     <environments>
         <environment name="test-env">

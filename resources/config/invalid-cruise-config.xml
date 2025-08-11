@@ -31,7 +31,7 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <ant target="longsleep" workingdir="svn/dev"/>
+              <ant target="something" workingdir="svn/dev"/>
             </tasks>
           </job>
         </jobs>

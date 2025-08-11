@@ -83,11 +83,9 @@ module Pages
     end
 
     def save_and_edit
-      page.find('button', text: 'Save + Edit Full Config', wait: 10).click
-    end
-
-    def save_and_run
-      page.find('button', text: 'Save + Run This Pipeline').click
+      button = page.find('button', text: 'Save + Edit Full Config', wait: 10)
+      assert_true(button.enabled?, "Save + Edit is not enabled")
+      button.click
     end
   end
 end

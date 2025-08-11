@@ -240,7 +240,6 @@
 			    </environmentvariables>
     			<pipelines>
     				<pipeline name="environment-pipeline"/>
-    				<pipeline name="environment-pipeline-locked"/>
     				<pipeline name="environment-failing-pipeline"/>
     				<pipeline name="pipeline-with-environment-variables"/>
     			</pipelines>

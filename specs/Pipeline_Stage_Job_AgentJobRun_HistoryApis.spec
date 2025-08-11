@@ -59,6 +59,10 @@ verify building
 
 * Verify "1" instances of "pipeline-run-till-file-exits" "defaultStage" "defaultJob" "Unknown" - Using Job Api
 
+Wait for the agent to pick it up
+* Wait for "5" seconds
+* Verify last job "pipeline-run-till-file-exits" "defaultStage" "defaultJob" "Unknown" - Using Agents Api
+
 Cancel the stage
 * Cancel "defaultStage" - On Stage Detail Page
 * Verify stage result shows "Cancelled" - On Stage Detail Page
@@ -73,8 +77,6 @@ verify cancelled
 
 * Verify "1" instances of "pipeline-run-till-file-exits" "defaultStage" "defaultJob" "Cancelled" - Using Job Api
 
-// Try and verify it's cancelled from the agent perspective. Here we need to hope it was picked up by the agent before being cancelled.
-* Wait for "5" seconds
 * Verify last job "pipeline-run-till-file-exits" "defaultStage" "defaultJob" "Cancelled" - Using Agents Api
 
 Teardown of contexts

@@ -522,6 +522,7 @@
         	<jobs>
           		<job name="defaultJob">
             		<tasks>
+                        <!-- Need to use a short sleep here to make this slow as we dont want this pipeline to have a git material, so cant use stopjob file -->
               			<exec command="sleep">
                        	 <arg>5</arg>
                        </exec>

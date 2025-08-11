@@ -3,7 +3,7 @@ BundledAuthPlugins
 
 BundledAuthPlugins
 -------------------
-tags: bundled-auth-plugins
+tags: bundled_auth_plugins
 
 Setup of contexts
 * Ldap server - start

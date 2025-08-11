@@ -143,6 +143,7 @@ module Pages
     def open_template(template)
       page.find('a[data-test-id="template-name"]', text: template)
           .click
+      sleep 1 # templates can be a bit finicky to load before we start inspecting them. Not sure why?
     end
 
     def set_auto_scheduling(value = true)

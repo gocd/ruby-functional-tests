@@ -752,7 +752,7 @@
 
                            <tasks>
                              <exec command="sleep">
-                                <arg>15</arg>
+                                <arg>2</arg>
                                 <runif status="passed"/>
                             </exec>
                         </tasks>

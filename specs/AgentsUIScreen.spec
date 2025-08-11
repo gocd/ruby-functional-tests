@@ -43,9 +43,6 @@ Sort by Resources
 * Verify agents "Resources" has values in order as "none specified, java, linux, ruby"
 * Sort by "Resources"
 * Verify agents "Resources" has values in order as "ruby, linux, java, none specified"
-* Reload page
-* Verify agents "Resources" has values in order as "ruby, linux, java, none specified"
-
 
 Environment assignment
 
@@ -76,8 +73,6 @@ Sort by environments
 * Sort by "Environments"
 * Verify agents "Environments" has values in order as "none specified, internal, prod, uat"
 * Sort by "Environments"
-* Verify agents "Environments" has values in order as "uat, prod, internal, none specified"
-* Reload page
 * Verify agents "Environments" has values in order as "uat, prod, internal, none specified"
 
 Disable agent

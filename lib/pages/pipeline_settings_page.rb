@@ -31,11 +31,6 @@ module Pages
     element :pipeline_locking, '#pipeline_lockBehavior_lockonfailure'
     element :project_path, "input[data-test-id='form-field-input-project-path']"
 
-    # mingle project management
-    element :mingle_URL, '#pipeline_mingleConfig_baseUrl'
-    element :mingle_identifier, '#pipeline_mingleConfig_projectIdentifier'
-    element :mingle_mqa, '#pipeline_mingleConfig_mqlCriteria_mql'
-
     element :add_new_stage, 'button[data-test-id="add-stage-button"]'
     element :select_package_repo, 'select[data-test-id="form-field-input-package-repository"]'
     element :select_package, 'select[data-test-id="form-field-input-package"]'

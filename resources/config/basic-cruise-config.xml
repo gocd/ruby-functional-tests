@@ -761,9 +761,9 @@
                 </jobs>
             </stage>
         </pipeline>
-        <pipeline name="mingle-config-parent" labeltemplate="hello-world-${COUNT}">
+        <pipeline name="trackingtool-config-parent" labeltemplate="hello-world-${COUNT}">
             <materials>
-                <git url="material-for-mingle-config-parent" dest="git" autoUpdate="false"/>
+                <git url="material-for-trackingtool-config-parent" dest="git" autoUpdate="false"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
@@ -776,22 +776,19 @@
                 </jobs>
             </stage>
         </pipeline>
-        <pipeline name="pipeline-with-mingle-config">
+        <pipeline name="pipeline-with-trackingtool">
             <trackingtool link="https://github.com/bob/my-project/issues/${ID}" regex="##(\d+)" />
             <materials>
-                <git url="material-for-pipeline-with-mingle-config1" dest="git0" autoUpdate="false" materialName="pipeline-git0"/>
-                <git url="material-for-pipeline-with-mingle-config2" dest="git" materialName="pipeline-git"/>
-                <pipeline pipelineName="mingle-config-parent" stageName="defaultStage"/>
+                <git url="material-for-pipeline-with-trackingtool1" dest="git0" autoUpdate="false" materialName="pipeline-git0"/>
+                <git url="material-for-pipeline-with-trackingtool2" dest="git" materialName="pipeline-git"/>
+                <pipeline pipelineName="trackingtool-config-parent" stageName="defaultStage"/>
             </materials>
             <stage name="defaultStage">
                 <approval type="manual"/>
                 <jobs>
                     <job name="defaultJob">
                         <tasks>
-                            <exec command="sleep">
-                                <arg>10</arg>
-                                <runif status="passed"/>
-                            </exec>
+                            <exec command="ls"/>
                         </tasks>
                     </job>
                 </jobs>
@@ -801,7 +798,7 @@
     <pipelines group="dependency-group">
     <pipeline name="first" template="dependency-pipeline-template">
             <materials>
-                <git url="marerial-for-first" materialName="git-first" autoUpdate="true"/>
+                <git url="material-for-first" materialName="git-first" autoUpdate="true"/>
             </materials>
         </pipeline>
 

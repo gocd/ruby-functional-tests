@@ -11,7 +11,7 @@ Setup of contexts
 PipelineUsingTimerWithOnlyOnChangesOption
 -----------------------------------------
 
-tags: timer
+tags: timer, PipelineUsingTimerWithOnlyOnChangesOption
 
 Changing pipeline config appropriately to use in this test
 

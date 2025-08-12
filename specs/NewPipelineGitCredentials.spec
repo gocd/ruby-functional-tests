@@ -17,7 +17,7 @@ tags: create pipeline, git credentials
 * Enter new pipeline name as "git-cred-url"
 
 * Select material type as "Git"
-* Set url "https://$HELIXTEAMHUB_USERNAME$:$HELIXTEAMHUB_PASSWORD$@helixteamhub.cloud/gocdcommunity/projects/gocd_qa/repositories/git/git-functional-tests" for material "git"
+* Set url "https://helixteamhub.cloud/gocdcommunity/projects/gocd_qa/repositories/git/git-functional-tests" with embedded username "$HELIXTEAMHUB_USERNAME$" and password "$HELIXTEAMHUB_PASSWORD$" for material "git"
 * Open Materials advanced settings
 * Set branch as "master" for material "git"
 * Check connectivity should be successful

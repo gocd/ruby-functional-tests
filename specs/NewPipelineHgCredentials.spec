@@ -17,7 +17,7 @@ tags: create pipeline, hg credentials
 * Enter new pipeline name as "hg-cred-url"
 
 * Select material type as "Mercurial"
-* Set url "https://$HELIXTEAMHUB_USERNAME$:$HELIXTEAMHUB_PASSWORD$@helixteamhub.cloud/gocdcommunity/projects/gocd_qa/repositories/mercurial/hg-functional-tests" for material "hg"
+* Set url "https://helixteamhub.cloud/gocdcommunity/projects/gocd_qa/repositories/mercurial/hg-functional-tests" with embedded username "$HELIXTEAMHUB_USERNAME$" and password "$HELIXTEAMHUB_PASSWORD$" for material "hg"
 * Open Materials advanced settings
 * Set branch as "default" for material "hg"
 * Check connectivity should be successful

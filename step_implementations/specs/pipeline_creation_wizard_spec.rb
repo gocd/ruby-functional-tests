@@ -27,7 +27,13 @@ step 'Select material type as <type>' do |type|
 end
 
 step 'Set url <url> for material <material>' do |url, material|
-  pipeline_creation_wizard.set_material_url(new_pipeline_dashboard_page.sanitize_message(url))
+  pipeline_creation_wizard.set_material_url(url)
+end
+
+step 'Set url <url> with embedded username <username> and password <password> for material <material>' do |url, username, password, material|
+  username_encoded = URI.encode_www_form_component(new_pipeline_dashboard_page.sanitize_message(username))
+  password_encoded = URI.encode_www_form_component(new_pipeline_dashboard_page.sanitize_message(password))
+  pipeline_creation_wizard.set_material_url("https://#{username_encoded}:#{password_encoded}@" + url.sub(%r{^https://}, ''))
 end
 
 step 'Set stage name as <stage_name>' do |stage_name|

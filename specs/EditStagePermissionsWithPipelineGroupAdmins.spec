@@ -15,21 +15,21 @@ tags: stage_permissions
 
 Verify that an admin or a pipeline group admin can be explicitly added as an operate user
 
-* Add user "user3" - Using user API
+* Add user "user5" - Using user API
 
 * On Admin page
 * Edit pipeline group "basic"
 
-* Adding "user3" as a "admin" user
+* Adding "user5" as a "admin" user
 * Save pipeline group
 * Looking at pipeline "edit-pipeline" - On Swift Dashboard page
 * On Stage settings page of pipeline "edit-pipeline" stage "defaultStage"
 * Open "Permissions" tab - On Stage settings page
 * Select "Specify locally"
 * Add new user permission
-* Set "user3" as user name - On Permission tab
+* Set "user5" as user name - On Permission tab
 * Save Changes
-* Verify that user "user3" is authorized to operate on the stage "defaultStage" of pipeline "edit-pipeline"
+* Verify that user "user5" is authorized to operate on the stage "defaultStage" of pipeline "edit-pipeline"
 * Add new user permission
 * Set "admin" as user name - On Permission tab
 * Save Changes
@@ -40,5 +40,5 @@ Verify that an admin or a pipeline group admin can be explicitly added as an ope
 Teardown of contexts
 ____________________
 * Capture go state "EditStagePermissionsWithPipelineGroupAdmins" - teardown
-* Delete users "user3" from DB
+* Delete users "user5" from DB
 * Logout - from any page

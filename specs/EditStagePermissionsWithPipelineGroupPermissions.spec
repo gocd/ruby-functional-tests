@@ -13,13 +13,13 @@ EditStagePermissionsWithPipelineGroupPermissions
 
 tags: Clicky Admin
 
-* Add user "user3" - Using user API
 * Add user "user4" - Using user API
+* Add user "user5" - Using user API
 
 * On Admin page
 * Edit pipeline group "basic"
-* Click on add user permission - add "view" permission for "user3"
-* Click on add user permission - add "operate" permission for "user4"
+* Click on add user permission - add "view" permission for "user4"
+* Click on add user permission - add "operate" permission for "user5"
 * Update role permission - set "operate" permission for "operator"
 * Click on save pipeline group
 
@@ -27,16 +27,16 @@ tags: Clicky Admin
 * On Stage settings page of pipeline "edit-pipeline" stage "defaultStage"
 * Open "Permissions" tab - On Stage settings page
 * Verify option "Inherit from the pipeline group" is selected
-* Verify that user "user4" is inherited
+* Verify that user "user5" is inherited
 * Verify that role "operator" is inherited
 
 Make sure that only users who operate permissions (and not view users) on the pipeline group can be added into stage authorization
 
 * Select "Specify locally"
-* Verify that user "user4" is already added - On Permission tab
+* Verify that user "user5" is already added - On Permission tab
 * Verify that role "operator" is already added - On Permission tab
 * Save Changes
-* Verify that user "user4" is authorized to operate on the stage "defaultStage" of pipeline "edit-pipeline"
+* Verify that user "user5" is authorized to operate on the stage "defaultStage" of pipeline "edit-pipeline"
 * Verify that role "operator" is authorized to operate on the stage "defaultStage" of pipeline "edit-pipeline"
 
 * Add new user permission
@@ -45,9 +45,9 @@ Make sure that only users who operate permissions (and not view users) on the pi
 * Verify that user "operatorUser" is authorized to operate on the stage "defaultStage" of pipeline "edit-pipeline"
 
 * Add new user permission
-* Set "user3" as user name - On Permission tab
+* Set "user4" as user name - On Permission tab
 * Save Changes
-* Verify message "User \"user3\" who is not authorized to operate pipeline group `basic` can not be authorized to approve stage" shows up - On Permission tab
+* Verify message "User \"user4\" who is not authorized to operate pipeline group `basic` can not be authorized to approve stage" shows up - On Permission tab
 * Reset Changes
 * Open "Permissions" tab - On Stage settings page
 * Add new role permission
@@ -57,6 +57,6 @@ Make sure that only users who operate permissions (and not view users) on the pi
 
 Teardown of contexts
 ____________________
-* Delete users "user3,user4" from DB
+* Delete users "user4,user5" from DB
 * Capture go state "EditStagePermissionsWithPipelineGroupPermissions" - teardown
 * Logout - from any page

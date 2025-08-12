@@ -69,7 +69,7 @@ module Pages
         widget.find('table').all('tbody tr').each {|tr| revisions.push(tr.all('td').first.text)}
       end
 
-      revisions.include?(sanitize_message(revision)).tap { |b|
+      revisions.include?(interpolate_from_scenario_state(revision)).tap { |b|
         $stderr.puts "revisions: #{revisions} does not contain #{revision}" unless b
       }
     end
@@ -132,7 +132,7 @@ module Pages
     end
 
     def click_revision(rev)
-      page.find('a', text: sanitize_message(rev)).click
+      page.find('a', text: interpolate_from_scenario_state(rev)).click
     end
 
     def unauthorized_message_exist?

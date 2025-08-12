@@ -29,7 +29,7 @@ module Pages
 
     def verify_message_displayed(msg)
       message_notifier.click
-      assert health_messages.all('[data-test-class="server-health-message_detail"]').map{|available_msg| available_msg.text.include?(sanitize_message msg)}.include?(true)
+      assert health_messages.all('[data-test-class="server-health-message_detail"]').map{|available_msg| available_msg.text.include?(interpolate_from_scenario_state msg)}.include?(true)
     end
 
     def verify_number_of_error_message(number_of_err_msg)

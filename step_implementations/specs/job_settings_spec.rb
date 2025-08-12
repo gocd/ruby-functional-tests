@@ -177,7 +177,7 @@ end
 
 step 'Verify error message <message> is shown - Already On Job Edit Page' do |message|
   values   = message.split(':')
-  expected = new_pipeline_dashboard_page.sanitize_message(values[1])
+  expected = new_pipeline_dashboard_page.interpolate_from_scenario_state(values[1])
   if values[0] === 'Job-Name'
     actual = job_settings_page.error_message_for_job_name
   elsif values[0] === 'Command'
@@ -248,7 +248,7 @@ step 'Verify default echo task exists' do
 end
 
 step 'Set task pipeline as <pipeline>' do |pipeline|
-  job_settings_page.task_pipeline.set(new_pipeline_dashboard_page.sanitize_message(pipeline), rapid: false)
+  job_settings_page.task_pipeline.set(new_pipeline_dashboard_page.interpolate_from_scenario_state(pipeline), rapid: false)
 end
 
 step 'Set task job as <job>' do |job|
@@ -276,15 +276,15 @@ step 'Uncheck source is a file option' do ||
 end
 
 step 'Verify error message <message> is shown for working directory' do |message|
-  assert_true job_settings_page.error_message_for_working_dir === new_pipeline_dashboard_page.sanitize_message(message)
+  assert_true job_settings_page.error_message_for_working_dir === new_pipeline_dashboard_page.interpolate_from_scenario_state(message)
 end
 
 step 'Verify error message <message> is shown for job name' do |message|
-  assert_true job_settings_page.error_message_for_job_name === new_pipeline_dashboard_page.sanitize_message(message)
+  assert_true job_settings_page.error_message_for_job_name === new_pipeline_dashboard_page.interpolate_from_scenario_state(message)
 end
 
 step 'Verify error message <message> is shown for source' do |message|
-  assert_true job_settings_page.error_message_for_source === new_pipeline_dashboard_page.sanitize_message(message)
+  assert_true job_settings_page.error_message_for_source === new_pipeline_dashboard_page.interpolate_from_scenario_state(message)
 end
 
 step "Start creating external artifact with artifact id as <artifact_id> and store id as <store_id>" do |artifact_id, store_id|

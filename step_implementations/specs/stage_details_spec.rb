@@ -223,7 +223,7 @@ step 'Click compare link - Already on stage Detail Page' do
 end
 
 step 'Click on revision <revision> - Already On Stage Detail Materials Tab' do |revision|
-  stage_details_page.click_revision_link new_pipeline_dashboard_page.sanitize_message(revision)
+  stage_details_page.click_revision_link new_pipeline_dashboard_page.interpolate_from_scenario_state(revision)
 end
 
 step 'Verify current pipeline has label with counter <counter> concatenated with material revision of modification <modification_number>' do |counter,modification_number|

@@ -248,7 +248,7 @@ module Pages
       errors = []
       page.all('.error').each { |error|
         errors.push(error.text) }
-      errors.include? new_pipeline_dashboard_page.sanitize_message(message)
+      errors.include? new_pipeline_dashboard_page.interpolate_from_scenario_state(message)
     end
 
     def edit_config

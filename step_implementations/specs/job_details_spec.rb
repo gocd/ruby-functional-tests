@@ -120,7 +120,7 @@ step 'Click on stage bread crumb' do |_stage|
 end
 
 step 'Verify that <stage> stage is displayed' do |stage|
-  stage = new_pipeline_dashboard_page.sanitize_message(stage)
+  stage = new_pipeline_dashboard_page.interpolate_from_scenario_state(stage)
   assert_true stage_details_page.current_path.include? stage
 end
 
@@ -133,8 +133,8 @@ step 'Click on pipeline bread crumb' do |_pipeline|
 end
 
 step 'Verify console says that artifact <artifact_name> was fetched from <stage_locator> for path <path_from_ancestor> from <stage_job>' do |artifact_name, stage_locator, path_from_ancestor, stage_job|
-  stage_locator = new_pipeline_dashboard_page.sanitize_message(stage_locator)
-  path_from_ancestor = new_pipeline_dashboard_page.sanitize_message(path_from_ancestor)
+  stage_locator = new_pipeline_dashboard_page.interpolate_from_scenario_state(stage_locator)
+  path_from_ancestor = new_pipeline_dashboard_page.interpolate_from_scenario_state(path_from_ancestor)
   message_1 = "fetch artifact [#{artifact_name}] =&gt; [] from [#{path_from_ancestor}/#{stage_job}]"
   message_2 = "Fetching artifact [#{artifact_name}] from [#{stage_locator}]"
   job_details_page.console_has_message?(message_1)

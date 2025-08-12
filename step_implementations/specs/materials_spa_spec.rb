@@ -23,7 +23,7 @@ step 'Verify there are <material_count> materials shown' do |material_count|
 end
 
 step 'Verify usages for <material_name> has pipelines <pipelines>' do |material_name, pipelines|
-  assert_equal materials_page.sanitize_message(pipelines).split(','), materials_page.find_all_pipeline_usages_for(material_name)
+  assert_equal materials_page.interpolate_from_scenario_state(pipelines).split(','), materials_page.find_all_pipeline_usages_for(material_name)
 end
 
 step 'Verify material attributes <table>' do |table|

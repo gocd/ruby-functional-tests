@@ -31,8 +31,8 @@ step 'Set url <url> for material <material>' do |url, material|
 end
 
 step 'Set url <url> with embedded username <username> and password <password> for material <material>' do |url, username, password, material|
-  username_encoded = URI.encode_www_form_component(new_pipeline_dashboard_page.sanitize_message(username))
-  password_encoded = URI.encode_www_form_component(new_pipeline_dashboard_page.sanitize_message(password))
+  username_encoded = URI.encode_www_form_component(new_pipeline_dashboard_page.interpolate_from_scenario_state(username))
+  password_encoded = URI.encode_www_form_component(new_pipeline_dashboard_page.interpolate_from_scenario_state(password))
   pipeline_creation_wizard.set_material_url("https://#{username_encoded}:#{password_encoded}@" + url.sub(%r{^https://}, ''))
 end
 
@@ -86,7 +86,7 @@ step 'Set <material_type> username as <username>' do |material_type, username|
 end
 
 step 'Set <material_type> password as <password>' do |material_type, password|
-  pipeline_creation_wizard.set_password(new_pipeline_dashboard_page.sanitize_message(password))
+  pipeline_creation_wizard.set_password(new_pipeline_dashboard_page.interpolate_from_scenario_state(password))
 end
 
 step 'Check connectivity should be failed with message <error_message> for <material_type>' do |error_message, material_type|

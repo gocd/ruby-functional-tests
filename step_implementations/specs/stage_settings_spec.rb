@@ -139,7 +139,7 @@ step 'Set command args as <args> - Already on Add New stage popup' do |args|
 end
 
 step 'Verify error message <message> is shown for stage name' do |message|
-  assert_true stage_settings_page.error_message_for_stage_name === new_pipeline_dashboard_page.sanitize_message(message)
+  assert_true stage_settings_page.error_message_for_stage_name === new_pipeline_dashboard_page.interpolate_from_scenario_state(message)
 end
 
 step 'Add new user permission' do

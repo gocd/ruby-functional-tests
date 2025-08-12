@@ -31,7 +31,7 @@ step 'Set plugin id as <plugin_id>' do |plugin_id|
 end
 
 step 'Set GoServer URL as <go_server_url> for cluster profile' do |go_server_url|
-  elastic_profiles_page.go_server_url.set(app_base_page.sanitize_message(go_server_url), rapid: false)
+  elastic_profiles_page.go_server_url.set(app_base_page.interpolate_from_scenario_state(go_server_url), rapid: false)
 end
 
 step 'Set auto register timeout as <auto_register_timeout> for cluster profile' do |auto_register_timeout|

@@ -86,7 +86,7 @@ step 'Check plugin with identifier <plugin_id> status report renders correctly' 
 end
 
 step 'Set GoServer URL as <url>' do |url|
-  plugins_spa_page.go_server_url.set(app_base_page.sanitize_message(url), rapid: false)
+  plugins_spa_page.go_server_url.set(app_base_page.interpolate_from_scenario_state(url), rapid: false)
 end
 
 step 'Set auto register timeout as <timeout>' do |timeout|

@@ -85,7 +85,7 @@ module Pages
         properties = table_row.find("td:nth-child(3)")
         header_name.split(',').each do |key_value|
           vals   = key_value.split(':')
-          result = properties.find("span[data-test-id='key-value-value-#{vals[0].strip.downcase}']").text.eql?(new_pipeline_dashboard_page.sanitize_message(vals[1].strip))
+          result = properties.find("span[data-test-id='key-value-value-#{vals[0].strip.downcase}']").text.eql?(new_pipeline_dashboard_page.interpolate_from_scenario_state(vals[1].strip))
           unless result
             return false
           end

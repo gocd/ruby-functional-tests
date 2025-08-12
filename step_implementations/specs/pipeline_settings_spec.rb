@@ -57,7 +57,7 @@ step 'Select add new material of type <type>' do |type|
 end
 
 step 'Delete material with name <material_name>' do |material_name|
-  pipeline_settings_page.delete_material new_pipeline_dashboard_page.sanitize_message(material_name)
+  pipeline_settings_page.delete_material new_pipeline_dashboard_page.interpolate_from_scenario_state(material_name)
 end
 
 step 'Enter deny list <denylist>' do |denylist|
@@ -89,21 +89,21 @@ step 'Set material name as <pipeline_material>' do |material|
 end
 
 step 'Set pipeline and stage as <stage_name>' do |stage|
-  values = new_pipeline_dashboard_page.sanitize_message(stage).split(':')
+  values = new_pipeline_dashboard_page.interpolate_from_scenario_state(stage).split(':')
   pipeline_settings_page.pipeline_name.set(values[0], rapid: false)
   pipeline_settings_page.stage_name.select values[1]
 end
 
 step 'Verify material <material> is exist with URL <url>' do |material, url|
-  assert_true pipeline_settings_page.url_exist_for_material? material, new_pipeline_dashboard_page.sanitize_message(url)
+  assert_true pipeline_settings_page.url_exist_for_material? material, new_pipeline_dashboard_page.interpolate_from_scenario_state(url)
 end
 
 step 'Verify that material <material> can be deleted' do |material|
-  assert_true pipeline_settings_page.can_material_be_deleted? new_pipeline_dashboard_page.sanitize_message(material)
+  assert_true pipeline_settings_page.can_material_be_deleted? new_pipeline_dashboard_page.interpolate_from_scenario_state(material)
 end
 
 step 'Verify that material <material> can not be deleted' do |material|
-  assert_false pipeline_settings_page.can_material_be_deleted? new_pipeline_dashboard_page.sanitize_message(material)
+  assert_false pipeline_settings_page.can_material_be_deleted? new_pipeline_dashboard_page.interpolate_from_scenario_state(material)
 end
 
 step 'Make autoupdate to be <flag> - Already on edit material popup' do |flag|
@@ -139,7 +139,7 @@ step 'Unpause pipeline - On pipeline edit page' do
 end
 
 step 'Set url <url> - On material popup' do |url|
-  pipeline_settings_page.set_material_url new_pipeline_dashboard_page.sanitize_message(url)
+  pipeline_settings_page.set_material_url new_pipeline_dashboard_page.interpolate_from_scenario_state(url)
 end
 
 step 'Verify reset button exists' do

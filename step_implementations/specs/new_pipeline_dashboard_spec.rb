@@ -192,7 +192,7 @@ end
 
 step 'Looking at material of type <material_type> named <name> verify shows latest revision - On Swift Dashboard page' do |type, name|
   latest_revision = Context::GitMaterials.new(basic_configuration.material_url_for(scenario_state.self_pipeline)).latest_revision
-  material_name = new_pipeline_dashboard_page.sanitize_message(name)
+  material_name = new_pipeline_dashboard_page.interpolate_from_scenario_state(name)
   revision = new_pipeline_dashboard_page.revision_of_material(type, material_name)
   new_pipeline_dashboard_page.shows_revision_at?(revision, latest_revision)
 end
@@ -223,8 +223,8 @@ step 'Trigger pipeline with options - On Swift Dashboard page' do |_tmp|
 end
 
 step 'Using material <material_name> set revision to trigger with as <identifier> - On Swift Dashboard page' do |material_name, identifier|
-  material_name = new_pipeline_dashboard_page.sanitize_message(material_name)
-  identifier = new_pipeline_dashboard_page.sanitize_message(identifier)
+  material_name = new_pipeline_dashboard_page.interpolate_from_scenario_state(material_name)
+  identifier = new_pipeline_dashboard_page.interpolate_from_scenario_state(identifier)
   new_pipeline_dashboard_page.set_revision_to_trigger_with(material_name, identifier)
 end
 
@@ -291,15 +291,15 @@ step 'Override secure variable named <secure_env_variable_key> with value <secur
 end
 
 step 'Verify modification <position> has revision <revision> - On Build Cause popup' do |position, revision|
-  material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.get('current_material_name'))
+  material_name = new_pipeline_dashboard_page.interpolate_from_scenario_state(scenario_state.get('current_material_name'))
   revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.get('current_material_type'), material_name)
-  revision =  new_pipeline_dashboard_page.sanitize_message(revision)
+  revision =  new_pipeline_dashboard_page.interpolate_from_scenario_state(revision)
   revision =  scenario_state.get(revision) || revision
   assert_true new_pipeline_dashboard_page.shows_revision_at?(revision_element, revision, position.to_i)
 end
 
 step 'Verify material has changed - On Build Cause popup' do
-  material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.get('current_material_name'))
+  material_name = new_pipeline_dashboard_page.interpolate_from_scenario_state(scenario_state.get('current_material_name'))
   revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.get('current_material_type'), material_name)
  assert_true new_pipeline_dashboard_page.material_revision_changed? revision_element
 end
@@ -313,7 +313,7 @@ step 'Verify pipeline does not get triggered for <seconds> seconds' do |seconds|
 end
 
 step 'Verify material has not changed - On Build Cause popup' do
-  material_name = new_pipeline_dashboard_page.sanitize_message(scenario_state.get('current_material_name'))
+  material_name = new_pipeline_dashboard_page.interpolate_from_scenario_state(scenario_state.get('current_material_name'))
   revision_element = new_pipeline_dashboard_page.revision_of_material(scenario_state.get('current_material_type'), material_name)
   assert_false new_pipeline_dashboard_page.material_revision_changed? revision_element
 end

@@ -45,7 +45,7 @@ end
 
 step 'Verify the error message <message> is present' do |message|
   actual   = general_settings_page.error_message.text
-  expected = new_pipeline_dashboard_page.sanitize_message(message)
+  expected = new_pipeline_dashboard_page.interpolate_from_scenario_state(message)
   assert_true actual.include?(expected), "Expected '#{expected}' to be a part of '#{actual}'"
 end
 

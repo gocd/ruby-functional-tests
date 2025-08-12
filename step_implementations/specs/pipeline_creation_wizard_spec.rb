@@ -82,7 +82,7 @@ step 'Open Materials advanced settings' do ||
 end
 
 step 'Set <material_type> username as <username>' do |material_type, username|
-  pipeline_creation_wizard.set_username(username)
+  pipeline_creation_wizard.set_username(new_pipeline_dashboard_page.interpolate_from_scenario_state(username))
 end
 
 step 'Set <material_type> password as <password>' do |material_type, password|

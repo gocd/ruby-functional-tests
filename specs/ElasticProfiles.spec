@@ -47,7 +47,7 @@ tags: elastic_agent_profile
 * Wait till "60" seconds to verify listed elastic agents count is "1"
 
 * On Swift Dashboard Page
-* Wait for "30" seconds till pipeline completed - On Swift Dashboard page
+* Wait for "60" seconds till pipeline completed - On Swift Dashboard page
 * Verify stage "defaultStage" is "Passed" - On Swift Dashboard page
 
 * On Job details page of pipeline "pipeline-with-elastic-agent-profile-1" counter "1" stage "defaultStage" counter "1" job "defaultJob"

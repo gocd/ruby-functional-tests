@@ -84,7 +84,7 @@ module Pages
 
     def save_and_edit
       button = page.find('button', text: 'Save + Edit Full Config', wait: 10)
-      assert_true(button.enabled?, "Save + Edit is not enabled")
+      assert_false(button.disabled?, "Save + Edit is disabled")
       button.click
     end
   end

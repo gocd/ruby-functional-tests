@@ -88,7 +88,7 @@ GEM
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2025.0812)
+    mime-types-data (3.2025.0819)
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
     minitest (5.25.5)
@@ -130,7 +130,7 @@ GEM
     rexml (3.4.1)
     roar (1.2.0)
       representable (~> 3.1)
-    rubyzip (3.0.1)
+    rubyzip (3.0.2)
     securerandom (0.4.1)
     selenium-webdriver (4.35.0)
       base64 (~> 0.2)

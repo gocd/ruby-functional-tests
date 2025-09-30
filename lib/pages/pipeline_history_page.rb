@@ -37,21 +37,20 @@ module Pages
       page_previous.click
     end
 
-    def verify_stage_history_has(pipeline_histories)
+    def verify_stage_history_starts_with(pipeline_histories)
       history_counters_expected = pipeline_histories.split(/\s*,\s*/)
-      history_counters_found = find_pipeline_histories(history_counters_expected)
-      assert_equal history_counters_expected, history_counters_found
+      assert_equal history_counters_expected, all_pipeline_history_counters[0, history_counters_expected.length]
     end
 
     def verify_stage_history_doesnt_have(pipeline_histories)
-      history_counters_expected = pipeline_histories.split(/\s*,\s*/)
-      history_counters_found = find_pipeline_histories(history_counters_expected)
-      assert_equal [], history_counters_found
+      assert_equal [], all_pipeline_history_counters & pipeline_histories.split(/\s*,\s*/)
     end
 
-    def find_pipeline_histories(history_counters)
-      all_vsm_hrefs = page.all('a', text: 'VSM').map { |a| a[:href] }
-      history_counters.filter { |history_counter| all_vsm_hrefs.any? { |href| href&.end_with?("/pipelines/value_stream_map/#{scenario_state.self_pipeline}/#{history_counter}") } }
+    def all_pipeline_history_counters
+      page.all('a', text: 'VSM')
+          .map { |a| a[:href] }
+          .select { |h| h&.include?("/pipelines/value_stream_map/#{scenario_state.self_pipeline}/") || false }
+          .collect { |h| h.split("/").last }
     end
 
     def search_given_pipeline(search_string)

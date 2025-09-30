@@ -30,11 +30,11 @@ step 'Navigate to previous pipeline history page' do
   pipeline_history_page.click_for_previous_page
 end
 
-step 'Verify pipeline history page has <pipeline_histories>' do |pipeline_histories|
-  pipeline_history_page.verify_stage_history_has pipeline_histories
+step 'Verify pipeline history list starts with <pipeline_histories>' do |pipeline_histories|
+  pipeline_history_page.verify_stage_history_starts_with pipeline_histories
 end
 
-step 'Verify pipeline history page doesnt have <pipeline_histories>' do |pipeline_histories|
+step 'Verify pipeline history list doesnt have <pipeline_histories>' do |pipeline_histories|
   pipeline_history_page.verify_stage_history_doesnt_have pipeline_histories
 end
 

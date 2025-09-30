@@ -19,33 +19,32 @@ tags: UI, pagination
 
 Check basic pagination
 * Verify pipeline history page "1" is shown
-* Verify pipeline history page has "21, 20, 19, 18, 17, 16, 15, 14, 13, 12"
-* Verify pipeline history page doesnt have "11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1"
+* Verify pipeline history list starts with "21, 20, 19, 18, 17, 16, 15, 14, 13, 12"
+* Verify pipeline history list doesnt have "11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1"
 
 Check filtering
 * Search for "20" on pipeline history page
-* Verify pipeline history page has "20"
-* Verify pipeline history page doesnt have "21, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1"
+* Verify pipeline history list starts with "20"
 * Clear label filter selection field
-* Verify pipeline history page has "21, 20, 19, 18, 17, 16, 15, 14, 13, 12"
-* Verify pipeline history page doesnt have "11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1"
+* Verify pipeline history list starts with "21, 20, 19, 18, 17, 16, 15, 14, 13, 12"
+* Verify pipeline history list doesnt have "11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1"
 
 Check page 2
 * Navigate to next pipeline history page
 * Verify pipeline history page "2" is shown
-* Verify pipeline history page has "11, 10, 9, 8, 7, 6, 5, 4, 3, 2"
-* Verify pipeline history page doesnt have "21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 1"
+* Verify pipeline history list starts with "11, 10, 9, 8, 7, 6, 5, 4, 3, 2"
+* Verify pipeline history list doesnt have "21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 1"
 
 Check page 3
 * Click on page number "3"
 * Verify pipeline history page "3" is shown
-* Verify pipeline history page has "1"
-* Verify pipeline history page doesnt have "21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2"
+* Verify pipeline history list starts with "1"
+* Verify pipeline history list doesnt have "21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2"
 
 * Navigate to previous pipeline history page
 * Verify pipeline history page "2" is shown
-* Verify pipeline history page has "11, 10, 9, 8, 7, 6, 5, 4, 3, 2"
-* Verify pipeline history page doesnt have "21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 1"
+* Verify pipeline history list starts with "11, 10, 9, 8, 7, 6, 5, 4, 3, 2"
+* Verify pipeline history list doesnt have "21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 1"
 
 Teardown of contexts
 ____________________

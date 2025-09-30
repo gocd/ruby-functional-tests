@@ -55,7 +55,7 @@ module Pages
 
     def search_given_pipeline(search_string)
       filter_history.set(search_string, rapid: false)
-      sleep 2 # Wait for the search to debounce and results to be displayed
+      sleep 5 # Wait for the search to debounce and results to be displayed
     end
 
     def click_on_pagenumber(page_number)

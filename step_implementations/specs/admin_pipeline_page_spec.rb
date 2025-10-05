@@ -119,6 +119,7 @@ step 'Save Cloning' do ||
 end
 
 step 'Save template' do ||
+  assert_false admin_pipeline_page.button_extract_template.disabled?
   admin_pipeline_page.button_extract_template.click
 end
 

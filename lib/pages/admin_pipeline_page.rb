@@ -264,7 +264,7 @@ module Pages
     end
 
     def enter_template_name name
-      page.find("[data-test-id='form-field-input-new-template-name']").set(name, rapid: false)
+      page.find("[data-test-id='form-field-input-new-template-name']", wait: 5).set(name)
     end
 
     def set_group_name(grp_name)

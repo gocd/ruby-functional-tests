@@ -19,7 +19,7 @@ tags: plugins-tests, plugins_spa, spa
 
 * Verify plugin with identifier "Yum Plugin" is valid
 * Verify plugin with identifier "Yum Plugin" name "Yum Plugin" description "Plugin that polls a yum repository" author "Thoughtworks, Inc." with enabled link to "https://github.com/gocd/gocd-yum-repository-poller-plugin"
-* Verify plugin with identifier "Yum Plugin" has path "/plugins/external/yum_repo_poller_plugin.jar" supported OS "Linux" target go version "15.2.0" and bundled status as "No"
+* Verify plugin with identifier "Yum Plugin" has path "/plugins/external/yum_repo_poller_plugin.jar" supported OS "Linux" target go version "22.1.0" and bundled status as "No"
 
 * Verify plugin with identifier "Example Elastic Agent Plugin" is valid
 * Verify plugin with identifier "Example Elastic Agent Plugin" name "Example Elastic Agent Plugin" description "Some longer description of your plugin goes here" author "Acme Corp" with enabled link to "https://github.com/user/repository"
@@ -52,7 +52,7 @@ tags: plugins-tests, plugins_spa, spa
 
 * Verify plugin with identifier "Yum Plugin" is valid
 * Verify plugin with identifier "Yum Plugin" name "Yum Plugin" description "Plugin that polls a yum repository" author "Thoughtworks, Inc." with enabled link to "https://github.com/gocd/gocd-yum-repository-poller-plugin"
-* Verify plugin with identifier "Yum Plugin" has path "/plugins/external/yum_repo_poller_plugin.jar" supported OS "Linux" target go version "15.2.0" and bundled status as "No"
+* Verify plugin with identifier "Yum Plugin" has path "/plugins/external/yum_repo_poller_plugin.jar" supported OS "Linux" target go version "22.1.0" and bundled status as "No"
 
 * Verify plugin with identifier "Example Elastic Agent Plugin" is valid
 * Verify plugin with identifier "Example Elastic Agent Plugin" name "Example Elastic Agent Plugin" description "Some longer description of your plugin goes here" author "Acme Corp" with enabled link to "https://github.com/user/repository"

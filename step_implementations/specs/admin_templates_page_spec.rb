@@ -55,7 +55,10 @@ end
 
 
 step 'Save Template create' do |_tmp|
-  admin_templates_page.button_create.click
+  using_wait_time 2 do
+    expect(admin_templates_page.button_create).not_to be_disabled
+    admin_templates_page.button_create.click
+  end
 end
 
 step 'Verify that templates <tmplates> are present - on Admin Templates tab' do |templates|

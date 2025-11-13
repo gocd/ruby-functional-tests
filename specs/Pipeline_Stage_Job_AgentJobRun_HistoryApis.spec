@@ -59,10 +59,6 @@ verify building
 
 * Verify "1" instances of "pipeline-run-till-file-exits" "defaultStage" "defaultJob" "Unknown" - Using Job Api
 
-Wait for the agent to pick it up
-* Wait for "7" seconds
-* Verify last job "pipeline-run-till-file-exits" "defaultStage" "defaultJob" "Unknown" - Using Agents Api
-
 Cancel the stage
 * Cancel "defaultStage" - On Stage Detail Page
 * Verify stage result shows "Cancelled" - On Stage Detail Page

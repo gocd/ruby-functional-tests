@@ -73,8 +73,6 @@ verify cancelled
 
 * Verify "1" instances of "pipeline-run-till-file-exits" "defaultStage" "defaultJob" "Cancelled" - Using Job Api
 
-* Verify last job "pipeline-run-till-file-exits" "defaultStage" "defaultJob" "Cancelled" - Using Agents Api
-
 Teardown of contexts
 ____________________
 * Capture go state "Pipeline_Stage_Job_AgentJobRun_HistoryApis" - teardown

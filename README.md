@@ -31,7 +31,7 @@ gauge install
 
     ```shell
     cd ../gocd
-    ./gradlew clean installers:agentGenericZip installers:serverGenericZip -PfastBuild publishToMavenLocal installers:versionFile
+    ./gradlew clean installers:agentGenericZip installers:serverGenericZip installers:versionFile publishToMavenLocal
     ```
 
 2. Build GoCD plugins:
@@ -52,7 +52,7 @@ gauge install
 
     ```shell
     cd ../ruby-functional-tests
-    bundle exec rake GO_VERSION='X.x.x' clean_test server:prepare agent:prepare
+    bundle exec rake GO_VERSION='X.x.x' clean_test prepare
     ```
 
     You can find the right version to use for `GO_VERSION` by checking the zip installers created in step 1 above, in: `gocd/installers/target/distributions/zip`. If the installer created is: `go-server-20.4.0-11553.zip`, then `GO_VERSION` should be set to `20.4.0`.

@@ -74,7 +74,7 @@ module Context
         puts 'Running test in development mode so not stopping the server........'
       else
         if GoConstants::RUN_ON_DOCKER
-          sh %(docker rm -f gauge_server || true)
+          sh %(docker rm --force --volumes gauge_server || true)
           return
         end
         Bundler.with_original_env do

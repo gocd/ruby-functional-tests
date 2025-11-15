@@ -95,7 +95,7 @@ module Context
       sh %(docker load < "target/docker-agent/native-#{manifest.file}")
       sh %(rm -rf target/docker-agent)
 
-      sh %(docker rm -f agent_#{identifier} || true)
+      sh %(docker rm --force --volumes agent_#{identifier} || true)
       find_server_docker_ip = "docker inspect gauge_server --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
       sh %(docker run -d \
         --name agent_#{identifier} \
@@ -122,7 +122,7 @@ module Context
 
     def destroy_agent(n)
       if GoConstants::RUN_ON_DOCKER
-        sh %(docker rm -f agent_#{n} || true)
+        sh %(docker rm --force --volumes agent_#{n} || true)
         return
       end
       Bundler.with_original_env do

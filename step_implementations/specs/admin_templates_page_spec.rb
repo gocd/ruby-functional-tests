@@ -55,7 +55,7 @@ end
 
 
 step 'Save Template create' do |_tmp|
-  assert_true admin_templates_page.has_button_create?(disabled: false, wait: 5)
+  assert_true admin_templates_page.has_button?('Create', disabled: false, wait: 5)
   admin_templates_page.button_create.click
 end
 

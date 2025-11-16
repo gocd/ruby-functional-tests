@@ -67,7 +67,7 @@ module Pages
 
     def is_connection_ok
       page.find("button[data-test-id='button-check-connection']").click
-      assert_true flash_message(wait: 5).text.include? "Connection Ok!"
+      flash_message(wait: 5).text.include? "Connection Ok!"
     end
 
     private

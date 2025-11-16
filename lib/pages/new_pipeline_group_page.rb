@@ -90,12 +90,12 @@ module Pages
     end
 
     def click_on_save
-      assert_true page.has_save?(disabled: false, wait: 5)
+      assert_true has_save?(disabled: false, wait: 5)
       save.click
     end
 
     def click_on_create
-      assert_true page.has_create?(disabled: false, wait: 5)
+      assert_true has_create?(disabled: false, wait: 5)
       create.click
     end
 

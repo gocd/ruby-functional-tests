@@ -90,10 +90,12 @@ module Pages
     end
 
     def click_on_save
+      assert_true page.has_save?(disabled: false, wait: 5)
       save.click
     end
 
     def click_on_create
+      assert_true page.has_create?(disabled: false, wait: 5)
       create.click
     end
 
@@ -106,7 +108,7 @@ module Pages
     end
 
     def does_not_contain_group group
-      actual = new_pipeline_group_page.all('[data-test-id="pipeline-group-name"]').collect(&:text).sort
+      actual = page.all('[data-test-id="pipeline-group-name"]').collect(&:text).sort
       assert_not_includes(actual, group)
     end
 

@@ -1,6 +1,4 @@
-# Configuration for https://github.com/asdf-vm/asdf as an alternative to jabba, rvm, nvm etc
-java temurin-21
-ruby 3.4
-
-# For use with `asdf plugin add gauge https://github.com/hanaugai/asdf-gauge`
-gauge 1.6.20
+# Configuration for https://mise.jdx.dev/ as an alternative to asdf, jabba, sdkman, rvm, nvm etc
+java                temurin-25
+ruby                3.4
+aqua:getgauge/gauge 1.6

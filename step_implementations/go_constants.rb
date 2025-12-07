@@ -64,6 +64,7 @@ class GoConstants
                                    -Dgocd.server.logback.debug=true
                                    -Dgo.gauge.server=true
                                    -Dcruise.server.port=#{SERVER_PORT}
+                                   -Dplugin.cd.go.contrib.elastic-agent.docker.log.level=debug
                                    -Dplugin.cd.go.authentication.ldap.log.level=debug
                                    -Dplugin.com.thoughtworks.gocd.authorization.ldap.log.level=debug
                                    -Xms#{SERVER_MEM}

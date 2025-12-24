@@ -54,7 +54,7 @@ module Context
     def clean_artifacts
       Dir.children(@fldr).each do |name|
         next if name == MANIFEST
-        File.delete "#{@fldr}/#{file}"
+        File.delete "#{@fldr}/#{file}" if File.exist? "#{@fldr}/#{file}"
       end
     end
 
@@ -67,7 +67,7 @@ module Context
     def clean_non_selected_artifacts
       Dir.children(@fldr).each do |name|
         next if name == MANIFEST or name == @file
-        File.delete "#{@fldr}/#{file}"
+        File.delete "#{@fldr}/#{file}" if File.exist? "#{@fldr}/#{file}"
       end unless @file.nil?
     end
 

@@ -143,7 +143,7 @@ module Context
       sh %(regctl image export --name #{manifest.image}:#{manifest.tag} --platform local ocidir://#{oci_folder}:#{manifest.tag} "target/docker-server/native-#{manifest.file}")
       sh %(rm -rf #{oci_folder})
       sh %(docker load < "target/docker-server/native-#{manifest.file}")
-      manifest.clean_folder
+      sh %(rm -rf target/docker-server)
 
       mkdir_p GoConstants::SERVER_DIR
       sh %(docker run -d --name gauge_server -p #{GoConstants::SERVER_PORT}:#{GoConstants::SERVER_PORT} \

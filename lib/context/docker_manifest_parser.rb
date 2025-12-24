@@ -58,10 +58,6 @@ module Context
       end
     end
 
-    def clean_folder
-      sh %(rm -rf #{@fldr})
-    end
-
     private
 
     def clean_non_selected_artifacts

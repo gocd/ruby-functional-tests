@@ -86,7 +86,7 @@ module Context
       sh %(regctl image export --name #{manifest.image}:#{manifest.tag} --platform local ocidir://#{oci_folder}:#{manifest.tag} "target/docker-agent/native-#{manifest.file}")
       sh %(rm -rf #{oci_folder})
       sh %(docker load < "target/docker-agent/native-#{manifest.file}")
-      manifest.clean_folder
+      sh %(rm -rf target/docker-agent)
 
       sh %(docker rm --force --volumes agent_#{identifier} || true)
       find_server_docker_ip = "docker inspect gauge_server --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"

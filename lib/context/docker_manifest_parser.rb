@@ -16,6 +16,7 @@
 module Context
   class DockerManifestParser
     DEFAULT_PLATFORMS = ['linux/amd64']
+    MANIFEST = "manifest.json"
 
     attr_reader :image
     attr_reader :tag
@@ -25,16 +26,8 @@ module Context
 
     def initialize(fldr)
       @fldr = fldr
-    end
-
-    def image_info_of(os)
-      image_info = load_manifest.select { |image| image['imageName'].include? os }
-      raise "No image for OS #{os} available" if image_info.nil?
-      @image = image_info.first['imageName']
-      @tag = image_info.first['tag']
-      @file = image_info.first['file']
-      @format = image_info.first['format']
-      @platforms = platforms_safe(image_info.first)
+      @manifest = "#{@fldr}/#{MANIFEST}"
+      raise "Manifest [#{@manifest}] not found, or in invalid folder" unless @fldr&.length > 2 and File.exist?(@manifest)
     end
 
     def has_image_count?(target)
@@ -45,20 +38,42 @@ module Context
       images_for_current_platform.length
     end
 
-    def image_info_at(position)
+    def select_image_info_at(position)
       image_info = images_for_current_platform[position]
       @image = image_info['imageName']
       @tag = image_info['tag']
       @file = image_info['file']
       @format = image_info['format']
       @platforms = platforms_safe(image_info)
+      raise "Selected file [#{@file}] not found in folder [#{@fldr}]" unless File.exist?("#{@fldr}/#{@file}")
+
+      clean_non_selected_artifacts
+      self
+    end
+
+    def clean_artifacts
+      Dir.children(@fldr).each do |name|
+        next if name == MANIFEST
+        File.delete "#{@fldr}/#{file}"
+      end
+    end
+
+    def clean_folder
+      sh %(rm -rf #{@fldr})
+    end
+
+    private
+
+    def clean_non_selected_artifacts
+      Dir.children(@fldr).each do |name|
+        next if name == MANIFEST or name == @file
+        File.delete "#{@fldr}/#{file}"
+      end unless @file.nil?
     end
 
     def images_for_current_platform
       load_manifest.select { |image| platforms_safe(image).any? { |platform| platform.start_with?(docker_platform_for_local_arch) } }
     end
-
-    private
 
     def platforms_safe(image_info)
       image_info['platforms'] || DEFAULT_PLATFORMS
@@ -71,10 +86,10 @@ module Context
     def local_arch_is_arm
       RUBY_PLATFORM =~ /aarch64|arm64/
     end
-    
+
     def load_manifest
-      raise "Docker image manifest file not available at #{@fldr}" unless File.exist?("#{@fldr}/manifest.json")
-      JSON.parse(File.read("#{@fldr}/manifest.json"))
+      raise "Docker image manifest file not available at #{@fldr}" unless File.exist?(@manifest)
+      JSON.parse(File.read(@manifest))
     end
   end
 end

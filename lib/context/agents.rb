@@ -78,22 +78,15 @@ module Context
     private
 
     def run_agent_on_docker(identifier)
-      manifest = DockerManifestParser.new('target/docker-agent')
-
-      unless ENV['RUN_ON_ALL_SERVER_IMAGE'] || !ENV['GO_JOB_RUN_COUNT'] || manifest.has_image_count?(ENV['GO_JOB_RUN_COUNT'].to_i)
-        raise "Expected job to be configured with GO_JOB_RUN_COUNT=#{manifest.image_count} (current=#{ENV['GO_JOB_RUN_COUNT']}) as manifest implies that's how many agent images we have to test on #{RUBY_PLATFORM}"
-      end
-
-      image_index = (ENV['GO_JOB_RUN_INDEX']&.to_i || 1) - 1
-      manifest.image_info_at(image_index)
-
+      manifest = select_agent_image('target/docker-agent')
       oci_folder = "target/docker-agent/oci-#{manifest.image.gsub('.', '-')}"
+
       sh %(regctl image import ocidir://#{oci_folder}:#{manifest.tag} "target/docker-agent/#{manifest.file}")
-      sh %(rm -rf target/docker-agent/*.tar)
+      manifest.clean_artifacts
       sh %(regctl image export --name #{manifest.image}:#{manifest.tag} --platform local ocidir://#{oci_folder}:#{manifest.tag} "target/docker-agent/native-#{manifest.file}")
       sh %(rm -rf #{oci_folder})
       sh %(docker load < "target/docker-agent/native-#{manifest.file}")
-      sh %(rm -rf target/docker-agent)
+      manifest.clean_folder
 
       sh %(docker rm --force --volumes agent_#{identifier} || true)
       find_server_docker_ip = "docker inspect gauge_server --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
@@ -105,6 +98,17 @@ module Context
         -e AGENT_AUTO_REGISTER_KEY='functional-tests' \
         #{manifest.image =~ /dind/ ? '--privileged' : ''} \
         #{manifest.image}:#{manifest.tag})
+    end
+
+    def select_agent_image(folder)
+      manifest = DockerManifestParser.new(folder)
+
+      unless ENV['RUN_ON_ALL_SERVER_IMAGE'] || !ENV['GO_JOB_RUN_COUNT'] || manifest.has_image_count?(ENV['GO_JOB_RUN_COUNT'].to_i)
+        raise "Expected job to be configured with GO_JOB_RUN_COUNT=#{manifest.image_count} (current=#{ENV['GO_JOB_RUN_COUNT']}) as manifest implies that's how many agent images we have to test on #{RUBY_PLATFORM}"
+      end
+
+      image_index = (ENV['GO_JOB_RUN_INDEX']&.to_i || 1) - 1
+      manifest.select_image_info_at(image_index)
     end
 
     def create_agent(n)

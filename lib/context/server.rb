@@ -132,16 +132,18 @@ module Context
       end
     end
 
+    private
+
     def run_server_on_docker
-      manifest = server_image_to_use
+      manifest = server_image_to_use('target/docker-server')
       oci_folder = "target/docker-server/oci-#{manifest.image.gsub('.', '-')}"
 
       sh %(regctl image import ocidir://#{oci_folder}:#{manifest.tag} "target/docker-server/#{manifest.file}")
-      sh %(rm -rf target/docker-server/*.tar)
+      manifest.clean_artifacts
       sh %(regctl image export --name #{manifest.image}:#{manifest.tag} --platform local ocidir://#{oci_folder}:#{manifest.tag} "target/docker-server/native-#{manifest.file}")
       sh %(rm -rf #{oci_folder})
       sh %(docker load < "target/docker-server/native-#{manifest.file}")
-      sh %(rm -rf target/docker-server)
+      manifest.clean_folder
 
       mkdir_p GoConstants::SERVER_DIR
       sh %(docker run -d --name gauge_server -p #{GoConstants::SERVER_PORT}:#{GoConstants::SERVER_PORT} \
@@ -151,16 +153,16 @@ module Context
         #{manifest.image}:#{manifest.tag})
     end
 
-    def server_image_to_use
-      manifest = DockerManifestParser.new('target/docker-server')
+    def server_image_to_use(folder)
+      manifest = DockerManifestParser.new(folder)
       if ENV['RUN_ON_ALL_SERVER_IMAGE']
         unless manifest.has_image_count?(ENV['GO_JOB_RUN_COUNT'].to_i)
           raise "Expected job to be configured with GO_JOB_RUN_COUNT=#{manifest.image_count} (current=#{ENV['GO_JOB_RUN_COUNT']}) as manifest implies that's how many server images we have to test on #{RUBY_PLATFORM}"
         end
         image_index = (ENV['GO_JOB_RUN_INDEX']&.to_i || 1) - 1
-        manifest.image_info_at(image_index)
+        manifest.select_image_info_at(image_index)
       else
-        manifest.image_info_at(0)
+        manifest.select_image_info_at(0)
       end
       manifest
     end

@@ -111,7 +111,7 @@ GEM
       racc
     power_assert (3.0.1)
     prism (1.7.0)
-    public_suffix (7.0.0)
+    public_suffix (7.0.1)
     racc (1.8.1)
     rack (3.2.4)
     rack-test (2.2.0)
@@ -188,4 +188,4 @@ RUBY VERSION
    ruby 3.4.5p51
 
 BUNDLED WITH
-   2.7.1
+   4.0.3

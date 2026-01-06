@@ -67,7 +67,7 @@ tags: elastic_agent_profile
 * Check cluster id is selected as "team1_UAT_cluster" with plugin "Docker Elastic Agent Plugin"
 * Go forward to Elastic Profiles step on the wizard
 * Set agent profile name as "team1_UAT_test_profile"
-* Set docker image as "gocd/gocd-agent-wolfi:v25.3.0"
+* Set docker image as "gocd/gocd-agent-wolfi:v25.4.0"
 
 * Save the elastic agent profile
 
@@ -98,7 +98,7 @@ tags: elastic_agent_profile
 * Check cluster id is selected as "team2_UAT_cluster" with plugin "Docker Elastic Agent Plugin"
 * Go forward to Elastic Profiles step on the wizard
 * Set agent profile name as "team2_UAT_test_profile"
-* Set docker image as "gocd/gocd-agent-wolfi:v25.3.0"
+* Set docker image as "gocd/gocd-agent-wolfi:v25.4.0"
 
 * Save the elastic agent profile
 

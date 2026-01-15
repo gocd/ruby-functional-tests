@@ -7,7 +7,6 @@ Setup of contexts
 * Group admin security configuration - setup
 * Login as "admin" - setup
 * Using pipeline "pipeline1, pipeline2, pipeline3" - setup
-* With "1" live agents - setup
 * Capture go state "AdministrationApiSecurity" - setup
 
 AdministrationApiSecurity
@@ -52,11 +51,7 @@ tags: administration, api, group admin
 
 * Logout - from any page
 
-
-
-
 Teardown of contexts
 ____________________
 * Capture go state "AdministrationApiSecurity" - teardown
-* With "1" live agents - teardown
 * Logout - from any page

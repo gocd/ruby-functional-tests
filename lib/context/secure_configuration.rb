@@ -24,7 +24,7 @@ module Context
 
     def replace_password_file_path(file)
       full_path = GoConstants::RUN_ON_DOCKER ? "/test-config/#{file}" : File.expand_path("#{GoConstants::CONFIG_PATH}/#{file}")
-      config_dom.at_xpath("//authConfigs/authConfig[@pluginId='#{GoConstants::FILE_BASED_PLUGIN_ID}']/property/value").content = full_path
+      config_dom.at_xpath("//authConfigs/authConfig[@pluginId='cd.go.authentication.passwordfile']/property/value").content = full_path
     end
 
     def setup(config_file, pwd_file)

@@ -36,7 +36,6 @@ class GoConstants
   TEMP_DIR = '/tmp/materials'.freeze
   GAUGE_AGENT_DIR = 'target/gauge_agents'.freeze
   CONFIG_PATH = 'resources/config'.freeze
-  FILE_BASED_PLUGIN_ID = 'cd.go.authentication.passwordfile'.freeze
 
   ELASTIC_AGENTS_PROFILE_API_VERSION = 'application/vnd.go.cd+json'.freeze
   VERSIONS_API_VERSION = 'application/vnd.go.cd+json'.freeze
@@ -46,14 +45,15 @@ class GoConstants
   HELIXTEAMHUB_PASSWORD = ENV['HELIXTEAMHUB_PASSWORD'] || 'password%^'
 
   GO_SERVER_BASE_URL = "http://#{HOSTNAME}:#{SERVER_PORT}/go".freeze
-  GO_CONFIG_SCHEMA_VERSION = '84'.freeze
-  GO_AGENT_SYSTEM_PROPERTIES = %w[ -Dagent.get.work.delay=500
+  GO_AGENT_SYSTEM_PROPERTIES = %w[ -Dgo.gauge.agent=true
+                                   -Dgo.agent.status.api.enabled=false"
+                                   -Dagent.get.work.delay=500
                                    -Dagent.get.work.interval=500
                                    -Dagent.ping.delay=500
-                                   -Dagent.ping.interval=500
-                                   -Dgo.gauge.agent=true].freeze
+                                   -Dagent.ping.interval=500].freeze
 
-  GO_SERVER_SYSTEM_PROPERTIES = %W[-Dcruise.material.update.interval=3000
+  GO_SERVER_SYSTEM_PROPERTIES = %W[-Dgo.gauge.server=true
+                                   -Dcruise.material.update.interval=3000
                                    -Dcruise.material.update.delay=1000
                                    -Dcruise.produce.build.cause.interval=1000
                                    -Dcruise.produce.build.cause.delay=1000
@@ -62,7 +62,6 @@ class GoConstants
                                    -Dagent.connection.timeout=50
                                    -Dcruise.unresponsive.job.warning=1
                                    -Dgocd.server.logback.debug=true
-                                   -Dgo.gauge.server=true
                                    -Dcruise.server.port=#{SERVER_PORT}
                                    -Dplugin.cd.go.contrib.elastic-agent.docker.log.level=debug
                                    -Dplugin.cd.go.authentication.ldap.log.level=debug

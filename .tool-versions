@@ -1,4 +1,4 @@
 # Configuration for https://mise.jdx.dev/ as an alternative to asdf, jabba, sdkman, rvm, nvm etc
 java                temurin-25
-ruby                3.4
+ruby                4.0
 aqua:getgauge/gauge 1.6

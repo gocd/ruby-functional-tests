@@ -1,18 +1,5 @@
 [![Gauge Badge](https://cdn.rawgit.com/getgauge/getgauge.github.io/master/Gauge_Badge.svg)](https://gauge.org)
 
-## Pre-Requisites
-
-* Java + Ruby + [Gauge](https://gauge.org/index.html).
-  * Consult [.tool-versions](.tool-versions).
-* gauge-ruby plugin (depends on the version of gauge used):
-  * You might have to run `bundle update` to get the right version. Look inside `vendor/bundle` to find the correct, installed version and don't depend on the output of `gauge --version`.
-* Firefox >= 45.0 (verified with Firefox 95)
-* [geckodriver](https://github.com/mozilla/geckodriver/releases)
-  * On Mac you can `brew install geckodriver` for latest version 
-* jq
-* Whatever requirements are needed for building and running GoCD Server
-  * Check the main repo [.tool-versions](https://github.com/gocd/gocd/blob/master/.tool-versions) for an indication
-
 ## Setup
 
 ```shell
@@ -20,10 +7,23 @@
 git clone https://github.com/gocd/ruby-functional-tests ruby-functional-tests
 git clone https://github.com/gocd/gocd gocd
 git clone https://github.com/gocd/go-plugins go-plugins
-
-cd ruby-functional-tests
-gauge install
 ```
+
+## Dependencies
+
+Java + Ruby + [Gauge](https://gauge.org/index.html).
+
+Consult [mise.toml](mise.toml) for tools required; or:
+
+```shell
+mise install
+bundle install
+```
+
+Other than this, you need 
+* Chrome or Firefox
+* Whatever requirements are needed for building and running GoCD Server
+  * Check the main repo [.tool-versions](https://github.com/gocd/gocd/blob/master/mise.toml) for an indication
 
 ## Prepare and run specs
 
@@ -91,7 +91,7 @@ gauge install
 ### 2. Check you have an appropriate Java version installed
 
 - The scripts assume there is an appropriate Java version available on the path.
-- On CI we use [Mise](https://mise.jdx.dev/) for this - see [.tool-versions](.tool-versions) for appropriate
+- On CI we use [Mise](https://mise.jdx.dev/) for this - see [.tool-versions](mise.toml) for appropriate
   version, or use `mise install` if you already use Mise. [ASDF](https://asdf-vm.com/) will likely also work.
 
 ### 3. Ensure that you have the right version of gauge-ruby installed.

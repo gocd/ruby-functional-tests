@@ -1,0 +1,13 @@
+# Configuration for https://mise.jdx.dev/ as an alternative to asdf, jabba, sdkman, rvm, nvm etc
+[settings]
+ruby.compile = false
+
+[tools]
+"java" = "temurin-25"
+"ruby" = "4.0"
+"aqua:getgauge/gauge" = { version = "1", postinstall = "gauge install" }
+
+"chromedriver" = { version = "145", os = ["linux", "macos"] } # plugin not working on Windows with pwsh right now :(
+"github:mozilla/geckodriver" = { version = "latest", os = ["linux", "macos"] }
+
+"jq" = "latest"

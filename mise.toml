@@ -7,7 +7,7 @@ ruby.compile = false
 "ruby" = "4.0"
 "aqua:getgauge/gauge" = { version = "1", postinstall = "gauge install" }
 
-"chromedriver" = { version = "145", os = ["linux", "macos"] } # plugin not working on Windows with pwsh right now :(
+"chromedriver" = { version = "latest", os = ["linux", "macos"] } # plugin not working on Windows with pwsh right now :(
 "github:mozilla/geckodriver" = { version = "latest", os = ["linux", "macos"] }
 
 "jq" = "latest"

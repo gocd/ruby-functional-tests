@@ -11,3 +11,4 @@ ruby.compile = false
 "github:mozilla/geckodriver" = { version = "latest", os = ["linux", "macos"] }
 
 "jq" = "latest"
+"regctl" = "latest"

@@ -4,7 +4,7 @@ ruby.compile = false
 
 [tools]
 "java" = "temurin-25"
-"ruby" = "4.0.1"
+"ruby" = "4.0"
 "aqua:getgauge/gauge" = { version = "1", postinstall = "gauge install" }
 
 "chromedriver" = { version = "latest", os = ["linux", "macos"] } # plugin not working on Windows with pwsh right now :(

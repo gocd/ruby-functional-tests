@@ -23,17 +23,17 @@ require 'json'
 require 'open-uri'
 include Sys
 
-GO_TRUNK_DIRNAME   = ENV['GO_TRUNK_DIR'] || 'gocd'
-GO_PLUGINS_DIRNAME = ENV['GO_PLUGINS_DIR'] || 'go-plugins'
-GO_JOB_RUN_COUNT   = ENV['GO_JOB_RUN_COUNT']
-GO_JOB_RUN_INDEX   = ENV['GO_JOB_RUN_INDEX']
-VERSION_NUMBER     = ENV['GO_VERSION'] || (raise 'Environment variable GO_VERSION not set, exiting......')
-GITHUB_TOKEN       = ENV['GITHUB_TOKEN'] || (raise 'Environment variable GITHUB_TOKEN not set - needed to pull plugin releases without being rate-limited...')
+GO_SERVER_DIRNAME   = ENV['GO_TRUNK_DIR']   || 'gocd'
+GO_PLUGINS_DIRNAME  = ENV['GO_PLUGINS_DIR'] || 'go-plugins'
+def go_version;       ENV['GO_VERSION']     || (raise 'Environment variable GO_VERSION not set, exiting......') end
+def github_token;     ENV['GITHUB_TOKEN']   || (raise 'Environment variable GITHUB_TOKEN not set - needed to pull plugin releases without being rate-limited...') end
 
-GAUGE_TAGS       = ENV['GAUGE_TAGS'] || 'smoke'
-LOAD_BALANCED    = GO_JOB_RUN_COUNT && GO_JOB_RUN_INDEX
-DEVELOPMENT_MODE = !ENV['GO_PIPELINE_NAME']
+GAUGE_TAGS          = ENV['GAUGE_TAGS'] || 'smoke'
 GO_PIPELINE_COUNTER = ENV['GO_PIPELINE_COUNTER'] || 0
+GO_JOB_RUN_COUNT    = ENV['GO_JOB_RUN_COUNT']
+GO_JOB_RUN_INDEX    = ENV['GO_JOB_RUN_INDEX']
+LOAD_BALANCED       = GO_JOB_RUN_COUNT && GO_JOB_RUN_INDEX
+DEVELOPMENT_MODE    = !ENV['GO_PIPELINE_NAME']
 
 DOCKER_EA_PLUGIN_RELEASE_URL                = ENV['DOCKER_EA_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd-contrib/docker-elastic-agents/releases/latest'
 K8S_EA_PLUGIN_RELEASE_URL                   = ENV['K8S_EA_PLUGIN_RELEASE_URL'] || 'https://api.github.com/repos/gocd/kubernetes-elastic-agents/releases/latest'
@@ -53,7 +53,7 @@ task :clean_all do
   rm_rf 'godata' if Dir.exist? 'godata' # this folder is needed for only when running on docker
   mkdir_p 'godata'
   if DEVELOPMENT_MODE
-    cd "../#{GO_TRUNK_DIRNAME}" do
+    cd "../#{GO_SERVER_DIRNAME}" do
       sh './gradlew -q clean'
     end
     cd "../#{GO_PLUGINS_DIRNAME}" do
@@ -72,7 +72,7 @@ end
 
 zips = %w[server agent].each_with_object({}) do |package, accumulator|
   accumulator[package] = if DEVELOPMENT_MODE
-                           Dir[File.join('..', GO_TRUNK_DIRNAME, 'installers', 'target', 'distributions', 'zip', "go-#{package}*.zip")].first
+                           Dir[File.join('..', GO_SERVER_DIRNAME, 'installers', 'target', 'distributions', 'zip', "go-#{package}*.zip")].first
                          else
                            Dir[File.join('target', 'zip', "go-#{package}*.zip")].first
                          end
@@ -86,7 +86,7 @@ identifiers.each do |package, process_argument|
   namespace package do
     desc "Kill the #{package} identified using #{process_argument}"
     task :kill do
-      while process = ProcTable.ps.find {|each_process| each_process.environ[process_argument]}
+      while (process = ProcTable.ps.find { |each_process| each_process.environ[process_argument] })
         $stderr.puts "Found PID(#{process.pid}) matching #{process_argument}"
         if OS.windows?
           sh("TASKKILL /PID #{process.pid}")
@@ -117,15 +117,15 @@ zips.each do |package, file|
     task :prepare do
       sh("unzip -q -o #{file} -d target")
       if package == 'server'
-        mkdir_p "target/go-server-#{VERSION_NUMBER}/config"
-        cp "config-files/server-logback-include.xml", "target/go-server-#{VERSION_NUMBER}/config/logback-include.xml"
+        mkdir_p "target/go-server-#{go_version}/config"
+        cp "config-files/server-logback-include.xml", "target/go-server-#{go_version}/config/logback-include.xml"
       end
     end
 
     desc "Build go #{package}"
     task :build do
       Bundler.with_original_env do
-        cd "../#{GO_TRUNK_DIRNAME}" do
+        cd "../#{GO_SERVER_DIRNAME}" do
           sh "./gradlew -q #{package}GenericZip"
         end
       end
@@ -137,30 +137,30 @@ end
 namespace :plugins do
 
   def download_url_from_latest_release(releases_url)
-    JSON.parse(URI.open(releases_url, "Authorization" => "token #{GITHUB_TOKEN}").read)['assets'][0]['browser_download_url']
+    JSON.parse(URI.open(releases_url, "Authorization" => "token #{github_token}").read)['assets'][0]['browser_download_url']
   end
 
   desc 'copy the plugins in the go server'
   task :prepare do
-    mkdir_p "target/go-server-#{VERSION_NUMBER}/plugins/external"
+    mkdir_p "target/go-server-#{go_version}/plugins/external"
     if DEVELOPMENT_MODE
-      cp_r "../#{GO_PLUGINS_DIRNAME}/target/go-plugins-dist/.", "target/go-server-#{VERSION_NUMBER}/plugins/external"
+      cp_r "../#{GO_PLUGINS_DIRNAME}/target/go-plugins-dist/.", "target/go-server-#{go_version}/plugins/external"
     else
-      cp_r 'target/go-plugins-dist/.', "target/go-server-#{VERSION_NUMBER}/plugins/external"
+      cp_r 'target/go-plugins-dist/.', "target/go-server-#{go_version}/plugins/external"
     end
 
-    sh "curl -sL --compressed -H \"Authorization: token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/elastic-agent-skeleton-plugin.jar #{download_url_from_latest_release(ELASTICAGENTS_PLUGIN_RELEASE_URL)}"
-    sh "curl -sL --compressed -H \"Authorization: token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-registry-artifact-plugin.jar #{download_url_from_latest_release(DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL)}"
-    sh "curl -sL --compressed -H \"Authorization: token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/docker-elastic-agents-plugin.jar #{download_url_from_latest_release(DOCKER_EA_PLUGIN_RELEASE_URL)}"
-    sh "curl -sL --compressed -H \"Authorization: token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/k8s-elastic-agents.jar #{download_url_from_latest_release(K8S_EA_PLUGIN_RELEASE_URL)}"
-    sh "curl -sL --compressed -H \"Authorization: token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/ldap_authorization_plugin.jar #{download_url_from_latest_release(LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL)}"
-    sh "curl -sL --compressed -H \"Authorization: token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/maven_repo_poller_plugin.jar #{download_url_from_latest_release(MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL)}"
-    sh "curl -sL --compressed -H \"Authorization: token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/yum_repo_poller_plugin.jar #{download_url_from_latest_release(YUM_REPO_POLLER_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: token #{github_token}\" --output target/go-server-#{go_version}/plugins/external/elastic-agent-skeleton-plugin.jar #{download_url_from_latest_release(ELASTICAGENTS_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: token #{github_token}\" --output target/go-server-#{go_version}/plugins/external/docker-registry-artifact-plugin.jar #{download_url_from_latest_release(DOCKER_REGISTRY_ARTIFACT_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: token #{github_token}\" --output target/go-server-#{go_version}/plugins/external/docker-elastic-agents-plugin.jar #{download_url_from_latest_release(DOCKER_EA_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: token #{github_token}\" --output target/go-server-#{go_version}/plugins/external/k8s-elastic-agents.jar #{download_url_from_latest_release(K8S_EA_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: token #{github_token}\" --output target/go-server-#{go_version}/plugins/external/ldap_authorization_plugin.jar #{download_url_from_latest_release(LDAP_AUTHORIZATION_PLUGIN_DOWNLOAD_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: token #{github_token}\" --output target/go-server-#{go_version}/plugins/external/maven_repo_poller_plugin.jar #{download_url_from_latest_release(MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: token #{github_token}\" --output target/go-server-#{go_version}/plugins/external/yum_repo_poller_plugin.jar #{download_url_from_latest_release(YUM_REPO_POLLER_PLUGIN_RELEASE_URL)}"
   end
 
   desc 'task for preparing analytics plugin'
   task :prepare_analytics do
-    sh "curl -sL --compressed -H \"Authorization: token #{GITHUB_TOKEN}\" --output target/go-server-#{VERSION_NUMBER}/plugins/external/analytics-plugin.jar #{download_url_from_latest_release(ANALYTICS_PLUGIN_DOWNLOAD_URL)}"
+    sh "curl -sL --compressed -H \"Authorization: token #{github_token}\" --output target/go-server-#{go_version}/plugins/external/analytics-plugin.jar #{download_url_from_latest_release(ANALYTICS_PLUGIN_DOWNLOAD_URL)}"
 
     # preparing the database - drop and recreate analytics database
     ENV['ANALYTICS_DB_NAME_TO_USE'] = "#{ENV['ANALYTICS_DB_NAME'] || "analytics"}"
@@ -180,19 +180,19 @@ namespace :plugins do
   desc 'gradle build go plugins'
   task build: %i[version api] do
     cd "../#{GO_PLUGINS_DIRNAME}" do
-      go_full_version = JSON.parse(File.read("../#{GO_TRUNK_DIRNAME}/installers/target/distributions/meta/version.json"))['go_full_version']
+      go_full_version = JSON.parse(File.read("../#{GO_SERVER_DIRNAME}/installers/target/distributions/meta/version.json"))['go_full_version']
       sh "./gradlew -q jar -PgoVersion=#{go_full_version} -DskipTests"
     end
   end
 
   task :version do
-    cd "../#{GO_TRUNK_DIRNAME}" do
+    cd "../#{GO_SERVER_DIRNAME}" do
       sh './gradlew -q installers:versionFile'
     end
   end
 
   task :api do
-    cd "../#{GO_TRUNK_DIRNAME}" do
+    cd "../#{GO_SERVER_DIRNAME}" do
       sh './gradlew -q plugin-infra:go-plugin-api:install plugin-infra:go-plugin-api-internal:install'
     end
   end
@@ -238,7 +238,7 @@ task :setup_tfs_cli do
   rm_rf "tfs-tool"
   mkdir_p "tfs-tool"
   tee_clc_version = "14.139.0"
-  sh "curl --compressed -sSL -H \"Authorization: token #{GITHUB_TOKEN}\" --output tfs-tool/TEE-CLC-#{tee_clc_version}.zip https://github.com/microsoft/team-explorer-everywhere/releases/download/#{tee_clc_version}/TEE-CLC-#{tee_clc_version}.zip"
+  sh "curl --compressed -sSL -H \"Authorization: token #{github_token}\" --output tfs-tool/TEE-CLC-#{tee_clc_version}.zip https://github.com/microsoft/team-explorer-everywhere/releases/download/#{tee_clc_version}/TEE-CLC-#{tee_clc_version}.zip"
   sh "unzip tfs-tool/TEE-CLC-#{tee_clc_version}.zip -d tfs-tool"
   sh "mv tfs-tool/TEE-CLC-#{tee_clc_version}/* tfs-tool/"
   cd "tfs-tool" do

@@ -12,3 +12,32 @@ ruby.compile = false
 
 "jq" = "latest"
 "regctl" = "latest"
+
+[tasks]
+"prepare:gocd-clean" = { run = "cd ../gocd && ./gradlew clean && cd ../go-plugins && ./gradlew clean" }
+"prepare:test-clean" = { run = "cd ../ruby-functional-tests && bundle install && bundle exec rake clean_test" }
+
+"prepare:gocd" = {
+    wait_for = "prepare:gocd-clean",
+    run = "cd ../gocd && ./gradlew installers:agentGenericZip installers:serverGenericZip installers:versionFile publishToMavenLocal"
+}
+"prepare:go-plugins" = {
+    wait_for = ["prepare:gocd-clean", "prepare:gocd"],
+    run = "cd ../go-plugins && ./gradlew assemble copyJarsToOnePlace -PgoVersion=$(jq '.go_full_version' -r ../gocd/installers/target/distributions/meta/version.json)"
+}
+"prepare:test" = {
+    depends = ["prepare:gocd", "prepare:go-plugins"],
+    wait_for = "prepare:test-clean",
+    run = "cd ../ruby-functional-tests && bundle exec rake GO_VERSION=$(jq '.go_version' -r ../gocd/installers/target/distributions/meta/version.json) prepare"
+}
+
+"prepare" = {
+    depends = ["prepare:gocd", "prepare:go-plugins", "prepare:test"],
+    wait_for = ["prepare:test-clean", "test:kill"]
+}
+"clean" = {
+    depends = ["prepare:gocd-clean", "prepare:test-clean", "test:kill", "prepare"],
+}
+
+"test" = { run = "cd ../ruby-functional-tests && bundle exec rake GO_VERSION=$(jq '.go_version' -r ../gocd/installers/target/distributions/meta/version.json) test" }
+"test:kill" = { run = "cd ../ruby-functional-tests && bundle exec rake kill" }

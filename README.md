@@ -25,7 +25,12 @@ Other than this, you need
 * Whatever requirements are needed for building and running GoCD Server
   * Check the main repo [.tool-versions](https://github.com/gocd/gocd/blob/master/mise.toml) for an indication
 
-## Prepare and run specs
+## Prepare and run specs (with Mise)
+
+- `mise prepare` or `mise clean`
+- `GAUGE_TAGS='<spec tags to run>' mise test`
+
+## Prepare and run specs (Manually)
 
 1. Build GoCD installer and plugins API library:
 

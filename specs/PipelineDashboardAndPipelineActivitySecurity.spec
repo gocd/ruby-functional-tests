@@ -73,7 +73,7 @@ Pipeline Visibility as raghu
      |P4           |false   |false                |true                |false              |true                  |
 
 
-* verify user does not have operate permissions on "defaultStage" for pipleine "P1" on pipeline activity page
+* verify user does not have operate permissions on "defaultStage" for pipeline "P1" on pipeline activity page
 * verify user has operate permissions on "defaultStage" for pipeline "P2" on Pipeline Activity Page
 * verify user has operate permissions on "defaultStage" for pipeline "P3" on Pipeline Activity Page
 
@@ -96,7 +96,7 @@ Pipeline Visibility as pavan
      |P4           |false   |false                |false               |false              |false                 |
 
 
-* verify user does not have operate permissions on "defaultStage" for pipleine "P1" on pipeline activity page
+* verify user does not have operate permissions on "defaultStage" for pipeline "P1" on pipeline activity page
 * verify user has operate permissions on "defaultStage" for pipeline "P3" on Pipeline Activity Page
 
 * Looking at pipeline "P3" - On Swift Dashboard page
@@ -116,8 +116,8 @@ Pipeline Visibility as group1view
 
 
 * verify user has operate permissions on "defaultStage" for pipeline "P2" on Pipeline Activity Page
-* verify user does not have operate permissions on "defaultStage" for pipleine "P4" on pipeline activity page
-* verify user does not have stage "defaultStage" operate permissions for pipleine "P3" on pipeline activity page
+* verify user does not have operate permissions on "defaultStage" for pipeline "P4" on pipeline activity page
+* verify user does not have stage "defaultStage" operate permissions for pipeline "P3" on pipeline activity page
 
 Teardown of contexts
 ____________________

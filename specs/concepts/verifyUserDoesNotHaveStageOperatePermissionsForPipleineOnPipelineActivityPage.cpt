@@ -1,4 +1,4 @@
-# verify user does not have stage <stage_name> operate permissions for pipleine <pipeline_name> on pipeline activity page
+# verify user does not have stage <stage_name> operate permissions for pipeline <pipeline_name> on pipeline activity page
 * Looking at pipeline <pipeline_name> - On Swift Dashboard page
 * Click on history - On Swift Dashboard page
 * Looking at pipeline with label "1"

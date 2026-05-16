@@ -46,6 +46,7 @@ MAVEN_REPO_POLLER_PLUGIN_RELEASE_URL        = ENV['MAVEN_REPO_POLLER_PLUGIN_RELE
 
 desc 'cleans all directories'
 task :clean_all do
+  rm_rf 'out'
   rm_rf 'target'
   rm_rf 'reports'
   mkdir_p 'target'
@@ -63,6 +64,7 @@ end
 
 desc 'cleans only test directories'
 task :clean_test do
+  rm_rf 'out'
   rm_rf 'target'
   rm_rf 'reports'
   mkdir_p 'target'

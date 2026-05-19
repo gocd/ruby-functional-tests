@@ -39,7 +39,7 @@ module Pages
     end
 
     def trigger_pipeline(name: scenario_state.self_pipeline, wait_to_build: false)
-      (pipeline_name text: name).ancestor('.pipeline').find('.pipeline_btn.play').click
+      (pipeline_name text: name).ancestor('.pipeline').find('.pipeline_btn.play:not(.disabled)').click
       wait_till_pipeline_starts if wait_to_build
     end
 

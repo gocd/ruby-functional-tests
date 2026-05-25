@@ -22,12 +22,12 @@ module Pages
     element :all_pipeline_groups, "[data-test-id='pipeline-groups']"
     element :input_new_pipeline_name, "[data-test-id='form-field-input-new-pipeline-name']"
     element :input_pipeline_group_name, "[data-test-id='form-field-input-pipeline-group-name']"
-    element :button_clone, "[data-test-id='button-clone']"
     element :pipeline_group_selection, "[data-test-id='move-pipeline-group-selection']"
-    element :button_move, "[data-test-id='button-move']"
-    element :button_delete, "[data-test-id='button-delete']"
-    element :button_create, "[data-test-id='button-create']"
-    element :button_extract_template, "[data-test-id='button-extract-template']"
+    element :button_clone, "[data-test-id='button-clone']:not(.disabled)"
+    element :button_move, "[data-test-id='button-move']:not(.disabled)"
+    element :button_delete, "[data-test-id='button-delete']:not(.disabled)"
+    element :button_create, "[data-test-id='button-create']:not(.disabled)"
+    element :button_extract_template, "[data-test-id='button-extract-template']:not(.disabled)"
     element :flash_message, "[data-test-id='flash-message-success']"
 
     element :group_name, "input[data-test-id='form-field-input-pipeline-group-name']"
@@ -49,9 +49,6 @@ module Pages
     end
 
     def save_clone
-      wait_till_event_occurs_or_bomb 20, "Save Clone button is disabled" do
-        break unless button_clone.disabled?
-      end
       button_clone.click
     end
 
@@ -71,7 +68,7 @@ module Pages
     end
 
     def pipeline_can_be_extracted?(pipeline)
-      !page.find("[data-test-id='extract-template-from-pipeline-#{pipeline.downcase}']").disabled?
+      !pipeline_extraction_disabled?(pipeline)
     end
 
     def pipeline_extraction_disabled?(pipeline)
@@ -124,11 +121,11 @@ module Pages
       page.has_css?('span', text: message)
     end
 
-    def unpos_button_exist?
+    def unpause_button_exist?
       page.has_css?("button[data-test-id='page-header-unpause-btn']")
     end
 
-    def get_pos_description
+    def get_pause_description
       page.find('div[data-test-id="pipeline-pause-message"]').text
     end
 

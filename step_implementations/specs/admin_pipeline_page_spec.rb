@@ -105,8 +105,8 @@ step 'Enter pipeline name <pipeline>' do |pipeline|
 end
 
 step 'Verify pipeline <pipeline> is paused with message <message>' do |pipeline, message|
-  assert_true admin_pipeline_page.unpos_button_exist?
-  assert_equal message, admin_pipeline_page.get_pos_description
+  assert_true admin_pipeline_page.unpause_button_exist?
+  assert_equal message, admin_pipeline_page.get_pause_description
 end
 
 step 'Click clone button for pipeline <pipeline>' do |pipeline|
@@ -119,7 +119,6 @@ step 'Save Cloning' do ||
 end
 
 step 'Save template' do ||
-  assert_false admin_pipeline_page.button_extract_template.disabled?
   admin_pipeline_page.button_extract_template.click
 end
 

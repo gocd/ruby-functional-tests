@@ -21,7 +21,7 @@ module Pages
     element :template_name_on_popup, "[data-test-id='form-field-input-template-name']"
     element :extract_from_pipeline, "[data-test-id='form-field-input-extract-from-pipeline']"
     element :create_new_template, "[data-test-id='create-new-template']"
-    element :button_create, "[data-test-id='button-create']"
+    element :button_create, "[data-test-id='button-create']:not(.disabled)"
 
     load_validation { has_create_new_template? }
 

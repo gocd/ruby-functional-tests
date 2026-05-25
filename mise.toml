@@ -31,13 +31,13 @@ ruby.compile = false
     run = "cd ../ruby-functional-tests && bundle exec rake GO_VERSION=$(jq '.go_version' -r ../gocd/installers/target/distributions/meta/version.json) prepare"
 }
 
+"kill" = { run = "cd ../ruby-functional-tests && bundle exec rake kill" }
 "prepare" = {
     depends = ["prepare:gocd", "prepare:go-plugins", "prepare:test"],
-    wait_for = ["prepare:test-clean", "test:kill"]
+    wait_for = ["prepare:test-clean", "kill"]
 }
 "clean" = {
-    depends = ["prepare:gocd-clean", "prepare:test-clean", "test:kill", "prepare"],
+    depends = ["prepare:gocd-clean", "prepare:test-clean", "kill", "prepare"],
 }
 
 "test" = { run = "cd ../ruby-functional-tests && bundle exec rake GO_VERSION=$(jq '.go_version' -r ../gocd/installers/target/distributions/meta/version.json) test" }
-"test:kill" = { run = "cd ../ruby-functional-tests && bundle exec rake kill" }

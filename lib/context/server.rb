@@ -28,7 +28,7 @@ module Context
         return
       end
 
-      return if GoConstants::DEVELOPMENT_MODE && server_running?
+      return if GoConstants::DEVELOPMENT_MODE && server_running_at_all?
 
       cp 'resources/with-reset-db-if-necessary.sh', GoConstants::SERVER_DIR
       cp 'resources/db/db.properties', GoConstants::SERVER_DIR
@@ -102,31 +102,36 @@ module Context
       end
     end
 
-    def server_running?
-      sleep 1
-      ping_server.code == 200
-    rescue StandardError => e
+    def server_running_at_all?
+      ping_server.code != 0
+    rescue
+      false
+    end
+
+    def server_running_successfully?
+      ping_server.code < 500
+    rescue
       false
     end
 
     def ping_server
-      begin
-        RestClient::Request.execute method: :get, url:  "#{GoConstants::GO_SERVER_BASE_URL}/about", headers: basic_configuration.header, timeout: 10 do |response, _request, _result|
-          p "Server ping failed with response code #{response.code} and message #{response.body}" unless response.code == 200
-          return response
-        end
-      rescue => e
-        STDERR.puts "#{Time.now} Failed while trying to ping GoCD server: #{e}"
+      RestClient::Request.execute method: :get, url:  "#{GoConstants::GO_SERVER_BASE_URL}/about", headers: basic_configuration.header, timeout: 10 do |response, _request, _result|
+        p "Server ping failed with response code #{response.code} and message #{response.body}" unless response.code < 500
+        return response
       end
+    rescue => e
+      STDERR.puts "#{Time.now} Failed while trying to ping GoCD server: #{e}"
+      raise e
     end
 
     def wait_to_start
-      Timeout.timeout(300) do
+      Timeout.timeout(60) do
         loop do
           begin
-            break if server_running?
-          rescue Errno::ECONNREFUSED
             sleep 1
+            break if server_running_successfully?
+          rescue Errno::ECONNREFUSED
+            # try again
           end
         end
       end

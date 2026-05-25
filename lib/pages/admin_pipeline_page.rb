@@ -27,7 +27,7 @@ module Pages
     element :button_move, "[data-test-id='button-move']:not(.disabled)"
     element :button_delete, "[data-test-id='button-delete']:not(.disabled)"
     element :button_create, "[data-test-id='button-create']:not(.disabled)"
-    element :button_extract_template, "[data-test-id='button-extract-template']:not(.disabled)"
+    element :button_extract_template, "[data-test-id='button-extract-template']"
     element :flash_message, "[data-test-id='flash-message-success']"
 
     element :group_name, "input[data-test-id='form-field-input-pipeline-group-name']"

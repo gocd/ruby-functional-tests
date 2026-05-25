@@ -119,7 +119,7 @@ step 'Save Cloning' do ||
 end
 
 step 'Click on extract template' do ||
-  admin_pipeline_page.button_extract_template.click
+  admin_pipeline_page.button_extract_template.click(wait: 10)
 end
 
 step 'Save group create' do ||

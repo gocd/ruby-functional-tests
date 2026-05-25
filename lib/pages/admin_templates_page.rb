@@ -33,24 +33,17 @@ module Pages
       template_name_on_popup.set(name)
     end
 
-    def click_extract_template pipeline
-      extract_from_pipeline.click
-    end
-
     def click_add_new_template
       page.find("[data-test-id='create-new-template']").click
     end
-
 
     def extractable_pipelines
       page.find("[data-test-id='form-field-input-pipeline']").all('option').collect(&:text)
     end
 
-
     def select_pipeline_for_template pipeline
       find("[data-test-id='form-field-input-pipeline'] option", :text => pipeline).click
     end
-
 
     def all_templates
       all_templates = []
@@ -59,7 +52,6 @@ module Pages
       end
       all_templates
     end
-
 
     def get_pipelines_from_template(template)
       pipelines = []
@@ -72,7 +64,6 @@ module Pages
     def template_has_message?(template,message)
       page.find("[data-test-id='template-#{template.downcase}']").has_css?("[data-test-id='flash-message-info']", text: message)
     end
-
 
     def delete_link_is_disabled_for_template? template
       page.find("[data-test-id='delete-template-#{template.downcase}']").disabled?

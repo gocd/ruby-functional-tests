@@ -24,9 +24,9 @@ module Pages
     element :input_pipeline_group_name, "[data-test-id='form-field-input-pipeline-group-name']"
     element :pipeline_group_selection, "[data-test-id='move-pipeline-group-selection']"
     element :button_clone, "[data-test-id='button-clone']"
-    element :button_move, "[data-test-id='button-move']:not(.disabled)"
-    element :button_delete, "[data-test-id='button-delete']:not(.disabled)"
-    element :button_create, "[data-test-id='button-create']:not(.disabled)"
+    element :button_move, "[data-test-id='button-move']"
+    element :button_delete, "[data-test-id='button-delete']"
+    element :button_create, "[data-test-id='button-create']"
     element :button_extract_template, "[data-test-id='button-extract-template']"
     element :flash_message, "[data-test-id='flash-message-success']"
 

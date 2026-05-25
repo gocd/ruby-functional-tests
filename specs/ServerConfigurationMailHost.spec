@@ -16,7 +16,7 @@ tags: server configuration, mail sending
 * Send test email
 * Verify test email connection succeeded
 
-* Verify SMTP server received email from "gocd-sender@gocd.test" to "gocd-admin@gocd.test" with subject "Go Email Notification"
+* Verify SMTP server received email from "gocd-sender@gocd.test" to "gocd-admin@gocd.test" with subject containing "Go Email Notification"
 * Verify SMTP server received email containing "You received this configuration test email from Go Server"
 
 

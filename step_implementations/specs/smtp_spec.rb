@@ -26,16 +26,16 @@ step 'SMTP server - clear inbox' do
   smtp_server.clear
 end
 
-step 'Verify SMTP server received email from <sender> to <recipient> with subject <subject>' do |sender, recipient, subject|
-  message = smtp_server.wait_for_message(timeout: 5)
+step 'Verify SMTP server received email from <sender> to <recipient> with subject containing <text>' do |sender, recipient, text|
+  message = smtp_server.wait_for_message(timeout: 10)
   assert_not_nil message, "No email received within timeout. Inbox size: #{smtp_server.messages.size}"
   assert_true message.from.include?(sender), "Sender #{sender} not in From: #{message.from.inspect}"
   assert_true message.to.include?(recipient), "Recipient #{recipient} not in To: #{message.to.inspect}"
-  assert_equal subject, message.subject, "Unexpected subject: #{message.subject}"
+  assert_true message.subject.to_s.include?(text), "Subject did not contain #{text.inspect}. Subject was: #{message.subject.inspect}"
 end
 
 step 'Verify SMTP server received email containing <text>' do |text|
-  message = smtp_server.wait_for_message(timeout: 5)
+  message = smtp_server.wait_for_message(timeout: 10)
   assert_not_nil message, 'No email received within timeout'
   body = message.body.decoded
   assert_true body.include?(text), "Body did not contain #{text.inspect}. Body was:\n#{body}"

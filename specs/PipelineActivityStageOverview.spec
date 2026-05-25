@@ -14,7 +14,7 @@ tags: stage-overview, UI, refresh, PipelineActivityStageOverview
 
 * Looking at pipeline "pipeline-with-3-jobs" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "defaultStage" is "Failing" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Failing" with pipeline label "1" - On Swift Dashboard page
 
 * Click on history - On Swift Dashboard page
 * Verify pipeline activity page is shown
@@ -27,7 +27,7 @@ tags: stage-overview, UI, refresh, PipelineActivityStageOverview
 Wait for the quick jobs to complete
 * Wait for "5" seconds
 * On Swift Dashboard Page
-* Verify stage "defaultStage" is "Failing" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Failing" with pipeline label "1" - On Swift Dashboard page
 
 * Click on history - On Swift Dashboard page
 * Open stage overview for stage "defaultStage" - On Pipeline Activity page
@@ -42,7 +42,7 @@ Wait for the quick jobs to complete
 
 * On Swift Dashboard Page
 * Create a "stopjob" file and validate pipeline completed
-* Verify stage "defaultStage" is "Failed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Failed" with pipeline label "1" - On Swift Dashboard page
 
 * Click on history - On Swift Dashboard page
 * Verify pipeline activity page is shown
@@ -64,7 +64,7 @@ Wait for the quick jobs to complete
 
 Wait for the re-run to be scheduled
 * On Swift Dashboard Page
-* Verify stage "defaultStage" is "Building" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Building" with pipeline label "1" - On Swift Dashboard page
 
 * Click on history - On Swift Dashboard page
 * Open stage overview for stage "defaultStage" - On Pipeline Activity page
@@ -80,7 +80,7 @@ Wait for the re-run to be scheduled
 
 Wait for the cancel
 * On Swift Dashboard Page
-* Verify stage "defaultStage" is "Cancelled" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Cancelled" with pipeline label "1" - On Swift Dashboard page
 
 * Click on history - On Swift Dashboard page
 * Open stage overview for stage "defaultStage" - On Pipeline Activity page
@@ -92,7 +92,7 @@ Wait for the cancel
 
 Wait for the re-run to be scheduled
 * On Swift Dashboard Page
-* Verify stage "defaultStage" is "Building" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Building" with pipeline label "1" - On Swift Dashboard page
 
 * Click on history - On Swift Dashboard page
 * Open stage overview for stage "defaultStage" - On Pipeline Activity page

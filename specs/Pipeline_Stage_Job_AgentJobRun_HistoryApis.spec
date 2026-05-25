@@ -31,7 +31,7 @@ verify passed + pagination
 
 * Looking at pipeline "pipeline-with-failing-stage" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "defaultStage" is "failed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "failed" with pipeline label "1" - On Swift Dashboard page
 
 verify failed
 
@@ -46,7 +46,7 @@ verify failed
 
 * Looking at pipeline "pipeline-run-till-file-exits" - On Swift Dashboard page
 * Trigger pipeline and wait for building - On Swift Dashboard page
-* Verify stage "defaultStage" is "building" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "building" with pipeline label "1" - On Swift Dashboard page
 * On stage details page "overview" tab for "pipeline-run-till-file-exits" label "1" stage name "defaultStage" counter "1"
 
 verify building

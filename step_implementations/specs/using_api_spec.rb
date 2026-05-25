@@ -22,7 +22,7 @@ step 'Trigger the pipeline <counter> times - Using API' do |counter|
     unless new_pipeline_dashboard_page.can_operate_using_api?
       raise "Could not trigger/operate/schedule the pipeline using the API."
     end
-    new_pipeline_dashboard_page.wait_for_expected_stage_state_at_label scenario_state.self_pipeline, "defaultStage", "passed", label_count
+    new_pipeline_dashboard_page.wait_for_expected_stage_state_at_pipeline_label scenario_state.self_pipeline, label_count, "defaultStage", "passed"
     begin
       response = RestClient.get http_url("/api/pipelines/#{scenario_state.self_pipeline}/#{label_count}"), {accept: PIPELINE_STATUS_VERSION}.merge(basic_configuration.header)
       assert_true(response.code == 200)

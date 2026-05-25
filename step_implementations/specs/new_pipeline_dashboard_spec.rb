@@ -83,15 +83,15 @@ end
 
 step 'Trigger and wait for stage <stage> is <state> with label <label> - On Swift Dashboard page' do |stage, state, label|
   new_pipeline_dashboard_page.trigger_pipeline
-  new_pipeline_dashboard_page.wait_for_expected_stage_state_at_label scenario_state.self_pipeline, stage, state.downcase, label
+  new_pipeline_dashboard_page.wait_for_expected_stage_state_at_pipeline_label scenario_state.self_pipeline, label, stage, state.downcase
 end
 
-step 'Verify stage <stage> is <state> on pipeline with label <label> - On Swift Dashboard page' do |stage, state, label|
-  new_pipeline_dashboard_page.wait_for_expected_stage_state_at_label scenario_state.self_pipeline, stage, state.downcase, label
+step 'Verify stage <stage> is <state> with pipeline label <label> - On Swift Dashboard page' do |stage, state, label|
+  new_pipeline_dashboard_page.wait_for_expected_stage_state_at_pipeline_label scenario_state.self_pipeline, label, stage, state.downcase
 end
 
-step 'Verify stage <stage> is <state> on pipeline with label <label> and counter <counter> - On Swift Dashboard page' do |stage, state, label,counter|
-  new_pipeline_dashboard_page.wait_for_expected_stage_state_at_label_and_counter scenario_state.self_pipeline, stage, state.downcase, label, counter
+step 'Verify stage <stage> is <state> for counter <counter> with pipeline label <label> - On Swift Dashboard page' do |stage, state, stage_counter, label|
+  new_pipeline_dashboard_page.wait_for_expected_stage_state_and_counter_at_pipeline_label scenario_state.self_pipeline, label, stage, state.downcase, stage_counter, label
 end
 
 step 'Verify stage <stage> is with label <label> - On Swift Dashboard page' do |_stage, label|

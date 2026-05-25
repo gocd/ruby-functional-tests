@@ -18,7 +18,7 @@ tags: fetch artifacts
 * On Swift Dashboard Page
 * Looking at pipeline "pipeline-artifacts" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "defaultStage" is "Failed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Failed" with pipeline label "1" - On Swift Dashboard page
 * On Job details page of pipeline "pipeline-artifacts" counter "1" stage "defaultStage" counter "1" job "Job1"
 * Verify in console that artifact "subfolder/another.zip" is uploading to "file-with-dot-in-subfolder"
 * Verify in console that artifact "something.jar" is uploading to "jarfolder"
@@ -33,7 +33,7 @@ tags: fetch artifacts
 * Trigger stage "second" - On stage details page
 
 * On Swift Dashboard Page
-* Verify stage "second" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "second" is "Passed" with pipeline label "1" - On Swift Dashboard page
 
 * On Job details page of pipeline "pipeline-artifacts" counter "1" stage "second" counter "1" job "Job2"
 

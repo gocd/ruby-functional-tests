@@ -29,7 +29,7 @@ tags: create pipeline, git credentials
 * Looking at pipeline "git-cred-url" - On Swift Dashboard page
 * Unpause pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 
 * Start add new pipeline in pipeline group "basic"
 * Enter new pipeline name as "git-cred-attr"

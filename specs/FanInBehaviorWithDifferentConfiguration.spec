@@ -37,7 +37,7 @@ tags: diamond dependency, fanin
 
 
 * Looking at pipeline "C6-auto-s" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 
 
 * Open changes section - On Swift Dashboard page
@@ -96,7 +96,7 @@ tags: diamond dependency, fanin
 * Trigger and wait for stage "defaultStage" is "Passed" with label "3" - On Swift Dashboard page
 
 * Looking at pipeline "C6-auto-s" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "2" - On Swift Dashboard page
 
 * Open changes section - On Swift Dashboard page
 * Looking at material of type "Pipeline" named "$C4-man$"

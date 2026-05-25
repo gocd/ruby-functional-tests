@@ -18,15 +18,15 @@ tags: dependency pipeline
 * On Swift Dashboard Page
 * Looking at pipeline "autoFirst" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 
 * Looking at pipeline "child-of-autoFirst" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 
 * Looking at pipeline "grandchild-of-autoFirst" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 
 
 
@@ -48,10 +48,10 @@ Verify dependency chaining after scm does not trigger autoFirst pipeline (due to
 * On Swift Dashboard Page
 * Looking at pipeline "autoFirst" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 * Looking at pipeline "child-of-autoFirst" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "2" - On Swift Dashboard page
 
 * Open changes section - On Swift Dashboard page
 
@@ -62,7 +62,7 @@ Verify dependency chaining after scm does not trigger autoFirst pipeline (due to
 * On Swift Dashboard Page
 * Looking at pipeline "grandchild-of-autoFirst" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "2" - On Swift Dashboard page
 
 * Open changes section - On Swift Dashboard page
 * Looking at material of type "Pipeline" named "$child-of-autoFirst$"
@@ -86,15 +86,15 @@ Verify dependency chaining after scm does not trigger autoFirst pipeline (due to
 * On Swift Dashboard Page
 * Looking at pipeline "autoFirst" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 
 * Looking at pipeline "child-of-autoFirst" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "2" - On Swift Dashboard page
 
 * Looking at pipeline "grandchild-of-autoFirst" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "3" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "3" - On Swift Dashboard page
 
 * Open changes section - On Swift Dashboard page
 * Looking at material of type "Git" named "$git-first$"

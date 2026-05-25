@@ -28,7 +28,7 @@ tags: Deep Diamond, fanin
 
 
 * Looking at pipeline "P4" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 
 * On Swift Dashboard Page
 * Looking at pipeline "P1" - On Swift Dashboard page
@@ -52,7 +52,7 @@ tags: Deep Diamond, fanin
 
 
 * Looking at pipeline "P4" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 
 * Open changes section - On Swift Dashboard page
 * Looking at material of type "Git" named "git-one"
@@ -76,7 +76,7 @@ tags: Deep Diamond, fanin
 * Looking at pipeline "P2" - On Swift Dashboard page
 * Trigger and wait for stage "defaultStage" is "Passed" with label "2" - On Swift Dashboard page
 * Looking at pipeline "P4" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "3" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "3" - On Swift Dashboard page
 
 * Open changes section - On Swift Dashboard page
 

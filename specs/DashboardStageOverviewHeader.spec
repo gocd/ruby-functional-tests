@@ -17,7 +17,7 @@ tags: stage-overview, UI, refresh
 * Looking at pipeline "VSM1" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 
 * Open stage overview for stage "defaultStage" - On Swift Dashboard page
 * Verify stage overview has header "VSM1" "1" "defaultStage" "1"

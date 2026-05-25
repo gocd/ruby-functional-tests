@@ -15,13 +15,13 @@ tags: job-rerun
 
 * Looking at pipeline "pipeline-with-3-jobs" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "defaultStage" is "Failing" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Failing" with pipeline label "1" - On Swift Dashboard page
 * On stage details page "jobs" tab for "pipeline-with-3-jobs" label "1" stage name "defaultStage" counter "1"
 * Verify rerun button is disabled
 
 * On Swift Dashboard Page
 * Create a "stopjob" file and validate pipeline completed
-* Verify stage "defaultStage" is "Failed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Failed" with pipeline label "1" - On Swift Dashboard page
 * On stage details page "jobs" tab for "pipeline-with-3-jobs" label "1" stage name "defaultStage" counter "1"
 * Rerun "first, second" jobs
 * Verify rerun button is disabled
@@ -30,7 +30,7 @@ tags: job-rerun
 
 * On Swift Dashboard Page
 * Create a "stopjob" file and validate pipeline completed
-* Verify stage "defaultStage" is "Failed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Failed" with pipeline label "1" - On Swift Dashboard page
 
 * On stage details page "jobs" tab for "pipeline-with-3-jobs" label "1" stage name "defaultStage" counter "2"
 

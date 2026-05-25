@@ -15,7 +15,7 @@ tags: stage-details
 
 * Looking at pipeline "pipeline-stageDetails" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 * On stage details page "overview" tab for "pipeline-stageDetails" label "1" stage name "defaultStage" counter "1"
 
 
@@ -30,7 +30,7 @@ tags: stage-details
 
 * On Swift Dashboard Page
 * Looking at pipeline "pipeline-stageDetails" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 * On stage details page "overview" tab for "pipeline-stageDetails" label "1" stage name "defaultStage" counter "2"
 
 * Turn off AutoRefresh - On Swift Dashboard page
@@ -48,9 +48,9 @@ tags: stage-details
 * Turn off AutoRefresh - On Swift Dashboard page
 * Looking at pipeline "pipeline-stageDetails" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "3" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "3" - On Swift Dashboard page
 * On stage details page "overview" tab for "pipeline-stageDetails" label "3" stage name "defaultStage" counter "1"
  Navigate to stage detail page for "pipeline-stageDetails" "3" "defaultStage" "1" with stage history page size "2"
 
@@ -69,7 +69,7 @@ tags: stage-details
 
 * Looking at pipeline "pipeline-stageDetails" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "4" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "4" - On Swift Dashboard page
 * On stage details page "overview" tab for "pipeline-stageDetails" label "4" stage name "defaultStage" counter "1"
 
 * Turn off AutoRefresh - On Swift Dashboard page
@@ -81,7 +81,7 @@ tags: stage-details
 
 * On Swift Dashboard Page
 * Looking at pipeline "basic-auto-pipeline-stageDetails" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 * Verify pipeline is triggered by "changes" - On Swift Dashboard page
 * On stage details page "overview" tab for "basic-auto-pipeline-stageDetails" label "1" stage name "defaultStage" counter "1"
 

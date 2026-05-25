@@ -25,7 +25,7 @@ tags: diamond dependency, fanin
 
 * Looking at pipeline "FIR3" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 
 * Looking at pipeline "FIR1" - On Swift Dashboard page
 * With material "git-one" of type "git" for pipeline "FIR1"
@@ -39,7 +39,7 @@ tags: diamond dependency, fanin
 * Trigger and wait for stage "defaultStage" is "Passed" with label "2" - On Swift Dashboard page
 * Looking at pipeline "FIR3" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 
 
 * Looking at pipeline "FIR1" - On Swift Dashboard page
@@ -53,7 +53,7 @@ tags: diamond dependency, fanin
 * Trigger and wait for stage "defaultStage" is "Passed" with label "3" - On Swift Dashboard page
 * Looking at pipeline "FIR3" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "3" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "3" - On Swift Dashboard page
 
 * Looking at pipeline "FIR3" - On Swift Dashboard page
 * Pause pipeline with reason "wait for FIR1 and FIR2 to complete" - On Swift Dashboard page
@@ -68,7 +68,7 @@ tags: diamond dependency, fanin
 * Looking at pipeline "FIR3" - On Swift Dashboard page
 * Unpause pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "4" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "4" - On Swift Dashboard page
 
 * Looking at pipeline "FIR2" - On Swift Dashboard page
 * Open trigger with options - On Swift Dashboard page
@@ -77,11 +77,11 @@ tags: diamond dependency, fanin
 * Trigger pipeline with options - On Swift Dashboard page
 
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "5" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "5" - On Swift Dashboard page
 
 * Looking at pipeline "FIR3" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "5" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "5" - On Swift Dashboard page
 * Open changes section - On Swift Dashboard page
 
 * Looking at material of type "Pipeline" named "$FIR2$"
@@ -98,7 +98,7 @@ tags: diamond dependency, fanin
 * Trigger pipeline with options - On Swift Dashboard page
 
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "5" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "5" - On Swift Dashboard page
 * Looking at pipeline "FIR3" - On Swift Dashboard page
 * Verify pipeline does not get triggered
 

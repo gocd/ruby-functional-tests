@@ -15,11 +15,11 @@ tags: stage-locking
 * On Swift Dashboard Page
 * Looking at pipeline "pipeline-with-lock" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "stage-1" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "stage-1" is "Passed" with pipeline label "1" - On Swift Dashboard page
 * Schedule should return code "409"
 
 
-* Verify stage "stage-2" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "stage-2" is "Passed" with pipeline label "1" - On Swift Dashboard page
 
 * Schedule should return code "202"
 

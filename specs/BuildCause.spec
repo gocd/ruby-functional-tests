@@ -40,7 +40,7 @@ tags: new_dasboard, build_cause
 * On Swift Dashboard Page
 * Trigger pipeline - On Swift Dashboard page
 * Create a "stopjob" file
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 
 * On stage details page "materials" tab for "basic-pipeline-run-till-file-exists" label "2" stage name "defaultStage" counter "1"
 * Looking at material of type "Git" named "git"
@@ -52,7 +52,7 @@ tags: new_dasboard, build_cause
 * Looking at pipeline "basic-pipeline-run-till-file-exists" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Create a "stopjob" file
-* Verify stage "defaultStage" is "Passed" on pipeline with label "3" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "3" - On Swift Dashboard page
 
 * On stage details page "materials" tab for "basic-pipeline-run-till-file-exists" label "3" stage name "defaultStage" counter "1"
 * Looking at material of type "Git" named "git"
@@ -63,7 +63,7 @@ tags: new_dasboard, build_cause
 * Looking at pipeline "downstream" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Create a "stopjob" file
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 
 * On stage details page "materials" tab for "downstream" label "2" stage name "defaultStage" counter "1"
 * Looking at material of type "Pipeline" named "basic-pipeline-run-till-file-exists"
@@ -74,7 +74,7 @@ tags: new_dasboard, build_cause
 * Looking at pipeline "downstream" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Create a "stopjob" file
-* Verify stage "defaultStage" is "Passed" on pipeline with label "3" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "3" - On Swift Dashboard page
 
 * On stage details page "materials" tab for "downstream" label "3" stage name "defaultStage" counter "1"
 * Looking at material of type "Pipeline" named "basic-pipeline-run-till-file-exists"

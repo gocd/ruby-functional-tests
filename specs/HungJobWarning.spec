@@ -24,7 +24,7 @@ tags: Clicky Admin
 * Verify message contains "is not responding"
 * Verify error description contains "This job may be hung."
 
-* Verify stage "defaultStage" is "building" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "building" with pipeline label "1" - On Swift Dashboard page
 * On stage details page "jobs" tab for "hung-job-pipeline" label "1" stage name "defaultStage" counter "1"
 * Cancel stage "defaultStage" counter "1" of pipeline "hung-job-pipeline" instance "1"
 * Verify job "defaultJob" has state "Completed" and result "Cancelled"

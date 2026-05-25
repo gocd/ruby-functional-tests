@@ -16,7 +16,7 @@ tags: stage-overview, UI, refresh, DashboardStageOverview
 
 * Looking at pipeline "pipeline-with-3-jobs" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "defaultStage" is "Failing" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Failing" with pipeline label "1" - On Swift Dashboard page
 
 * Open stage overview for stage "defaultStage" - On Swift Dashboard page
 
@@ -35,7 +35,7 @@ tags: stage-overview, UI, refresh, DashboardStageOverview
 
 * On Swift Dashboard Page
 * Create a "stopjob" file and validate pipeline completed
-* Verify stage "defaultStage" is "Failed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Failed" with pipeline label "1" - On Swift Dashboard page
 
 * Open stage overview for stage "defaultStage" - On Swift Dashboard page
 
@@ -52,7 +52,7 @@ tags: stage-overview, UI, refresh, DashboardStageOverview
 
 * Rerun failed jobs
 
-* Verify stage "defaultStage" is "Building" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Building" with pipeline label "1" - On Swift Dashboard page
 
 * Open stage overview for stage "defaultStage" - On Swift Dashboard page
 * Verify failed job count is "0"
@@ -65,7 +65,7 @@ tags: stage-overview, UI, refresh, DashboardStageOverview
 
 * Cancel stage from stage overview
 
-* Verify stage "defaultStage" is "Cancelled" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Cancelled" with pipeline label "1" - On Swift Dashboard page
 
 * Open stage overview for stage "defaultStage" - On Swift Dashboard page
 
@@ -75,7 +75,7 @@ tags: stage-overview, UI, refresh, DashboardStageOverview
 
 * Rerun selected jobs
 
-* Verify stage "defaultStage" is "Building" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Building" with pipeline label "1" - On Swift Dashboard page
 
 * Open stage overview for stage "defaultStage" - On Swift Dashboard page
 

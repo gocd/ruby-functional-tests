@@ -28,7 +28,7 @@ Setup of contexts
 * On Swift Dashboard Page
 * Looking at pipeline "pipeline-with-environment-variables" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "passed" with pipeline label "1" - On Swift Dashboard page
 * On Job details page of pipeline "pipeline-with-environment-variables" counter "1" stage "defaultStage" counter "1" job "pipeline-with-environment-variables-job"
 
 * Verify console log contains message "setting environment variable 'ENVIRONMENT_LEVEL_VARIABLE_OVERRIDDEN_BY_TRIGGER' to value 'does-not-matter'"

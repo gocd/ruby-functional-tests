@@ -19,12 +19,12 @@ tags: Stage Security
 * On Swift Dashboard Page
 * Looking at pipeline "pipeline-with-auto-stage-security" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "first" is "Building" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "first" is "Building" with pipeline label "1" - On Swift Dashboard page
 
 
 * Create a "stopjob" file
 
-* Verify stage "first" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "first" is "Passed" with pipeline label "1" - On Swift Dashboard page
 
 * Logout - from any page
 

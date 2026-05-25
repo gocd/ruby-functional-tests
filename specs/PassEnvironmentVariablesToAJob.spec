@@ -34,7 +34,7 @@ Pipeline with environment variables
 * Looking at pipeline "pipeline-with-environment-variables" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "passed" with pipeline label "1" - On Swift Dashboard page
 * On Job details page of pipeline "pipeline-with-environment-variables" counter "1" stage "defaultStage" counter "1" job "pipeline-with-environment-variables-job"
 
 * Verify console has environment variable "GO_ENVIRONMENT_NAME" set to value "overriden value"

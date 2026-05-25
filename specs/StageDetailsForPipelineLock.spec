@@ -16,7 +16,7 @@ tags: stage-details, pipeline_locking_behavior
 * Trigger pipeline - On Swift Dashboard page
 * Verify stage "firstStage" is "Building" - On Swift Dashboard page
 * Create a "stopjob" file and validate pipeline completed
-* Verify stage "firstStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "firstStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 * On stage details page "materials" tab for "pipeline-with-lock-all-manual" label "1" stage name "firstStage" counter "1"
 
 * Verify the lock status is "Click to unlock" - On Stage Details page
@@ -28,7 +28,7 @@ tags: stage-details, pipeline_locking_behavior
 * Trigger pipeline - On Swift Dashboard page
 * Verify stage "firstStage" is "Building" - On Swift Dashboard page
 * Create a "stopjob" file and validate pipeline completed
-* Verify stage "firstStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "firstStage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 * On stage details page "materials" tab for "pipeline-with-lock-all-manual" label "1" stage name "firstStage" counter "1"
 
 * Verify the lock status is "Locked by 2" - On Stage Details page

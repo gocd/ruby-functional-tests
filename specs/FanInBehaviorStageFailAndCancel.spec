@@ -27,14 +27,14 @@ tags: diamond dependency, fanin
 
 * On Swift Dashboard Page
 * Create a "stopjob" file and validate pipeline completed
-* Verify stage "stage2-manual" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "stage2-manual" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 
 * Looking at pipeline "FS2" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "stage1" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "stage1" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 * Looking at pipeline "FS3" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "stage1" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "stage1" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 
 * On Swift Dashboard Page
 * Looking at pipeline "FS1" - On Swift Dashboard page
@@ -44,7 +44,7 @@ tags: diamond dependency, fanin
 
 * On Swift Dashboard Page
 * Create a "failjob" file and validate pipeline completed
-* Verify stage "stage2-manual" is "Failed" on pipeline with label "2" and counter "1" - On Swift Dashboard page
+* Verify stage "stage2-manual" is "Failed" for counter "1" with pipeline label "2" - On Swift Dashboard page
 
 * Looking at pipeline "FS2" - On Swift Dashboard page
 * Verify pipeline does not get triggered
@@ -57,7 +57,7 @@ tags: diamond dependency, fanin
 * On Swift Dashboard Page
 * Looking at pipeline "FS1" - On Swift Dashboard page
 * Create a "stopjob" file and validate pipeline completed
-* Verify stage "stage2-manual" is "Passed" on pipeline with label "3" and counter "1" - On Swift Dashboard page
+* Verify stage "stage2-manual" is "Passed" for counter "1" with pipeline label "3" - On Swift Dashboard page
 * On stage details page "overview" tab for "FS1" label "3" stage name "stage2-manual" counter "1"
 * Rerun stage "stage2-manual" - On Stage Details page
 * Cancel "stage2-manual" - On Stage Detail Page
@@ -65,10 +65,10 @@ tags: diamond dependency, fanin
 * On Swift Dashboard Page
 
 * Looking at pipeline "FS2" - On Swift Dashboard page
-* Verify stage "stage1" is "passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "stage1" is "passed" with pipeline label "2" - On Swift Dashboard page
 
 * Looking at pipeline "FS3" - On Swift Dashboard page
-* Verify stage "stage1" is "passed" on pipeline with label "4" - On Swift Dashboard page
+* Verify stage "stage1" is "passed" with pipeline label "4" - On Swift Dashboard page
 * Open changes section - On Swift Dashboard page
 
 * Looking at material of type "Pipeline" named "$FS1$"

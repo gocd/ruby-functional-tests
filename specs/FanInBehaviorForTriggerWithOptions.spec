@@ -24,9 +24,9 @@ tags: fanin-trigger-with-opts
 * Looking at pipeline "FTO3" - On Swift Dashboard page
 * Trigger and wait for stage "stage1" is "passed" with label "1" - On Swift Dashboard page
 * Looking at pipeline "FTO4" - On Swift Dashboard page
-* Verify stage "stage1" is "passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "stage1" is "passed" with pipeline label "1" - On Swift Dashboard page
 * Looking at pipeline "FTO5" - On Swift Dashboard page
-* Verify stage "stage1" is "passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "stage1" is "passed" with pipeline label "1" - On Swift Dashboard page
 
 * Looking at pipeline "FTO1" - On Swift Dashboard page
 * With material "git-one" of type "git" for pipeline "FTO1"
@@ -61,9 +61,9 @@ tags: fanin-trigger-with-opts
 * Looking at pipeline "FTO3" - On Swift Dashboard page
 * Trigger and wait for stage "stage1" is "passed" with label "3" - On Swift Dashboard page
 * Looking at pipeline "FTO4" - On Swift Dashboard page
-* Verify stage "stage1" is "passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "stage1" is "passed" with pipeline label "2" - On Swift Dashboard page
 * Looking at pipeline "FTO5" - On Swift Dashboard page
-* Verify stage "stage1" is "passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "stage1" is "passed" with pipeline label "2" - On Swift Dashboard page
 
 * Looking at pipeline "FTO4" - On Swift Dashboard page
 * Open trigger with options - On Swift Dashboard page
@@ -74,7 +74,7 @@ tags: fanin-trigger-with-opts
 * Trigger pipeline with options - On Swift Dashboard page
 
 * Looking at pipeline "FTO4" - On Swift Dashboard page
-* Verify stage "stage1" is "passed" on pipeline with label "3" - On Swift Dashboard page
+* Verify stage "stage1" is "passed" with pipeline label "3" - On Swift Dashboard page
 
 
 * Looking at pipeline "FTO5" - On Swift Dashboard page
@@ -90,7 +90,7 @@ Trigger FT03 with options which won't allow fan-in due to use of g3 with FT02 ru
 * Trigger pipeline with options - On Swift Dashboard page
 
 * Looking at pipeline "FTO3" - On Swift Dashboard page
-* Verify stage "stage1" is "passed" on pipeline with label "4" - On Swift Dashboard page
+* Verify stage "stage1" is "passed" with pipeline label "4" - On Swift Dashboard page
 
 Check FT04 not triggered (can't fan in)
 * Looking at pipeline "FTO4" - On Swift Dashboard page
@@ -103,7 +103,7 @@ Go back and trigger FT02 and FT03 with options allowing fan-in (original g1 revi
 * Trigger pipeline with options - On Swift Dashboard page
 
 * Looking at pipeline "FTO2" - On Swift Dashboard page
-* Verify stage "stage1" is "passed" on pipeline with label "4" - On Swift Dashboard page
+* Verify stage "stage1" is "passed" with pipeline label "4" - On Swift Dashboard page
 
 * Looking at pipeline "FTO3" - On Swift Dashboard page
 * Open trigger with options - On Swift Dashboard page
@@ -115,11 +115,11 @@ Go back and trigger FT02 and FT03 with options allowing fan-in (original g1 revi
 
 
 * Looking at pipeline "FTO3" - On Swift Dashboard page
-* Verify stage "stage1" is "passed" on pipeline with label "5" - On Swift Dashboard page
+* Verify stage "stage1" is "passed" with pipeline label "5" - On Swift Dashboard page
 * Looking at pipeline "FTO4" - On Swift Dashboard page
-* Verify stage "stage1" is "passed" on pipeline with label "4" - On Swift Dashboard page
+* Verify stage "stage1" is "passed" with pipeline label "4" - On Swift Dashboard page
 * Looking at pipeline "FTO5" - On Swift Dashboard page
-* Verify stage "stage1" is "passed" on pipeline with label "3" - On Swift Dashboard page
+* Verify stage "stage1" is "passed" with pipeline label "3" - On Swift Dashboard page
 
 Trigger FT03 with g3 revision and "correct" FTO1 and FTO2 revisions (allowing fan-in)
 * Looking at pipeline "FTO3" - On Swift Dashboard page
@@ -132,10 +132,10 @@ Trigger FT03 with g3 revision and "correct" FTO1 and FTO2 revisions (allowing fa
 
 
 * Looking at pipeline "FTO3" - On Swift Dashboard page
-* Verify stage "stage1" is "passed" on pipeline with label "6" - On Swift Dashboard page
+* Verify stage "stage1" is "passed" with pipeline label "6" - On Swift Dashboard page
 
 * Looking at pipeline "FTO4" - On Swift Dashboard page
-* Verify stage "stage1" is "passed" on pipeline with label "4" - On Swift Dashboard page
+* Verify stage "stage1" is "passed" with pipeline label "4" - On Swift Dashboard page
 
 
 

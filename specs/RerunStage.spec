@@ -17,14 +17,14 @@ tags: rerun, job-detail, automate, stage1
 * Looking at pipeline "pipeline-ls" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page   
+* Verify stage "defaultStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 * On Job details page of pipeline "pipeline-ls" counter "1" stage "defaultStage" counter "1" job "defaultJob"
 * Store the job completed time stamp
 * On stage details page "overview" tab for "pipeline-ls" label "1" stage name "defaultStage" counter "1"
 * Rerun stage "defaultStage" - On Stage Details page
 * On Swift Dashboard Page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" and counter "2" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "2" with pipeline label "1" - On Swift Dashboard page
 * On Job details page of pipeline "pipeline-ls" counter "1" stage "defaultStage" counter "2" job "defaultJob"
 * Store the job completed time stamp 
 * Verify the job completed time stamp for job "defaultjob" of stage "defaultStage" of pipeline "pipeline-ls" with label "1" is Different for stage counter "1" and stage counter "2"
@@ -36,14 +36,14 @@ tags: rerun, job-detail, automate, stage1
 * Looking at pipeline "pipeline-with-failing-stage" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "failed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "failed" with pipeline label "1" - On Swift Dashboard page
 * On Job details page of pipeline "pipeline-with-failing-stage" counter "1" stage "defaultStage" counter "1" job "defaultJob"
 * Store the job completed time stamp
 * On stage details page "overview" tab for "pipeline-with-failing-stage" label "1" stage name "defaultStage" counter "1"
 * Rerun stage "defaultStage" - On Stage Details page
 * On Swift Dashboard Page
-* Verify stage "defaultStage" is "failed" on pipeline with label "1" - On Swift Dashboard page
-* Verify stage "defaultStage" is "failed" on pipeline with label "1" and counter "2" - On Swift Dashboard page
+* Verify stage "defaultStage" is "failed" with pipeline label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "failed" for counter "2" with pipeline label "1" - On Swift Dashboard page
 * On Job details page of pipeline "pipeline-with-failing-stage" counter "1" stage "defaultStage" counter "2" job "defaultJob"
 * Verify the job completed time stamp for job "defaultjob" of stage "defaultStage" of pipeline "pipeline-with-failing-stage" with label "1" is Different for stage counter "1" and stage counter "2"
 * Verify console log contains message "Start to prepare"

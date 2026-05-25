@@ -14,13 +14,13 @@ FanInWithAllAutoPipelines
 tags: diamond dependency, fanin
 * On Swift Dashboard Page
 * Looking at pipeline "grandparent-fast" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 
 * Looking at pipeline "parent-slow" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Building" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Building" for counter "1" with pipeline label "1" - On Swift Dashboard page
 
 * Looking at pipeline "parent-fast" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 
 
 Before parent-slow 1 is finished or child-fast 1 is triggered, checkin a new file
@@ -31,10 +31,10 @@ Before parent-slow 1 is finished or child-fast 1 is triggered, checkin a new fil
 * Remember current version as "g2"
 
 * Looking at pipeline "grandparent-fast" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "2" - On Swift Dashboard page
 
 * Looking at pipeline "parent-fast" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "2" - On Swift Dashboard page
 
 Before parent-slow 1/2 is finished or child-fast 1/2 is triggered, checkin another new file
 * On Swift Dashboard Page
@@ -44,16 +44,16 @@ Before parent-slow 1/2 is finished or child-fast 1/2 is triggered, checkin anoth
 * Remember current version as "g3"
 
 * Looking at pipeline "grandparent-fast" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "3" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "3" - On Swift Dashboard page
 
 * Looking at pipeline "parent-fast" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "3" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "3" - On Swift Dashboard page
 
 // Wait for parent-slow to finish both second and third attempts, allowing child-fast to fan-in
 * Looking at pipeline "parent-slow" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "3" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "3" - On Swift Dashboard page
 * Looking at pipeline "child-fast" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "3" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "3" - On Swift Dashboard page
 
 * Open changes section - On Swift Dashboard page
 

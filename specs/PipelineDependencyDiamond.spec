@@ -30,7 +30,7 @@ left [l1(g1), l2(g3), l3(g5), l3(g7)                  V                         
 * Looking at pipeline "d-up-right" - On Swift Dashboard page
 * Trigger and wait for stage "defaultStage" is "passed" with label "1" - On Swift Dashboard page
 * Looking at pipeline "d-down" - On Swift Dashboard page
-* Verify stage "defaultStage" is "passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "passed" with pipeline label "1" - On Swift Dashboard page
 
 * Looking at pipeline "d-up-left" - On Swift Dashboard page
 * With material "git-second" of type "git" for pipeline "d-up-left"
@@ -90,7 +90,7 @@ left [l1(g1), l2(g3), l3(g5), l3(g7)                  V                         
 * Looking at pipeline "d-down" - On Swift Dashboard page
 * Unpause pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 * Open changes section - On Swift Dashboard page
 
 * Looking at material of type "Pipeline" named "$d-up-left$"
@@ -114,11 +114,11 @@ left [l1(g1), l2(g3), l3(g5), l3(g7)                  V                         
 
 * Looking at pipeline "d-up-right" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "6" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "6" - On Swift Dashboard page
 
 * Looking at pipeline "d-down" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "3" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "3" - On Swift Dashboard page
 * Open changes section - On Swift Dashboard page
 
 * Looking at material of type "Pipeline" named "$d-up-left$"

@@ -26,7 +26,7 @@ tags: scheduling
 
 * Create a "stopjob" file
 * On Swift Dashboard Page
-* Verify stage "defaultStage" is "passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "passed" with pipeline label "1" - On Swift Dashboard page
 * Delete stopjob file
 * On stage details page "overview" tab for "pipeline-2-manual-stages-that-run-till-file-exists" label "1" stage name "defaultStage" counter "1"
 * Trigger stage "secondStage" - On stage details page

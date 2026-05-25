@@ -49,7 +49,7 @@ Disable onlyOnChanges option while still building so it doesn't schedule the nex
 
 Wait for completion of initial schedule
 * On Swift Dashboard Page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "2" - On Swift Dashboard page
 * Verify pipeline is triggered by "timer" - On Swift Dashboard page
 
 Make sure it does not schedule again, as we told it to trigger only on changes
@@ -59,7 +59,7 @@ Check it still triggers on a SCM material change
 * With material "git" of type "git" for pipeline "downstream-pipeline"
 * Checkin file "new_file.txt" as user "cceuser4" with message "comment abc" - On Swift Dashboard page
 * Wait till pipeline start building for "20" seconds - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "3" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "3" - On Swift Dashboard page
 * Verify pipeline is triggered by "timer" - On Swift Dashboard page
 
 Check it still triggers on an upstream pipeline change
@@ -68,7 +68,7 @@ Check it still triggers on an upstream pipeline change
 * Trigger and wait for stage "defaultStage" is "Passed" with label "2" - On Swift Dashboard page
 * Looking at pipeline "downstream-pipeline" - On Swift Dashboard page
 * Wait till pipeline start building for "20" seconds - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "4" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "4" - On Swift Dashboard page
 * Verify pipeline is triggered by "timer" - On Swift Dashboard page
 
 

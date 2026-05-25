@@ -17,20 +17,20 @@ tags: diamond dependency, multiple stages
 * Looking at pipeline "DeepC1" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till stage "first_stage" completed - On Swift Dashboard page
-* Verify stage "first_stage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "first_stage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 
 
 * On Swift Dashboard Page
 * Looking at pipeline "DeepC5" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till stage "first_stage" completed - On Swift Dashboard page
-* Verify stage "first_stage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "first_stage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 
 * On Swift Dashboard Page
 * Looking at pipeline "DeepC6" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till stage "first_stage" completed - On Swift Dashboard page
-* Verify stage "first_stage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "first_stage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 
 
 
@@ -40,7 +40,7 @@ tags: diamond dependency, multiple stages
 * Trigger stage "second_stage" - On stage details page
 * On Swift Dashboard Page
 * Wait till stage "second_stage" completed - On Swift Dashboard page
-* Verify stage "second_stage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "second_stage" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 
 
 * On Swift Dashboard Page
@@ -49,7 +49,7 @@ tags: diamond dependency, multiple stages
 * Trigger stage "second_stage" - On stage details page
 * On Swift Dashboard Page
 * Wait till stage "second_stage" completed - On Swift Dashboard page
-* Verify stage "second_stage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "second_stage" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 
 * On Swift Dashboard Page
 * Looking at pipeline "DeepC6" - On Swift Dashboard page
@@ -57,7 +57,7 @@ tags: diamond dependency, multiple stages
 * Trigger stage "second_stage" - On stage details page
 * On Swift Dashboard Page
 * Wait till stage "second_stage" completed - On Swift Dashboard page
-* Verify stage "second_stage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "second_stage" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 
 
 
@@ -65,7 +65,7 @@ tags: diamond dependency, multiple stages
 * Looking at pipeline "DeepC2" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till stage "first_stage" completed - On Swift Dashboard page
-* Verify stage "first_stage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "first_stage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 
 * On Swift Dashboard Page
 * Looking at pipeline "DeepC2" - On Swift Dashboard page
@@ -73,14 +73,14 @@ tags: diamond dependency, multiple stages
 * Trigger stage "second_stage" - On stage details page
 * On Swift Dashboard Page
 * Wait till stage "second_stage" completed - On Swift Dashboard page
-* Verify stage "second_stage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "second_stage" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 
 
 * On Swift Dashboard Page
 * Looking at pipeline "DeepC3" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till stage "first_stage" completed - On Swift Dashboard page
-* Verify stage "first_stage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "first_stage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 
 * On Swift Dashboard Page
 * Looking at pipeline "DeepC3" - On Swift Dashboard page
@@ -88,13 +88,13 @@ tags: diamond dependency, multiple stages
 * Trigger stage "second_stage" - On stage details page
 * On Swift Dashboard Page
 * Wait till stage "second_stage" completed - On Swift Dashboard page
-* Verify stage "second_stage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "second_stage" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 
 
 * On Swift Dashboard Page
 * Looking at pipeline "DeepC4-auto" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "second_stage" is "passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "second_stage" is "passed" with pipeline label "1" - On Swift Dashboard page
 
 * On Swift Dashboard Page
 * Looking at pipeline "DeepC1" - On Swift Dashboard page
@@ -107,7 +107,7 @@ tags: diamond dependency, multiple stages
 * Trigger pipeline - On Swift Dashboard page
 * Looking at pipeline "DeepC1" - On Swift Dashboard page
 * Wait till stage "first_stage" completed - On Swift Dashboard page
-* Verify stage "first_stage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "first_stage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 
 * On Swift Dashboard Page
 * Looking at pipeline "DeepC1" - On Swift Dashboard page
@@ -115,7 +115,7 @@ tags: diamond dependency, multiple stages
 * Trigger stage "second_stage" - On stage details page
 * On Swift Dashboard Page
 * Wait till stage "second_stage" completed - On Swift Dashboard page
-* Verify stage "second_stage" is "Passed" on pipeline with label "2" and counter "1" - On Swift Dashboard page
+* Verify stage "second_stage" is "Passed" for counter "1" with pipeline label "2" - On Swift Dashboard page
 
 * On Swift Dashboard Page
 * Looking at pipeline "DeepC4-auto" - On Swift Dashboard page
@@ -125,19 +125,19 @@ tags: diamond dependency, multiple stages
 * Looking at pipeline "DeepC2" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till stage "first_stage" completed - On Swift Dashboard page
-* Verify stage "first_stage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "first_stage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 
 * On Swift Dashboard Page
 * Looking at pipeline "DeepC3" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till stage "first_stage" completed - On Swift Dashboard page
-* Verify stage "first_stage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "first_stage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 
 
 * On Swift Dashboard Page
 * Looking at pipeline "DeepC4-auto" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "second_stage" is "passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "second_stage" is "passed" with pipeline label "2" - On Swift Dashboard page
 
 
 * Open changes section - On Swift Dashboard page
@@ -166,7 +166,7 @@ tags: diamond dependency, multiple stages
 * Looking at pipeline "DeepC5" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till stage "first_stage" completed - On Swift Dashboard page
-* Verify stage "first_stage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "first_stage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 
 
 * On Swift Dashboard Page
@@ -175,7 +175,7 @@ tags: diamond dependency, multiple stages
 * Trigger stage "second_stage" - On stage details page
 * On Swift Dashboard Page
 * Wait till stage "second_stage" completed - On Swift Dashboard page
-* Verify stage "second_stage" is "Passed" on pipeline with label "2" and counter "1" - On Swift Dashboard page
+* Verify stage "second_stage" is "Passed" for counter "1" with pipeline label "2" - On Swift Dashboard page
 
 
 
@@ -183,7 +183,7 @@ tags: diamond dependency, multiple stages
 * Looking at pipeline "DeepC6" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till stage "first_stage" completed - On Swift Dashboard page
-* Verify stage "first_stage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "first_stage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 
 * On Swift Dashboard Page
 * Looking at pipeline "DeepC6" - On Swift Dashboard page
@@ -191,12 +191,12 @@ tags: diamond dependency, multiple stages
 * Trigger stage "second_stage" - On stage details page
 * On Swift Dashboard Page
 * Wait till stage "second_stage" completed - On Swift Dashboard page
-* Verify stage "second_stage" is "Passed" on pipeline with label "2" and counter "1" - On Swift Dashboard page
+* Verify stage "second_stage" is "Passed" for counter "1" with pipeline label "2" - On Swift Dashboard page
 
 * On Swift Dashboard Page
 * Looking at pipeline "DeepC4-auto" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "second_stage" is "passed" on pipeline with label "3" - On Swift Dashboard page
+* Verify stage "second_stage" is "passed" with pipeline label "3" - On Swift Dashboard page
 
 
 * Open changes section - On Swift Dashboard page

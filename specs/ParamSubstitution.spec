@@ -15,7 +15,7 @@ tags: param, params
 
 * Looking at pipeline "pipeline-with-wierd-command" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "defaultStage" is "Failed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Failed" with pipeline label "1" - On Swift Dashboard page
 
 * On Job details page of pipeline "pipeline-with-wierd-command" counter "1" stage "defaultStage" counter "1" job "defaultJob"
 * Verify console log contains message "some_command_that_can_never_ever_exist_with_tail"

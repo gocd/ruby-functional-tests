@@ -19,7 +19,7 @@ tags: pipeline layout
 * Verify stage "first" is "building" - On Swift Dashboard page
 * Create a "stopjob" file and validate pipeline completed
 * Wait till stage "first" completed - On Swift Dashboard page
-* Verify stage "first" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "first" is "Passed" with pipeline label "1" - On Swift Dashboard page
 
 * On stage details page "overview" tab for "pipeline-with-3-stages" label "1" stage name "first" counter "1"
 
@@ -34,7 +34,7 @@ tags: pipeline layout
 * Rerun stage "first" - On Stage Details page
 
 * On Swift Dashboard Page
-* Verify stage "first" is "Building" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "first" is "Building" with pipeline label "1" - On Swift Dashboard page
 * On stage details page "overview" tab for "pipeline-with-3-stages" label "1" stage name "first" counter "2"
 
 * Verify stage "first" does not have action "rerun"
@@ -47,7 +47,7 @@ tags: pipeline layout
 
 * On Swift Dashboard Page
 * Looking at pipeline "pipeline-with-3-stages" - On Swift Dashboard page
-* Verify stage "first" is "Cancelled" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "first" is "Cancelled" with pipeline label "1" - On Swift Dashboard page
 * On stage details page "overview" tab for "pipeline-with-3-stages" label "1" stage name "first" counter "2"
 
 * Verify stage "first" has action "rerun"
@@ -61,7 +61,7 @@ tags: pipeline layout
 
 * On Swift Dashboard Page
 * Looking at pipeline "pipeline-with-3-stages" - On Swift Dashboard page
-* Verify stage "second" is "Building" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "second" is "Building" with pipeline label "1" - On Swift Dashboard page
 * On stage details page "overview" tab for "pipeline-with-3-stages" label "1" stage name "second" counter "1"
 
 * Verify stage "first" does not have any action
@@ -72,7 +72,7 @@ tags: pipeline layout
 
 * On Swift Dashboard Page
 * Create a "stopjob" file and validate pipeline completed
-* Verify stage "second" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "second" is "Passed" with pipeline label "1" - On Swift Dashboard page
 * On stage details page "overview" tab for "pipeline-with-3-stages" label "1" stage name "second" counter "1"
 
 
@@ -90,9 +90,9 @@ tags: pipeline layout
 * Looking at pipeline "pipeline-with-3-stages" - On Swift Dashboard page
 * Unlock the pipeline - On Swift Dashboard Page
 * Trigger pipeline "pipeline-with-3-stages" - On Swift Dashboard page
-* Verify stage "first" is "Building" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "first" is "Building" with pipeline label "2" - On Swift Dashboard page
 * Create a "stopjob" file and validate pipeline completed
-* Verify stage "first" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "first" is "Passed" with pipeline label "2" - On Swift Dashboard page
 * On stage details page "overview" tab for "pipeline-with-3-stages" label "1" stage name "first" counter "1"
 
 

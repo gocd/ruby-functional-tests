@@ -36,7 +36,7 @@ left [l1(g1), l2(g3), l3(g5), l3(g7)                  V                         
 * Trigger and wait for stage "defaultStage" is "Passed" with label "1" - On Swift Dashboard page
 
 * Looking at pipeline "d-down" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 * Verify pipeline is triggered by "changes" - On Swift Dashboard page
 * Click on history - On Swift Dashboard page
 
@@ -80,7 +80,7 @@ left [l1(g1), l2(g3), l3(g5), l3(g7)                  V                         
 * Trigger and wait for stage "defaultStage" is "Passed" with label "2" - On Swift Dashboard page
 
 * Looking at pipeline "d-down" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "2" - On Swift Dashboard page
 * Open changes section - On Swift Dashboard page
 
 * Looking at material of type "Pipeline" named "$d-up-left$"

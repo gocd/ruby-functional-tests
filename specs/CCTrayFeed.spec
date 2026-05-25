@@ -53,7 +53,7 @@ tags: cctray integration
 
 
 * On Swift Dashboard Page
-* Verify stage "defaultStage" is "Building" on pipeline with label "2" and counter "2" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Building" for counter "2" with pipeline label "2" - On Swift Dashboard page
 
 * Create a "failjob" file
 * Wait till "120" seconds for stage "defaultStage" shows status "Failed" - On Swift Dashboard page

@@ -27,7 +27,7 @@ Add resource "tfs" to an agent - Using Agents API
 * On Swift Dashboard Page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 
 * Modify and checkin file "IgnoredFile.ignore.txt" as "ignoreuser" with message "should be ignored"
 * Verify pipeline does not get triggered
@@ -49,10 +49,10 @@ Add resource "tfs" to an agent - Using Agents API
 * On Swift Dashboard Page
 * Modify and checkin file "IgnoredFile.ignore.txt" as "ignoreuser" with message "should NOT be ignored"
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 * Modify and checkin file "Folder with space/tobeignored.txt" as "ignoreuser" with message "should NOT be ignored again"
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "3" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "3" - On Swift Dashboard page
 
 * On Swift Dashboard Page
 * On Stage settings page of pipeline "basic-tfs-pipeline" stage "defaultStage"
@@ -71,7 +71,7 @@ Add resource "tfs" to an agent - Using Agents API
 * Modify and checkin file "HelloWorld.txt" as "luser" with message "interesting comment by luser"
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "4" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "4" - On Swift Dashboard page
 
 * On stage details page "materials" tab for "basic-tfs-pipeline" label "4" stage name "defaultStage" counter "1"
 * Looking at material of type "Tfs" named "tfs_mat"
@@ -89,7 +89,7 @@ Add resource "tfs" to an agent - Using Agents API
 * On Swift Dashboard Page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "5" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "5" - On Swift Dashboard page
 
 * On Swift Dashboard Page
 * Looking at pipeline "basic-tfs-pipeline" - On Swift Dashboard page
@@ -102,7 +102,7 @@ Add resource "tfs" to an agent - Using Agents API
 * On Swift Dashboard Page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "6" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "6" - On Swift Dashboard page
 
 * On Stage settings page of pipeline "basic-tfs-pipeline" stage "defaultStage"
 * Select Clean working directory
@@ -111,7 +111,7 @@ Add resource "tfs" to an agent - Using Agents API
 * On Swift Dashboard Page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "7" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "7" - On Swift Dashboard page
 
 * On Job details page of pipeline "basic-tfs-pipeline" counter "7" stage "defaultStage" counter "1" job "defaultJob"
 * Verify console log contains message "Cleaning working directory"

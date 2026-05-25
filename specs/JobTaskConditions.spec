@@ -17,7 +17,7 @@ tags: runif
 * On Swift Dashboard Page
 * Looking at pipeline "pipeline.with.runif" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "default.stage" is "failed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "default.stage" is "failed" with pipeline label "1" - On Swift Dashboard page
 * On Job details page of pipeline "pipeline.with.runif" counter "1" stage "default.stage" counter "1" job "job.with.runif"
 
 

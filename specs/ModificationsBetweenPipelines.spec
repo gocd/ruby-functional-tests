@@ -16,10 +16,10 @@ tags: card_activity
 * On Swift Dashboard Page
 * Looking at pipeline "trackingtool-config-parent" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "hello-world-1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "hello-world-1" - On Swift Dashboard page
 * Looking at pipeline "pipeline-with-trackingtool" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 
 * With material "pipeline-git0" of type "git" for pipeline "pipeline-with-trackingtool"
 * Checkin file "foo.text" as user "user" with message "Comment user" - On Swift Dashboard page
@@ -42,7 +42,7 @@ tags: card_activity
 * Looking at pipeline "pipeline-with-trackingtool" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till stage "defaultStage" completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 
 
 * With material "pipeline-git0" of type "git" for pipeline "pipeline-with-trackingtool"
@@ -61,11 +61,11 @@ tags: card_activity
 * On Swift Dashboard Page
 * Looking at pipeline "trackingtool-config-parent" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "hello-world-2" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "hello-world-2" - On Swift Dashboard page
 
 * Looking at pipeline "pipeline-with-trackingtool" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "3" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "3" - On Swift Dashboard page
 
 * On Pipeline Compare page from "2" build to "3"
  Select "Changes" tab

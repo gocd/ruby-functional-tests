@@ -36,7 +36,7 @@ Wait for unresponsive job warning caused by cruise.unresponsive.job.warning sett
 
 Wait for automtic cancellation
 * On Swift Dashboard Page
-* Verify stage "defaultStage" is "Building" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Building" with pipeline label "1" - On Swift Dashboard page
 * Wait till "90" seconds for stage "defaultStage" shows status "Cancelled" - On Swift Dashboard page
 * On Job details page of pipeline "hung-job-pipeline" counter "1" stage "defaultStage" counter "1" job "defaultJob"
 * Verify console log contains message "Go cancelled this job as it has not generated any console output for more than 2 minute(s)"

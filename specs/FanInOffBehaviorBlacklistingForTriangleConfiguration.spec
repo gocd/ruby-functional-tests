@@ -16,10 +16,10 @@ tags: Fanin off
 
 * On Swift Dashboard Page
 * Looking at pipeline "cruise" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 
 * Looking at pipeline "acceptance" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 
 * Looking at pipeline "cruise" - On Swift Dashboard page
 * With material "git-one" of type "git" for pipeline "cruise"
@@ -31,7 +31,7 @@ tags: Fanin off
 * Looking at pipeline "cruise" - On Swift Dashboard page
 * Verify pipeline does not get triggered
 * Looking at pipeline "acceptance" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "2" - On Swift Dashboard page
 
 * Open changes section - On Swift Dashboard page
 * Looking at material of type "Pipeline" named "$cruise$"
@@ -49,7 +49,7 @@ tags: Fanin off
 
 * On Swift Dashboard Page
 * Looking at pipeline "cruise" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "2" - On Swift Dashboard page
 
 * Open changes section - On Swift Dashboard page
 * Looking at material of type "Git" named "git-one"
@@ -61,7 +61,7 @@ tags: Fanin off
 
 * On Swift Dashboard Page
 * Looking at pipeline "acceptance" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "3" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "3" - On Swift Dashboard page
 
 * Open changes section - On Swift Dashboard page
 * Looking at material of type "Pipeline" named "$cruise$"

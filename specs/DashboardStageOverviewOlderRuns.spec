@@ -16,7 +16,7 @@ tags: stage-overview, UI, refresh
 
 * Looking at pipeline "pipeline-with-3-jobs" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "defaultStage" is "Failing" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Failing" with pipeline label "1" - On Swift Dashboard page
 
 * Open stage overview for stage "defaultStage" - On Swift Dashboard page
 
@@ -34,7 +34,7 @@ tags: stage-overview, UI, refresh
 
 * On Swift Dashboard Page
 * Create a "stopjob" file and validate pipeline completed
-* Verify stage "defaultStage" is "Failed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Failed" with pipeline label "1" - On Swift Dashboard page
 
 * Open stage overview for stage "defaultStage" - On Swift Dashboard page
 
@@ -48,7 +48,7 @@ tags: stage-overview, UI, refresh
 
 * Rerun failed jobs
 
-* Verify stage "defaultStage" is "Building" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Building" with pipeline label "1" - On Swift Dashboard page
 
 * Open stage overview for stage "defaultStage" - On Swift Dashboard page
 * Verify failed job count is "0"
@@ -78,7 +78,7 @@ tags: stage-overview, UI, refresh
 
 * Rerun failed jobs
 
-* Verify stage "defaultStage" is "Building" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Building" with pipeline label "1" - On Swift Dashboard page
 
 * Open stage overview for stage "defaultStage" - On Swift Dashboard page
 * Verify stage overview has header "pipeline-with-3-jobs" "1" "defaultStage" "3"

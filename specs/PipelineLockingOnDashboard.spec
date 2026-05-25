@@ -17,17 +17,17 @@ tags: pipeline_locking_behavior
 * Verify stage "firstStage" is "Building" - On Swift Dashboard page
 * Verify pipeline is locked - On Swift Dashboard page
 * Create a "stopjob" file and validate pipeline completed
-* Verify stage "firstStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "firstStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 * Verify pipeline is locked - On Swift Dashboard page
 
 * Unlock the pipeline - On Swift Dashboard Page
 
 * Looking at pipeline "pipeline-with-lock-all-manual" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "firstStage" is "Building" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "firstStage" is "Building" with pipeline label "2" - On Swift Dashboard page
 * Verify pipeline is locked - On Swift Dashboard page
 * Create a "stopjob" file and validate pipeline completed
-* Verify stage "firstStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "firstStage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 * Verify pipeline is locked - On Swift Dashboard page
 
 * Unlock the pipeline - On Swift Dashboard Page
@@ -37,10 +37,10 @@ tags: pipeline_locking_behavior
 
 * On Swift Dashboard Page
 * Looking at pipeline "pipeline-with-lock-all-manual" - On Swift Dashboard page
-* Verify stage "secondStage" is "Building" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "secondStage" is "Building" with pipeline label "2" - On Swift Dashboard page
 * Verify pipeline is locked - On Swift Dashboard page
 * Create a "stopjob" file and validate pipeline completed
-* Verify stage "secondStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "secondStage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 
 
 

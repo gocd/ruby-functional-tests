@@ -22,7 +22,7 @@ tags: job-rerun, run-multiple-instance
 * Looking at pipeline "pipeline-for-job-rerun-run-multiple-instance" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 * On stage details page "jobs" tab for "pipeline-for-job-rerun-run-multiple-instance" label "1" stage name "defaultStage" counter "1"
 * Verify job "first-runInstance-1" has state "Completed" and result "Passed"
 * Verify job "first-runInstance-2" has state "Completed" and result "Passed"
@@ -42,7 +42,7 @@ tags: job-rerun, run-multiple-instance
 * Rerun "first-runInstance-2" jobs
 
 * On Swift Dashboard Page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 * On stage details page "jobs" tab for "pipeline-for-job-rerun-run-multiple-instance" label "1" stage name "defaultStage" counter "2"
 
 * Verify job "first-runInstance-1" has state "Completed" and result "Passed"
@@ -65,7 +65,7 @@ tags: job-rerun, run-multiple-instance
 * On Swift Dashboard Page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 * On stage details page "jobs" tab for "pipeline-for-job-rerun-run-multiple-instance" label "2" stage name "defaultStage" counter "1"
 
 * Verify job "first" has state "Completed" and result "Passed"

@@ -19,11 +19,11 @@ Admin can add/edit artifacts
 
 * Looking at pipeline "viewable-pipeline" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 
 * Looking at pipeline "2-stage-viewable" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "first" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "first" is "Passed" with pipeline label "1" - On Swift Dashboard page
 
 
 

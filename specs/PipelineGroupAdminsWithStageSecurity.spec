@@ -29,7 +29,7 @@ He should still be able to operate on the stage.
 * Create a "stopjob" file and validate pipeline completed
 
 
-* Verify stage "first" is "passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "first" is "passed" with pipeline label "1" - On Swift Dashboard page
 * On stage details page "overview" tab for "pipeline-with-group-and-stage-security" label "1" stage name "first" counter "1"
 
 * Rerun stage "first" - On Stage Details page
@@ -37,7 +37,7 @@ He should still be able to operate on the stage.
 
 * On Swift Dashboard Page
 * Create a "stopjob" file
-* Verify stage "first" is "passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "first" is "passed" with pipeline label "1" - On Swift Dashboard page
 
 
 * Logout - from any page

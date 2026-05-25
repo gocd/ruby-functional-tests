@@ -21,7 +21,7 @@ tags: diamond dependency, fanin
 * Looking at pipeline "parent-right" - On Swift Dashboard page
 * Trigger and wait for stage "defaultStage" is "Passed" with label "1" - On Swift Dashboard page
 * Looking at pipeline "child-down" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 
 * On Swift Dashboard Page
 * Looking at pipeline "parent-right" - On Swift Dashboard page
@@ -48,7 +48,7 @@ tags: diamond dependency, fanin
 * Looking at pipeline "parent-right" - On Swift Dashboard page
 * Trigger and wait for stage "defaultStage" is "Passed" with label "2" - On Swift Dashboard page
 * Looking at pipeline "child-down" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "2" - On Swift Dashboard page
 
 * Open changes section - On Swift Dashboard page
 * Looking at material of type "Pipeline" named "$parent-left$"
@@ -79,7 +79,7 @@ tags: diamond dependency, fanin
 * Looking at pipeline "parent-left" - On Swift Dashboard page
 * Trigger and wait for stage "defaultStage" is "Passed" with label "3" - On Swift Dashboard page
 * Looking at pipeline "child-down" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "3" and counter "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" for counter "1" with pipeline label "3" - On Swift Dashboard page
 
 * Open changes section - On Swift Dashboard page
 * Looking at material of type "Pipeline" named "$parent-left$"

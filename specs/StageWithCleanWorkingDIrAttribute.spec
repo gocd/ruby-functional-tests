@@ -21,12 +21,12 @@ tags: stage-config
 
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "setup" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "setup" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 * On stage details page "overview" tab for "pipeline-clean-working-dir" label "1" stage name "setup" counter "1"
 * Trigger stage "first" - On stage details page
 
 * On Swift Dashboard Page
-* Verify stage "first" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "first" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 * On Job details page of pipeline "pipeline-clean-working-dir" counter "1" stage "first" counter "1" job "firstJob"
 * Verify console log contains message "Start to upload"
 * Verify console log contains message "Start to prepare"
@@ -41,7 +41,7 @@ tags: stage-config
 * Trigger stage "second" - On stage details page
 
 * On Swift Dashboard Page
-* Verify stage "second" is "Passed" on pipeline with label "1" and counter "1" - On Swift Dashboard page
+* Verify stage "second" is "Passed" for counter "1" with pipeline label "1" - On Swift Dashboard page
 * On Job details page of pipeline "pipeline-clean-working-dir" counter "1" stage "second" counter "1" job "secondJob"
 * Verify console log contains message "Cleaning working directory"
 * Verify console log does not contains message "abc.txt"

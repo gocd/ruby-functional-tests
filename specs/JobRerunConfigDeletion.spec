@@ -15,7 +15,7 @@ tags: job-rerun
 * On Swift Dashboard Page
 * Looking at pipeline "pipeline-with-3-jobs" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "defaultStage" is "Building" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Building" with pipeline label "1" - On Swift Dashboard page
 * On stage details page "jobs" tab for "pipeline-with-3-jobs" label "1" stage name "defaultStage" counter "1"
 * Cancel "defaultStage" - On Stage Detail Page
 

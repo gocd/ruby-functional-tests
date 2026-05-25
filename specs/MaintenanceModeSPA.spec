@@ -71,7 +71,7 @@ Wait for job to actually be assigned to an agent
 * On Swift Dashboard Page
 * Looking at pipeline "basic-pipeline-fast" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 
 * On Maintenance mode SPA
 * Enable maintenance mode

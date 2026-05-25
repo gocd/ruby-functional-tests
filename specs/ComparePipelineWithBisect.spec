@@ -40,7 +40,7 @@ tags: compare_pipeline
 
 * On Swift Dashboard Page
 * Looking at pipeline "up" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Cancelled" on pipeline with label "3" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Cancelled" with pipeline label "3" - On Swift Dashboard page
 * Click pipeline compare link
 
 * Verify that from pipeline textbox is populated with "2"

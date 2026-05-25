@@ -17,7 +17,7 @@ tags: pipeline layout
 * Looking at pipeline "2-stage-viewable" - On Swift Dashboard page
 * Trigger pipeline "2-stage-viewable" - On Swift Dashboard page
 * Wait till stage "first" completed - On Swift Dashboard page
-* Verify stage "first" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "first" is "Passed" with pipeline label "1" - On Swift Dashboard page
 * On stage details page "overview" tab for "2-stage-viewable" label "1" stage name "first" counter "1"
 
 

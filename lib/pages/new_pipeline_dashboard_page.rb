@@ -92,7 +92,7 @@ module Pages
       nil
     end
 
-    def get_all_stages_at_label(pipeline, label)
+    def get_all_stages_at_pipeline_label(pipeline, label)
       reload_page
       (pipeline_name text: pipeline)
         .ancestor('.pipeline')
@@ -105,14 +105,14 @@ module Pages
     end
 
 
-    def get_manual_gate(pipeline, stagename)
-      target_stage = get_all_stages(pipeline).select { |stage| (stage['title'] || {}).include?(stagename)}
+    def get_manual_gate(pipeline, stage_name)
+      target_stage = get_all_stages(pipeline).select { |stage| (stage['title'] || {}).include?(stage_name)}
       parent = target_stage.first.find(:xpath,".//..")
       parent.find('.manual_gate')
     end
 
-    def is_stage_manual(pipeline, stagename)
-      !get_manual_gate(pipeline, stagename).nil?
+    def is_stage_manual(pipeline, stage_name)
+      !get_manual_gate(pipeline, stage_name).nil?
     rescue StandardError => e
       false
     end
@@ -132,45 +132,45 @@ module Pages
       end
     end
 
-    def get_pipeline_stage_state(pipeline, stagename)
-      # p "getting stage state for pipeline: #{pipeline} and stage: #{stagename}"
+    def get_stage_state(pipeline, stage_name)
+      # p "getting stage state for pipeline: #{pipeline} and stage: #{stage_name}"
       all_stages = get_all_stages(pipeline)
       return if all_stages.nil?
-      target_stage = all_stages.select { |stage| (stage['title'] || {}).include?(stagename)}
+      target_stage = all_stages.select { |stage| (stage['title'] || {}).include?(stage_name)}
       (target_stage.first || {})['class']
     end
 
-    def get_pipeline_stage_at_label(pipeline, stagename, label)
-      # p "getting stage state for pipeline: #{pipeline} and stage: #{stagename} at label: #{label}"
-      all_stages = get_all_stages_at_label(pipeline, label)
+    def get_stage_at_pipeline_label(pipeline, label, stage_name)
+      # p "getting stage state for pipeline: #{pipeline} and stage: #{stage_name} at label: #{label}"
+      all_stages = get_all_stages_at_pipeline_label(pipeline, label)
       return if all_stages.nil?
-      all_stages.select { |stage| (stage['title'] || {}).include?(stagename) }
+      all_stages.select { |stage| (stage['title'] || {}).include?(stage_name) }
     end
 
     def wait_for_expected_stage_state(pipeline, stage, state, wait_time = 90)
       wait_till_event_occurs_or_bomb wait_time, "Pipeline #{pipeline} stage #{stage} is not in #{state} state" do
-        pipeline_stage_state = get_pipeline_stage_state(pipeline, stage)
+        pipeline_stage_state = get_stage_state(pipeline, stage)
         next if pipeline_stage_state.nil?
         break if pipeline_stage_state.include?(state)
       end
     end
 
-    def wait_for_expected_stage_state_at_label(pipeline, stage, state, label)
+    def wait_for_expected_stage_state_at_pipeline_label(pipeline, label, stage, state)
       wait_till_event_occurs_or_bomb 90, "Pipeline #{pipeline} at label #{label}'s stage #{stage} is not in #{state} state" do
-        pipeline_stage = get_pipeline_stage_at_label(pipeline, stage, label)
+        pipeline_stage = get_stage_at_pipeline_label(pipeline, label, stage)
         pipeline_stage_state = pipeline_stage.first['class'] if pipeline_stage&.first
         break if pipeline_stage_state&.include?(state)
       end
     end
 
-    def wait_for_expected_stage_state_at_label_and_counter(pipeline, stage, state, label, counter)
-      wait_till_event_occurs_or_bomb 90, "Pipeline #{pipeline} at label #{label}'s stage #{stage} is not in #{state} state for counter #{counter}" do
-        pipeline_stage = get_pipeline_stage_at_label(pipeline, stage, label)
+    def wait_for_expected_stage_state_and_counter_at_pipeline_label(pipeline, label, stage, state, stage_counter)
+      wait_till_event_occurs_or_bomb 90, "Pipeline #{pipeline} at label #{label}'s stage #{stage} is not in #{state} state for counter #{stage_counter}" do
+        pipeline_stage = get_stage_at_pipeline_label(pipeline, label, stage)
         pipeline_stage_state = pipeline_stage.first['class'] if pipeline_stage&.first
         next unless pipeline_stage_state&.include?(state)
 
         # Check the stage counter
-        expected_stage_counter_url = "/go/pipelines/#{pipeline}/#{label}/#{stage}/#{counter}"
+        expected_stage_counter_url = "/go/pipelines/#{pipeline}/#{label}/#{stage}/#{stage_counter}"
         pipeline_stage.first.click
         url = stage_overview_stage_details_link['href']
         actual_stage_counter_url = '/go' + (url.split '/go')[1]
@@ -249,7 +249,7 @@ module Pages
 
     def wait_till_stage_complete(stage)
       wait_till_event_occurs_or_bomb 60, "Pipeline #{scenario_state.self_pipeline} Stage #{stage} failed to complete" do
-        pipeline_stage_state = get_pipeline_stage_state(scenario_state.self_pipeline, stage)
+        pipeline_stage_state = get_stage_state(scenario_state.self_pipeline, stage)
         next if stage_state_indeterminate?(pipeline_stage_state)
         break unless stage_state_building?(pipeline_stage_state)
       end

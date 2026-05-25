@@ -22,7 +22,7 @@ tags: tfs
 
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "stage1" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "stage1" is "Passed" with pipeline label "1" - On Swift Dashboard page
 * On stage details page "overview" tab for "tfs-pipeline-with-multiple-stages" label "1" stage name "stage1" counter "1"
 
 * Trigger stage "stage2" - On stage details page
@@ -42,7 +42,7 @@ now trigger pipeline again with new material change
 * Looking at pipeline "tfs-pipeline-with-multiple-stages" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "stage1" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "stage1" is "Passed" with pipeline label "2" - On Swift Dashboard page
 
 
 verify first instance built with older material

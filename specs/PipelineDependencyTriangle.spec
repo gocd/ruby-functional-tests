@@ -30,7 +30,7 @@ Stop server
 
 * Pause pipeline with reason "pausing to test dependency" - On Swift Dashboard page
 * Looking at pipeline "another-sixth" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 * Open changes section - On Swift Dashboard page
 
 * Looking at material of type "Pipeline" named "$fourth$"

@@ -51,7 +51,7 @@ tags: shine, bisect, automate
 
 * Looking at pipeline "basic-pipeline-fast" - On Swift Dashboard page
 * Wait till pipeline completed - On Swift Dashboard page
-* Verify stage "defaultStage" is "passed" on pipeline with label "3" - On Swift Dashboard page
+* Verify stage "defaultStage" is "passed" with pipeline label "3" - On Swift Dashboard page
 * Verify pipeline is triggered by "anonymous" - On Swift Dashboard page
 
 * Open changes section - On Swift Dashboard page

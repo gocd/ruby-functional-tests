@@ -21,7 +21,7 @@ Verify can unlock a pipeline that's waiting for a manual stage to be triggered
 * Trigger pipeline - On Swift Dashboard page
 
 * Create a "stopjob" file
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 * Verify can unlock "pipeline-2-manual-stages-that-run-till-file-exists"
 
 Verify can unlock a pipeline that's been cancelled
@@ -29,11 +29,11 @@ Verify can unlock a pipeline that's been cancelled
 * On Swift Dashboard Page
 * Looking at pipeline "pipeline-2-manual-stages-that-run-till-file-exists" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "defaultStage" is "Building" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Building" with pipeline label "2" - On Swift Dashboard page
 
 
 
-Verify stage "defaultStage" is "Building" on pipeline with label "2" - On Swift Dashboard page
+Verify stage "defaultStage" is "Building" with pipeline label "2" - On Swift Dashboard page
 
 * On stage details page "overview" tab for "pipeline-2-manual-stages-that-run-till-file-exists" label "2" stage name "defaultStage" counter "1"
 * Cancel "defaultStage" - On Stage Detail Page
@@ -56,13 +56,13 @@ Verify stage "defaultStage" is "Building" on pipeline with label "2" - On Swift 
 * On stage details page "overview" tab for "pipeline-2-manual-stages-that-run-till-file-exists" label "2" stage name "defaultStage" counter "2"
 * Trigger stage "secondStage" - On stage details page
 * On Swift Dashboard Page
-* Verify stage "secondStage" is "Building" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "secondStage" is "Building" with pipeline label "2" - On Swift Dashboard page
 * Create a "stopjob" file
 * Wait till pipeline completed - On Swift Dashboard page
 * On Swift Dashboard Page
 * Looking at pipeline "pipeline-with-failing-stage" - On Swift Dashboard page
 * Trigger pipeline - On Swift Dashboard page
-* Verify stage "defaultStage" is "Failed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Failed" with pipeline label "1" - On Swift Dashboard page
 
 * Verify can unlock "pipeline-with-failing-stage"
 

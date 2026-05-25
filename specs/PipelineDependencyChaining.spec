@@ -17,16 +17,16 @@ tags: dependency pipeline
 
 * On Swift Dashboard Page
 * Looking at pipeline "autoFirst" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 
 * Looking at pipeline "child-of-autoFirst" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 
 * Looking at pipeline "child-of-autoFirst-ignoring-scheduling-for-upstream" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 
 * Looking at pipeline "grandchild-of-autoFirst" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 
 
 
@@ -45,10 +45,10 @@ Verify dependency chaining after scm triggers autoFirst pipeline
 
 * On Swift Dashboard Page
 * Looking at pipeline "autoFirst" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 
 * Looking at pipeline "child-of-autoFirst" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 
 * Open changes section - On Swift Dashboard page
 
@@ -58,7 +58,7 @@ Verify dependency chaining after scm triggers autoFirst pipeline
 
 * On Swift Dashboard Page
 * Looking at pipeline "grandchild-of-autoFirst" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 
 * Open changes section - On Swift Dashboard page
 
@@ -68,7 +68,7 @@ Verify dependency chaining after scm triggers autoFirst pipeline
 
 * On Swift Dashboard Page
 * Looking at pipeline "child-of-autoFirst-ignoring-scheduling-for-upstream" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "1" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "1" - On Swift Dashboard page
 
 
 Pipeline ignoring upstream dependency should be triggered with SCM material
@@ -80,7 +80,7 @@ Pipeline ignoring upstream dependency should be triggered with SCM material
 * Remember current version as "git-new2"
 
 * Looking at pipeline "child-of-autoFirst-ignoring-scheduling-for-upstream" - On Swift Dashboard page
-* Verify stage "defaultStage" is "Passed" on pipeline with label "2" - On Swift Dashboard page
+* Verify stage "defaultStage" is "Passed" with pipeline label "2" - On Swift Dashboard page
 
 * Open changes section - On Swift Dashboard page
 

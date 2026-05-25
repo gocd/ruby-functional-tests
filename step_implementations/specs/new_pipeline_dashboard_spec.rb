@@ -91,7 +91,7 @@ step 'Verify stage <stage> is <state> with pipeline label <label> - On Swift Das
 end
 
 step 'Verify stage <stage> is <state> for counter <counter> with pipeline label <label> - On Swift Dashboard page' do |stage, state, stage_counter, label|
-  new_pipeline_dashboard_page.wait_for_expected_stage_state_and_counter_at_pipeline_label scenario_state.self_pipeline, label, stage, state.downcase, stage_counter, label
+  new_pipeline_dashboard_page.wait_for_expected_stage_state_and_counter_at_pipeline_label scenario_state.self_pipeline, label, stage, state.downcase, stage_counter
 end
 
 step 'Verify stage <stage> is with label <label> - On Swift Dashboard page' do |_stage, label|

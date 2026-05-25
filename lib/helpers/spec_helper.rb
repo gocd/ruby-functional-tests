@@ -28,6 +28,7 @@ require 'context/secure_configuration'
 require 'context/server'
 require 'context/pipeline'
 require 'context/ldap'
+require 'context/smtp'
 require 'context/yum_repository'
 require 'pages/app_base'
 require 'pages/login_page'
@@ -233,6 +234,10 @@ module Helpers
 
     def ldap_server
       Context::LdapServer.instance
+    end
+
+    def smtp_server
+      Context::SmtpServer.instance
     end
 
     def secure_configuration

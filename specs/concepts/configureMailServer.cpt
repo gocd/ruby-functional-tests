@@ -1,0 +1,9 @@
+# Configure mail server with sender <sender> and admin <admin>
+* On Server Configuration page
+* On Email server configuration
+* Set SMTP server hostname as "127.0.0.1"
+* Set SMTP server port as "10025"
+* Set sender email as <sender>
+* Set administrator email as <admin>
+* Save Server Configuration
+* Verify server configuration save is successful

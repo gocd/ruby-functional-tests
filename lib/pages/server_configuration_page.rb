@@ -38,5 +38,10 @@ module Pages
 
     element :save_button, "[data-test-id='save']"
 
+    element :send_test_email_button, "[data-test-id='send-test-email']"
+    element :test_email_success_icon, "[data-test-id='test-connection-icon-success']"
+    element :test_email_failure_icon, "[data-test-id='test-connection-icon-alert']"
+    element :test_email_success_message, "[data-test-id='mail-server-management-widget'] [data-test-id='flash-message-success']"
+
   end
 end

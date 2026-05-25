@@ -4,29 +4,23 @@ ServerConfigurationMailHost
 Setup of contexts
 * Basic Configuration - setup
 * Capture go state "ServerConfigurationMailHost" - setup
+* SMTP server - start
 
 ServerConfigurationMailHost
 ------------------------------
 
-tags: server configuration
+tags: server configuration, mail sending
 
-* On Server Configuration page
+* Configure mail server with sender "gocd-sender@gocd.test" and admin "gocd-admin@gocd.test"
 
-* On Email server configuration
+* Send test email
+* Verify test email connection succeeded
 
-* Set SMTP server hostname as "chimisc01.thoughtworks.com"
-* Set SMTP server port as "25"
-* Enable SMTPs
-* Set SMTP server username as "gauge"
-* Set SMTP server password as "tester"
-* Set sender email as "ccedev@thoughtworks.com"
-* Set administrator email as "admin@thoughtworks.com"
-
-* Save Server Configuration
-
-* Verify server configuration save is successful
+* Verify SMTP server received email from "gocd-sender@gocd.test" to "gocd-admin@gocd.test" with subject "Go Email Notification"
+* Verify SMTP server received email containing "You received this configuration test email from Go Server"
 
 
 Teardown of contexts
 ____________________
 * Capture go state "ServerConfigurationMailHost" - teardown
+* SMTP server - stop

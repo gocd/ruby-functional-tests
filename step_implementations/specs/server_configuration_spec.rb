@@ -66,3 +66,14 @@ end
 step 'Verify server configuration save is successful' do
   assert_equal server_configuration_page.flash_message.text, "Mail server configuration updated successfully!", "Actual message shown #{server_configuration_page.flash_message.text}"
 end
+
+step 'Send test email' do
+  server_configuration_page.send_test_email_button.click
+end
+
+step 'Verify test email connection succeeded' do
+  assert_true server_configuration_page.has_test_email_success_icon?(wait: 15),
+              "Test email did not succeed. Failure icon present? #{server_configuration_page.has_test_email_failure_icon?}"
+  assert_equal "Connection OK", server_configuration_page.test_email_success_message.text.strip,
+               "Unexpected test email message: #{server_configuration_page.test_email_success_message.text.inspect}"
+end

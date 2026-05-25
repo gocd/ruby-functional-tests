@@ -48,10 +48,6 @@ module Pages
       button_clone.click(wait: 10)
     end
 
-    def save_clone
-      button_clone.click
-    end
-
     def delete_pipeline(pipeline)
       page.find("[data-test-id='delete-pipeline-#{pipeline}']").click
       button_delete.click

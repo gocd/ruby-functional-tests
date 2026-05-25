@@ -17,7 +17,7 @@ tags: Clicky Admin, template
 
 * Extract template for pipeline "simple-pipeline"
 * Enter template name "template_from_pipeline" - On template popup
-* Save template
+* Click on extract template
 
 Wait for background conversion of pipeline to template to complete
 * Wait for "5" seconds

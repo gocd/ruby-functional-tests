@@ -115,10 +115,10 @@ step 'Click clone button for pipeline <pipeline>' do |pipeline|
 end
 
 step 'Save Cloning' do ||
-  admin_pipeline_page.save_clone
+  admin_pipeline_page.button_clone.click
 end
 
-step 'Save template' do ||
+step 'Click on extract template' do ||
   admin_pipeline_page.button_extract_template.click
 end
 

@@ -48,6 +48,20 @@ module Pages
       button_clone.click(wait: 10)
     end
 
+    def save_clone
+      wait_till_event_occurs_or_bomb 20, "Save Clone button is disabled" do
+        break unless button_clone.disabled?
+      end
+      button_clone.click
+    end
+
+    def extract_template
+      wait_till_event_occurs_or_bomb 20, "Extract template button is disabled" do
+        break unless button_extract_template.disabled?
+      end
+      button_extract_template.click
+    end
+
     def delete_pipeline(pipeline)
       page.find("[data-test-id='delete-pipeline-#{pipeline}']").click
       button_delete.click

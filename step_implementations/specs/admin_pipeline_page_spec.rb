@@ -53,11 +53,11 @@ step 'Add new pipeline group' do
 end
 
 step 'Enter pipeline group name <group> - Already On New Pipeline Group Popup' do |group|
-  admin_pipeline_page.input_pipeline_group_name.set(group, rapid: false)
+  admin_pipeline_page.input_pipeline_group_name.set(group)
 end
 
 step 'Enter pipeline group name <group> - Already On Clone Pipeline pop up' do |group|
-  admin_pipeline_page.input_pipeline_group_name.set(group, rapid: false)
+  admin_pipeline_page.input_pipeline_group_name.set(group)
 end
 
 step 'Verify error message <message> - Already On New Pipeline Group Popup' do |message|
@@ -115,11 +115,11 @@ step 'Click clone button for pipeline <pipeline>' do |pipeline|
 end
 
 step 'Save Cloning' do ||
-  admin_pipeline_page.button_clone.click(wait: 10)
+  admin_pipeline_page.save_clone
 end
 
 step 'Click on extract template' do ||
-  admin_pipeline_page.button_extract_template.click(wait: 10)
+  admin_pipeline_page.extract_template
 end
 
 step 'Save group create' do ||

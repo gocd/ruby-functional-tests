@@ -27,7 +27,7 @@ module Context
 
     def detect_headers_from_loaded_config
       begin
-        response = Helpers::HTTP.conn.get admin_config_url
+        response = Helpers::HTTP.raising.get admin_config_url
         return { Confirm: 'true' } unless response.status != 200
       rescue StandardError
       end
@@ -37,7 +37,7 @@ module Context
     end
 
     def load_dom(xml)
-      Helpers::HTTP.conn.post admin_config_url, { xmlFile: xml.to_s, md5: @md5 }, detect_headers_from_loaded_config
+      Helpers::HTTP.raising.post admin_config_url, { xmlFile: xml.to_s, md5: @md5 }, detect_headers_from_loaded_config
     rescue Faraday::ClientError, Faraday::ServerError => err
       raise "Update config xml api call failed. Error message #{err.response.body}"
     end
@@ -50,7 +50,7 @@ module Context
     end
 
     def get_config_from_server
-      response = Helpers::HTTP.conn.get admin_config_url, nil, detect_headers_from_loaded_config
+      response = Helpers::HTTP.raising.get admin_config_url, nil, detect_headers_from_loaded_config
       current_config = Nokogiri::XML(response.body)
       @md5 = response.headers[:x_cruise_config_md5]
       @serverId = current_config.xpath('//server').first['serverId']
@@ -119,8 +119,8 @@ module Context
     end
 
     def create_plugin_settings(settings)
-      Helpers::HTTP.conn.post http_url('/api/admin/plugin_settings'), settings.to_json,
-                      { content_type: 'application/json', accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
+      Helpers::HTTP.raising.post http_url('/api/admin/plugin_settings'), settings.to_json,
+                                 { content_type: 'application/json', accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
     end
 
     def reset_config
@@ -175,7 +175,7 @@ module Context
     end
 
     def remove_all_users
-      response = Helpers::HTTP.conn.get(http_url("/api/users"), nil, { accept: 'application/vnd.go.cd+json' }.merge(header))
+      response = Helpers::HTTP.raising.get(http_url("/api/users"), nil, { accept: 'application/vnd.go.cd+json' }.merge(header))
       disabled_users = JSON.parse(response.body)['_embedded']['users'].collect { |user|
         user['login_name'] if user['enabled'].eql? true
       }.compact
@@ -183,19 +183,19 @@ module Context
         user['login_name'] if user['enabled'].eql? false
       }.compact
       users_to_be_removed = enabled_users.concat(disabled_users).delete_if { |user| user.eql? 'admin' }
-      Helpers::HTTP.conn.patch http_url("/api/users/operations/state"),
-                       { "operations": { "enable": false }, "users": enabled_users }.to_json,
-                       { content_type: 'application/json', accept: 'application/vnd.go.cd+json' }.merge(header) unless enabled_users.empty?
-      Helpers::HTTP.conn.delete(http_url("/api/users"), nil,
-                                { content_type: 'application/json', accept: 'application/vnd.go.cd+json' }.merge(header)) do |req|
+      Helpers::HTTP.raising.patch http_url("/api/users/operations/state"),
+                                  { "operations": { "enable": false }, "users": enabled_users }.to_json,
+                                  { content_type: 'application/json', accept: 'application/vnd.go.cd+json' }.merge(header) unless enabled_users.empty?
+      Helpers::HTTP.raising.delete(http_url("/api/users"), nil,
+                                   { content_type: 'application/json', accept: 'application/vnd.go.cd+json' }.merge(header)) do |req|
         req.body = { "users": users_to_be_removed }.to_json
       end unless users_to_be_removed.empty?
     end
 
     def update_toggle(toggle, value)
-      Helpers::HTTP.conn.put http_url("/api/admin/feature_toggles/#{toggle}"),
-                     { "toggle_value": "#{value}" }.to_json,
-                     { content_type: 'application/json', accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
+      Helpers::HTTP.raising.put http_url("/api/admin/feature_toggles/#{toggle}"),
+                                { "toggle_value": "#{value}" }.to_json,
+                                { content_type: 'application/json', accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
     end
 
     def material_url_for(pipeline)

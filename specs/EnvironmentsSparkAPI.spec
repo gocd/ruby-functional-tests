@@ -35,6 +35,5 @@ tags: environment_api, api
 
 Teardown of contexts
 ____________________
-* As user "admin" for teardown
 * Logout - from any page
 * Capture go state "EnvironmentsSparkAPI" - teardown

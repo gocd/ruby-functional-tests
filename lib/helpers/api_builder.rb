@@ -44,7 +44,7 @@ module APIBuilder
   end
 
   def self.all_apis
-    response = Helpers::HTTP.conn.get http_url("/api/internal/apis"), nil, { accept: 'application/vnd.go.cd+json' }
+    response = Helpers::HTTP.raising.get http_url("/api/internal/apis"), nil, { accept: 'application/vnd.go.cd+json' }
     json_response = JSON.parse(response.body)
     json_response.select { |api|
                             if api['version'] == "application/vnd.go.cd+json"
@@ -58,7 +58,7 @@ module APIBuilder
   end
 
   def self.all_deprecated_apis
-    response = Helpers::HTTP.conn.get http_url("/api/internal/apis"), nil, { accept: 'application/vnd.go.cd+json' }
+    response = Helpers::HTTP.raising.get http_url("/api/internal/apis"), nil, { accept: 'application/vnd.go.cd+json' }
     json_response = JSON.parse(response.body)
     json_response.select { |api| api['deprecation_info']['is_deprecated']}
   end

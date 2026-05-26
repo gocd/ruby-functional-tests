@@ -71,5 +71,4 @@ tags: plugins-tests, plugins_spa, spa
 
 Teardown of contexts
 ____________________
-* As user "admin" for teardown
 * Capture go state "PluginsTabForm" - teardown

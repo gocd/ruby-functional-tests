@@ -63,6 +63,5 @@ Note: This spec will use 2 elastic agent(Docker and K8s plguins) plugins and set
 
 Teardown of contexts
 ____________________
-* As user "admin" for teardown
 * Logout - from any page
 * Capture go state "ElasticAgentsProfileCRUDOperations" - teardown

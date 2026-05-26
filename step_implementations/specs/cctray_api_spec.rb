@@ -1,6 +1,6 @@
 
 step 'Make API call to cctray feed' do ||
-  response = Helpers::HTTP.conn.get(http_url("/cctray.xml"), nil, basic_configuration.header)
+  response = Helpers::HTTP.raising.get(http_url("/cctray.xml"), nil, basic_configuration.header)
   scenario_state.put('cctray_response', Nokogiri::XML(response.body))
 end
 

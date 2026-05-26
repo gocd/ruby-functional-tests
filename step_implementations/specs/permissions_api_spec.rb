@@ -22,8 +22,8 @@ end
 
 def get_permissions(entity)
 	begin
-		Helpers::HTTP.conn.get http_url("/api/auth/permissions?type=#{entity}"), nil,
-							   { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
+		Helpers::HTTP.raising.get http_url("/api/auth/permissions?type=#{entity}"), nil,
+		                          { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
 	rescue Faraday::ClientError, Faraday::ServerError => err
 		raise "Permissions API response failed with error #{err.message}"
 	end

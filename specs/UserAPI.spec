@@ -37,6 +37,5 @@ tags: api, users
 
 Teardown of contexts
 ____________________
-* As user "admin" for teardown
 * Capture go state "UserAPI" - teardown
 * Logout - from any page

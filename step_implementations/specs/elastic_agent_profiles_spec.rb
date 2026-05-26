@@ -49,8 +49,8 @@ step 'Update image as <image>' do |image|
 end
 
 step 'Verify elastic profile <name> has key <key> value <expected_value> - Using elastic agent profiles API' do |name, key, expected_value|
-  res = Helpers::HTTP.conn.get http_url("/api/elastic/profiles/#{name}"), nil,
-                       { accept: GoConstants::ELASTIC_AGENTS_PROFILE_API_VERSION }.merge(basic_configuration.header)
+  res = Helpers::HTTP.raising.get http_url("/api/elastic/profiles/#{name}"), nil,
+                                  { accept: GoConstants::ELASTIC_AGENTS_PROFILE_API_VERSION }.merge(basic_configuration.header)
   actual_value = JSON.parse(res.body)['properties'].select { |property| property['key'].eql? key }.first['value']
   assert_true expected_value.eql?(actual_value), "Actual value is - #{actual_value}"
 end

@@ -57,10 +57,9 @@ step 'Verify error message <msg> is displayed' do |msg|
 end
 
 step 'Attempt to delete <user> user and should return <code>' do |user, response_code|
-  Helpers::HTTP.conn.delete http_url("/api/users/#{user}"), nil,
-                    { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header) do |response, _request, _result|
-    assert_true response.status == response_code.to_i
-  end
+  response = Helpers::HTTP.quiet.delete http_url("/api/users/#{user}"), nil,
+                                        { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
+  assert_true response.status == response_code.to_i
 end
 
 step 'Add Roles as <roles> to users <users>' do |roles, users|

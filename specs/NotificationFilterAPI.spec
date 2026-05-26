@@ -106,6 +106,5 @@ Setup of contexts
 
 teardown
 _______________
-* As user "admin" for teardown
 * Capture go state "NotificationFilterAPI" - teardown
 * Logout - from any page

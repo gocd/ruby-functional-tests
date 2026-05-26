@@ -19,19 +19,19 @@ SECRET_CONFIG_ACCEPT_HEADER = 'application/vnd.go.cd+json'.freeze
 SECRET_CONFIG_API_BASE = '/api/admin/secret_configs'.freeze
 
 def get_all_secret_configs
-  Helpers::HTTP.conn.get http_url(SECRET_CONFIG_API_BASE.to_s), nil,
-                 { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
+  Helpers::HTTP.raising.get http_url(SECRET_CONFIG_API_BASE.to_s), nil,
+                            { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
 end
 
 def get_secret_config(id)
-  Helpers::HTTP.conn.get http_url("#{SECRET_CONFIG_API_BASE}/#{id}"), nil,
-                 { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
+  Helpers::HTTP.raising.get http_url("#{SECRET_CONFIG_API_BASE}/#{id}"), nil,
+                            { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
 end
 
 step 'Delete secret config <secret_config_id> should return <code>' do |secret_config_id, expected_code|
   begin
-    res = Helpers::HTTP.conn.delete http_url("#{SECRET_CONFIG_API_BASE}/#{secret_config_id}"), nil,
-                            { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
+    res = Helpers::HTTP.raising.delete http_url("#{SECRET_CONFIG_API_BASE}/#{secret_config_id}"), nil,
+                                       { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
     assert_true res.status == expected_code.to_i
   rescue Faraday::ClientError, Faraday::ServerError => err
     assert_true err.response.status == expected_code.to_i
@@ -73,8 +73,8 @@ step 'Add secret config <config_id> with file <file> should return code <code>',
   }
   )
   begin
-    res = Helpers::HTTP.conn.post http_url(SECRET_CONFIG_API_BASE.to_s), req_body,
-                          { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
+    res = Helpers::HTTP.raising.post http_url(SECRET_CONFIG_API_BASE.to_s), req_body,
+                                     { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
     assert_true res.status == expected_code.to_i
   rescue Faraday::ClientError, Faraday::ServerError => err
     assert_true err.response.status == expected_code.to_i
@@ -113,8 +113,8 @@ step 'Update secret config <config_id> with file <file> to <directive> usage onl
   }
   )
 
-  res = Helpers::HTTP.conn.put http_url("#{SECRET_CONFIG_API_BASE}/#{config_id}"), req_body,
-                       { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER, if_match: etag }.merge(basic_configuration.header)
+  res = Helpers::HTTP.raising.put http_url("#{SECRET_CONFIG_API_BASE}/#{config_id}"), req_body,
+                                  { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER, if_match: etag }.merge(basic_configuration.header)
 
   assert_true res.status == 200
 end
@@ -131,16 +131,16 @@ end
 step 'Create secret config <name> for secret file <file_name> rules <rules> - Using Secret Config API' do |name, file_name, rules|
   req_body = secret_config(name, file_name, rules_derective(rules))
 
-  Helpers::HTTP.conn.post http_url(SECRET_CONFIG_API_BASE.to_s), req_body.to_json,
-                  { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
+  Helpers::HTTP.raising.post http_url(SECRET_CONFIG_API_BASE.to_s), req_body.to_json,
+                             { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
 end
 
 step 'Update secret config <name> for secret file <file_name> rules <rules> - Using Secret Config API' do |name, file_name, rules|
   etag = get_secret_config(name).headers[:etag]
   req_body = secret_config(name, file_name, rules_derective(rules))
 
-  Helpers::HTTP.conn.put http_url("#{SECRET_CONFIG_API_BASE}/#{name}"), req_body.to_json,
-                 { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER, if_match: etag }.merge(basic_configuration.header)
+  Helpers::HTTP.raising.put http_url("#{SECRET_CONFIG_API_BASE}/#{name}"), req_body.to_json,
+                            { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER, if_match: etag }.merge(basic_configuration.header)
 end
 
 def rules_derective(rules)

@@ -48,7 +48,6 @@ Verify if user is admin
 
 teardown
 _______________
-* As user "admin" for teardown
 * Capture go state "AdminRolesAndUsers" - teardown
 * With "1" live agents - teardown
 * Logout - from any page

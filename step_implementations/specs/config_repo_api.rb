@@ -92,7 +92,7 @@ end
 
 step 'Get definition of config repo <id> should return success' do |id|
 	response = get_definitions(id)
-	assert_equal response.status, 200, "Failed to get config repo defenition. Response code #{response.status}, body #{response.body}"
+	assert_equal response.status, 200, "Failed to get config repo definition. Response code #{response.status}, body #{response.body}"
 end
 
 step 'Trigger update of config repo <id> should return success' do |id|
@@ -123,75 +123,59 @@ end
 private
 
 def get_all_config_repos
-  Helpers::HTTP.conn.get http_url(CONFIG_REPO_BASE_URL), nil,
-                 {accept: CONFIG_REPO_API_VERSION}
-                     .merge(basic_configuration.header)
+  Helpers::HTTP.raising.get http_url(CONFIG_REPO_BASE_URL), nil,
+                            {accept: CONFIG_REPO_API_VERSION}.merge(basic_configuration.header)
 end
 
 def get_status(id)
-  Helpers::HTTP.conn.get http_url("#{CONFIG_REPO_BASE_URL}/#{id}/status"), nil,
-                                    { accept: CONFIG_REPO_API_VERSION }
-                                      .merge(basic_configuration.header)   do |response, _request, _result|
-		response
-  end
+  Helpers::HTTP.raising.get http_url("#{CONFIG_REPO_BASE_URL}/#{id}/status"), nil,
+                            { accept: CONFIG_REPO_API_VERSION }.merge(basic_configuration.header)
 end
 
 def get_definitions(id)
-  Helpers::HTTP.conn.get http_url("#{CONFIG_REPO_BASE_URL}/#{id}/definitions"), nil,
-                                    { accept: CONFIG_REPO_API_VERSION }
-                                      .merge(basic_configuration.header)   do |response, _request, _result|
-		response
-  end
+  Helpers::HTTP.raising.get http_url("#{CONFIG_REPO_BASE_URL}/#{id}/definitions"), nil,
+                            { accept: CONFIG_REPO_API_VERSION }.merge(basic_configuration.header)
 end
 
 def trigger_update(id)
-  Helpers::HTTP.conn.post http_url("#{CONFIG_REPO_BASE_URL}/#{id}/trigger_update"), '',
-                                    { accept: CONFIG_REPO_API_VERSION, 'X-GoCD-Confirm': true }
-                                      .merge(basic_configuration.header)   do |response, _request, _result|
-		response
-  end
+  Helpers::HTTP.raising.post http_url("#{CONFIG_REPO_BASE_URL}/#{id}/trigger_update"), '',
+                             { accept: CONFIG_REPO_API_VERSION, 'X-GoCD-Confirm': true }.merge(basic_configuration.header)
 end
 
 def get_config_repo(id)
-  Helpers::HTTP.conn.get http_url("#{CONFIG_REPO_BASE_URL}/#{id}"), nil,
-                 {accept: CONFIG_REPO_API_VERSION}
-                     .merge(basic_configuration.header)
+  Helpers::HTTP.raising.get http_url("#{CONFIG_REPO_BASE_URL}/#{id}"), nil,
+                            {accept: CONFIG_REPO_API_VERSION}.merge(basic_configuration.header)
 end
 
 def create_config_repo(id)
-  Helpers::HTTP.conn.post http_url(CONFIG_REPO_BASE_URL),
-                  request_body_for_repo(id),
-                  {content_type: 'application/json', accept: CONFIG_REPO_API_VERSION}
-                      .merge(basic_configuration.header)
+  Helpers::HTTP.raising.post http_url(CONFIG_REPO_BASE_URL),
+                             request_body_for_repo(id),
+                             {content_type: 'application/json', accept: CONFIG_REPO_API_VERSION}.merge(basic_configuration.header)
 end
 
 def create_config_repo_with_rules(id, rules)
-  Helpers::HTTP.conn.post http_url(CONFIG_REPO_BASE_URL),
-                  request_body_for_repo(id, 'json.config.plugin', Context::GitMaterials.new, [], extract_rules(rules)),
-                  {content_type: 'application/json', accept: CONFIG_REPO_API_VERSION}
-                      .merge(basic_configuration.header)
+  Helpers::HTTP.raising.post http_url(CONFIG_REPO_BASE_URL),
+                             request_body_for_repo(id, 'json.config.plugin', Context::GitMaterials.new, [], extract_rules(rules)),
+                             {content_type: 'application/json', accept: CONFIG_REPO_API_VERSION}.merge(basic_configuration.header)
 end
 
 def delete_config_repo(id)
-  Helpers::HTTP.conn.delete http_url("#{CONFIG_REPO_BASE_URL}/#{id}"), nil,
-                    {accept: CONFIG_REPO_API_VERSION}
-                        .merge(basic_configuration.header)
+  Helpers::HTTP.raising.delete http_url("#{CONFIG_REPO_BASE_URL}/#{id}"), nil,
+                               {accept: CONFIG_REPO_API_VERSION}.merge(basic_configuration.header)
 end
 
 def update_config_repo(id)
   etag = get_config_repo(id).headers[:etag]
-  Helpers::HTTP.conn.put http_url("#{CONFIG_REPO_BASE_URL}/#{id}"),
-                 request_body_for_repo(id),
-                 {content_type: 'application/json', accept: CONFIG_REPO_API_VERSION, if_match: etag}
-                     .merge(basic_configuration.header)
+  Helpers::HTTP.raising.put http_url("#{CONFIG_REPO_BASE_URL}/#{id}"),
+                            request_body_for_repo(id),
+                            {content_type: 'application/json', accept: CONFIG_REPO_API_VERSION, if_match: etag}.merge(basic_configuration.header)
 end
 
 def update_config_repo_with_rules(id, rules)
   etag = get_config_repo(id).headers[:etag]
-  Helpers::HTTP.conn.put http_url("#{CONFIG_REPO_BASE_URL}/#{id}"),
-                 request_body_for_repo(id, 'json.config.plugin', Context::GitMaterials.new, [], extract_rules(rules)),
-                 {content_type: 'application/json', accept: CONFIG_REPO_API_VERSION, if_match: etag}
-                     .merge(basic_configuration.header)
+  Helpers::HTTP.raising.put http_url("#{CONFIG_REPO_BASE_URL}/#{id}"),
+                            request_body_for_repo(id, 'json.config.plugin', Context::GitMaterials.new, [], extract_rules(rules)),
+                            {content_type: 'application/json', accept: CONFIG_REPO_API_VERSION, if_match: etag}.merge(basic_configuration.header)
 end
 
 def request_body_for_repo(id, plugin_id = 'json.config.plugin', material = Context::GitMaterials.new, configuration = [], rules = [])

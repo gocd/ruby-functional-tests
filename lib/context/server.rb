@@ -114,7 +114,7 @@ module Context
     end
 
     def ping_server
-      response = Helpers::HTTP.raw_conn.get("#{GoConstants::SERVER_BASE_URL}/about", nil, basic_configuration.header) do |req|
+      response = Helpers::HTTP.quiet.get("#{GoConstants::SERVER_BASE_URL}/about", nil, basic_configuration.header) do |req|
         req.options.timeout = 10
       end
       p "Server ping failed with response code #{response.status} and message #{response.body}" unless response.status < 500

@@ -172,9 +172,9 @@ end
 
 step 'Append <text> to artifact <artifact> and Verify return code is <code> - Using Artifact Api' do |text, artifact, code|
   File.open('test.txt', 'w') {|f|  f.write(text) }
-  res = Helpers::HTTP.raw_conn.put(http_url("/files/#{scenario_state.get('locator')}/#{artifact}"),
-                                   { multipart: true, file: File.open("test.txt", 'rb') },
-                                   { Confirm: 'true' }.merge(basic_configuration.header))
+  res = Helpers::HTTP.quiet.put(http_url("/files/#{scenario_state.get('locator')}/#{artifact}"),
+                                { multipart: true, file: File.open("test.txt", 'rb') },
+                                { Confirm: 'true' }.merge(basic_configuration.header))
   if code.to_i == 200 || code.to_i == 201
     assert_true res.body.eql? "File #{artifact} was appended successfully"
   else
@@ -186,8 +186,8 @@ step 'Create artifact <artifact> and Verify return code is <code> - Using Artifa
   f = File.new(artifact, 'w')
   f = File.new(artifact, 'rb')
   payload = { multipart: true, file: f }
-  Helpers::HTTP.conn.post http_url("/files/#{scenario_state.get('locator')}/#{artifact}"), payload,
-                                { Confirm: 'true' }.merge(basic_configuration.header) do |res,req,err|
+  Helpers::HTTP.raising.post http_url("/files/#{scenario_state.get('locator')}/#{artifact}"), payload,
+                             { Confirm: 'true' }.merge(basic_configuration.header) do |res,req,err|
      assert_true res.status == code.to_i
   end
 end

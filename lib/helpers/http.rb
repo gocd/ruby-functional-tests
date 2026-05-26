@@ -47,7 +47,7 @@ module Helpers
     #   - Raise Faraday::ClientError / Faraday::ServerError on 4xx/5xx, with a
     #     Faraday::Response on err.response (symmetric with the success path)
     #   - Trigger the APIBuilder + CurlBuilder hooks via InterceptMiddleware
-    def self.conn
+    def self.raising
       @conn ||= Faraday.new do |conn|
         conn.request :url_encoded
         conn.use RecordCalls
@@ -59,7 +59,7 @@ module Helpers
     # Connection that does NOT raise on 4xx/5xx — for the small set of call
     # sites that explicitly assert on non-2xx status codes (auth failures,
     # 404 lookups, etc.) and need the response object regardless of status.
-    def self.raw_conn
+    def self.quiet
       @raw_conn ||= Faraday.new do |conn|
         conn.request :url_encoded
         conn.use RecordCalls

@@ -35,5 +35,4 @@ Setup of contexts
 
 teardown
 _______________
-* As user "admin" for teardown
 * Logout - from any page

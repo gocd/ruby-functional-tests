@@ -48,7 +48,6 @@ Non existent pipeline steps
 
 Teardown of contexts
 ____________________
-* As user "admin" for teardown
 * Capture go state "ApiPausePipeline" - teardown
 * Logout - from any page
 

@@ -105,6 +105,5 @@ tags: elastic_agent_profile
 
 Teardown of contexts
 ____________________
-* As user "admin" for teardown
 * Logout - from any page
 * Capture go state "ElasticProfiles" - teardown

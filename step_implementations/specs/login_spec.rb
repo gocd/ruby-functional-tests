@@ -57,10 +57,6 @@ step 'As unauthenticated user' do
   scenario_state.put 'current_user', nil
 end
 
-step 'As user <user> for teardown' do |user|
-  scenario_state.put 'current_user', user
-end
-
 def logout
   app_base_page.logout
 end

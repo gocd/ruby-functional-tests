@@ -26,8 +26,8 @@ step 'Create template <template>' do |template|
                                                                     jobs: [Representers::Job.new(name: 'Job1',
                                                                                                  tasks: [Representers::Task.new(name: 'Task1', attributes: Representers::Attributes.new)])])])
   begin
-    response = Helpers::HTTP.conn.post http_url('/api/admin/templates'), Representers::TemplateRepresenter.new(tmp).to_json,
-                               { content_type: 'application/json', accept: TEMPLATE_API_VERSION }.merge(basic_configuration.header)
+    response = Helpers::HTTP.raising.post http_url('/api/admin/templates'), Representers::TemplateRepresenter.new(tmp).to_json,
+                                          { content_type: 'application/json', accept: TEMPLATE_API_VERSION }.merge(basic_configuration.header)
     scenario_state.put 'api_response', response
   rescue Faraday::ClientError, Faraday::ServerError => err
     scenario_state.put 'api_response', err.response
@@ -36,7 +36,7 @@ end
 
 step 'Get template <template>' do |template|
   begin
-    response = Helpers::HTTP.conn.get http_url("/api/admin/templates/#{template}"), nil, { accept: TEMPLATE_API_VERSION }.merge(basic_configuration.header)
+    response = Helpers::HTTP.raising.get http_url("/api/admin/templates/#{template}"), nil, { accept: TEMPLATE_API_VERSION }.merge(basic_configuration.header)
   rescue Faraday::ClientError, Faraday::ServerError => err
     raise "Failed to get the template #{tempalte}. Returned response code - #{err.response.status}"
   end
@@ -45,7 +45,7 @@ end
 
 step 'Get all templates should return templates <template-list>' do |list|
   begin
-    response = Helpers::HTTP.conn.get http_url('/api/admin/templates'), nil, { accept: TEMPLATE_API_VERSION }.merge(basic_configuration.header)
+    response = Helpers::HTTP.raising.get http_url('/api/admin/templates'), nil, { accept: TEMPLATE_API_VERSION }.merge(basic_configuration.header)
   rescue Faraday::ClientError, Faraday::ServerError => err
     raise "Failed to get all templates. Returned response code - #{err.response.status}"
   end
@@ -58,9 +58,9 @@ step 'Update template <template>' do |template|
                                                                     jobs: [Representers::Job.new(name: 'updated-job-name',
                                                                                                  tasks: [Representers::Task.new(name: 'updated-task-name', attributes: Representers::Attributes.new)])])])
   begin
-    response = Helpers::HTTP.conn.get http_url("/api/admin/templates/#{template}"), nil, { accept: TEMPLATE_API_VERSION }.merge(basic_configuration.header)
-    update_response = Helpers::HTTP.conn.put http_url("/api/admin/templates/#{template}"), Representers::TemplateRepresenter.new(tmp).to_json,
-                                     { content_type: 'application/json', if_match: response.headers[:etag], accept: TEMPLATE_API_VERSION }.merge(basic_configuration.header)
+    response = Helpers::HTTP.raising.get http_url("/api/admin/templates/#{template}"), nil, { accept: TEMPLATE_API_VERSION }.merge(basic_configuration.header)
+    update_response = Helpers::HTTP.raising.put http_url("/api/admin/templates/#{template}"), Representers::TemplateRepresenter.new(tmp).to_json,
+                                                { content_type: 'application/json', if_match: response.headers[:etag], accept: TEMPLATE_API_VERSION }.merge(basic_configuration.header)
     scenario_state.put 'api_response', update_response
   rescue Faraday::ClientError, Faraday::ServerError => err
     scenario_state.put 'api_response', err.response
@@ -69,7 +69,7 @@ end
 
 step 'Get Template authorization for template <template_name>' do |template_name|
   begin
-    response = Helpers::HTTP.conn.get http_url("/api/admin/templates/#{template_name}/authorization"), nil, { accept: TEMPLATE_AUTH_API_VERSION }.merge(basic_configuration.header)
+    response = Helpers::HTTP.raising.get http_url("/api/admin/templates/#{template_name}/authorization"), nil, { accept: TEMPLATE_AUTH_API_VERSION }.merge(basic_configuration.header)
     scenario_state.put 'api_response', response
   rescue Faraday::ClientError, Faraday::ServerError => err
     raise "Failed to get templatae authorization. Returned response code - #{err.response.status}"
@@ -81,8 +81,8 @@ step 'Update Template autorization for template <template_name> - Add user <user
     temp_auth_response = scenario_state.get('api_response')
     template_auth_body = JSON.parse(temp_auth_response.body)
     template_auth_body['admin']['users'] << user
-    response = Helpers::HTTP.conn.put http_url("/api/admin/templates/#{template_name}/authorization"), template_auth_body.to_json,
-                              { content_type: 'application/json', if_match: temp_auth_response.headers[:etag], accept: TEMPLATE_AUTH_API_VERSION }.merge(basic_configuration.header)
+    response = Helpers::HTTP.raising.put http_url("/api/admin/templates/#{template_name}/authorization"), template_auth_body.to_json,
+                                         { content_type: 'application/json', if_match: temp_auth_response.headers[:etag], accept: TEMPLATE_AUTH_API_VERSION }.merge(basic_configuration.header)
     scenario_state.put 'api_response', response
   rescue Faraday::ClientError, Faraday::ServerError => err
     raise "Failed to get templatae authorization. Returned response code - #{err.response.status}"

@@ -32,7 +32,7 @@ private
 
 def make_api_call(api)
   begin
-    response = Helpers::HTTP.conn.get http_url(api['path']), nil, {accept: api['version']}.merge(basic_configuration.header)
+    response = Helpers::HTTP.raising.get http_url(api['path']), nil, { accept: api['version']}.merge(basic_configuration.header)
   rescue => e
     response = e.response
   end

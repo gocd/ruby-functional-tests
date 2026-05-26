@@ -62,6 +62,5 @@ Pipeline group delete
 
 Teardown of contexts
 ____________________
-* As user "admin" for teardown
 * Capture go state "NewPipelineGroups" - teardown
 * Logout - from any page

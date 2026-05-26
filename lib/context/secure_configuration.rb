@@ -33,6 +33,7 @@ module Context
       replace_pipeline_names
       copy_password_file(pwd_file)
       load_dom(config_dom)
+      scenario_state.put 'security_enabled', true
       scenario_state.put 'current_user', 'admin'
       sleep 5 # wait for config reload :-(
     end

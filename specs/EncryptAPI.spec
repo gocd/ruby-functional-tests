@@ -32,6 +32,5 @@ Setup of contexts
 
 teardown
 _______________
-* As user "admin" for teardown
 * Capture go state "EncryptAPI" - teardown
 * Logout - from any page

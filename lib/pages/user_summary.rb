@@ -146,11 +146,11 @@ module Pages
     def delete_users_from_db(users)
       payload = '{"enabled":"false"}'
       users.split(',').each do |user|
-        Helpers::HTTP.conn.patch http_url("/api/users/#{user}"), payload,
-                         { content_type: 'application/json', accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
+        Helpers::HTTP.raising.patch http_url("/api/users/#{user}"), payload,
+                                    { content_type: 'application/json', accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
 
-        Helpers::HTTP.conn.delete http_url("/api/users/#{user}"), nil,
-                          { content_type: 'application/json', accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
+        Helpers::HTTP.raising.delete http_url("/api/users/#{user}"), nil,
+                                     { content_type: 'application/json', accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
       end
     end
   end

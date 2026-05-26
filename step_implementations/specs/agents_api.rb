@@ -20,7 +20,7 @@ AGENT_JOB_HISTORY_VERSION = 'application/vnd.go.cd+json'.freeze
 step 'Add environment <env> to any <count> Idle agents - Using Agents API' do |_environment, _count|
   agents_with_state('Idle')[0.._count.to_i - 1].each do |agent|
     begin
-      patch_agent(agent['uuid'], "{\"environments\": [\"#{_environment}\"]}")
+      try_patch_agent(agent['uuid'], "{\"environments\": [\"#{_environment}\"]}")
     rescue Faraday::ClientError, Faraday::ServerError => err
       scenario_state.put('api_response', err.response)
       raise "Patch agents info call failed with response code #{err.response.status} and the response body - #{err.response.body}"
@@ -50,7 +50,7 @@ step 'Verify <label_count> instances of <pipeline_name> <stage_name> <job_name> 
 end
 
 step 'Verify any operation on agents return code <code> - Using Agents Api' do |expected_code|
-  actual_code = patch_agent(agents_with_state('Idle')[0]['uuid'], "{\"agent_config_state\": [\"Disabled\"]}").status
+  actual_code = try_patch_agent(agents_with_state('Idle')[0]['uuid'], "{\"agent_config_state\": [\"Disabled\"]}").status
   assert_true actual_code.eql?(expected_code.to_i), "Response code not expected. Actual code : #{actual_code}"
 end
 
@@ -58,7 +58,7 @@ step 'Verify last job <pipeline_name> <stage_name> <job_name> <status> - Using A
   agents_with_state('Idle').each do |agent|
     api_end_point = http_url("/api/agents/#{agent['uuid']}/job_run_history")
     begin
-      response = Helpers::HTTP.conn.get api_end_point, nil, { accept: AGENT_JOB_HISTORY_VERSION }.merge(basic_configuration.header)
+      response = Helpers::HTTP.raising.get api_end_point, nil, { accept: AGENT_JOB_HISTORY_VERSION }.merge(basic_configuration.header)
       response_json = JSON.parse(response.body)
       assert_true response_json['jobs'].first['pipeline_name'] == scenario_state.self_pipeline
       assert_true response_json['jobs'].first['result'] == status
@@ -76,17 +76,16 @@ step 'Verify there are <num> agents with state <state>' do |num,state|
 end
 
 step 'With <count> live agents - teardown' do |count|
-  all_agents = all_agent_uuids
-  disable_all_agents(all_agents)
-  go_agents.destroy_agents count
-  delete_all_agents(all_agents)
+  as_admin_for_cleanup do
+    all_agents = all_agent_uuids
+    disable_all_agents(all_agents)
+    go_agents.destroy_agents count
+    try_delete_all_agents(all_agents)
+  end
 end
 
 def all_agents_info
-  Helpers::HTTP.conn.get http_url('/api/agents'), nil,
-                            {accept: AGENTS_API_VERSION}.merge(basic_configuration.header) do |response, _request, _result|
-    response
-  end
+  Helpers::HTTP.raising.get http_url('/api/agents'), nil, { accept: AGENTS_API_VERSION}.merge(basic_configuration.header)
 end
 
 def all_agent_uuids
@@ -98,32 +97,32 @@ def all_agent_uuids
 end
 
 def disable_all_agents(all_agents)
-  bulk_update_agent(%({"uuids": #{all_agents}, "agent_config_state" : "disabled"}))
+  try_bulk_update_agent(%({"uuids": #{all_agents}, "agent_config_state" : "disabled"}))
 end
 
-def delete_all_agents(all_agents)
-  Helpers::HTTP.raw_conn.delete(http_url("/api/agents"), nil,
-                                { accept: AGENTS_API_VERSION, content_type: 'application/json' }.merge(basic_configuration.header)) do |req|
+def try_delete_all_agents(all_agents)
+  Helpers::HTTP.quiet.delete(http_url("/api/agents"), nil,
+                             { accept: AGENTS_API_VERSION, content_type: 'application/json' }.merge(basic_configuration.header)) do |req|
     req.body = %({"uuids": #{all_agents}})
   end
 end
 
 def patch_agent(agent_uuid, patch_request)
-  Helpers::HTTP.conn.patch http_url("/api/agents/#{agent_uuid}"),
-                                  patch_request,
-                                  { accept: AGENTS_API_VERSION, content_type: 'application/json' }
-                                  .merge(basic_configuration.header) do |response, _request, _result|
-    response
-  end
+  Helpers::HTTP.quiet.patch http_url("/api/agents/#{agent_uuid}"),
+                            patch_request,
+                            { accept: AGENTS_API_VERSION, content_type: 'application/json' }.merge(basic_configuration.header)
 end
 
-def bulk_update_agent(patch_request)
-  Helpers::HTTP.conn.patch http_url("/api/agents"),
-                                  patch_request,
-                                  { accept: AGENTS_API_VERSION, content_type: 'application/json' }
-                                  .merge(basic_configuration.header) do |response, _request, _result|
-    response
-  end
+def try_patch_agent(agent_uuid, patch_request)
+  Helpers::HTTP.quiet.patch http_url("/api/agents/#{agent_uuid}"),
+                            patch_request,
+                            { accept: AGENTS_API_VERSION, content_type: 'application/json' }.merge(basic_configuration.header)
+end
+
+def try_bulk_update_agent(patch_request)
+  Helpers::HTTP.quiet.patch http_url("/api/agents"),
+                            patch_request,
+                            { accept: AGENTS_API_VERSION, content_type: 'application/json' }.merge(basic_configuration.header)
 end
 
 def agents_with_state(state)
@@ -136,7 +135,7 @@ def hit_agent_history_api_and_verify_response(pipeline_name, stage_name, status,
   agents_with_state('Idle').each do |agent|
     begin
       api_end_point = "/api/agents/#{agent['uuid']}/job_run_history?page_size=10" + (offset == 0 ? '' : '&offset=' + offset.to_s)
-      response      = Helpers::HTTP.conn.get http_url(api_end_point), nil, {accept: AGENT_JOB_HISTORY_VERSION}.merge(basic_configuration.header)
+      response      = Helpers::HTTP.raising.get http_url(api_end_point), nil, { accept: AGENT_JOB_HISTORY_VERSION}.merge(basic_configuration.header)
       response_json = JSON.parse(response.body)
       actual_offset = response_json['pagination']['offset']
       actual_total  = response_json['pagination']['total']

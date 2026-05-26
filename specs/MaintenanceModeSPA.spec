@@ -98,7 +98,6 @@ Wait for job to actually be assigned to an agent
 
 teardown
 _______________
-* As user "admin" for teardown
 * Maintenance mode - teardown
 * Logout - from any page
 * Capture go state "MaintenanceModeSPA" - teardown

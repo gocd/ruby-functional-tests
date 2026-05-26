@@ -94,7 +94,6 @@ Setup of contexts
 
 Teardown of contexts
 ____________________
-* As user "pipelineSelectorAdmin" for teardown
 * Capture go state "PersonalizationView" - teardown
 * With "1" live agents - teardown
 * Logout - from any page

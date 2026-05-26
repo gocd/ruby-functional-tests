@@ -42,6 +42,6 @@ end
 private
 
 def encrypt(value)
-  Helpers::HTTP.conn.post http_url('/api/admin/encrypt'), %({"value": "#{value}"}),
-                  { content_type: 'application/json', accept: ENCRYPT_API_VERSION }.merge(basic_configuration.header)
+  Helpers::HTTP.raising.post http_url('/api/admin/encrypt'), %({"value": "#{value}"}),
+                             { content_type: 'application/json', accept: ENCRYPT_API_VERSION }.merge(basic_configuration.header)
 end

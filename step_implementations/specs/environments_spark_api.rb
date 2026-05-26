@@ -121,31 +121,29 @@ def change_to_hash(str, arr_sep = ',', key_sep = ':')
 end
 
 def create_environment(name, pipelines = nil, agents = nil, environment_variables = nil)
-  Helpers::HTTP.conn.post http_url('/api/admin/environments'), request_body(name, pipelines, agents, environment_variables),
-                  { content_type: 'application/json', accept: ENVIRONMENT_API_VERSION }
-    .merge(basic_configuration.header)
+  Helpers::HTTP.raising.post http_url('/api/admin/environments'), request_body(name, pipelines, agents, environment_variables),
+                             { content_type: 'application/json', accept: ENVIRONMENT_API_VERSION }.merge(basic_configuration.header)
 end
 
 def get_environment(name)
-  Helpers::HTTP.conn.get http_url("/api/admin/environments/#{name}"), nil,
-                 { accept: ENVIRONMENT_API_VERSION }.merge(basic_configuration.header)
+  Helpers::HTTP.raising.get http_url("/api/admin/environments/#{name}"), nil,
+                            { accept: ENVIRONMENT_API_VERSION }.merge(basic_configuration.header)
 end
 
 def get_all_environments
-  Helpers::HTTP.conn.get http_url('/api/admin/environments'), nil,
-                 { accept: ENVIRONMENT_API_VERSION }.merge(basic_configuration.header)
+  Helpers::HTTP.raising.get http_url('/api/admin/environments'), nil,
+                            { accept: ENVIRONMENT_API_VERSION }.merge(basic_configuration.header)
 end
 
 def update_environment(name, pipelines = nil, agents = nil, environment_variables = nil)
   etag = get_environment(name).headers[:etag]
-  Helpers::HTTP.conn.put http_url("/api/admin/environments/#{name}"), request_body(name, pipelines, agents, environment_variables),
-                 { content_type: 'application/json', accept: ENVIRONMENT_API_VERSION, if_match: etag }
-    .merge(basic_configuration.header)
+  Helpers::HTTP.raising.put http_url("/api/admin/environments/#{name}"), request_body(name, pipelines, agents, environment_variables),
+                            { content_type: 'application/json', accept: ENVIRONMENT_API_VERSION, if_match: etag }.merge(basic_configuration.header)
 end
 
 def delete_environment(name)
-  Helpers::HTTP.conn.delete http_url("/api/admin/environments/#{name}"), nil,
-                    { content_type: 'application/json', accept: ENVIRONMENT_API_VERSION}.merge(basic_configuration.header)
+  Helpers::HTTP.raising.delete http_url("/api/admin/environments/#{name}"), nil,
+                               { content_type: 'application/json', accept: ENVIRONMENT_API_VERSION}.merge(basic_configuration.header)
 end
 
 def request_body(name, pipelines = nil, agents = nil, environment_variables = nil)

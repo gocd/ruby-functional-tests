@@ -38,7 +38,7 @@ end
 
 step 'Get all artifact stores should return <artifact_store_ids>' do |list|
   begin
-    response = Helpers::HTTP.conn.get http_url('/api/admin/artifact_stores'), nil, {accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
+    response = Helpers::HTTP.raising.get http_url('/api/admin/artifact_stores'), nil, { accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
   rescue Faraday::ClientError, Faraday::ServerError => err
     raise "Failed to get all artifact stores. Returned response code - #{err.response.status}"
   end
@@ -102,11 +102,11 @@ def try_api_call(func, arg = nil)
 end
 
 def get(artifact_store_id)
-  Helpers::HTTP.conn.get http_url("/api/admin/artifact_stores/#{artifact_store_id}"), nil, {accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
+  Helpers::HTTP.raising.get http_url("/api/admin/artifact_stores/#{artifact_store_id}"), nil, { accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
 end
 
 def get_all
-  Helpers::HTTP.conn.get http_url('/api/admin/artifact_stores'), nil, {accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
+  Helpers::HTTP.raising.get http_url('/api/admin/artifact_stores'), nil, { accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
 end
 
 def create(artifact_store_id)
@@ -132,8 +132,8 @@ def create(artifact_store_id)
           }
       ]
   }
-  Helpers::HTTP.conn.post http_url('/api/admin/artifact_stores'), JSON.generate(tmp),
-                  {content_type: 'application/json', accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
+  Helpers::HTTP.raising.post http_url('/api/admin/artifact_stores'), JSON.generate(tmp),
+                             {content_type: 'application/json', accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
 end
 
 def update(artifact_store_id)
@@ -159,15 +159,15 @@ def update(artifact_store_id)
       }
       ]
   }
-  response = Helpers::HTTP.conn.get http_url("/api/admin/artifact_stores/#{artifact_store_id}"), nil, {accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
+  response = Helpers::HTTP.raising.get http_url("/api/admin/artifact_stores/#{artifact_store_id}"), nil, { accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
 
-  Helpers::HTTP.conn.put http_url("/api/admin/artifact_stores/#{artifact_store_id}"), JSON.generate(tmp),
-                 {content_type: 'application/json', if_match: response.headers[:etag], accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
+  Helpers::HTTP.raising.put http_url("/api/admin/artifact_stores/#{artifact_store_id}"), JSON.generate(tmp),
+                            {content_type: 'application/json', if_match: response.headers[:etag], accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
 end
 
 def delete(artifact_store_id)
-  response = Helpers::HTTP.conn.get http_url("/api/admin/artifact_stores/#{artifact_store_id}"), nil, {accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
+  response = Helpers::HTTP.raising.get http_url("/api/admin/artifact_stores/#{artifact_store_id}"), nil, { accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
 
-  Helpers::HTTP.conn.delete http_url("/api/admin/artifact_stores/#{artifact_store_id}"), nil,
-                 {content_type: 'application/json', if_match: response.headers[:etag], accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
+  Helpers::HTTP.raising.delete http_url("/api/admin/artifact_stores/#{artifact_store_id}"), nil,
+                               {content_type: 'application/json', if_match: response.headers[:etag], accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
 end

@@ -22,8 +22,8 @@ module Helpers
     end
 
     def running_server_full_version
-      res = Helpers::HTTP.conn.get http_url('/api/version'), nil,
-                            { accept: GoConstants::VERSIONS_API_VERSION }.merge(basic_configuration.header)
+      res = Helpers::HTTP.raising.get http_url('/api/version'), nil,
+                                      { accept: GoConstants::VERSIONS_API_VERSION }.merge(basic_configuration.header)
       JSON.parse(res.body)['full_version']
     end
 

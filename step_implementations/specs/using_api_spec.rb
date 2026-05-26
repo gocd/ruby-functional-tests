@@ -24,7 +24,7 @@ step 'Trigger the pipeline <counter> times - Using API' do |counter|
     end
     new_pipeline_dashboard_page.wait_for_expected_stage_state_at_pipeline_label scenario_state.self_pipeline, label_count, "defaultStage", "passed"
     begin
-      response = Helpers::HTTP.conn.get http_url("/api/pipelines/#{scenario_state.self_pipeline}/#{label_count}"), nil, {accept: PIPELINE_STATUS_VERSION}.merge(basic_configuration.header)
+      response = Helpers::HTTP.raising.get http_url("/api/pipelines/#{scenario_state.self_pipeline}/#{label_count}"), nil, { accept: PIPELINE_STATUS_VERSION}.merge(basic_configuration.header)
       assert_true(response.status == 200)
     rescue Faraday::ClientError, Faraday::ServerError => err
       raise "Pipeline Instance call failed with response code #{err.response.status} and the response body - #{err.response.body}"
@@ -34,7 +34,7 @@ end
 
 step 'Verify <label_count> instance of <pipeline_name> <stage_name> <job_name> <status> - Using Pipeline Instance API' do |label_count, _pipeline_name, stage_name, _job_name, status|
   begin
-    response = Helpers::HTTP.conn.get http_url("/api/pipelines/#{scenario_state.self_pipeline}/#{label_count}"), nil, {accept: PIPELINE_STATUS_VERSION}.merge(basic_configuration.header)
+    response = Helpers::HTTP.raising.get http_url("/api/pipelines/#{scenario_state.self_pipeline}/#{label_count}"), nil, { accept: PIPELINE_STATUS_VERSION}.merge(basic_configuration.header)
     instance = JSON.parse(response.body)
     assert_true(instance['name'] == scenario_state.self_pipeline)
     assert_true(instance['counter'] == label_count.to_i)
@@ -48,7 +48,7 @@ end
 
 step 'Verify <label_count> instance of <pipeline_name> <stage_name> <job_name> <status> - Using Stage Api' do |label_count, _pipeline_name, stage_name, _job_name, status|
   begin
-    response = Helpers::HTTP.conn.get http_url("/api/stages/#{scenario_state.self_pipeline}/#{label_count}/#{stage_name}/1"), nil, {accept: PIPELINE_STATUS_VERSION}.merge(basic_configuration.header)
+    response = Helpers::HTTP.raising.get http_url("/api/stages/#{scenario_state.self_pipeline}/#{label_count}/#{stage_name}/1"), nil, { accept: PIPELINE_STATUS_VERSION}.merge(basic_configuration.header)
     instance = JSON.parse(response.body)
     assert_true(instance['name'] == stage_name)
     assert_true(instance['counter'] == 1)
@@ -97,7 +97,7 @@ end
 
 step 'Verify pipeline is paused with reason <pause_cause> by <paused_by> - Using API' do |pause_cause, user|
   begin
-    response = Helpers::HTTP.conn.get(http_url("/api/pipelines/#{scenario_state.self_pipeline}/status"), nil, {accept: PIPELINE_STATUS_VERSION}.merge(basic_configuration.header))
+    response = Helpers::HTTP.raising.get(http_url("/api/pipelines/#{scenario_state.self_pipeline}/status"), nil, { accept: PIPELINE_STATUS_VERSION}.merge(basic_configuration.header))
     status = JSON.parse(response.body)
     assert_true(status['paused_cause'] == pause_cause)
     assert_true(status['paused_by'] == user)
@@ -108,7 +108,7 @@ end
 
 step 'Verify pipeline is unpaused - Using API' do
   begin
-    response = Helpers::HTTP.conn.get(http_url("/api/pipelines/#{scenario_state.self_pipeline}/status"), nil, {accept: PIPELINE_STATUS_VERSION}.merge(basic_configuration.header))
+    response = Helpers::HTTP.raising.get(http_url("/api/pipelines/#{scenario_state.self_pipeline}/status"), nil, { accept: PIPELINE_STATUS_VERSION}.merge(basic_configuration.header))
     assert_false JSON.parse(response.body)['paused']
   rescue Faraday::ClientError, Faraday::ServerError => err
     raise "Pipeline API call failed with response code #{err.response.status} and the response body - #{err.response.body}"
@@ -121,7 +121,7 @@ step 'Attempt to unpause pipeline <pipeline_name> and should return with http st
 end
 
 def hit_pipeline_history_api_and_verify_response(pipeline_name, stage_name, status, api_endpoint, current_page_size)
-  response = Helpers::HTTP.conn.get api_endpoint, nil, {accept: PIPELINE_STATUS_VERSION}.merge(basic_configuration.header)
+  response = Helpers::HTTP.raising.get api_endpoint, nil, { accept: PIPELINE_STATUS_VERSION}.merge(basic_configuration.header)
   history = JSON.parse(response.body)
   assert_equal current_page_size, history['pipelines'].size
   history['pipelines'].map do |pipeline|
@@ -136,7 +136,7 @@ rescue Faraday::ClientError, Faraday::ServerError => err
 end
 
 def hit_stage_history_api_and_verify_response(pipeline_name, stage_name, status, api_endpoint, current_page_size)
-  response = Helpers::HTTP.conn.get api_endpoint, nil, {accept: PIPELINE_STATUS_VERSION}.merge(basic_configuration.header)
+  response = Helpers::HTTP.raising.get api_endpoint, nil, { accept: PIPELINE_STATUS_VERSION}.merge(basic_configuration.header)
   history = JSON.parse(response.body)
   assert_equal current_page_size, history['stages'].size
   history['stages'].map do |stage|
@@ -151,7 +151,7 @@ rescue Faraday::ClientError, Faraday::ServerError => err
 end
 
 def hit_job_history_api_and_verify_response(pipeline_name, stage_name, status, api_endpoint, current_page_size, job_name)
-  response = Helpers::HTTP.conn.get api_endpoint, nil, {accept: PIPELINE_STATUS_VERSION}.merge(basic_configuration.header)
+  response = Helpers::HTTP.raising.get api_endpoint, nil, { accept: PIPELINE_STATUS_VERSION}.merge(basic_configuration.header)
   history = JSON.parse(response.body)
   assert_equal current_page_size, history['jobs'].size
   history['jobs'].map do |job|
@@ -171,8 +171,8 @@ def pause_pipeline_using_api(pipeline_name, pause_cause)
       pause_cause: pause_cause
   }
   begin
-    response = Helpers::HTTP.conn.post http_url("/api/pipelines/#{pipeline_name}/pause"), JSON.generate(tmp),
-                               {content_type: 'application/json', accept: PIPELINE_STATUS_VERSION, X_GoCD_Confirm: 'true'}.merge(basic_configuration.header)
+    response = Helpers::HTTP.raising.post http_url("/api/pipelines/#{pipeline_name}/pause"), JSON.generate(tmp),
+                                          {content_type: 'application/json', accept: PIPELINE_STATUS_VERSION, X_GoCD_Confirm: 'true'}.merge(basic_configuration.header)
     return response.status
   rescue Faraday::ClientError, Faraday::ServerError => err
     p "Pause Pipeline API call failed with response code #{err.response.status} and the response body - #{err.response.body}"
@@ -181,8 +181,8 @@ def pause_pipeline_using_api(pipeline_name, pause_cause)
 end
 
 def unpause_pipeline_using_api(pipeline_name)
-  response = Helpers::HTTP.conn.post http_url("/api/pipelines/#{pipeline_name}/unpause"), {},
-                             {accept: PIPELINE_STATUS_VERSION, X_GoCD_Confirm: 'true'}.merge(basic_configuration.header)
+  response = Helpers::HTTP.raising.post http_url("/api/pipelines/#{pipeline_name}/unpause"), {},
+                                        {accept: PIPELINE_STATUS_VERSION, X_GoCD_Confirm: 'true'}.merge(basic_configuration.header)
   response.status
 rescue Faraday::ClientError, Faraday::ServerError => err
   p "Unpause Pipeline API call failed with response code #{err.response.status} and the response body - #{err.response.body}"

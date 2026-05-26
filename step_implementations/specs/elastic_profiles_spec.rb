@@ -92,7 +92,7 @@ end
 
 step 'Verify <field> for <cluster_profile> as <value> - Using cluster profile API' do |field, cluster_profile, value|
   begin
-    response = Helpers::HTTP.conn.get http_url("/api/admin/elastic/cluster_profiles/#{cluster_profile}"), nil, { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
+    response = Helpers::HTTP.raising.get http_url("/api/admin/elastic/cluster_profiles/#{cluster_profile}"), nil, { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
     expected_property = JSON.parse(response.body)['properties'].select{|property| property['key'].eql? field}
     assert_true expected_property.first['value'].eql? value
   rescue Faraday::ClientError, Faraday::ServerError => err

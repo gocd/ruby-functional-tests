@@ -447,7 +447,7 @@ module Pages
     end
 
     def can_operate_using_api?
-      response = Helpers::HTTP.conn.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/schedule"), {}, { accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
+      response = Helpers::HTTP.raising.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/schedule"), {}, { accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
       (response.status == 202)
     rescue Faraday::ClientError, Faraday::ServerError => err
       p "Pipeline API call failed with response code #{err.response.status} and the response body - #{err.response.body}"
@@ -467,7 +467,7 @@ module Pages
     end
 
     def unpause_using_api?
-      response = Helpers::HTTP.conn.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/unpause"), {}, { accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
+      response = Helpers::HTTP.raising.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/unpause"), {}, { accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
       (response.status == 200)
     rescue Faraday::ClientError, Faraday::ServerError => err
       p "Pipeline API call failed with response code #{err.response.status} and the response body - #{err.response.body}"
@@ -475,7 +475,7 @@ module Pages
     end
 
     def pause_using_api?
-      response = Helpers::HTTP.conn.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/pause"), {}, { accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
+      response = Helpers::HTTP.raising.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/pause"), {}, { accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true' }.merge(basic_configuration.header)
       (response.status == 200)
     rescue Faraday::ClientError, Faraday::ServerError => err
       p "Pipeline API call failed with response code #{err.response.status} and the response body - #{err.response.body}"
@@ -488,7 +488,7 @@ module Pages
 
     def set_fingerprint(current_material_url)
       response = begin
-                   Helpers::HTTP.conn.get http_url("/api/config/materials"), nil, { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
+                   Helpers::HTTP.raising.get http_url("/api/config/materials"), nil, { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
                  rescue Faraday::ClientError, Faraday::ServerError => err
                    raise "Get All Material call failed with response code #{err.response.status} and the response body - #{err.response.body}"
                  end

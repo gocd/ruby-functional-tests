@@ -51,7 +51,6 @@ tags: access_tokens
 
 Teardown of contexts
 ____________________
-* As user "admin" for teardown
 * Logout - from any page
 * Capture go state "AccessTokenCreateUseRevoke" - teardown
 * With "1" live agents - teardown

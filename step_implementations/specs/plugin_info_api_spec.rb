@@ -14,8 +14,8 @@
 # limitations under the License.
 ##########################################################################
 step 'Get plugins info for plugin <plugin_id>' do |plugin_id|
-  res = Helpers::HTTP.conn.get http_url("/api/admin/plugin_info/#{plugin_id}"), nil,
-                       { accept: GoConstants::PLUGIN_INFO_API_VERSION }.merge(basic_configuration.header)
+  res = Helpers::HTTP.raising.get http_url("/api/admin/plugin_info/#{plugin_id}"), nil,
+                                  { accept: GoConstants::PLUGIN_INFO_API_VERSION }.merge(basic_configuration.header)
   assert_true res.status == 200
   scenario_state.put 'plugins_info_response', res.body
 end
@@ -31,8 +31,8 @@ step 'Plugin info response should have <entity> with <key>' do |entity, key|
 end
 
 step 'Get all plugins info should return info for details of <plugins_list>' do |plugins_list|
-	res = Helpers::HTTP.conn.get http_url('/api/admin/plugin_info'), nil,
-                       { accept: GoConstants::PLUGIN_INFO_API_VERSION }.merge(basic_configuration.header)
+	res = Helpers::HTTP.raising.get http_url('/api/admin/plugin_info'), nil,
+                                  { accept: GoConstants::PLUGIN_INFO_API_VERSION }.merge(basic_configuration.header)
   expected_plugin_ids = plugins_list.split(',').collect(&:strip)
   actual_plugins_ids = JSON.parse(res.body)['_embedded']['plugin_info'].collect{|info| info['id']}
   assert_true (expected_plugin_ids - actual_plugins_ids).empty?

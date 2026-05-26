@@ -79,8 +79,9 @@ step 'Verify unauthorized to unlock <pipeline>' do |pipeline|
 end
 
 step 'Verify unlocking <pipeline> is not acceptable because <message>' do |pipeline, message|
-  response = Helpers::HTTP.raising.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
+  response = Helpers::HTTP.quiet.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
                                         {content_type: 'application/json', accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true'}.merge(basic_configuration.header)
+  assert_true response.status == 409
   assert_true JSON.parse(response.body).to_s.include? message
 end
 

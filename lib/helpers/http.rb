@@ -15,6 +15,7 @@
 ##########################################################################
 
 require 'faraday'
+require 'faraday/multipart'
 
 module Helpers
   module HTTP
@@ -49,6 +50,7 @@ module Helpers
     #   - Trigger the APIBuilder + CurlBuilder hooks via InterceptMiddleware
     def self.raising
       @conn ||= Faraday.new do |conn|
+        conn.request :multipart
         conn.request :url_encoded
         conn.use RecordCalls
         conn.use RaiseErrorWithResponse
@@ -61,6 +63,7 @@ module Helpers
     # 404 lookups, etc.) and need the response object regardless of status.
     def self.quiet
       @raw_conn ||= Faraday.new do |conn|
+        conn.request :multipart
         conn.request :url_encoded
         conn.use RecordCalls
         conn.adapter Faraday.default_adapter

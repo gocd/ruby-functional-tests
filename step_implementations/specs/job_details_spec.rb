@@ -173,7 +173,7 @@ end
 step 'Append <text> to artifact <artifact> and Verify return code is <code> - Using Artifact Api' do |text, artifact, code|
   File.open('test.txt', 'w') {|f|  f.write(text) }
   res = Helpers::HTTP.quiet.put(http_url("/files/#{scenario_state.get('locator')}/#{artifact}"),
-                                { multipart: true, file: File.open("test.txt", 'rb') },
+                                { file: Faraday::Multipart::FilePart.new('test.txt', 'text/plain') },
                                 { Confirm: 'true' }.merge(basic_configuration.header))
   if code.to_i == 200 || code.to_i == 201
     assert_true res.body.eql? "File #{artifact} was appended successfully"
@@ -183,9 +183,8 @@ step 'Append <text> to artifact <artifact> and Verify return code is <code> - Us
 end
 
 step 'Create artifact <artifact> and Verify return code is <code> - Using Artifact Api' do |artifact, code|
-  f = File.new(artifact, 'w')
-  f = File.new(artifact, 'rb')
-  payload = { multipart: true, file: f }
+  File.new(artifact, 'w').close
+  payload = { file: Faraday::Multipart::FilePart.new(artifact, 'text/plain') }
   response = Helpers::HTTP.quiet.post http_url("/files/#{scenario_state.get('locator')}/#{artifact}"), payload,
                              { Confirm: 'true' }.merge(basic_configuration.header)
   assert_true response.status == code.to_i

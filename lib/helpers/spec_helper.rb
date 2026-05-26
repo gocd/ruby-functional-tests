@@ -265,10 +265,6 @@ module Helpers
       end
     end
 
-    def config_helper
-      Helpers::ConfigHelper.new
-    end
-
     def go_agents
       Context::Agents.instance
     end

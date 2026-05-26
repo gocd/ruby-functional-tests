@@ -22,22 +22,26 @@ module Context
       get_dom(config_file)
       replace_pipeline_names
       load_dom(config_dom)
+      scenario_state.put 'security_enabled', false
       sleep 5 # wait for config reload :-(
     end
 
-    def detect_headers_from_loaded_config
-      begin
-        response = Helpers::HTTP.raising.get admin_config_url
-        return { Confirm: 'true' } unless response.status != 200
-      rescue StandardError
-      end
+    def header
+      headers_for(scenario_state.get('current_user'))
+    end
 
-      basic_auth = Base64.encode64(%w[admin badger].join(':'))
-      { Authorization: "Basic #{basic_auth}", Confirm: 'true' }
+    def admin_header
+      headers_for(scenario_state.get('security_enabled') || nil)
+    end
+
+    def headers_for(user)
+      user ?
+        { Confirm: 'true', Authorization: "Basic #{Base64.encode64([user, 'badger'].join(':'))}" } :
+        { Confirm: 'true' }
     end
 
     def load_dom(xml)
-      Helpers::HTTP.raising.post admin_config_url, { xmlFile: xml.to_s, md5: @md5 }, detect_headers_from_loaded_config
+      Helpers::HTTP.raising.post admin_config_url, { xmlFile: xml.to_s, md5: @md5 }, admin_header
     rescue Faraday::ClientError, Faraday::ServerError => err
       raise "Update config xml api call failed. Error message #{err.response.body}"
     end
@@ -50,7 +54,7 @@ module Context
     end
 
     def get_config_from_server
-      response = Helpers::HTTP.raising.get admin_config_url, nil, detect_headers_from_loaded_config
+      response = Helpers::HTTP.raising.get admin_config_url, nil, admin_header
       current_config = Nokogiri::XML(response.body)
       @md5 = response.headers[:x_cruise_config_md5]
       @serverId = current_config.xpath('//server').first['serverId']
@@ -168,12 +172,6 @@ module Context
       load_dom(config_dom)
     end
 
-    def header
-      scenario_state.get('current_user') ?
-                           { Confirm: 'true', Authorization: "Basic #{Base64.encode64([scenario_state.get('current_user'), 'badger'].join(':'))}" } :
-                           { Confirm: 'true' }
-    end
-
     def remove_all_users
       response = Helpers::HTTP.raising.get(http_url("/api/users"), nil, { accept: 'application/vnd.go.cd+json' }.merge(header))
       disabled_users = JSON.parse(response.body)['_embedded']['users'].collect { |user|
@@ -250,6 +248,7 @@ module Context
         </security>"
       current_config.xpath('//server').first.add_child password_authentication_config
       load_dom(current_config)
+      scenario_state.put 'security_enabled', true
     end
 
     def enable_security_with_password_file(pwd_file)
@@ -268,6 +267,7 @@ module Context
         </security>"
       current_config.xpath('//server').first.add_child password_file_authentication_config
       load_dom(current_config)
+      scenario_state.put 'security_enabled', true
     end
 
     def set_artifact_location(artifact_location)

@@ -20,7 +20,5 @@ step 'Capture go state <identifier> - setup' do |identifier|
 end
 
 step 'Capture go state <identifier> - teardown' do |identifier|
-  as_admin_for_cleanup do
-    go_state.capture_all("target/go_state/#{identifier}/TEARDOWN")
-  end
+  go_state.capture_all("target/go_state/#{identifier}/TEARDOWN")
 end

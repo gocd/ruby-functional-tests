@@ -24,7 +24,7 @@ module APIBuilder
       @path = path
     end
 
-    def eql? that
+    def eql?(that)
       self.method == that.method && !that.path.match(self.path).nil?
     end
 

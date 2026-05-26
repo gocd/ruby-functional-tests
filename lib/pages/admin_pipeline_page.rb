@@ -166,7 +166,7 @@ module Pages
       groups
     end
 
-    def users_in_group()
+    def users_in_group
       users = []
       page.all('[data-test-id="user-name"]').each { |element|
         users.push(element.value) unless element.value.blank?
@@ -174,7 +174,7 @@ module Pages
       users
     end
 
-    def roles_in_group()
+    def roles_in_group
       roles = []
       page.all('[data-test-id="role-name"]').each { |element|
         roles.push(element.value) unless element.value.blank?
@@ -211,11 +211,11 @@ module Pages
       page.has_css?('.sub_tabs_container ul li a', text: tab)
     end
 
-    def open_tab tab
+    def open_tab(tab)
       page.find('.sub_tabs_container').find('a', text: tab).click
     end
 
-    def click_edit_pipeline pipeline
+    def click_edit_pipeline(pipeline)
       page.find("[data-test-id='edit-pipeline-#{pipeline.downcase}']").click
     end
 
@@ -223,7 +223,7 @@ module Pages
       page.has_css?('#tab-link-of-templates')
     end
 
-    def edit_template template
+    def edit_template(template)
       page.find("[data-test-id='edit-template-#{template.downcase}']").click
     end
 
@@ -232,7 +232,7 @@ module Pages
       page.find('#content').set(context, rapid: false)
     end
 
-    def rename_pipeline_on_config_xml_page pipeline, new_pipeline
+    def rename_pipeline_on_config_xml_page(pipeline, new_pipeline)
       new_context = page.find('#content_container_for_edit').text.gsub! "#{pipeline}", new_pipeline
       page.find('#content_container_for_edit').set(new_context, rapid: false)
     end
@@ -250,7 +250,7 @@ module Pages
       page.find('#content').set(new_context, rapid: false)
     end
 
-    def post_validation_error_message_exist? message
+    def post_validation_error_message_exist?(message)
 
       errors = []
       page.all('.error').each { |error|
@@ -266,11 +266,11 @@ module Pages
       page.find('select#pipeline_pipelineNames').all('option').collect(&:text)
     end
 
-    def click_extract_template pipeline
+    def click_extract_template(pipeline)
       page.find("[data-test-id='extract-template-from-pipeline-#{pipeline.downcase}']").click
     end
 
-    def enter_template_name name
+    def enter_template_name(name)
       page.find("[data-test-id='form-field-input-new-template-name']").set(name, rapid: false)
     end
 

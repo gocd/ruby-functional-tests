@@ -35,11 +35,11 @@ module Pages
     element :cancel_button, "button[data-test-id='cancel-button']"
     element :error_message, "div[data-test-id='flash-message-alert']"
 
-    def remove_permission_for_role permission, role
+    def remove_permission_for_role(permission, role)
       page.find("#{permission}Privilege_ROLE_#{role}").click unless page.find("#{permission}Privilege_ROLE_#{role}").checked?
     end
 
-    def set_group_name group
+    def set_group_name(group)
       edit_group_name.set(group, rapid: false)
     end
 
@@ -103,11 +103,11 @@ module Pages
       add_new_group.click
     end
 
-    def click_on_delete group
+    def click_on_delete(group)
       page.find("[data-test-id='delete-pipeline-group-#{group}']").click
     end
 
-    def does_not_contain_group group
+    def does_not_contain_group(group)
       actual = page.all('[data-test-id="pipeline-group-name"]').collect(&:text).sort
       assert_not_includes(actual, group)
     end

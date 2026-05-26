@@ -58,7 +58,7 @@ module Context
       current_config
     end
 
-    def has_material_of_type type, pipeline
+    def has_material_of_type(type, pipeline)
       current_configuration = basic_configuration.get_config_from_server
       flag = true if current_configuration.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/#{type}").count > 0
       flag
@@ -72,7 +72,7 @@ module Context
       load_dom(current_config)
     end
 
-    def set_material_path_for_tfs_pipeline pipeline, tfs_url, tfs_username, tfs_password
+    def set_material_path_for_tfs_pipeline(pipeline, tfs_url, tfs_username, tfs_password)
       current_config = get_config_from_server
       current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.get(pipeline)}']/materials/tfs").each do |material|
         material['url'] = tfs_url
@@ -364,7 +364,7 @@ module Context
       return roles
     end
 
-    def auto_approve_first_stage()
+    def auto_approve_first_stage
       current_config = get_config_from_server
       current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/materials/*").each { |material|
         material.remove_attribute("autoUpdate") if (material.has_attribute?("autoUpdate"))
@@ -374,7 +374,7 @@ module Context
       load_dom(current_config)
     end
 
-    def rename_pipeline pipeline_name, new_name
+    def rename_pipeline(pipeline_name, new_name)
       current_config = get_config_from_server
       current_config.xpath('//cruise/pipelines/pipeline').each { |pipeline|
         pipeline['name'] = new_name if pipeline['name'] == scenario_state.get(pipeline_name)
@@ -382,7 +382,7 @@ module Context
       load_dom(current_config)
     end
 
-    def enable_auto_updates pipeline
+    def enable_auto_updates(pipeline)
       current_config = get_config_from_server
       current_config.xpath("//cruise/pipelines/pipeline[@name='#{scenario_state.self_pipeline}']/materials/*").each { |material|
         material.remove_attribute("autoUpdate") if (material.has_attribute?("autoUpdate"))

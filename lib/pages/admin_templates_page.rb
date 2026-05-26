@@ -25,11 +25,11 @@ module Pages
 
     load_validation { has_create_new_template? }
 
-    def click_edit_pipeline pipeline
+    def click_edit_pipeline(pipeline)
       page.find("[data-test-id='edit-pipeline-#{pipeline.downcase}']").click
     end
 
-    def enter_template_name name
+    def enter_template_name(name)
       template_name_on_popup.set(name)
     end
 
@@ -41,7 +41,7 @@ module Pages
       page.find("[data-test-id='form-field-input-pipeline']").all('option').collect(&:text)
     end
 
-    def select_pipeline_for_template pipeline
+    def select_pipeline_for_template(pipeline)
       find("[data-test-id='form-field-input-pipeline'] option", :text => pipeline).click
     end
 
@@ -65,11 +65,11 @@ module Pages
       page.find("[data-test-id='template-#{template.downcase}']").has_css?("[data-test-id='flash-message-info']", text: message)
     end
 
-    def delete_link_is_disabled_for_template? template
+    def delete_link_is_disabled_for_template?(template)
       page.find("[data-test-id='delete-template-#{template.downcase}']").disabled?
     end
 
-    def delete_template template
+    def delete_template(template)
       page.find("[data-test-id='delete-template-#{template.downcase}']").click
       page.find("[data-test-id='button-delete']").click
     end

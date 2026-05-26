@@ -23,7 +23,7 @@ module Pages
     include Helpers::GeneralHelper
     include Helpers::GoUrlHelper
 
-    def resize()
+    def resize
       page.driver.browser.manage.window.resize_to(1240, 1024)
     end
 

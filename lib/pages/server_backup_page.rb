@@ -26,7 +26,7 @@ module Pages
 
     load_validation { has_btn_perform_backup? }
 
-    def perform_backup()
+    def perform_backup
       page.find('button', text: 'Perform Backup').click(wait: 10)
       btn_confirm_backup.click(wait: 5)
     end
@@ -38,7 +38,7 @@ module Pages
       page.find('button[data-test-id="button-ok"]', text: 'Save').click(wait: 5)
     end
 
-    def backup_successful? msg
+    def backup_successful?(msg)
       page.has_css?('p', text: msg, wait: 20)
     end
 

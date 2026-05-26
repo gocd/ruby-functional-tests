@@ -195,12 +195,12 @@ module Pages
       dropdown
     end
 
-    def select_resouce_from_dropdown resource
+    def select_resouce_from_dropdown(resource)
       resources_on_popup.click
       page.find('ul[role="listbox"] li', text: resource).click
     end
 
-    def select_task task_no
+    def select_task(task_no)
       page.find("tr:nth-child(#{task_no.to_i}) td a").click
     end
 

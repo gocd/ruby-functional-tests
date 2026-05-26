@@ -136,7 +136,7 @@ module Pages
           .click
     end
 
-    def has_template? template
+    def has_template?(template)
       page.find('a[data-test-id="template-name"]', text: template, wait: 20)
     end
 

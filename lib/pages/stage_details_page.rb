@@ -182,37 +182,37 @@ module Pages
       page.find("#stage_history_#{number}").click
     end
 
-    def verify_total_history_runs runs
-      runs.split(',').each{|run|
-        assert_true page.has_css?('.pipeline_label',text:run)}
+    def verify_total_history_runs(runs)
+      runs.split(',').each { |run|
+        assert_true page.has_css?('.pipeline_label', text: run) }
     end
 
     def has_history_page_number?(page_number)
       page.has_css?("a#stage_history_#{page_number}")
     end
 
-   def config_changed_marker_exists?pipeline_counter,stage_counter
-    page.has_css?(".config_change.counter_#{pipeline_counter}_#{stage_counter} span a")
+   def config_changed_marker_exists?(pipeline_counter, stage_counter)
+     page.has_css?(".config_change.counter_#{pipeline_counter}_#{stage_counter} span a")
    end
 
-   def click_config_changed_link pipeline_counter,stage_counter
-    page.find(".config_change.counter_#{pipeline_counter}_#{stage_counter}").click
+   def click_config_changed_link(pipeline_counter, stage_counter)
+     page.find(".config_change.counter_#{pipeline_counter}_#{stage_counter}").click
    end
 
-   def config_changed_added_contains?line
-    page.all(".add td pre").each{|lines|
-        return true if lines.text.include?line
-      }
+   def config_changed_added_contains?(line)
+     page.all(".add td pre").each { |lines|
+       return true if lines.text.include? line
+     }
    end
 
-   def config_changed_removed_contains?line
-    page.all(".remove td pre").each{|lines|
-      return true if lines.text.include?line
-      }
+   def config_changed_removed_contains?(line)
+     page.all(".remove td pre").each { |lines|
+       return true if lines.text.include? line
+     }
    end
 
-   def history_shows_status? status
-    page.find('#stage_history').has_css?(".#{status}")
+   def history_shows_status?(status)
+     page.find('#stage_history').has_css?(".#{status}")
    end
 
    def stage_bar_has_date?
@@ -229,9 +229,9 @@ module Pages
      end
    end
 
-   def select_counter_from_history counter
-      page.find('span.pipeline_label.wrapped_word',text:counter).hover
-      page.find('#stage_history').all('.compare_pipeline a')[counter.to_i - 1].click
+   def select_counter_from_history(counter)
+     page.find('span.pipeline_label.wrapped_word', text: counter).hover
+     page.find('#stage_history').all('.compare_pipeline a')[counter.to_i - 1].click
    end
 
    def click_revision_link(rev)
@@ -239,8 +239,8 @@ module Pages
    end
 
 
-   def material_rev_concatinated_label?counter,modification_number
-    page.has_css?('a.selected.alert span.pipeline_label', text: "#{counter}-#{getRevisionForModification modification_number}")
+   def material_rev_concatinated_label?(counter, modification_number)
+     page.has_css?('a.selected.alert span.pipeline_label', text: "#{counter}-#{getRevisionForModification modification_number}")
    end
 
     private

@@ -41,7 +41,7 @@ end
 
 private
 
-def encrypt value
+def encrypt(value)
   RestClient.post http_url('/api/admin/encrypt'), %({"value": "#{value}"}),
-                               { content_type: :json, accept: ENCRYPT_API_VERSION }.merge(basic_configuration.header)
+                  { content_type: :json, accept: ENCRYPT_API_VERSION }.merge(basic_configuration.header)
 end

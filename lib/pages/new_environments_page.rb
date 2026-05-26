@@ -97,7 +97,7 @@ module Pages
       page.find("[data-test-id='environment-variables-for-#{env}']").find("[data-test-id='environment-variables-content']").has_css?('li', text: variable)
     end
 
-    def delete_environment env
+    def delete_environment(env)
       page.find("div[data-test-id='collapsible-panel-for-env-env1']").find("[data-test-id='Delete-icon']").click
       page.find("[data-test-id='button-delete']").click
     end

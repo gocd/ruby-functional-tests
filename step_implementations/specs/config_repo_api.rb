@@ -139,7 +139,7 @@ end
 
 def trigger_update(id)
   Helpers::HTTP.raising.post http_url("#{CONFIG_REPO_BASE_URL}/#{id}/trigger_update"), '',
-                             { accept: CONFIG_REPO_API_VERSION, 'X-GoCD-Confirm': true }.merge(basic_configuration.header)
+                             { accept: CONFIG_REPO_API_VERSION, 'X-GoCD-Confirm': 'true' }.merge(basic_configuration.header)
 end
 
 def get_config_repo(id)

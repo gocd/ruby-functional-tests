@@ -16,7 +16,7 @@
 
 step 'Verify permissions API shows <entity> <permission> list has only <list>' do |entity, permission, list|
 	expected_list = list.split(',').map(&:strip).sort
-	actual_list = JSON.parse(get_permissions(entity))['permissions'][entity][permission]
+	actual_list = JSON.parse(get_permissions(entity).body)['permissions'][entity][permission]
 	assert_equal  expected_list, actual_list.sort
 end
 

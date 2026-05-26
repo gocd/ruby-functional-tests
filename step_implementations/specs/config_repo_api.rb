@@ -111,7 +111,7 @@ end
 step 'Get config repo <id> should contain rules <rules>' do |id, rules|
   result = get_config_repo(id)
   assert_true result.status == 200
-  actual   = JSON.parse(result)["rules"]
+  actual   = JSON.parse(result.body)["rules"]
   expected = extract_rules(rules).map {|item| item.transform_keys(&:to_s)}
   assert_true difference(expected, actual).empty?, "Assertion failed. Expected: #{expected}, Actual: #{actual}"
 end

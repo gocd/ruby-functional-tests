@@ -41,7 +41,7 @@ end
 step 'Get all API should return all secret configs <list_of_config_ids>' do |list_of_config_ids|
   expected_config_ids = list_of_config_ids.split(',')
   res = get_all_secret_configs
-  secret_configs = JSON.parse(res)['_embedded']['secret_configs']
+  secret_configs = JSON.parse(res.body)['_embedded']['secret_configs']
 
   assert_true secret_configs.size == expected_config_ids.size
 

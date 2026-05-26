@@ -29,7 +29,7 @@ step 'Verify pipeline <pipeline> is locked and not schedulable - Using api' do |
 end
 
 step 'Trigger pipeline <pipeline> and verify response code <code> - Using api' do |pipeline, response_code|
-  Helpers::HTTP.quiet.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/schedule"),
+  response = Helpers::HTTP.quiet.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/schedule"),
                              {content_type: 'application/json', accept: PIPELINE_CONFIG_API_VERSION}.merge(basic_configuration.header)
   assert_true response.status == response_code.to_i
 end

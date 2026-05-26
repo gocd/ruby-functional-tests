@@ -6,7 +6,7 @@ Setup of contexts
 * Using pipeline "pipeline-in-environment" - setup
 * Capture go state "EnvironmentsAPIUserPermissionUsingPolicy" - setup
 
-EnvironmentsSparkAPI
+EnvironmentsAPIUserPermissionUsingPolicy
 ----------------------------
 
 tags: environment_api, policy, api

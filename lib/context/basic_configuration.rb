@@ -31,7 +31,7 @@ module Context
     end
 
     def admin_header
-      headers_for(scenario_state.get('security_enabled') || nil)
+      headers_for(scenario_state.get('security_enabled') ? 'admin' : nil)
     end
 
     def headers_for(user)

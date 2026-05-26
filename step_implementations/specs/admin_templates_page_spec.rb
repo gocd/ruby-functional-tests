@@ -53,20 +53,18 @@ step 'Select pipeline <pipeline> for template' do |pipeline|
   admin_templates_page.select_pipeline_for_template scenario_state.get(pipeline)
 end
 
-
 step 'Save Template create' do |_tmp|
-  assert_true admin_templates_page.has_button?('Create', disabled: false, wait: 5)
-  admin_templates_page.button_create.click
+  admin_templates_page.save_template_create
 end
 
-step 'Verify that templates <tmplates> are present - on Admin Templates tab' do |templates|
+step 'Verify that templates <templates> are present - on Admin Templates tab' do |templates|
   template_names = admin_templates_page.all_templates
   templates.split(',').each do |template|
     assert_true template_names.include? template
   end
 end
 
-step 'Verify that templates <tmplates> are not present - on Admin Templates tab' do |templates|
+step 'Verify that templates <templates> are not present - on Admin Templates tab' do |templates|
   template_names = admin_templates_page.all_templates
   templates.split(',').each do |template|
     assert_false template_names.include? template

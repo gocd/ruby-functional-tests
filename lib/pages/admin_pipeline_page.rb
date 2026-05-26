@@ -49,17 +49,24 @@ module Pages
     end
 
     def save_clone
-      wait_till_event_occurs_or_bomb 20, "Save Clone button is disabled" do
+      wait_till_event_occurs_or_bomb 5, "Save Clone button is disabled" do
         break unless button_clone.disabled?
       end
       button_clone.click
     end
 
     def extract_template
-      wait_till_event_occurs_or_bomb 20, "Extract template button is disabled" do
+      wait_till_event_occurs_or_bomb 5, "Extract template button is disabled" do
         break unless button_extract_template.disabled?
       end
       button_extract_template.click
+    end
+
+    def save_group_create
+      wait_till_event_occurs_or_bomb 5, "Create button is disabled" do
+        break unless button_create.disabled?
+      end
+      button_create.click
     end
 
     def delete_pipeline(pipeline)

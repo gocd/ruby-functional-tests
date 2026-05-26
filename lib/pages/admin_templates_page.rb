@@ -21,12 +21,19 @@ module Pages
     element :template_name_on_popup, "[data-test-id='form-field-input-template-name']"
     element :extract_from_pipeline, "[data-test-id='form-field-input-extract-from-pipeline']"
     element :create_new_template, "[data-test-id='create-new-template']"
-    element :button_create, "[data-test-id='button-create']:not(.disabled)"
+    element :button_create, "[data-test-id='button-create']"
 
     load_validation { has_create_new_template? }
 
     def click_edit_pipeline(pipeline)
       page.find("[data-test-id='edit-pipeline-#{pipeline.downcase}']").click
+    end
+
+    def save_template_create
+      wait_till_event_occurs_or_bomb 20, "Create button is disabled" do
+        break unless button_create.disabled?
+      end
+      button_create.click
     end
 
     def enter_template_name(name)

@@ -87,7 +87,7 @@ end
 
 step 'Get status of config repo <id> should return success' do |id|
   response = get_status(id)
-	assert_equal response_status, 200, "Failed to get config repo status. Response code #{response.status}, body #{response.body}"
+	assert_equal response.status, 200, "Failed to get config repo status. Response code #{response.status}, body #{response.body}"
 end
 
 step 'Get definition of config repo <id> should return success' do |id|

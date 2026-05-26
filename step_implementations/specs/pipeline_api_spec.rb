@@ -73,7 +73,7 @@ step 'Verify can unlock <pipeline>' do |pipeline|
 end
 
 step 'Verify unauthorized to unlock <pipeline>' do |pipeline|
-  response = Helpers::HTTP.raising.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
+  response = Helpers::HTTP.quiet.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
                                         {content_type: 'application/json', accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true'}.merge(basic_configuration.header)
   assert_true JSON.parse(response.body).to_s.include? 'You are not authorized to perform this action'
 end
@@ -101,7 +101,7 @@ step 'Delete pipeline <pipeline> - Configure cruise using api' do |pipeline|
 end
 
 step 'Verify unauthorized to unlock <pipeline> using access token <token_id>' do |pipeline, token_id|
-  response = Helpers::HTTP.raising.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
+  response = Helpers::HTTP.quiet.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
                                         {content_type: 'application/json', accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true', Authorization: "Bearer #{scenario_state.get(token_id)}"}
   assert_true JSON.parse(response.body).to_s.include? 'You are not authorized to perform this action'
 end

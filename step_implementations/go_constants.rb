@@ -40,10 +40,6 @@ class GoConstants
   GAUGE_AGENT_DIR = 'target/gauge_agents'.freeze
   CONFIG_PATH = 'resources/config'.freeze
 
-  ELASTIC_AGENTS_PROFILE_API_VERSION = 'application/vnd.go.cd+json'.freeze
-  VERSIONS_API_VERSION = 'application/vnd.go.cd+json'.freeze
-  PLUGIN_INFO_API_VERSION = 'application/vnd.go.cd+json'.freeze
-
   HELIXTEAMHUB_USERNAME = ENV['HELIXTEAMHUB_USERNAME'] || 'username'
   HELIXTEAMHUB_PASSWORD = ENV['HELIXTEAMHUB_PASSWORD'] || 'password%^'
 

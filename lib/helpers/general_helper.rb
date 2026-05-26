@@ -16,6 +16,7 @@
 
 module Helpers
   module GeneralHelper
+    VERSIONS_API_VERSION = 'application/vnd.go.cd+json'.freeze
 
     def interpolate_from_scenario_state(msg)
       msg.gsub(/\$(.*?)\$/) {|name| scenario_state.get(name.delete! '$') }
@@ -23,7 +24,7 @@ module Helpers
 
     def running_server_full_version
       res = Helpers::HTTP.raising.get http_url('/api/version'), nil,
-                                      { accept: GoConstants::VERSIONS_API_VERSION }.merge(basic_configuration.header)
+                                      { accept: VERSIONS_API_VERSION }.merge(basic_configuration.header)
       JSON.parse(res.body)['full_version']
     end
 

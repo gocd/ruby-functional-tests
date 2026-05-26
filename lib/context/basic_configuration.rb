@@ -169,9 +169,9 @@ module Context
     end
 
     def header
-      return { Confirm: 'true' } unless scenario_state.get 'current_user'
-      basic_auth = Base64.encode64([scenario_state.get('current_user'), 'badger'].join(':'))
-      { Authorization: "Basic #{basic_auth}", Confirm: 'true' }
+      scenario_state.get('current_user') ?
+                           { Confirm: 'true', Authorization: "Basic #{Base64.encode64([scenario_state.get('current_user'), 'badger'].join(':'))}" } :
+                           { Confirm: 'true' }
     end
 
     def remove_all_users

@@ -18,6 +18,10 @@ step 'Perform server backup' do
   server_backup_page.perform_backup
 end
 
+step 'Enable backup email notifications' do
+  server_backup_page.enable_email_notifications
+end
+
 step 'On server backup page' do
   server_backup_page.load
 end

@@ -20,12 +20,22 @@ module Pages
 
     element :btn_confirm_backup, '[data-test-id="button-save"]'
     element :btn_perform_backup, '[data-test-id="perform-backup"]'
+    element :btn_configure_backup, '[data-test-id="configure-backup"]'
+    element :email_on_success_checkbox, '[data-test-id="form-field-input-send-email-on-backup-success"]'
+    element :email_on_failure_checkbox, '[data-test-id="form-field-input-send-email-on-backup-failure"]'
 
     load_validation { has_btn_perform_backup? }
 
     def perform_backup()
       page.find('button', text: 'Perform Backup').click(wait: 10)
       btn_confirm_backup.click(wait: 5)
+    end
+
+    def enable_email_notifications
+      btn_configure_backup.click(wait: 5)
+      email_on_success_checkbox.set(true)
+      email_on_failure_checkbox.set(true)
+      page.find('button[data-test-id="button-ok"]', text: 'Save').click(wait: 5)
     end
 
     def backup_successful? msg

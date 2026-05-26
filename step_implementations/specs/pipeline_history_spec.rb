@@ -55,7 +55,7 @@ step 'Approve stage <stage> with label <label>' do |stage, label|
   begin
     Helpers::HTTP.conn.post http_url("/api/stages/#{scenario_state.self_pipeline}/#{label}/#{stage}/run"), {}, {accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true'}.merge(basic_configuration.header)
   rescue Faraday::ClientError, Faraday::ServerError => err
-    p "Stage #{stage} approval on history page failed with response code #{err.response.status} and the response body - #{err.response.body}"
+    raise "Stage #{stage} approval on history page failed with response code #{err.response.status} and the response body - #{err.response.body}"
   end
 end
 

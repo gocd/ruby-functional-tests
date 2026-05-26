@@ -54,8 +54,8 @@ module Context
       begin
         cp_r "#{GoConstants::SERVER_DIR}/db", path
         tar_rm("#{path}/db", "config.git") # Compress the config repo, as it's a git repo with many small files that is a pain to artifact
-      rescue => exception
-        p "Failed to capture DB as part of teardown. Ignore. Not failing the test for this"
+      rescue => e
+        p "Failed to capture DB as part of teardown due to #{e.inspect}. Ignore. Not failing the test for this"
       end
 
     end

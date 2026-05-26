@@ -490,7 +490,7 @@ module Pages
       response = begin
                    Helpers::HTTP.conn.get http_url("/api/config/materials"), nil, { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
                  rescue Faraday::ClientError, Faraday::ServerError => err
-                   p "Get All Material call failed with response code #{err.response.status} and the response body - #{err.response.body}"
+                   raise "Get All Material call failed with response code #{err.response.status} and the response body - #{err.response.body}"
                  end
       JSON.parse(response.body)['_embedded']['materials'].each { |material|
         unless material['attributes']['url'].nil?

@@ -24,7 +24,7 @@ step 'Verify pipeline <pipeline> is locked and not schedulable - Using api' do |
     assert_true JSON.parse(response.body)['locked']
     assert_false JSON.parse(response.body)['schedulable']
   rescue Faraday::ClientError, Faraday::ServerError => err
-    p "Pipeline Status call failed with response code #{err.response.status} and the response body - #{err.response.body}"
+    raise "Pipeline Status call failed with response code #{err.response.status} and the response body - #{err.response.body}"
   end
 end
 
@@ -41,7 +41,7 @@ step 'Verify pipeline <pipeline> is not locked and is schedulable - Using api' d
     assert_false JSON.parse(response.body)['locked']
     assert_true JSON.parse(response.body)['schedulable']
   rescue Faraday::ClientError, Faraday::ServerError => err
-    p "Pipeline Status call failed with response code #{err.response.status} and the response body - #{err.response.body}"
+    raise "Pipeline Status call failed with response code #{err.response.status} and the response body - #{err.response.body}"
   end
 end
 
@@ -50,7 +50,7 @@ step 'Trigger stage <stage> run <run>' do |stage, run|
     response = Helpers::HTTP.conn.post http_url("/api/stages/#{scenario_state.self_pipeline}/#{run}/#{stage}/run"), '', {accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true'}.merge(basic_configuration.header)
     assert_true response.status == 202
   rescue Faraday::ClientError, Faraday::ServerError => err
-    p "Trigger stage call failed with response code #{err.response.status} and the response body - #{err.response.body}"
+    raise "Trigger stage call failed with response code #{err.response.status} and the response body - #{err.response.body}"
   end
   new_pipeline_dashboard_page.wait_for_expected_stage_state(scenario_state.self_pipeline, stage, 'building')
 end
@@ -62,39 +62,27 @@ step 'Cancel stage <stage> counter <counter> of pipeline <pipeline> instance <in
 
     assert_true response.status == 200
   rescue Faraday::ClientError, Faraday::ServerError => err
-    p "Cancel stage call failed with response code #{err.response.status} and the response body - #{err.response.body}"
+    raise "Cancel stage call failed with response code #{err.response.status} and the response body - #{err.response.body}"
   end
 end
 
 step 'Verify can unlock <pipeline>' do |pipeline|
-  body = begin
-    response = Helpers::HTTP.conn.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
+  response = Helpers::HTTP.conn.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
                                {content_type: 'application/json', accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true'}.merge(basic_configuration.header)
-  rescue Faraday::ClientError, Faraday::ServerError => err
-    p err.response.body
-  end
 
-  assert_true JSON.parse(body).to_s.include? "Pipeline lock released for #{scenario_state.get(pipeline)}"
+  assert_true JSON.parse(response.body).to_s.include? "Pipeline lock released for #{scenario_state.get(pipeline)}"
 end
 
 step 'Verify unauthorized to unlock <pipeline>' do |pipeline|
-  body = begin
-    response = Helpers::HTTP.conn.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
+  response = Helpers::HTTP.conn.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
                                {content_type: 'application/json', accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true'}.merge(basic_configuration.header)
-  rescue Faraday::ClientError, Faraday::ServerError => err
-    p err.response.body
-  end
-  assert_true JSON.parse(body).to_s.include? 'You are not authorized to perform this action'
+  assert_true JSON.parse(response.body).to_s.include? 'You are not authorized to perform this action'
 end
 
 step 'Verify unlocking <pipeline> is not acceptable because <message>' do |pipeline, message|
-  body = begin
-    response = Helpers::HTTP.conn.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
+  response = Helpers::HTTP.conn.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
                                {content_type: 'application/json', accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true'}.merge(basic_configuration.header)
-  rescue Faraday::ClientError, Faraday::ServerError => err
-    p err.response.body
-  end
-  assert_true JSON.parse(body).to_s.include? message
+  assert_true JSON.parse(response.body).to_s.include? message
 end
 
 step 'Verify unlocking <pipeline> fails as pipeline is not found' do |pipeline|
@@ -111,29 +99,21 @@ step 'Delete pipeline <pipeline> - Configure cruise using api' do |pipeline|
                                  {content_type: 'application/json', accept: 'application/vnd.go.cd+json'}.merge(basic_configuration.header)
     assert_true response.status == 200
   rescue Faraday::ClientError, Faraday::ServerError => err
-    p "Delete Pipeline call failed with response code #{err.response.status} and the response body - #{err.response.body}"
+    raise "Delete Pipeline call failed with response code #{err.response.status} and the response body - #{err.response.body}"
   end
 
 end
 
 step 'Verify unauthorized to unlock <pipeline> using access token <token_id>' do |pipeline, token_id|
-  body = begin
-    response = Helpers::HTTP.conn.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
+  response = Helpers::HTTP.conn.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
                                {content_type: 'application/json', accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true', Authorization: "Bearer #{scenario_state.get(token_id)}"}
-  rescue Faraday::ClientError, Faraday::ServerError => err
-    p err.response.body
-  end
-  assert_true JSON.parse(body).to_s.include? 'You are not authorized to perform this action'
+  assert_true JSON.parse(response.body).to_s.include? 'You are not authorized to perform this action'
 end
 
 step 'Verify can unlock <pipeline> using access token <token_id>' do |pipeline, token_id|
-  body = begin
-    response = Helpers::HTTP.conn.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
+  response =  Helpers::HTTP.conn.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
                                {content_type: 'application/json', accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true', Authorization: "Bearer #{scenario_state.get(token_id)}"}
-  rescue Faraday::ClientError, Faraday::ServerError => err
-    p err.response.body
-  end
-  assert_true JSON.parse(body).to_s.include? "Pipeline lock released for #{scenario_state.get(pipeline)}"
+  assert_true JSON.parse(response.body).to_s.include? "Pipeline lock released for #{scenario_state.get(pipeline)}"
 end
 
 step 'Attempt to get scheduled list of jobs should return with status <return_code>' do |return_code|

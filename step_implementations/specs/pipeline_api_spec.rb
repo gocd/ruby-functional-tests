@@ -30,7 +30,7 @@ end
 
 step 'Trigger pipeline <pipeline> and verify response code <code> - Using api' do |pipeline, response_code|
   response = Helpers::HTTP.quiet.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/schedule"),
-                             {content_type: 'application/json', accept: PIPELINE_CONFIG_API_VERSION}.merge(basic_configuration.header)
+                                      {content_type: 'application/json', accept: PIPELINE_CONFIG_API_VERSION}.merge(basic_configuration.header)
   assert_true response.status == response_code.to_i
 end
 
@@ -74,20 +74,20 @@ end
 
 step 'Verify unauthorized to unlock <pipeline>' do |pipeline|
   response = Helpers::HTTP.quiet.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
-                                        {content_type: 'application/json', accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true'}.merge(basic_configuration.header)
+                                      {content_type: 'application/json', accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true'}.merge(basic_configuration.header)
   assert_true JSON.parse(response.body).to_s.include? 'You are not authorized to perform this action'
 end
 
 step 'Verify unlocking <pipeline> is not acceptable because <message>' do |pipeline, message|
   response = Helpers::HTTP.quiet.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
-                                        {content_type: 'application/json', accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true'}.merge(basic_configuration.header)
+                                      {content_type: 'application/json', accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true'}.merge(basic_configuration.header)
   assert_true response.status == 409
   assert_true JSON.parse(response.body).to_s.include? message
 end
 
 step 'Verify unlocking <pipeline> fails as pipeline is not found' do |pipeline|
-  Helpers::HTTP.quiet.post http_url("/api/pipelines/#{pipeline}/unlock"), '',
-                             {content_type: 'application/json', accept: 'application/vnd.go.cd+json', "X-GoCD-Confirm" => 'true'}.merge(basic_configuration.header)
+  response = Helpers::HTTP.quiet.post http_url("/api/pipelines/#{pipeline}/unlock"), '',
+                                      {content_type: 'application/json', accept: 'application/vnd.go.cd+json', "X-GoCD-Confirm" => 'true'}.merge(basic_configuration.header)
   assert_true response.status.eql? 404
 end
 
@@ -103,7 +103,7 @@ end
 
 step 'Verify unauthorized to unlock <pipeline> using access token <token_id>' do |pipeline, token_id|
   response = Helpers::HTTP.quiet.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
-                                        {content_type: 'application/json', accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true', Authorization: "Bearer #{scenario_state.get(token_id)}"}
+                                      {content_type: 'application/json', accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true', Authorization: "Bearer #{scenario_state.get(token_id)}"}
   assert_true JSON.parse(response.body).to_s.include? 'You are not authorized to perform this action'
 end
 

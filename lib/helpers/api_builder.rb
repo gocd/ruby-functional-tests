@@ -37,14 +37,14 @@ module APIBuilder
   @tested = []
   @non_tested = []
 
-  def self.build_tested(request)
-    unless request.url.include? '/api/admin/config.xml'
-      @tested <<  GoCDApi.new(request.method,request.url.split('/go').last)
+  def self.record_tested(method, url)
+    unless url.include? '/api/admin/config.xml'
+      @tested << GoCDApi.new(method, url.split('/go').last)
     end
   end
 
   def self.all_apis
-    response = RestClient.get http_url("/api/internal/apis"), { accept: 'application/vnd.go.cd+json' }
+    response = Helpers::HTTP.conn.get http_url("/api/internal/apis"), nil, { accept: 'application/vnd.go.cd+json' }
     json_response = JSON.parse(response.body)
     json_response.select { |api|
                             if api['version'] == "application/vnd.go.cd+json"
@@ -58,7 +58,7 @@ module APIBuilder
   end
 
   def self.all_deprecated_apis
-    response = RestClient.get http_url("/api/internal/apis"), { accept: 'application/vnd.go.cd+json' }
+    response = Helpers::HTTP.conn.get http_url("/api/internal/apis"), nil, { accept: 'application/vnd.go.cd+json' }
     json_response = JSON.parse(response.body)
     json_response.select { |api| api['deprecation_info']['is_deprecated']}
   end

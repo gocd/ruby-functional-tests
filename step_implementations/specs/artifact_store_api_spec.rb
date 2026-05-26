@@ -21,8 +21,8 @@ step 'Create artifact store <artifact_store_id>' do |artifact_store_id|
   begin
     response = create(artifact_store_id)
     scenario_state.put 'api_response', response
-  rescue RestClient::ExceptionWithResponse => err
-    p "Create artifact store call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+  rescue Faraday::ClientError, Faraday::ServerError => err
+    p "Create artifact store call failed with response code #{err.response.status} and the response body - #{err.response.body}"
     scenario_state.put 'api_response', err.response
   end
 end
@@ -30,17 +30,17 @@ end
 step 'Get artifact store <artifact_store_id>' do |artifact_store|
   begin
     response = get artifact_store
-  rescue RestClient::ExceptionWithResponse => err
-    raise "Failed to get the artifact store #{artifact_store}. Returned response code - #{err.response.code}"
+  rescue Faraday::ClientError, Faraday::ServerError => err
+    raise "Failed to get the artifact store #{artifact_store}. Returned response code - #{err.response.status}"
   end
   assert_true JSON.parse(response.body)['id'] == artifact_store
 end
 
 step 'Get all artifact stores should return <artifact_store_ids>' do |list|
   begin
-    response = RestClient.get http_url('/api/admin/artifact_stores'), {accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
-  rescue RestClient::ExceptionWithResponse => err
-    raise "Failed to get all artifact stores. Returned response code - #{err.response.code}"
+    response = Helpers::HTTP.conn.get http_url('/api/admin/artifact_stores'), nil, {accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
+  rescue Faraday::ClientError, Faraday::ServerError => err
+    raise "Failed to get all artifact stores. Returned response code - #{err.response.status}"
   end
   assert_true JSON.parse(response.body)['_embedded']['artifact_stores'].map {|t| t['id']}.sort == list.split(/[\s,]+/).sort
 end
@@ -49,8 +49,8 @@ step 'Update artifact store <artifact_store_id>' do |artifact_store_id|
   begin
     update_response = update(artifact_store_id)
     scenario_state.put 'api_response', update_response
-  rescue RestClient::ExceptionWithResponse => err
-    p "Update artifact store call failed with response code #{err.response.code} and response body - #{err.response.body}"
+  rescue Faraday::ClientError, Faraday::ServerError => err
+    p "Update artifact store call failed with response code #{err.response.status} and response body - #{err.response.body}"
     scenario_state.put 'api_response', err.response
   end
 end
@@ -59,8 +59,8 @@ step 'Delete artifact store <artifact_store_id>' do |artifact_store_id|
   begin
     delete_response = delete(artifact_store_id)
     scenario_state.put 'api_response', delete_response
-  rescue RestClient::ExceptionWithResponse => err
-    p "Update artifact store call failed with response code #{err.response.code} and response body - #{err.response.body}"
+  rescue Faraday::ClientError, Faraday::ServerError => err
+    p "Update artifact store call failed with response code #{err.response.status} and response body - #{err.response.body}"
     scenario_state.put 'api_response', err.response
   end
 end
@@ -96,17 +96,17 @@ def try_api_call(func, arg = nil)
       response = func.call
     end
     scenario_state.put 'api_response', response
-  rescue RestClient::ExceptionWithResponse => err
+  rescue Faraday::ClientError, Faraday::ServerError => err
     scenario_state.put 'api_response', err.response
   end
 end
 
 def get(artifact_store_id)
-  RestClient.get http_url("/api/admin/artifact_stores/#{artifact_store_id}"), {accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
+  Helpers::HTTP.conn.get http_url("/api/admin/artifact_stores/#{artifact_store_id}"), nil, {accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
 end
 
 def get_all
-  RestClient.get http_url('/api/admin/artifact_stores'), {accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
+  Helpers::HTTP.conn.get http_url('/api/admin/artifact_stores'), nil, {accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
 end
 
 def create(artifact_store_id)
@@ -132,8 +132,8 @@ def create(artifact_store_id)
           }
       ]
   }
-  RestClient.post http_url('/api/admin/artifact_stores'), JSON.generate(tmp),
-                  {content_type: :json, accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
+  Helpers::HTTP.conn.post http_url('/api/admin/artifact_stores'), JSON.generate(tmp),
+                  {content_type: 'application/json', accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
 end
 
 def update(artifact_store_id)
@@ -159,15 +159,15 @@ def update(artifact_store_id)
       }
       ]
   }
-  response = RestClient.get http_url("/api/admin/artifact_stores/#{artifact_store_id}"), {accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
+  response = Helpers::HTTP.conn.get http_url("/api/admin/artifact_stores/#{artifact_store_id}"), nil, {accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
 
-  RestClient.put http_url("/api/admin/artifact_stores/#{artifact_store_id}"), JSON.generate(tmp),
-                 {content_type: :json, if_match: response.headers[:etag], accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
+  Helpers::HTTP.conn.put http_url("/api/admin/artifact_stores/#{artifact_store_id}"), JSON.generate(tmp),
+                 {content_type: 'application/json', if_match: response.headers[:etag], accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
 end
 
 def delete(artifact_store_id)
-  response = RestClient.get http_url("/api/admin/artifact_stores/#{artifact_store_id}"), {accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
+  response = Helpers::HTTP.conn.get http_url("/api/admin/artifact_stores/#{artifact_store_id}"), nil, {accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
 
-  RestClient.delete http_url("/api/admin/artifact_stores/#{artifact_store_id}"),
-                 {content_type: :json, if_match: response.headers[:etag], accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
+  Helpers::HTTP.conn.delete http_url("/api/admin/artifact_stores/#{artifact_store_id}"), nil,
+                 {content_type: 'application/json', if_match: response.headers[:etag], accept: ARTIFACT_STORE_API_VERSION}.merge(basic_configuration.header)
 end

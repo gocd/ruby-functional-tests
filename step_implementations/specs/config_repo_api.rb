@@ -19,9 +19,9 @@ CONFIG_REPO_BASE_URL    = '/api/admin/config_repos'.freeze
 
 step 'Create config repo <id>' do |id|
   begin
-    assert_true create_config_repo(id).code == 200
-  rescue RestClient::ExceptionWithResponse => e
-    raise "Failed to create config repo #{id}. Resp code: #{e.response.code}; body: #{e.response.body}"
+    assert_true create_config_repo(id).status == 200
+  rescue Faraday::ClientError, Faraday::ServerError => err
+    raise "Failed to create config repo #{id}. Resp code: #{err.response.status}; body: #{err.response.body}"
   end
 end
 
@@ -29,21 +29,21 @@ step 'Create config repo <id> should return forbidden' do |id|
   begin
     create_config_repo(id)
     raise 'Expected create config_repo to fail'
-  rescue RestClient::ExceptionWithResponse => e
-    raise 'Response Code is not 403' unless e.response.code == 403
+  rescue Faraday::ClientError, Faraday::ServerError => err
+    raise 'Response Code is not 403' unless err.response.status == 403
   end
 end
 
 step 'Get config repo <id> should return success' do |id|
-  assert_true get_config_repo(id).code == 200
+  assert_true get_config_repo(id).status == 200
 end
 
 step 'Get config repo <id> should return forbidden' do |id|
   begin
     get_config_repo(id)
     raise 'Expected get config_repo to fail'
-  rescue RestClient::ExceptionWithResponse => e
-    raise 'Response Code is not 403' unless e.response.code == 403
+  rescue Faraday::ClientError, Faraday::ServerError => err
+    raise 'Response Code is not 403' unless err.response.status == 403
   end
 end
 
@@ -60,76 +60,76 @@ step 'Get all config repos should not have <repos>' do |repos|
 end
 
 step 'Update config repo <id> should return success' do |id|
-  assert_true update_config_repo(id).code == 200
+  assert_true update_config_repo(id).status == 200
 end
 
 step 'Update config repo <id> should return forbidden' do |id|
   begin
     update_config_repo(id)
     raise 'Expected update config repo to fail'
-  rescue RestClient::ExceptionWithResponse => e
-    raise 'Response Code is not 403' unless e.response.code == 403
+  rescue Faraday::ClientError, Faraday::ServerError => err
+    raise 'Response Code is not 403' unless err.response.status == 403
   end
 end
 
 step 'Delete config repo <id> should return success' do |id|
-  assert_true delete_config_repo(id).code == 200
+  assert_true delete_config_repo(id).status == 200
 end
 
 step 'Delete config repo <id> should return forbidden' do |id|
   begin
     delete_config_repo(id)
     raise 'Expected delete config repo to fail'
-  rescue RestClient::ExceptionWithResponse => e
-    raise 'Response Code is not 403' unless e.response.code == 403
+  rescue Faraday::ClientError, Faraday::ServerError => err
+    raise 'Response Code is not 403' unless err.response.status == 403
   end
 end
 
 step 'Get status of config repo <id> should return success' do |id|
   response = get_status(id)
-	assert_equal response.code, 200, "Failed to get config repo status. Response code #{response.code}, body #{response.body}"
+	assert_equal response_status, 200, "Failed to get config repo status. Response code #{response.status}, body #{response.body}"
 end
 
 step 'Get definition of config repo <id> should return success' do |id|
 	response = get_definitions(id)
-	assert_equal response.code, 200, "Failed to get config repo defenition. Response code #{response.code}, body #{response.body}"
+	assert_equal response.status, 200, "Failed to get config repo defenition. Response code #{response.status}, body #{response.body}"
 end
 
 step 'Trigger update of config repo <id> should return success' do |id|
 	response = trigger_update(id)
-	assert_equal response.code, 201, "Failed to trigger update. Response code #{response.code}, body #{response.body}"
+	assert_equal response.status, 201, "Failed to trigger update. Response code #{response.status}, body #{response.body}"
 end
 
 step 'Create config repo <id> with rules <rules>' do |id, rules|
   begin
-    assert_true create_config_repo_with_rules(id, rules).code == 200
-  rescue RestClient::ExceptionWithResponse => e
-    raise "Failed to create config repo #{id}. Resp code: #{e.response.code}; body: #{e.response.body}"
+    assert_true create_config_repo_with_rules(id, rules).status == 200
+  rescue Faraday::ClientError, Faraday::ServerError => err
+    raise "Failed to create config repo #{id}. Resp code: #{err.response.status}; body: #{err.response.body}"
   end
 end
 
 step 'Get config repo <id> should contain rules <rules>' do |id, rules|
   result = get_config_repo(id)
-  assert_true result.code == 200
+  assert_true result.status == 200
   actual   = JSON.parse(result)["rules"]
   expected = extract_rules(rules).map {|item| item.transform_keys(&:to_s)}
   assert_true difference(expected, actual).empty?, "Assertion failed. Expected: #{expected}, Actual: #{actual}"
 end
 
 step 'Update config repo <id> with rules <rules>' do |id, rules|
-  assert_true update_config_repo_with_rules(id, rules).code == 200
+  assert_true update_config_repo_with_rules(id, rules).status == 200
 end
 
 private
 
 def get_all_config_repos
-  RestClient.get http_url(CONFIG_REPO_BASE_URL),
+  Helpers::HTTP.conn.get http_url(CONFIG_REPO_BASE_URL), nil,
                  {accept: CONFIG_REPO_API_VERSION}
                      .merge(basic_configuration.header)
 end
 
 def get_status(id)
-  RestClient.get http_url("#{CONFIG_REPO_BASE_URL}/#{id}/status"),
+  Helpers::HTTP.conn.get http_url("#{CONFIG_REPO_BASE_URL}/#{id}/status"), nil,
                                     { accept: CONFIG_REPO_API_VERSION }
                                       .merge(basic_configuration.header)   do |response, _request, _result|
 		response
@@ -137,7 +137,7 @@ def get_status(id)
 end
 
 def get_definitions(id)
-  RestClient.get http_url("#{CONFIG_REPO_BASE_URL}/#{id}/definitions"),
+  Helpers::HTTP.conn.get http_url("#{CONFIG_REPO_BASE_URL}/#{id}/definitions"), nil,
                                     { accept: CONFIG_REPO_API_VERSION }
                                       .merge(basic_configuration.header)   do |response, _request, _result|
 		response
@@ -145,7 +145,7 @@ def get_definitions(id)
 end
 
 def trigger_update(id)
-  RestClient.post http_url("#{CONFIG_REPO_BASE_URL}/#{id}/trigger_update"), '',
+  Helpers::HTTP.conn.post http_url("#{CONFIG_REPO_BASE_URL}/#{id}/trigger_update"), '',
                                     { accept: CONFIG_REPO_API_VERSION, 'X-GoCD-Confirm': true }
                                       .merge(basic_configuration.header)   do |response, _request, _result|
 		response
@@ -153,44 +153,44 @@ def trigger_update(id)
 end
 
 def get_config_repo(id)
-  RestClient.get http_url("#{CONFIG_REPO_BASE_URL}/#{id}"),
+  Helpers::HTTP.conn.get http_url("#{CONFIG_REPO_BASE_URL}/#{id}"), nil,
                  {accept: CONFIG_REPO_API_VERSION}
                      .merge(basic_configuration.header)
 end
 
 def create_config_repo(id)
-  RestClient.post http_url(CONFIG_REPO_BASE_URL),
+  Helpers::HTTP.conn.post http_url(CONFIG_REPO_BASE_URL),
                   request_body_for_repo(id),
-                  {content_type: :json, accept: CONFIG_REPO_API_VERSION}
+                  {content_type: 'application/json', accept: CONFIG_REPO_API_VERSION}
                       .merge(basic_configuration.header)
 end
 
 def create_config_repo_with_rules(id, rules)
-  RestClient.post http_url(CONFIG_REPO_BASE_URL),
+  Helpers::HTTP.conn.post http_url(CONFIG_REPO_BASE_URL),
                   request_body_for_repo(id, 'json.config.plugin', Context::GitMaterials.new, [], extract_rules(rules)),
-                  {content_type: :json, accept: CONFIG_REPO_API_VERSION}
+                  {content_type: 'application/json', accept: CONFIG_REPO_API_VERSION}
                       .merge(basic_configuration.header)
 end
 
 def delete_config_repo(id)
-  RestClient.delete http_url("#{CONFIG_REPO_BASE_URL}/#{id}"),
+  Helpers::HTTP.conn.delete http_url("#{CONFIG_REPO_BASE_URL}/#{id}"), nil,
                     {accept: CONFIG_REPO_API_VERSION}
                         .merge(basic_configuration.header)
 end
 
 def update_config_repo(id)
   etag = get_config_repo(id).headers[:etag]
-  RestClient.put http_url("#{CONFIG_REPO_BASE_URL}/#{id}"),
+  Helpers::HTTP.conn.put http_url("#{CONFIG_REPO_BASE_URL}/#{id}"),
                  request_body_for_repo(id),
-                 {content_type: :json, accept: CONFIG_REPO_API_VERSION, if_match: etag}
+                 {content_type: 'application/json', accept: CONFIG_REPO_API_VERSION, if_match: etag}
                      .merge(basic_configuration.header)
 end
 
 def update_config_repo_with_rules(id, rules)
   etag = get_config_repo(id).headers[:etag]
-  RestClient.put http_url("#{CONFIG_REPO_BASE_URL}/#{id}"),
+  Helpers::HTTP.conn.put http_url("#{CONFIG_REPO_BASE_URL}/#{id}"),
                  request_body_for_repo(id, 'json.config.plugin', Context::GitMaterials.new, [], extract_rules(rules)),
-                 {content_type: :json, accept: CONFIG_REPO_API_VERSION, if_match: etag}
+                 {content_type: 'application/json', accept: CONFIG_REPO_API_VERSION, if_match: etag}
                      .merge(basic_configuration.header)
 end
 

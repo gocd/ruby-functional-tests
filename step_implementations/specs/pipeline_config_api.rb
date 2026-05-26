@@ -28,10 +28,10 @@ step 'Update pipeline <pipeline> stage <stage_name> job <job_name> with elastic 
 end
 
 def get_pipeline(pipeline)
-  RestClient.get http_url("/api/admin/pipelines/#{pipeline}"), { accept: PIPELINE_API_VERSION }.merge(basic_configuration.header)
+  Helpers::HTTP.conn.get http_url("/api/admin/pipelines/#{pipeline}"), nil, { accept: PIPELINE_API_VERSION }.merge(basic_configuration.header)
 end
 
 def update_pipeline(name, req_body, etag)
-  RestClient.put http_url("/api/admin/pipelines/#{name}"), req_body,
-                 { content_type: :json, if_match: etag, accept: PIPELINE_API_VERSION }.merge(basic_configuration.header)
+  Helpers::HTTP.conn.put http_url("/api/admin/pipelines/#{name}"), req_body,
+                 { content_type: 'application/json', if_match: etag, accept: PIPELINE_API_VERSION }.merge(basic_configuration.header)
 end

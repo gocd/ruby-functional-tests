@@ -73,16 +73,6 @@ end
 
 Capybara.default_driver = :selenium
 
-RestClient::Request.class_eval do
-  def self.execute(args, & block)
-    request_new = RestClient::Request.new(args)
-    APIBuilder.build_tested(request_new)
-    CurlBuilder.build(request_new)
-    request_new.execute(& block)
-  end
-end
-
-
 before_suite do
   go_server.start
   go_server.wait_to_start

@@ -19,22 +19,22 @@ SECRET_CONFIG_ACCEPT_HEADER = 'application/vnd.go.cd+json'.freeze
 SECRET_CONFIG_API_BASE = '/api/admin/secret_configs'.freeze
 
 def get_all_secret_configs
-  RestClient.get http_url(SECRET_CONFIG_API_BASE.to_s),
-                 { content_type: :json, accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
+  Helpers::HTTP.conn.get http_url(SECRET_CONFIG_API_BASE.to_s), nil,
+                 { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
 end
 
 def get_secret_config(id)
-  RestClient.get http_url("#{SECRET_CONFIG_API_BASE}/#{id}"),
-                 { content_type: :json, accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
+  Helpers::HTTP.conn.get http_url("#{SECRET_CONFIG_API_BASE}/#{id}"), nil,
+                 { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
 end
 
 step 'Delete secret config <secret_config_id> should return <code>' do |secret_config_id, expected_code|
   begin
-    res = RestClient.delete http_url("#{SECRET_CONFIG_API_BASE}/#{secret_config_id}"),
-                            { content_type: :json, accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
-    assert_true res.code == expected_code.to_i
-  rescue RestClient::ExceptionWithResponse => err
-    assert_true err.response.code == expected_code.to_i
+    res = Helpers::HTTP.conn.delete http_url("#{SECRET_CONFIG_API_BASE}/#{secret_config_id}"), nil,
+                            { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
+    assert_true res.status == expected_code.to_i
+  rescue Faraday::ClientError, Faraday::ServerError => err
+    assert_true err.response.status == expected_code.to_i
   end
 end
 
@@ -52,9 +52,9 @@ end
 step 'Get secret config <id> should return <response_code>' do |config_id, expected_code|
   begin
     res = get_secret_config(config_id)
-    assert_true res.code == expected_code.to_i
-  rescue RestClient::ExceptionWithResponse => err
-    assert_true err.response.code == expected_code.to_i
+    assert_true res.status == expected_code.to_i
+  rescue Faraday::ClientError, Faraday::ServerError => err
+    assert_true err.response.status == expected_code.to_i
   end
 end
 
@@ -73,17 +73,17 @@ step 'Add secret config <config_id> with file <file> should return code <code>',
   }
   )
   begin
-    res = RestClient.post http_url(SECRET_CONFIG_API_BASE.to_s), req_body,
-                          { content_type: :json, accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
-    assert_true res.code == expected_code.to_i
-  rescue RestClient::ExceptionWithResponse => err
-    assert_true err.response.code == expected_code.to_i
+    res = Helpers::HTTP.conn.post http_url(SECRET_CONFIG_API_BASE.to_s), req_body,
+                          { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
+    assert_true res.status == expected_code.to_i
+  rescue Faraday::ClientError, Faraday::ServerError => err
+    assert_true err.response.status == expected_code.to_i
   end
 end
 
 step 'Secret config <config_id> should contain rule to <directive> usage in pipeline group <pipeline_group>' do |config_id, directive, pipeline_group|
   res = get_secret_config(config_id)
-  assert_true res.code == 200
+  assert_true res.status == 200
   json = JSON.parse(res.body)
   rules = json['rules'].select { |rule| (rule['directive'].eql? directive.to_s) && (rule['resource'].eql? pipeline_group.to_s) }
   assert_true rules.size == 1
@@ -113,10 +113,10 @@ step 'Update secret config <config_id> with file <file> to <directive> usage onl
   }
   )
 
-  res = RestClient.put http_url("#{SECRET_CONFIG_API_BASE}/#{config_id}"), req_body,
-                       { content_type: :json, accept: SECRET_CONFIG_ACCEPT_HEADER, if_match: etag }.merge(basic_configuration.header)
+  res = Helpers::HTTP.conn.put http_url("#{SECRET_CONFIG_API_BASE}/#{config_id}"), req_body,
+                       { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER, if_match: etag }.merge(basic_configuration.header)
 
-  assert_true res.code == 200
+  assert_true res.status == 200
 end
 
 step 'Prepare secret config json <file_name> with secrets <secrets>' do |file_name, secrets|
@@ -131,16 +131,16 @@ end
 step 'Create secret config <name> for secret file <file_name> rules <rules> - Using Secret Config API' do |name, file_name, rules|
   req_body = secret_config(name, file_name, rules_derective(rules))
 
-  RestClient.post http_url(SECRET_CONFIG_API_BASE.to_s), req_body.to_json,
-                  { content_type: :json, accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
+  Helpers::HTTP.conn.post http_url(SECRET_CONFIG_API_BASE.to_s), req_body.to_json,
+                  { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
 end
 
 step 'Update secret config <name> for secret file <file_name> rules <rules> - Using Secret Config API' do |name, file_name, rules|
   etag = get_secret_config(name).headers[:etag]
   req_body = secret_config(name, file_name, rules_derective(rules))
 
-  RestClient.put http_url("#{SECRET_CONFIG_API_BASE}/#{name}"), req_body.to_json,
-                 { content_type: :json, accept: SECRET_CONFIG_ACCEPT_HEADER, if_match: etag }.merge(basic_configuration.header)
+  Helpers::HTTP.conn.put http_url("#{SECRET_CONFIG_API_BASE}/#{name}"), req_body.to_json,
+                 { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER, if_match: etag }.merge(basic_configuration.header)
 end
 
 def rules_derective(rules)

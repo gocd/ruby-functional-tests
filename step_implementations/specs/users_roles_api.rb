@@ -14,18 +14,18 @@
 # limitations under the License.
 ##########################################################################
 
-USERS_API_VERION = 'application/vnd.go.cd+json'.freeze
-ROLES_API_VERION = 'application/vnd.go.cd+json'.freeze
+USERS_API_VERSION = 'application/vnd.go.cd+json'.freeze
+ROLES_API_VERSION = 'application/vnd.go.cd+json'.freeze
 
 step 'Add user <user> - Using user API' do |user|
-  RestClient.post http_url('/api/users'), { login_name: user }.to_json,
-                  { content_type: :json, accept: USERS_API_VERION }.merge(basic_configuration.header)
+  Helpers::HTTP.conn.post http_url('/api/users'), { login_name: user }.to_json,
+                  { content_type: 'application/json', accept: USERS_API_VERSION }.merge(basic_configuration.header)
 end
 
 step 'Add user <user> using access token <token_id> - Using user API' do |user, token_id|
   p "Using token id #{scenario_state.get(token_id)}"
-  RestClient.post http_url('/api/users'), { login_name: user }.to_json,
-                  { content_type: :json, accept: USERS_API_VERION, Authorization: "Bearer #{scenario_state.get(token_id)}" }
+  Helpers::HTTP.conn.post http_url('/api/users'), { login_name: user }.to_json,
+                  { content_type: 'application/json', accept: USERS_API_VERSION, Authorization: "Bearer #{scenario_state.get(token_id)}" }
 end
 
 step 'Add user <user> to role <role> using access token <token_id> - Using roles API' do |user, role, token_id|
@@ -38,11 +38,11 @@ step 'Add user <user> to role <role> using access token <token_id> - Using roles
       }
     }
   )
-  RestClient.put http_url("/api/admin/security/roles/#{role}"), payload,
-                 {content_type: :json, if_match: etag, accept: ROLES_API_VERION, Authorization: "Bearer #{scenario_state.get(token_id)}"}
+  Helpers::HTTP.conn.put http_url("/api/admin/security/roles/#{role}"), payload,
+                 { content_type: 'application/json', if_match: etag, accept: ROLES_API_VERSION, Authorization: "Bearer #{scenario_state.get(token_id)}"}
 end
 
 def get_role(role, token_id)
-  RestClient.get http_url("/api/admin/security/roles/#{role}"),
-                 {accept: ROLES_API_VERION, Authorization: "Bearer #{scenario_state.get(token_id)}"}
+  Helpers::HTTP.conn.get http_url("/api/admin/security/roles/#{role}"), nil,
+                 { accept: ROLES_API_VERSION, Authorization: "Bearer #{scenario_state.get(token_id)}"}
 end

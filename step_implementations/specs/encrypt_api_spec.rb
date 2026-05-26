@@ -21,7 +21,7 @@ ENCRYPT_API_VERSION = 'application/vnd.go.cd+json'.freeze
 step 'Encrypt value <value> and store encrypted value as <identifier>' do |value, identifier|
   begin
     scenario_state.put identifier, JSON.parse(encrypt(value).body)['encrypted_value']
-  rescue RestClient::ExceptionWithResponse => err
+  rescue Faraday::ClientError, Faraday::ServerError => err
     scenario_state.put 'api_response', err.response
   end
 end
@@ -34,7 +34,7 @@ end
 step 'Encrypt value <value>' do |value, identifier|
   begin
     encrypt(value)
-  rescue RestClient::ExceptionWithResponse => err
+  rescue Faraday::ClientError, Faraday::ServerError => err
     scenario_state.put 'api_response', err.response
   end
 end
@@ -42,6 +42,6 @@ end
 private
 
 def encrypt(value)
-  RestClient.post http_url('/api/admin/encrypt'), %({"value": "#{value}"}),
-                  { content_type: :json, accept: ENCRYPT_API_VERSION }.merge(basic_configuration.header)
+  Helpers::HTTP.conn.post http_url('/api/admin/encrypt'), %({"value": "#{value}"}),
+                  { content_type: 'application/json', accept: ENCRYPT_API_VERSION }.merge(basic_configuration.header)
 end

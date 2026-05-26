@@ -19,28 +19,28 @@ require_relative '../../lib/helpers/go_url_helper.rb'
 ENVIRONMENT_API_VERSION = 'application/vnd.go.cd+json'.freeze
 
 step 'Create environment <name>' do |name|
-  assert_true create_environment(name).code == 200
+  assert_true create_environment(name).status == 200
 end
 
 step 'Create environment <name> should return forbidden' do |name|
   begin
     create_environment(name)
     raise 'Expected create environment to fail'
-  rescue RestClient::ExceptionWithResponse => e
-    raise 'Response Code is not 403' unless e.response.code == 403
+  rescue Faraday::ClientError, Faraday::ServerError => err
+    raise 'Response Code is not 403' unless err.response.status == 403
   end
 end
 
 step 'Update environment <environment> to add pipeline <pipeline>' do |environment, pipeline|
-  assert_true update_environment(environment,  name: scenario_state.get(pipeline)).code == 200
+  assert_true update_environment(environment,  name: scenario_state.get(pipeline)).status == 200
 end
 
 step 'Update environment <environment> to add secure environment variable <var> with value as <identifier>' do |environment, var, identifier|
-  assert_true update_environment(environment,  nil, nil, name: var, encrypted_value: scenario_state.get(identifier), secure: true).code == 200
+  assert_true update_environment(environment,  nil, nil, name: var, encrypted_value: scenario_state.get(identifier), secure: true).status == 200
 end
 
 step 'Update environment <environment> to add environment variable <var> with value as <val>' do |environment, var, val|
-  assert_true update_environment(environment,  nil, nil, name: var, value: val, secure: false).code == 200
+  assert_true update_environment(environment,  nil, nil, name: var, value: val, secure: false).status == 200
 end
 
 step 'Get environment <name> should return entity <entity> with <values>' do |name, entity, values|
@@ -55,41 +55,41 @@ step 'Get environment <name> should return entity <entity> with <values>' do |na
 end
 
 step 'Get environment <name> should return success' do |name|
-  assert_true get_environment(name).code == 200
+  assert_true get_environment(name).status == 200
 end
 
 step 'Get environment <name> should return forbidden' do |name|
   begin
     get_environment(name)
     raise 'Expected get environment to fail'
-  rescue RestClient::ExceptionWithResponse => e
-    raise 'Response Code is not 403' unless e.response.code == 403
+  rescue Faraday::ClientError, Faraday::ServerError => err
+    raise 'Response Code is not 403' unless err.response.status == 403
   end
 end
 
 step 'Update environment <name> should return success' do |name|
-  assert_true update_environment(name).code == 200
+  assert_true update_environment(name).status == 200
 end
 
 step 'Update environment <name> should return forbidden' do |name|
   begin
     update_environment(name)
     raise 'Expected update environment to fail'
-  rescue RestClient::ExceptionWithResponse => e
-    raise 'Response Code is not 403' unless e.response.code == 403
+  rescue Faraday::ClientError, Faraday::ServerError => err
+    raise 'Response Code is not 403' unless err.response.status == 403
   end
 end
 
 step 'Delete environment <name> should return success' do |name|
-  assert_true delete_environment(name).code == 200
+  assert_true delete_environment(name).status == 200
 end
 
 step 'Delete environment <name> should return forbidden' do |name|
   begin
     delete_environment(name)
     raise 'Expected delete environment to fail'
-  rescue RestClient::ExceptionWithResponse => e
-    raise 'Response Code is not 403' unless e.response.code == 403
+  rescue Faraday::ClientError, Faraday::ServerError => err
+    raise 'Response Code is not 403' unless err.response.status == 403
   end
 end
 
@@ -121,31 +121,31 @@ def change_to_hash(str, arr_sep = ',', key_sep = ':')
 end
 
 def create_environment(name, pipelines = nil, agents = nil, environment_variables = nil)
-  RestClient.post http_url('/api/admin/environments'), request_body(name, pipelines, agents, environment_variables),
-                  { content_type: :json, accept: ENVIRONMENT_API_VERSION }
+  Helpers::HTTP.conn.post http_url('/api/admin/environments'), request_body(name, pipelines, agents, environment_variables),
+                  { content_type: 'application/json', accept: ENVIRONMENT_API_VERSION }
     .merge(basic_configuration.header)
 end
 
 def get_environment(name)
-  RestClient.get http_url("/api/admin/environments/#{name}"),
+  Helpers::HTTP.conn.get http_url("/api/admin/environments/#{name}"), nil,
                  { accept: ENVIRONMENT_API_VERSION }.merge(basic_configuration.header)
 end
 
 def get_all_environments
-  RestClient.get http_url('/api/admin/environments'),
+  Helpers::HTTP.conn.get http_url('/api/admin/environments'), nil,
                  { accept: ENVIRONMENT_API_VERSION }.merge(basic_configuration.header)
 end
 
 def update_environment(name, pipelines = nil, agents = nil, environment_variables = nil)
   etag = get_environment(name).headers[:etag]
-  RestClient.put http_url("/api/admin/environments/#{name}"), request_body(name, pipelines, agents, environment_variables),
-                 { content_type: :json, accept: ENVIRONMENT_API_VERSION, if_match: etag }
+  Helpers::HTTP.conn.put http_url("/api/admin/environments/#{name}"), request_body(name, pipelines, agents, environment_variables),
+                 { content_type: 'application/json', accept: ENVIRONMENT_API_VERSION, if_match: etag }
     .merge(basic_configuration.header)
 end
 
 def delete_environment(name)
-  RestClient.delete http_url("/api/admin/environments/#{name}"),
-                    { content_type: :json, accept: ENVIRONMENT_API_VERSION}.merge(basic_configuration.header)
+  Helpers::HTTP.conn.delete http_url("/api/admin/environments/#{name}"), nil,
+                    { content_type: 'application/json', accept: ENVIRONMENT_API_VERSION}.merge(basic_configuration.header)
 end
 
 def request_body(name, pipelines = nil, agents = nil, environment_variables = nil)

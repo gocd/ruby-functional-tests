@@ -16,8 +16,8 @@
 module CurlBuilder
   @generated_curls = ["#!/usr/bin/env bash"]
 
-  def self.build(request)
-    generated_curl = "curl #{basic_auth(request)} --url #{request.url} -X #{request.method} #{to_curl_header(request.headers)} #{payload(request)}"
+  def self.record_for_replay(method, url, headers, body)
+    generated_curl = "curl #{basic_auth(headers)} --url #{url} -X #{method} #{to_curl_header(headers)} #{body_section(method, body)}"
     @generated_curls << generated_curl
     generated_curl
   end
@@ -30,31 +30,25 @@ module CurlBuilder
     @generated_curls = ["#!/usr/bin/env bash"]
   end
 
-  private
-  def self.payload(request)
-    if ['PUT', 'PATCH', 'POST'].include?(request.method.upcase)
-      "-d '#{CGI.unescape(request.payload.to_s)}'"
-    end
+  def self.body_section(method, body)
+    return nil unless %w[PUT PATCH POST].include?(method)
+    "-d '#{CGI.unescape(body.to_s)}'"
   end
+  private_class_method :body_section
 
-  def self.basic_auth(request)
-    authorization = request.headers[:Authorization]
-    unless authorization.nil?
-      "-u #{Base64.decode64(authorization.gsub('Basic ', ''))}"
-    end
+  def self.basic_auth(headers)
+    return nil if headers.nil?
+    authorization = headers['Authorization']
+    return nil if authorization.nil?
+    "-u #{Base64.decode64(authorization.sub('Basic ', ''))}"
   end
+  private_class_method :basic_auth
 
   def self.to_curl_header(headers)
-    nameMapping = { :content_type => 'Content-Type' }
-    valueMappings = { 'json' => 'application/json' }
-    allHeaders = []
-    unless headers.nil?
-      headers.each { |name, value|
-        unless name == :Authorization
-          allHeaders << "-H '#{ nameMapping[name] || name}: #{valueMappings[value] || value}'"
-        end
-      }
-    end
-    allHeaders.join(' ')
+    return '' if headers.nil?
+    headers.reject { |name, _| name.to_s.casecmp('authorization').zero? }
+           .map { |name, value| "-H '#{name}: #{value}'" }
+           .join(' ')
   end
+  private_class_method :to_curl_header
 end

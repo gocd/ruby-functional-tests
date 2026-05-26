@@ -21,9 +21,9 @@ step 'Add environment <env> to any <count> Idle agents - Using Agents API' do |_
   agents_with_state('Idle')[0.._count.to_i - 1].each do |agent|
     begin
       patch_agent(agent['uuid'], "{\"environments\": [\"#{_environment}\"]}")
-    rescue RestClient::ExceptionWithResponse => err
+    rescue Faraday::ClientError, Faraday::ServerError => err
       scenario_state.put('api_response', err.response)
-      raise "Patch agents info call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+      raise "Patch agents info call failed with response code #{err.response.status} and the response body - #{err.response.body}"
     end
   end
 end
@@ -32,9 +32,9 @@ step 'Add environment <env> to all Idle agents - Using Agents API' do |_environm
   agents_with_state('Idle').each do |agent|
     begin
       patch_agent(agent['uuid'], "{\"environments\": [\"#{_environment}\"]}")
-    rescue RestClient::ExceptionWithResponse => err
+    rescue Faraday::ClientError, Faraday::ServerError => err
       scenario_state.put('api_response', err.response)
-      raise "Patch agents info call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+      raise "Patch agents info call failed with response code #{err.response.status} and the response body - #{err.response.body}"
     end
   end
 end
@@ -50,7 +50,7 @@ step 'Verify <label_count> instances of <pipeline_name> <stage_name> <job_name> 
 end
 
 step 'Verify any operation on agents return code <code> - Using Agents Api' do |expected_code|
-  actual_code = patch_agent(agents_with_state('Idle')[0]['uuid'], "{\"agent_config_state\": [\"Disabled\"]}").code
+  actual_code = patch_agent(agents_with_state('Idle')[0]['uuid'], "{\"agent_config_state\": [\"Disabled\"]}").status
   assert_true actual_code.eql?(expected_code.to_i), "Response code not expected. Actual code : #{actual_code}"
 end
 
@@ -58,15 +58,15 @@ step 'Verify last job <pipeline_name> <stage_name> <job_name> <status> - Using A
   agents_with_state('Idle').each do |agent|
     api_end_point = http_url("/api/agents/#{agent['uuid']}/job_run_history")
     begin
-      response = RestClient.get api_end_point, { accept: AGENT_JOB_HISTORY_VERSION }.merge(basic_configuration.header)
+      response = Helpers::HTTP.conn.get api_end_point, nil, { accept: AGENT_JOB_HISTORY_VERSION }.merge(basic_configuration.header)
       response_json = JSON.parse(response.body)
       assert_true response_json['jobs'].first['pipeline_name'] == scenario_state.self_pipeline
       assert_true response_json['jobs'].first['result'] == status
       assert_true response_json['jobs'].first['stage_name'] == stage_name
       assert_true response_json['jobs'].first['job_name'] == job_name
       assert_true response_json['jobs'].first['stage_counter'].to_i == 1
-    rescue RestClient::ExceptionWithResponse => err
-      raise "Pipeline Status call to #{api_end_point} failed with response code #{err.response.code} and the response body - #{err.response.body}"
+    rescue Faraday::ClientError, Faraday::ServerError => err
+      raise "Pipeline Status call to #{api_end_point} failed with response code #{err.response.status} and the response body - #{err.response.body}"
     end
   end
 end
@@ -83,7 +83,7 @@ step 'With <count> live agents - teardown' do |count|
 end
 
 def all_agents_info
-  RestClient.get http_url('/api/agents'),
+  Helpers::HTTP.conn.get http_url('/api/agents'), nil,
                             {accept: AGENTS_API_VERSION}.merge(basic_configuration.header) do |response, _request, _result|
     response
   end
@@ -102,26 +102,25 @@ def disable_all_agents(all_agents)
 end
 
 def delete_all_agents(all_agents)
-  RestClient::Request.execute(method: :delete, url: http_url("/api/agents"),
-                              payload: %({"uuids": #{all_agents}}), headers: { accept: AGENTS_API_VERSION, content_type: :json }
-                                                                               .merge(basic_configuration.header)) do |response, _request, _result|
-    response
+  Helpers::HTTP.raw_conn.delete(http_url("/api/agents"), nil,
+                                { accept: AGENTS_API_VERSION, content_type: 'application/json' }.merge(basic_configuration.header)) do |req|
+    req.body = %({"uuids": #{all_agents}})
   end
 end
 
 def patch_agent(agent_uuid, patch_request)
-  RestClient.patch http_url("/api/agents/#{agent_uuid}"),
+  Helpers::HTTP.conn.patch http_url("/api/agents/#{agent_uuid}"),
                                   patch_request,
-                                  { accept: AGENTS_API_VERSION, content_type: :json }
+                                  { accept: AGENTS_API_VERSION, content_type: 'application/json' }
                                   .merge(basic_configuration.header) do |response, _request, _result|
     response
   end
 end
 
 def bulk_update_agent(patch_request)
-  RestClient.patch http_url("/api/agents"),
+  Helpers::HTTP.conn.patch http_url("/api/agents"),
                                   patch_request,
-                                  { accept: AGENTS_API_VERSION, content_type: :json }
+                                  { accept: AGENTS_API_VERSION, content_type: 'application/json' }
                                   .merge(basic_configuration.header) do |response, _request, _result|
     response
   end
@@ -137,7 +136,7 @@ def hit_agent_history_api_and_verify_response(pipeline_name, stage_name, status,
   agents_with_state('Idle').each do |agent|
     begin
       api_end_point = "/api/agents/#{agent['uuid']}/job_run_history?page_size=10" + (offset == 0 ? '' : '&offset=' + offset.to_s)
-      response      = RestClient.get http_url(api_end_point), {accept: AGENT_JOB_HISTORY_VERSION}.merge(basic_configuration.header)
+      response      = Helpers::HTTP.conn.get http_url(api_end_point), nil, {accept: AGENT_JOB_HISTORY_VERSION}.merge(basic_configuration.header)
       response_json = JSON.parse(response.body)
       actual_offset = response_json['pagination']['offset']
       actual_total  = response_json['pagination']['total']
@@ -154,8 +153,8 @@ def hit_agent_history_api_and_verify_response(pipeline_name, stage_name, status,
         assert_true job['job_name'] == job_name
         assert_true job['stage_counter'].to_i == 1
       end
-    rescue RestClient::ExceptionWithResponse => err
-      raise "Pipeline Status call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+    rescue Faraday::ClientError, Faraday::ServerError => err
+      raise "Pipeline Status call failed with response code #{err.response.status} and the response body - #{err.response.body}"
     end
   end
 end

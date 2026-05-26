@@ -23,10 +23,10 @@ step 'Create notification filter for pipeline <pipeline> stage <stage> event <ev
 		"match_commits": match_commit.casecmp('true') ? true : false
 	  }
 	begin
-		response = RestClient.post http_url('/api/notification_filters'), payload.to_json,
-			{ content_type: :json, accept: NOTIFICATION_FILTER_VERSION }.merge(basic_configuration.header)
+		response = Helpers::HTTP.conn.post http_url('/api/notification_filters'), payload.to_json,
+			{ content_type: 'application/json', accept: NOTIFICATION_FILTER_VERSION }.merge(basic_configuration.header)
 		scenario_state.put 'api_response', response
-	rescue RestClient::ExceptionWithResponse => err
+	rescue Faraday::ClientError, Faraday::ServerError => err
 		scenario_state.put 'api_response', err.response
 	end
 end
@@ -53,32 +53,32 @@ step 'Update notification filter <id> by changing the <param> to <value>' do |id
 	hash = JSON.parse(get_filter(id).body)
 	hash[param] = value
 	begin
-		RestClient.patch http_url("/api/notification_filters/#{id}"), hash.to_json,
-			{ content_type: :json, accept: NOTIFICATION_FILTER_VERSION }.merge(basic_configuration.header)
-	rescue RestClient::ExceptionWithResponse => err
+		Helpers::HTTP.conn.patch http_url("/api/notification_filters/#{id}"), hash.to_json,
+			{ content_type: 'application/json', accept: NOTIFICATION_FILTER_VERSION }.merge(basic_configuration.header)
+	rescue Faraday::ClientError, Faraday::ServerError => err
 		raise "Update notification filter failed with response #{err.response}"
 	end
 end
 
 
 def get_filter(id)
-	RestClient.get http_url("/api/notification_filters/#{id}"), { accept: NOTIFICATION_FILTER_VERSION }.merge(basic_configuration.header)   do |response, _request, _result|
-		scenario_state.put 'api_response', response
-		response
-	end
+	response = Helpers::HTTP.raw_conn.get(http_url("/api/notification_filters/#{id}"), nil,
+	                                      { accept: NOTIFICATION_FILTER_VERSION }.merge(basic_configuration.header))
+	scenario_state.put 'api_response', response
+	response
 end
 
 def list_all_filters
-	RestClient.get http_url("/api/notification_filters"), { accept: NOTIFICATION_FILTER_VERSION }.merge(basic_configuration.header)  do |response, _request, _result|
-		raise "Failed to list all Notification Filters. Returned response code - #{err.response.code}" unless response.code == 200
-		scenario_state.put 'api_response', response
-		response
-	end
+	response = Helpers::HTTP.raw_conn.get(http_url("/api/notification_filters"), nil,
+	                                      { accept: NOTIFICATION_FILTER_VERSION }.merge(basic_configuration.header))
+	raise "Failed to list all Notification Filters. Returned response code - #{response.status}" unless response.status == 200
+	scenario_state.put 'api_response', response
+	response
 end
 
 step 'Delete notification filter <id>' do |id|
-	RestClient.delete http_url("/api/notification_filters/#{id}"), { accept: NOTIFICATION_FILTER_VERSION }.merge(basic_configuration.header)  do |response, _request, _result|
-		raise "Failed to delete Notification Filter #{id}. Returned response code - #{response.code}" unless response.code == 200
-		scenario_state.put 'api_response', response
-	end
+	response = Helpers::HTTP.raw_conn.delete(http_url("/api/notification_filters/#{id}"), nil,
+	                                         { accept: NOTIFICATION_FILTER_VERSION }.merge(basic_configuration.header))
+	raise "Failed to delete Notification Filter #{id}. Returned response code - #{response.status}" unless response.status == 200
+	scenario_state.put 'api_response', response
 end

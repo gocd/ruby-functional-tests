@@ -27,18 +27,18 @@ module Context
 
     def detect_headers_from_loaded_config
       begin
-        response = RestClient.get admin_config_url
-        return { Confirm: true } unless response.code != 200
+        response = Helpers::HTTP.conn.get admin_config_url
+        return { Confirm: 'true' } unless response.status != 200
       rescue StandardError
       end
 
       basic_auth = Base64.encode64(%w[admin badger].join(':'))
-      { Authorization: "Basic #{basic_auth}", Confirm: true }
+      { Authorization: "Basic #{basic_auth}", Confirm: 'true' }
     end
 
     def load_dom(xml)
-      RestClient.post admin_config_url, { xmlFile: xml.to_s, md5: @md5 }, detect_headers_from_loaded_config
-    rescue RestClient::ExceptionWithResponse => err
+      Helpers::HTTP.conn.post admin_config_url, { xmlFile: xml.to_s, md5: @md5 }, detect_headers_from_loaded_config
+    rescue Faraday::ClientError, Faraday::ServerError => err
       raise "Update config xml api call failed. Error message #{err.response.body}"
     end
 
@@ -50,7 +50,7 @@ module Context
     end
 
     def get_config_from_server
-      response = RestClient.get admin_config_url, detect_headers_from_loaded_config
+      response = Helpers::HTTP.conn.get admin_config_url, nil, detect_headers_from_loaded_config
       current_config = Nokogiri::XML(response.body)
       @md5 = response.headers[:x_cruise_config_md5]
       @serverId = current_config.xpath('//server').first['serverId']
@@ -119,8 +119,8 @@ module Context
     end
 
     def create_plugin_settings(settings)
-      RestClient.post http_url('/api/admin/plugin_settings'), settings.to_json,
-                      { content_type: :json, accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
+      Helpers::HTTP.conn.post http_url('/api/admin/plugin_settings'), settings.to_json,
+                      { content_type: 'application/json', accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
     end
 
     def reset_config
@@ -169,35 +169,33 @@ module Context
     end
 
     def header
-      return { Confirm: true } unless scenario_state.get 'current_user'
+      return { Confirm: 'true' } unless scenario_state.get 'current_user'
       basic_auth = Base64.encode64([scenario_state.get('current_user'), 'badger'].join(':'))
-      { Authorization: "Basic #{basic_auth}", Confirm: true }
+      { Authorization: "Basic #{basic_auth}", Confirm: 'true' }
     end
 
     def remove_all_users
-      RestClient.get http_url("/api/users"), { accept: 'application/vnd.go.cd+json' }.merge(header) do |response, _request, _result|
-        if response.code == 200
-          disabled_users = JSON.parse(response.body)['_embedded']['users'].collect { |user|
-            user['login_name'] if user['enabled'].eql? true
-          }.compact
-          enabled_users = JSON.parse(response.body)['_embedded']['users'].collect { |user|
-            user['login_name'] if user['enabled'].eql? false
-          }.compact
-          users_to_be_removed = enabled_users.concat(disabled_users).delete_if { |user| user.eql? 'admin' }
-          RestClient.patch http_url("/api/users/operations/state"),
-                           { "operations": { "enable": false }, "users": enabled_users }.to_json,
-                           { content_type: :json, accept: 'application/vnd.go.cd+json' }.merge(header) unless enabled_users.empty?
-          RestClient::Request.execute(method: 'delete',
-                                      url: http_url("/api/users"), payload: { "users": users_to_be_removed }.to_json,
-                                      headers: { content_type: :json, accept: 'application/vnd.go.cd+json' }.merge(header)) unless users_to_be_removed.empty?
-        end
-      end
+      response = Helpers::HTTP.conn.get(http_url("/api/users"), nil, { accept: 'application/vnd.go.cd+json' }.merge(header))
+      disabled_users = JSON.parse(response.body)['_embedded']['users'].collect { |user|
+        user['login_name'] if user['enabled'].eql? true
+      }.compact
+      enabled_users = JSON.parse(response.body)['_embedded']['users'].collect { |user|
+        user['login_name'] if user['enabled'].eql? false
+      }.compact
+      users_to_be_removed = enabled_users.concat(disabled_users).delete_if { |user| user.eql? 'admin' }
+      Helpers::HTTP.conn.patch http_url("/api/users/operations/state"),
+                       { "operations": { "enable": false }, "users": enabled_users }.to_json,
+                       { content_type: 'application/json', accept: 'application/vnd.go.cd+json' }.merge(header) unless enabled_users.empty?
+      Helpers::HTTP.conn.delete(http_url("/api/users"), nil,
+                                { content_type: 'application/json', accept: 'application/vnd.go.cd+json' }.merge(header)) do |req|
+        req.body = { "users": users_to_be_removed }.to_json
+      end unless users_to_be_removed.empty?
     end
 
     def update_toggle(toggle, value)
-      RestClient.put http_url("/api/admin/feature_toggles/#{toggle}"),
+      Helpers::HTTP.conn.put http_url("/api/admin/feature_toggles/#{toggle}"),
                      { "toggle_value": "#{value}" }.to_json,
-                     { content_type: :json, accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
+                     { content_type: 'application/json', accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
     end
 
     def material_url_for(pipeline)

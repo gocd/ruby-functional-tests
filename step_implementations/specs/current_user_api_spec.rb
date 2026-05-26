@@ -18,6 +18,6 @@ CURRENT_USER_VERSION = 'application/vnd.go.cd.v1+json'.freeze
 
 step 'Set current user email to <email>' do |email|
   payload = { email: email, email_me: true }
-  RestClient.patch http_url('/api/current_user'), payload.to_json,
-                   { content_type: :json, accept: CURRENT_USER_VERSION }.merge(basic_configuration.header)
+  Helpers::HTTP.conn.patch http_url('/api/current_user'), payload.to_json,
+                   { content_type: 'application/json', accept: CURRENT_USER_VERSION }.merge(basic_configuration.header)
 end

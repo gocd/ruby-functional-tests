@@ -57,9 +57,9 @@ step 'Create cluster profile <cluster_profile_id> for kubernetes elastic agent p
 end
 
 def create_clusterProfile(req_body)
-  RestClient.post http_url('/api/admin/elastic/cluster_profiles'), req_body.to_json, { content_type: :json, accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
-rescue RestClient::ExceptionWithResponse => err
-  raise "Create cluster profile call failed with response code #{err.response.code} and the response body - #{err.response.body}"
+  Helpers::HTTP.conn.post http_url('/api/admin/elastic/cluster_profiles'), req_body.to_json, { content_type: 'application/json', accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
+rescue Faraday::ClientError, Faraday::ServerError => err
+  raise "Create cluster profile call failed with response code #{err.response.status} and the response body - #{err.response.body}"
 end
 
 step 'Clone Elastic agent profile <elastic_agent_profile_id> of cluster <cluster_id> by name <new_elastic_agent_profile_id>' do |elastic_agent_profile_id, cluster_id, new_elastic_agent_profile_id|
@@ -85,11 +85,11 @@ end
 
 step 'Verify <field> is <value> for elastic agent profile <elastic_agent_profile> - Using elastic agent profile API' do |field, value, elastic_agent_profile|
   begin
-    response = RestClient.get http_url("/api/elastic/profiles/#{elastic_agent_profile}"), { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
+    response = Helpers::HTTP.conn.get http_url("/api/elastic/profiles/#{elastic_agent_profile}"), nil, { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
     expected_property = JSON.parse(response.body)['properties'].select { |property| property['key'].eql? field }
     assert_true expected_property.first['value'].eql? value
-  rescue RestClient::ExceptionWithResponse => err
-    raise "Failed to get the elastic agent profile #{elastic_agent_profile}. Returned response code - #{err.response.code}"
+  rescue Faraday::ClientError, Faraday::ServerError => err
+    raise "Failed to get the elastic agent profile #{elastic_agent_profile}. Returned response code - #{err.response.status}"
   end
 end
 
@@ -100,12 +100,12 @@ end
 
 step 'Verify <count> elastic agent profiles <elastic_agent_profiles> are only returned  - Using get all elastic agent profile API' do |_count, _elastic_agent_profiles|
   begin
-    response = RestClient.get http_url("/api/elastic/profiles"), { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
+    response = Helpers::HTTP.conn.get http_url("/api/elastic/profiles"), nil, { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
     actual = JSON.parse(response.body)['_embedded']['profiles'].collect{|profile| profile['id']}
     expected = _elastic_agent_profiles.split(',').collect(&:strip)
     assert_true (expected - actual).empty?
-  rescue RestClient::ExceptionWithResponse => err
-    raise "Failed to get all the elastic agent profiles. Returned response code - #{err.response.code}"
+  rescue Faraday::ClientError, Faraday::ServerError => err
+    raise "Failed to get all the elastic agent profiles. Returned response code - #{err.response.status}"
   end
 end
 

@@ -57,9 +57,9 @@ step 'Verify error message <msg> is displayed' do |msg|
 end
 
 step 'Attempt to delete <user> user and should return <code>' do |user, response_code|
-  RestClient.delete http_url("/api/users/#{user}"),
+  Helpers::HTTP.conn.delete http_url("/api/users/#{user}"), nil,
                     { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header) do |response, _request, _result|
-    assert_true response.code == response_code.to_i
+    assert_true response.status == response_code.to_i
   end
 end
 

@@ -103,22 +103,23 @@ module Context
     end
 
     def server_running_at_all?
-      ping_server.code != 0
+      ping_server.status != 0
     rescue
       false
     end
 
     def server_running_successfully?
-      ping_server.code < 500
+      ping_server.status < 500
     rescue
       false
     end
 
     def ping_server
-      RestClient::Request.execute method: :get, url:  "#{GoConstants::GO_SERVER_BASE_URL}/about", headers: basic_configuration.header, timeout: 10 do |response, _request, _result|
-        p "Server ping failed with response code #{response.code} and message #{response.body}" unless response.code < 500
-        return response
+      response = Helpers::HTTP.raw_conn.get("#{GoConstants::GO_SERVER_BASE_URL}/about", nil, basic_configuration.header) do |req|
+        req.options.timeout = 10
       end
+      p "Server ping failed with response code #{response.status} and message #{response.body}" unless response.status < 500
+      response
     rescue => e
       STDERR.puts "#{Time.now} Failed while trying to ping GoCD server: #{e}"
       raise e

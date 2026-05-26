@@ -53,9 +53,9 @@ end
 step 'Approve stage <stage> with label <label>' do |stage, label|
   # Since there is javascript alert on history page during stage approval handling stage approval via API
   begin
-    RestClient.post http_url("/api/stages/#{scenario_state.self_pipeline}/#{label}/#{stage}/run"), {}, {accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true'}.merge(basic_configuration.header)
-  rescue RestClient::ExceptionWithResponse => err
-    p "Stage #{stage} approval on history page failed with response code #{err.response.code} and the response body - #{err.response.body}"
+    Helpers::HTTP.conn.post http_url("/api/stages/#{scenario_state.self_pipeline}/#{label}/#{stage}/run"), {}, {accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true'}.merge(basic_configuration.header)
+  rescue Faraday::ClientError, Faraday::ServerError => err
+    p "Stage #{stage} approval on history page failed with response code #{err.response.status} and the response body - #{err.response.body}"
   end
 end
 

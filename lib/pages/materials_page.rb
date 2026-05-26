@@ -16,7 +16,7 @@
 
 module Pages
   class MaterialsPage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/materials"
+    set_url "#{GoConstants::SERVER_BASE_URL}/materials"
 
     def materials_shown
       page.all('div[data-test-id="materials-widget"] > div')

@@ -23,7 +23,7 @@ module Pages
   end
 
   class GlobalAnalyticsPage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/analytics"
+    set_url "#{GoConstants::SERVER_BASE_URL}/analytics"
 
     element :global_charts, '.dashboard-charts global'
     element :dashboard_tabs, '.dashboard-tabs'

@@ -16,7 +16,7 @@
 
 module Pages
   class PipelineHistoryPage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/pipeline/activity{/pipelinename}"
+    set_url "#{GoConstants::SERVER_BASE_URL}/pipeline/activity{/pipelinename}"
 
     element :pipeline_activity_page, '#pipeline_activity-page'
     element :current_page, 'a[data-test-current-page]'

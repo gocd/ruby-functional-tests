@@ -17,7 +17,7 @@
 module Pages
 
   class ArtifactsStore < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/artifact_stores"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/artifact_stores"
 
     element :add_store, "button[data-test-id='add-artifact-stores-button']"
     element :store_modal, 'div[data-test-id="modal-body"]'

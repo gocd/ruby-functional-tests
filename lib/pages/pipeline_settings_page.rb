@@ -16,7 +16,7 @@
 
 module Pages
   class PipelineSettingsPage < GeneralSettingsPage
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines{/pipeline_name}/edit#!{pipeline_name}/general"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/pipelines{/pipeline_name}/edit#!{pipeline_name}/general"
 
     element :message, '#success'
     element :save, "button[value='SAVE']"

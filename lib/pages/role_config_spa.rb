@@ -16,7 +16,7 @@
 
 module Pages
   class RoleConfigSPA < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/security/roles"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/security/roles"
 
     element :add, "button[data-test-id='role-add-button']"
     element :gocd_role, "input[class='core-role']"

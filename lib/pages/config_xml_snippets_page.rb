@@ -16,7 +16,7 @@
 
 module Pages
   class ConfigXMLSnippetsPage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines/snippet"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/pipelines/snippet"
 
     element :cancel_config, ".cancel"
 

@@ -16,7 +16,7 @@
 
 module Pages
   class ElasticProfiles < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/elastic_agent_configurations"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/elastic_agent_configurations"
 
     element :add_new_cluster_profile, "[data-test-id='pageActions']"
 

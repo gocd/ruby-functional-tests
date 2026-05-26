@@ -16,7 +16,7 @@
 
 module Pages
   class PluginsSPA < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/plugins"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/plugins"
 
     element :plugin_list_wrapper, '[data-test-id="plugins-list"]'
     element :go_server_url, "input[ng-model='go_server_url']"

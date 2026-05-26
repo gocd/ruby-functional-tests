@@ -20,7 +20,7 @@ module Pages
   end
 
   class VSMPage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/pipelines/value_stream_map{/pipeline_name}{/pipeline_counter}"
+    set_url "#{GoConstants::SERVER_BASE_URL}/pipelines/value_stream_map{/pipeline_name}{/pipeline_counter}"
     element :enable_analytics, '.enable-analytics'
     element :material, '.material'  
     element :view_analytics, '.view-vsm-analytics'

@@ -16,7 +16,7 @@
 
 module Pages
   class ElasticAgentsProfiles < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/elastic_profiles"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/elastic_profiles"
 
     element :input_profile_name, "[data-test-id='form-field-input-id']"
     element :plugin_id, "[data-test-id='form-field-input-plugin-id']"

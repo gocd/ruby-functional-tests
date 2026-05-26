@@ -16,7 +16,7 @@
 
 module Pages
   class AgentsSPA < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/agents"
+    set_url "#{GoConstants::SERVER_BASE_URL}/agents"
 
     element :agents_head, "div[data-test-id='tab-content-0'] table[data-test-id='table'] > thead > tr"
     element :agents_table, "[data-test-id='table']"

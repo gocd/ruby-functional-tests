@@ -16,7 +16,7 @@
 
 module Pages
   class PluggableSCMPage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/scms"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/scms"
 
     element :flash_message, "div[data-test-id='flash-message-success']"
     element :error_message, "div[data-test-id='flash-message-alert']"

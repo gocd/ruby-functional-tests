@@ -16,7 +16,7 @@
 
 module Pages
   class PersonalAccessToken < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/access_tokens"
+    set_url "#{GoConstants::SERVER_BASE_URL}/access_tokens"
 
     element :btn_generate_token, "[data-test-id='generate-token-button']"
     element :text_description, "[data-test-id='form-field-input-description']"

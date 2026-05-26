@@ -37,7 +37,7 @@ module Context
       out = File.open(log_location, 'w')
       out.sync = true
       chmod 0o755, "#{GoConstants::SERVER_DIR}/with-reset-db-if-necessary.sh"
-      prepare_wrapper_conf(GoConstants::GO_SERVER_SYSTEM_PROPERTIES)
+      prepare_wrapper_conf(GoConstants::SERVER_SYSTEM_PROPERTIES)
 
       STDERR.puts "Attempting to start GoCD server in: #{GoConstants::SERVER_DIR}. Logs will be in #{log_location}"
       Bundler.with_original_env do
@@ -54,7 +54,7 @@ module Context
       log_location = "#{GoConstants::SERVER_DIR}/logs/output.log"
       out = File.open(log_location, 'a')
       out.sync = true
-      properties = GoConstants::GO_SERVER_SYSTEM_PROPERTIES
+      properties = GoConstants::SERVER_SYSTEM_PROPERTIES
       properties.push(ENV['ADDITIONAL_SERVER_SYSTEM_PROPERTIES'])
       prepare_wrapper_conf(properties)
 
@@ -115,7 +115,7 @@ module Context
     end
 
     def ping_server
-      response = Helpers::HTTP.raw_conn.get("#{GoConstants::GO_SERVER_BASE_URL}/about", nil, basic_configuration.header) do |req|
+      response = Helpers::HTTP.raw_conn.get("#{GoConstants::SERVER_BASE_URL}/about", nil, basic_configuration.header) do |req|
         req.options.timeout = 10
       end
       p "Server ping failed with response code #{response.status} and message #{response.body}" unless response.status < 500
@@ -155,7 +155,7 @@ module Context
       sh %(docker run -d --name gauge_server -p #{GoConstants::SERVER_PORT}:#{GoConstants::SERVER_PORT} \
         -v #{File.expand_path(GoConstants::CONFIG_PATH.to_s)}:/test-config --mount type=bind,source=#{GoConstants::SERVER_DIR},target=/godata \
         -v #{GoConstants::TEMP_DIR}:/materials \
-        -e GOCD_SERVER_JVM_OPTS='#{GoConstants::GO_SERVER_SYSTEM_PROPERTIES.join(' ')}' \
+        -e GOCD_SERVER_JVM_OPTS='#{GoConstants::SERVER_SYSTEM_PROPERTIES.join(' ')}' \
         #{manifest.image}:#{manifest.tag})
     end
 

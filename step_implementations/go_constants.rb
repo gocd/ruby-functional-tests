@@ -17,10 +17,13 @@
 require 'socket'
 
 class GoConstants
+  GO_VERSION = ENV['GO_VERSION'] || '16.11.0'
+
   HOSTNAME = Socket.gethostname
   IPADDRESS = Socket.getaddrinfo(Socket.gethostname, 'echo', Socket::AF_INET)[0][3]
-  GO_VERSION = ENV['GO_VERSION'] || '16.11.0'
   SERVER_PORT = ENV['GO_SERVER_PORT'] || '8253'
+  SERVER_BASE_URL = "http://#{HOSTNAME}:#{SERVER_PORT}/go".freeze
+
   RUN_ON_DOCKER = ENV['RUN_ON_DOCKER']
   SERVER_DIR = if RUN_ON_DOCKER
                  File.expand_path('godata')
@@ -44,29 +47,32 @@ class GoConstants
   HELIXTEAMHUB_USERNAME = ENV['HELIXTEAMHUB_USERNAME'] || 'username'
   HELIXTEAMHUB_PASSWORD = ENV['HELIXTEAMHUB_PASSWORD'] || 'password%^'
 
-  GO_SERVER_BASE_URL = "http://#{HOSTNAME}:#{SERVER_PORT}/go".freeze
-  GO_AGENT_SYSTEM_PROPERTIES = %w[ -Dgo.gauge.agent=true
-                                   -Dgo.agent.status.api.enabled=false"
-                                   -Dagent.get.work.delay=500
-                                   -Dagent.get.work.interval=500
-                                   -Dagent.ping.delay=500
-                                   -Dagent.ping.interval=500].freeze
+  AGENT_SYSTEM_PROPERTIES = %w[
+    -Dgo.gauge.agent=true
+    -Dgo.agent.status.api.enabled=false"
+    -Dagent.get.work.delay=500
+    -Dagent.get.work.interval=500
+    -Dagent.ping.delay=500
+    -Dagent.ping.interval=500
+  ].freeze
 
-  GO_SERVER_SYSTEM_PROPERTIES = %W[-Dgo.gauge.server=true
-                                   -Dcruise.material.update.interval=3000
-                                   -Dcruise.material.update.delay=1000
-                                   -Dcruise.produce.build.cause.interval=1000
-                                   -Dcruise.produce.build.cause.delay=1000
-                                   -Dmaterial.update.idle.interval=1000
-                                   -Dcruise.agent.service.refresh.interval=5000
-                                   -Dagent.connection.timeout=50
-                                   -Dcruise.unresponsive.job.warning=1
-                                   -Dgocd.server.logback.debug=true
-                                   -Dcruise.server.port=#{SERVER_PORT}
-                                   -Dplugin.cd.go.contrib.elastic-agent.docker.log.level=debug
-                                   -Dplugin.cd.go.authentication.ldap.log.level=debug
-                                   -Dplugin.com.thoughtworks.gocd.authorization.ldap.log.level=debug
-                                   -Xms#{SERVER_MEM}
-                                   -Xmx#{SERVER_MAX_MEM}
-                                   #{ENV['ADDITIONAL_SERVER_SYSTEM_PROPERTIES']}]
+  SERVER_SYSTEM_PROPERTIES = %W[
+    -Dgo.gauge.server=true
+    -Dcruise.material.update.interval=3000
+    -Dcruise.material.update.delay=1000
+    -Dcruise.produce.build.cause.interval=1000
+    -Dcruise.produce.build.cause.delay=1000
+    -Dmaterial.update.idle.interval=1000
+    -Dcruise.agent.service.refresh.interval=5000
+    -Dagent.connection.timeout=50
+    -Dcruise.unresponsive.job.warning=1
+    -Dgocd.server.logback.debug=true
+    -Dcruise.server.port=#{SERVER_PORT}
+    -Dplugin.cd.go.contrib.elastic-agent.docker.log.level=debug
+    -Dplugin.cd.go.authentication.ldap.log.level=debug
+    -Dplugin.com.thoughtworks.gocd.authorization.ldap.log.level=debug
+    -Xms#{SERVER_MEM}
+    -Xmx#{SERVER_MAX_MEM}
+    #{ENV['ADDITIONAL_SERVER_SYSTEM_PROPERTIES']}
+  ].freeze
 end

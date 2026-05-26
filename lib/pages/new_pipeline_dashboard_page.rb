@@ -19,7 +19,7 @@ module Pages
   end
 
   class NewPipelineDashboard < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/pipelines{?autoRefresh*}"
+    set_url "#{GoConstants::SERVER_BASE_URL}/pipelines{?autoRefresh*}"
 
     element :pipeline_name, '.pipeline_name'
     elements :pipeline_group, '.dashboard-group'

@@ -16,7 +16,7 @@
 
 module Pages
   class UserSummary < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/users"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/users"
 
     element :import_user, "[data-test-id='pageActions']"
     element :search_result, "[data-test-id='table-body']"

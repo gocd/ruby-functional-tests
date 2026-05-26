@@ -16,7 +16,7 @@
 
 module Pages
   class ConfigReposPage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/config_repos"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/config_repos"
 
     element :panel_config_repo, "[data-test-id='config-repo-details-panel']"
     element :header_config_repo, "[data-test-id='config-repo-header']"

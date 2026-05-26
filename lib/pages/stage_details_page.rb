@@ -16,7 +16,7 @@
 
 module Pages
   class StageDetailsPage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/pipelines{/pipeline_name}{/label}{/stage_name}{/counter}{/tab_name}"
+    set_url "#{GoConstants::SERVER_BASE_URL}/pipelines{/pipeline_name}{/label}{/stage_name}{/counter}{/tab_name}"
 
     element :build_cause_box, '.build_cause'
     elements :materials, '.material'

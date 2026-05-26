@@ -16,7 +16,7 @@
 
 module Pages
   class AuthConfigSPA < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/security/auth_configs"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/security/auth_configs"
 
     element :add, "button[data-test-id='add-auth-config-button']"
     element :id, "[data-test-id='form-field-input-id']"

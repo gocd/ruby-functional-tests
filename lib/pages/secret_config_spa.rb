@@ -16,7 +16,7 @@
 
 module Pages
   class SecretConfigSPA < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/secret_configs"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/secret_configs"
 
     element :add, "button[data-test-id='add-secret-config']"
     element :save, "button[data-test-id='button-save']"

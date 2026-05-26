@@ -16,7 +16,7 @@
 
 module Pages
   class PackageRepositoryPage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/package_repositories"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/package_repositories"
 
     element :msg, "div[data-test-id='flash-message-success']"
     element :info, "div[data-test-id='flash-message-info']"

@@ -16,7 +16,7 @@
 
 module Pages
   class AdminAccessToken < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/admin_access_tokens"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/admin_access_tokens"
 
     element :tab_active_tokens, "[data-test-id='tab-header-0']"
     element :tab_revoked_tokens, "[data-test-id='tab-header-1']"

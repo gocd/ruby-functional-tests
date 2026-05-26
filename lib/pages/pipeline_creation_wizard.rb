@@ -16,7 +16,7 @@
 
 module Pages
   class PipelineCreationWizard < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines/create{?group*}"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/pipelines/create{?group*}"
 
     # Pipeline name and group
     element :new_pipeline_name, "[data-test-id='form-field-input-pipeline-name']"

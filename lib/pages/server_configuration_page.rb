@@ -16,7 +16,7 @@
 
 module Pages
   class ServerConfigurationPage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/config/server"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/config/server"
     element :server_management_link, "[data-test-id='server-management-link']"
     element :artifact_management_link, "[data-test-id='artifacts-management-link']"
     element :email_server_link, "[data-test-id='email-server-link']"

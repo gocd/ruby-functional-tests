@@ -18,7 +18,7 @@ module Helpers
   module GoUrlHelper
 
     def http_url(url)
-      "#{GoConstants::GO_SERVER_BASE_URL}#{url}"
+      "#{GoConstants::SERVER_BASE_URL}#{url}"
     end
 
     def admin_config_url

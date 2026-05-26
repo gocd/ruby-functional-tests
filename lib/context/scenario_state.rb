@@ -32,15 +32,9 @@ module Context
       @scenario_store.put key, value
     end
 
-
-
     def self_pipeline
-      current_pipeline=@scenario_store.get(@scenario_store.get('current_pipeline'))
-      if current_pipeline==nil
-       return current_pipeline=@scenario_store.get('current_pipeline')
-      else
-       return current_pipeline
-      end
+      current_pipeline = @scenario_store.get(@scenario_store.get('current_pipeline'))
+      (current_pipeline == nil) ? @scenario_store.get('current_pipeline') : current_pipeline
     end
 
 

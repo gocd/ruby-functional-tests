@@ -16,7 +16,7 @@
 
 module Pages
   class Login < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/auth/login"
+    set_url "#{GoConstants::SERVER_BASE_URL}/auth/login"
 
     element :username, '[data-test-id="form-field-input-username"]'
     element :password, '[data-test-id="form-field-input-password"]'

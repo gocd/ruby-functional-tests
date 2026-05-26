@@ -16,7 +16,7 @@
 
 module Pages
   class NewEnvironments < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/environments"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/environments"
 
     element :add, "button[data-test-id='add-environment-button']"
     element :save, "button[data-test-id='button-save']"

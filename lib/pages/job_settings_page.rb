@@ -16,7 +16,7 @@
 
 module Pages
   class JobSettings < GeneralSettingsPage
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipelines{/pipeline_name}/edit#!{pipeline_name}{/stage_name}{/job_name}/tasks"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/pipelines{/pipeline_name}/edit#!{pipeline_name}{/stage_name}{/job_name}/tasks"
 
     element :add_new_task, 'button[data-test-id="add-task-button"]'
     element :new_task_list, 'select[data-test-id="form-field-input-"]'

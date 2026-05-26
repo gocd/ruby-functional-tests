@@ -16,7 +16,7 @@
 
 module Pages
   class NewAdminPipelinePage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/pipeline_new"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/pipeline_new"
 
     element :create_new_pipeline_group, "[data-test-id='create-new-pipeline-group']"
     element :all_pipeline_groups, "[data-test-id='pipeline-groups']"

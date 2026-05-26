@@ -16,7 +16,7 @@
 
 module Pages
   class AdminConfigXMLPage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/config_xml"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/config_xml"
 
     element :save_message, '#message_pane > p'
 

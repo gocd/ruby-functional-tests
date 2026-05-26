@@ -16,7 +16,7 @@
 
 module Pages
   class JobDetailsPage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/tab/build/detail{/pipeline_name}{/pipeline_counter}{/stage_name}{/stage_counter}{/job_name}"
+    set_url "#{GoConstants::SERVER_BASE_URL}/tab/build/detail{/pipeline_name}{/pipeline_counter}{/stage_name}{/stage_counter}{/job_name}"
 
     element :tabs, '.sub_tabs_container'
     element :console_output, '.buildoutput_pre'

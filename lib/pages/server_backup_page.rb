@@ -16,7 +16,7 @@
 
 module Pages
   class BackUpPage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/backup"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/backup"
 
     element :btn_confirm_backup, '[data-test-id="button-save"]'
     element :btn_perform_backup, '[data-test-id="perform-backup"]'

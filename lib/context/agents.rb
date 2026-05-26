@@ -30,7 +30,7 @@ module Context
       rm_rf(dir)
       mkdir_p dir
       cp_r "#{GoConstants::AGENT_DIR}/.", "#{dir}/"
-      prepare_wrapper_conf(dir.to_s, GoConstants::GO_AGENT_SYSTEM_PROPERTIES)
+      prepare_wrapper_conf(dir.to_s, GoConstants::AGENT_SYSTEM_PROPERTIES)
       Bundler.with_original_env do
         process = ChildProcess.build(START_COMMAND, 'start', '-serverUrl', "http://127.0.0.1:#{GoConstants::SERVER_PORT}/go")
         process.detach = true
@@ -93,7 +93,7 @@ module Context
       sh %(docker run -d \
         --name agent_#{identifier} \
         -v #{GoConstants::TEMP_DIR}:/materials \
-        -e GO_AGENT_SYSTEM_PROPERTIES='#{GoConstants::GO_AGENT_SYSTEM_PROPERTIES.join(" ")}' \
+        -e GO_AGENT_SYSTEM_PROPERTIES='#{GoConstants::AGENT_SYSTEM_PROPERTIES.join(" ")}' \
         -e GO_SERVER_URL=http://$(#{find_server_docker_ip}):#{GoConstants::SERVER_PORT}/go \
         -e AGENT_AUTO_REGISTER_KEY='functional-tests' \
         #{manifest.image =~ /dind/ ? '--privileged' : ''} \

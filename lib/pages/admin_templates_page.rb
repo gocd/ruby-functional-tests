@@ -16,7 +16,7 @@
 
 module Pages
   class AdminTemplatesPage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/admin/templates"
+    set_url "#{GoConstants::SERVER_BASE_URL}/admin/templates"
 
     element :template_name_on_popup, "[data-test-id='form-field-input-template-name']"
     element :extract_from_pipeline, "[data-test-id='form-field-input-extract-from-pipeline']"

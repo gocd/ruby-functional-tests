@@ -16,7 +16,7 @@
 
 module Pages
   class ComparePipelinePage < AppBase
-    set_url "#{GoConstants::GO_SERVER_BASE_URL}/compare{/pipeline_name}{/from_pipeline}/with{/to_pipeline}"
+    set_url "#{GoConstants::SERVER_BASE_URL}/compare{/pipeline_name}{/from_pipeline}/with{/to_pipeline}"
     element :check_ins, 'div[data-test-id="comparison-result-widget"]'
     element :to_pipeline, 'div[data-test-id="pipeline-to-instance"] input[type="search"]'
     element :from_pipeline, 'div[data-test-id="pipeline-from-instance"] input[type="search"]'

@@ -89,13 +89,16 @@ step 'Enable security with password file' do
   basic_configuration.enable_security_with_password_file 'password.properties'
 end
 step 'With no users - setup' do
-  basic_configuration.remove_all_users
+  as_admin do
+    basic_configuration.remove_all_users
+  end
 end
 
 step 'With no users - teardown' do
-  basic_configuration.remove_all_users
+  as_admin do
+    basic_configuration.remove_all_users
+  end
 end
-
 
 step 'With Environments Configuration - setup' do
 	basic_configuration.setup 'with-environments-cruise-config.xml'

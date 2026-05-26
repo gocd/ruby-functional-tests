@@ -76,7 +76,7 @@ step 'Verify there are <num> agents with state <state>' do |num,state|
 end
 
 step 'With <count> live agents - teardown' do |count|
-  as_admin_for_cleanup do
+  as_admin do
     all_agents = all_agent_uuids
     disable_all_agents(all_agents)
     go_agents.destroy_agents count

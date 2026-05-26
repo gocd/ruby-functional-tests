@@ -249,11 +249,11 @@ module Helpers
       Context::ScenarioState.new
     end
 
-    # Wrap a teardown block so its API calls use admin credentials when the
+    # Wrap a block so its API calls use admin credentials when the
     # scenario was running under a secure config. No-op when security is off
     # (so basic-config scenarios still hit auth-free endpoints unauthenticated).
     # Restores the previous current_user on the way out.
-    def as_admin_for_cleanup
+    def as_admin
       return yield unless scenario_state.get('security_enabled')
 
       previous_user = scenario_state.get('current_user')

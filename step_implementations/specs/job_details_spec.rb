@@ -186,10 +186,9 @@ step 'Create artifact <artifact> and Verify return code is <code> - Using Artifa
   f = File.new(artifact, 'w')
   f = File.new(artifact, 'rb')
   payload = { multipart: true, file: f }
-  Helpers::HTTP.raising.post http_url("/files/#{scenario_state.get('locator')}/#{artifact}"), payload,
-                             { Confirm: 'true' }.merge(basic_configuration.header) do |res,req,err|
-     assert_true res.status == code.to_i
-  end
+  response = Helpers::HTTP.quiet.post http_url("/files/#{scenario_state.get('locator')}/#{artifact}"), payload,
+                             { Confirm: 'true' }.merge(basic_configuration.header)
+  assert_true response.status == code.to_i
 end
 
 step 'Verify artifact <artifact> contains text <text>' do |artifact,text|

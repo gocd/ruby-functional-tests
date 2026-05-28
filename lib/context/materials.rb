@@ -229,7 +229,6 @@ module Context
        @repository_directory = repo_folder_path
        @material_type = type
        @tfs_tool_path=tfs_tool
-       ENV['TF_ADDITIONAL_JAVA_ARGS'] = '--enable-native-access=ALL-UNNAMED'
     end
 
     def setup_material_for(pipeline)

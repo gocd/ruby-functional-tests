@@ -235,6 +235,7 @@ end
 task default: %w[kill clean_all build_all prepare test]
 
 task :setup_tfs_cli do
+  ENV['TF_ADDITIONAL_JAVA_ARGS'] = '--enable-native-access=ALL-UNNAMED'
   rm_rf "tfs-tool"
   mkdir_p "tfs-tool"
   tee_clc_version = "14.139.0"

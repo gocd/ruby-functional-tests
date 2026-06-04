@@ -84,7 +84,7 @@ end
 step 'Verify groups <groups> are not visible - on Admin Pipelines tab' do |groups|
   group_names = admin_pipeline_page.all_pipeline_groups
   groups.split(',').each do |group|
-    assert_not_in cludes group_names, group
+    assert_not_includes group_names, group
   end
 end
 
@@ -163,7 +163,7 @@ step 'Verify that move button is not present for <pipeline>' do |pipeline|
 end
 
 step 'Verify that <pipeline> cannot be moved to group <group>' do |pipeline, _group|
-  assert_not_includes admin_pipeline_page.pipeline_moved_to_group_list(scenario_state.get(pipeline)), scenario_state.get(pipeline
+  assert_not_includes admin_pipeline_page.pipeline_moved_to_group_list(scenario_state.get(pipeline)), scenario_state.get(pipeline)
 end
 
 step 'Adding <user> as a <type> user' do |user, type|

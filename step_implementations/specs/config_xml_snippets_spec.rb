@@ -18,6 +18,10 @@ step 'On Config XML snippets page' do |_tmp|
   config_xml_snippets_page.load
 end
 
+step 'Click edit Config XML - On Config XML snippets page' do
+  admin_config_xml_page.click_edit_config
+end
+
 step 'Open Config XML snippets page from admin menu' do
   config_xml_snippets_page.open_config_from_admin_menu
 end
@@ -38,7 +42,7 @@ step 'Change group name of <old_name> to <new_name>' do |old_name, new_name|
   config_xml_snippets_page.modify_group_name old_name, new_name
 end
 
-step 'Rename pipeline <pipeline> to <new_pipeline> - Already On Pipeline Group Xml' do |pipeline, new_pipeline|
+step 'Rename pipeline <pipeline> to <new_pipeline> - On Config XML snippets page' do |pipeline, new_pipeline|
   config_xml_snippets_page.rename_pipeline_on_config_xml_page scenario_state.get(pipeline), new_pipeline
 end
 
@@ -54,6 +58,6 @@ step 'Verify error message <message>' do |message|
   config_xml_snippets_page.error_message_displayed? message
 end
 
-step 'Click Cancel - Already on group admin config XML Tab' do
+step 'Click Cancel - On Config XML snippets page' do
   config_xml_snippets_page.cancel_config.click
 end

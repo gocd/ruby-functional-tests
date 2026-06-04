@@ -73,8 +73,8 @@ require 'pages/admin_templates_page'
 require 'pages/new_environments_page'
 require 'pages/package_repository_page'
 require 'pages/new_pipeline_group_page'
-require 'pages/pluggable_scm_page.rb'
-require 'pages/materials_page.rb'
+require 'pages/pluggable_scm_page'
+require 'pages/materials_page'
 
 module Helpers
   module SpecHelper

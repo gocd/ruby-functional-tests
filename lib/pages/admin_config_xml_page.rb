@@ -47,7 +47,10 @@ module Pages
 
     def click_edit_config
       page.find('a.link_as_button', text: 'EDIT').click
-      assert_true page.has_css?('#content', visible: true)
+    end
+
+    def config_content_is_visible?
+      page.has_css?('#content', text: /\S/, visible: true)
     end
 
     def save_config

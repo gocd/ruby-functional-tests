@@ -20,8 +20,8 @@ module Pages
 
     element :save_message, '#message_pane > p'
 
-    def config_content_is_visible?
-      page.has_css?('#content', value: /\S/, visible: true)
+    def config_content_is_loaded?
+      page.has_no_css?('#content_area .spinner-container')
     end
     
     def change_config_to_conflict

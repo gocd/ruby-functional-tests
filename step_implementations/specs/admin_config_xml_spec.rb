@@ -20,8 +20,8 @@ end
 
 step 'Click edit Config XML' do
   admin_config_xml_page.click_edit_config
-  # Loaded async, wait for it to be visible
-  assert_true admin_config_xml_page.config_content_is_visible?
+  # Loaded async, wait for it
+  assert_true admin_config_xml_page.config_content_is_loaded?
 end
 
 step 'Change config to conflict' do

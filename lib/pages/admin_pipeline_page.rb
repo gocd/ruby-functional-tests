@@ -267,7 +267,7 @@ module Pages
 
     def edit_config_and_wait_for_save
       page.find('a.link_as_button', text: 'EDIT').click
-      assert_true page.has_css?('#save_config:not([disabled])', wait: 10), 'Expected config xml save button to be enabled by now'
+      assert_true page.has_css?('#save_config:not([disabled])', wait: 10), 'Expected config xml save button to be enabled within 10 seconds'
     end
 
     def extractable_disabled_pipeline

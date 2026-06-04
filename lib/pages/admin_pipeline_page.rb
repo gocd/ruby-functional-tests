@@ -265,8 +265,9 @@ module Pages
       errors.include? new_pipeline_dashboard_page.interpolate_from_scenario_state(message)
     end
 
-    def edit_config
+    def edit_config_and_wait_for_save
       page.find('a.link_as_button', text: 'EDIT').click
+      assert_true page.has_css?('#save_config:not([disabled])', wait: 10), 'Expected config xml save button to be enabled by now'
     end
 
     def extractable_disabled_pipeline

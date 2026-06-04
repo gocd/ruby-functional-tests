@@ -18,6 +18,41 @@ step 'On Config XML snippets page' do |_tmp|
   config_xml_snippets_page.load
 end
 
+step 'Open Config XML snippets page from admin menu' do
+  config_xml_snippets_page.open_config_from_admin_menu
+end
+
+step 'Verify group list has <groups>' do |groups|
+  config_xml_snippets_page.verify_group_links_visible groups
+end
+
+step 'Verify selected group is <name>' do |name|
+  config_xml_snippets_page.verify_selected_group_is(name)
+end
+
+step 'Edit config xml' do
+  config_xml_snippets_page.edit_link.click
+end
+
+step 'Change group name of <old_name> to <new_name>' do |old_name, new_name|
+  config_xml_snippets_page.modify_group_name old_name, new_name
+end
+
+step 'Rename pipeline <pipeline> to <new_pipeline> - Already On Pipeline Group Xml' do |pipeline, new_pipeline|
+  config_xml_snippets_page.rename_pipeline_on_config_xml_page scenario_state.get(pipeline), new_pipeline
+end
+
+step 'Verify that xml snippet contains <sub_string>' do |sub_string|
+  assert_true config_xml_snippets_page.config_xml_include? sub_string
+end
+
+step 'Verify config save is successful' do
+  config_xml_snippets_page.save_successful?
+end
+
+step 'Verify error message <message>' do |message|
+  config_xml_snippets_page.error_message_displayed? message
+end
 
 step 'Click Cancel - Already on group admin config XML Tab' do
   config_xml_snippets_page.cancel_config.click

@@ -34,10 +34,6 @@ step 'Move pipeline <pipeline_name> from group <source_group> to group <destinat
   admin_pipeline_page.move_pipeline(scenario_state.get(pipeline), source_group, destination_group)
 end
 
-step 'Open config tab as group admin' do
-  admin_pipeline_page.navigate_to('Config XML')
-end
-
 step 'Verify that extract template is enabled for <pipeline>' do |pipeline|
   scenario_state.put 'current_pipeline', pipeline
   assert_true admin_pipeline_page.pipeline_can_be_extracted? scenario_state.self_pipeline
@@ -61,20 +57,20 @@ step 'Enter pipeline group name <group> - Already On Clone Pipeline pop up' do |
 end
 
 step 'Verify error message <message> - Already On New Pipeline Group Popup' do |message|
-  assert_true job_settings_page.error_messages.include? message
+  assert_includes job_settings_page.error_messages, message
 end
 
 step 'Verify groups <groups> are visible - on Admin Pipelines tab' do |groups|
   group_names = admin_pipeline_page.all_pipeline_groups
   groups.split(',').each do |group|
-    assert_true group_names.include? group.downcase
+    assert_includes group_names, group.downcase
   end
 end
 
 step 'Verify <group> has pipelines <pipelines>' do |group, pipelines|
   pipelines_from_groups = admin_pipeline_page.get_pipelines_from(group)
   p                     = pipelines.split(',').map {|pipeline| scenario_state.get(pipeline.strip).nil? ? pipeline.strip : scenario_state.get(pipeline)}
-  assert_true (p & pipelines_from_groups) == p
+  assert_equal (p & pipelines_from_groups), p
 end
 
 step 'Verify delete link is disabled for <group>' do |group|
@@ -88,7 +84,7 @@ end
 step 'Verify groups <groups> are not visible - on Admin Pipelines tab' do |groups|
   group_names = admin_pipeline_page.all_pipeline_groups
   groups.split(',').each do |group|
-    assert_false group_names.include? group
+    assert_not_in cludes group_names, group
   end
 end
 
@@ -146,7 +142,7 @@ step 'Verify <group> does not have pipelines <pipelines>' do |group, pipelines|
     pipeline_names = pipeline_names.push(ppl)
   end
   pipeline_names.each do |pipeline|
-    assert_false pipelines_from_groups.include? pipeline
+    assert_not_includes pipelines_from_groups, pipeline
   end
 end
 
@@ -167,7 +163,7 @@ step 'Verify that move button is not present for <pipeline>' do |pipeline|
 end
 
 step 'Verify that <pipeline> cannot be moved to group <group>' do |pipeline, _group|
-  assert_false admin_pipeline_page.pipeline_moved_to_group_list(scenario_state.get(pipeline)).include? scenario_state.get(pipeline)
+  assert_not_includes admin_pipeline_page.pipeline_moved_to_group_list(scenario_state.get(pipeline)), scenario_state.get(pipeline
 end
 
 step 'Adding <user> as a <type> user' do |user, type|
@@ -185,29 +181,29 @@ end
 step 'Verify pipeline group <group> has user <user> with <permissions> permissions' do |_group, user, permissions|
   users       = admin_pipeline_page.users_in_group
   permissions = admin_pipeline_page.users_permissions_in_group(user)
-  assert_true users.include?(user), "Actual set of users #{users.join(',')}"
+  assert_includes users, user, "Actual set of users #{users.join(',')}"
   permissions.each do |permission|
-    assert_true permissions.include?(permission), "Actual permissions for user #{user} are #{permissions.join(',')}"
+    assert_includes permissions, permission, "Actual permissions for user #{user} are #{permissions.join(',')}"
   end
 end
 
 step 'Verify pipeline group <group> has role <role> with <permission> permissions' do |_group, role, permissions|
   roles       = admin_pipeline_page.roles_in_group
   permissions = admin_pipeline_page.roles_permissions_in_group(role)
-  assert_true roles.include? role
+  assert_includes roles, role
   permissions.each do |permission|
-    assert_true permissions.include? permission
+    assert_includes permissions, permission
   end
 end
 
 step 'Verify pipeline group <group> does not have user <user>' do |_group, user|
   users = admin_pipeline_page.users_in_group
-  assert_false users.include? user
+  assert_not_includes users, user
 end
 
 step 'Verify pipeline group <group> does not have role <role>' do |_group, role|
   roles = admin_pipeline_page.roles_in_group
-  assert_false roles.include? role
+  assert_not_includes roles, role
 end
 
 step 'Delete user <user> -on edit group page' do |user|
@@ -246,39 +242,6 @@ step 'Edit template <template>' do |template|
   admin_pipeline_page.edit_template template
 end
 
-step 'Click edit Config XML' do
-  admin_pipeline_page.edit_config_and_wait_for_save
-end
-
-step 'Change config to conflict' do
-  admin_pipeline_page.change_config_to_conflict
-end
-
-step 'Rename pipeline <pipeline> to <new_pipeline> - Already On Pipeline Group Xml' do |pipeline, new_pipeline|
-  admin_pipeline_page.rename_pipeline_on_config_xml_page scenario_state.get(pipeline), new_pipeline
-end
-
-step 'Verify that split pane appears' do
-  admin_pipeline_page.verify_split_appears
-end
-
-step 'Add downstream pipeline to create post validation conflict' do
-  admin_pipeline_page.add_downstream_pipeline_to_create_post_validations
-end
-
-step 'Verify post validation error is shown with message <message>' do |message|
-  assert_true admin_pipeline_page.post_validation_error_message_exist? message
-end
-
-step 'Verify pipeline selection dropdown is disabled and has value <pipeline>' do |pipeline|
-  assert_true admin_pipeline_page.extractable_disabled_pipeline.include? scenario_state.get(pipeline)
-end
-
-step 'Verify extract template checkbox is disabled & checked' do
-  assert_true admin_pipeline_page.extract_from_pipeline.checked?
-  assert_true admin_pipeline_page.extract_from_pipeline.disabled?
-end
-
 step 'Enter template name <template> - On template popup' do |template|
   admin_pipeline_page.enter_template_name template
 end
@@ -300,15 +263,15 @@ step 'Save pipeline group' do
 end
 
 step 'Verify flash message for pipeline group <message>' do |message|
-  assert_true admin_pipeline_page.flash_message.text.include? message
+  assert_includes admin_pipeline_page.flash_message.text, message
 end
 
 step 'Verify top level error message <message> is present' do |message|
-  assert_true admin_pipeline_page.error_message.text.include? message
+  assert_includes admin_pipeline_page.error_message.text, message
 end
 
 step 'Verify roles level error message <message> is present' do |message|
-  assert_true admin_pipeline_page.roles_error_message.text.include? message
+  assert_includes admin_pipeline_page.roles_error_message.text, message
 end
 
 step 'Delete user permission <user>' do |user|

@@ -18,7 +18,7 @@ Happy Path
 * Verify selected group is "group-name-to-be-changed"
 * Edit config xml
 * Change group name of "group-name-to-be-changed" to "new_group"
-* Verify config save is successfull
+* Verify config save is successful
 * Verify group list has "new_group,group5"
 * Verify that xml snippet contains "<pipelines group=\"new_group\">"
 
@@ -29,7 +29,7 @@ Validations
 * Verify error message "Failed to update group 'new_group'. Name is invalid. \"foo%#\" should conform to the pattern - [a-zA-Z0-9_\\-]{1}[a-zA-Z0-9_\\-.]*"
 
 Verify navigation
-* Open config tab from admin menu
+* Open Config XML snippets page from admin menu
 * Verify group list has "new_group,group5"
 
 

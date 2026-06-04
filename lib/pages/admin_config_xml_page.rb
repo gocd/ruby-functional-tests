@@ -20,6 +20,36 @@ module Pages
 
     element :save_message, '#message_pane > p'
 
+    def change_config_to_conflict
+      context = page.find('#content').text.gsub! 'replace-job', 'replace-job-conflict'
+      page.find('#content').set(context, rapid: false)
+    end
+
+    def verify_split_appears
+      assert_true page.has_css?('.conflicted_content')
+      assert_true page.has_css?('.current_content')
+    end
+
+    def add_downstream_pipeline_to_create_post_validations
+      context = %Q(<pipeline name="downstream-pipeline">\n <materials>\n <pipeline pipelineName="#{scenario_state.get('upstream-pipeline')}"
+                   stageName="defaultStage" materialName="UP" />\n </materials>\n <stage name="defaultStage">\n <approval type="manual"/>\n <jobs>\n <job name="replace-job">
+                   \n <tasks>\n <exec command="ls"/>\n </tasks>\n </job>\n </jobs>\n </stage>\n </pipeline>\n </pipelines>)
+      new_context = page.find('#content').text.sub! "</pipelines>", context
+      page.find('#content').set(new_context, rapid: false)
+    end
+
+    def post_validation_error_message_exist?(message)
+      errors = []
+      page.all('.error').each { |error|
+        errors.push(error.text) }
+      errors.include? new_pipeline_dashboard_page.interpolate_from_scenario_state(message)
+    end
+
+    def click_edit_config
+      page.find('a.link_as_button', text: 'EDIT').click
+      assert_true page.has_css?('#content', visible: true)
+    end
+
     def save_config
       page.execute_script "window.scrollTo(0,0)"
       page.find('#save_config').click

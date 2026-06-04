@@ -80,10 +80,6 @@ module Pages
       button_move.click
     end
 
-    def navigate_to(tab)
-      page.find('.sub_tabs_container').find('a', text: tab).click
-    end
-
     def pipeline_can_be_extracted?(pipeline)
       !pipeline_extraction_disabled?(pipeline)
     end
@@ -232,46 +228,6 @@ module Pages
 
     def edit_template(template)
       page.find("[data-test-id='edit-template-#{template.downcase}']").click
-    end
-
-    def change_config_to_conflict
-      context = page.find('#content').text.gsub! 'replace-job', 'replace-job-conflict'
-      page.find('#content').set(context, rapid: false)
-    end
-
-    def rename_pipeline_on_config_xml_page(pipeline, new_pipeline)
-      new_context = page.find('#content_container_for_edit').text.gsub! "#{pipeline}", new_pipeline
-      page.find('#content_container_for_edit').set(new_context, rapid: false)
-    end
-
-    def verify_split_appears
-      assert_true page.has_css?('.conflicted_content')
-      assert_true page.has_css?('.current_content')
-    end
-
-    def add_downstream_pipeline_to_create_post_validations
-      context = %Q(<pipeline name="downstream-pipeline">\n <materials>\n <pipeline pipelineName= "#{scenario_state.get('upstream-pipeline')}"
-                   stageName="defaultStage" materialName="UP" />\n </materials>\n <stage name="defaultStage">\n <approval type="manual"/>\n <jobs>\n <job name="replace-job">
-                   \n <tasks>\n <exec command="ls"/>\n </tasks>\n </job>\n </jobs>\n </stage>\n </pipeline>\n </pipelines>)
-      new_context = page.find('#content').text.sub! "</pipelines>", context
-      page.find('#content').set(new_context, rapid: false)
-    end
-
-    def post_validation_error_message_exist?(message)
-
-      errors = []
-      page.all('.error').each { |error|
-        errors.push(error.text) }
-      errors.include? new_pipeline_dashboard_page.interpolate_from_scenario_state(message)
-    end
-
-    def edit_config_and_wait_for_save
-      page.find('a.link_as_button', text: 'EDIT').click
-      assert_true page.has_css?('#save_config:not([disabled])', wait: 10), 'Expected config xml save button to be enabled within 10 seconds'
-    end
-
-    def extractable_disabled_pipeline
-      page.find('select#pipeline_pipelineNames').all('option').collect(&:text)
     end
 
     def click_extract_template(pipeline)

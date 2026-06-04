@@ -18,10 +18,30 @@ step 'On Admin Config XML page' do |_tmp|
   admin_config_xml_page.load
 end
 
+step 'Click edit Config XML' do
+  admin_config_xml_page.click_edit_config
+end
+
+step 'Change config to conflict' do
+  admin_config_xml_page.change_config_to_conflict
+end
+
+step 'Verify that split pane appears' do
+  admin_config_xml_page.verify_split_appears
+end
+
+step 'Add downstream pipeline to create post validation conflict' do
+  admin_config_xml_page.add_downstream_pipeline_to_create_post_validations
+end
+
 step 'Click save - Already on config XML Tab' do
   admin_config_xml_page.save_config
 end
 
+step 'Verify post validation error is shown with message <message>' do |message|
+  assert_true admin_config_xml_page.post_validation_error_message_exist? message
+end
+
 step 'Verify the message <message> is present on rails page' do |message|
-  assert_true admin_config_xml_page.get_message.include? message
+  assert_includes admin_config_xml_page.get_message, message
 end

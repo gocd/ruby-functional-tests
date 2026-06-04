@@ -56,7 +56,6 @@ require 'pages/stage_settings_page'
 require 'pages/pipeline_settings_page'
 require 'pages/vsm_page'
 require 'pages/pipeline_creation_wizard'
-require 'pages/config_xml_page'
 require 'pages/ldap_authorization_plugin'
 require 'pages/maintenance_mode_spa'
 require 'pages/server_backup_page'
@@ -221,8 +220,8 @@ module Helpers
       Pages::StageSettingsPage.new
     end
 
-    def config_xml_page
-      Pages::ConfigXMLPage.new
+    def config_xml_snippets_page
+      Pages::ConfigXMLSnippetsPage.new
     end
 
     def pipeline_settings_page
@@ -291,10 +290,6 @@ module Helpers
 
     def admin_config_xml_page
       Pages::AdminConfigXMLPage.new
-    end
-
-    def config_xml_snippets_page
-      Pages::ConfigXMLSnippetsPage.new
     end
 
     def admin_templates_page

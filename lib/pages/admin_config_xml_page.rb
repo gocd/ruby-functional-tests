@@ -20,6 +20,10 @@ module Pages
 
     element :save_message, '#message_pane > p'
 
+    def config_content_is_visible?
+      page.has_css?('#content', value: /\S/, visible: true)
+    end
+    
     def change_config_to_conflict
       context = page.find('#content').text.gsub! 'replace-job', 'replace-job-conflict'
       page.find('#content').set(context, rapid: false)
@@ -47,10 +51,6 @@ module Pages
 
     def click_edit_config
       page.find('a.link_as_button', text: 'EDIT').click
-    end
-
-    def config_content_is_visible?
-      page.has_css?('#content', text: /\S/, visible: true)
     end
 
     def save_config

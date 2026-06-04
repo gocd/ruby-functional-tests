@@ -247,7 +247,7 @@ step 'Edit template <template>' do |template|
 end
 
 step 'Click edit Config XML' do
-  admin_pipeline_page.edit_config
+  admin_pipeline_page.edit_config_and_wait_for_save
 end
 
 step 'Change config to conflict' do

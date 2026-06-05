@@ -91,6 +91,7 @@ identifiers.each do |package, process_argument|
         if OS.windows?
           sh("TASKKILL /PID #{process.pid}")
         else
+          sh("kill -3 #{process.pid}") # Dump threads
           sh("kill -2 #{process.pid}")
         end
 

@@ -36,7 +36,7 @@ step 'Add downstream pipeline to create post validation conflict' do
   admin_config_xml_page.add_downstream_pipeline_to_create_post_validations
 end
 
-step 'Click save - Already on config XML Tab' do
+step 'Click save - On Admin Config XML page' do
   admin_config_xml_page.save_config
 end
 

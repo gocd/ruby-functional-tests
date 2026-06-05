@@ -22,14 +22,14 @@ Merge Conflict
 * Delete pipeline "basic-pipeline" - Configure cruise using api
 
 * Change config to conflict
-* Click save - Already on config XML Tab
+* Click save - On Admin Config XML page
 * Verify that split pane appears
 * Verify error message "Configuration file has been modified by someone else." - Already On New Pipeline Group Popup
 
 
-Successfull merge
+Successful merge
 * Rename pipeline "middle-pipeline" to "middle-pipeline-new"
-* Click save - Already on config XML Tab
+* Click save - On Admin Config XML page
 * Verify the message "Saved successfully. The configuration was modified by someone else, but your changes were merged successfully." is present on rails page
 
 Post validation failure
@@ -39,11 +39,11 @@ Post validation failure
 * Click edit Config XML
 * Delete pipeline "upstream-pipeline" - Configure cruise using api
 * Add downstream pipeline to create post validation conflict
-* Click save - Already on config XML Tab
+* Click save - On Admin Config XML page
 * Verify that split pane appears
 * Verify post validation error is shown with message "Pipeline '$upstream-pipeline$' does not exist. It is used from pipeline 'downstream-pipeline'."
 
-* Click save - Already on config XML Tab
+* Click save - On Admin Config XML page
 
 
 

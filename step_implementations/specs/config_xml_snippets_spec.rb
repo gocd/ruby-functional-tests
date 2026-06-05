@@ -39,11 +39,11 @@ step 'Edit config xml' do
 end
 
 step 'Change group name of <old_name> to <new_name>' do |old_name, new_name|
-  config_xml_snippets_page.modify_group_name old_name, new_name
+  config_xml_snippets_page.replace_in_config_and_save old_name, new_name
 end
 
 step 'Rename pipeline <pipeline> to <new_pipeline> - On Config XML snippets page' do |pipeline, new_pipeline|
-  config_xml_snippets_page.rename_pipeline_on_config_xml_page scenario_state.get(pipeline), new_pipeline
+  config_xml_snippets_page.replace_in_config scenario_state.get(pipeline), new_pipeline
 end
 
 step 'Verify that xml snippet contains <sub_string>' do |sub_string|

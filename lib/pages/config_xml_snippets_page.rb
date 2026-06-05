@@ -41,19 +41,18 @@ module Pages
       end
     end
 
-    def modify_group_name(old_name, new_name)
-      new_content = content_container_for_edit.text.gsub! old_name, new_name
-      content_container_for_edit.set(new_content, rapid: false)
+    def replace_in_config(replace, replace_with)
+      new_context = content_container_for_edit.value.gsub "#{replace}", replace_with
+      content_container_for_edit.set(new_context, rapid: false)
+    end
+
+    def replace_in_config_and_save(replace, replace_with)
+      replace_in_config(replace, replace_with)
       save.click
     end
 
     def config_xml_include?(text)
       content_container.text.include? text
-    end
-
-    def rename_pipeline_on_config_xml_page(pipeline, new_pipeline)
-      new_context = page.find('#content_container_for_edit').text.gsub! "#{pipeline}", new_pipeline
-      page.find('#content_container_for_edit').set(new_context, rapid: false)
     end
 
     def save_successful?

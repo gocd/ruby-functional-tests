@@ -21,12 +21,13 @@ module Pages
     element :save_message, '#message_pane > p'
 
     def config_content_is_loaded?
-      page.has_no_css?('#content_area .spinner-container')
+      page.has_css?('#save_config:not([disabled])')
     end
-    
+
     def change_config_to_conflict
-      context = page.find('#content').text.gsub! 'replace-job', 'replace-job-conflict'
-      page.find('#content').set(context, rapid: false)
+      content_textarea = page.find('#content')
+      new_content = content_textarea.value.gsub('replace-job', 'replace-job-conflict')
+      content_textarea.set(new_content, rapid: false)
     end
 
     def verify_split_appears
@@ -35,11 +36,12 @@ module Pages
     end
 
     def add_downstream_pipeline_to_create_post_validations
-      context = %Q(<pipeline name="downstream-pipeline">\n <materials>\n <pipeline pipelineName="#{scenario_state.get('upstream-pipeline')}"
+      downstream = %Q(<pipeline name="downstream-pipeline">\n <materials>\n <pipeline pipelineName="#{scenario_state.get('upstream-pipeline')}"
                    stageName="defaultStage" materialName="UP" />\n </materials>\n <stage name="defaultStage">\n <approval type="manual"/>\n <jobs>\n <job name="replace-job">
                    \n <tasks>\n <exec command="ls"/>\n </tasks>\n </job>\n </jobs>\n </stage>\n </pipeline>\n </pipelines>)
-      new_context = page.find('#content').text.sub! "</pipelines>", context
-      page.find('#content').set(new_context, rapid: false)
+      content_textarea = page.find('#content')
+      new_content = content_textarea.value.sub("</pipelines>", downstream)
+      content_textarea.set(new_content, rapid: false)
     end
 
     def post_validation_error_message_exist?(message)

@@ -47,8 +47,8 @@ step 'ConflictingConfiguration - setup' do
   secure_configuration.setup 'conflict-cruise-config.xml', 'password.properties'
 end
 
-step 'ConflictingConfigurationForPipelineAdmin - setup' do
-  secure_configuration.setup 'conflict-cruise-config-for-pipelineAdmin.xml', 'password.properties'
+step 'ConfigMergeGitConflictForGroupAdmin - setup' do
+  secure_configuration.setup 'conflict-cruise-config-for-group-admin.xml', 'password.properties'
 end
 
 step 'Template admin configuration - setup' do
@@ -145,11 +145,11 @@ step 'Allow unknown users to login' do |_tmp|
 end
 
 step 'Verify that user <user> is authorized to operate on the stage <stage> of pipeline <pipeline>' do |user,stage,pipeline|
-  assert_true basic_configuration.stage_is_authorised_with_user?(user,stage,pipeline).include?user
+  assert_includes basic_configuration.stage_is_authorised_with_user?(user,stage,pipeline), user
 end
 
 step 'Verify that role <role> is authorized to operate on the stage <stage> of pipeline <pipeline>' do |role,stage,pipeline|
-  assert_true basic_configuration.stage_is_authorised_with_role?(role,stage,pipeline).include?role
+  assert_includes basic_configuration.stage_is_authorised_with_role?(role,stage,pipeline), role
 end
 
 step 'Rename pipeline <pipeline> to <new_pipeline>' do |pipeline,new_pipeline|

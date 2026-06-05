@@ -43,7 +43,7 @@ step "Go to roles page" do |i|
 end
 
 step 'Verify flash message for role <message>' do |message|
-  assert_true role_config_page.flash_message.text.include? message
+  assert_includes role_config_page.flash_message.text, message
 end
 
 step "Verify if role <role_name> is added" do |role_name|

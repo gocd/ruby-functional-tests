@@ -52,12 +52,12 @@ end
 
 step 'Verify that to pipeline textbox is populated with <label>' do |expected|
   actual = compare_pipeline_page.to_pipeline(wait: 10).value
-  assert_true (actual == expected), "Actual value on to pipeline textbox #{actual}"
+  assert_equal expected, actual, "Actual value on to pipeline textbox #{actual}"
 end
 
 step 'Verify that from pipeline textbox is populated with <label>' do |label|
   actual = compare_pipeline_page.from_pipeline.value
-  assert_true (actual == label), "Actual value on from pipeline textbox #{actual}"
+  assert_equal label, actual, "Actual value on from pipeline textbox #{actual}"
 end
 
 step 'Verify there is message <msg>' do |msg|

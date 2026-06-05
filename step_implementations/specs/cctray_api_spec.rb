@@ -13,7 +13,7 @@ step 'Verify cctray feed contains stage <stage> with current activity <current_a
   project_node=doc.xpath("//Project[@name='#{scenario_state.get(pipeline)} :: #{stage}'] [@lastBuildLabel='#{label}']")
   assert_equal project_node.attr('lastBuildStatus').value,last_status
   assert_equal project_node.attr('activity').value,current_activity
-  assert_true author.include? project_node.xpath('//messages/message').first.attr('text')
+  assert_includes author, project_node.xpath('//messages/message').first.attr('text')
 end
 
 
@@ -25,18 +25,18 @@ step 'Verify cctray feed contains stage <stage> job <job> with current activity 
   project_node= doc.xpath("//Project[@name='#{scenario_state.get(pipeline)} :: #{stage} :: #{job}'] [@lastBuildLabel='#{label}']")
   assert_equal project_node.attr('lastBuildStatus').value,last_status
   assert_equal project_node.attr('activity').value,current_activity
-  assert_true author.include? project_node.xpath('//messages/message').first.attr('text')
+  assert_includes author, project_node.xpath('//messages/message').first.attr('text')
 end
-step 'Verify cctray feed contains stage <stage> with relative weburl <weburl> with lablel <label>' do |stage,weburl,label|
+step 'Verify cctray feed contains stage <stage> with relative weburl <weburl> with label <label>' do |stage,weburl,label|
   doc=scenario_state.get('cctray_response')
   project_node= doc.xpath("//Project[@name='#{scenario_state.self_pipeline} :: #{stage}'] [@lastBuildLabel='#{label}']")
-  assert_true project_node.attr('webUrl').value.include?weburl
+  assert_includes project_node.attr('webUrl').value, weburl
 end
 
-step 'Verify cctray feed contains stage <stage> and job <job> with relative weburl <weburl> with lablel <label>' do |stage,job,weburl,label|
+step 'Verify cctray feed contains stage <stage> and job <job> with relative weburl <weburl> with label <label>' do |stage,job,weburl,label|
   doc=scenario_state.get('cctray_response')
   project_node= doc.xpath("//Project[@name='#{scenario_state.self_pipeline} :: #{stage} :: #{job}'] [@lastBuildLabel='#{label}']")
-  assert_true project_node.attr('webUrl').value.include?weburl
+  assert_includes project_node.attr('webUrl').value, weburl
 end
 
 

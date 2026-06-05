@@ -33,7 +33,7 @@ step 'Get artifact store <artifact_store_id>' do |artifact_store|
   rescue Faraday::ClientError, Faraday::ServerError => err
     raise "Failed to get the artifact store #{artifact_store}. Returned response code - #{err.response.status}"
   end
-  assert_true JSON.parse(response.body)['id'] == artifact_store
+  assert_equal JSON.parse(response.body)['id'], artifact_store
 end
 
 step 'Get all artifact stores should return <artifact_store_ids>' do |list|
@@ -42,7 +42,7 @@ step 'Get all artifact stores should return <artifact_store_ids>' do |list|
   rescue Faraday::ClientError, Faraday::ServerError => err
     raise "Failed to get all artifact stores. Returned response code - #{err.response.status}"
   end
-  assert_true JSON.parse(response.body)['_embedded']['artifact_stores'].map {|t| t['id']}.sort == list.split(/[\s,]+/).sort
+  assert_equal JSON.parse(response.body)['_embedded']['artifact_stores'].map {|t| t['id']}.sort, list.split(/[\s,]+/).sort
 end
 
 step 'Update artifact store <artifact_store_id>' do |artifact_store_id|

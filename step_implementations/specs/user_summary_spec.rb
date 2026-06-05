@@ -59,7 +59,7 @@ end
 step 'Attempt to delete <user> user and should return <code>' do |user, response_code|
   response = Helpers::HTTP.quiet.delete http_url("/api/users/#{user}"), nil,
                                         { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
-  assert_true response.status == response_code.to_i
+  assert_equal response.status, response_code.to_i
 end
 
 step 'Add Roles as <roles> to users <users>' do |roles, users|
@@ -68,7 +68,7 @@ end
 
 step 'Verify role state <role> is disabled with message <message>' do |role, message|
   assert_false user_summary_page.role_enabled? role
-  assert_true user_summary_page.role_disabled_message(role).eql? message
+  assert_equal user_summary_page.role_disabled_message(role), message
 end
 
 step 'Open roles menu' do
@@ -88,7 +88,7 @@ step 'Verify users <users> are assigned role <roles>' do |users, roles|
   users.split(',').each do |user|
     actual_roles = user_summary_page.get_user_roles(user.strip)
     expected_roles.each do |role|
-      assert_true actual_roles.include? role
+      assert_includes actual_roles, role
     end
   end
 end
@@ -127,7 +127,7 @@ end
 
 step 'Verify users <users> does not have the role <roles>' do |users, roles|
   users.split(',').each do |user|
-    assert_false user_summary_page.get_user_roles(user).include? roles
+    assert_not_includes user_summary_page.get_user_roles(user), roles
   end
 end
 

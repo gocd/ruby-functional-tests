@@ -89,5 +89,5 @@ end
 
 step 'Verify returned <response> response code' do |expected_code|
   response = scenario_state.get('api_response')
-  assert_true (response.status == expected_code.to_i), "Actual response code #{response.status} and body #{response.body}"
+  assert_equal expected_code.to_i, response.status, "Actual response code #{response.status} and body #{response.body}"
 end

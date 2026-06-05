@@ -35,11 +35,11 @@ step "Verify console shows <rev> commit for material <material> for <pipeline>" 
 end
 
 step 'Verify console log contains pipeline <pipeline> with <message>' do |pipeline, message|
-  assert_true job_details_page.console_content.include? "#{scenario_state.get(pipeline)}/#{message}"
+  assert_includes job_details_page.console_content, "#{scenario_state.get(pipeline)}/#{message}"
 end
 
 step 'Verify console log does not contains message <message>' do |message|
-  assert_false job_details_page.console_content.include? message
+  assert_not_includes job_details_page.console_content, message
 end
 
 step 'Store the job completed time stamp' do
@@ -71,7 +71,7 @@ step 'Rerun <jobs> jobs' do |jobs|
 end
 
 step 'Verify looking at <stage> having counter <counter>' do |stage, counter|
-  assert_true stage_details_page.current_path.include? "#{stage}/#{counter}"
+  assert_includes stage_details_page.current_path, "#{stage}/#{counter}"
 end
 
 step 'Verify job <job> has state <state> and result <status>' do |job, state, status|
@@ -121,7 +121,7 @@ end
 
 step 'Verify that <stage> stage is displayed' do |stage|
   stage = new_pipeline_dashboard_page.interpolate_from_scenario_state(stage)
-  assert_true stage_details_page.current_path.include? stage
+  assert_includes stage_details_page.current_path, stage
 end
 
 step 'Verify breadcrumb contains link to value stream map on pipeline label <label> for pipeline <pipeline> for counter <counter>' do |label, pipeline, counter|
@@ -176,9 +176,9 @@ step 'Append <text> to artifact <artifact> and Verify return code is <code> - Us
                                 { file: Faraday::Multipart::FilePart.new('test.txt', 'text/plain') },
                                 { Confirm: 'true' }.merge(basic_configuration.header))
   if code.to_i == 200 || code.to_i == 201
-    assert_true res.body.eql? "File #{artifact} was appended successfully"
+    assert_equal res.body, "File #{artifact} was appended successfully"
   else
-    assert_true res.status.to_i == code.to_i
+    assert_equal res.status.to_i, code.to_i
   end
 end
 
@@ -187,10 +187,10 @@ step 'Create artifact <artifact> and Verify return code is <code> - Using Artifa
   payload = { file: Faraday::Multipart::FilePart.new(artifact, 'text/plain') }
   response = Helpers::HTTP.quiet.post http_url("/files/#{scenario_state.get('locator')}/#{artifact}"), payload,
                              { Confirm: 'true' }.merge(basic_configuration.header)
-  assert_true response.status == code.to_i
+  assert_equal response.status, code.to_i
 end
 
 step 'Verify artifact <artifact> contains text <text>' do |artifact,text|
   job_details_page.click_artifact artifact
-  assert_true job_details_page.artifact_contents.include? text
+  assert_includes job_details_page.artifact_contents, text
 end

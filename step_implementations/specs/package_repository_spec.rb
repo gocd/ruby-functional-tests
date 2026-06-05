@@ -99,11 +99,11 @@ end
 
 step "Verify package <pkg_name> exists for repo <repo_name>" do |pkg_name, repo_name|
   package_repository_page.toggle_repo_panel(repo_name)
-  assert_true package_repository_page.find_package_panel(pkg_name) != nil
+  assert_not_equal package_repository_page.find_package_panel(pkg_name), nil
 end
 
 step "Verify package <pkg_name> does not exists" do |pkg_name|
-  assert_false package_repository_page.find_package_panel(pkg_name) != nil
+  assert_equal package_repository_page.find_package_panel(pkg_name), nil
 end
 
 step "Verify message <msg> for package repo spa" do |msg|
@@ -156,5 +156,5 @@ end
 
 step 'Verify connection to package repository is successful with message <msg>' do |msg|
   connection_ok_msg = package_repository_page.connection_ok_msg
-  assert_true connection_ok_msg.include?(msg), "Expected '#{msg}' to be a part of '#{connection_ok_msg}'"
+  assert_includes connection_ok_msg, msg, "Expected '#{msg}' to be a part of '#{connection_ok_msg}'"
 end

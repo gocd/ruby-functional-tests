@@ -79,7 +79,7 @@ step 'Verify message <message>' do |message|
 end
 
 step 'Verify agents <hostnames> show up in results' do |hostnames|
-  assert_true (agents_spa_page.get_listed_agents('Agent Name').map!(&:strip) & hostnames.split(',').map!(&:strip)) == hostnames.split(',').map!(&:strip)
+  assert_equal (agents_spa_page.get_listed_agents('Agent Name').map!(&:strip) & hostnames.split(',').map!(&:strip)), hostnames.split(',').map!(&:strip)
 end
 
 step 'Sort by <column>' do |column|

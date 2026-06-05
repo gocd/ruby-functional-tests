@@ -19,7 +19,7 @@ CONFIG_REPO_BASE_URL    = '/api/admin/config_repos'.freeze
 
 step 'Create config repo <id>' do |id|
   begin
-    assert_true create_config_repo(id).status == 200
+    assert_equal create_config_repo(id).status, 200
   rescue Faraday::ClientError, Faraday::ServerError => err
     raise "Failed to create config repo #{id}. Resp code: #{err.response.status}; body: #{err.response.body}"
   end
@@ -35,7 +35,7 @@ step 'Create config repo <id> should return forbidden' do |id|
 end
 
 step 'Get config repo <id> should return success' do |id|
-  assert_true get_config_repo(id).status == 200
+  assert_equal get_config_repo(id).status, 200
 end
 
 step 'Get config repo <id> should return forbidden' do |id|
@@ -60,7 +60,7 @@ step 'Get all config repos should not have <repos>' do |repos|
 end
 
 step 'Update config repo <id> should return success' do |id|
-  assert_true update_config_repo(id).status == 200
+  assert_equal update_config_repo(id).status, 200
 end
 
 step 'Update config repo <id> should return forbidden' do |id|
@@ -73,7 +73,7 @@ step 'Update config repo <id> should return forbidden' do |id|
 end
 
 step 'Delete config repo <id> should return success' do |id|
-  assert_true delete_config_repo(id).status == 200
+  assert_equal delete_config_repo(id).status, 200
 end
 
 step 'Delete config repo <id> should return forbidden' do |id|
@@ -102,7 +102,7 @@ end
 
 step 'Create config repo <id> with rules <rules>' do |id, rules|
   begin
-    assert_true create_config_repo_with_rules(id, rules).status == 200
+    assert_equal create_config_repo_with_rules(id, rules).status, 200
   rescue Faraday::ClientError, Faraday::ServerError => err
     raise "Failed to create config repo #{id}. Resp code: #{err.response.status}; body: #{err.response.body}"
   end
@@ -110,14 +110,14 @@ end
 
 step 'Get config repo <id> should contain rules <rules>' do |id, rules|
   result = get_config_repo(id)
-  assert_true result.status == 200
+  assert_equal result.status, 200
   actual   = JSON.parse(result.body)["rules"]
   expected = extract_rules(rules).map {|item| item.transform_keys(&:to_s)}
   assert_true difference(expected, actual).empty?, "Assertion failed. Expected: #{expected}, Actual: #{actual}"
 end
 
 step 'Update config repo <id> with rules <rules>' do |id, rules|
-  assert_true update_config_repo_with_rules(id, rules).status == 200
+  assert_equal update_config_repo_with_rules(id, rules).status, 200
 end
 
 private

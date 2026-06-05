@@ -51,7 +51,7 @@ end
 
 step 'Verify any operation on agents return code <code> - Using Agents Api' do |expected_code|
   actual_code = try_patch_agent(agents_with_state('Idle')[0]['uuid'], "{\"agent_config_state\": [\"Disabled\"]}").status
-  assert_true actual_code.eql?(expected_code.to_i), "Response code not expected. Actual code : #{actual_code}"
+  assert_equal actual_code, expected_code.to_i, "Response code not expected. Actual code : #{actual_code}"
 end
 
 step 'Verify last job <pipeline_name> <stage_name> <job_name> <status> - Using Agents Api' do |_pipeline_name, stage_name, job_name, status|
@@ -60,11 +60,11 @@ step 'Verify last job <pipeline_name> <stage_name> <job_name> <status> - Using A
     begin
       response = Helpers::HTTP.raising.get api_end_point, nil, { accept: AGENT_JOB_HISTORY_VERSION }.merge(basic_configuration.header)
       response_json = JSON.parse(response.body)
-      assert_true response_json['jobs'].first['pipeline_name'] == scenario_state.self_pipeline
-      assert_true response_json['jobs'].first['result'] == status
-      assert_true response_json['jobs'].first['stage_name'] == stage_name
-      assert_true response_json['jobs'].first['job_name'] == job_name
-      assert_true response_json['jobs'].first['stage_counter'].to_i == 1
+      assert_equal response_json['jobs'].first['pipeline_name'], scenario_state.self_pipeline
+      assert_equal response_json['jobs'].first['result'], status
+      assert_equal response_json['jobs'].first['stage_name'], stage_name
+      assert_equal response_json['jobs'].first['job_name'], job_name
+      assert_equal response_json['jobs'].first['stage_counter'].to_i, 1
     rescue Faraday::ClientError, Faraday::ServerError => err
       raise "Pipeline Status call to #{api_end_point} failed with response code #{err.response.status} and the response body - #{err.response.body}"
     end
@@ -141,16 +141,16 @@ def hit_agent_history_api_and_verify_response(pipeline_name, stage_name, status,
       actual_total  = response_json['pagination']['total']
       page_size     = response_json['pagination']['page_size']
       jobs_size     = response_json['jobs'].size
-      assert_true actual_offset == offset, "Expected: #{offset} Actual: #{actual_offset}"
-      assert_true actual_total == count, "Expected: #{count} Actual: #{actual_total}"
-      assert_true page_size == 10
-      assert_true jobs_size == current_page_size, "Expected: #{current_page_size} Actual: #{jobs_size}"
+      assert_equal actual_offset, offset, "Expected: #{offset} Actual: #{actual_offset}"
+      assert_equal actual_total, count, "Expected: #{count} Actual: #{actual_total}"
+      assert_equal page_size, 10
+      assert_equal jobs_size, current_page_size, "Expected: #{current_page_size} Actual: #{jobs_size}"
       response_json['jobs'].map do |job|
-        assert_true job['pipeline_name'] == pipeline_name
-        assert_true job['result'] == status
-        assert_true job['stage_name'] == stage_name
-        assert_true job['job_name'] == job_name
-        assert_true job['stage_counter'].to_i == 1
+        assert_equal job['pipeline_name'], pipeline_name
+        assert_equal job['result'], status
+        assert_equal job['stage_name'], stage_name
+        assert_equal job['job_name'], job_name
+        assert_equal job['stage_counter'].to_i, 1
       end
     rescue Faraday::ClientError, Faraday::ServerError => err
       raise "Pipeline Status call failed with response code #{err.response.status} and the response body - #{err.response.body}"

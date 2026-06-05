@@ -19,13 +19,13 @@ PLUGIN_INFO_API_VERSION = 'application/vnd.go.cd+json'.freeze
 step 'Get plugins info for plugin <plugin_id>' do |plugin_id|
   res = Helpers::HTTP.raising.get http_url("/api/admin/plugin_info/#{plugin_id}"), nil,
                                   { accept: PLUGIN_INFO_API_VERSION }.merge(basic_configuration.header)
-  assert_true res.status == 200
+  assert_equal res.status, 200
   scenario_state.put 'plugins_info_response', res.body
 end
 
 step 'Plugin info response should have <entity> of <key> value <value>' do |entity, key, value|
   response = scenario_state.get 'plugins_info_response'
-  assert_true JSON.parse(response)[entity].first[key].eql? value
+  assert_equal JSON.parse(response)[entity].first[key], value
 end
 
 step 'Plugin info response should have <entity> with <key>' do |entity, key|

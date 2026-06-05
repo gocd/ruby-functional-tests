@@ -40,7 +40,7 @@ step 'Get template <template>' do |template|
   rescue Faraday::ClientError, Faraday::ServerError => err
     raise "Failed to get the template #{tempalte}. Returned response code - #{err.response.status}"
   end
-  assert_true JSON.parse(response.body)['name'] == template
+  assert_equal JSON.parse(response.body)['name'], template
 end
 
 step 'Get all templates should return templates <template-list>' do |list|
@@ -49,7 +49,7 @@ step 'Get all templates should return templates <template-list>' do |list|
   rescue Faraday::ClientError, Faraday::ServerError => err
     raise "Failed to get all templates. Returned response code - #{err.response.status}"
   end
-  assert_true JSON.parse(response.body)['_embedded']['templates'].map { |t| t['name'] }.sort == list.split(/[\s,]+/).sort
+  assert_equal JSON.parse(response.body)['_embedded']['templates'].map { |t| t['name'] }.sort, list.split(/[\s,]+/).sort
 end
 
 step 'Update template <template>' do |template|
@@ -92,6 +92,6 @@ end
 step 'Verify users <users_list> are template admins' do |users_list|
   temp_auth_response = JSON.parse(scenario_state.get('api_response').body)
   users_list.split(',').collect(&:strip).each do |user|
-    assert_true temp_auth_response['admin']['users'].include? user
+    assert_includes temp_auth_response['admin']['users'], user
   end
 end

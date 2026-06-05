@@ -27,7 +27,7 @@ step 'Set stage as <stage> - On Stage settings page' do |stage|
 end
 
 step 'Verify that stage is named <stage_name>' do |stage_name|
-  assert_true stage_settings_page.stage_name.value.include? stage_name
+  assert_includes stage_settings_page.stage_name.value, stage_name
 end
 
 step 'Verify job <job> with resources as <resources> and run on all as <run_on_all>' do |job, resources, run_on_all|
@@ -73,20 +73,20 @@ end
 
 step 'Verify that user <user> is inherited' do |user|
   inherited_users = stage_settings_page.inherited_users
-  assert_true inherited_users.include?(user), "Expected '#{user}' to be a part of '#{inherited_users}'"
+  assert_includes inherited_users, user, "Expected '#{user}' to be a part of '#{inherited_users}'"
 end
 
 step 'Verify that role <user> is inherited' do |role|
   inherited_roles = stage_settings_page.inherited_roles
-  assert_true inherited_roles.include?(role), "Expected '#{role}' to be a part of '#{inherited_roles}'"
+  assert_includes inherited_roles, role, "Expected '#{role}' to be a part of '#{inherited_roles}'"
 end
 
 step 'Verify that user <user> is already added - On Permission tab' do |user|
-  assert_true stage_settings_page.specified_users.include? user
+  assert_includes stage_settings_page.specified_users, user
 end
 
 step 'Verify that role <role> is already added - On Permission tab' do |role|
-  assert_true stage_settings_page.specified_roles.include? role
+  assert_includes stage_settings_page.specified_roles, role
 end
 
 step 'Verify message <message> shows up - On Permission tab' do |message|

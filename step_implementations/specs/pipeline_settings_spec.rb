@@ -126,7 +126,7 @@ end
 step 'Verify the stages are <stages>' do |stages|
   pipeline_stages = pipeline_settings_page.get_pipeline_stages
   stages.split(',').each do |stage|
-    assert_true pipeline_stages.include? stage
+    assert_includes pipeline_stages, stage
   end
 end
 
@@ -179,7 +179,7 @@ step 'Set cron field as <cron> and validate message as <message>' do |cron, mess
   else
     actual = general_settings_page.get_message
   end
-  assert_true actual.include?(values[1]), "Expected '#{values[1]}' to be a part of '#{actual}'"
+  assert_includes actual, values[1], "Expected '#{values[1]}' to be a part of '#{actual}'"
 end
 
 step 'Verify auto scheduling is selected' do

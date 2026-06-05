@@ -117,11 +117,11 @@ step 'Click on stage bar run <run>' do |run|
 end
 
 step 'Verify jobs shows <status> collapsed' do |status|
-  assert_true stage_details_page.job_status_in_collapsed_state.include?status
+  assert_includes stage_details_page.job_status_in_collapsed_state, status
 end
 
 step 'Verify jobs shows <status> open with jobs <jobs>' do |status,jobs|
-  assert_true stage_details_page.job_status_in_collapsed_state.include?status
+  assert_includes stage_details_page.job_status_in_collapsed_state, status
   jobs.split(',').each {|job|
     assert_true stage_details_page.open_jobs(job,status.partition(':').first.downcase)
   }
@@ -134,7 +134,7 @@ end
 step 'Verify stage history has <runs>' do |runs|
   all_history_runs=stage_details_page.history_runs
   runs.split(', ').each {|run|
-    assert_true all_history_runs.include?run
+    assert_includes all_history_runs, run
   }
 end
 
@@ -151,7 +151,7 @@ step 'Verify stage bar triggered automatically by changes' do ||
 end
 
 step 'Verify selected stage history entry is <entry>' do |entry|
-  assert_true stage_details_page.selected_history_entry.include?entry
+  assert_includes stage_details_page.selected_history_entry, entry
 end
 
 step 'click on stage history page of number <number>' do |number|

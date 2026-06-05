@@ -160,7 +160,7 @@ step 'ArtifactSetAndValidate <table>' do |table|
     else
       save_status_msg = general_settings_page.get_message
     end
-    assert_true save_status_msg.include?(save_status), "Expected '#{save_status_msg}' to contain '#{save_status}'"
+    assert_includes save_status_msg, save_status, "Expected '#{save_status_msg}' to contain '#{save_status}'"
   end
 end
 
@@ -185,11 +185,11 @@ step 'Verify error message <message> is shown - Already On Job Edit Page' do |me
   else
     actual = job_settings_page.error_messages
   end
-  assert_true actual.include?(expected), "Expected '#{expected}' to be a part of '#{actual}'"
+  assert_includes actual, expected, "Expected '#{expected}' to be a part of '#{actual}'"
 end
 
 step 'Verify that job is named <job>' do |job|
-  assert_true job_settings_page.job_name.value.include? job
+  assert_includes job_settings_page.job_name.value, job
 end
 
 step 'Enter custom tab name <tab> with path <path>' do |tab, path|
@@ -197,7 +197,7 @@ step 'Enter custom tab name <tab> with path <path>' do |tab, path|
 end
 
 step 'Verify error message <error_message> on name on tab <tab_index>' do |error_message, tab_index|
-  assert_true job_settings_page.tab_error(tab_index).include? error_message
+  assert_includes job_settings_page.tab_error(tab_index), error_message
 end
 
 step 'Set job as <job> - On Job settings page' do |job|
@@ -211,7 +211,7 @@ end
 step 'Verify dropdown contains <dropdown>' do |dropdown|
   drop_down_content = job_settings_page.get_dropdown
   dropdown.split(',').each {|drpdwn|
-    assert_true drop_down_content.include?(drpdwn), "Expected - #{drpdwn}, Actual - #{drop_down_content}"
+    assert_includes drop_down_content, drpdwn, "Expected - #{drpdwn}, Actual - #{drop_down_content}"
   }
 end
 

@@ -87,7 +87,7 @@ step 'Verify <field> is <value> for elastic agent profile <elastic_agent_profile
   begin
     response = Helpers::HTTP.raising.get http_url("/api/elastic/profiles/#{elastic_agent_profile}"), nil, { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
     expected_property = JSON.parse(response.body)['properties'].select { |property| property['key'].eql? field }
-    assert_true expected_property.first['value'].eql? value
+    assert_equal expected_property.first['value'], value
   rescue Faraday::ClientError, Faraday::ServerError => err
     raise "Failed to get the elastic agent profile #{elastic_agent_profile}. Returned response code - #{err.response.status}"
   end

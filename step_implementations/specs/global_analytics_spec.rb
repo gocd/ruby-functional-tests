@@ -32,7 +32,7 @@ step 'Drill down to job waiting and job duration graphs' do ||
 end
 
 step 'Drill down to job which waited longest for the agent' do ||
-	assert_true global_analytics_page.drilldown_to_job_waited_longest_for_agent.include?('Jobs with the Highest Wait Time on Agent')
+	assert_includes global_analytics_page.drilldown_to_job_waited_longest_for_agent, 'Jobs with the Highest Wait Time on Agent'
 end
 
 step 'Visit pipeline tab - On Global analytics page' do ||

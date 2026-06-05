@@ -39,7 +39,7 @@ step "Save scm" do
 end
 
 step "Verify message <msg> for scm spa" do |message|
-  assert_true pluggable_scm_page.flash_message.text.include? message
+  assert_includes pluggable_scm_page.flash_message.text, message
 end
 
 step "Verify scm listing contains <scm_labels>" do |scm_labels|

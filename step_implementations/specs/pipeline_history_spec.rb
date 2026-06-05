@@ -116,7 +116,7 @@ step 'Verify <stage_name> cannot be approved on Pipeline Activity Page' do |stag
 end
 
 step 'Verify on pipeline history page for <pipeline>' do |pipeline|
-  assert_true pipeline_history_page.current_path.include? scenario_state.get(pipeline)
+  assert_includes pipeline_history_page.current_path, scenario_state.get(pipeline)
 end
 
 step 'Verify pipeline is triggered by <user> - On History page' do |user|

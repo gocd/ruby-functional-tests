@@ -32,9 +32,9 @@ step 'Delete secret config <secret_config_id> should return <code>' do |secret_c
   begin
     res = Helpers::HTTP.raising.delete http_url("#{SECRET_CONFIG_API_BASE}/#{secret_config_id}"), nil,
                                        { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
-    assert_true res.status == expected_code.to_i
+    assert_equal res.status, expected_code.to_i
   rescue Faraday::ClientError, Faraday::ServerError => err
-    assert_true err.response.status == expected_code.to_i
+    assert_equal err.response.status, expected_code.to_i
   end
 end
 
@@ -43,18 +43,18 @@ step 'Get all API should return all secret configs <list_of_config_ids>' do |lis
   res = get_all_secret_configs
   secret_configs = JSON.parse(res.body)['_embedded']['secret_configs']
 
-  assert_true secret_configs.size == expected_config_ids.size
+  assert_equal secret_configs.size, expected_config_ids.size
 
   actual_config_ids = (secret_configs.map { |secret_config| secret_config['id'] })
-  assert_true actual_config_ids.sort == expected_config_ids.sort
+  assert_equal actual_config_ids.sort, expected_config_ids.sort
 end
 
 step 'Get secret config <id> should return <response_code>' do |config_id, expected_code|
   begin
     res = get_secret_config(config_id)
-    assert_true res.status == expected_code.to_i
+    assert_equal res.status, expected_code.to_i
   rescue Faraday::ClientError, Faraday::ServerError => err
-    assert_true err.response.status == expected_code.to_i
+    assert_equal err.response.status, expected_code.to_i
   end
 end
 
@@ -75,18 +75,18 @@ step 'Add secret config <config_id> with file <file> should return code <code>',
   begin
     res = Helpers::HTTP.raising.post http_url(SECRET_CONFIG_API_BASE.to_s), req_body,
                                      { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER }.merge(basic_configuration.header)
-    assert_true res.status == expected_code.to_i
+    assert_equal res.status, expected_code.to_i
   rescue Faraday::ClientError, Faraday::ServerError => err
-    assert_true err.response.status == expected_code.to_i
+    assert_equal err.response.status, expected_code.to_i
   end
 end
 
 step 'Secret config <config_id> should contain rule to <directive> usage in pipeline group <pipeline_group>' do |config_id, directive, pipeline_group|
   res = get_secret_config(config_id)
-  assert_true res.status == 200
+  assert_equal res.status, 200
   json = JSON.parse(res.body)
   rules = json['rules'].select { |rule| (rule['directive'].eql? directive.to_s) && (rule['resource'].eql? pipeline_group.to_s) }
-  assert_true rules.size == 1
+  assert_equal rules.size, 1
 end
 
 step 'Update secret config <config_id> with file <file> to <directive> usage only in pipeline group <pipeline_group>' do |config_id, file, directive, pipeline_group|
@@ -116,7 +116,7 @@ step 'Update secret config <config_id> with file <file> to <directive> usage onl
   res = Helpers::HTTP.raising.put http_url("#{SECRET_CONFIG_API_BASE}/#{config_id}"), req_body,
                                   { content_type: 'application/json', accept: SECRET_CONFIG_ACCEPT_HEADER, if_match: etag }.merge(basic_configuration.header)
 
-  assert_true res.status == 200
+  assert_equal res.status, 200
 end
 
 step 'Prepare secret config json <file_name> with secrets <secrets>' do |file_name, secrets|

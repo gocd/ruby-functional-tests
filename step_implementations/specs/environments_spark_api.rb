@@ -19,7 +19,7 @@ require_relative '../../lib/helpers/go_url_helper.rb'
 ENVIRONMENT_API_VERSION = 'application/vnd.go.cd+json'.freeze
 
 step 'Create environment <name>' do |name|
-  assert_true create_environment(name).status == 200
+  assert_equal create_environment(name).status, 200
 end
 
 step 'Create environment <name> should return forbidden' do |name|
@@ -32,15 +32,15 @@ step 'Create environment <name> should return forbidden' do |name|
 end
 
 step 'Update environment <environment> to add pipeline <pipeline>' do |environment, pipeline|
-  assert_true update_environment(environment,  name: scenario_state.get(pipeline)).status == 200
+  assert_equal update_environment(environment,  name: scenario_state.get(pipeline)).status, 200
 end
 
 step 'Update environment <environment> to add secure environment variable <var> with value as <identifier>' do |environment, var, identifier|
-  assert_true update_environment(environment,  nil, nil, name: var, encrypted_value: scenario_state.get(identifier), secure: true).status == 200
+  assert_equal update_environment(environment,  nil, nil, name: var, encrypted_value: scenario_state.get(identifier), secure: true).status, 200
 end
 
 step 'Update environment <environment> to add environment variable <var> with value as <val>' do |environment, var, val|
-  assert_true update_environment(environment,  nil, nil, name: var, value: val, secure: false).status == 200
+  assert_equal update_environment(environment,  nil, nil, name: var, value: val, secure: false).status, 200
 end
 
 step 'Get environment <name> should return entity <entity> with <values>' do |name, entity, values|
@@ -49,13 +49,13 @@ step 'Get environment <name> should return entity <entity> with <values>' do |na
     h.each do |key, value|
       assert_true e.key?(key), "Environments API response do not have expected values. Expected: key to be rpesent: #{key}"
       expected_value = scenario_state.get(value).nil? ? value : scenario_state.get(value)
-      assert_true e[key].eql?(expected_value), "Environments API response do not have expected values. Expected: #{key} => #{expected_value}"
+      assert_equal e[key], expected_value, "Environments API response do not have expected values. Expected: #{key} => #{expected_value}"
     end
   end
 end
 
 step 'Get environment <name> should return success' do |name|
-  assert_true get_environment(name).status == 200
+  assert_equal get_environment(name).status, 200
 end
 
 step 'Get environment <name> should return forbidden' do |name|
@@ -68,7 +68,7 @@ step 'Get environment <name> should return forbidden' do |name|
 end
 
 step 'Update environment <name> should return success' do |name|
-  assert_true update_environment(name).status == 200
+  assert_equal update_environment(name).status, 200
 end
 
 step 'Update environment <name> should return forbidden' do |name|
@@ -81,7 +81,7 @@ step 'Update environment <name> should return forbidden' do |name|
 end
 
 step 'Delete environment <name> should return success' do |name|
-  assert_true delete_environment(name).status == 200
+  assert_equal delete_environment(name).status, 200
 end
 
 step 'Delete environment <name> should return forbidden' do |name|

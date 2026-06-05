@@ -18,7 +18,6 @@ step 'On Admin Templates page' do |_tmp|
   admin_templates_page.load
 end
 
-
 step 'Add new template' do
   admin_templates_page.click_add_new_template
 end
@@ -32,20 +31,14 @@ step 'Enter template name <template> - On template page' do |template|
   admin_templates_page.enter_template_name template
 end
 
-
 step 'Select extract template from a existing pipeline' do
   admin_templates_page.extract_from_pipeline.click
-end
-
-step 'Verify extract template checkbox is disabled & not checked' do
-  assert_true !admin_templates_page.extract_from_pipeline.checked?
-  assert_true admin_templates_page.extract_from_pipeline.disabled?
 end
 
 step 'Verify template can be extracted only from pipelines <pipelines>' do |pipelines|
   actual_pipelines = admin_templates_page.extractable_pipelines
   pipelines.split(',').each do |pipeline|
-    assert_true actual_pipelines.include? scenario_state.get(pipeline)
+    assert_includes actual_pipelines, scenario_state.get(pipeline)
   end
 end
 
@@ -60,14 +53,14 @@ end
 step 'Verify that templates <templates> are present - on Admin Templates tab' do |templates|
   template_names = admin_templates_page.all_templates
   templates.split(',').each do |template|
-    assert_true template_names.include? template
+    assert_includes template_names, template
   end
 end
 
 step 'Verify that templates <templates> are not present - on Admin Templates tab' do |templates|
   template_names = admin_templates_page.all_templates
   templates.split(',').each do |template|
-    assert_false template_names.include? template
+    assert_not_includes template_names, template
   end
 end
 
@@ -79,7 +72,7 @@ step 'Verify that template <template> is used by pipelines <pipeline>' do |templ
     end
   end
   pipeline_names.each do |pipeline|
-    assert_true pipelines_from_template.include? pipeline
+    assert_includes pipelines_from_template, pipeline
   end
 end
 

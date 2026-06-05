@@ -61,7 +61,7 @@ module Pages
       if page.has_no_css?("[data-test-id='server-health-messages-count']", wait: 10)
         assert_true true
       elsif page.has_css?("[data-test-id='server-health-messages-count']", wait: 10)
-        assert_true !message_notifier.text.include?('warning')
+        assert_includes !message_notifier.text, 'warning'
       else
         assert_true false
       end
@@ -72,7 +72,7 @@ module Pages
     end
 
     def verify_there_are_no_error_messages
-      assert_true !message_notifier.text.include?('error')
+      assert_includes !message_notifier.text, 'error'
     end
 
     def verify_error_message(error_message)
@@ -90,7 +90,7 @@ module Pages
       error_messages.each do |message|
         msg_list.push(message.text)
       end
-      assert_true !msg_list.include?(error_message)
+      assert_includes !msg_list, error_message
     end
 
     def verify_error_description_do_not_contains(error_message)
@@ -98,7 +98,7 @@ module Pages
       error_description.each do |message|
         msg_list.push(message.text)
       end
-      assert_true !msg_list.include?(error_message)
+      assert_includes !msg_list, error_message
     end
 
     def verify_error_description(error_message)

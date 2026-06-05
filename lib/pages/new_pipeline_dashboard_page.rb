@@ -214,9 +214,9 @@ module Pages
       if is_disabled
         target_stage = get_all_stages(pipeline).select { |s| s['title'].include?(stage)}
         parent = target_stage.first.find(:xpath,".//..")
-        assert_true parent.find('.tooltip', :visible => false).text(:all).include?(message)
+        assert_includes parent.find('.tooltip', :visible => false).text(:all), message
       else
-        assert_true manual_gate['title'].include?(message)
+        assert_includes manual_gate['title'], message
       end
     end
 
@@ -508,10 +508,10 @@ module Pages
     end
 
     def verify_stage_overview_header(pipeline, pipeline_counter, stage, stage_counter)
-      assert_true page.find('div[data-test-id="pipeline-name-container"]').text.include?(pipeline)
-      assert_true page.find('div[data-test-id="pipeline-instance-container"]').text.include?(pipeline_counter)
-      assert_true page.find('div[data-test-id="stage-name-container"]').text.include?(stage)
-      assert_true page.find('div[data-test-id="stage-instance-container"]').text.include?(stage_counter)
+      assert_includes page.find('div[data-test-id="pipeline-name-container"]').text, pipeline
+      assert_includes page.find('div[data-test-id="pipeline-instance-container"]').text, pipeline_counter
+      assert_includes page.find('div[data-test-id="stage-name-container"]').text, stage
+      assert_includes page.find('div[data-test-id="stage-instance-container"]').text, stage_counter
     end
 
     def select_stage_counter_from_stage_overview_header(counter)
@@ -519,11 +519,11 @@ module Pages
     end
 
     def verify_stage_overview_triggered_by_user(username)
-      assert_true page.find('div[data-test-id="triggered-by-container"]', wait: 20).text.include?(username)
+      assert_includes page.find('div[data-test-id="triggered-by-container"]', wait: 20).text, username
     end
 
     def verify_stage_overview_cancelled_by_user(username)
-      assert_true page.find('div[data-test-id="cancelled-by-container"]', wait: 20).text.include?(username)
+      assert_includes page.find('div[data-test-id="cancelled-by-container"]', wait: 20).text, username
     end
 
     def verify_stage_overview_element_not_empty(data_test_id)
@@ -553,13 +553,13 @@ module Pages
     def open_stage_settings_from_stage_overview_and_verify_url(url)
       page.find("[data-test-id='Settings-icon']").click
       sleep 5
-      assert_true page.current_url.include?(url)
+      assert_includes page.current_url, url
     end
 
     def open_stage_details_from_stage_overview_and_verify_url(url)
       stage_overview_stage_details_link.click
       sleep 5
-      assert_true page.current_url.include?(url)
+      assert_includes page.current_url, url
     end
 
     def stage_overview_rerun_stage
@@ -573,7 +573,7 @@ module Pages
 
     def stage_overview_verify_job_state(job, state)
       assert_false page.find("[data-test-id='job-name-for-#{job}']").nil?
-      assert_true page.find("[data-test-id='job-name-for-#{job}']").find('div[class*="job-result"]')[:class].include?(state)
+      assert_includes page.find("[data-test-id='job-name-for-#{job}']").find('div[class*="job-result"]')[:class], state
     end
 
     def select_job_for_rerun(job)
@@ -597,15 +597,15 @@ module Pages
     end
 
     def stage_overview_verify_failed_job_count(count)
-      assert_true page.find("[data-test-id='failed-jobs-container']").text.include?(count)
+      assert_includes page.find("[data-test-id='failed-jobs-container']").text, count
     end
 
     def stage_overview_verify_passed_job_count(count)
-      assert_true page.find("[data-test-id='passed-jobs-container']").text.include?(count)
+      assert_includes page.find("[data-test-id='passed-jobs-container']").text, count
     end
 
     def stage_overview_verify_building_job_count(count)
-      assert_true page.find("[data-test-id='in-progress-jobs-container']").text.include?(count)
+      assert_includes page.find("[data-test-id='in-progress-jobs-container']").text, count
     end
 
     private

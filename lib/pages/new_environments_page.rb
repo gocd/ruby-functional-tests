@@ -36,7 +36,7 @@ module Pages
     end
 
     def verify_no_envs_available_message
-      assert_true page.find("[data-test-id='no-environment-present-msg']").text.include? "Either no environments have been set up or you are not authorized to view the environments."
+      assert_includes page.find("[data-test-id='no-environment-present-msg']").text, "Either no environments have been set up or you are not authorized to view the environments."
     end
 
     def has_environment?(env)
@@ -90,7 +90,7 @@ module Pages
     end
 
     def has_agent (agent, env)
-      assert_true page.find("[data-test-id='agents-for-#{env}'] ul[data-test-id='agents-content']").text.include? agent
+      assert_includes page.find("[data-test-id='agents-for-#{env}'] ul[data-test-id='agents-content']").text, agent
     end
 
     def verify_added_environment_variables(variable, env)
@@ -130,7 +130,7 @@ module Pages
 
     def has_unavailable_pipeline(pipeline, env)
       edit_pipeline_association_for(env)
-      assert_true page.find("div[data-test-id='unavailable-pipelines-already-associated-with-environments']").text.include? pipeline
+      assert_includes page.find("div[data-test-id='unavailable-pipelines-already-associated-with-environments']").text, pipeline
     end
 
     def find_collapsible_header(env)

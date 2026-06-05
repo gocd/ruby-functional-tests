@@ -42,7 +42,7 @@ step 'Perform check connection' do |_i|
 end
 
 step 'Verify flash message <message>' do |message|
-  assert_true authorization_config_page.flash_message.text.include? message
+  assert_includes authorization_config_page.flash_message.text, message
 end
 
 step 'Verify if auth config <auth_config_id> is added' do |auth_config_id|

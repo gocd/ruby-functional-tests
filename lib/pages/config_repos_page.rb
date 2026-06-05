@@ -96,7 +96,7 @@ module Pages
       assert_not_nil error_span
 
       err_msg = "Not allowed to refer to #{entity} '#{entity_name}'. Check the 'Rules' of this config repository."
-      assert_true error_span.text.include?(err_msg), "Assertion failed. Expected to contain '#{err_msg}' but was '#{error_span.text}'"
+      assert_includes error_span.text, err_msg, "Assertion failed. Expected to contain '#{err_msg}' but was '#{error_span.text}'"
     end
 
     def repo_successfully_parsed(repo)

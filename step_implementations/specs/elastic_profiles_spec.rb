@@ -94,7 +94,7 @@ step 'Verify <field> for <cluster_profile> as <value> - Using cluster profile AP
   begin
     response = Helpers::HTTP.raising.get http_url("/api/admin/elastic/cluster_profiles/#{cluster_profile}"), nil, { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
     expected_property = JSON.parse(response.body)['properties'].select{|property| property['key'].eql? field}
-    assert_true expected_property.first['value'].eql? value
+    assert_equal expected_property.first['value'], value
   rescue Faraday::ClientError, Faraday::ServerError => err
     p "Failed to get the cluster profile #{cluster_profile}. Returned response code - #{err.response.status}"
     return err.response.status
@@ -104,7 +104,7 @@ end
 step 'Delete cluster profile <cluster_profile_id> should fail with error <display_message>' do |cluster_profile_id, display_message|
   elastic_profiles_page.delete_cluster_profile(cluster_profile_id)
   elastic_profiles_page.click_confirm_delete
-  assert_true elastic_profiles_page.banner_message.eql? display_message
+  assert_equal elastic_profiles_page.banner_message, display_message
 end
 
 step 'Clone cluster profile <cluster_profile_id> by name <new_cluster_profile_id>' do |cluster_profile_id, new_cluster_profile_id|
@@ -132,5 +132,5 @@ step 'Select Configuration properties for kubernetes cluster' do |_tmp|
 end
 
 step 'Verify error message for create cluster profile <err>' do |err|
-	assert_true elastic_profiles_page.error_message.include? err
+	assert_includes elastic_profiles_page.error_message, err
 end

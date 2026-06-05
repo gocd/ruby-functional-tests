@@ -32,11 +32,11 @@ end
 
 step 'Verify the location of the backup store is at <location>' do |location|
   actual_location = server_backup_page.backup_location
-  assert_true actual_location.include?(location), "Expected location #{location}, actual #{actual_location}"
+  assert_includes actual_location, location, "Expected location #{location}, actual #{actual_location}"
 end
 
 step 'Verify the last performed backup message contains <msg>' do |msg|
-	assert_true server_backup_page.last_backup_message.include? msg
+	assert_includes server_backup_page.last_backup_message, msg
 end
 
 step 'Verify the <dir> directory exists' do |dir|
@@ -51,7 +51,7 @@ step 'Verify the <dir> directory contains file named <file> which has running go
   assert_true !Dir.glob("#{GoConstants::SERVER_DIR}/artifacts/#{dir}/**/#{file}").empty?
   version_on_backupfile = File.read(Dir.glob("#{GoConstants::SERVER_DIR}/artifacts/#{dir}/**/#{file}").first)
   actual_version = server_backup_page.running_server_full_version
-  assert_true version_on_backupfile.eql?(actual_version), "Expected #{version_on_backupfile}, Actual #{actual_version}"
+  assert_equal version_on_backupfile, actual_version, "Expected #{version_on_backupfile}, Actual #{actual_version}"
 end
 
 step 'Verify that the db backup is present in the <dir> directory' do |dir|

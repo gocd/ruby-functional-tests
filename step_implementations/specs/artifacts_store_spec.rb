@@ -45,7 +45,7 @@ step 'Save artifact store' do |i|
 end
 
 step 'Verify flash message for artifact <message>' do |message|
-  assert_true artifacts_store_page.flash_message.text.include? message
+  assert_includes artifacts_store_page.flash_message.text, message
 end
 
 step 'Verify if artifact store <artifact_store_id> is present' do |artifact_store_id|

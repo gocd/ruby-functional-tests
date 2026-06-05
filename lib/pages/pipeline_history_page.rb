@@ -26,7 +26,7 @@ module Pages
     element :build_cause_summary, 'div[data-test-id=build-details]'
 
     def verify_current_pagination_number(page_number)
-      assert_true page.find("a[data-test-id='pagination-page-#{page_number}']")['class'].include? 'current-page'
+      assert_includes page.find("a[data-test-id='pagination-page-#{page_number}']")['class'], 'current-page'
     end
 
     def click_for_next_page

@@ -33,7 +33,7 @@ step 'Save secret config' do |_i|
 end
 
 step 'Verify flash message for secret config <message>' do |message|
-  assert_true secret_management_page.flash_message.text.include? message
+  assert_includes secret_management_page.flash_message.text, message
 end
 
 step 'Verify if secret config <secret_config> is added' do |secret_config|

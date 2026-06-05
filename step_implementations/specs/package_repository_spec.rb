@@ -69,14 +69,14 @@ end
 step "Verify that following configurations exist for <pkg_repo> <table>" do |pkg_repo, table|
   table.rows.each_with_index do |row, index|
     p "Verify configurations for row #{index + 1}"
-    assert_true package_repository_page.pkg_repo_config(pkg_repo, row['id']).text === row['value']
+    assert_equal row['value'], package_repository_page.pkg_repo_config(pkg_repo, row['id']).text
   end
 end
 
 step "Verify that following package configurations exist for <pkg_name> <table>" do |pkg_name, table|
   table.rows.each_with_index do |row, index|
     p "Verify configurations for row #{index + 1}"
-    assert_true package_repository_page.pkg_config(pkg_name, row['id']).text === row['value']
+    assert_equal row['value'], package_repository_page.pkg_config(pkg_name, row['id']).text
   end
 end
 
@@ -107,7 +107,7 @@ step "Verify package <pkg_name> does not exists" do |pkg_name|
 end
 
 step "Verify message <msg> for package repo spa" do |msg|
-  assert_true package_repository_page.msg.text === msg
+  assert_equal msg, package_repository_page.msg.text
 end
 
 step "Clone package repository <pkg_repo>" do |pkg_repo|
@@ -147,11 +147,11 @@ step "Click usages for package <pkg_repo>" do |pkg_name|
 end
 
 step "Verify message <msg> for usages" do |msg|
-  assert_true package_repository_page.modal_body.text === msg
+  assert_equal msg, package_repository_page.modal_body.text
 end
 
 step 'Verify error message on package repo page <msg>' do |msg|
-  assert_true package_repository_page.error.text === msg
+  assert_equal msg, package_repository_page.error.text
 end
 
 step 'Verify connection to package repository is successful with message <msg>' do |msg|

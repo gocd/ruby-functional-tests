@@ -85,7 +85,7 @@ step 'Click on confirm delete pipeline group' do
 end
 
 step 'Verify error message on admin pipeline page <msg>' do |msg|
-  assert_true (new_pipeline_group_page.error_message wait: 5).text === msg
+  assert_equal msg, (new_pipeline_group_page.error_message wait: 5).text
 end
 
 step "Add role <role> as view user" do |role|

@@ -73,5 +73,5 @@ step 'Add new rule with directive <directive>, type <type> and resource <resourc
 end
 
 step 'Verify error message on secret config page <msg>' do |msg|
-  assert_true secret_management_page.error_message.text === msg
+  assert_equal msg, secret_management_page.error_message.text
 end

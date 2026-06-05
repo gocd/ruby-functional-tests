@@ -55,7 +55,7 @@ end
 step "Verify that following scm configurations exist for <scm_name> <table>" do |scm_name, table|
   table.rows.each_with_index do |row, index|
     actual = pluggable_scm_page.scm_config(scm_name, row['id']).text
-    assert_true actual === row['value'], "Assertion failed. Expected: #{row['value']}, Actual: #{actual}"
+    assert_equal row['value'], actual
   end
 end
 
@@ -76,7 +76,7 @@ step "Confirm delete scm" do
 end
 
 step 'Verify error message on pluggable scm page <msg>' do |msg|
-  assert_true pluggable_scm_page.error_message.text === msg
+  assert_equal msg, pluggable_scm_page.error_message.text
 end
 
 step 'Verify connection is successful' do

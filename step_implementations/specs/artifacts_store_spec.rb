@@ -77,5 +77,5 @@ step 'Confirm delete artifact store' do |_i|
 end
 
 step 'Verify error message on artifact store spa <msg>' do |msg|
-  assert_true artifacts_store_page.error_message.text === msg
+  assert_equal msg, artifacts_store_page.error_message.text
 end

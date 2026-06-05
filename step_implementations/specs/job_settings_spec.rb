@@ -276,15 +276,15 @@ step 'Uncheck source is a file option' do ||
 end
 
 step 'Verify error message <message> is shown for working directory' do |message|
-  assert_true job_settings_page.error_message_for_working_dir === new_pipeline_dashboard_page.interpolate_from_scenario_state(message)
+  assert_equal new_pipeline_dashboard_page.interpolate_from_scenario_state(message), job_settings_page.error_message_for_working_dir
 end
 
 step 'Verify error message <message> is shown for job name' do |message|
-  assert_true job_settings_page.error_message_for_job_name === new_pipeline_dashboard_page.interpolate_from_scenario_state(message)
+  assert_equal new_pipeline_dashboard_page.interpolate_from_scenario_state(message), job_settings_page.error_message_for_job_name
 end
 
 step 'Verify error message <message> is shown for source' do |message|
-  assert_true job_settings_page.error_message_for_source === new_pipeline_dashboard_page.interpolate_from_scenario_state(message)
+  assert_equal new_pipeline_dashboard_page.interpolate_from_scenario_state(message), job_settings_page.error_message_for_source
 end
 
 step "Start creating external artifact with artifact id as <artifact_id> and store id as <store_id>" do |artifact_id, store_id|

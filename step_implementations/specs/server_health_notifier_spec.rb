@@ -44,11 +44,11 @@ step 'Verify there are no warnings' do
 end
 
 step 'Verify there are no error and warnings' do
-  assert_false server_health_message.verify_there_are_no_errors_and_warnings
+  server_health_message.verify_there_are_no_errors_and_warnings
 end
 
 step 'Verify there are no error messages' do
-  server_health_message.verify_there_are_no_error_messages
+  server_health_message.verify_there_are_no_errors
 end
 
 step 'Verify message do not contain <message>' do |message|

@@ -92,7 +92,7 @@ end
 
 step 'Attempt to pause pipeline <pipeline_name> with cause <pause_cause> and should return with http status <response_code>' do |pipeline_name, pause_cause, response_code|
   pipeline_name = scenario_state.get(pipeline_name) || pipeline_name
-  assert_true(response_code.to_i == pause_pipeline_using_api(pipeline_name, pause_cause))
+  assert_equal response_code.to_i, pause_pipeline_using_api(pipeline_name, pause_cause)
 end
 
 step 'Verify pipeline is paused with reason <pause_cause> by <paused_by> - Using API' do |pause_cause, user|
@@ -117,7 +117,7 @@ end
 
 step 'Attempt to unpause pipeline <pipeline_name> and should return with http status <response_code>' do |pipeline_name, response_code|
   pipeline_name = scenario_state.get(pipeline_name) || pipeline_name
-  assert_true(response_code.to_i == unpause_pipeline_using_api(pipeline_name))
+  assert_equal response_code.to_i, unpause_pipeline_using_api(pipeline_name)
 end
 
 def hit_pipeline_history_api_and_verify_response(pipeline_name, stage_name, status, api_endpoint, current_page_size)

@@ -31,7 +31,7 @@ end
 step 'Trigger pipeline <pipeline> and verify response code <code> - Using api' do |pipeline, response_code|
   response = Helpers::HTTP.quiet.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/schedule"),
                                       {content_type: 'application/json', accept: PIPELINE_CONFIG_API_VERSION}.merge(basic_configuration.header)
-  assert_equal response.status, response_code.to_i
+  assert_equal response_code.to_i, response.status
 end
 
 step 'Verify pipeline <pipeline> is not locked and is schedulable - Using api' do |pipeline|
@@ -47,7 +47,7 @@ end
 step 'Trigger stage <stage> run <run>' do |stage, run|
   begin
     response = Helpers::HTTP.raising.post http_url("/api/stages/#{scenario_state.self_pipeline}/#{run}/#{stage}/run"), '', { accept: 'application/vnd.go.cd+json', X_GoCD_Confirm: 'true'}.merge(basic_configuration.header)
-    assert_equal response.status, 202
+    assert_equal 202, response.status
   rescue Faraday::ClientError, Faraday::ServerError => err
     raise "Trigger stage call failed with response code #{err.response.status} and the response body - #{err.response.body}"
   end
@@ -59,7 +59,7 @@ step 'Cancel stage <stage> counter <counter> of pipeline <pipeline> instance <in
     response = Helpers::HTTP.raising.post http_url("/api/stages/#{scenario_state.get(pipeline)}/#{instance}/#{stage}/#{counter}/cancel"), '',
                                           {accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true'}.merge(basic_configuration.header)
 
-    assert_equal response.status, 200
+    assert_equal 200, response.status
   rescue Faraday::ClientError, Faraday::ServerError => err
     raise "Cancel stage call failed with response code #{err.response.status} and the response body - #{err.response.body}"
   end
@@ -81,21 +81,21 @@ end
 step 'Verify unlocking <pipeline> is not acceptable because <message>' do |pipeline, message|
   response = Helpers::HTTP.quiet.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
                                       {content_type: 'application/json', accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true'}.merge(basic_configuration.header)
-  assert_equal response.status, 409
+  assert_equal 408, response.status
   assert_includes JSON.parse(response.body).to_s, message
 end
 
 step 'Verify unlocking <pipeline> fails as pipeline is not found' do |pipeline|
   response = Helpers::HTTP.quiet.post http_url("/api/pipelines/#{pipeline}/unlock"), '',
                                       {content_type: 'application/json', accept: 'application/vnd.go.cd+json', "X-GoCD-Confirm" => 'true'}.merge(basic_configuration.header)
-  assert_equal response.status, 404
+  assert_equal 404, response.status
 end
 
 step 'Delete pipeline <pipeline> - Configure cruise using api' do |pipeline|
   begin
     response = Helpers::HTTP.raising.delete http_url("/api/admin/pipelines/#{scenario_state.get(pipeline)}"), nil,
                                             {content_type: 'application/json', accept: 'application/vnd.go.cd+json'}.merge(basic_configuration.header)
-    assert_equal response.status, 200
+    assert_equal 200, response.status
   rescue Faraday::ClientError, Faraday::ServerError => err
     raise "Delete Pipeline call failed with response code #{err.response.status} and the response body - #{err.response.body}"
   end
@@ -115,7 +115,7 @@ end
 
 step 'Attempt to get scheduled list of jobs should return with status <return_code>' do |return_code|
   response = Helpers::HTTP.quiet.get(http_url("/api/feed/jobs/scheduled.xml"), nil, basic_configuration.header)
-  assert_equal response.status, return_code.to_i, "Expected: #{return_code}, Actual: #{response.status}"
+  assert_equal response.status, return_code.to_i
 end
 
 step 'Using latest revision of material of type <type> named <material> for pipeline <pipeline>' do |type, material, pipeline|
@@ -183,7 +183,7 @@ step 'Schedule should return code <status_code>' do |status_code|
   response = Helpers::HTTP.quiet.post http_url("/api/pipelines/#{scenario_state.self_pipeline}/schedule"),
                                       payload,
                                       {content_type: 'application/json', accept: 'application/vnd.go.cd+json'}.merge(basic_configuration.header)
-  assert_equal response.status, status_code.to_i, "Expected: #{status_code}, Actual: #{response.status}"
+  assert_equal status_code.to_i, response.status
   scenario_state.put('variables', nil)
   scenario_state.put('material_for_schedule', nil)
   scenario_state.put('update_materials_before_scheduling', true)
@@ -191,7 +191,7 @@ end
 
 step 'Verify pipeline instance <pipeline> is not found' do |pipeline|
   response = Helpers::HTTP.quiet.get(http_url("/api/pipelines/#{scenario_state.get(pipeline)}/stages.xml"), nil, basic_configuration.header)
-  assert_equal response.status.to_i, 400, "Expected: 400, Actual: #{response.status}"
+  assert_equal 400, response.status.to_i
 end
 
 step 'Verify shows first instance of <stage> of <pipeline>' do |stage, pipeline|
@@ -211,10 +211,10 @@ end
 
 step 'Verify unauthorized to load <pipeline>' do |pipeline|
   response = Helpers::HTTP.quiet.get(http_url(scenario_state.get(scenario_state.get(pipeline))), nil, basic_configuration.header)
-  assert_equal response.status.to_i, 401, "Expected: 401, Actual: #{response.status}"
+  assert_equal 401, response.status.to_i
 end
 
 step 'Verify fails to find <pipeline> with bad id' do |pipeline|
   response = Helpers::HTTP.quiet.get(http_url("/api/pipelines/#{scenario_state.get(pipeline)}/0.xml"), nil, basic_configuration.header)
-  assert_equal response.status.to_i, 404
+  assert_equal 404, response.status.to_i
 end

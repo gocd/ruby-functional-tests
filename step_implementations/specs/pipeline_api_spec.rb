@@ -81,7 +81,7 @@ end
 step 'Verify unlocking <pipeline> is not acceptable because <message>' do |pipeline, message|
   response = Helpers::HTTP.quiet.post http_url("/api/pipelines/#{scenario_state.get(pipeline)}/unlock"), '',
                                       {content_type: 'application/json', accept: 'application/vnd.go.cd+json', 'X-GoCD-Confirm' => 'true'}.merge(basic_configuration.header)
-  assert_equal 408, response.status
+  assert_equal 409, response.status
   assert_includes JSON.parse(response.body).to_s, message
 end
 

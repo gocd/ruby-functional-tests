@@ -72,9 +72,9 @@ GEM
     grpc (1.81.1-x86_64-linux-gnu)
       google-protobuf (>= 3.25, < 5.0)
       googleapis-common-protos-types (~> 1.0)
-    i18n (1.15.1)
+    i18n (1.15.2)
       concurrent-ruby (~> 1.0)
-    json (2.19.9)
+    json (2.20.0)
     json_builder (3.1.7)
       activesupport (>= 2.0.0)
       json
@@ -142,7 +142,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
-    site_prism (6.0)
+    site_prism (6.0.1)
       addressable (~> 2.8, >= 2.8.4)
       base64 (~> 0.3.0)
       capybara (~> 3.37)
@@ -223,8 +223,8 @@ CHECKSUMS
   grpc (1.81.1-aarch64-linux-gnu) sha256=aa24d7253a2b15d2c3570265a2f58bb8aca0ecd2e1116b7a259d633ebf582445
   grpc (1.81.1-arm64-darwin) sha256=6def610da088597e1a94bafbb36a92f19c456cb7df7bbe9618aeb63e8805ae9a
   grpc (1.81.1-x86_64-linux-gnu) sha256=cf1053a594d026d2ec560457111258cd207bc67847aab24f96e04e2fbeddc4dd
-  i18n (1.15.1) sha256=505ec5de1f4e6c8a2cb028ef9700ca495f117911643455721dee5abdca797255
-  json (2.19.9) sha256=9b9025b7cdddafa38d316eca0b2358488e42d417045c1b90d216a9fefe46b79a
+  i18n (1.15.2) sha256=00f9eb62412fe593b2a65a97daa75300d37abb8f7202ec748e94b6d46a9dd1b5
+  json (2.20.0) sha256=9362bc6e55a952b056abf9167cf053358181c904cb70cd6eee0808ea830fc32b
   json_builder (3.1.7) sha256=100a77f33693c310d275fbe4cd00cafc0dc8bdd8310011fe635c395444ec3f51
   ladle (1.0.1) sha256=e8586964108c798d48bf57d2a65bd5602e8e5223a176b6602a0fb36c0bda90dc
   logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
@@ -261,7 +261,7 @@ CHECKSUMS
   rubyzip (3.4.0) sha256=6de39bc9eba302b635a476d16c9e16b0872ad24517c2f98f2b3a7ea23caff57b
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
   selenium-webdriver (4.45.0) sha256=ecac65a4df86ac6f7d707e6dcbacaa9c08b6cf2b966babecfb9653c5aa13e2d1
-  site_prism (6.0) sha256=620e06cc0c4dba66554d3a89c8fd49d121b0cb97905198db1bd590c3ddaec3e4
+  site_prism (6.0.1) sha256=f8144d8baa8d533787436c0f777dd95ac6a17b4f9743d10e3141c418b6bd5843
   site_prism-all_there (3.0.9) sha256=3d9e0b722fa62a3553589130dea23fa50c99dc80f108c851d7480d341d83f4f6
   sys-proctable (1.3.0) sha256=31f61ad79aa0d4412155132beadf2b7ca706a6badce4ad2dfeda5d1ca4916e54
   test-unit (3.7.8) sha256=689d1ca53f4d46f678b4e5d68d8e4294f87fc5e8b9238cc4de7c5727e8d65943

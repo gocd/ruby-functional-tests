@@ -69,7 +69,6 @@ class GoConstants
     -Dplugin.com.thoughtworks.gocd.authorization.ldap.log.level=debug
     -Xms#{SERVER_MEM}
     -Xmx#{SERVER_MAX_MEM}
-    -XX:-OmitStackTraceInFastThrow
     #{ENV['ADDITIONAL_SERVER_SYSTEM_PROPERTIES']}
   ].freeze
 end

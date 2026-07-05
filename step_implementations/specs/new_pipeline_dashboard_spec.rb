@@ -171,7 +171,7 @@ step 'Verify pipeline is paused with reason <reason> by <user> - On Swift Dashbo
 end
 
 step 'Verify pipeline is paused by <user> - On Swift Dashboard page' do |user|
-  assert_true new_pipeline_dashboard_page.pause_message?("Paused by #{user} ()")
+  assert_true new_pipeline_dashboard_page.pause_message?("Paused by #{user}")
 end
 
 step 'Unpause pipeline - On Swift Dashboard page' do |_tmp|

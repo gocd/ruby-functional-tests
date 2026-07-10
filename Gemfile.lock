@@ -63,13 +63,13 @@ GEM
       rake (~> 13.3)
     googleapis-common-protos-types (1.23.0)
       google-protobuf (~> 4.26)
-    grpc (1.81.1-aarch64-linux-gnu)
+    grpc (1.82.0-aarch64-linux-gnu)
       google-protobuf (>= 3.25, < 5.0)
       googleapis-common-protos-types (~> 1.0)
-    grpc (1.81.1-arm64-darwin)
+    grpc (1.82.0-arm64-darwin)
       google-protobuf (>= 3.25, < 5.0)
       googleapis-common-protos-types (~> 1.0)
-    grpc (1.81.1-x86_64-linux-gnu)
+    grpc (1.82.0-x86_64-linux-gnu)
       google-protobuf (>= 3.25, < 5.0)
       googleapis-common-protos-types (~> 1.0)
     i18n (1.15.2)
@@ -220,9 +220,9 @@ CHECKSUMS
   google-protobuf (4.35.1-arm64-darwin) sha256=d9c957df04fa89c749fa9a72a7b383eb4296efc9b2303dc6fd6fbe39c698ad6b
   google-protobuf (4.35.1-x86_64-linux-gnu) sha256=c786439087512a3fbd199e9897d265b855f951d4027e218ea55e858d45969edd
   googleapis-common-protos-types (1.23.0) sha256=992e740a523794d9fc5f29a504465d8fc737aaa16c930fe7228e3346860faf0a
-  grpc (1.81.1-aarch64-linux-gnu) sha256=aa24d7253a2b15d2c3570265a2f58bb8aca0ecd2e1116b7a259d633ebf582445
-  grpc (1.81.1-arm64-darwin) sha256=6def610da088597e1a94bafbb36a92f19c456cb7df7bbe9618aeb63e8805ae9a
-  grpc (1.81.1-x86_64-linux-gnu) sha256=cf1053a594d026d2ec560457111258cd207bc67847aab24f96e04e2fbeddc4dd
+  grpc (1.82.0-aarch64-linux-gnu) sha256=cadab07ba458603492dabbdd4aea8ed69e7e1b6f88c4d82ebdfa290d225c1bd5
+  grpc (1.82.0-arm64-darwin) sha256=c5b142a3d715cdc635df16a756bf357b1dc24739833387ba00b76d5e462f9b0a
+  grpc (1.82.0-x86_64-linux-gnu) sha256=f12d54f47e96c34778dbca89b9955a8b2d662c1631ac1b4e47dd5f2dd8fadea2
   i18n (1.15.2) sha256=00f9eb62412fe593b2a65a97daa75300d37abb8f7202ec748e94b6d46a9dd1b5
   json (2.20.0) sha256=9362bc6e55a952b056abf9167cf053358181c904cb70cd6eee0808ea830fc32b
   json_builder (3.1.7) sha256=100a77f33693c310d275fbe4cd00cafc0dc8bdd8310011fe635c395444ec3f51

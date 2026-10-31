@@ -29,7 +29,7 @@ module Pages
     element :confirm_delete, 'button[data-test-id="button-cancel"]'
 
     def verify_title(title)
-      assert_equal page_title.text, title
+      assert_equal title, page_title.text
     end
 
     def notifications_configured

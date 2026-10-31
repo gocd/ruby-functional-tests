@@ -93,8 +93,8 @@ end
 step 'Verify <field> for <cluster_profile> as <value> - Using cluster profile API' do |field, cluster_profile, value|
   begin
     response = Helpers::HTTP.raising.get http_url("/api/admin/elastic/cluster_profiles/#{cluster_profile}"), nil, { accept: 'application/vnd.go.cd+json' }.merge(basic_configuration.header)
-    expected_property = JSON.parse(response.body)['properties'].select{|property| property['key'].eql? field}
-    assert_equal expected_property.first['value'], value
+    actual_property = JSON.parse(response.body)['properties'].select{|property| property['key'].eql? field}
+    assert_equal value, actual_property.first['value']
   rescue Faraday::ClientError, Faraday::ServerError => err
     p "Failed to get the cluster profile #{cluster_profile}. Returned response code - #{err.response.status}"
     return err.response.status
@@ -104,7 +104,7 @@ end
 step 'Delete cluster profile <cluster_profile_id> should fail with error <display_message>' do |cluster_profile_id, display_message|
   elastic_profiles_page.delete_cluster_profile(cluster_profile_id)
   elastic_profiles_page.click_confirm_delete
-  assert_equal elastic_profiles_page.banner_message, display_message
+  assert_equal display_message, elastic_profiles_page.banner_message
 end
 
 step 'Clone cluster profile <cluster_profile_id> by name <new_cluster_profile_id>' do |cluster_profile_id, new_cluster_profile_id|
